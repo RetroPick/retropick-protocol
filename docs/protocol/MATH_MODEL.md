@@ -1,174 +1,262 @@
-I’m treating the uploaded document as the active MATH-1 specification. Its scientific framing is correct: protocol properties can be formally proven, finite domains can be exhaustively verified, but liquidity, arbitrage participation, spreads, market-maker profitability, and user adoption can only be supported by simulation or live evidence.
+# PRISM Phase-1 Mathematical Model
 
-The first result is encouraging: **the core asset-backed PRISM model has a clean solvency theorem**. But it only covers the *replicable asset-backed* version of PRISM. It does not prove arbitrary AND/OR/custom payoff products are achievable from arbitrary source-market tokens.
+**Status:** CANONICAL MATH-1 specification  
+**Scope:** exact-backed long-only replicated outcome assets  
+**Reference implementation:** `research/prism-model/`  
+**Contract implication:** Solidity must later match this model under an explicit fixed-point tolerance.
 
-# MATH-1 Phase 1: canonical model
+---
 
-Let the set of possible terminal worlds be
+## 1. Scientific classification
 
-```math
-\Omega=\{\omega_1,\ldots,\omega_m\}.
+Every claim in this document belongs to one of three classes.
+
+### A. Formal / deductive
+
+A statement derived for all states satisfying explicit assumptions.
+
+Status label:
+
+```text
+PROVEN_UNDER_ASSUMPTIONS
 ```
 
-Suppose PRISM uses `n` external outcome assets. Asset `A_i` has a non-negative terminal payoff function
+### B. Exhaustive finite-domain verification
 
-```math
-g_i:\Omega\rightarrow\mathbb R_{\ge0}.
+A property verified for all states/actions inside a declared finite test domain.
+
+Status label:
+
+```text
+EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN
 ```
 
-Collect these into the payoff matrix
+### C. Market / empirical
 
-```math
-G_{\omega i}=g_i(\omega).
+A claim depending on traders, orderbook depth, latency, market makers or external behavior.
+
+Status labels:
+
+```text
+SUPPORTED_BY_SIMULATION
+NOT_YET_VALIDATED
 ```
 
-A PRISM series chooses a non-negative replication vector
+Market simulation cannot promote an unsafe accounting property to a proof.
+
+---
+
+## 2. Assumptions
+
+The Phase-1 exact-replication theorems require:
+
+1. admitted component payoff functions are deterministic at terminal resolution;
+2. component terminal payoffs are non-negative;
+3. the canonical component identities and weights cannot mutate after activation;
+4. series-scoped backing accounting cannot double-count the same reserved units;
+5. component transfers into/out of the vault follow the modelled state transition;
+6. the resolver eventually commits the correct canonical terminal state according to the market's immutable ResolutionSpec;
+7. final settlement cannot be paid before the settlement-funding invariant holds;
+8. the exact-arithmetic model is translated to Solidity using a separately proven fixed-point policy.
+
+The model does not assume secondary-market liquidity or rational arbitrage is always available.
+
+---
+
+## 3. Core payoff space
+
+Let terminal worlds be:
 
 ```math
-x=(x_1,\ldots,x_n),\qquad x_i\ge0.
+\Omega = \{\omega_1,\ldots,\omega_m\}
 ```
 
-One PRISM token is therefore backed by the portfolio
+For each component asset `A_i`, define terminal payoff:
 
 ```math
-x_1A_1+\cdots+x_nA_n.
+g_i(\omega) \ge 0
 ```
 
-Its terminal payoff is exactly
+Construct payoff matrix:
+
+```math
+G =
+\begin{bmatrix}
+g_1(\omega_1) & \cdots & g_n(\omega_1)\\
+\vdots & & \vdots\\
+g_1(\omega_m) & \cdots & g_n(\omega_m)
+\end{bmatrix}
+```
+
+Let the PRISM replication vector be:
+
+```math
+x=(x_1,\ldots,x_n), \qquad x_i\ge0
+```
+
+Then one PRISM token has terminal payoff:
 
 ```math
 \boxed{h=Gx}
 ```
 
-or state-by-state
+or:
 
 ```math
-\boxed{ h(\omega)=\sum_i x_i g_i(\omega) }
+\boxed{h(\omega)=\sum_i x_i g_i(\omega)}
 ```
 
-which is exactly the model your specification intends.
-
-This immediately gives us the first hard boundary of PRISM:
+The feasible long-only payoff set is the non-negative cone:
 
 ```math
-\boxed{ \mathcal C=\{Gx\mid x\ge0\} }
+\boxed{\mathcal{C}=\{Gx\mid x\ge0\}}
 ```
 
-is the set of payoffs PRISM can issue using simple fully backed long-only replication.
-
-That corrects one malformed expression in the pasted document around the feasible payoff cone. It should be `\{Gx\mid x\ge0\}`, not `\{Gx\ge0\}`. The underlying intent is clearly to determine whether desired payoff `h` belongs to the non-negative span of the component payoff vectors.
+A payoff outside `C` is not admitted by Phase 1.
 
 ---
 
-# Theorem 1: minting cannot break backing
+## 4. Series admission modes
+
+### 4.1 Basket mode
+
+The creator supplies `x` directly. The system computes:
+
+```math
+h=Gx
+```
+
+and stores/commits the canonical representation.
+
+No spanning solve is necessary.
+
+### 4.2 Payoff mode
+
+The creator supplies target payoff `h*`. Admission solves:
+
+```math
+Gx=h^*
+```
+
+subject to:
+
+```math
+x\ge0
+```
+
+If no exact solution exists in the canonical numeric domain:
+
+```text
+PRODUCT_NOT_REPLICABLE
+```
+
+For multiple exact solutions, a later admission policy may minimize executable cost:
+
+```math
+\min_x p^T x
+```
+
+subject to:
+
+```math
+Gx=h^*,\quad x\ge0
+```
+
+Cost optimization does not change the solvency theorem; it only chooses among valid exact replicas.
+
+---
+
+## 5. Component-backing invariant
 
 Let:
 
-```math
-S
-```
-
-be outstanding PRISM supply and
-
-```math
-B_i
-```
-
-the amount of component `i` held by the vault.
+- `S` = outstanding PRISM supply;
+- `B_i` = vault/accounted units of component `i` backing this series;
+- `x_i` = component units required per PRISM token.
 
 Require:
 
 ```math
-\boxed{ B_i\ge Sx_i \qquad \forall i }
+\boxed{B_i\ge Sx_i \qquad \forall i}
 ```
 
-as your specification proposes.
-
-Now mint `Q` new PRISM tokens.
-
-A valid mint must deposit
+Define backing margin:
 
 ```math
-Qx_i
+M_i = B_i-Sx_i
 ```
 
-of every component.
-
-After mint:
-
-```math
-S'=S+Q
-```
-
-and
-
-```math
-B_i'=B_i+Qx_i.
-```
-
-Since originally
-
-```math
-B_i\ge Sx_i,
-```
-
-then
-
-```math
-B_i+Qx_i \ge Sx_i+Qx_i
-```
-
-and therefore
-
-```math
-\boxed{ B_i'\ge S'x_i }
-```
-
-for all components.
-
-So the backing invariant is **inductive**.
-
-More importantly, define excess backing:
-
-```math
-M_i=B_i-Sx_i.
-```
-
-After a perfectly replicated mint:
-
-```math
-M_i' = (B_i+Qx_i)-(S+Q)x_i = B_i-Sx_i = M_i.
-```
-
-Therefore:
-
-```math
-\boxed{M_i'=M_i}
-```
-
-A valid mint cannot consume existing users' backing margin.
-
-**Status: PROVEN\_UNDER\_ASSUMPTIONS.**
+A negative `M_i` is forbidden.
 
 ---
 
-# Theorem 2: redemption also preserves solvency
+## 6. Theorem A — valid mint preserves backing
 
-Redeem `Q\le S` tokens in kind.
+Suppose the backing invariant holds before mint.
 
-Burn:
-
-```math
-Q
-```
-
-PRISM and release:
+Mint `Q>0` PRISM only after depositing/allocating:
 
 ```math
 Qx_i
 ```
 
-units of each backing asset.
+for every component.
+
+Then:
+
+```math
+S' = S+Q
+```
+
+```math
+B_i'=B_i+Qx_i
+```
+
+Because:
+
+```math
+B_i\ge Sx_i
+```
+
+we have:
+
+```math
+B_i+Qx_i \ge Sx_i+Qx_i=(S+Q)x_i
+```
+
+therefore:
+
+```math
+\boxed{B_i'\ge S'x_i}
+```
+
+and:
+
+```math
+M_i'=(B_i+Qx_i)-(S+Q)x_i=M_i
+```
+
+So exact-backed minting preserves existing margin.
+
+**Status:** `PROVEN_UNDER_ASSUMPTIONS`.
+
+---
+
+## 7. Theorem B — in-kind redemption preserves backing
+
+Redeem `Q` where:
+
+```math
+0<Q\le S
+```
+
+Burn liability `Q` and release:
+
+```math
+Qx_i
+```
+
+for every component.
 
 Then:
 
@@ -176,611 +264,627 @@ Then:
 S'=S-Q
 ```
 
-and
-
 ```math
-B_i'=B_i-Qx_i.
+B_i'=B_i-Qx_i
 ```
 
-Again:
+From `B_i >= Sx_i`:
+
+```math
+B_i-Qx_i \ge Sx_i-Qx_i=(S-Q)x_i
+```
+
+thus:
+
+```math
+\boxed{B_i'\ge S'x_i}
+```
+
+and:
+
+```math
+M_i'=M_i
+```
+
+**Status:** `PROVEN_UNDER_ASSUMPTIONS`.
+
+---
+
+## 8. Theorem C — exact component backing implies terminal solvency
+
+Terminal backing value in world `omega`:
+
+```math
+V_B(\omega)=\sum_i B_i g_i(\omega)
+```
+
+Outstanding PRISM liability:
+
+```math
+L_P(\omega)=S h(\omega)
+```
+
+Since:
+
+```math
+h(\omega)=\sum_i x_i g_i(\omega)
+```
+
+and:
 
 ```math
 B_i\ge Sx_i
 ```
 
-implies
+with:
 
 ```math
-B_i-Qx_i \ge Sx_i-Qx_i = (S-Q)x_i.
+g_i(\omega)\ge0
 ```
 
-Therefore
+then:
 
 ```math
-\boxed{ B_i'\ge S'x_i }
+B_i g_i(\omega)\ge Sx_i g_i(\omega)
 ```
 
-and excess backing again remains unchanged:
+for each component. Summing:
 
 ```math
-M_i'=M_i.
+\sum_i B_i g_i(\omega)
+\ge
+S\sum_i x_i g_i(\omega)
 ```
 
-**Status: PROVEN\_UNDER\_ASSUMPTIONS.**
+therefore:
 
-This establishes something important economically: **permissionless minting and redemption do not require protocol discretion once the replication vector has been frozen.**
+```math
+\boxed{V_B(\omega)\ge L_P(\omega)\qquad\forall\omega\in\Omega}
+```
+
+**Status:** `PROVEN_UNDER_ASSUMPTIONS`.
+
+This is why Phase 1 does not need to enumerate terminal worlds inside every mint transaction: exact replication is proved at admission; component backing is enforced at runtime.
 
 ---
 
-# Theorem 3: exact replication guarantees terminal solvency
+## 9. Canonical pFEDBTC model
 
-This is the key result.
+Define components:
 
-Terminal value of all assets in the vault is
-
-```math
-V_B(\omega) = \sum_i B_i g_i(\omega).
+```text
+F = FED_YES
+B = BTC_NO
 ```
 
-PRISM owes its holders
+with worlds ordered as:
+
+1. Fed No, BTC No
+2. Fed No, BTC Yes
+3. Fed Yes, BTC No
+4. Fed Yes, BTC Yes
+
+Then:
 
 ```math
-L_P(\omega) = S h(\omega).
+G=
+\begin{bmatrix}
+0&1\\
+0&0\\
+1&1\\
+1&0
+\end{bmatrix}
 ```
 
-Because
+and:
 
 ```math
-h(\omega) = \sum_i x_i g_i(\omega),
+x=
+\begin{bmatrix}
+0.6\\
+0.4
+\end{bmatrix}
 ```
 
-PRISM liability is
+so:
 
 ```math
-L_P(\omega) = S\sum_i x_i g_i(\omega).
+h=Gx=
+\begin{bmatrix}
+0.4\\
+0\\
+1\\
+0.6
+\end{bmatrix}
 ```
 
-Backing guarantees:
+Canonical payoff table:
+
+| Fed | BTC condition | FED_YES | BTC_NO | pFEDBTC |
+|---|---|---:|---:|---:|
+| No | No | 0 | 1 | 0.40 |
+| No | Yes | 0 | 0 | 0.00 |
+| Yes | No | 1 | 1 | 1.00 |
+| Yes | Yes | 1 | 0 | 0.60 |
+
+For supply:
 
 ```math
-B_i\ge Sx_i.
+S=1000
 ```
 
-Prediction-market outcome positions have non-negative payoffs:
+exact backing is:
 
-```math
-g_i(\omega)\ge0.
+```text
+600 FED_YES
+400 BTC_NO
 ```
 
-Therefore multiplying every backing inequality by its corresponding payoff preserves the inequality:
-
-```math
-B_i g_i(\omega) \ge Sx_i g_i(\omega).
-```
-
-Summing:
-
-```math
-\sum_i B_i g_i(\omega) \ge S\sum_i x_i g_i(\omega).
-```
-
-Therefore:
-
-```math
-\boxed{ V_B(\omega)\ge L_P(\omega) \qquad \forall\omega\in\Omega }
-```
-
-and so:
-
-```math
-\boxed{ \text{exact component backing} \Longrightarrow \text{terminal solvency} }
-```
-
-for every terminal world in the model.
-
-This directly resolves one of the main questions requested by the uploaded specification.
-
-**Status: PROVEN\_UNDER\_ASSUMPTIONS.**
-
-The critical assumption is:
-
-```math
-g_i(\omega)\ge0.
-```
-
-That is natural for long-only prediction-market claims. It would not automatically extend to arbitrary leveraged or negative-liability instruments.
+The `Fed=YES, BTC=NO` world is the maximum payout state and pays `1.00`, not `0.60`.
 
 ---
 
-# Example: `pFED-BTC`
+## 10. Non-replicability counterexample
 
-Suppose:
-
-```math
-F=\text{Fed YES}
-```
-
-and
-
-```math
-B=\text{BTC NO}.
-```
-
-Four worlds are possible.
-
-| WorldFed YESBTC NO           |   |   |
-| ---------------------------- | - | - |
-| `\omega_1`: Fed No, BTC No   | 0 | 1 |
-| `\omega_2`: Fed No, BTC Yes  | 0 | 0 |
-| `\omega_3`: Fed Yes, BTC No  | 1 | 1 |
-| `\omega_4`: Fed Yes, BTC Yes | 1 | 0 |
-
-Therefore
-
-```math
-G= \begin{bmatrix} 0&1\\ 0&0\\ 1&1\\ 1&0 \end{bmatrix}.
-```
-
-Define:
-
-```math
-x= \begin{bmatrix} 0.6\\ 0.4 \end{bmatrix}.
-```
-
-Then
-
-```math
-h=Gx = \begin{bmatrix} 0.4\\ 0\\ 1\\ 0.6 \end{bmatrix}.
-```
-
-So one token pays:
-
-| Terminal worldPRISM payout |       |
-| -------------------------- | ----- |
-| Fed No, BTC No             | $0.40 |
-| Fed No, BTC Yes            | $0    |
-| Fed Yes, BTC No            | $1.00 |
-| Fed Yes, BTC Yes           | $0.60 |
-
-If supply is 10,000, the vault must hold:
-
-```math
-6000F+4000B.
-```
-
-Check the worst-looking state, Fed YES and BTC NO.
-
-Backing pays:
-
-```math
-6000(1)+4000(1)=10,000.
-```
-
-PRISM liability:
-
-```math
-10,000(1)=10,000.
-```
-
-Exact match.
-
-Fed NO and BTC YES gives:
-
-```math
-0.
-```
-
-Again exact match.
-
-There is no scenario in this state space where the product becomes undercollateralized, assuming the backing remains in custody.
-
----
-
-# Major result: not every derivative is replicable
-
-This is where PRISM must remain intellectually disciplined.
-
-Suppose:
+Let:
 
 ```math
 A=(0,0,1,1)
 ```
 
-and
-
 ```math
-B=(0,1,0,1).
+B=(0,1,0,1)
 ```
 
-You want:
+and desired AND payoff:
 
 ```math
-A\land B=(0,0,0,1).
+h_{AND}=(0,0,0,1)
 ```
 
-Ask whether there are `x,y\ge0` satisfying:
+Any non-negative linear combination has form:
 
 ```math
-xA+yB=A\land B.
+xA+yB=(0,y,x,x+y)
 ```
 
-The left side is:
-
-```math
-(0,y,x,x+y).
-```
-
-Matching the desired vector requires:
+Matching the second coordinate requires:
 
 ```math
 y=0
 ```
 
-from state two and
+Matching the third requires:
 
 ```math
 x=0
 ```
 
-from state three.
-
-But then:
+which forces fourth coordinate:
 
 ```math
 x+y=0
 ```
 
-while the final state requires 1.
-
-Contradiction.
+instead of `1`.
 
 Therefore:
 
 ```math
-\boxed{ A\land B\notin\mathcal C }
+\boxed{h_{AND}\notin\mathcal C}
 ```
 
 for this component basis.
 
-So the asset-backed PRISM model can safely create **replicable structured products**, but cannot claim that arbitrary payoff matrices can always be constructed.
+**Status:** formal counterexample.
 
-This is not a weakness in the mathematics. It tells us exactly where a future StatePool/SLE architecture becomes necessary.
+A future StatePool/SLE mechanism may expand the payoff basis, but it is not part of Phase 1.
 
 ---
 
-# Partial resolution also works cleanly
+## 11. Partial resolution
 
-Your specification correctly highlights partial resolution as essential.
-
-For:
+Suppose:
 
 ```math
-P=0.6A+0.4B,
+P=0.6A+0.4B
 ```
 
-suppose `A` resolves at `a^*\in\{0,1\}` while `B` remains active.
+and `A` resolves to `a*` while `B` remains uncertain.
 
-Economic value becomes:
+Then a mark based on remaining component price is:
 
 ```math
-V_t = 0.6a^* + 0.4P_B(t).
+P_t=0.6a^*+0.4P_B(t)
 ```
 
 If `A=1`:
 
 ```math
-V_t=0.6+0.4P_B(t).
+P_t=0.6+0.4P_B(t)
 ```
 
 If `A=0`:
 
 ```math
-V_t=0.4P_B(t).
+P_t=0.4P_B(t)
 ```
 
-Therefore partial resolution **does not require PRISM itself to resolve**.
-
-Only the uncertainty dimension decreases.
-
-More generally, with resolved set `R` and unresolved set `U`:
+General form with resolved set `R` and unresolved set `U`:
 
 ```math
-\boxed{ NAV_t = \sum_{i\in R}x_i r_i + \sum_{j\in U}x_j P_j(t) }
+\boxed{NAV_t=\sum_{i\in R}x_i r_i+\sum_{j\in U}x_jP_j(t)}
 ```
 
-where `r_i` is the already-known terminal value.
+This is a valuation identity given the supplied marks. It does not force an exchange price.
 
-That gives us a mathematically clean reason why the asset can continue trading even after some components finish.
+### 11.1 Payoff-equivalent backing transformation
+
+A canonically resolved component may be redeemed into settlement cash if the transformed portfolio preserves all remaining obligations.
+
+For a component resolving to `r_i`, replacing `x_i` units of that component by `x_i r_i` settlement value is safe only under the accepted component/settlement semantics and deterministic accounting rules.
 
 ---
 
-# Post-resolution ERC20/ERC20 trading is also coherent
+## 12. Final settlement theorem
 
-Suppose final PRISM payout is known:
-
-```math
-R=0.60\text{ USDC}.
-```
-
-Then PRISM is no longer economically a prediction.
-
-It is approximately a fixed-value redeemable receivable.
-
-Against USDC:
+After all payoff-relevant components resolve to terminal world `omega*`, define:
 
 ```math
-P_{\text{PRISM/USDC}}\rightarrow0.60.
+R=h(\omega^*)
 ```
 
-Against MON:
+Outstanding cash liability:
 
 ```math
-\boxed{ P_{\text{PRISM/MON}} \approx \frac{0.60}{P_{\text{MON/USD}}} }
+L=S R
 ```
 
-before costs and residual settlement risk.
-
-Suppose:
+The series may enter `REDEEMABLE` only if:
 
 ```math
-MON=\$2.
+\boxed{SettlementBalance\ge SR}
 ```
 
-Then:
+A final redemption of `Q` burns `Q` PRISM and pays:
 
 ```math
-PRISM/MON=0.30.
+Q R
 ```
 
-MON falls to:
+After redemption:
 
 ```math
-\$1.
+S'=S-Q
 ```
-
-Then:
 
 ```math
-PRISM/MON=0.60.
+SettlementBalance'=SettlementBalance-QR
 ```
 
-The PRISM token just doubled *in MON terms* without any change whatsoever in its resolved prediction payoff.
+If the funding invariant held before redemption:
 
-This validates the conceptual distinction in your specification between `EVENT_VOLATILITY` and `QUOTE_ASSET_VOLATILITY`.
+```math
+SettlementBalance-QR\ge SR-QR=(S-Q)R
+```
 
-So the earlier idea is mathematically coherent:
+so it remains funded for all remaining supply.
 
-> **a resolved prediction asset can remain an actively priced ERC-20 pair even though event uncertainty has disappeared.**
-
-Its character has simply changed.
+**Status:** `PROVEN_UNDER_ASSUMPTIONS`.
 
 ---
 
-# The wrapper bridge has a particularly useful invariant
+## 13. Native binary complete-set model
 
-This needs to be more precise than:
-
-```math
-WrappedSupply\le LockedUnderlying.
-```
-
-Let cumulative underlying deposits be:
+For a valid binary market:
 
 ```math
-D
+YES(\omega)+NO(\omega)=1
 ```
 
-and cumulative underlying unlocks be:
+for every terminal world.
+
+If `C` units of collateral are split:
+
+```text
+C collateral
+-> C YES
+-> C NO
+```
+
+then before any asymmetric protocol error:
 
 ```math
-U.
+S_Y=S_N=C_{locked}
 ```
 
-Then:
+A merge burns equal amounts of YES and NO and returns the corresponding collateral.
+
+### 13.1 Open interest
+
+For the fully collateralized binary complete-set market:
 
 ```math
-L=D-U
+\boxed{OI=S_Y=S_N=C_{locked}}
 ```
 
-is currently locked backing.
+assuming valid split/merge accounting.
 
-Let cumulative wrapped mints be:
+Do not define:
 
 ```math
-M
+OI=S_Y+S_N
 ```
 
-and burns:
-
-```math
-B.
-```
-
-Then live wrapped supply is:
-
-```math
-S=M-B.
-```
-
-Bridge correctness can be reduced to two cumulative conditions:
-
-```math
-\boxed{M\le D}
-```
-
-No wrapper can be minted without corresponding locked deposits.
-
-And:
-
-```math
-\boxed{U\le B}
-```
-
-No backing can be unlocked without corresponding wrapper burns.
-
-Then:
-
-```math
-D-M\ge0
-```
-
-and
-
-```math
-B-U\ge0.
-```
-
-Adding gives:
-
-```math
-D-U-(M-B)\ge0.
-```
-
-Therefore:
-
-```math
-\boxed{ L\ge S }
-```
-
-This is a much stronger way to specify cross-chain solvency.
-
-However, it additionally requires:
-
-```math
-\boxed{\text{every cross-chain message executes at most once}}
-```
-
-because replaying either a mint authorization or unlock authorization destroys the reasoning.
-
-Therefore the bridge model needs globally unique deposit/burn identifiers and consumed-message state.
+because that counts both sides of one complete collateral set.
 
 ---
 
-# The NAV/arbitrage theorem needs careful wording
+## 14. Complete-set executable parity
 
-Your specification proposes:
-
-```math
-NAV_{redeem} \le P_{PRISM} \le NAV_{create}.
-```
-
-That is correct as a **no-arbitrage region under strong assumptions**, not an unconditional protocol theorem.
-
-Define:
+The conceptual terminal identity is:
 
 ```math
-C= \sum_i x_i Ask_i + F_c
+YES+NO=1
 ```
 
-as executable creation cost.
+but trading arbitrage must use executable sides of the orderbook.
 
-Define:
+### Split-and-sell opportunity
+
+If:
 
 ```math
-R= \sum_i x_i Bid_i - F_r
+Bid_Y+Bid_N > 1 + C_{split}
 ```
 
-as executable redemption value.
+then an arbitrageur can, subject to executable depth:
+
+```text
+lock 1 collateral
+-> mint 1 YES + 1 NO
+-> sell both at bids
+```
+
+### Buy-and-merge opportunity
+
+If:
+
+```math
+Ask_Y+Ask_N < 1 - C_{merge}
+```
+
+then an arbitrageur can:
+
+```text
+buy 1 YES + 1 NO
+-> merge
+-> receive 1 collateral
+```
+
+where `C_split` and `C_merge` include fees, gas, slippage and operational costs.
+
+This is a market incentive, not an instantaneous price guarantee.
+
+---
+
+## 15. PRISM create/redeem valuation band
+
+For one PRISM token with component weights `x_i`, define executable creation cost:
+
+```math
+C_{create}=\sum_i x_i Ask_i+F_{create}
+```
+
+Define executable in-kind redemption value:
+
+```math
+V_{redeem}=\sum_i x_i Bid_i-F_{redeem}
+```
 
 Normally:
 
 ```math
-R\le C.
+V_{redeem}\le C_{create}
 ```
 
-If:
+If market price `P` is persistently above executable creation cost, there may be a create-and-sell opportunity.
+
+If `P` is persistently below executable redemption value, there may be a buy-redeem-sell-components opportunity.
+
+Idealized no-arbitrage relation:
 
 ```math
-P>C,
+V_{redeem}\lesssim P\lesssim C_{create}
 ```
 
-a sufficiently fast arbitrageur can buy backing, mint, and sell PRISM.
-
-If:
+Practical relation with risk terms:
 
 ```math
-P<R,
+\boxed{V_{redeem}-\rho_r\lesssim P\lesssim C_{create}+\rho_c}
 ```
 
-the arbitrageur can buy PRISM, redeem components, and sell them.
+where `rho` may include:
 
-Therefore the frictionless/instantaneous equilibrium band is:
+- latency;
+- capital cost;
+- inventory risk;
+- orderbook depth/slippage;
+- transaction failure;
+- resolution proximity;
+- operational risk.
 
-```math
-\boxed{ R\le P\le C }
-```
-
-But real cross-chain PRISM requires additional terms for:
-
-```math
-LatencyRisk + InventoryRisk + BridgeRisk + CapitalCost.
-```
-
-So the production band should actually resemble:
-
-```math
-\boxed{ R-\rho_r \le P\le C+\rho_c }
-```
-
-where `\rho` captures risk that cannot be known deterministically upfront.
-
-This is **not formally provable market behavior**.
-
-It is a market-equilibrium hypothesis that must be simulated and eventually measured.
+**Status:** market hypothesis, not formal invariant.
 
 ---
 
-# What is already mathematically strong?
+## 16. Post-resolution ERC20/ERC20 pricing identity
 
-At this point the core claims have the following status:
+Once final payout is fixed at `R` settlement units, event uncertainty is gone.
 
-| ClaimCurrent status                                           |                                           |
-| ------------------------------------------------------------- | ----------------------------------------- |
-| Exact replicated payoff equals `Gx`                           | **PROVEN**                                |
-| Valid mint preserves component backing                        | **PROVEN**                                |
-| Valid in-kind redemption preserves backing                    | **PROVEN**                                |
-| Exact non-negative replication implies terminal solvency      | **PROVEN**                                |
-| Wrapper solvency from deposit/mint/burn/unlock constraints    | **PROVEN under bridge-state assumptions** |
-| Partial resolution leaves residual tradable uncertainty       | **PROVEN algebraically**                  |
-| Final PRISM payout is deterministic after all sources resolve | **PROVEN by model definition**            |
-| Resolved PRISM may trade against volatile ERC-20              | **PROVEN as relative-price identity**     |
-| Arbitrage creates an economically meaningful NAV band         | **CONDITIONAL**                           |
-| Arbitrage will actually close deviations quickly              | **UNPROVEN, simulation/live market**      |
-| Kuru will have adequate liquidity                             | **UNPROVEN**                              |
-| Market makers remain profitable near resolution               | **UNPROVEN**                              |
-| Arbitrary AND/OR payoff is replicable                         | **FALSE in general**                      |
-| Every desired structured payoff can be created                | **FALSE**                                 |
-
-That distinction is exactly why the uploaded specification correctly refuses to equate simulation with proof.
-
-# Preliminary MATH-1 verdict
-
-It is too early for final `MATH-1 = PASS`.
-
-At this point I would classify the architecture as:
+If settlement is USD-like and quote ERC-20 `Q` has USD price `P_Q`, then idealized relative value is:
 
 ```math
-\boxed{\text{MATH-1 = CONDITIONAL\_PASS (PRELIMINARY)}}
+\boxed{P_{PRISM/Q}=\frac{R}{P_Q}}
 ```
 
-The **accounting and replication kernel is mathematically sound under the stated assumptions**.
+before fees, delay and residual risk.
 
-The major unresolved areas are market behavior rather than the basic backing algebra.
+Example:
 
-The next work should be executed in this order:
+```text
+final PRISM payout = $0.60
+MON = $2.00
+```
 
-1. **Implement the canonical Python reference model** using exact rational/fixed-point arithmetic first, with no market simulation mixed into its accounting kernel.
-2. Add exhaustive state-machine enumeration and property testing for mint, redeem, bridge messages, partial resolution, final settlement, and rounding.
-3. Add Z3/SymPy proofs for the five core theorems requested by the specification.
-4. Only then add the stochastic market layer: external prices, Kuru-like CLOB, arbitrageurs, market maker, bridge latency, resolution jumps.
-5. Finally run Monte Carlo/agent-based experiments to determine whether NAV convergence and sustainable exchange liquidity remain plausible under realistic frictions.
+then:
 
-That sequence is important. **The protocol accounting model and the simulated market must be separate programs/modules.** Otherwise a bug in the simulated arbitrage system can accidentally conceal a bug in the solvency model.
+```math
+P_{PRISM/MON}=0.30
+```
 
-The next concrete artifact should therefore be `research/prism-model/` plus the canonical `docs/math/01_DEFINITIONS.md`, `02_ASSUMPTIONS.md`, `05_BACKING_SOLVENCY.md`, `16_INVARIANTS.md`, and `17_THEOREMS.md`, matching the deliverable structure required by the uploaded specification.
+If MON falls to `$1.00`, then:
+
+```math
+P_{PRISM/MON}=0.60
+```
+
+without any change in PRISM's resolved event payoff.
+
+This separates:
+
+```text
+EVENT_VOLATILITY
+```
+
+from:
+
+```text
+QUOTE_ASSET_VOLATILITY
+```
+
+A zero-payout token has zero protocol redemption value, even if residual speculative/dust trading remains technically possible.
 
 ---
 
-## Repository implementation note
+## 17. Supply elasticity
 
-The executable Phase-1 realization lives under `research/prism-model/` and intentionally uses exact rational arithmetic before any fixed-point Solidity translation.
+PRISM supply is endogenous:
+
+```math
+S_{t+1}=S_t+Mint_t-Redeem_t
+```
+
+Supply can expand when backing is supplied and minting is permitted.
+
+Supply contracts when PRISM is burned for its backing or final settlement.
+
+This is economically closer to an ETF-like creation/redemption mechanism than to a fixed-supply token.
+
+---
+
+## 18. What mathematics does not prove
+
+The model does not prove:
+
+- Kuru orderbooks will have adequate depth;
+- arbitrageurs will always act;
+- prices will instantly converge to NAV;
+- market makers will remain profitable near resolution jumps;
+- users will demand PRISM;
+- cross-chain wrappers are safe;
+- legal/regulatory treatment;
+- sponsor integrations will remain unchanged.
+
+Those require simulation, live evidence, product validation, legal analysis or separate protocol proofs.
+
+---
+
+## 19. MATH-1 work packages
+
+### MATH-1A — Exact accounting kernel
+
+- exact payoff calculation;
+- exact backing requirements;
+- mint/redeem conservation;
+- terminal solvency;
+- final settlement funding.
+
+### MATH-1B — Exhaustive small-state verification
+
+Enumerate bounded domains for:
+
+- supply;
+- backing;
+- legal lifecycle transitions;
+- terminal worlds;
+- representative rational weights.
+
+### MATH-1C — Adversarial/property testing
+
+Attempt:
+
+- over-mint;
+- double redemption;
+- backing withdrawal before burn;
+- illegal state resurrection;
+- duplicate resolution;
+- underfunded final settlement;
+- malformed weights;
+- duplicated component accounting;
+- extreme values.
+
+### MATH-1D — Symbolic/formal checks
+
+Use symbolic algebra / SMT where appropriate for:
+
+- mint preservation theorem;
+- redemption preservation theorem;
+- terminal solvency theorem;
+- settlement funding preservation;
+- lifecycle reachability constraints.
+
+### MATH-1E — Fixed-point translation
+
+Define:
+
+- scale;
+- token decimal normalization;
+- multiplication/division order;
+- round-up versus round-down rules;
+- dust ownership;
+- maximum cumulative error;
+- exploit search for repeated rounding cycles.
+
+### MATH-1F — Market microstructure simulation
+
+Only after accounting safety is stable, simulate:
+
+- complete-set parity arbitrage;
+- PRISM create/redeem arbitrage;
+- Kuru-like spreads/depth;
+- stale orders around resolution;
+- market-maker inventory;
+- resolution jumps;
+- quote-token volatility;
+- arbitrage convergence time.
+
+---
+
+## 20. MATH-1 gate
+
+Possible verdicts:
+
+```text
+PASS
+CONDITIONAL_PASS
+FAIL
+```
+
+`PASS` requires the formal accounting/safety properties and deterministic implementation boundary to be accepted.
+
+`CONDITIONAL_PASS` may be used where protocol accounting is safe but market behavior remains materially assumption-dependent.
+
+`FAIL` is required if a valid sequence can create unbacked liabilities, over-redemption, false replication acceptance, illegal lifecycle transitions, or settlement insolvency.
+
+The final MATH-1 verdict authorizes `CONTRACT-ARCH-1`; it does not automatically authorize production deployment.

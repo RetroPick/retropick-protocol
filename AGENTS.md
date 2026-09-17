@@ -13,13 +13,14 @@ Build RetroPick's Monad prediction-asset protocol and PRISM structured-asset lay
 1. `.agent/CURRENT_GOAL.md`
 2. `.agent/STATE.json`
 3. `.agent/DECISIONS.md`
-4. `docs/00-context/PROJECT.md`
-5. `docs/00-context/REPORT_RECONCILIATION.md`
-6. `docs/05-hackathon/PHASE_GATES.md`
-7. `docs/protocol/PRISM_PROTOCOL_SPEC.md`
-8. `docs/protocol/INVARIANTS.md`
-9. `docs/protocol/STATE_MACHINE.md`
-10. `docs/05-hackathon/RETROPICK_METROPOLIS_AGENT_DEVELOPMENT_WORKFLOW.md`
+4. `docs/00-context/EXECUTIVE_SUMMARY.md`
+5. `docs/00-context/PROJECT.md`
+6. `docs/00-context/REPORT_RECONCILIATION.md`
+7. `docs/05-hackathon/PHASE_GATES.md`
+8. `docs/protocol/PRISM_PROTOCOL_SPEC.md`
+9. `docs/protocol/INVARIANTS.md`
+10. `docs/protocol/STATE_MACHINE.md`
+11. `docs/05-hackathon/RETROPICK_METROPOLIS_AGENT_DEVELOPMENT_WORKFLOW.md`
 
 For mathematical/protocol work also read:
 - `docs/protocol/MATH_MODEL.md`
@@ -43,9 +44,12 @@ When documents conflict, use this precedence:
 4. `.agent/CURRENT_GOAL.md` and `.agent/DECISIONS.md`;
 5. architecture docs under `docs/04-architecture/`;
 6. canonical hackathon workflow;
-7. product/research notes;
-8. historical reports;
-9. implementation.
+7. `docs/00-context/EXECUTIVE_SUMMARY.md` as the human-facing synthesis;
+8. product/research notes;
+9. historical reports;
+10. implementation.
+
+The Executive Summary is a synthesis, not a replacement for accepted ADRs or detailed canonical protocol specifications.
 
 Historical or generated research is evidence/input, not authority over accepted protocol semantics.
 

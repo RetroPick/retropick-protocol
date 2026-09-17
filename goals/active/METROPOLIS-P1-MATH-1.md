@@ -1,44 +1,104 @@
-# Current Goal
+# METROPOLIS-P1-MATH-1
 
-**Goal ID:** METROPOLIS-P1-MATH-1  
 **Status:** ACTIVE  
-**Phase:** SPEC + MATH
+**Phase:** P1 SPEC -> P2 MATH-1  
+**Primary gate:** `MATH-1`
+
+The detailed live goal is mirrored in `.agent/CURRENT_GOAL.md`. This file is the durable goal record under `goals/active/`.
 
 ## Objective
 
-Freeze the PRISM replicated-asset protocol semantics and produce an executable exact-arithmetic reference model that can later serve as the oracle for Solidity differential testing.
+Freeze and verify the exact-backed RetroPick/PRISM accounting model before production Solidity.
 
-## Mandatory outputs
+Canonical equations:
 
-- `docs/protocol/PRISM_PROTOCOL_SPEC.md`
-- `docs/protocol/INVARIANTS.md`
-- `docs/protocol/STATE_MACHINE.md`
-- `docs/protocol/MATH_MODEL.md`
-- `docs/protocol/FAILURE_MODES.md`
-- `docs/protocol/CONTRACT_REQUIREMENTS.md`
-- `research/prism-model/model.py`
-- `research/prism-model/lifecycle.py`
-- `research/prism-model/replication.py`
-- `research/prism-model/settlement.py`
-- `research/prism-model/scenarios.py`
-- `research/prism-model/tests/`
+```math
+h=Gx
+```
 
-## Acceptance
+```math
+B_i \ge Sx_i
+```
 
-- exact payoff evaluation works;
-- replication admission/rejection works for finite matrices;
-- valid mint preserves component backing;
-- valid in-kind redeem preserves component backing;
-- terminal solvency is checked for every enumerated world;
-- illegal lifecycle transitions fail;
-- settlement cannot become redeemable without enough funded collateral;
-- known non-replicable AND counterexample is tested;
-- no production Solidity is added.
+```math
+SettlementBalance \ge Supply\times FinalPayout
+```
+
+## Locked architecture decisions
+
+- Monad-native outcome ERC-20s are Phase-1 PRISM backing.
+- No same-chain `BackingMirror`.
+- No terminal-state enumeration inside mint.
+- Basket mode is default PRISM MVP admission.
+- Payoff mode must solve exact `Gx=h, x>=0` or reject.
+- Native market creation and PRISM series creation are separate flows.
+- Retail PRISM BUY and primary PRISM CREATE are separate flows.
+- `RESOLVED` and `REDEEMABLE` are separate lifecycle states.
+- Production Solidity starts only after MATH-1 verdict.
+
+## Work packages
+
+### A. Exact model
+- payoff/replication;
+- backing/mint/redeem;
+- lifecycle;
+- final settlement.
+
+### B. Market math
+- complete-set split/merge;
+- open interest;
+- executable bid/ask parity;
+- PRISM create/redeem values;
+- partial-resolution NAV;
+- post-resolution ERC20/ERC20 quote identity.
+
+### C. Verification
+- bounded exhaustive state exploration;
+- adversarial/property sequences;
+- formal assistance where useful;
+- fixed-point/rounding policy;
+- Solidity-compatible fixtures.
+
+### D. Final classification
+
+Each claim must be classified as one of:
+
+```text
+PROVEN_UNDER_ASSUMPTIONS
+EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN
+SUPPORTED_BY_SIMULATION
+SUPPORTED_BY_LIVE_EVIDENCE
+NOT_YET_VALIDATED
+COUNTEREXAMPLE_FOUND
+```
+
+## Completion verdict
+
+Close this goal only with:
+
+```text
+MATH-1 = PASS
+```
+
+or:
+
+```text
+MATH-1 = CONDITIONAL_PASS
+```
+
+or:
+
+```text
+MATH-1 = FAIL
+```
+
+A core accounting/solvency kill criterion forces `FAIL`.
 
 ## Out of scope
 
+- production cross-chain wrappers;
+- Polymarket custody;
 - arbitrary StatePool/SLE;
-- production external-market bridge;
-- production Kuru integration;
-- production oracle/CRE implementation;
-- frontend implementation.
+- approximate replication;
+- production frontend;
+- claims that liquidity/demand are mathematically proven.

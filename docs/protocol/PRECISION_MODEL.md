@@ -1,33 +1,21 @@
 # PRISM Fixed-Point Precision Model
 
-**Status:** REQUIRED FOR MATH-1D, NOT YET FINAL  
-**Semantic oracle:** exact `fractions.Fraction` reference model.
+**Status:** MATH-1D EXECUTABLE CANDIDATE  
+**Semantic oracle:** exact `fractions.Fraction` model  
+**Integer oracle:** `research/prism-model/fixed_point_model.py`  
+**Production Solidity:** still requires CONTRACT-ARCH-1 differential fixtures and implementation review
 
-The exact mathematical model uses rational numbers. Solidity will use integers. This document defines the questions that must be closed before contract implementation.
-
----
-
-## 1. Objectives
-
-The fixed-point system must guarantee:
-- no underbacking caused by rounding;
-- no repeatable positive-value extraction beyond the accepted bound;
-- deterministic mint/redeem fixtures;
-- clear dust ownership;
-- safe maximum values;
-- reproducibility across Python/Solidity.
+The exact model uses rational numbers. Solidity will use integers. The purpose of this document is to define the accepted Phase-1 candidate conversion/rounding semantics that preserve solvency when moving from the rational oracle to an integer implementation.
 
 ---
 
-## 2. Candidate representation
+## 1. Representation
 
-Candidate baseline:
+Series quantity and replication weights use:
 
 ```text
-UNIT = 1e18
+WAD = 1e18
 ```
-
-Represent each `x_i` as integer fixed-point units.
 
 Example:
 
@@ -36,128 +24,173 @@ Example:
 0.4 -> 400000000000000000
 ```
 
-This is a candidate, not final acceptance.
-
----
-
-## 3. Backing requirement rounding
-
-For mint quantity `Q`, required backing must not round down below the economic obligation.
-
-Preferred semantic rule:
-
-```math
-required_i = ceil(Q * x_i)
-```
-
-in the component token's normalized accounting units when exact divisibility is unavailable.
-
-Any implementation that rounds backing down must prove it cannot create `B_i < S*x_i` in normalized exact semantics.
-
----
-
-## 4. In-kind redemption rounding
-
-Redemption cannot release more component value than the burned liability frees.
-
-Candidate semantic rule:
-- burn liability first;
-- compute releasable component amount using a conservative floor;
-- accumulate or explicitly account for residual dust.
-
-The exact policy must ensure repeated micro-redemptions cannot extract more than a one-shot redemption.
-
----
-
-## 5. Final payout rounding
-
-For fixed final payout `R`, user payment should be deterministic and documented.
-
-Need to define:
-- payout scale;
-- multiplication order;
-- floor/ceil direction;
-- residual settlement dust;
-- final zero-supply sweep policy.
-
-Final sweep must not permit admin extraction while user liability remains.
-
----
-
-## 6. Decimal normalization
-
-Source components may have different ERC-20 decimals.
-
-CONTRACT-ARCH-1 must choose either:
-1. normalize all accounting to an internal common unit with safe conversion; or
-2. store per-component native-unit `unitsPerShare` and never assume equal decimals.
-
-No code may multiply raw amounts from different decimal domains without explicit normalization.
-
----
-
-## 7. Adversarial tests
-
-MATH-1D must test:
-- smallest nonzero mint;
-- smallest nonzero redeem;
-- many micro-mints then one redeem;
-- one mint then many micro-redeems;
-- alternating mint/redeem loops;
-- weights near zero;
-- weights near maximum supported bound;
-- components with 6/8/18 decimals;
-- maximum supply/value bounds;
-- terminal payout fractions not exactly representable in component decimals.
-
-For each sequence compare:
+Phase-1 component and settlement assets are restricted by the reference model to ERC-20 decimal counts:
 
 ```text
-exact Fraction entitlement
-vs
-integer implementation entitlement
+0 <= decimals <= 18
 ```
 
-and measure signed error.
-
----
-
-## 8. Acceptance metrics
-
-Define:
+A raw token unit with `d` decimals maps to internal normalized units with exact factor:
 
 ```math
-error = integer_value - exact_value
+factor(d)=10^{18-d}
 ```
 
-Required before Solidity:
-- maximum per-operation absolute error;
-- maximum cumulative error over declared sequence length;
-- proof/test that backing error never becomes negative beyond allowed safety margin;
-- proof/test that attacker cannot turn rounding into positive expected extraction.
+```math
+normalized = raw \times factor(d)
+```
+
+This makes 6-, 8-, and 18-decimal assets exactly representable in the normalized domain without division during inbound normalization.
+
+Assets with more than 18 decimals require a new adapter/ADR because normalization would otherwise discard precision.
 
 ---
 
-## 9. Fixture format
+## 2. Conservative backing requirement
 
-Generate machine-readable fixtures containing:
+For series quantity `Q`, weight `x_i` in WAD, and component decimal factor `f_i`, the minimum raw component requirement is:
 
-```json
-{
-  "scale": "1000000000000000000",
-  "supply_before": "...",
-  "quantity": "...",
-  "weights": ["..."],
-  "required_backing": ["..."],
-  "rounding": "CEIL_BACKING",
-  "expected_supply_after": "..."
-}
+```math
+requiredRaw_i(S)=\left\lceil\frac{S\,x_i}{WAD\,f_i}\right\rceil
 ```
 
-Solidity differential tests must consume the same semantics.
+Therefore normalized physical backing satisfies the exact economic requirement from above, never below it.
+
+Mint is valid only if post-mint backing satisfies the requirement for the **new total supply**, not merely a rounded per-call estimate.
+
+For a minimum-backing mint, deposit:
+
+```math
+requiredRaw_i(S+Q)-requiredRaw_i(S)
+```
+
+then increase supply.
 
 ---
 
-## 10. Gate
+## 3. In-kind redemption rule
 
-MATH-1D cannot pass until one fixed-point policy is selected and the exact/integer differential suite demonstrates a bounded, non-exploitable error model.
+The previous provisional wording `floor(Q*x_i)` is superseded by a stronger state-based rule.
+
+For redemption quantity `Q`, compute:
+
+```math
+release_i = requiredRaw_i(S)-requiredRaw_i(S-Q)
+```
+
+Then:
+1. decrease liability from `S` to `S-Q`;
+2. release exactly `release_i` raw units;
+3. assert remaining backing is at least `requiredRaw_i(S-Q)`.
+
+This rule directly transfers the backing invariant into integer arithmetic and avoids cumulative underbacking caused by independently rounding each redemption quantity.
+
+If backing contains surplus above the conservative requirement, that surplus is not silently distributed by this formula. It remains explicitly accounted surplus.
+
+---
+
+## 4. Rounding-dust policy
+
+For a series that only uses `mint_with_minimum_backing()` and requirement-delta redemption:
+
+```text
+backing_raw == requiredBackingRaw(currentSupply)
+```
+
+after every successful operation.
+
+Therefore a complete mint/redeem cycle cannot create component-token value from rounding, and when supply returns to zero the minimum-backing path has zero component dust.
+
+Any externally donated/excess backing remains surplus rather than being reclassified as rounding entitlement.
+
+Dust/surplus may not be swept while series supply is nonzero.
+
+---
+
+## 5. Binary terminal-solvency transfer
+
+Phase-1 primitive outcome components resolve to binary payout bits `0` or `1`.
+
+For winning-bit vector `z_i in {0,1}`:
+
+```math
+BackingValue = \sum_i z_i\,normalize(backingRaw_i)
+```
+
+and WAD payout per PRISM share is:
+
+```math
+h_{wad}=\sum_i z_i x_i
+```
+
+Conservative normalized liability is:
+
+```math
+Liability=\left\lceil\frac{S\,h_{wad}}{WAD}\right\rceil
+```
+
+Because each component backing requirement is rounded upward independently, the normalized backing of winning components is at least the corresponding exact replicated liability contribution. The integer oracle checks this relation for every canonical `pFEDBTC` terminal state.
+
+Non-binary component payoff adapters require a separate precision proof before admission.
+
+---
+
+## 6. Final settlement rounding
+
+For final payout `R_wad` and settlement token decimal factor `f_s`, aggregate required settlement is:
+
+```math
+requiredSettlementRaw(S)=
+\left\lceil\frac{S\,R_{wad}}{WAD\,f_s}\right\rceil
+```
+
+`REDEEMABLE` remains forbidden below that balance.
+
+The current candidate per-redemption payment rounds user payout down:
+
+```math
+payoutRaw(Q)=
+\left\lfloor\frac{Q\,R_{wad}}{WAD\,f_s}\right\rfloor
+```
+
+and re-checks that the remaining raw balance still satisfies the conservative aggregate requirement for remaining supply.
+
+This is solvency-safe. It may leave residual settlement dust after the final redemption. Such dust is not sweepable while supply remains and must have an explicit final zero-supply disposition in CONTRACT-ARCH-1.
+
+---
+
+## 7. Executable evidence
+
+Current integer oracle:
+
+```text
+research/prism-model/fixed_point_model.py
+```
+
+Current tests cover:
+- 18-decimal series units;
+- mixed 18/6-decimal component backing;
+- conservative raw requirement calculation;
+- integer mint and redemption preservation;
+- all four canonical `pFEDBTC` binary terminal states;
+- randomized mint/redeem sequences;
+- no dust sweep with live liability;
+- underfunded final settlement rejection;
+- final-settlement funding preservation after redemption.
+
+`research/prism-model/adversarial.py` adds deterministic stress runs over fixed-point backing and global reservation state.
+
+---
+
+## 8. Remaining production-equivalence work
+
+Before Solidity production authorization:
+- generate machine-readable Python fixtures for Solidity differential tests;
+- test 6/8/18-decimal combinations explicitly in CI;
+- test maximum configured supply/weight bounds against uint256 arithmetic;
+- choose final settlement-dust recipient/policy;
+- encode the accepted integer formulas with full-precision `mulDiv` semantics;
+- run Foundry stateful invariants against the same fixtures;
+- verify Solidity and Python agree on every boundary case.
+
+These are implementation-equivalence tasks. They do not reopen the exact rational economic model unless a counterexample appears.

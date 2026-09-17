@@ -94,6 +94,28 @@ in the simple fully collateralized binary model.
 
 ---
 
+## Proof architecture
+
+The repository now separates protocol semantics, proof, executable semantics, and future implementation:
+
+```text
+docs/protocol/
+  WHAT the protocol means
+        ↓
+docs/math/
+  WHY those semantics hold
+        ↓
+research/prism-model/
+  EXECUTABLE semantic oracle
+        ↓
+contracts/
+  future Solidity implementation
+```
+
+`docs/math/17_THEOREMS.md` is the canonical theorem/counterexample/hypothesis registry. It deliberately keeps empirical market claims separate from protocol-safety proofs.
+
+---
+
 ## Locked architecture corrections
 
 The historical architecture report has been reconciled. Canonical Phase 1 now explicitly uses:
@@ -125,7 +147,7 @@ See [`docs/00-context/REPORT_RECONCILIATION.md`](docs/00-context/REPORT_RECONCIL
 - [`docs/05-hackathon/PHASE_GATES.md`](docs/05-hackathon/PHASE_GATES.md)
 - [`docs/06-execution/ROADMAP.md`](docs/06-execution/ROADMAP.md)
 
-### Protocol/math
+### Protocol semantics
 - [`docs/protocol/README.md`](docs/protocol/README.md)
 - [`docs/protocol/PRISM_PROTOCOL_SPEC.md`](docs/protocol/PRISM_PROTOCOL_SPEC.md)
 - [`docs/protocol/ASSUMPTIONS.md`](docs/protocol/ASSUMPTIONS.md)
@@ -136,6 +158,14 @@ See [`docs/00-context/REPORT_RECONCILIATION.md`](docs/00-context/REPORT_RECONCIL
 - [`docs/protocol/FAILURE_MODES.md`](docs/protocol/FAILURE_MODES.md)
 - [`docs/protocol/PRECISION_MODEL.md`](docs/protocol/PRECISION_MODEL.md)
 - [`docs/protocol/CONTRACT_REQUIREMENTS.md`](docs/protocol/CONTRACT_REQUIREMENTS.md)
+
+### Mathematical proof layer
+- [`docs/math/README.md`](docs/math/README.md)
+- [`docs/math/01_DEFINITIONS.md`](docs/math/01_DEFINITIONS.md)
+- [`docs/math/02_ASSUMPTIONS.md`](docs/math/02_ASSUMPTIONS.md)
+- [`docs/math/05_BACKING_SOLVENCY.md`](docs/math/05_BACKING_SOLVENCY.md)
+- [`docs/math/16_INVARIANTS.md`](docs/math/16_INVARIANTS.md)
+- [`docs/math/17_THEOREMS.md`](docs/math/17_THEOREMS.md)
 
 ### Architecture
 - [`docs/04-architecture/SYSTEM_ARCHITECTURE.md`](docs/04-architecture/SYSTEM_ARCHITECTURE.md)
@@ -168,16 +198,18 @@ The accounting model uses Python exact `Fraction` arithmetic so Phase 1 does not
 
 ```text
 .agent/               agent control plane
-docs/                 canonical project/protocol truth
-goals/                execution goals
-decisions/            accepted architecture decisions
-research/prism-model/ canonical executable economic model
-apps/                  product applications after gates
-packages/              shared packages after interfaces stabilize
-contracts/             Solidity implementation after MATH-1/CONTRACT-ARCH-1
-scripts/               automation/deployment/evidence tooling
-tests/                 cross-layer/E2E tests
-evidence/              reproducible evidence artifacts
+docs/protocol/         canonical protocol/economic semantics
+docs/math/             canonical proof and theorem traceability layer
+docs/                  broader project/product/hackathon documentation
+goals/                  execution goals
+decisions/              accepted architecture decisions
+research/prism-model/   canonical executable economic model
+apps/                   product applications after gates
+packages/               shared packages after interfaces stabilize
+contracts/              Solidity implementation after MATH-1/CONTRACT-ARCH-1
+scripts/                automation/deployment/evidence tooling
+tests/                  cross-layer/E2E tests
+evidence/               reproducible evidence artifacts
 ```
 
 ---

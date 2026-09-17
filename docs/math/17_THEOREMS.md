@@ -1,9 +1,9 @@
 # 17 — Theorem, Counterexample, and Market-Hypothesis Registry
 
 **Status:** CANONICAL MATH-1 CLAIM REGISTRY  
-**Purpose:** distinguish deductive protocol properties from bounded evidence and empirical market claims.
+**Purpose:** distinguish deductive protocol properties from bounded executable evidence and empirical market claims.
 
-Allowed statuses:
+Allowed scientific statuses:
 
 ```text
 PROVEN_UNDER_ASSUMPTIONS
@@ -14,55 +14,76 @@ NOT_YET_VALIDATED
 COUNTEREXAMPLE_FOUND
 ```
 
-A claim may have a mathematical status and a separate executable-coverage status. Exact algebra being proven does not mean the future fixed-point Solidity implementation is already proven.
+Exact theorem status and future Solidity-equivalence status remain separate.
 
 ---
 
 ## 1. Core theorem registry
 
-| ID | Claim | Scientific status | Key assumptions | Proof / source | Python oracle / evidence | Production implication |
-|---|---|---|---|---|---|---|
-| `T-REPL-001` | For admitted basket `x`, terminal payoff is exactly `h=Gx` | `PROVEN_UNDER_ASSUMPTIONS` | A-P02 | `01_DEFINITIONS.md`; protocol math model | `replication.payoff()` | Series admission must commit immutable `G/x` semantics or equivalent hashes |
-| `T-BS-001` | Valid exact-backed mint preserves `B_i >= Sx_i` and preserves margin `M_i` | `PROVEN_UNDER_ASSUMPTIONS` | A-P02, A-P03, A-P04 | `05_BACKING_SOLVENCY.md#2` | `PrismSeries.mint()`, `mint_with_exact_backing()`, bounded verifier | Backing-first mint; integer version still requires MATH-1D |
-| `T-BS-002` | Valid in-kind redemption preserves backing and margin | `PROVEN_UNDER_ASSUMPTIONS` | A-P02, A-P03, A-P04 | `05_BACKING_SOLVENCY.md#3` | `redeem_in_kind()`, bounded verifier | Liability reduction and conservative release ordering |
-| `T-BS-003` | Exact non-negative replication + component backing implies terminal solvency in every modeled world | `PROVEN_UNDER_ASSUMPTIONS` | A-P01, A-P02, A-P03 | `05_BACKING_SOLVENCY.md#4` | `terminal_solvency()`, `terminal_backing_value()`, terminal bounded verifier | Runtime component check is sufficient; no world enumeration in mint |
-| `T-BS-004` | If `C_s >= SR`, correct final redemption preserves funding for remaining supply | `PROVEN_UNDER_ASSUMPTIONS` | A-P05, A-P06 | `05_BACKING_SOLVENCY.md#5` | `settlement_is_funded()`, `make_redeemable()`, `redeem_final()`, bounded verifier | `RESOLVED != REDEEMABLE`; funding gate is mandatory |
-| `T-NATIVE-001` | Under canonical split/merge semantics, `YES_supply = NO_supply = CollateralLocked` is conserved | `PROVEN_UNDER_ASSUMPTIONS` mathematically; executable state model `NOT_YET_VALIDATED` | A-N01, A-N02, A-P04 | protocol invariants + definitions | static helpers only; stateful native model missing | Native complete-set contract requires stateful conservation tests |
-| `T-NATIVE-002` | For valid binary terminal states, `YES(omega)+NO(omega)=1` | `PROVEN_UNDER_ASSUMPTIONS` | A-N03, A-P05 | definition of accepted binary payoff basis | representable through payoff fixtures | Resolution adapters must conform to accepted invalid/void policy |
-| `T-LC-001` | Canonical PRISM lifecycle has no transition from terminal/settlement states back to issuance | `PROVEN_UNDER_ASSUMPTIONS` for declared transition graph | immutable lifecycle graph | protocol state machine | `lifecycle._ALLOWED`, `transition()` | Foundry stateful invariant must preserve acyclic/monotone state progression |
-| `T-LC-002` | Final resolution cannot be committed twice through the canonical model transition path | `PROVEN_UNDER_ASSUMPTIONS` | canonical transition graph | protocol state machine | `PrismSeries.resolve()` only from `RESOLUTION_PENDING` | Final result immutable after resolution |
-| `T-PARTIAL-001` | Given final resolved values and supplied marks for unresolved components, basket NAV decomposes linearly by resolved/unresolved sets | `PROVEN_UNDER_ASSUMPTIONS` | A-R02, A-M04 | protocol math model | `market_math.partial_resolution_nav()` | Valuation identity only; does not authorize backing transformation by itself |
-| `T-QUOTE-001` | After final payout `R` is fixed, idealized PRISM/quote relative value is `R/P_Q` before costs/risk | `PROVEN_UNDER_ASSUMPTIONS` as algebraic relative-value identity | A-P05, A-M04 | protocol math model | `market_math.post_resolution_pair_value()` | Does not guarantee exchange price or liquidity |
+| ID | Claim | Scientific status | Proof/source | Executable oracle | Production implication |
+|---|---|---|---|---|---|
+| `T-REPL-001` | admitted basket payoff is exactly `h=Gx` | `PROVEN_UNDER_ASSUMPTIONS` | definitions/protocol math | `replication.payoff()` | admission commits immutable semantics |
+| `T-BS-001` | exact-backed mint preserves component backing and margin | `PROVEN_UNDER_ASSUMPTIONS` | `05_BACKING_SOLVENCY.md` | exact model + bounded verifier | backing-first mint |
+| `T-BS-002` | exact in-kind redemption preserves remaining backing | `PROVEN_UNDER_ASSUMPTIONS` | `05_BACKING_SOLVENCY.md` | exact model + bounded verifier | liability decrease before release |
+| `T-BS-003` | exact non-negative replication + component backing implies terminal solvency | `PROVEN_UNDER_ASSUMPTIONS` | `05_BACKING_SOLVENCY.md` | `terminal_solvency()` | component checks suffice at runtime |
+| `T-BS-004` | funded final redemption preserves remaining settlement funding | `PROVEN_UNDER_ASSUMPTIONS` | `05_BACKING_SOLVENCY.md` | exact settlement model | `RESOLVED != REDEEMABLE` |
+| `T-ALLOC-001` | global reservation invariant `sum_s Reserved[s,a] <= PhysicalBalance[a]` is preserved by deposit/reserve/release/withdraw transitions | `PROVEN_UNDER_ASSUMPTIONS` for the reference transition system | `05_BACKING_SOLVENCY.md#6` | `ReservationLedger` | production needs equivalent authoritative reservation storage |
+| `T-PARTIAL-002` | finalized component -> equal settlement value preserves backing value over the conditioned terminal state space | `PROVEN_UNDER_ASSUMPTIONS` | `05_BACKING_SOLVENCY.md#7` | `resolve_component()`, mixed redemption | partial transformation must condition states and preserve value exactly |
+| `T-NATIVE-001` | canonical binary split/merge conserves complete-set collateral accounting | `PROVEN_UNDER_ASSUMPTIONS` | native complete-set semantics | `BinaryCompleteSetMarket` | stateful complete-set invariant in Solidity |
+| `T-NATIVE-002` | valid binary terminal payoff satisfies `YES(omega)+NO(omega)=1` | `PROVEN_UNDER_ASSUMPTIONS` | accepted binary payoff basis | binary fixtures/native resolution | invalid/void policy must be specified separately |
+| `T-LC-001` | canonical PRISM lifecycle has no resurrection into issuance | `PROVEN_UNDER_ASSUMPTIONS` | state-machine graph | `lifecycle.transition()` | Foundry stateful lifecycle invariant |
+| `T-LC-002` | canonical final PRISM resolution cannot be committed twice | `PROVEN_UNDER_ASSUMPTIONS` | state-machine graph | `PrismSeries.resolve()` | immutable final result |
+| `T-PARTIAL-001` | partial-resolution NAV decomposes linearly by resolved/unresolved sets | `PROVEN_UNDER_ASSUMPTIONS` | protocol math | `partial_resolution_nav()` | valuation identity only |
+| `T-QUOTE-001` | resolved PRISM/quote idealized relative value is `R/P_Q` before costs/risk | `PROVEN_UNDER_ASSUMPTIONS` | algebraic identity | `post_resolution_pair_value()` | not a liquidity/price guarantee |
 
 ---
 
-## 2. Replication counterexamples
+## 2. Fixed-point theorem transfer
 
-### CX-REPL-001 — Marginal binary claims do not generally span conjunction payoffs
+Candidate domain:
 
-Define:
-
-```math
-A=(0,0,1,1)
+```text
+series scale = 1e18
+component/settlement decimals = 0..18
+raw normalization factor = 10^(18-decimals)
 ```
 
+| ID | Claim | Scientific status for candidate Python integer model | Oracle | Solidity-equivalence status |
+|---|---|---|---|---|
+| `T-FP-001` | ceil total-supply component requirement prevents integer mint underreservation | `PROVEN_UNDER_ASSUMPTIONS` | `FixedPointSeries.required_backing_raw()`, `mint()` | pending CONTRACT-ARCH-1 differential proof |
+| `T-FP-002` | requirement-delta redemption cannot leave remaining supply below conservative raw requirement | `PROVEN_UNDER_ASSUMPTIONS` | `FixedPointSeries.redeem()` | pending Solidity equivalence |
+| `T-FP-003` | conservative aggregate settlement requirement plus guarded rounded redemption preserves funding | `PROVEN_UNDER_ASSUMPTIONS` for accepted transitions | `FixedPointSettlement` | pending Solidity equivalence/dust policy |
+| `T-FP-004` | minimum-backing mint followed by inverse requirement-delta redemption has zero net component extraction | `PROVEN_UNDER_ASSUMPTIONS` | `FixedPointSeries` + randomized stress | pending Solidity equivalence |
+
+These statuses apply to the **candidate integer reference semantics**, not deployed Solidity.
+
+Executable tests additionally check mixed 18/6-decimal backing, canonical binary terminal states, randomized mint/redeem sequences, and underfunded final-settlement rejection.
+
+---
+
+## 3. Replication counterexample
+
+### `CX-REPL-001` — marginal binary claims do not generally span conjunction payoffs
+
+For:
+
 ```math
-B=(0,1,0,1)
+A=(0,0,1,1),\qquad B=(0,1,0,1)
 ```
 
-and desired conjunction:
+and desired:
 
 ```math
-h_{AND}=(0,0,0,1)
+h_{AND}=(0,0,0,1),
 ```
 
-Any non-negative combination is:
+any non-negative combination is:
 
 ```math
-xA+yB=(0,y,x,x+y)
+xA+yB=(0,y,x,x+y).
 ```
 
-Matching coordinate 2 requires `y=0`. Matching coordinate 3 requires `x=0`. Then coordinate 4 is `0`, not `1`.
+Coordinates 2 and 3 force `x=y=0`, contradicting required fourth coordinate `1`.
 
 Therefore:
 
@@ -70,239 +91,95 @@ Therefore:
 \boxed{h_{AND}\notin\mathcal C}
 ```
 
-for this component basis.
+for that basis.
 
-**Status:** `COUNTEREXAMPLE_FOUND`
+**Status:** `COUNTEREXAMPLE_FOUND`.
 
-**Oracle mapping:** `find_exact_nonnegative_replication()` returns no exact non-negative solution for this fixture; corresponding regression test must remain canonical.
-
-**Protocol consequence:** Phase 1 must reject unsupported nonlinear desired payoffs rather than pretending weighted marginal claims replicate them.
+**Oracle:** exact replication solver rejects the canonical fixture.
 
 ---
 
-## 3. Bounded verification claims
+## 4. Executable verification claims
 
-The following are not substitutes for universal algebraic proofs. They test the executable oracle across declared finite domains.
+The following are evidence over declared domains, not substitutes for deductive proofs.
 
-| ID | Property | Evidence function | Status rule |
+| ID | Property | Executable evidence | Status after a recorded successful run |
 |---|---|---|---|
-| `E-BND-001` | Mint/redeem backing preservation over bounded supply, quantity and surplus grid | `verify_mint_redeem_grid()` | `EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN` only after a run records its bounds and succeeds |
-| `E-BND-002` | Terminal solvency across every terminal world for bounded supply/surplus grid | `verify_terminal_solvency_grid()` | same |
-| `E-BND-003` | Settlement funding preservation across bounded supply/redemption grid | `verify_settlement_redemption_grid()` | same |
-
-The algebraic theorem status remains independent of whether a particular bounded run has been executed recently.
-
----
-
-## 4. Fixed-point theorem transfer status
-
-Exact-rational theorems do **not** automatically imply the integer Solidity implementation is safe.
-
-Current candidate policy:
-
-```text
-required backing -> ceil
-release amount    -> floor
-```
-
-Current implementation support exists in `fixed_point.py`, but production-equivalent theorem transfer remains:
-
-```text
-NOT_YET_VALIDATED
-```
-
-until MATH-1D closes:
-
-- token decimal normalization;
-- ceil/floor rules for every operation;
-- dust bound;
-- repeated-cycle extraction search;
-- Solidity-compatible fixtures;
-- proof that integer post-state implies accepted solvency inequality.
-
-Proposed future theorem IDs:
-
-```text
-T-FP-001 integer mint cannot underreserve backing
-T-FP-002 integer redemption cannot overrelease backing
-T-FP-003 final settlement rounding cannot overpay aggregate liability
-T-FP-004 repeated mint/redeem rounding has no positive extraction above accepted bound
-```
-
-All remain `NOT_YET_VALIDATED` today.
+| `E-BND-001` | bounded exact mint/redeem backing preservation | `verify_mint_redeem_grid()` | `EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN` |
+| `E-BND-002` | bounded terminal solvency in every enumerated world | `verify_terminal_solvency_grid()` | `EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN` |
+| `E-BND-003` | bounded exact settlement redemption preservation | `verify_settlement_redemption_grid()` | `EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN` |
+| `E-ADV-001` | deterministic randomized fixed-point mint/redeem stress keeps backing/terminal solvency | `adversarial.run_fixed_point_stress()` | supporting adversarial evidence, not universal proof |
+| `E-ADV-002` | deterministic randomized cross-series reservations never exceed physical balance | `adversarial.run_reservation_stress()` | supporting adversarial evidence, not universal proof |
+| `E-NATIVE-001` | stateful split/merge/resolve/redeem regression coverage | `test_executable_gaps.NativeCompleteSetTests` | executable regression evidence |
+| `E-PARTIAL-001` | partial transformation/mixed redemption/conditioned final state regression coverage | `test_executable_gaps.PartialResolutionTests` | executable regression evidence |
+| `E-FP-001` | integer backing/terminal/settlement boundary coverage | `test_executable_gaps.FixedPoint*` | executable regression evidence |
 
 ---
 
-## 5. Accounting claims not yet fully modeled
+## 5. Market hypotheses: explicitly not theorems
 
-### T-ALLOC-001 — Global reservation uniqueness
+### `H-MKT-001` — arbitrage closes PRISM/NAV divergence quickly
 
-Claim:
+Creation/redemption economics can create an incentive, but execution depends on depth, capital, latency, gas, inventory and operational risk.
 
-> the same reserved economic units cannot simultaneously secure two independent PRISM liabilities.
+**Status:** `NOT_YET_VALIDATED`.
 
-Scientific status:
+### `H-MKT-002` — market makers remain sustainably profitable through resolution jumps
 
-```text
-NOT_YET_VALIDATED
-```
+**Status:** `NOT_YET_VALIDATED`.
 
-Reason: the current Python oracle is series-local and has no global reservation ledger.
+### `H-LIQ-001` — Kuru markets achieve adequate depth/spreads
 
-This is a hard `CONTRACT-ARCH-1` requirement and must receive executable/stateful coverage before production.
+**Status:** `NOT_YET_VALIDATED`.
 
-### T-PARTIAL-002 — Payoff-equivalent stateful backing transformation
+### `H-ADOPT-001` — users want to trade/own PRISM at meaningful scale
 
-Claim:
+**Status:** `NOT_YET_VALIDATED`.
 
-> replacing a finalized component with settlement collateral preserves all remaining obligations when the replacement equals the component's canonical resolved value under accepted precision rules.
-
-Scientific status:
-
-```text
-NOT_YET_VALIDATED
-```
-
-Reason: `partial_resolution_nav()` evaluates a mixed resolved/unresolved basket but the model does not yet mutate backing representations and prove before/after liability equivalence.
+None of these may be promoted by a unit test, proof of solvency, sponsor integration, or one successful demo trade.
 
 ---
 
-## 6. Market hypotheses: explicitly not protocol theorems
+## 6. Remaining theorem/implementation gaps
 
-### H-MKT-001 — Arbitrage closes PRISM/NAV divergence quickly
+The previous core executable gaps `T-ALLOC-001`, `T-PARTIAL-002`, and the candidate integer transfer `T-FP-001..004` now have explicit reference implementations and proofs/guards.
 
-Reference relations:
+Remaining pre-production work is primarily **implementation equivalence and scope completion**, not a missing exact solvency kernel:
 
-```math
-C_{create}=\sum_i x_iAsk_i+F_{create}
+```text
+machine-readable Python -> Solidity fixtures
+6/8/18 decimal CI matrix
+uint256/configured maximum-bound tests
+final zero-supply settlement-dust policy
+fixed-point partial-resolution transform if required onchain
+Z3/SymPy proof artifacts where useful
+live Kuru LP/MM/fee-domain separation checks
+Foundry differential + stateful invariant suite
 ```
 
-```math
-V_{redeem}=\sum_i x_iBid_i-F_{redeem}
-```
-
-A persistent market price outside executable create/redeem economics can create an arbitrage incentive.
-
-It does **not** follow mathematically that participants will execute, that depth is adequate, or that convergence is fast.
-
-**Status:** `NOT_YET_VALIDATED`
-
-Required evidence: agent-based/orderbook simulation, then live Kuru measurements.
-
-### H-MKT-002 — PRISM market makers are sustainably profitable
-
-Depends on spreads, flow, inventory, hedging costs, resolution jumps, stale orders, gas and competition.
-
-**Status:** `NOT_YET_VALIDATED`
-
-Required evidence: market-maker simulation and live trading evidence.
-
-### H-LIQ-001 — Kuru markets have adequate depth and acceptable spreads
-
-Contract deployment alone does not establish liquidity.
-
-**Status:** `NOT_YET_VALIDATED`
-
-Required evidence: live market IDs, books, quoted depth, spreads, fills and persistence over time.
-
-### H-ADOPT-001 — Users want to trade/own programmable outcome assets
-
-Protocol correctness does not prove demand.
-
-**Status:** `NOT_YET_VALIDATED`
-
-Required evidence: user research, real trading sessions, creator demand, retention/volume metrics.
+If any of those exposes a counterexample, theorem/assumption status must be downgraded and the economic model revisited.
 
 ---
 
-## 7. Claims that must never be upgraded by wording alone
+## 7. MATH-1 gate
 
-The following transitions are prohibited without new evidence:
-
-```text
-NOT_YET_VALIDATED
--> PROVEN_UNDER_ASSUMPTIONS
-```
-
-merely because:
-
-- a simulation looks plausible;
-- a sponsor integration exists;
-- a demo trade succeeds once;
-- a price happened to converge;
-- an LLM/research report asserts the behavior.
-
-Likewise:
-
-```text
-EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN
-```
-
-must never be reported as proof over an unbounded domain unless a deductive argument exists.
-
----
-
-## 8. MATH-1 theorem gate
-
-Before `MATH-1` can close for the accounting kernel:
-
-### Required exact theorems
+Exact/accounting theorem set now includes:
 
 ```text
 T-REPL-001
-T-BS-001
-T-BS-002
-T-BS-003
-T-BS-004
-```
-
-must remain internally consistent with:
-
-```text
-docs/protocol/
-docs/math/
-research/prism-model/
-```
-
-### Required implementation-equivalence work
-
-```text
-T-FP-001..004
-```
-
-must be resolved or bounded sufficiently for the intended Solidity semantics.
-
-### Required known gaps to resolve or explicitly scope out
-
-```text
+T-BS-001..004
 T-ALLOC-001
 T-PARTIAL-002
+T-NATIVE-001..002
+T-LC-001..002
+T-FP-001..004   (candidate Python integer semantics)
 ```
 
-cannot silently be called proven.
+The final MATH-1 verdict still requires:
+- fresh captured full-suite evidence from repository state;
+- remaining precision boundary/fixture work;
+- adversarial coverage appropriate to configured bounds;
+- explicit classification of every market claim;
+- no unresolved accounting counterexample.
 
-### Market claims
-
-`H-MKT-*`, `H-LIQ-*`, `H-ADOPT-*` remain separate from accounting safety and may stay empirical after production accounting is proven.
-
----
-
-## 9. Traceability rule
-
-Every future theorem or economic claim added to the repository must record:
-
-```text
-ID
-statement
-status
-assumptions
-proof/reference
-oracle mapping
-bounded/simulation/live evidence
-implementation consequence
-known counterexample/failure boundary
-```
-
-This registry is the canonical place to answer:
-
-> What exactly do we know, why do we know it, and what remains merely hypothesized?
+Production Solidity remains downstream of `CONTRACT-ARCH-1`.

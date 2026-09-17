@@ -1,14 +1,14 @@
 # METROPOLIS-P1-MATH-1
 
 **Status:** ACTIVE  
-**Phase:** P1 SPEC -> P2 MATH-1  
+**Phase:** P2 MATH-1  
 **Primary gate:** `MATH-1`
 
-The detailed live goal is mirrored in `.agent/CURRENT_GOAL.md`. This file is the durable goal record under `goals/active/`.
+The detailed live goal is mirrored in `.agent/CURRENT_GOAL.md`.
 
 ## Objective
 
-Freeze and verify the exact-backed RetroPick/PRISM accounting model before production Solidity.
+Verify the RetroPick/PRISM accounting kernel, integer transfer semantics and adversarial boundaries before production Solidity.
 
 Canonical equations:
 
@@ -17,91 +17,105 @@ h=Gx
 ```
 
 ```math
-B_i \ge Sx_i
+B_i\ge Sx_i
 ```
 
 ```math
-SettlementBalance \ge Supply\times FinalPayout
+\sum_s Reserved_{s,a}\le PhysicalBalance_a
 ```
 
-## Locked architecture decisions
+```math
+SettlementBalance\ge Supply\times FinalPayout
+```
 
-- Monad-native outcome ERC-20s are Phase-1 PRISM backing.
-- No same-chain `BackingMirror`.
-- No terminal-state enumeration inside mint.
-- Basket mode is default PRISM MVP admission.
-- Payoff mode must solve exact `Gx=h, x>=0` or reject.
-- Native market creation and PRISM series creation are separate flows.
-- Retail PRISM BUY and primary PRISM CREATE are separate flows.
-- `RESOLVED` and `REDEEMABLE` are separate lifecycle states.
-- Production Solidity starts only after MATH-1 verdict.
+## Newly resolved executable gaps
 
-## Current artifact status
-
-Implemented artifacts now include:
+Implemented:
 
 ```text
-research/prism-model/model.py
-research/prism-model/replication.py
-research/prism-model/settlement.py
-research/prism-model/market_math.py
-research/prism-model/bounded_verification.py
-research/prism-model/fixed_point.py
+research/prism-model/reservation_ledger.py
+research/prism-model/native_market.py
+research/prism-model/fixed_point_model.py
+research/prism-model/adversarial.py
+research/prism-model/model.py  # stateful partial-resolution extension
+research/prism-model/tests/test_executable_gaps.py
 ```
 
-and tests for the base model, market math, bounded verification and candidate fixed-point policy.
+This closes the previous reference-model gaps for:
+- cross-series backing reservation uniqueness;
+- stateful native complete-set split/merge/resolve/redeem;
+- stateful payoff-equivalent partial backing transformation;
+- mixed redemption after partial resolution;
+- deterministic 0..18-decimal normalization;
+- conservative integer backing requirements;
+- integer redemption preservation;
+- integer binary terminal-solvency checks;
+- conservative final-settlement funding/redemption;
+- deterministic randomized fixed-point/reservation stress.
 
-These artifacts are not a gate PASS by existence alone. Final closure requires a fresh full-suite run with captured evidence.
+Proof/theorem status is maintained in:
+
+```text
+docs/math/05_BACKING_SOLVENCY.md
+docs/math/16_INVARIANTS.md
+docs/math/17_THEOREMS.md
+```
+
+## Validation evidence
+
+See:
+
+```text
+evidence/latest/MATH1_EXECUTABLE_GAPS_VALIDATION_2026-09-17.md
+```
+
+Recorded implementation-tranche result:
+
+```text
+51 regression/gap tests -> OK
+5000 deterministic fixed-point stress steps
+20000 terminal-state checks
+5000 deterministic reservation stress steps
+no accounting counterexample in declared run
+```
+
+This is executable evidence, not future Solidity proof.
 
 ## Remaining work packages
 
-### A. Adversarial model
-- randomized action sequences;
-- over-mint/over-redemption attempts;
-- duplicate resolution;
-- action reordering;
-- invalid partial-resolution transformation;
-- backing double-allocation abstraction;
-- zero/extreme-weight cases.
+### A. Bounded/exhaustive completion
+- lifecycle reachability enumeration;
+- independent per-component surplus grid;
+- minimal-counterexample serialization.
 
-### B. Exhaustive lifecycle verification
-- enumerate reachable lifecycle paths;
-- verify every forbidden transition;
-- serialize minimal counterexamples on mutation failure.
+### B. Adversarial boundary completion
+- broader action-ordering fuzzer;
+- zero/extreme-weight matrix;
+- configured maximum-value/overflow boundaries.
 
-### C. Fixed-point completion
-- component decimal normalization;
-- cumulative dust bound;
-- dust ownership policy;
-- Solidity-compatible fixtures;
-- no-underback rounding proof.
+### C. Solidity-equivalence fixtures
+- explicit 6/8/18-decimal matrix;
+- machine-readable Python fixtures;
+- uint256-safe configured maxima;
+- full-precision mulDiv semantics;
+- zero-supply final settlement-dust disposition.
 
 ### D. Formal assistance
-- encode selected theorems in SymPy/Z3 where useful;
-- maintain theorem-status registry;
-- distinguish proof from bounded checks.
+- Z3/SymPy only where it adds assurance beyond trivial algebra;
+- machine-readable theorem-status output.
 
-### E. Market model classification
-- create/redeem arbitrage convergence;
-- stale-order/resolution jump risk;
-- MM inventory/PnL;
+### E. Empirical market model
+- arbitrage convergence;
+- stale-order/resolution-jump risk;
+- market-maker inventory/PnL;
 - liquidity-capital sensitivity;
 - post-resolution quote-token volatility.
 
-Every result must be classified as:
-
-```text
-PROVEN_UNDER_ASSUMPTIONS
-EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN
-SUPPORTED_BY_SIMULATION
-SUPPORTED_BY_LIVE_EVIDENCE
-NOT_YET_VALIDATED
-COUNTEREXAMPLE_FOUND
-```
+Market-model results remain separate from accounting safety.
 
 ## Completion verdict
 
-Close this goal only with:
+Close only with:
 
 ```text
 MATH-1 = PASS
@@ -119,7 +133,7 @@ or:
 MATH-1 = FAIL
 ```
 
-A core accounting/solvency kill criterion forces `FAIL`.
+Production Solidity remains blocked until that verdict and `CONTRACT-ARCH-1`.
 
 ## Out of scope
 
@@ -127,5 +141,4 @@ A core accounting/solvency kill criterion forces `FAIL`.
 - Polymarket custody;
 - arbitrary StatePool/SLE;
 - approximate replication;
-- production frontend;
 - claims that liquidity/demand are mathematically proven.

@@ -2,11 +2,17 @@
 
 This directory is the **semantic reference implementation** for RetroPick/PRISM MATH-1.
 
-It is deliberately split into two layers:
+It separates protocol accounting from market behavior:
 
 ```text
 ACCOUNTING / SOLVENCY KERNEL
   exact payoff + backing + lifecycle + settlement
+
+GLOBAL / STATEFUL SAFETY
+  native complete sets + cross-series reservations + partial resolution
+
+FIXED-POINT TRANSFER
+  integer backing + decimal normalization + settlement rounding
 
 MARKET MATH
   complete-set parity + executable NAV relations + quote-pair identities
@@ -14,60 +20,40 @@ MARKET MATH
 
 Market math must not be confused with protocol safety.
 
-The model is intentionally not:
-- a smart contract;
-- a bridge;
-- a production service;
-- evidence of guaranteed liquidity;
-- evidence of future demand.
-
-It uses `fractions.Fraction` so Phase-1 semantics can be checked without floating-point error.
-
----
-
 ## Proof-layer relationship
 
-Repository authority is:
-
 ```text
-docs/protocol/
-  protocol/economic semantics
+docs/protocol/    economic semantics
       ↓
-docs/math/
-  definitions, assumptions, proofs, theorem/invariant traceability
+docs/math/        definitions, assumptions, proofs, theorem/invariant registry
       ↓
-research/prism-model/
-  executable semantic oracle
+research/prism-model/   executable semantic oracle
       ↓
-contracts/
-  future implementation
+contracts/        future implementation
 ```
 
 Canonical math documents:
-
 - `../../docs/math/01_DEFINITIONS.md`
 - `../../docs/math/02_ASSUMPTIONS.md`
 - `../../docs/math/05_BACKING_SOLVENCY.md`
 - `../../docs/math/16_INVARIANTS.md`
 - `../../docs/math/17_THEOREMS.md`
 
-Formal claim status lives in `docs/math/17_THEOREMS.md`. Detailed protocol semantics remain in `docs/protocol/`.
-
----
-
 ## Files
 
-- `model.py`: PRISM series state, backing, supply, mint/redeem and final settlement.
+- `model.py`: PRISM series state, exact backing, mint/redeem, partial-resolution transformation and final settlement.
 - `lifecycle.py`: legal PRISM state transitions.
 - `replication.py`: payoff matrices, exact payoff construction and small-system replication solver.
-- `settlement.py`: terminal backing/settlement helpers.
-- `market_math.py`: complete-set accounting, bid/ask parity, PRISM create/redeem values, partial-resolution NAV and post-resolution quote ratio.
-- `bounded_verification.py`: finite-domain mint/redeem/solvency/settlement checks.
-- `fixed_point.py`: candidate conservative integer/fixed-point helpers; not yet production-proven.
+- `settlement.py`: exact terminal backing/settlement helpers.
+- `reservation_ledger.py`: global reservation ledger preventing double allocation of physical backing across series.
+- `native_market.py`: stateful fully collateralized binary complete-set split/merge/resolve/redeem model.
+- `fixed_point.py`: primitive integer rounding helpers.
+- `fixed_point_model.py`: WAD/per-token-decimal backing, conservative redemption, binary terminal-solvency and final-settlement model.
+- `adversarial.py`: deterministic randomized stress runners for fixed-point and reservation invariants.
+- `market_math.py`: complete-set bid/ask parity, PRISM create/redeem values, partial-resolution NAV and post-resolution quote ratio.
+- `bounded_verification.py`: finite-domain exact mint/redeem/solvency/settlement checks.
 - `scenarios.py`: deterministic human-readable examples.
-- `tests/`: unit/counterexample tests.
-
----
+- `tests/`: unit, counterexample, gap, randomized and regression tests.
 
 ## Canonical equations
 
@@ -77,16 +63,16 @@ Admission:
 h=Gx
 ```
 
-or solve target payoff:
-
-```math
-Gx=h^*,\quad x\ge0
-```
-
-Runtime backing:
+Runtime exact backing:
 
 ```math
 B_i\ge Sx_i
+```
+
+Global reservation:
+
+```math
+\sum_s Reserved_{s,a}\le PhysicalBalance_a
 ```
 
 Final funding:
@@ -95,32 +81,39 @@ Final funding:
 SettlementBalance\ge Supply\times FinalPayout
 ```
 
-Native complete-set conservation:
+Native active complete-set conservation:
 
 ```math
 YES_{supply}=NO_{supply}=CollateralLocked
 ```
 
-in the simple fully collateralized Phase-1 model.
+## Precision policy under executable validation
 
----
+Phase-1 candidate integer semantics use:
+
+```text
+series scale: 1e18
+supported component decimals: 0..18
+backing requirement: ceil exact requirement into raw token units
+redemption release: old conservative requirement - new conservative requirement
+final settlement requirement: ceil aggregate liability
+per-redemption cash payout: floor payout
+residual dust: never sweep while supply/liability remains
+```
+
+The requirement-delta redemption rule is stronger than blindly applying `floor(Q*x)` per call: it directly guarantees the post-redemption backing requirement remains satisfied despite token-decimal granularity.
 
 ## Run
 
 ```bash
 python -m unittest discover -s tests -v
 python scenarios.py
+python adversarial.py
 ```
 
-A bounded verification run must record its input bounds before its result is classified as `EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN`.
-
----
+A bounded or randomized run is evidence over its declared domain, not a universal proof.
 
 ## Scientific classification
-
-Passing tests is evidence, not automatically a universal proof.
-
-Canonical status language:
 
 ```text
 PROVEN_UNDER_ASSUMPTIONS
@@ -131,66 +124,38 @@ NOT_YET_VALIDATED
 COUNTEREXAMPLE_FOUND
 ```
 
-`docs/math/17_THEOREMS.md` is the claim registry. It explicitly separates:
-
-- exact mathematical theorems;
-- finite-domain executable verification;
-- known counterexamples;
-- implementation-equivalence gaps;
-- empirical market hypotheses.
-
----
+`docs/math/17_THEOREMS.md` remains the canonical theorem/hypothesis registry.
 
 ## Current oracle coverage
 
-Strong current coverage:
+Now modeled executable safety properties include:
 
 ```text
 exact payoff h=Gx
-non-negative exact replication
-component backing
-back-first mint
+exact/non-negative replication
+component backing and back-first mint
 in-kind redemption
-terminal solvency evaluation
+terminal solvency
 PRISM lifecycle monotonicity
 final settlement funding/redemption
-complete-set static accounting helpers
-executable bid/ask reference math
-```
-
-Explicit gaps tracked in `docs/math/16_INVARIANTS.md` include:
-
-```text
-stateful native split/merge model
+stateful native complete-set split/merge/resolve/redeem
 global cross-series backing reservation uniqueness
-stateful partial-resolution backing transformation
-production fixed-point theorem transfer
-live Kuru/accounting-domain separation
+stateful partial-resolution component -> settlement transformation
+mixed component/cash redemption after partial resolution
+6/18-decimal normalized fixed-point backing
+fixed-point binary terminal solvency
+fixed-point final-settlement funding preservation
+deterministic randomized reservation/fixed-point stress runners
 ```
 
-Do not treat those gaps as implemented merely because the protocol docs describe the desired behavior.
-
----
-
-## Important scope boundary
-
-`market_math.py` computes exact economic reference quantities from supplied prices. It does not assume real traders will instantly arbitrage toward those quantities.
-
-For example:
-
-```math
-Bid_Y+Bid_N>1+cost
-```
-
-creates a split-and-sell incentive if executable depth exists. It does not force the live orderbook to obey equality at every moment.
-
-The accounting/solvency kernel must remain correct even if:
+Still outside the executable proof boundary:
 
 ```text
-Kuru liquidity = 0
-arbitrage participation = 0
-market maker offline
-secondary price materially wrong
+live Kuru/LP/MM accounting-domain separation
+production Solidity equivalence
+formal solver proof artifacts (Z3/SymPy)
+market depth, arbitrage speed, MM profitability and user demand
+cross-chain wrapped outcomes
 ```
 
-Market behavior cannot be a hidden premise of solvency.
+The accounting kernel must remain correct even if exchange liquidity or arbitrage participation is zero.

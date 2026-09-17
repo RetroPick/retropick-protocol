@@ -1,14 +1,39 @@
-# Canonical Phase-1 Protocol Documents
+# Canonical Protocol Documents
 
-These files define the PRISM SPEC + MATH contract before Solidity.
+These files define RetroPick/PRISM financial semantics before Solidity.
 
-Read in order:
+## Read order
 
-1. `PRISM_PROTOCOL_SPEC.md`
-2. `MATH_MODEL.md`
-3. `INVARIANTS.md`
-4. `STATE_MACHINE.md`
-5. `FAILURE_MODES.md`
-6. `CONTRACT_REQUIREMENTS.md`
+1. `PRISM_PROTOCOL_SPEC.md` — Phase-1 financial objects and boundaries.
+2. `ASSUMPTIONS.md` — assumptions used by theorems/tests.
+3. `MATH_MODEL.md` — exact payoff/backing/settlement mathematics.
+4. `CLAIMS.md` — claim type/status/evidence registry.
+5. `INVARIANTS.md` — properties implementation must never violate.
+6. `STATE_MACHINE.md` — legal lifecycle states/transitions.
+7. `FAILURE_MODES.md` — kill criteria and failure classification.
+8. `PRECISION_MODEL.md` — fixed-point/rounding gate before Solidity.
+9. `CONTRACT_REQUIREMENTS.md` — implementation obligations derived from the model.
+
+Related architecture:
+- `../04-architecture/SYSTEM_ARCHITECTURE.md`
+- `../04-architecture/SMART_CONTRACTS.md`
+
+Related execution control:
+- `../05-hackathon/PHASE_GATES.md`
+- `../06-execution/ROADMAP.md`
+
+Historical-report reconciliation:
+- `../00-context/REPORT_RECONCILIATION.md`
+
+## Authority rule
 
 Implementation must not silently contradict these files.
+
+If code requires different economics:
+1. stop implementation;
+2. document the changed assumption;
+3. write/supersede an ADR;
+4. update the reference model;
+5. re-run the affected gate.
+
+The implementation is downstream of the model, not a competing source of truth.

@@ -4,8 +4,6 @@
 **Source invariants:** `../protocol/INVARIANTS.md`  
 **Executable oracle:** `../../research/prism-model/`
 
-This document does not redefine invariant semantics. It maps every accepted invariant to its proof role, current Python enforcement/evidence, future contract target, and known coverage gaps.
-
 Coverage labels:
 
 ```text
@@ -16,236 +14,201 @@ NOT_YET_MODELED
 FUTURE_PHASE
 ```
 
-`ORACLE_CHECKED` means a helper/test can evaluate the property; it does not necessarily mean every state mutation is guarded by that helper.
-
 ---
 
 ## 1. Native complete-set invariants
 
-| ID | Mathematical / protocol statement | Current Python oracle | Coverage | Future Solidity / test target |
+| ID | Statement | Current Python oracle | Coverage | Future Solidity target |
 |---|---|---|---|---|
-| `INV-N01` | Split `C` collateral -> `C YES + C NO` and locks `C` collateral | `market_math.assert_complete_set_conservation()` checks resulting identity, but no stateful split object exists yet | `ORACLE_CHECKED` | `CompleteSetVault.split`; invariant `YES_supply == NO_supply == collateralLocked` |
-| `INV-N02` | Equal YES/NO merge releases corresponding collateral | No stateful native complete-set transition model yet | `NOT_YET_MODELED` | `CompleteSetVault.merge`; conservation/property tests |
-| `INV-N03` | `YES(omega)+NO(omega)=1` in every valid binary terminal state | Can be represented/tested through payoff matrices; no dedicated named helper | `ORACLE_CHECKED` | Native resolution fixture/invariant suite |
-| `INV-N04` | `OI = YES_supply = NO_supply = CollateralLocked` | `market_math.complete_set_open_interest()` + `assert_complete_set_conservation()` | `ORACLE_ENFORCED` | Envio/indexed OI derived from canonical contract accounting |
-| `INV-N05` | Activated resolution spec/final result immutable | PRISM lifecycle models final-state monotonicity; native market resolution object not yet modeled | `NOT_YET_MODELED` | Immutable/pinned `ResolutionSpec`; finalization-once Foundry tests |
+| `INV-N01` | Split `C` collateral -> `C YES + C NO` and lock `C` | `native_market.BinaryCompleteSetMarket.split()` + `assert_invariants()` | `ORACLE_ENFORCED` | `CompleteSetVault.split`; supply/collateral stateful invariant |
+| `INV-N02` | Equal YES/NO merge releases corresponding collateral | `BinaryCompleteSetMarket.merge()` | `ORACLE_ENFORCED` | `CompleteSetVault.merge`; conservation tests |
+| `INV-N03` | `YES(omega)+NO(omega)=1` in valid binary terminal states | binary payoff fixtures + resolved native market model | `ORACLE_CHECKED` | resolution fixture/invariant suite |
+| `INV-N04` | Active OI = `YES_supply = NO_supply = CollateralLocked` | `BinaryCompleteSetMarket.open_interest()` + static market helpers | `ORACLE_ENFORCED` | indexed OI derived from canonical contract state |
+| `INV-N05` | Final native result cannot be committed twice | `BinaryCompleteSetMarket.resolve()` only from `ACTIVE` | `ORACLE_ENFORCED` for finalization-once; ResolutionSpec content immutability remains architectural | immutable `ResolutionSpec` + finalization-once tests |
 
-### Native gap
+After native resolution the stateful oracle enforces:
 
-Before `CONTRACT-ARCH-1`, add a small stateful native complete-set oracle or explicitly keep native-market proofs outside PRISM MATH-1. Do not infer split/merge mutation safety merely from static parity helpers.
-
----
-
-## 2. PRISM replication and backing invariants
-
-| ID | Statement | Python mapping | Coverage | Proof / contract target |
-|---|---|---|---|---|
-| `INV-P01` | Activated series satisfies exact `h=Gx`, `x>=0` | `replication.normalize_matrix()`, `payoff()`, `find_exact_nonnegative_replication()`, `is_exactly_replicable()` | `ORACLE_ENFORCED` | `T-REPL-001`; admission compiler/registry stores immutable replication commitment |
-| `INV-P02` | Activated component set/weights/semantics immutable | `PrismSeries.weights` is initialized once in model; no mutation API exists | `ORACLE_ENFORCED` structurally | Factory/registry immutability tests |
-| `INV-P03` | `B_i >= S*x_i` for every component | `required_backing()`, `backing_margin()`, `assert_component_backed()` | `ORACLE_ENFORCED` | `T-BS-001..003`; runtime backing invariant |
-| `INV-P04` | Backing first, mint second | `mint()` checks post-mint requirement before changing `supply`; `mint_with_exact_backing()` deposits then mints | `ORACLE_ENFORCED` | Mint controller must reserve/receive all backing before supply increase |
-| `INV-P05` | In-kind redemption releases no more than `Q*x_i` and leaves remainder backed | `redeem_in_kind()` + `assert_component_backed()` | `ORACLE_ENFORCED` | `T-BS-002`; burn/decrease liability before proportional release |
-| `INV-P06` | `V_B(omega) >= L_P(omega)` for every modeled terminal world | `terminal_solvency()`, `settlement.terminal_backing_value()`, `bounded_verification.verify_terminal_solvency_grid()` | `ORACLE_CHECKED` | `T-BS-003`; admission + component backing imply this property |
-| `INV-P07` | Same reserved units cannot satisfy two independent liabilities | Single-series model has no global reservation ledger | `NOT_YET_MODELED` | Series reservation ledger / global allocation invariant; cross-series stateful test |
-| `INV-P08` | Partial-resolution transformation preserves remaining payoff obligation | `market_math.partial_resolution_nav()` values resolved/unresolved mixture, but no stateful backing transformation is implemented | `NOT_YET_MODELED` | Explicit transformation rule + before/after payoff-equivalence assertion |
-| `INV-P09` | `REDEEMABLE -> SettlementBalance >= Supply*FinalPayout` | `settlement_is_funded()`, `PrismSeries.make_redeemable()` | `ORACLE_ENFORCED` | `T-BS-004`; hard lifecycle funding gate |
-| `INV-P10` | Final burn pays deterministic `Q*FinalPayout` and preserves funding | `PrismSeries.redeem_final()`, `verify_settlement_redemption_grid()` | `ORACLE_ENFORCED` / `ORACLE_CHECKED` | `T-BS-004`; payout/burn conservation |
-| `INV-P11` | Lifecycle monotonicity; no resurrection | `lifecycle._ALLOWED`, `can_transition()`, `transition()` | `ORACLE_ENFORCED` | Stateful Foundry lifecycle invariant |
-| `INV-P12` | Final resolution committed once | `resolve()` only from `RESOLUTION_PENDING`; transition then moves to `RESOLVED` | `ORACLE_ENFORCED` | Final-result immutability + duplicate-resolution revert |
-| `INV-P13` | Backing != LP/MM inventory != fee balances | Model only represents series backing and settlement; external inventory domains are not modeled | `DOC_CLASSIFIED` | Separate storage/accounting domains; integration tests ensure no aliasing |
-| `INV-P14` | Runtime mint does not enumerate terminal worlds | `mint()` uses `required_backing()` only; `terminal_solvency()` is separate diagnostic | `ORACLE_ENFORCED` structurally | Contract mint loops components only, never `Omega` |
-
----
-
-## 3. Market/economic classification invariants
-
-| ID | Statement | Python / docs mapping | Coverage | Required evidence |
-|---|---|---|---|---|
-| `INV-M01` | Market convergence/MM profitability/demand/depth are not called formal proofs | `docs/math/17_THEOREMS.md`, `docs/protocol/MATH_MODEL.md`, model README | `DOC_CLASSIFIED` | Simulation/live evidence only |
-| `INV-M02` | Complete-set arbitrage uses executable bid/ask sides | `market_math.split_and_sell_profit()`, `buy_and_merge_profit()` | `ORACLE_ENFORCED` as reference math | Later Kuru depth-aware experiments |
-| `INV-M03` | Retail secondary trade does not modify backing; primary CREATE does | No exchange/user state model currently | `DOC_CLASSIFIED` | E2E integration tests after Kuru contracts exist |
-
----
-
-## 4. Fixed-point implementation invariants
-
-The protocol invariant file refers to precision tolerance through `INV-P09/P10`, while the candidate implementation model lives in `fixed_point.py`.
-
-Candidate MATH-1D rules:
-
-```text
-required backing -> ceil
-releasable backing -> floor
+```math
+CollateralLocked = RemainingWinningSupply
 ```
 
-Current helpers:
-
-```text
-mul_div_floor()
-mul_div_ceil()
-encode_fraction_floor()
-encode_fraction_ceil()
-required_backing_units()
-releasable_backing_units()
-round_trip_dust_units()
-exact_required_fraction()
-```
-
-Current classification:
-
-```text
-IMPLEMENTED_CANDIDATE
-NOT_YET_PROVEN_FOR_PRODUCTION
-```
-
-Before inheriting exact-theorem status in Solidity, add explicit invariants:
-
-- integer post-mint requirement can never be below exact required backing after normalization;
-- integer release can never exceed exact entitlement after normalization;
-- cumulative dust has a deterministic upper bound;
-- no cyclic mint/redeem sequence yields positive extraction;
-- mixed component token decimals are normalized deterministically.
+until winning claims are redeemed. Losing claims can be burned for zero before archive.
 
 ---
 
-## 5. Invariant-to-theorem mapping
+## 2. PRISM replication/backing invariants
+
+| ID | Statement | Python mapping | Coverage | Contract target |
+|---|---|---|---|---|
+| `INV-P01` | Activated series satisfies exact `h=Gx`, `x>=0` | `replication.payoff()`, exact solver | `ORACLE_ENFORCED` | immutable admission commitment |
+| `INV-P02` | Activated component/weight semantics immutable | no mutation API on `PrismSeries.weights`; conditioned resolution only narrows state space | `ORACLE_ENFORCED` structurally | immutable registry data |
+| `INV-P03` | `B_i >= Sx_i` | `required_backing()`, `assert_component_backed()` | `ORACLE_ENFORCED` | runtime component requirement |
+| `INV-P04` | Backing first, mint second | `mint()` and `mint_with_exact_backing()` | `ORACLE_ENFORCED` | supply changes only after backing established |
+| `INV-P05` | In-kind redemption cannot leave remaining supply underbacked | `redeem_in_kind()`; `redeem_in_kind_mixed()` after partial resolution | `ORACLE_ENFORCED` | liability decrease then safe release |
+| `INV-P06` | `V_B(omega) >= L_P(omega)` | conditioned `terminal_solvency()`, bounded verifier | `ORACLE_CHECKED` + exact proof | no state enumeration in mint |
+| `INV-P07` | Same physical units cannot secure two independent liabilities | `reservation_ledger.ReservationLedger` | `ORACLE_ENFORCED` in reference transition system | global reservation ledger or equivalent vault partitioning |
+| `INV-P08` | Finalized component -> settlement transformation preserves remaining obligations | `resolve_component()`, `possible_states`, `transformed_settlement`, mixed redemption | `ORACLE_ENFORCED` in exact oracle | state-conditioned backing transformation |
+| `INV-P09` | `REDEEMABLE -> SettlementBalance >= Supply*FinalPayout` | exact settlement model + `FixedPointSettlement.make_redeemable()` | `ORACLE_ENFORCED` | hard funding gate |
+| `INV-P10` | Final redemption preserves funding | exact `redeem_final()` + integer `FixedPointSettlement.redeem()` | `ORACLE_ENFORCED` | deterministic payout/burn |
+| `INV-P11` | Lifecycle monotonicity/no resurrection | `lifecycle._ALLOWED` | `ORACLE_ENFORCED` | stateful Foundry invariant |
+| `INV-P12` | Final PRISM resolution committed once | `resolve()` only from `RESOLUTION_PENDING` | `ORACLE_ENFORCED` | final-result immutability |
+| `INV-P13` | Backing != LP/MM inventory != fees | protocol oracle models backing/settlement separately but not live Kuru/MM balances | `DOC_CLASSIFIED` | distinct storage/accounting domains + integration tests |
+| `INV-P14` | Mint does not enumerate terminal worlds | `mint()` uses component requirement only | `ORACLE_ENFORCED` structurally | component loop only |
+
+---
+
+## 3. Cross-series reservation invariant
+
+For physical asset `a`:
+
+```math
+\boxed{\sum_s Reserved_{s,a}\le PhysicalBalance_a}
+```
+
+`ReservationLedger` enforces this across:
+- deposit;
+- reserve;
+- release;
+- withdrawal.
+
+A reservation request larger than currently unreserved balance is rejected atomically. A withdrawal that would consume reserved backing is rejected.
+
+This closes the previous series-local `INV-P07` oracle gap for the reference transition system. Production storage authority still must implement equivalent semantics.
+
+---
+
+## 4. Partial-resolution invariant
+
+When component `i` finalizes at payout `r_i`, the exact oracle conditions feasible terminal worlds to:
+
+```math
+\Omega' = \{\omega\mid g_i(\omega)=r_i\}
+```
+
+and replaces component backing value:
+
+```math
+B_i r_i
+```
+
+with equal settlement backing.
+
+`PrismSeries.resolve_component()`:
+- rejects duplicate resolution;
+- rejects payout inconsistent with all remaining worlds;
+- pauses mint on first payoff-relevant partial resolution;
+- zeros transformed component backing;
+- adds exact settlement replacement;
+- narrows `possible_states`;
+- re-checks backing.
+
+`redeem_in_kind_mixed()` then releases unresolved components plus proportional transformed settlement while preserving the remaining requirement.
+
+---
+
+## 5. Fixed-point implementation invariants
+
+Candidate normalized domain:
+
+```text
+series scale = 1e18
+component decimals = 0..18
+```
+
+For component decimal factor `f_i=10^(18-d_i)`:
+
+```math
+Req_i(S)=ceil(S*x_i/(WAD*f_i)).
+```
+
+Integer model:
+
+```text
+research/prism-model/fixed_point_model.py
+```
+
+Current coverage:
+
+| Precision property | Oracle | Coverage |
+|---|---|---|
+| post-mint raw backing never below conservative requirement | `FixedPointSeries.mint()` | `ORACLE_ENFORCED` |
+| minimum incremental backing uses total-supply requirement delta | `minimum_incremental_backing()` | `ORACLE_ENFORCED` |
+| redemption cannot underback remaining supply | `FixedPointSeries.redeem()` | `ORACLE_ENFORCED` |
+| raw-to-normalized conversion for `0..18` decimals is deterministic/exact | `decimal_factor()`, `normalize_raw()` | `ORACLE_ENFORCED` |
+| binary terminal backing covers conservative integer liability | `terminal_solvency_binary()` | `ORACLE_CHECKED` |
+| dust cannot be swept while supply exists | `sweepable_dust()` | `ORACLE_ENFORCED` |
+| final settlement cannot become redeemable while underfunded | `FixedPointSettlement.make_redeemable()` | `ORACLE_ENFORCED` |
+| rounded final redemption preserves remaining required funding | `FixedPointSettlement.redeem()` | `ORACLE_ENFORCED` |
+
+Production Solidity equivalence remains downstream work even where the candidate integer reference semantics are now proven/checked.
+
+---
+
+## 6. Market/economic classification invariants
+
+| ID | Statement | Mapping | Coverage |
+|---|---|---|---|
+| `INV-M01` | Convergence/MM profitability/demand/depth are not called formal proofs | theorem registry + protocol docs | `DOC_CLASSIFIED` |
+| `INV-M02` | Complete-set arbitrage uses executable bid/ask sides | `market_math.split_and_sell_profit()`, `buy_and_merge_profit()` | `ORACLE_ENFORCED` as reference math |
+| `INV-M03` | Retail trade does not change backing; primary CREATE does | architecture docs; no real Kuru state model yet | `DOC_CLASSIFIED` |
+
+---
+
+## 7. Adversarial executable coverage
+
+`adversarial.py` currently provides deterministic randomized runners for:
+
+```text
+fixed-point mint/redeem + all canonical pFEDBTC terminal states
+cross-series reservation/release pressure
+```
+
+The regression suite also covers:
+- over-allocation rejection;
+- reserved-balance withdrawal rejection;
+- native split/merge conservation;
+- winner/loser redemption after resolution;
+- archive preconditions;
+- partial-resolution state conditioning;
+- mint pause after partial resolution;
+- mixed component/cash redemption;
+- invalid terminal-state resolution after conditioning;
+- 6-decimal normalization;
+- integer terminal solvency;
+- final-settlement underfunding rejection.
+
+Randomized evidence does not replace the algebraic proofs in `05_BACKING_SOLVENCY.md`.
+
+---
+
+## 8. Invariant-to-theorem mapping
 
 | Invariant | Theorem / classification |
 |---|---|
+| `INV-N01/N02/N04` | `T-NATIVE-001` |
 | `INV-P01` | `T-REPL-001`, `CX-REPL-001` |
-| `INV-P03` | `T-BS-001`, `T-BS-002`, `T-BS-003` |
-| `INV-P04` | `T-BS-001` |
-| `INV-P05` | `T-BS-002` |
+| `INV-P03/P04` | `T-BS-001`, `T-FP-001` |
+| `INV-P05` | `T-BS-002`, `T-FP-002` |
 | `INV-P06` | `T-BS-003` |
-| `INV-P07` | Necessary premise for global solvency; implementation theorem pending |
-| `INV-P08` | Partial-resolution transformation theorem pending |
-| `INV-P09` | `T-BS-004` |
-| `INV-P10` | `T-BS-004` |
-| `INV-P11` | `T-LC-001` |
-| `INV-P12` | `T-LC-002` |
-| `INV-M02` | `H-MKT-001` uses these executable values but remains empirical |
+| `INV-P07` | `T-ALLOC-001` |
+| `INV-P08` | `T-PARTIAL-002` |
+| `INV-P09/P10` | `T-BS-004`, `T-FP-003` |
+| rounding cycle safety | `T-FP-004` |
+| `INV-P11/P12` | `T-LC-001/T-LC-002` |
+| `INV-M02` | market-reference math; not a convergence theorem |
 
 ---
 
-## 6. Invariant-to-oracle action map
+## 9. Remaining executable gaps
 
-### Mint
+The prior core accounting gaps are now represented in the Python oracle. Remaining pre-Solidity work is narrower:
 
-```text
-PrismSeries.mint()
-  -> state must be ACTIVE
-  -> quantity > 0
-  -> required_backing(new_supply)
-  -> verify backing >= requirement
-  -> update supply
-  -> assert_component_backed()
-```
+1. generate deterministic machine-readable Python fixtures for Solidity differential tests;
+2. add explicit 6/8/18-decimal CI matrix and configured uint256 boundary tests;
+3. decide final settlement-dust disposition after zero supply;
+4. add fixed-point partial-resolution transformation if production Phase 1 requires partial conversion before final settlement;
+5. encode theorem/algebra checks in Z3/SymPy where useful and emit machine-readable theorem status;
+6. model/check live separation from Kuru LP/MM/fee balances during integration;
+7. perform Solidity differential/stateful invariant testing after CONTRACT-ARCH-1.
 
-Protects primarily:
-
-```text
-INV-P03
-INV-P04
-INV-P14
-```
-
-### In-kind redemption
-
-```text
-PrismSeries.redeem_in_kind()
-  -> allowed lifecycle state
-  -> Q <= supply
-  -> compute Q*x
-  -> reduce supply
-  -> release backing
-  -> assert_component_backed()
-```
-
-Protects:
-
-```text
-INV-P03
-INV-P05
-```
-
-### Resolution/funding/final redemption
-
-```text
-start_resolution()
-resolve()
-fund_settlement()
-make_redeemable()
-redeem_final()
-archive()
-```
-
-Protects/checks:
-
-```text
-INV-P09
-INV-P10
-INV-P11
-INV-P12
-```
-
----
-
-## 7. Bounded verification mapping
-
-`bounded_verification.py` currently provides finite-domain evidence for:
-
-```text
-verify_mint_redeem_grid()
-  INV-P03/P04/P05
-
-verify_terminal_solvency_grid()
-  INV-P06
-
-verify_settlement_redemption_grid()
-  INV-P09/P10
-```
-
-These results must be classified as:
-
-```text
-EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN
-```
-
-for the declared bounds, not universal proof.
-
-The universal exact statements come from the algebraic proofs in `05_BACKING_SOLVENCY.md`.
-
----
-
-## 8. Current MATH-1 coverage gaps
-
-The following accepted invariants are not fully represented in the current executable oracle and must remain visible:
-
-1. `INV-N02` stateful complete-set merge conservation;
-2. `INV-N05` native ResolutionSpec/finalization immutability;
-3. `INV-P07` global/cross-series reservation uniqueness;
-4. `INV-P08` stateful payoff-equivalent partial backing transformation;
-5. `INV-P13` separation from live Kuru LP/MM/fee accounting;
-6. production fixed-point versions of `INV-P03/P05/P09/P10`;
-7. retail trade vs primary creation in a real exchange-integrated state model.
-
-No MATH-1 verdict may claim these are proven merely because related prose exists.
-
----
-
-## 9. Future Solidity traceability contract
-
-`CONTRACT-ARCH-1` must extend this table so every safety-critical invariant has:
-
-```text
-Invariant ID
--> contract/storage authority
--> mutating functions
--> require/revert condition
--> event evidence
--> Foundry unit test
--> Foundry stateful invariant
--> Python differential fixture
-```
-
-No safety-critical storage mutation should exist without an invariant owner.
+No remaining market-behavior uncertainty is allowed to be confused with protocol solvency.

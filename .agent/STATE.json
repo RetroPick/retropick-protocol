@@ -1,31 +1,64 @@
 {
   "project": "retropick-protocol",
   "hackathon": "Monad Metropolis 2026",
-  "phase": "phase-1-spec-math",
+  "phase": "p1-spec-to-p2-math1",
   "current_goal": "METROPOLIS-P1-MATH-1",
+  "current_gate": "MATH-1",
   "math_gate": "IN_PROGRESS",
   "production_solidity_authorized": false,
   "target_chain": "Monad",
   "protocol_mode": "exact-backed-long-only-replication",
+  "phase_control": "docs/05-hackathon/PHASE_GATES.md",
   "canonical_docs": [
+    "docs/00-context/REPORT_RECONCILIATION.md",
     "docs/protocol/PRISM_PROTOCOL_SPEC.md",
+    "docs/protocol/ASSUMPTIONS.md",
     "docs/protocol/MATH_MODEL.md",
+    "docs/protocol/CLAIMS.md",
     "docs/protocol/INVARIANTS.md",
     "docs/protocol/STATE_MACHINE.md",
     "docs/protocol/FAILURE_MODES.md",
-    "docs/protocol/CONTRACT_REQUIREMENTS.md"
+    "docs/protocol/PRECISION_MODEL.md",
+    "docs/protocol/CONTRACT_REQUIREMENTS.md",
+    "docs/04-architecture/SYSTEM_ARCHITECTURE.md",
+    "docs/04-architecture/SMART_CONTRACTS.md"
   ],
+  "math_subgates": {
+    "MATH-1A_exact_reference_model": "ACTIVE",
+    "MATH-1B_exhaustive_finite_domain": "PENDING",
+    "MATH-1C_adversarial_property": "PENDING",
+    "MATH-1D_fixed_point_rounding": "PENDING",
+    "MATH-1E_formal_assistance": "PENDING",
+    "MATH-1F_market_simulation": "PENDING"
+  },
   "locked_constraints": {
+    "native_markets_separate_from_prism": true,
     "mint_back_first": true,
+    "component_runtime_invariant": "B_i >= S*x_i",
+    "exact_replication": "h = Gx",
+    "basket_mode_default_mvp": true,
+    "no_phase1_backing_mirror": true,
+    "no_phase1_cross_chain_backing": true,
+    "no_state_enumeration_in_mint": true,
+    "resolved_not_equal_redeemable": true,
+    "settlement_funding_gate": true,
+    "retail_buy_separate_from_primary_create": true,
     "backing_lp_separation": true,
     "arbitrary_non_linear_payoffs": false,
     "simulation_is_proof": false
+  },
+  "reference_model": {
+    "exact_arithmetic": "Fraction",
+    "market_math_module": "research/prism-model/market_math.py",
+    "fixed_point_policy": "PENDING_MATH_1D"
   },
   "integrations": {
     "kuru": "SCAFFOLDED_NOT_IMPLEMENTED",
     "envio": "SCAFFOLDED_NOT_IMPLEMENTED",
     "cre": "SCAFFOLDED_NOT_IMPLEMENTED",
     "mera": "SCAFFOLDED_NOT_IMPLEMENTED",
-    "aurora_intents": "SCAFFOLDED_NOT_IMPLEMENTED"
+    "aurora_intents": "SCAFFOLDED_NOT_IMPLEMENTED",
+    "metamask_agent": "DEFERRED_P1_UNTIL_CORE",
+    "nansen": "DEFERRED_P1_UNTIL_CORE"
   }
 }

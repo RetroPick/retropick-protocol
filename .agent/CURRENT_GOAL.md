@@ -2,29 +2,25 @@
 
 **Goal ID:** METROPOLIS-P1-MATH-1  
 **Status:** ACTIVE  
-**Phase:** P1 SPEC -> P2 MATH-1  
+**Phase:** P2 MATH-1  
 **Primary gate:** `MATH-1`  
 **Phase control:** `docs/05-hackathon/PHASE_GATES.md`
 
 ## Objective
 
-Freeze the exact-backed PRISM and native complete-set semantics, then build enough executable/formal evidence to decide whether the accounting kernel is safe to translate into Solidity.
+Prove and falsify the RetroPick/PRISM accounting kernel deeply enough that CONTRACT-ARCH-1 can translate accepted semantics into Solidity without inventing economics during implementation.
 
-The reference implementation is the semantic oracle. Production Solidity is not authorized yet.
+Production Solidity is still not authorized.
 
 ---
 
-## Canonical architecture now locked
+## Canonical accounting architecture
 
 ```text
-Native RetroPick
+Native RetroPick complete set
 -> ERC20 YES/NO
--> Kuru spot markets
-
-Native outcome ERC20s
 -> exact PRISM basket
 -> PRISM ERC20
--> Kuru spot market
 ```
 
 Admission:
@@ -33,263 +29,300 @@ Admission:
 h=Gx
 ```
 
-or solve:
+Runtime exact backing:
 
 ```math
-Gx=h, x>=0
+B_i>=Sx_i
 ```
 
-Runtime backing:
+Global physical reservation:
 
 ```math
-B_i >= Sx_i
+sum_s Reserved[s,a] <= PhysicalBalance[a]
 ```
 
 Final settlement gate:
 
 ```math
-SettlementBalance >= Supply * FinalPayout
+SettlementBalance>=Supply*FinalPayout
 ```
 
 ---
 
-## Corrected decisions
+## Proof layer complete
 
-- No Phase-1 `BackingMirror` for Monad-native backing.
-- No terminal-state enumeration in every mint.
-- No Polymarket/cross-chain dependency in the Metropolis kernel.
-- Native market creation does not use PRISM spanning.
-- Basket mode is the default MVP PRISM creator flow.
-- Normal retail PRISM BUY is a Kuru secondary trade.
-- Primary PRISM CREATE is an issuer/AP/market-maker path.
-- `RESOLVED` means payout known; `REDEEMABLE` means funded.
-- `pFEDBTC = 0.6 FED_YES + 0.4 BTC_NO` pays `1.00` in the Fed=YES/BTC=NO world.
-- Native complete-set OI does not equal `YES_supply + NO_supply`.
-
----
-
-## Completed documentation outputs
-
-- [x] `docs/00-context/REPORT_RECONCILIATION.md`
-- [x] `docs/protocol/ASSUMPTIONS.md`
-- [x] `docs/protocol/CLAIMS.md`
-- [x] `docs/protocol/PRISM_PROTOCOL_SPEC.md`
-- [x] `docs/protocol/INVARIANTS.md`
-- [x] `docs/protocol/STATE_MACHINE.md`
-- [x] `docs/protocol/MATH_MODEL.md`
-- [x] `docs/protocol/PRECISION_MODEL.md`
-- [x] `docs/protocol/FAILURE_MODES.md`
-- [x] `docs/protocol/CONTRACT_REQUIREMENTS.md`
-- [x] `docs/04-architecture/SYSTEM_ARCHITECTURE.md`
-- [x] `docs/04-architecture/SMART_CONTRACTS.md`
-- [x] `docs/05-hackathon/PHASE_GATES.md`
-- [x] `docs/06-execution/ROADMAP.md`
-- [x] ADR-003 through ADR-007 documenting the corrected architecture.
-
-### Dedicated proof layer
-
-- [x] `docs/math/README.md`
-- [x] `docs/math/01_DEFINITIONS.md`
-- [x] `docs/math/02_ASSUMPTIONS.md`
-- [x] `docs/math/05_BACKING_SOLVENCY.md`
-- [x] `docs/math/16_INVARIANTS.md`
-- [x] `docs/math/17_THEOREMS.md`
-
-Proof-layer architecture is now:
+Canonical proof artifacts exist:
 
 ```text
-docs/protocol/
-  WHAT the protocol means
-        ↓
-docs/math/
-  WHY those semantics hold and under which assumptions
-        ↓
-research/prism-model/
-  EXECUTABLE semantic oracle
-        ↓
-contracts/
-  future Solidity
+docs/math/README.md
+docs/math/01_DEFINITIONS.md
+docs/math/02_ASSUMPTIONS.md
+docs/math/05_BACKING_SOLVENCY.md
+docs/math/16_INVARIANTS.md
+docs/math/17_THEOREMS.md
 ```
 
-The theorem registry now explicitly separates proved accounting properties, bounded executable evidence, known counterexamples and empirical market hypotheses.
+They distinguish exact theorems, executable verification, counterexamples and empirical market hypotheses.
 
 ---
 
-## Newly explicit proof/oracle gaps
+## Executable gaps resolved in the reference model
 
-The proof-layer traceability pass exposed four safety-relevant gaps that must remain visible:
+### Cross-series reservation uniqueness
 
-1. `INV-P07 / T-ALLOC-001` — global cross-series reservation uniqueness is not modeled by the current single-series oracle;
-2. `INV-P08 / T-PARTIAL-002` — partial-resolution NAV exists, but stateful payoff-equivalent backing transformation is not yet modeled/proven;
-3. native `INV-N02/N05` — static complete-set helpers exist, but a stateful native split/merge/resolution oracle is incomplete;
-4. `T-FP-001..004` — exact rational theorems have not yet been transferred to production integer/fixed-point semantics.
+Implemented:
 
-These gaps cannot be called proven merely because related protocol prose exists.
+```text
+research/prism-model/reservation_ledger.py
+```
+
+The ledger enforces:
+
+```math
+sum_s Reserved[s,a] <= PhysicalBalance[a]
+```
+
+across deposit, reserve, release and withdrawal. Over-allocation and withdrawal of reserved units are rejected.
+
+`T-ALLOC-001`: `PROVEN_UNDER_ASSUMPTIONS` for the reference transition system.
+
+### Stateful native complete-set accounting
+
+Implemented:
+
+```text
+research/prism-model/native_market.py
+```
+
+It models:
+
+```text
+split
+merge
+resolve
+winning redemption
+losing-claim burn
+archive
+```
+
+Active invariant:
+
+```math
+YES_supply=NO_supply=CollateralLocked
+```
+
+Resolved invariant:
+
+```math
+CollateralLocked=RemainingWinningSupply
+```
+
+### Stateful partial-resolution backing transformation
+
+`PrismSeries` now models:
+
+```text
+resolve_component()
+possible_states
+resolved_components
+transformed_settlement
+redeem_in_kind_mixed()
+```
+
+A finalized component payout conditions the terminal state space, pauses new minting and replaces component backing with equal settlement value.
+
+`T-PARTIAL-002`: `PROVEN_UNDER_ASSUMPTIONS` in exact semantics.
+
+### Fixed-point theorem-transfer candidate
+
+Implemented:
+
+```text
+research/prism-model/fixed_point_model.py
+```
+
+Candidate semantics:
+
+```text
+WAD series scale
+component decimals 0..18
+raw backing requirement = ceil(total-supply exact requirement)
+redemption release = old conservative requirement - new conservative requirement
+aggregate final settlement requirement = ceil liability
+rounded final redemption must preserve remaining funding
+no dust/surplus sweep while live liability remains
+```
+
+Reference-model theorem status:
+
+```text
+T-FP-001 PROVEN_UNDER_ASSUMPTIONS
+T-FP-002 PROVEN_UNDER_ASSUMPTIONS
+T-FP-003 PROVEN_UNDER_ASSUMPTIONS for accepted transitions
+T-FP-004 PROVEN_UNDER_ASSUMPTIONS for requirement-delta cycles
+```
+
+These statuses do not yet imply Solidity equivalence.
+
+### Deterministic adversarial runners
+
+Implemented:
+
+```text
+research/prism-model/adversarial.py
+```
+
+Current runners stress:
+- randomized integer mint/redeem transitions;
+- all canonical pFEDBTC terminal states after each step;
+- randomized cross-series reservation/release pressure.
 
 ---
 
-## Executable model status
+## Validation evidence from this implementation tranche
 
-### MATH-1A — exact arithmetic and market identities
+Local reconstructed regression environment used the current fetched repository baseline plus the new candidate files.
 
-Artifacts present:
-
-- [x] payoff evaluation and exact replication helpers;
-- [x] component backing / mint / in-kind redemption;
-- [x] lifecycle and final settlement model;
-- [x] complete-set conservation helper;
-- [x] corrected open-interest helper;
-- [x] executable split-and-sell parity helper using bids;
-- [x] executable buy-and-merge parity helper using asks;
-- [x] PRISM create-cost helper;
-- [x] PRISM in-kind redeem-value helper;
-- [x] partial-resolution NAV helper;
-- [x] post-resolution PRISM/ERC20 relative-value helper.
-
-Canonical code:
+Result:
 
 ```text
-research/prism-model/model.py
-research/prism-model/replication.py
-research/prism-model/settlement.py
-research/prism-model/market_math.py
+python -m unittest discover -s tests -v
+51 tests
+OK
 ```
 
-Status: `IMPLEMENTED_PENDING_FULL_SUITE_REVALIDATION`.
+This included the existing baseline regression cases plus the new executable-gap cases.
 
-### MATH-1B — bounded exhaustive verification
-
-Artifacts present:
-
-- [x] bounded mint/redeem backing-preservation enumeration;
-- [x] bounded terminal-solvency enumeration;
-- [x] bounded settlement-redemption enumeration;
-- [x] bounded verification tests.
-
-Still required:
-
-- [ ] exhaustive lifecycle reachability enumeration across all declared legal/illegal transitions;
-- [ ] broader independent per-component surplus enumeration;
-- [ ] explicit minimal counterexample serialization when a future mutation fails;
-- [ ] stateful native complete-set transition enumeration.
-
-Canonical code:
+Deterministic adversarial run:
 
 ```text
-research/prism-model/bounded_verification.py
-research/prism-model/tests/test_bounded_verification.py
+seed = 20260917
+fixed-point steps = 5000
+mint ops = 2961
+redeem ops = 2039
+terminal checks = 20000
+
+reservation steps = 5000
+reserve ops = 2800
+release ops = 2196
+rejected overallocations = 4
+final total reserved = 9857
+physical balance = 10000
 ```
+
+This is recorded evidence over the declared run, not a universal proof and not CI evidence from a deployed repository runner.
+
+---
+
+## MATH-1 work-package status
+
+### MATH-1A — exact accounting kernel
+
+`IMPLEMENTED_AND_PROOF_NORMALIZED`
+
+- [x] exact payoff / replication;
+- [x] component backing;
+- [x] exact mint/redeem;
+- [x] lifecycle;
+- [x] final settlement;
+- [x] partial-resolution transformation;
+- [x] native complete-set state model;
+- [x] cross-series reservation ledger.
+
+### MATH-1B — bounded/exhaustive verification
+
+`PARTIAL`
+
+- [x] bounded exact mint/redeem grid;
+- [x] bounded terminal-solvency grid;
+- [x] bounded settlement-redemption grid;
+- [ ] exhaustive lifecycle reachability matrix generation;
+- [ ] independent per-component surplus grid rather than shared surplus scalar;
+- [ ] deterministic minimal-counterexample serialization.
 
 ### MATH-1C — adversarial/property testing
 
-Still required:
+`SUBSTANTIALLY_IMPLEMENTED, NOT CLOSED`
 
-- [ ] randomized action sequences;
-- [ ] over-mint attempts;
-- [ ] over-redemption;
-- [ ] duplicate resolution;
-- [ ] underfunded settlement;
-- [ ] invalid backing transformation;
-- [ ] action reordering;
-- [ ] zero/extreme weights;
-- [ ] backing double-allocation abstraction tests.
+- [x] randomized fixed-point mint/redeem sequences;
+- [x] cross-series double-allocation rejection;
+- [x] reserved-balance withdrawal rejection;
+- [x] partial-resolution invalid-state rejection;
+- [x] duplicate component resolution rejection;
+- [x] underfunded final settlement rejection;
+- [x] native complete-set invalid archive checks;
+- [ ] broader action-reordering state machine fuzzer;
+- [ ] zero/extreme-weight matrix;
+- [ ] configured maximum-value/overflow boundary tests.
 
-### MATH-1D — fixed-point/rounding
+### MATH-1D — fixed point / rounding
 
-Candidate implementation present:
+`CANDIDATE SEMANTICS SELECTED AND EXECUTABLE`
 
-- [x] WAD-scale candidate;
-- [x] ceil-on-required-backing rule;
-- [x] floor-on-releasable-backing rule;
-- [x] round-trip dust helper;
-- [x] fixed-point tests.
+- [x] WAD representation;
+- [x] deterministic decimal normalization for `0..18` decimals;
+- [x] conservative backing requirement;
+- [x] requirement-delta redemption;
+- [x] binary terminal-solvency checker;
+- [x] final-settlement funding model;
+- [x] no live-liability dust sweep;
+- [x] algebraic transfer lemmas documented;
+- [ ] explicit 6/8/18-decimal CI matrix;
+- [ ] configured uint256 maximum tests;
+- [ ] final zero-supply settlement-dust disposition;
+- [ ] machine-readable Solidity differential fixtures.
 
-Still required before acceptance:
+### MATH-1E — formal assistance / machine-readable theorem evidence
 
-- [ ] component-token decimal normalization policy;
-- [ ] maximum cumulative dust bound across repeated operations;
-- [ ] dust ownership/sweep policy;
-- [ ] Solidity-compatible deterministic fixtures;
-- [ ] explicit proof that chosen rounding cannot underback liabilities;
-- [ ] theorem transfer for `T-FP-001..004`.
+`DOCUMENTED, TOOLING PENDING`
 
-Canonical code:
-
-```text
-research/prism-model/fixed_point.py
-research/prism-model/tests/test_fixed_point.py
-```
-
-### MATH-1E — theorem/formal assistance
-
-Completed documentation normalization:
-
-- [x] canonical definitions;
-- [x] theorem-to-assumption dependency matrix;
-- [x] formal backing/solvency derivations;
-- [x] invariant-to-oracle coverage mapping;
-- [x] theorem/counterexample/hypothesis registry.
-
-Still required:
-
-- [ ] encode core algebra in SymPy/Z3 where useful;
-- [ ] machine-readable theorem-status output;
-- [ ] reconcile formal-tool output to `docs/math/17_THEOREMS.md`.
+- [x] definitions;
+- [x] assumptions/dependencies;
+- [x] theorem proofs;
+- [x] invariant-to-oracle mapping;
+- [x] theorem registry;
+- [ ] SymPy/Z3 encoding where it materially improves assurance;
+- [ ] machine-readable theorem-status output.
 
 ### MATH-1F — empirical market model
 
-- [ ] arbitrage-band convergence simulation;
-- [ ] resolution-jump/stale-order risk;
-- [ ] market-maker inventory/PnL scenarios;
-- [ ] liquidity-capital requirements;
-- [ ] quote-asset volatility after resolution;
-- [ ] explicit empirical classification of all results.
+`NOT STARTED`
+
+Still separate from accounting safety:
+- arbitrage convergence;
+- resolution-jump/stale-order risk;
+- market-maker inventory/PnL;
+- liquidity capital;
+- quote-asset volatility;
+- live demand.
 
 ---
 
-## Test/revalidation rule
+## Remaining hard blockers before CONTRACT-ARCH-1
 
-Generated code is not marked as a passed gate merely because the files exist. The final MATH-1 verdict requires a fresh deterministic test run with captured evidence after all remaining work packages are complete.
+The exact solvency kernel is no longer missing a model for the previously identified core gaps. Remaining hard blockers are implementation-equivalence and boundary-validation work:
 
-No agent may convert `IMPLEMENTED_PENDING_FULL_SUITE_REVALIDATION` into `PASS` without actual test evidence.
+1. machine-readable Python fixtures for future Solidity differential tests;
+2. 6/8/18-decimal and maximum configured arithmetic test matrix;
+3. explicit zero-supply settlement-dust policy;
+4. broader adversarial action-ordering/overflow search;
+5. fresh full-suite run from canonical repository/CI state with captured evidence;
+6. final MATH-1 verdict.
+
+Formal-tool work is useful but must not become ceremony; use Z3/SymPy where it proves something not already trivial algebra.
 
 ---
 
-## Acceptance
+## Gate rule
 
-`MATH-1` may close only when:
+`MATH-1` remains open.
 
-- exact payoff evaluation is deterministic;
-- admitted replication is exact in the canonical numeric domain;
-- valid mint cannot underback remaining supply;
-- valid in-kind redemption preserves backing;
-- terminal solvency holds for all modeled terminal worlds;
-- illegal lifecycle transitions fail;
-- `REDEEMABLE` cannot be underfunded;
-- known non-replicable payoff is rejected;
-- complete-set accounting definitions are executable and tested;
-- precision/rounding leakage is bounded;
-- adversarial action sequences find no accounting counterexample;
-- cross-series reservation uniqueness is implemented/tested or formally scoped out of the deployable architecture;
-- stateful partial-resolution backing transformation is proven or removed from the deployable MVP;
-- every remaining uncertainty is classified as accounting, integration, or empirical market behavior.
-
-## Verdict format
+Valid final verdicts:
 
 ```text
 MATH-1 = PASS
-```
-
-or:
-
-```text
 MATH-1 = CONDITIONAL_PASS
-```
-
-or:
-
-```text
 MATH-1 = FAIL
 ```
 
-No production Solidity before this verdict.
+No production Solidity before that verdict and subsequent `CONTRACT-ARCH-1`.

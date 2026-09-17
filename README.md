@@ -2,6 +2,8 @@
 
 Protocol, market-structure, mathematical reference-model, and Metropolis delivery repository for **RetroPick + PRISM** on Monad.
 
+> **Start with [`docs/00-context/EXECUTIVE_SUMMARY.md`](docs/00-context/EXECUTIVE_SUMMARY.md)** for the canonical human-facing overview of the product thesis, architecture, mathematical model, lifecycle, hackathon scope, current phase, and immediate next work.
+
 ## Current phase
 
 **P1 SPEC -> P2 MATH-1**
@@ -112,6 +114,10 @@ See [`docs/00-context/REPORT_RECONCILIATION.md`](docs/00-context/REPORT_RECONCIL
 ---
 
 ## Canonical entry points
+
+### Human overview
+- [`docs/00-context/EXECUTIVE_SUMMARY.md`](docs/00-context/EXECUTIVE_SUMMARY.md)
+- [`docs/00-context/REPORT_RECONCILIATION.md`](docs/00-context/REPORT_RECONCILIATION.md)
 
 ### Agent/execution
 - [`AGENTS.md`](AGENTS.md)

@@ -1,0 +1,31 @@
+{
+  "project": "retropick-protocol",
+  "hackathon": "Monad Metropolis 2026",
+  "phase": "phase-1-spec-math",
+  "current_goal": "METROPOLIS-P1-MATH-1",
+  "math_gate": "IN_PROGRESS",
+  "production_solidity_authorized": false,
+  "target_chain": "Monad",
+  "protocol_mode": "exact-backed-long-only-replication",
+  "canonical_docs": [
+    "docs/protocol/PRISM_PROTOCOL_SPEC.md",
+    "docs/protocol/MATH_MODEL.md",
+    "docs/protocol/INVARIANTS.md",
+    "docs/protocol/STATE_MACHINE.md",
+    "docs/protocol/FAILURE_MODES.md",
+    "docs/protocol/CONTRACT_REQUIREMENTS.md"
+  ],
+  "locked_constraints": {
+    "mint_back_first": true,
+    "backing_lp_separation": true,
+    "arbitrary_non_linear_payoffs": false,
+    "simulation_is_proof": false
+  },
+  "integrations": {
+    "kuru": "SCAFFOLDED_NOT_IMPLEMENTED",
+    "envio": "SCAFFOLDED_NOT_IMPLEMENTED",
+    "cre": "SCAFFOLDED_NOT_IMPLEMENTED",
+    "mera": "SCAFFOLDED_NOT_IMPLEMENTED",
+    "aurora_intents": "SCAFFOLDED_NOT_IMPLEMENTED"
+  }
+}

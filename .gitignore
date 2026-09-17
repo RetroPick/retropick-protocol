@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+dist/
+build/
+coverage/
+.DS_Store
+node_modules/
+out/
+cache/
+broadcast/
+artifacts/

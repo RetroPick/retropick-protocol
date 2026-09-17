@@ -1,0 +1,15 @@
+{
+  "generated_at": "2026-09-17",
+  "sources": [
+    {
+      "id": "metropolis-workflow",
+      "path": "docs/05-hackathon/RETROPICK_METROPOLIS_AGENT_DEVELOPMENT_WORKFLOW.md",
+      "type": "canonical-workflow"
+    },
+    {
+      "id": "prism-math-phase1",
+      "path": "docs/protocol/MATH_MODEL.md",
+      "type": "canonical-math-draft"
+    }
+  ]
+}

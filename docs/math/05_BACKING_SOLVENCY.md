@@ -1,556 +1,405 @@
 # 05 — Backing and Solvency Proofs
 
 **Status:** CANONICAL MATH-1 PROOF DOCUMENT  
-**Scope:** exact rational Phase-1 model  
+**Scope:** exact rational Phase-1 model plus accepted integer-transfer lemmas  
 **Related:** `01_DEFINITIONS.md`, `02_ASSUMPTIONS.md`, `16_INVARIANTS.md`, `17_THEOREMS.md`
-
-This document extracts the core solvency derivations from the protocol model into explicit theorem statements with assumptions, proof, implementation consequence and failure boundary.
 
 ---
 
 ## 1. Base invariant
 
-For one activated PRISM series, let:
-
-- `S` be outstanding PRISM supply;
-- `x_i >= 0` be required component units per PRISM share;
-- `B_i` be series-scoped reserved backing of component `i`.
-
-The runtime backing invariant is:
+For one activated PRISM series:
 
 ```math
 \boxed{B_i\ge Sx_i\qquad\forall i}
 ```
 
-Define backing margin:
+with backing margin:
 
 ```math
-M_i=B_i-Sx_i
+M_i=B_i-Sx_i\ge0.
 ```
-
-Then the invariant is equivalent to:
-
-```math
-M_i\ge0\qquad\forall i
-```
-
-The exact-math proofs below assume the canonical assumptions listed in `02_ASSUMPTIONS.md`.
 
 ---
 
 ## 2. T-BS-001 — Valid mint preserves component backing
 
-### Statement
-
-If the backing invariant holds before mint and mint quantity `Q>0` is supported by exact incremental backing `Qx_i` for every component, then the invariant holds after mint.
-
-### Preconditions
+For exact mint quantity `Q>0`:
 
 ```math
-B_i\ge Sx_i\qquad\forall i
+S'=S+Q,
+\qquad
+B_i'=B_i+Qx_i.
 ```
 
-and proposed mint:
+From `B_i>=Sx_i`:
 
 ```math
-Q>0
-```
-
-with backing change:
-
-```math
-\Delta B_i=Qx_i
-```
-
-### State transition
-
-```math
-S'=S+Q
-```
-
-```math
-B_i'=B_i+Qx_i
-```
-
-### Proof
-
-From:
-
-```math
-B_i\ge Sx_i
-```
-
-add `Qx_i` to both sides:
-
-```math
-B_i+Qx_i\ge Sx_i+Qx_i
-```
-
-therefore:
-
-```math
-B_i'\ge(S+Q)x_i=S'x_i
-```
-
-for every component.
-
-Hence:
-
-```math
-\boxed{B_i'\ge S'x_i\qquad\forall i}
-```
-
-### Margin preservation
-
-```math
-M_i' = B_i' - S'x_i
-```
-
-```math
-=(B_i+Qx_i)-(S+Q)x_i
-```
-
-```math
-=B_i-Sx_i=M_i
-```
-
-Therefore:
-
-```math
-\boxed{M_i'=M_i}
-```
-
-An exact-backed mint cannot consume existing backing margin.
-
-### Status
-
-`PROVEN_UNDER_ASSUMPTIONS`
-
-### Oracle mapping
-
-- `PrismSeries.required_backing()`
-- `PrismSeries.assert_component_backed()`
-- `PrismSeries.mint()`
-- `PrismSeries.mint_with_exact_backing()`
-- `verify_mint_redeem_grid()`
-
-### Contract consequence
-
-Production mint must finalize liability increase only after post-mint reserved backing satisfies the encoded equivalent of:
-
-```math
-B_i'\ge(S+Q)x_i
-```
-
-for every component.
-
----
-
-## 3. T-BS-002 — In-kind redemption preserves component backing
-
-### Statement
-
-If the backing invariant holds before redemption and `0<Q<=S`, burning `Q` liability and releasing exactly `Qx_i` of each component preserves the invariant for the remaining supply.
-
-### State transition
-
-```math
-S'=S-Q
-```
-
-```math
-B_i'=B_i-Qx_i
-```
-
-### Proof
-
-Starting from:
-
-```math
-B_i\ge Sx_i
-```
-
-subtract `Qx_i` from both sides:
-
-```math
-B_i-Qx_i\ge Sx_i-Qx_i
+B_i+Qx_i\ge(S+Q)x_i,
 ```
 
 so:
 
 ```math
-B_i'\ge(S-Q)x_i=S'x_i
+\boxed{B_i'\ge S'x_i}.
 ```
 
-Therefore:
+Moreover:
 
 ```math
-\boxed{B_i'\ge S'x_i\qquad\forall i}
+M_i'=(B_i+Qx_i)-(S+Q)x_i=M_i.
 ```
 
-and:
+**Status:** `PROVEN_UNDER_ASSUMPTIONS`.
 
-```math
-M_i'=M_i
-```
-
-under exact arithmetic.
-
-### Status
-
-`PROVEN_UNDER_ASSUMPTIONS`
-
-### Oracle mapping
-
-- `PrismSeries.redeem_in_kind()`
-- `PrismSeries.assert_component_backed()`
-- `verify_mint_redeem_grid()`
-
-### Contract consequence
-
-The implementation must prevent backing release from exceeding the liability reduction it corresponds to. In integer arithmetic this becomes a rounding-policy problem handled by the precision model.
+**Oracle:** `PrismSeries.mint()`, `mint_with_exact_backing()`, `verify_mint_redeem_grid()`.
 
 ---
 
-## 4. T-BS-003 — Exact component backing implies terminal solvency
+## 3. T-BS-002 — In-kind redemption preserves component backing
 
-### Statement
-
-For an exact-admitted Phase-1 series with non-negative component payoffs, component-wise backing implies that the terminal value of reserved backing covers or exceeds PRISM liability in every modeled terminal world.
-
-### Exact replication
-
-One PRISM share has payoff:
+For `0<Q<=S`:
 
 ```math
-h(\omega)=\sum_i x_i g_i(\omega)
+S'=S-Q,
+\qquad
+B_i'=B_i-Qx_i.
 ```
 
-because:
+From `B_i>=Sx_i`:
 
 ```math
-h=Gx
-```
-
-### Terminal backing value
-
-```math
-V_B(\omega)=\sum_i B_i g_i(\omega)
-```
-
-### Terminal PRISM liability
-
-```math
-L_P(\omega)=S h(\omega)
-```
-
-thus:
-
-```math
-L_P(\omega)=S\sum_i x_i g_i(\omega)
-```
-
-### Proof
-
-For every component:
-
-```math
-B_i\ge Sx_i
-```
-
-and by assumption:
-
-```math
-g_i(\omega)\ge0
-```
-
-so multiplying preserves the inequality:
-
-```math
-B_i g_i(\omega)\ge Sx_i g_i(\omega)
-```
-
-Summing over all components:
-
-```math
-\sum_iB_i g_i(\omega)
-\ge
-S\sum_i x_i g_i(\omega)
+B_i-Qx_i\ge(S-Q)x_i,
 ```
 
 therefore:
 
 ```math
-\boxed{V_B(\omega)\ge L_P(\omega)\qquad\forall\omega\in\Omega}
+\boxed{B_i'\ge S'x_i}
 ```
 
-### Status
+and `M_i'=M_i` in exact arithmetic.
 
-`PROVEN_UNDER_ASSUMPTIONS`
+**Status:** `PROVEN_UNDER_ASSUMPTIONS`.
 
-### Oracle mapping
+**Oracle:** `PrismSeries.redeem_in_kind()`, bounded verifier.
 
-- `replication.payoff()`
-- `settlement.terminal_backing_value()`
-- `PrismSeries.terminal_solvency()`
-- `verify_terminal_solvency_grid()`
+---
 
-### Architectural consequence
+## 4. T-BS-003 — Exact component backing implies terminal solvency
 
-The Phase-1 runtime contract does **not** need to enumerate every terminal world during every mint.
+Exact replication:
 
-The design separates:
-
-```text
-series admission
-  prove/commit h = Gx
-
-runtime
-  enforce B_i >= S*x_i
-
-proof consequence
-  terminal solvency follows
+```math
+h(\omega)=\sum_i x_i g_i(\omega).
 ```
 
-This is both simpler and cheaper than world-state iteration inside Solidity.
+Backing value:
+
+```math
+V_B(\omega)=\sum_i B_i g_i(\omega).
+```
+
+Liability:
+
+```math
+L_P(\omega)=S h(\omega).
+```
+
+Because `B_i>=Sx_i` and `g_i(omega)>=0`:
+
+```math
+B_i g_i(\omega)\ge Sx_i g_i(\omega).
+```
+
+Summing:
+
+```math
+\boxed{V_B(\omega)\ge L_P(\omega)\qquad\forall\omega\in\Omega}.
+```
+
+**Status:** `PROVEN_UNDER_ASSUMPTIONS`.
+
+**Oracle:** `replication.payoff()`, `PrismSeries.terminal_solvency()`, `verify_terminal_solvency_grid()`.
+
+**Architecture consequence:** admission proves/commits `h=Gx`; runtime only needs the component invariant. Solidity does not enumerate terminal worlds during mint.
 
 ---
 
 ## 5. T-BS-004 — Funded final redemption preserves settlement funding
 
-### Statement
-
-Once final payout `R` is fixed, if settlement assets cover all outstanding liability before a final redemption, then a correct redemption preserves sufficient funding for the remaining supply.
-
-### Preconditions
+If:
 
 ```math
 C_s\ge SR
 ```
 
-and:
+and redeeming `Q` pays `QR`, then:
 
 ```math
-0<Q\le S
-```
-
-### Final redemption
-
-Burn:
-
-```math
-Q
-```
-
-PRISM and pay:
-
-```math
-QR
-```
-
-settlement units.
-
-New state:
-
-```math
-S'=S-Q
-```
-
-```math
-C_s'=C_s-QR
-```
-
-### Proof
-
-Starting from:
-
-```math
-C_s\ge SR
-```
-
-subtract `QR` from both sides:
-
-```math
-C_s-QR\ge SR-QR
-```
-
-hence:
-
-```math
-C_s'\ge(S-Q)R=S'R
+S'=S-Q,
+\qquad
+C_s'=C_s-QR.
 ```
 
 Therefore:
 
 ```math
-\boxed{C_s'\ge S'R}
+C_s-QR\ge SR-QR=(S-Q)R
 ```
 
-### Status
+and:
 
-`PROVEN_UNDER_ASSUMPTIONS`
-
-### Oracle mapping
-
-- `settlement.terminal_liability()`
-- `settlement.settlement_is_funded()`
-- `PrismSeries.make_redeemable()`
-- `PrismSeries.redeem_final()`
-- `verify_settlement_redemption_grid()`
-
-### Lifecycle consequence
-
-`RESOLVED` and `REDEEMABLE` cannot be synonyms.
-
-```text
-RESOLVED
-  final payout R known
-
-REDEEMABLE
-  R known
-  AND C_s >= S*R
+```math
+\boxed{C_s'\ge S'R}.
 ```
+
+**Status:** `PROVEN_UNDER_ASSUMPTIONS`.
+
+**Oracle:** `settlement_is_funded()`, `make_redeemable()`, `redeem_final()`, settlement bounded verifier.
 
 ---
 
-## 6. Exact-replication boundary
+## 6. T-ALLOC-001 — Global reservation uniqueness is inductive
 
-The solvency theorem proves obligations created by exact non-negative replication:
-
-```math
-h=Gx,\qquad x\ge0
-```
-
-It does not prove safety for:
+A local series can be solvent while the whole system is insolvent if the same physical units are counted twice. Define for asset `a`:
 
 ```math
-Gx\approx h
+PhysicalBalance_a=P_a
 ```
 
-unless a residual-error/liability model is introduced and separately proven.
+and series reservations:
 
-Phase 1 therefore rejects non-exact target payoffs rather than issuing a knowingly mismatched claim.
+```math
+R_{s,a}\ge0.
+```
+
+Global reservation invariant:
+
+```math
+\boxed{\sum_s R_{s,a}\le P_a}.
+```
+
+The reference transition system permits:
+
+### Deposit
+
+`P_a` increases; reservations do not. The inequality remains true.
+
+### Reserve
+
+A new reservation `q` is accepted only when:
+
+```math
+q\le P_a-\sum_sR_{s,a}.
+```
+
+After reservation:
+
+```math
+\sum_sR'_{s,a}=\sum_sR_{s,a}+q\le P_a.
+```
+
+### Release
+
+Reservations decrease, so the invariant is preserved.
+
+### Withdraw
+
+Withdrawal `q` is accepted only when:
+
+```math
+q\le P_a-\sum_sR_{s,a}.
+```
+
+Hence after `P_a'=P_a-q`:
+
+```math
+\sum_sR_{s,a}\le P_a'.
+```
+
+Therefore the invariant is inductive under every accepted ledger transition.
+
+**Status:** `PROVEN_UNDER_ASSUMPTIONS` for the reference transition system.
+
+**Oracle:** `reservation_ledger.ReservationLedger`.
+
+**Production consequence:** the contract architecture needs one authoritative reservation domain or equivalent vault partitioning so cross-series liabilities cannot alias the same units.
 
 ---
 
-## 7. Non-negative-payoff boundary
+## 7. T-PARTIAL-002 — Finalized component-to-cash transformation preserves value on the conditioned state space
 
-The step:
-
-```math
-B_i\ge Sx_i
-```
-
-implies:
+Suppose component `i` becomes canonically final with payout:
 
 ```math
-B_i g_i(\omega)\ge Sx_i g_i(\omega)
+r_i.
 ```
 
-only because:
+Condition the remaining terminal worlds to:
 
 ```math
-g_i(\omega)\ge0
+\Omega' = \{\omega\in\Omega\mid g_i(\omega)=r_i\}.
 ```
 
-The current theorem does not automatically cover:
+Before transformation, component `i` contributes to backing value in every `omega in Omega'`:
 
-- negative-liability components;
-- short positions represented as negative quantities;
-- leveraged unbounded claims;
-- arbitrary derivative bytecode.
+```math
+B_i g_i(\omega)=B_i r_i.
+```
 
-Those require a different solvency model.
+Replace the entire component balance by settlement cash:
+
+```math
+C_i=B_i r_i
+```
+
+and set component balance to zero.
+
+After transformation, contribution is exactly:
+
+```math
+C_i=B_i r_i.
+```
+
+Thus for every remaining feasible terminal world:
+
+```math
+\boxed{V'_B(\omega)=V_B(\omega)\qquad\forall\omega\in\Omega'}.
+```
+
+If the pre-transform portfolio covered liability in every `omega in Omega'`, the transformed portfolio does too.
+
+For mixed in-kind redemption after transformation, liability reduction `Q` releases:
+
+```math
+Qx_j
+```
+
+for unresolved components and:
+
+```math
+Q\sum_{i\in R}x_i r_i
+```
+
+of transformed settlement backing. The same backing-preservation argument as T-BS-002 applies component-wise to the mixed representation.
+
+**Status:** `PROVEN_UNDER_ASSUMPTIONS`.
+
+**Oracle:** `PrismSeries.resolve_component()`, `possible_states`, `transformed_settlement`, `redeem_in_kind_mixed()`, conditioned `terminal_solvency()`.
+
+**Phase-1 policy:** first payoff-relevant component resolution pauses new minting; later mint-after-partial-resolution is not part of the current kernel.
 
 ---
 
-## 8. No-double-allocation boundary
+## 8. Fixed-point transfer lemmas
 
-The algebra assumes `B_i` is backing truly reserved for the series.
+The exact theorems do not automatically transfer to Solidity integers. The accepted candidate model uses WAD series units and component decimal factor:
 
-If the same economic units are simultaneously counted as backing for two independent liabilities, both series can satisfy local arithmetic while the system is globally insolvent.
-
-Therefore `A-P03` / `INV-P07` is a necessary accounting premise.
-
-The current Python oracle models one series at a time and does **not yet** prove cross-series reservation uniqueness. That remains an explicit MATH-1/CONTRACT-ARCH gap.
-
----
-
-## 9. Precision boundary
-
-All proofs above are exact rational statements.
-
-Production integer arithmetic must map them conservatively.
-
-Candidate policy currently being evaluated:
-
-```text
-backing requirement -> round UP
-releasable backing  -> round DOWN
+```math
+f_i=10^{18-d_i},\qquad 0\le d_i\le18.
 ```
 
-Before production claims inherit these theorems, MATH-1D must establish:
+Minimum raw backing requirement is:
 
-- component-decimal normalization;
-- no underbacking from rounding;
-- bounded dust;
-- no repeatable positive-value extraction;
-- deterministic Solidity-compatible fixtures.
+```math
+Req_i(S)=\left\lceil\frac{Sx_i}{WAD\,f_i}\right\rceil.
+```
 
-Until then, theorem status applies to the exact mathematical model, not yet to deployed Solidity.
+### T-FP-001 — Conservative integer mint cannot underreserve
+
+Mint is accepted only when raw backing after deposit is at least `Req_i(S+Q)` for every component. Therefore normalized backing is never below the exact economic requirement represented by the candidate domain.
+
+**Status:** `PROVEN_UNDER_ASSUMPTIONS` for the candidate integer model; Solidity equivalence still pending.
+
+### T-FP-002 — Requirement-delta redemption preserves integer backing
+
+Release:
+
+```math
+Release_i=Req_i(S)-Req_i(S-Q).
+```
+
+If backing before redemption is at least `Req_i(S)`, then after release:
+
+```math
+B_i'\ge Req_i(S)-Release_i=Req_i(S-Q).
+```
+
+Therefore remaining supply stays conservatively backed.
+
+**Status:** `PROVEN_UNDER_ASSUMPTIONS` for the candidate integer model.
+
+### T-FP-003 — Conservative settlement funding survives rounded redemption
+
+Aggregate raw settlement requirement is:
+
+```math
+Req_s(S)=\left\lceil\frac{SR}{WAD\,f_s}\right\rceil.
+```
+
+The candidate redemption pays a floor-rounded amount and then requires the remaining balance to remain at least `Req_s(S-Q)`. The executable model rejects any transition that would violate this condition.
+
+**Status:** `PROVEN_UNDER_ASSUMPTIONS` for accepted transitions in the candidate model; production Solidity differential proof pending.
+
+### T-FP-004 — Minimum-backing mint/redeem cycle cannot create component value
+
+A minimum-backing mint deposits:
+
+```math
+Req_i(S+Q)-Req_i(S).
+```
+
+Redeeming the same liability change releases the exact reverse requirement delta. Therefore, absent external surplus, a closed mint/redeem cycle has zero net component extraction.
+
+**Status:** `PROVEN_UNDER_ASSUMPTIONS` for the requirement-delta policy; randomized stress remains supporting evidence rather than the proof itself.
 
 ---
 
-## 10. pFEDBTC proof fixture
+## 9. Boundaries
 
-Canonical series:
+These proofs do not cover:
+- approximate replication `Gx≈h`;
+- negative component payoffs or negative quantities;
+- leveraged/unbounded liabilities;
+- fee-on-transfer/rebasing components without an adapter proof;
+- assets with more than 18 decimals under the current candidate normalizer;
+- cross-chain custody/bridge semantics;
+- market liquidity, arbitrage participation, market-maker profitability or demand.
+
+---
+
+## 10. Canonical pFEDBTC regression fixture
 
 ```math
 pFEDBTC=0.6\,FED\_YES+0.4\,BTC\_NO
 ```
 
-with terminal payoff vector:
+with payoff vector:
 
 ```math
-h=(0.4,0,1,0.6)
+h=(0.4,0,1,0.6).
 ```
 
-For:
-
-```math
-S=1000
-```
-
-exact backing is:
+For `S=1000`, exact backing is:
 
 ```text
 600 FED_YES
 400 BTC_NO
 ```
 
-In terminal world `Fed=YES, BTC=NO`, backing value is:
-
-```math
-600(1)+400(1)=1000
-```
-
-and liability is:
-
-```math
-1000(1)=1000
-```
-
-In terminal world `Fed=NO, BTC=YES`, both backing components pay zero and PRISM liability is also zero.
-
-The oracle should preserve this fixture as a regression test because it previously exposed a narrative payoff error in historical research.
+The `Fed=YES, BTC=NO` world pays `1.00` and is retained as a regression fixture because it previously exposed a narrative math error.
 
 ---
 
-## 11. Proof/implementation traceability summary
+## 11. Traceability
 
-| Proof | Protocol invariant | Python oracle | Future Solidity requirement |
+| Proof | Invariants | Exact oracle | Integer/stateful oracle |
 |---|---|---|---|
-| `T-BS-001` mint preservation | `INV-P03`, `INV-P04` | `PrismSeries.mint`, `assert_component_backed`, bounded verifier | Back-first mint and post-mint backing assertion |
-| `T-BS-002` redeem preservation | `INV-P03`, `INV-P05` | `redeem_in_kind`, bounded verifier | Burn/decrease liability before proportional release |
-| `T-BS-003` terminal solvency | `INV-P01`, `INV-P03`, `INV-P06` | `payoff`, `terminal_solvency`, terminal bounded verifier | Admission commits exact replication; runtime enforces component backing |
-| `T-BS-004` settlement preservation | `INV-P09`, `INV-P10` | `make_redeemable`, `redeem_final`, settlement bounded verifier | Funding gate before redeemable; deterministic payout/burn |
+| `T-BS-001` | `INV-P03/P04` | `PrismSeries.mint` | `FixedPointSeries.mint` |
+| `T-BS-002` | `INV-P03/P05` | `redeem_in_kind` | `FixedPointSeries.redeem` |
+| `T-BS-003` | `INV-P01/P03/P06` | `terminal_solvency` | `terminal_solvency_binary` |
+| `T-BS-004` | `INV-P09/P10` | `make_redeemable/redeem_final` | `FixedPointSettlement` |
+| `T-ALLOC-001` | `INV-P07` | n/a | `ReservationLedger` |
+| `T-PARTIAL-002` | `INV-P08` | `resolve_component`, `redeem_in_kind_mixed` | fixed-point partial transform not yet implemented |
+| `T-FP-001..004` | precision transfer | exact model is comparison oracle | `fixed_point_model.py` |

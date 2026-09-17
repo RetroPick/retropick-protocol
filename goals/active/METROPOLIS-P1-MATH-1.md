@@ -36,32 +36,59 @@ SettlementBalance \ge Supply\times FinalPayout
 - `RESOLVED` and `REDEEMABLE` are separate lifecycle states.
 - Production Solidity starts only after MATH-1 verdict.
 
-## Work packages
+## Current artifact status
 
-### A. Exact model
-- payoff/replication;
-- backing/mint/redeem;
-- lifecycle;
-- final settlement.
+Implemented artifacts now include:
 
-### B. Market math
-- complete-set split/merge;
-- open interest;
-- executable bid/ask parity;
-- PRISM create/redeem values;
-- partial-resolution NAV;
-- post-resolution ERC20/ERC20 quote identity.
+```text
+research/prism-model/model.py
+research/prism-model/replication.py
+research/prism-model/settlement.py
+research/prism-model/market_math.py
+research/prism-model/bounded_verification.py
+research/prism-model/fixed_point.py
+```
 
-### C. Verification
-- bounded exhaustive state exploration;
-- adversarial/property sequences;
-- formal assistance where useful;
-- fixed-point/rounding policy;
-- Solidity-compatible fixtures.
+and tests for the base model, market math, bounded verification and candidate fixed-point policy.
 
-### D. Final classification
+These artifacts are not a gate PASS by existence alone. Final closure requires a fresh full-suite run with captured evidence.
 
-Each claim must be classified as one of:
+## Remaining work packages
+
+### A. Adversarial model
+- randomized action sequences;
+- over-mint/over-redemption attempts;
+- duplicate resolution;
+- action reordering;
+- invalid partial-resolution transformation;
+- backing double-allocation abstraction;
+- zero/extreme-weight cases.
+
+### B. Exhaustive lifecycle verification
+- enumerate reachable lifecycle paths;
+- verify every forbidden transition;
+- serialize minimal counterexamples on mutation failure.
+
+### C. Fixed-point completion
+- component decimal normalization;
+- cumulative dust bound;
+- dust ownership policy;
+- Solidity-compatible fixtures;
+- no-underback rounding proof.
+
+### D. Formal assistance
+- encode selected theorems in SymPy/Z3 where useful;
+- maintain theorem-status registry;
+- distinguish proof from bounded checks.
+
+### E. Market model classification
+- create/redeem arbitrage convergence;
+- stale-order/resolution jump risk;
+- MM inventory/PnL;
+- liquidity-capital sensitivity;
+- post-resolution quote-token volatility.
+
+Every result must be classified as:
 
 ```text
 PROVEN_UNDER_ASSUMPTIONS

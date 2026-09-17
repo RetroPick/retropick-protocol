@@ -1,21 +1,29 @@
 # PRISM Claim Registry
 
-**Status:** CANONICAL MATH-1 TRACKER
+**Status:** CANONICAL PROTOCOL-LEVEL MATH-1 TRACKER
 
 Every important claim must have a type and evidence status. Do not use stronger language than the status permits.
 
+For detailed theorem dependencies, proof locations, Python-oracle mapping, counterexamples and empirical hypotheses, use:
+
+```text
+docs/math/17_THEOREMS.md
+```
+
+`docs/protocol/CLAIMS.md` is the concise protocol claim index. `docs/math/17_THEOREMS.md` is the detailed proof/evidence registry. They must not contradict each other.
+
 | ID | Claim | Type | Current status | Evidence / next gate |
 |---|---|---|---|---|
-| C-001 | `h=Gx` is the terminal payoff of an exact basket | formal/definition | `PROVEN_UNDER_ASSUMPTIONS` | `MATH_MODEL.md` |
-| C-002 | Valid exact-backed mint preserves component solvency | formal | `PROVEN_UNDER_ASSUMPTIONS` | Theorem A + reference tests |
-| C-003 | Valid in-kind redemption preserves component solvency | formal | `PROVEN_UNDER_ASSUMPTIONS` | Theorem B + reference tests |
-| C-004 | Exact non-negative component backing implies terminal solvency | formal | `PROVEN_UNDER_ASSUMPTIONS` | Theorem C |
-| C-005 | Final redemption preserves funding for remaining supply | formal | `PROVEN_UNDER_ASSUMPTIONS` | settlement theorem |
-| C-006 | Arbitrary AND payoff is not always in the long-only span of marginal claims | formal counterexample | `COUNTEREXAMPLE_FOUND` | canonical AND fixture |
+| C-001 | `h=Gx` is the terminal payoff of an exact basket | formal/definition | `PROVEN_UNDER_ASSUMPTIONS` | `MATH_MODEL.md`, `docs/math/17_THEOREMS.md` |
+| C-002 | Valid exact-backed mint preserves component solvency | formal | `PROVEN_UNDER_ASSUMPTIONS` | `docs/math/05_BACKING_SOLVENCY.md` |
+| C-003 | Valid in-kind redemption preserves component solvency | formal | `PROVEN_UNDER_ASSUMPTIONS` | `docs/math/05_BACKING_SOLVENCY.md` |
+| C-004 | Exact non-negative component backing implies terminal solvency | formal | `PROVEN_UNDER_ASSUMPTIONS` | `docs/math/05_BACKING_SOLVENCY.md` |
+| C-005 | Final redemption preserves funding for remaining supply | formal | `PROVEN_UNDER_ASSUMPTIONS` | `docs/math/05_BACKING_SOLVENCY.md` |
+| C-006 | Arbitrary AND payoff is not always in the long-only span of marginal claims | formal counterexample | `COUNTEREXAMPLE_FOUND` | `docs/math/17_THEOREMS.md`, canonical AND fixture |
 | C-007 | `Fed=YES, BTC=NO` pays `1.00` for canonical `0.6 FED_YES + 0.4 BTC_NO` | exact fixture | `EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN` | payoff vector fixture |
 | C-008 | Same-chain BackingMirror is unnecessary for Phase-1 solvency accounting | architecture | `ACCEPTED` | ADR-003 |
-| C-009 | Component-wise runtime checks are sufficient after exact admission under Phase-1 assumptions | formal/architecture | `PROVEN_UNDER_ASSUMPTIONS` | ADR-004 + Theorem C |
-| C-010 | Complete-set OI is not `YES_supply + NO_supply` in the simple fully collateralized model | accounting identity | `PROVEN_UNDER_ASSUMPTIONS` | native complete-set model/tests |
+| C-009 | Component-wise runtime checks are sufficient after exact admission under Phase-1 assumptions | formal/architecture | `PROVEN_UNDER_ASSUMPTIONS` | ADR-004 + `T-BS-003` |
+| C-010 | Complete-set OI is not `YES_supply + NO_supply` in the simple fully collateralized model | accounting identity | `PROVEN_UNDER_ASSUMPTIONS` | native complete-set model/static helpers; stateful native oracle still incomplete |
 | C-011 | Split-and-sell arbitrage uses executable YES/NO bids | market identity | `PROVEN_UNDER_ASSUMPTIONS` given quotes/costs | `market_math.py` |
 | C-012 | Buy-and-merge arbitrage uses executable YES/NO asks | market identity | `PROVEN_UNDER_ASSUMPTIONS` given quotes/costs | `market_math.py` |
 | C-013 | PRISM creation cost is component ask-weighted cost plus fees | executable valuation definition | `PROVEN_UNDER_ASSUMPTIONS` given executable asks | `market_math.py` |
@@ -30,6 +38,9 @@ Every important claim must have a type and evidence status. Do not use stronger 
 | C-022 | External wrapped prediction positions can be made production-safe | future architecture | `NOT_YET_VALIDATED` | separate cross-chain spec/bridge proof |
 | C-023 | Attestation alone is equivalent to collateral custody | architecture | `REJECTED` | external backing requires actual lock/control |
 | C-024 | Passkey onboarding is equivalent to legal identity/KYC | product/legal | `REJECTED` | requires independent identity/compliance layer |
+| C-025 | Same reserved units cannot back two independent liabilities system-wide | accounting/global reservation | `NOT_YET_VALIDATED` in current single-series oracle | `docs/math/16_INVARIANTS.md`, `T-ALLOC-001` |
+| C-026 | Stateful partial-resolution backing replacement preserves all remaining liabilities | accounting/transformation | `NOT_YET_VALIDATED` | `docs/math/16_INVARIANTS.md`, `T-PARTIAL-002` |
+| C-027 | Candidate fixed-point rounding inherits exact-rational solvency theorems | implementation equivalence | `NOT_YET_VALIDATED` | MATH-1D, `T-FP-001..004` |
 
 ---
 
@@ -61,3 +72,5 @@ The architecture/research program explicitly does not accept the claim as stated
 ## Update rule
 
 A claim may move to a stronger status only when the corresponding evidence artifact exists. A successful demo does not automatically promote a market-behavior claim to a theorem.
+
+Any theorem-status change must also update `docs/math/17_THEOREMS.md` when the claim has a theorem/hypothesis entry.

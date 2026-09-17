@@ -22,9 +22,16 @@ Build RetroPick's Monad prediction-asset protocol and PRISM structured-asset lay
 10. `docs/protocol/STATE_MACHINE.md`
 11. `docs/05-hackathon/RETROPICK_METROPOLIS_AGENT_DEVELOPMENT_WORKFLOW.md`
 
-For mathematical/protocol work also read:
+For mathematical/protocol work also read, in this order:
+- `docs/math/README.md`
+- `docs/math/01_DEFINITIONS.md`
+- `docs/math/02_ASSUMPTIONS.md`
+- `docs/math/05_BACKING_SOLVENCY.md`
+- `docs/math/16_INVARIANTS.md`
+- `docs/math/17_THEOREMS.md`
 - `docs/protocol/MATH_MODEL.md`
 - `docs/protocol/FAILURE_MODES.md`
+- `docs/protocol/PRECISION_MODEL.md`
 - `docs/protocol/CONTRACT_REQUIREMENTS.md`
 - `research/prism-model/README.md`
 
@@ -39,17 +46,20 @@ For implementation architecture also read:
 When documents conflict, use this precedence:
 
 1. accepted ADRs under `decisions/`;
-2. canonical protocol files under `docs/protocol/`;
-3. `docs/05-hackathon/PHASE_GATES.md` for execution authorization;
-4. `.agent/CURRENT_GOAL.md` and `.agent/DECISIONS.md`;
-5. architecture docs under `docs/04-architecture/`;
-6. canonical hackathon workflow;
-7. `docs/00-context/EXECUTIVE_SUMMARY.md` as the human-facing synthesis;
-8. product/research notes;
-9. historical reports;
-10. implementation.
+2. canonical protocol semantics under `docs/protocol/`;
+3. canonical mathematical proof/claim classification under `docs/math/`, provided it does not redefine protocol semantics;
+4. `docs/05-hackathon/PHASE_GATES.md` for execution authorization;
+5. `.agent/CURRENT_GOAL.md` and `.agent/DECISIONS.md`;
+6. architecture docs under `docs/04-architecture/`;
+7. canonical hackathon workflow;
+8. `docs/00-context/EXECUTIVE_SUMMARY.md` as the human-facing synthesis;
+9. product/research notes;
+10. historical reports;
+11. implementation.
 
 The Executive Summary is a synthesis, not a replacement for accepted ADRs or detailed canonical protocol specifications.
+
+`docs/math/` proves/classifies the accepted semantics. It may not silently redefine them. If a proof requires changing economics, stop and use the ADR/spec process.
 
 Historical or generated research is evidence/input, not authority over accepted protocol semantics.
 
@@ -88,7 +98,21 @@ Classify substantive claims as one of:
 - `NOT_YET_VALIDATED`
 - `COUNTEREXAMPLE_FOUND`
 
+The canonical claim registry for MATH-1 is `docs/math/17_THEOREMS.md`.
+
 Never convert simulated or expected market behavior into a formal proof.
+
+Every safety-critical invariant must be traceable through:
+
+```text
+protocol invariant
+-> math theorem/assumptions
+-> Python oracle assertion/check
+-> future Solidity owner
+-> future Foundry/differential evidence
+```
+
+Known missing oracle coverage must remain explicit in `docs/math/16_INVARIANTS.md`.
 
 ---
 
@@ -163,6 +187,8 @@ No goal is complete without:
 - residual risks/counterexamples.
 
 For sponsor claims, screenshots alone are insufficient when tx IDs, market IDs, logs, queries or contract state can provide stronger evidence.
+
+For theorem/exhaustive claims, evidence must also include the assumption set and, for bounded verification, the exact finite bounds explored.
 
 ---
 

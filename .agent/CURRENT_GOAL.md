@@ -86,6 +86,46 @@ SettlementBalance >= Supply * FinalPayout
 - [x] `docs/06-execution/ROADMAP.md`
 - [x] ADR-003 through ADR-007 documenting the corrected architecture.
 
+### Dedicated proof layer
+
+- [x] `docs/math/README.md`
+- [x] `docs/math/01_DEFINITIONS.md`
+- [x] `docs/math/02_ASSUMPTIONS.md`
+- [x] `docs/math/05_BACKING_SOLVENCY.md`
+- [x] `docs/math/16_INVARIANTS.md`
+- [x] `docs/math/17_THEOREMS.md`
+
+Proof-layer architecture is now:
+
+```text
+docs/protocol/
+  WHAT the protocol means
+        ↓
+docs/math/
+  WHY those semantics hold and under which assumptions
+        ↓
+research/prism-model/
+  EXECUTABLE semantic oracle
+        ↓
+contracts/
+  future Solidity
+```
+
+The theorem registry now explicitly separates proved accounting properties, bounded executable evidence, known counterexamples and empirical market hypotheses.
+
+---
+
+## Newly explicit proof/oracle gaps
+
+The proof-layer traceability pass exposed four safety-relevant gaps that must remain visible:
+
+1. `INV-P07 / T-ALLOC-001` — global cross-series reservation uniqueness is not modeled by the current single-series oracle;
+2. `INV-P08 / T-PARTIAL-002` — partial-resolution NAV exists, but stateful payoff-equivalent backing transformation is not yet modeled/proven;
+3. native `INV-N02/N05` — static complete-set helpers exist, but a stateful native split/merge/resolution oracle is incomplete;
+4. `T-FP-001..004` — exact rational theorems have not yet been transferred to production integer/fixed-point semantics.
+
+These gaps cannot be called proven merely because related protocol prose exists.
+
 ---
 
 ## Executable model status
@@ -130,7 +170,8 @@ Still required:
 
 - [ ] exhaustive lifecycle reachability enumeration across all declared legal/illegal transitions;
 - [ ] broader independent per-component surplus enumeration;
-- [ ] explicit minimal counterexample serialization when a future mutation fails.
+- [ ] explicit minimal counterexample serialization when a future mutation fails;
+- [ ] stateful native complete-set transition enumeration.
 
 Canonical code:
 
@@ -169,7 +210,8 @@ Still required before acceptance:
 - [ ] maximum cumulative dust bound across repeated operations;
 - [ ] dust ownership/sweep policy;
 - [ ] Solidity-compatible deterministic fixtures;
-- [ ] explicit proof that chosen rounding cannot underback liabilities.
+- [ ] explicit proof that chosen rounding cannot underback liabilities;
+- [ ] theorem transfer for `T-FP-001..004`.
 
 Canonical code:
 
@@ -180,9 +222,19 @@ research/prism-model/tests/test_fixed_point.py
 
 ### MATH-1E — theorem/formal assistance
 
+Completed documentation normalization:
+
+- [x] canonical definitions;
+- [x] theorem-to-assumption dependency matrix;
+- [x] formal backing/solvency derivations;
+- [x] invariant-to-oracle coverage mapping;
+- [x] theorem/counterexample/hypothesis registry.
+
+Still required:
+
 - [ ] encode core algebra in SymPy/Z3 where useful;
-- [ ] distinguish universal proof from bounded verification;
-- [ ] machine-readable theorem-status output.
+- [ ] machine-readable theorem-status output;
+- [ ] reconcile formal-tool output to `docs/math/17_THEOREMS.md`.
 
 ### MATH-1F — empirical market model
 
@@ -218,6 +270,8 @@ No agent may convert `IMPLEMENTED_PENDING_FULL_SUITE_REVALIDATION` into `PASS` w
 - complete-set accounting definitions are executable and tested;
 - precision/rounding leakage is bounded;
 - adversarial action sequences find no accounting counterexample;
+- cross-series reservation uniqueness is implemented/tested or formally scoped out of the deployable architecture;
+- stateful partial-resolution backing transformation is proven or removed from the deployable MVP;
 - every remaining uncertainty is classified as accounting, integration, or empirical market behavior.
 
 ## Verdict format

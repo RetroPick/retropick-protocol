@@ -1,0 +1,39 @@
+# Uniswap V4 Core BUSL-1.1 License
+
+**Source:** https://github.com/Uniswap/v4-core/blob/main/LICENSE  
+**Status:** PLACEHOLDER - Full license text must be retrieved from upstream  
+**Applies to:** `Pool.sol` and `Position.sol` in `lib/v4-core/src/libraries/`
+
+## ⚠️ CRITICAL DEPLOYMENT WARNING
+
+The files `Pool.sol` and `Position.sol` are licensed under **Business Source License 1.1 (BUSL-1.1)** with an Additional Use Grant.
+
+**BUSL-1.1 restrictions may apply to production deployment.**
+
+**Required before production deployment:**
+1. Retrieve and review the complete BUSL-1.1 license text from upstream
+2. Review the Additional Use Grant terms
+3. Legal analysis of deployment rights for your use case
+4. Consider alternative implementations if deployment restrictions apply
+
+## Expected License Structure
+
+Business Source License 1.1
+
+**Licensor:** Uniswap Labs
+
+**Licensed Work:** The Licensed Work is (c) 2024 Uniswap Labs
+
+**Additional Use Grant:** [Additional Use Grant text from upstream]
+
+**Change Date:** [Change Date from upstream]
+
+**Change License:** [Change License from upstream]
+
+[Full BUSL-1.1 license text follows...]
+
+---
+
+**⚠️ INCOMPLETE:** This placeholder must be replaced with the complete upstream 
+license text including all specific terms, dates, and Additional Use Grant 
+provisions before any production consideration.

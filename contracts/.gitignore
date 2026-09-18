@@ -1,0 +1,16 @@
+# Foundry
+out/
+cache/
+broadcast/
+
+# VS Code
+.vscode/
+
+# Environment
+.env
+.env.local
+
+# Temporary files
+*.tmp
+*.swp
+*~

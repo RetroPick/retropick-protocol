@@ -17,6 +17,7 @@ Status values:
 - `ADR-005-retail-trade-vs-primary-create.md` — retail PRISM BUY is secondary trading; CREATE is primary issuance.
 - `ADR-006-resolved-vs-redeemable.md` — final payout knowledge and settlement funding are separate states.
 - `ADR-007-math-first-phase-gates.md` — hard dependency gates control Metropolis execution.
+- `ADR-008-vendor-derived-v2-launchpad-baseline.md` — vendor-derived experimental V2 baseline; does not supersede math-first or authorize production.
 
 ## Rule
 

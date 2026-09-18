@@ -19,6 +19,7 @@ Accepted ADRs under `decisions/` are authoritative. This file is the agent-reada
 - **D-013:** Complete-set open interest does not sum YES+NO. In the simple canonical binary model, OI equals one side/locked collateral quantity.
 - **D-014:** Market convergence, liquidity and MM profitability are empirical claims, never solvency invariants.
 - **D-015:** Cross-chain wrapped outcomes, custom bridge, BackingMirror, approximate replication and StatePool/SLE are deferred from Phase 1.
+- **D-016:** Vendor-derived V2 launchpad baseline established in `contracts/` as experimental foundation. Does not authorize production or supersede math-first gates.
 
 ## Escalation rule
 

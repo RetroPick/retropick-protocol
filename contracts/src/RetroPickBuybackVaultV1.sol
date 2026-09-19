@@ -6,15 +6,15 @@ import {Ownable2Step} from "@openzeppelin/contracts/access/Ownable2Step.sol";
 import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
-import {IRetroPickV2FeeEscrow, IRetroPickV2FeePolicy, IRetroPickV2LaunchFactory} from "./interfaces/IRetroPickV2Launchpad.sol";
+import {IRetroPickFeeEscrowV1, IRetroPickFeePolicyV1, IRetroPickLaunchFactoryV1} from "./interfaces/IRetroPickLaunchpadV1.sol";
 
 /**
- * @title RetroPickV2BuybackVault
+ * @title RetroPickBuybackVaultV1
  * @notice Holds every launch's bought-back memecoin supply and releases it
  * linearly over five years instead of burning it immediately, splitting
  * every release between the creator and the protocol on the launch's
  * recorded fee shares. One shared deployment serves every launch, the same
- * "single deployment for every token" pattern RetroPickV2FeeEscrow already uses.
+ * "single deployment for every token" pattern RetroPickFeeEscrowV1 already uses.
  *
  * Note that the split applies to the release, not to the funding. Both the
  * curve and the hook carve the buyback slice out of the creator's share of
@@ -33,7 +33,7 @@ import {IRetroPickV2FeeEscrow, IRetroPickV2FeePolicy, IRetroPickV2LaunchFactory}
  * clock. `vestedAmount` at any time reflects a fair, size-weighted blend
  * across every deposit made so far.
  */
-contract RetroPickV2BuybackVault is Ownable2Step, ReentrancyGuard {
+contract RetroPickBuybackVaultV1 is Ownable2Step, ReentrancyGuard {
     using SafeERC20 for IERC20;
 
     struct LaunchVest {
@@ -74,8 +74,8 @@ contract RetroPickV2BuybackVault is Ownable2Step, ReentrancyGuard {
         address indexed token, address indexed previousRecipient, address indexed newRecipient
     );
 
-    IRetroPickV2FeePolicy public immutable feePolicy;
-    IRetroPickV2FeeEscrow public immutable feeEscrow;
+    IRetroPickFeePolicyV1 public immutable feePolicy;
+    IRetroPickFeeEscrowV1 public immutable feeEscrow;
     address public factory;
 
     mapping(address token => LaunchVest) private _vaults;
@@ -85,14 +85,14 @@ contract RetroPickV2BuybackVault is Ownable2Step, ReentrancyGuard {
      * @param feePolicy_ Shared protocol/creator split policy, the same singleton the curve and hook read.
      * @param feeEscrow_ Shared claimable balance ledger releases are paid through.
      */
-    constructor(address initialOwner, IRetroPickV2FeePolicy feePolicy_, IRetroPickV2FeeEscrow feeEscrow_) Ownable(initialOwner) {
+    constructor(address initialOwner, IRetroPickFeePolicyV1 feePolicy_, IRetroPickFeeEscrowV1 feeEscrow_) Ownable(initialOwner) {
         if (address(feePolicy_) == address(0) || address(feeEscrow_) == address(0)) revert ZeroAddress();
         feePolicy = feePolicy_;
         feeEscrow = feeEscrow_;
     }
 
     /**
-     * @notice One-time wiring of the v2 factory, set after both are
+     * @notice One-time wiring of the v1 factory, set after both are
      * deployed, used to authorize each launch's bonding curve as a locker.
      */
     function setFactory(address factory_) external onlyOwner {
@@ -190,11 +190,15 @@ contract RetroPickV2BuybackVault is Ownable2Step, ReentrancyGuard {
         uint256 protocolAmount = (released * v.protocolFeeShareBps) / BASIS_POINTS;
         uint256 creatorAmount = released - protocolAmount;
 
+        // Emitted before the escrow credits below: state is already finalized
+        // (vestedUnreleased zeroed, totalReleased advanced) and the amounts are
+        // fixed, so emitting here keeps the log honest even though release() is
+        // nonReentrant, and avoids a reentrancy-events flag on a post-call emit.
+        emit Released(token, creatorAmount, protocolAmount);
+
         IERC20(token).forceApprove(address(feeEscrow), released);
         if (protocolAmount != 0) feeEscrow.creditToken(v.protocolRecipient, token, protocolAmount);
         if (creatorAmount != 0) feeEscrow.creditToken(v.creatorRecipient, token, creatorAmount);
-
-        emit Released(token, creatorAmount, protocolAmount);
     }
 
     /**
@@ -352,6 +356,6 @@ contract RetroPickV2BuybackVault is Ownable2Step, ReentrancyGuard {
     function _isAuthorizedLocker(address token, address caller) private view returns (bool) {
         if (caller == address(feePolicy)) return true;
         if (factory == address(0)) return false;
-        return caller == IRetroPickV2LaunchFactory(factory).getLaunchedToken(token).curve;
+        return caller == IRetroPickLaunchFactoryV1(factory).getLaunchedToken(token).curve;
     }
 }

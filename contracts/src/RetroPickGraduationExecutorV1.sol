@@ -13,21 +13,21 @@ import {Actions} from "@uniswap/v4-periphery/src/libraries/Actions.sol";
 import {LiquidityAmounts} from "@uniswap/v4-periphery/src/libraries/LiquidityAmounts.sol";
 import {IAllowanceTransfer} from "permit2/src/interfaces/IAllowanceTransfer.sol";
 
-import {RetroPickV2LaunchLocker} from "./RetroPickV2LaunchLocker.sol";
+import {RetroPickLaunchLockerV1} from "./RetroPickLaunchLockerV1.sol";
 
 /**
- * @title RetroPickV2GraduationExecutor
- * @notice Performs the two heaviest steps of RetroPick V2 graduation on
- * RetroPickV2LaunchFactory's behalf: swapping swept ETH for a non-native
+ * @title RetroPickGraduationExecutorV1
+ * @notice Performs the two heaviest steps of RetroPick V1 graduation on
+ * RetroPickLaunchFactoryV1's behalf: swapping swept ETH for a non-native
  * pairToken, and minting the full-range Uniswap V4 position. Split out into
- * its own contract purely so RetroPickV2LaunchFactory's own bytecode stays under
+ * its own contract purely so RetroPickLaunchFactoryV1's own bytecode stays under
  * EIP-170's 24576-byte deployed-code limit: the swap-router branching,
  * Permit2 approval dance, PositionManager action encoding, and post-mint
  * dust sweep account for a large share of that size on their own. The
  * factory transfers exactly the assets a mint needs here immediately before
  * calling in, so this contract never holds a balance between transactions.
  */
-contract RetroPickV2GraduationExecutor {
+contract RetroPickGraduationExecutorV1 {
     using SafeERC20 for IERC20;
 
     uint256 private constant MINT_DEADLINE_WINDOW = 300;
@@ -43,7 +43,7 @@ contract RetroPickV2GraduationExecutor {
 
     IPositionManager public immutable positionManager;
     IAllowanceTransfer public immutable permit2;
-    RetroPickV2LaunchLocker public immutable locker;
+    RetroPickLaunchLockerV1 public immutable locker;
     address public immutable factory;
 
     modifier onlyFactory() {
@@ -54,7 +54,7 @@ contract RetroPickV2GraduationExecutor {
     constructor(
         IPositionManager positionManager_,
         IAllowanceTransfer permit2_,
-        RetroPickV2LaunchLocker locker_,
+        RetroPickLaunchLockerV1 locker_,
         address factory_
     ) {
         if (address(positionManager_) == address(0) || address(permit2_) == address(0)) {
@@ -110,7 +110,11 @@ contract RetroPickV2GraduationExecutor {
         _approvePermit2(Currency.unwrap(currency1), amount1Max);
 
         bytes memory actions = hasNative
+            // unsafe-typecast: Actions.MINT_POSITION/SETTLE_PAIR/SWEEP are Uniswap v4 library action constants far below uint8's range; the uint8 packing is exact.
+            // forge-lint: disable-next-line(unsafe-typecast)
             ? abi.encodePacked(uint8(Actions.MINT_POSITION), uint8(Actions.SETTLE_PAIR), uint8(Actions.SWEEP))
+            // unsafe-typecast: Actions.MINT_POSITION/SETTLE_PAIR are Uniswap v4 library action constants far below uint8's range; the uint8 packing is exact.
+            // forge-lint: disable-next-line(unsafe-typecast)
             : abi.encodePacked(uint8(Actions.MINT_POSITION), uint8(Actions.SETTLE_PAIR));
         bytes[] memory params = new bytes[](hasNative ? 3 : 2);
         params[0] = abi.encode(
@@ -143,11 +147,13 @@ contract RetroPickV2GraduationExecutor {
      */
     function _approvePermit2(address token, uint256 amount) private {
         IERC20(token).forceApprove(address(permit2), amount);
-        // Amount is a real token balance the factory just transferred here, always far below uint160's range.
+        // unsafe-typecast: amount is a launch-token balance the factory just transferred here, validated <= type(uint128).max by the mintFullRangePosition overflow guard, so uint160 is exact; block.timestamp + 300 stays far below uint48's range for centuries.
         // forge-lint: disable-next-line(unsafe-typecast)
-        permit2.approve(
-            token, address(positionManager), uint160(amount), uint48(block.timestamp + MINT_DEADLINE_WINDOW)
-        );
+        uint160 approveAmount = uint160(amount);
+        // unsafe-typecast: block.timestamp + 300 stays far below uint48's range for centuries.
+        // forge-lint: disable-next-line(unsafe-typecast)
+        uint48 approveExpiration = uint48(block.timestamp + MINT_DEADLINE_WINDOW);
+        permit2.approve(token, address(positionManager), approveAmount, approveExpiration);
     }
 
     /**
@@ -180,6 +186,8 @@ contract RetroPickV2GraduationExecutor {
 
         bool swept;
         if (currency.isAddressZero()) {
+            // arbitrary-send-eth: recipient is either the immutable trusted locker or protocolFeeRecipient forwarded from mintFullRangePosition (onlyFactory); it is protocol-controlled, never arbitrary caller input.
+            // forge-lint: disable-next-line(arbitrary-send-eth)
             (swept,) = payable(recipient).call{value: amount}("");
         } else {
             // A low-level call rather than try/catch around IERC20.transfer.
@@ -195,8 +203,12 @@ contract RetroPickV2GraduationExecutor {
         }
 
         if (swept) {
+            // reentrancy-events: the event reports `swept`, the result of the transfer above, so it cannot be emitted before that call; the only entry point (mintFullRangePosition) is onlyFactory and this contract holds no state between transactions.
+            // forge-lint: disable-next-line(reentrancy-events)
             emit GraduationDustSwept(launchToken, Currency.unwrap(currency), amount);
         } else {
+            // reentrancy-events: the event reports `swept`, the result of the transfer above, so it cannot be emitted before that call; the only entry point (mintFullRangePosition) is onlyFactory and this contract holds no state between transactions.
+            // forge-lint: disable-next-line(reentrancy-events)
             emit GraduationDustRetained(launchToken, Currency.unwrap(currency), amount);
         }
     }

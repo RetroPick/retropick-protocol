@@ -22,22 +22,22 @@ import {BalanceDelta} from "@uniswap/v4-core/src/types/BalanceDelta.sol";
 import {SwapParams} from "@uniswap/v4-core/src/types/PoolOperation.sol";
 import {BaseHook} from "@uniswap/v4-hooks-public/src/base/BaseHook.sol";
 
-import {RetroPickV2BuybackVault} from "../RetroPickV2BuybackVault.sol";
-import {FeePolicySnapshot, IRetroPickV2FeeEscrow, IRetroPickV2FeePolicy} from "../interfaces/ILaunchpadV2.sol";
+import {RetroPickBuybackVaultV1} from "../RetroPickBuybackVaultV1.sol";
+import {FeePolicySnapshot, IRetroPickFeeEscrowV1, IRetroPickFeePolicyV1} from "../interfaces/IRetroPickLaunchpadV1.sol";
 
 /**
- * @title RetroPickV2MemeHook
- * @notice Singleton Uniswap V4 hook shared by every graduated RetroPick V2 pool.
+ * @title RetroPickMemeHookV1
+ * @notice Singleton Uniswap V4 hook shared by every graduated RetroPick V1 pool.
  * Takes a fee cut on every swap via `afterSwap` (Flaunch-style Internal Swap
  * Pool), and whenever that cut lands in the memecoin, converts it back to
  * the pool's quote currency (ETH for the common native pairToken, or the
  * launch's chosen ERC-20 pairToken otherwise) against the pool's own
  * liquidity before it is ever distributed. The same protocol / creator /
- * buyback-and-burn split that governs RetroPickV2BondingCurve's pre-graduation
- * fee sweep lives here, read live by the curve through IRetroPickV2FeePolicy so
+ * buyback-and-burn split that governs RetroPickBondingCurveV1's pre-graduation
+ * fee sweep lives here, read live by the curve through IRetroPickFeePolicyV1 so
  * both phases behave identically.
  */
-contract RetroPickV2MemeHook is BaseHook, IUnlockCallback, IRetroPickV2FeePolicy, Ownable2Step, ReentrancyGuard {
+contract RetroPickMemeHookV1 is BaseHook, IUnlockCallback, IRetroPickFeePolicyV1, Ownable2Step, ReentrancyGuard {
     using SafeERC20 for IERC20;
 
     enum SwapDirection {
@@ -55,7 +55,7 @@ contract RetroPickV2MemeHook is BaseHook, IUnlockCallback, IRetroPickV2FeePolicy
         // creator payouts are transferred to a different address.
         address buybackCreatorRecipient;
         address protocolFeeRecipient;
-        // Creator-chosen at launch on RetroPickV2LaunchFactory, snapshotted here
+        // Creator-chosen at launch on RetroPickLaunchFactoryV1, snapshotted here
         // at registerPool time. Charged the same way hookFeeBps is, but paid
         // entirely to the creator, bypassing the protocol/buyback split.
         uint16 creatorTaxBps;
@@ -69,7 +69,7 @@ contract RetroPickV2MemeHook is BaseHook, IUnlockCallback, IRetroPickV2FeePolicy
     uint256 private constant BASIS_POINTS = 10_000;
     uint256 private constant MAX_PROTOCOL_FEE_SHARE_BPS = 5_000;
     uint256 private constant MAX_HOOK_FEE_BPS = 1_000;
-    // Mirrors RetroPickV2BondingCurve's own ceiling, so a graduated pool can never
+    // Mirrors RetroPickBondingCurveV1's own ceiling, so a graduated pool can never
     // charge more per trade than the curve it graduated from.
     uint256 private constant MAX_TOTAL_TRADE_FEE_BPS = 2_000;
 
@@ -118,10 +118,10 @@ contract RetroPickV2MemeHook is BaseHook, IUnlockCallback, IRetroPickV2FeePolicy
     event FeeSweepOperatorUpdated(address operator);
     event BuybackEnabledUpdated(PoolId indexed poolId, bool enabled);
 
-    IRetroPickV2FeeEscrow public immutable feeEscrow;
+    IRetroPickFeeEscrowV1 public immutable feeEscrow;
 
     address public factory;
-    RetroPickV2BuybackVault public buybackVault;
+    RetroPickBuybackVaultV1 public buybackVault;
     address public protocolFeeRecipient;
     uint256 public protocolFeeShareBps;
     uint256 public buybackBurnBps;
@@ -159,7 +159,7 @@ contract RetroPickV2MemeHook is BaseHook, IUnlockCallback, IRetroPickV2FeePolicy
      */
     constructor(
         IPoolManager poolManager_,
-        IRetroPickV2FeeEscrow feeEscrow_,
+        IRetroPickFeeEscrowV1 feeEscrow_,
         address protocolFeeRecipient_,
         address initialOwner_
     ) BaseHook(poolManager_) Ownable(initialOwner_) {
@@ -167,6 +167,7 @@ contract RetroPickV2MemeHook is BaseHook, IUnlockCallback, IRetroPickV2FeePolicy
             revert ZeroAddress();
         }
         if (protocolFeeRecipient_ == address(0)) revert ZeroAddress();
+        if (initialOwner_ == address(0)) revert ZeroAddress();
 
         feeEscrow = feeEscrow_;
         protocolFeeRecipient = protocolFeeRecipient_;
@@ -205,7 +206,7 @@ contract RetroPickV2MemeHook is BaseHook, IUnlockCallback, IRetroPickV2FeePolicy
     // ---------------------------------------------------------------------
 
     /**
-     * @notice One-time wiring of the v2 factory, set after both are deployed
+     * @notice One-time wiring of the v1 factory, set after both are deployed
      * since the factory needs this hook's mined address to build pool keys.
      */
     function setFactory(address factory_) external onlyOwner {
@@ -220,7 +221,7 @@ contract RetroPickV2MemeHook is BaseHook, IUnlockCallback, IRetroPickV2FeePolicy
      * after both are deployed, so `_distribute` can lock the buyback leg
      * into it instead of burning it.
      */
-    function setBuybackVault(RetroPickV2BuybackVault buybackVault_) external onlyOwner {
+    function setBuybackVault(RetroPickBuybackVaultV1 buybackVault_) external onlyOwner {
         if (address(buybackVault) != address(0)) revert AlreadySet();
         if (address(buybackVault_) == address(0)) revert ZeroAddress();
         buybackVault = buybackVault_;
@@ -287,9 +288,17 @@ contract RetroPickV2MemeHook is BaseHook, IUnlockCallback, IRetroPickV2FeePolicy
     function _currentFeePolicy() private view returns (FeePolicySnapshot memory) {
         return FeePolicySnapshot({
             protocolFeeRecipient: protocolFeeRecipient,
+            // unsafe-typecast: protocolFeeShareBps is bounded to MAX_PROTOCOL_FEE_SHARE_BPS (5_000) by setProtocolFeeShareBps, well within uint16.
+            // forge-lint: disable-next-line(unsafe-typecast)
             protocolFeeShareBps: uint16(protocolFeeShareBps),
+            // unsafe-typecast: buybackBurnBps is bounded to BASIS_POINTS (10_000) by setBuybackBurnBps, within uint16 range.
+            // forge-lint: disable-next-line(unsafe-typecast)
             buybackBurnBps: uint16(buybackBurnBps),
+            // unsafe-typecast: hookFeeBps is bounded to MAX_HOOK_FEE_BPS (1_000) by setHookFeeBps, within uint16 range.
+            // forge-lint: disable-next-line(unsafe-typecast)
             hookFeeBps: uint16(hookFeeBps),
+            // unsafe-typecast: maxInternalPriceImpactBps is bounded below BASIS_POINTS (10_000) by setMaxInternalPriceImpactBps, within uint16 range.
+            // forge-lint: disable-next-line(unsafe-typecast)
             maxInternalPriceImpactBps: uint16(maxInternalPriceImpactBps)
         });
     }
@@ -461,6 +470,8 @@ contract RetroPickV2MemeHook is BaseHook, IUnlockCallback, IRetroPickV2FeePolicy
         if (unspecifiedAmount < 0) unspecifiedAmount = -unspecifiedAmount;
         if (unspecifiedAmount == 0) return (IHooks.afterSwap.selector, 0);
 
+        // unsafe-typecast: unspecifiedAmount is a v4 BalanceDelta component (int128) normalized non-negative just above, so int128->uint128 is exact and uint128->uint256 is a widening.
+        // forge-lint: disable-next-line(unsafe-typecast)
         uint256 unspecified = uint256(uint128(unspecifiedAmount));
         uint256 feeAmount = (unspecified * info.hookFeeBps) / BASIS_POINTS;
         uint256 taxAmount = (unspecified * info.creatorTaxBps) / BASIS_POINTS;
@@ -474,13 +485,25 @@ contract RetroPickV2MemeHook is BaseHook, IUnlockCallback, IRetroPickV2FeePolicy
             if (info.buybackEnabled) {
                 // The buyback comes out of the creator's bucket alone, so it
                 // is measured against what remains after the protocol's share.
-                uint256 creatorSlice = feeAmount - (feeAmount * info.protocolFeeShareBps) / BASIS_POINTS;
-                pendingBuyback[poolId][feeCurrencyAddr] += (creatorSlice * info.buybackBurnBps) / BASIS_POINTS;
+                // Multiply-before-divide: scale the raw unspecified amount by
+                // the hook fee, the creator's complementary share, and the
+                // buyback rate (all pure multiplications) ahead of the single
+                // BASIS_POINTS^3 division, so no floored quotient feeds a
+                // multiply. Numerator <= uint128max * 1e3 * 1e4 < uint256max,
+                // and mulDiv carries the final factor in 512-bit space.
+                uint256 buybackScaled =
+                    unspecified * info.hookFeeBps * (BASIS_POINTS - info.protocolFeeShareBps);
+                pendingBuyback[poolId][feeCurrencyAddr] +=
+                    FullMath.mulDiv(buybackScaled, info.buybackBurnBps, BASIS_POINTS * BASIS_POINTS * BASIS_POINTS);
             }
         }
         if (taxAmount != 0) pendingCreatorTax[poolId][feeCurrencyAddr] += taxAmount;
 
+        // reentrancy-events: _afterSwap runs only as a PoolManager callback during its own unlock; all fee-bucket state (pendingFees/pendingBuyback/pendingCreatorTax) is written above before the sole external take, so this event cannot be observed on partial state.
+        // forge-lint: disable-next-line(reentrancy-events)
         emit HookFeeCollected(poolId, feeCurrencyAddr, feeAmount, taxAmount);
+        // unsafe-typecast: totalAmount = unspecified * (hookFeeBps + creatorTaxBps) / BASIS_POINTS, and that fee sum is capped at MAX_TOTAL_TRADE_FEE_BPS (2_000) by _registerPool, so totalAmount <= unspecified/5 where unspecified fits uint128; both the uint128 and int128 casts are exact.
+        // forge-lint: disable-next-line(unsafe-typecast)
         return (IHooks.afterSwap.selector, int128(uint128(totalAmount)));
     }
 
@@ -554,8 +577,8 @@ contract RetroPickV2MemeHook is BaseHook, IUnlockCallback, IRetroPickV2FeePolicy
      */
     function rescuePoolFees(PoolId poolId)
         external
-        onlyOwner
         nonReentrant
+        onlyOwner
         returns (uint256 protocolAmount, uint256 creatorAmount)
     {
         LaunchInfo memory info = launches[poolId];
@@ -632,6 +655,8 @@ contract RetroPickV2MemeHook is BaseHook, IUnlockCallback, IRetroPickV2FeePolicy
         uint256 taxPending = pendingCreatorTax[poolId][info.memecoin];
         uint256 buybackPending = pendingBuyback[poolId][info.memecoin];
         uint256 totalPending = feePending + taxPending;
+        // boolean-cst: the trailing false is the `converted` status flag for the no-op path (nothing pending), not a boolean expression.
+        // forge-lint: disable-next-line(boolean-cst)
         if (totalPending == 0) return (0, 0, 0, false);
         if (minConversionQuoteOut == 0) revert MinimumOutputRequired();
 
@@ -643,7 +668,11 @@ contract RetroPickV2MemeHook is BaseHook, IUnlockCallback, IRetroPickV2FeePolicy
             pendingFees[poolId][info.memecoin] += feePending;
             pendingCreatorTax[poolId][info.memecoin] += taxPending;
             pendingBuyback[poolId][info.memecoin] += buybackPending;
+            // reentrancy-events: only reachable from sweepPoolFees (nonReentrant); the pending fee/tax/buyback buckets are restored above before this skip event fires.
+            // forge-lint: disable-next-line(reentrancy-events)
             emit PoolConversionSkipped(poolId, totalPending);
+            // boolean-cst: the trailing false is the `converted` status flag for the swap-filled-nothing path, not a boolean expression.
+            // forge-lint: disable-next-line(boolean-cst)
             return (0, 0, 0, false);
         }
         converted = true;
@@ -694,8 +723,8 @@ contract RetroPickV2MemeHook is BaseHook, IUnlockCallback, IRetroPickV2FeePolicy
         uint256 requestedBuyback = buybackQuote < creatorBucket ? buybackQuote : creatorBucket;
         uint256 creatorAmount = creatorBucket - requestedBuyback + taxQuote;
 
-        uint256 buybackSpent;
-        uint256 tokensLocked;
+        uint256 buybackSpent = 0;
+        uint256 tokensLocked = 0;
         if (requestedBuyback != 0) {
             if (minBuybackTokensOut == 0) revert MinimumOutputRequired();
             (buybackSpent, tokensLocked) = _executeInternalSwap(poolId, SwapDirection.QuoteToMemecoin, requestedBuyback);
@@ -721,6 +750,8 @@ contract RetroPickV2MemeHook is BaseHook, IUnlockCallback, IRetroPickV2FeePolicy
                 // a buyback that filled nothing would block the creator and
                 // protocol legs too, stranding the whole distribution over a
                 // leg that has already been folded back above.
+                // reentrancy-events: _distribute is reached only from sweepPoolFees (nonReentrant); this skip event reports the buyback outcome after the guarded swap and cannot expose reentrant state.
+                // forge-lint: disable-next-line(reentrancy-events)
                 emit PoolBuybackSkipped(poolId, requestedBuyback);
             } else {
                 // Input was consumed but rounded to no output at all. That
@@ -733,6 +764,8 @@ contract RetroPickV2MemeHook is BaseHook, IUnlockCallback, IRetroPickV2FeePolicy
         _payOut(info.creator, info.quoteToken, creatorAmount);
         _payOut(info.protocolFeeRecipient, info.quoteToken, protocolAmount);
 
+        // reentrancy-events: _distribute is reached only from sweepPoolFees (nonReentrant); every payout/lock has completed above, so this final settlement event reflects fully applied effects.
+        // forge-lint: disable-next-line(reentrancy-events)
         emit PoolFeesSwept(poolId, protocolAmount, buybackSpent, creatorAmount, tokensLocked);
     }
 
@@ -767,6 +800,8 @@ contract RetroPickV2MemeHook is BaseHook, IUnlockCallback, IRetroPickV2FeePolicy
         private
         returns (uint256 amountInConsumed, uint256 amountOut)
     {
+        // reentrancy-no-eth: _executeInternalSwap is private and only reached from sweepPoolFees, which carries nonReentrant; the unlock callback runs entirely within that guarded scope so no reentrant state mutation is possible.
+        // forge-lint: disable-next-line(reentrancy-no-eth)
         bytes memory result = poolManager.unlock(abi.encode(poolId, direction, amountIn));
         (amountInConsumed, amountOut) = abi.decode(result, (uint256, uint256));
     }
@@ -805,6 +840,8 @@ contract RetroPickV2MemeHook is BaseHook, IUnlockCallback, IRetroPickV2FeePolicy
 
     function _settleCurrency(Currency currency, int128 amount) private {
         if (amount < 0) {
+            // unsafe-typecast: within the amount < 0 branch, -amount is a positive int128 (v4 BalanceDelta component), so int128->uint128 is exact and uint128->uint256 is a widening.
+            // forge-lint: disable-next-line(unsafe-typecast)
             uint256 owed = uint256(uint128(-amount));
             if (currency.isAddressZero()) {
                 // PoolManager.sync carries no unlock modifier, so the synced-
@@ -813,6 +850,8 @@ contract RetroPickV2MemeHook is BaseHook, IUnlockCallback, IRetroPickV2FeePolicy
                 // non-zero slot takes the ERC-20 branch and reverts
                 // NonzeroNativeValue, which v4-core calls out as a DoS vector.
                 poolManager.sync(currency);
+                // unused-return: settle() returns the amount credited, which for native equals the exact `owed` value forwarded here; no further use.
+                // forge-lint: disable-next-line(unused-return)
                 poolManager.settle{value: owed}();
             } else {
                 address token = Currency.unwrap(currency);
@@ -821,9 +860,13 @@ contract RetroPickV2MemeHook is BaseHook, IUnlockCallback, IRetroPickV2FeePolicy
                 IERC20(token).safeTransfer(address(poolManager), owed);
                 uint256 received = IERC20(token).balanceOf(address(poolManager)) - balanceBefore;
                 if (received != owed) revert InexactQuoteTransfer(token, owed, received);
+                // unused-return: settle() returns the credited amount, which equals the exact `owed` transfer already verified by the received == owed check above; no further use.
+                // forge-lint: disable-next-line(unused-return)
                 poolManager.settle();
             }
         } else if (amount > 0) {
+            // unsafe-typecast: within the amount > 0 branch, amount is a positive int128 (v4 BalanceDelta component), so int128->uint128 is exact and uint128->uint256 is a widening.
+            // forge-lint: disable-next-line(unsafe-typecast)
             _takeExact(currency, Currency.unwrap(currency), uint256(uint128(amount)));
         }
     }

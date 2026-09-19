@@ -5,12 +5,12 @@ import {Pool} from "@uniswap/v4-core/src/libraries/Pool.sol";
 import {TickMath} from "@uniswap/v4-core/src/libraries/TickMath.sol";
 import {LiquidityAmounts} from "@uniswap/v4-periphery/src/libraries/LiquidityAmounts.sol";
 
-import {RetroPickV2GraduationMath} from "./libraries/RetroPickV2GraduationMath.sol";
+import {RetroPickGraduationMathV1} from "./libraries/RetroPickGraduationMathV1.sol";
 
 /**
- * @title RetroPickV2GraduationGuard
+ * @title RetroPickGraduationGuardV1
  * @notice Stateless preflight for a graduation's Uniswap V4 seed. It keeps
- * the tick and liquidity math outside RetroPickV2LaunchFactory's runtime bytecode
+ * the tick and liquidity math outside RetroPickLaunchFactoryV1's runtime bytecode
  * while modelling the rejections of the real mint, so a launch can never
  * drain its curve into a seed the PositionManager or V4 core would reject.
  *
@@ -20,7 +20,7 @@ import {RetroPickV2GraduationMath} from "./libraries/RetroPickV2GraduationMath.s
  * that passes here and reverts in V4 leaves the launch permanently unseedable
  * and recoverable only through the owner's delayed rescue path.
  */
-contract RetroPickV2GraduationGuard {
+contract RetroPickGraduationGuardV1 {
     int24 private constant MIN_USABLE_TICK = -887272;
     int24 private constant MAX_USABLE_TICK = 887272;
 
@@ -31,6 +31,8 @@ contract RetroPickV2GraduationGuard {
      * `uint128`, so an amount in between passes every field-width check and
      * still reverts inside V4 core. The signed bound is the real one.
      */
+    // unsafe-typecast: int128.max is non-negative so the uint128 narrowing and the uint256 widening are both exact; this is the intended signed liquidity bound (see comment above).
+    // forge-lint: disable-next-line(unsafe-typecast)
     uint256 private constant MAX_SEED_AMOUNT = uint256(uint128(type(int128).max));
 
     error SqrtPriceOutOfBounds();
@@ -89,7 +91,7 @@ contract RetroPickV2GraduationGuard {
      * currency ordering. Amount bounds are the caller's to enforce.
      */
     function _assertSeedable(int24 tickSpacing, uint256 amount0, uint256 amount1) private pure {
-        uint160 sqrtPriceX96 = RetroPickV2GraduationMath.sqrtPriceX96FromAmounts(amount0, amount1);
+        uint160 sqrtPriceX96 = RetroPickGraduationMathV1.sqrtPriceX96FromAmounts(amount0, amount1);
         if (sqrtPriceX96 <= TickMath.MIN_SQRT_PRICE || sqrtPriceX96 >= TickMath.MAX_SQRT_PRICE) {
             revert SqrtPriceOutOfBounds();
         }

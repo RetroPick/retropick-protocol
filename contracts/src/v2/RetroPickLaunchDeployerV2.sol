@@ -1,13 +1,13 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.26;
 
-import {RetroPickV2LauncherToken} from "./RetroPickV2LauncherToken.sol";
-import {RetroPickV2BondingCurve} from "./RetroPickV2BondingCurve.sol";
-import {RetroPickV2BuybackVault} from "./RetroPickV2BuybackVault.sol";
-import {FeePolicySnapshot, IRetroPickV2FeeEscrow, IRetroPickV2FeePolicy} from "./interfaces/IRetroPickV2Launchpad.sol";
+import {RetroPickLauncherTokenV2} from "./RetroPickLauncherTokenV2.sol";
+import {RetroPickBondingCurveV2} from "./RetroPickBondingCurveV2.sol";
+import {RetroPickBuybackVaultV2} from "./RetroPickBuybackVaultV2.sol";
+import {FeePolicySnapshot, IRetroPickFeeEscrowV2, IRetroPickFeePolicyV2} from "./interfaces/IRetroPickLaunchpadV2.sol";
 
 /**
- * @notice Every input RetroPickV2LaunchFactory hands the deployer to stand up one
+ * @notice Every input RetroPickLaunchFactoryV2 hands the deployer to stand up one
  * launch. Grouped into a single calldata struct rather than a flat parameter
  * list so the deployer stays inside the EVM's 16-slot stack window when
  * compiled without the IR pipeline, which is the mode `forge coverage` uses.
@@ -16,10 +16,10 @@ struct LaunchDeployment {
     address pairToken;
     address creatorFeeRecipient;
     address originalDeployer;
-    IRetroPickV2FeePolicy feePolicy;
+    IRetroPickFeePolicyV2 feePolicy;
     FeePolicySnapshot policy;
-    IRetroPickV2FeeEscrow feeEscrow;
-    RetroPickV2BuybackVault buybackVault;
+    IRetroPickFeeEscrowV2 feeEscrow;
+    RetroPickBuybackVaultV2 buybackVault;
     uint256 phantomQuote;
     uint256 curveFeeBps;
     uint256 creatorTaxBps;
@@ -30,21 +30,21 @@ struct LaunchDeployment {
     string symbol;
     string logo;
     string description;
-    RetroPickV2LauncherToken.Socials socials;
+    RetroPickLauncherTokenV2.Socials socials;
 }
 
 /**
- * @title RetroPickV2LaunchDeployer
+ * @title RetroPickLaunchDeployerV2
  * @notice Deploys the bonding curve and launch token pair for one RetroPick V2
- * launch on RetroPickV2LaunchFactory's behalf. Split out into its own contract
- * purely so RetroPickV2LaunchFactory's own bytecode stays under EIP-170's
+ * launch on RetroPickLaunchFactoryV2's behalf. Split out into its own contract
+ * purely so RetroPickLaunchFactoryV2's own bytecode stays under EIP-170's
  * 24576-byte deployed-code limit: embedding two full contracts' creation
  * code via `new` inside the factory itself was the single largest
  * contributor to its size. Both new contracts still record the real
  * factory's address explicitly (never this deployer's), since they gate
  * privileged calls on it.
  */
-contract RetroPickV2LaunchDeployer {
+contract RetroPickLaunchDeployerV2 {
     // Metadata is stored on the token and read back by unbounded-return view
     // functions, so an unbounded write here becomes a permanently unreadable
     // token: `socials()` returns all five strings at once and would run out
@@ -85,7 +85,7 @@ contract RetroPickV2LaunchDeployer {
         _requireMetadataWithinLimits(params);
 
         curve = address(
-            new RetroPickV2BondingCurve(
+            new RetroPickBondingCurveV2(
                 params.pairToken,
                 params.creatorFeeRecipient,
                 factory,
@@ -101,7 +101,7 @@ contract RetroPickV2LaunchDeployer {
             )
         );
         token = address(
-            new RetroPickV2LauncherToken(
+            new RetroPickLauncherTokenV2(
                 params.name,
                 params.symbol,
                 params.logo,

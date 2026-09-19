@@ -1,0 +1,26 @@
+{
+  "id": "FEAT-003",
+  "type": "chore",
+  "description": "Final full-tree verification and reporting. Confirm the combined src/v1 + src/v2 tree builds with zero errors and zero forge-lint warnings, the existing 45-test suite still passes against src/v1, and produce the required report of exactly what moved, what was copied, and the full V1->V2 rename mapping. Depends on FEAT-001 and FEAT-002.",
+  "status": "pending",
+  "steps": [
+    "Run `forge build --force` from the Foundry root and confirm exit 0 with zero compiler errors.",
+    "Run `forge build --force 2>&1 | grep -cE '^warning\\['` and confirm it prints 0 (no reintroduced forge-lint warnings).",
+    "Run `forge test` and confirm the same 45 tests pass with no regressions.",
+    "Produce a report capturing: (a) the 15 files MOVED from src/* into src/v1/* with their new paths; (b) the src/v1 -> src/v2 COPY; (c) the full file-name rename mapping (*V1.sol -> *V2.sol) for all 15 v2 files; (d) the full symbol rename mapping (all contract/interface/library/struct names V1->V2, and the revert-string literal version change V1->V2). Write this into findings.",
+    "Confirm src/v1 and src/v2 have no colliding contract names (v1 all *V1, v2 all *V2)."
+  ],
+  "acceptance_criteria": [
+    "`forge build --force` exits 0 with zero errors.",
+    "`forge build --force 2>&1 | grep -cE '^warning\\['` prints 0.",
+    "`forge test` shows 45 passing, 0 failing.",
+    "findings contains the complete moved/copied/rename report."
+  ],
+  "verification": [
+    "forge build --force (exit 0)",
+    "forge build --force 2>&1 | grep -cE '^warning\\[' (prints 0)",
+    "forge test (45 passing, 0 failing)"
+  ],
+  "blocked_reason": null,
+  "findings": "Final verification PASSED. src tree: 15 files under src/v1/ (all *V1, original layout) + 15 under src/v2/ (all *V2, same layout). grep -rnE 'V1|v1' src/v2 = CLEAN; grep -rn 'src/v1' src/v2 = CLEAN (no cross-tree imports). `forge build --force` = exit 0, 127 files, Compiler run successful. forge-lint metric `grep -cE '^warning\\['` = 0. `forge test` = 45 passed, 0 failed, 0 skipped across 5 suites (matches baseline). The only solc output warnings are two benign Warning(2018) 'state mutability can be restricted to view' on exemptFromSnipeTax in RetroPickBondingCurveV1.sol:813 and its faithful copy RetroPickBondingCurveV2.sol:813; the v1 one is a git-mv of the unmodified HEAD file, so it is pre-existing, NOT counted by the forge-lint metric, and left unchanged to keep v2 a faithful copy. No name collisions (v1 all *V1, v2 all *V2). MOVED (src/* -> src/v1/*): RetroPickBondingCurveV1, RetroPickBuybackVaultV1, RetroPickDoorwayV1, RetroPickGraduationExecutorV1, RetroPickGraduationGuardV1, RetroPickLaunchDeployerV1, RetroPickLaunchFactoryV1, RetroPickLaunchLockerV1, RetroPickLauncherTokenV1, hooks/RetroPickMemeHookV1, interfaces/{IRetroPickDoorwayV1,IRetroPickGraduationV1,IRetroPickLaunchpadV1}, libraries/{RetroPickBondingCurveMathV1,RetroPickGraduationMathV1}. COPIED: src/v1 -> src/v2. FILE RENAMES: each *V1.sol -> *V2.sol. SYMBOL RENAMES (all V1->V2): contracts RetroPickBondingCurve/BuybackVault/Doorway/GraduationExecutor/GraduationGuard/LaunchDeployer/LaunchFactory/LaunchLocker/LauncherToken/MemeHook, libraries RetroPickBondingCurveMath/RetroPickGraduationMath, interfaces IRetroPickDoorway/IRetroPickDoorwayRegistry/IRetroPickDoorwayVault/IRetroPickDoorwayStaking/IRetroPickGraduation/IRetroPickLaunchFactoryGraduation/IRetroPickLaunchpad/IRetroPickFeeEscrow/IRetroPickFeePolicy/IRetroPickLaunchFactory/IRetroPickBondingCurve, plus all revert-string literals (e.g. 'RetroPickDoorwayV1: not owner' -> 'RetroPickDoorwayV2: not owner') and version-carrying comments (v1->v2). Tests kept on src/v1 (only import PATHS updated in FEAT-001)."
+}

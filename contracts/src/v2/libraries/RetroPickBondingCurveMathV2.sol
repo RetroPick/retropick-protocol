@@ -2,13 +2,13 @@
 pragma solidity ^0.8.26;
 
 /**
- * @title RetroPickV2BondingCurveMath
- * @notice Constant-product bonding curve math shared by RetroPickV2BondingCurve, adapted
+ * @title RetroPickBondingCurveMathV2
+ * @notice Constant-product bonding curve math shared by RetroPickBondingCurveV2, adapted
  * from the BootstrapPool.sol reference (code-423n4/2025-01-iq-ai). Reserves and fee
  * are passed explicitly so the same formula prices trades in either direction and can
  * also price the curve's internal buyback swap.
  */
-library RetroPickV2BondingCurveMath {
+library RetroPickBondingCurveMathV2 {
     uint256 internal constant BASIS_POINTS = 10_000;
 
     error InsufficientInputAmount();

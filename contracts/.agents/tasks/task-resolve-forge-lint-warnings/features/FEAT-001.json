@@ -1,0 +1,91 @@
+{
+  "id": "FEAT-001",
+  "type": "chore",
+  "description": "Establish the baseline: confirm the current build compiles and capture the exact set of forge-lint warnings so subsequent features can be validated against a known starting point of 93 warnings.",
+  "status": "completed",
+  "steps": [
+    "From the Foundry root (/home/ubuntu/project/retropick/retropick-protocol/contracts), run `forge build --force` and confirm it compiles successfully (exit 0, warnings only, no errors).",
+    "Run `forge build --force 2>&1 | grep -cE '^warning\\['` and confirm the count is 93.",
+    "Run `forge build --force 2>&1 | grep -E '^warning\\[' | sed -E 's/:.*//' | sort | uniq -c | sort -rn` to record the per-category breakdown.",
+    "Run `forge test 2>&1 | tail -30` to confirm the existing test suite baseline (record pass/fail counts). This is the regression reference for later features.",
+    "Read .agents/tasks/task-resolve-forge-lint-warnings/warnings_inventory.txt which lists every warning as `<lint-name>  ->  file:line:col`.",
+    "Record the baseline (warning count, category breakdown, test pass/fail totals) in this feature's findings field."
+  ],
+  "acceptance_criteria": [
+    "`forge build --force` exits 0 with only warnings (no compilation errors).",
+    "Warning count is confirmed as 93 across the 16 documented categories.",
+    "Baseline `forge test` result is recorded (number passing / failing) for later regression comparison."
+  ],
+  "verification": [
+    "forge build --force 2>&1 | grep -cE '^warning\\[' returns 93",
+    "forge test completes and its pass/fail totals are recorded in findings"
+  ],
+  "blocked_reason": null,
+  "findings": {
+    "build": {
+      "command": "forge build --force",
+      "exit_code": 0,
+      "compilation_errors": 0,
+      "result": "Compiles successfully with warnings only, no compilation errors."
+    },
+    "warning_count": {
+      "command": "forge build --force 2>&1 | grep -cE '^warning\\['",
+      "total": 93,
+      "confirmed": true
+    },
+    "category_breakdown": {
+      "note": "16 categories, total 93. From `forge build --force 2>&1 | grep -E '^warning\\[' | sed -E 's/:.*//' | sort | uniq -c | sort -rn`.",
+      "reentrancy-events": 24,
+      "unsafe-typecast": 23,
+      "missing-zero-check": 7,
+      "unused-return": 5,
+      "environment-read-across-mutation": 5,
+      "non-reentrant-not-first": 4,
+      "boolean-cst": 4,
+      "block-timestamp": 4,
+      "arbitrary-send-eth": 4,
+      "uninitialized-local": 3,
+      "reentrancy-no-eth": 3,
+      "missing-events-access-control": 3,
+      "reentrancy-balance": 1,
+      "missing-events-arithmetic": 1,
+      "divide-before-multiply": 1,
+      "calls-loop": 1
+    },
+    "test_baseline": {
+      "command": "forge test",
+      "exit_code": 0,
+      "total_tests": 45,
+      "passed": 45,
+      "failed": 0,
+      "skipped": 0,
+      "test_suites": 5,
+      "per_suite": [
+        "19 passed; 0 failed; 0 skipped",
+        "4 passed; 0 failed; 0 skipped",
+        "5 passed; 0 failed; 0 skipped",
+        "16 passed; 0 failed; 0 skipped (RetroPickDoorwaySetters suite)",
+        "1 passed; 0 failed; 0 skipped (RetroPickDoorwayInvariantTest: runs 64, calls 4096, reverts 0)"
+      ],
+      "note": "Clean green baseline. Any post-fix run must remain 45 passed / 0 failed / 0 skipped to avoid regression."
+    },
+    "warnings_inventory": {
+      "path": ".agents/tasks/task-resolve-forge-lint-warnings/warnings_inventory.txt",
+      "entries": 93,
+      "format": "<lint-name>  ->  file:line:col",
+      "files_touched": [
+        "src/RetroPickDoorwayV1.sol",
+        "src/RetroPickBondingCurveV1.sol",
+        "src/RetroPickBuybackVaultV1.sol",
+        "src/RetroPickGraduationExecutorV1.sol",
+        "src/RetroPickGraduationGuardV1.sol",
+        "src/RetroPickLaunchFactoryV1.sol",
+        "src/hooks/RetroPickMemeHookV1.sol",
+        "test/integration/RetroPickDoorwayE2E.t.sol",
+        "test/unit/RetroPickDoorwayBase.t.sol",
+        "test/unit/RetroPickDoorwayLifecycle.t.sol"
+      ]
+    },
+    "environment_notes": "Branch feat/vendor-v2-rebrand with extensive staged/unstaged rebrand work already present (v2 -> V1 renames). No source (.sol) files were modified by FEAT-001. via_ir=true + optimizer make full --force builds take a couple minutes. Baseline is a clean tree relative to prior work; no commit/push performed."
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "task_id": "task-resolve-forge-lint-warnings",
+  "task_description": "Resolve all 93 forge-lint warnings from `forge build` across the RetroPick smart-contract protocol (bonding-curve launchpad, Uniswap v4 hook, cross-chain migration doorway). Apply per-warning security judgment: fix genuine issues in code (missing events/zero-checks, uninitialized locals, divide-before-multiply, nonReentrant modifier ordering, unused meaningful returns, test timestamp source) and suppress provable false positives with targeted, specifically-justified `// forge-lint: disable-next-line(<lint>)` comments (documented int128 bounds, constant boolean tuple flags, coarse block-timestamp windows, guarded arbitrary-send / reentrancy, bounded admin-controlled call loops). Success = `forge build --force` produces ZERO forge-lint warnings and `forge test` passes with no regressions. Do NOT commit or push.",
+  "status": "completed",
+  "feature_order": ["FEAT-001", "FEAT-002", "FEAT-003", "FEAT-004", "FEAT-005"],
+  "blocked_reason": null,
+  "verification": {
+    "build": "pass",
+    "tests": "pass",
+    "test_quality": "pass",
+    "summary": "Independently re-verified: `forge build --force 2>&1 | grep -cE '^warning\\['` = 0 (all 93 forge-lint warnings resolved across all 7 source files + 3 test files). `forge test` = 45 passed / 0 failed / 0 skipped, identical to the FEAT-001 baseline (includes the invariant suite: 64 runs / 4096 calls / 0 reverts). No behavior regressions. Test quality: the existing suite passes unchanged; FEAT-002 fixes that changed on-chain behavior (added zero-address checks, OwnershipTransferred event, nonReentrant-first reordering, moved emits, divide-before-multiply precision fix) are all still exercised by the pre-existing unit/integration/fuzz/invariant tests which continue to pass, confirming no path was broken. RESIDUAL (documented, out of scope): one solc `Warning (2018): Function state mutability can be restricted to view` at src/RetroPickBondingCurveV1.sol:813 (exemptFromSnipeTax) is a pre-existing upstream stub, present at baseline, and is a solc compiler diagnostic NOT a `warning[<lint>]` forge-lint entry, so it is outside the task's defined scope and metric. Left unchanged deliberately (making the stub `view` would alter its intended ABI mutability)."
+  }
+}

@@ -5,8 +5,8 @@ import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import {ERC20Burnable} from "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
 
 /**
- * @title RetroPickV2LauncherToken
- * @notice Fixed-supply ERC-20 deployed by RetroPickV2LaunchFactory for a v2 launch.
+ * @title RetroPickLauncherTokenV1
+ * @notice Fixed-supply ERC-20 deployed by RetroPickLaunchFactoryV1 for a v1 launch.
  * The entire supply mints directly to the token's bonding curve instead of a
  * Uniswap position. Anyone, the deployer included, may buy any amount from
  * the curve at any time; the curve's own price impact and its reserved pool
@@ -15,10 +15,10 @@ import {ERC20Burnable} from "@openzeppelin/contracts/token/ERC20/extensions/ERC2
  * privileges over the token.
  * `ERC20Burnable` lets any holder voluntarily burn their own balance; the
  * protocol's buyback mechanism does not use it, bought-back tokens are
- * locked into `RetroPickV2BuybackVault` for a five-year vest instead of being
+ * locked into `RetroPickBuybackVaultV1` for a five-year vest instead of being
  * burned.
  */
-contract RetroPickV2LauncherToken is ERC20, ERC20Burnable {
+contract RetroPickLauncherTokenV1 is ERC20, ERC20Burnable {
     struct Socials {
         string twitter;
         string telegram;
@@ -39,7 +39,7 @@ contract RetroPickV2LauncherToken is ERC20, ERC20Burnable {
     Socials private _socials;
 
     /**
-     * @notice Creates a v2 launch token and mints its entire supply to the bonding curve.
+     * @notice Creates a v1 launch token and mints its entire supply to the bonding curve.
      */
     constructor(
         string memory name_,
@@ -57,8 +57,8 @@ contract RetroPickV2LauncherToken is ERC20, ERC20Burnable {
         }
 
         deployer = deployer_;
-        // Passed explicitly rather than read from msg.sender: RetroPickV2LaunchFactory
-        // deploys this token indirectly through RetroPickV2LaunchDeployer to keep its
+        // Passed explicitly rather than read from msg.sender: RetroPickLaunchFactoryV1
+        // deploys this token indirectly through RetroPickLaunchDeployerV1 to keep its
         // own bytecode under EIP-170's size limit, so msg.sender at construction
         // time would otherwise resolve to that deployer helper, not the factory.
         launchFactory = launchFactory_;

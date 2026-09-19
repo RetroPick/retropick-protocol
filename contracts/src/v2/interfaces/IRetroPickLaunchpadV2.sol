@@ -17,7 +17,7 @@ pragma solidity ^0.8.26;
  * pairToken is a non-native ERC-20: those curves trade and credit in that
  * asset from the first trade through to graduation.
  */
-interface IRetroPickV2FeeEscrow {
+interface IRetroPickFeeEscrowV2 {
     function credit(address recipient) external payable;
     function creditToken(address recipient, address token, uint256 amount) external;
     function claim() external returns (uint256 amount);
@@ -46,11 +46,11 @@ struct FeePolicySnapshot {
  * meme hook. The current policy is snapshotted at launch, while the live
  * sweep operator remains rotatable for operational liveness.
  */
-interface IRetroPickV2FeePolicy {
+interface IRetroPickFeePolicyV2 {
     function protocolFeeShareBps() external view returns (uint256);
     function buybackBurnBps() external view returns (uint256);
     function protocolFeeRecipient() external view returns (address);
-    function feeEscrow() external view returns (IRetroPickV2FeeEscrow);
+    function feeEscrow() external view returns (IRetroPickFeeEscrowV2);
     // Ceiling on how much a single internal buyback conversion is allowed
     // to move the pool's own price, read by the meme hook's real internal
     // swaps and by the bonding curve's pre-graduation buyback pricing so
@@ -61,7 +61,7 @@ interface IRetroPickV2FeePolicy {
 }
 
 /**
- * @notice Minimal ERC-721 receiver signature used by RetroPickV2LaunchLocker to
+ * @notice Minimal ERC-721 receiver signature used by RetroPickLaunchLockerV2 to
  * accept the graduated Uniswap V4 position NFT.
  */
 interface IERC721ReceiverLike {
@@ -91,10 +91,10 @@ enum GraduationPhase {
 }
 
 /**
- * @notice Record kept by RetroPickV2LaunchFactory for every launch, readable by
+ * @notice Record kept by RetroPickLaunchFactoryV2 for every launch, readable by
  * the locker and by off-chain indexers.
  */
-interface IRetroPickV2LaunchFactory {
+interface IRetroPickLaunchFactoryV2 {
     struct LaunchedToken {
         address token;
         address curve;
@@ -125,7 +125,7 @@ interface IRetroPickV2LaunchFactory {
  * @notice Narrow surface the factory needs from a bonding curve to trigger
  * graduation once the ETH threshold has been crossed.
  */
-interface IRetroPickV2BondingCurve {
+interface IRetroPickBondingCurveV2 {
     function token() external view returns (address);
     function pairToken() external view returns (address);
     function graduationThreshold() external view returns (uint256);

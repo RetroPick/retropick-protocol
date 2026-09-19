@@ -7,7 +7,7 @@ import {
     MigrationStatus,
     Migration,
     Attestation
-} from "../../src/interfaces/IRetroPickDoorwayV1.sol";
+} from "../../src/v1/interfaces/IRetroPickDoorwayV1.sol";
 
 /**
  * @notice Unit tests for the Solana -> Monad request path plus the shared

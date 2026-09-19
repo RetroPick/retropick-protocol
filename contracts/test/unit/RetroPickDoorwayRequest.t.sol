@@ -2,13 +2,13 @@
 pragma solidity ^0.8.26;
 
 import {RetroPickDoorwayBaseTest} from "./RetroPickDoorwayBase.t.sol";
-import {RetroPickDoorwayV1} from "../../src/RetroPickDoorwayV1.sol";
+import {RetroPickDoorwayV1} from "../../src/v1/RetroPickDoorwayV1.sol";
 import {
     IRetroPickDoorwayV1,
     MigrationDirection,
     MigrationStatus,
     Migration
-} from "../../src/interfaces/IRetroPickDoorwayV1.sol";
+} from "../../src/v1/interfaces/IRetroPickDoorwayV1.sol";
 
 /**
  * @notice Unit tests for the Monad -> Solana request path and the full

@@ -6,19 +6,19 @@ import {Ownable2Step} from "@openzeppelin/contracts/access/Ownable2Step.sol";
 import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
-import {IERC721ReceiverLike} from "./interfaces/IRetroPickV2Launchpad.sol";
+import {IERC721ReceiverLike} from "./interfaces/IRetroPickLaunchpadV1.sol";
 
 /**
- * @title RetroPickV2LaunchLocker
+ * @title RetroPickLaunchLockerV1
  * @notice Permanently holds the graduated Uniswap V4 position NFT for every
- * RetroPick V2 launch. Unlike v1's locker, there is no `collectFees()` here: fee
- * collection and distribution belong entirely to RetroPickV2MemeHook and
- * RetroPickV2FeeEscrow, since a V4 position accrues fees inside the singleton
+ * RetroPick V1 launch. Unlike the previous-generation locker, there is no `collectFees()` here: fee
+ * collection and distribution belong entirely to RetroPickMemeHookV1 and
+ * RetroPickFeeEscrowV1, since a V4 position accrues fees inside the singleton
  * PoolManager rather than on the NFT itself. This contract exposes no
  * withdrawal or arbitrary-call function, so locked liquidity can never be
  * removed by an administrator.
  */
-contract RetroPickV2LaunchLocker is Ownable2Step, IERC721ReceiverLike {
+contract RetroPickLaunchLockerV1 is Ownable2Step, IERC721ReceiverLike {
     using SafeERC20 for IERC20;
 
     error NotFactory();
@@ -55,7 +55,7 @@ contract RetroPickV2LaunchLocker is Ownable2Step, IERC721ReceiverLike {
     }
 
     /**
-     * @notice One-time wiring of the v2 factory, set after both are deployed.
+     * @notice One-time wiring of the v1 factory, set after both are deployed.
      */
     function setFactory(address factory_) external onlyOwner {
         if (factory != address(0)) revert AlreadyInitialized();

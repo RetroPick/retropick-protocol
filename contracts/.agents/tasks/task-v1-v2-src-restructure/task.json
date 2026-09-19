@@ -1,0 +1,13 @@
+{
+  "task_id": "task-v1-v2-src-restructure",
+  "task_description": "Restructure contracts/src: move the existing V1 source tree into src/v1/ (names unchanged, only paths and test import paths adjusted), then create src/v2/ as a full copy with EVERY V1 name and version-carrying identifier/string renamed to V2 so the v2 tree compiles independently. Both trees compile together under the single src compile root with zero errors and zero forge-lint warnings; the existing 45-test suite continues to pass against src/v1.",
+  "status": "completed",
+  "feature_order": ["FEAT-001", "FEAT-002", "FEAT-003"],
+  "blocked_reason": null,
+  "verification": {
+    "build": "pass",
+    "tests": "pass",
+    "test_quality": "pass",
+    "summary": "forge build --force exits 0 with forge-lint warnings=0 (only two pre-existing benign solc Warning(2018) on exemptFromSnipeTax in v1 and its faithful v2 copy, not counted by the lint metric and left unchanged). forge test = 45 passed, 0 failed, 0 skipped, matching the recorded baseline. src/v1/ holds the 15 moved V1 files (names unchanged); src/v2/ holds a fully renamed self-consistent V2 copy (files, contracts, interfaces, libraries, structs, revert strings, comments). No V1/v1 residue in src/v2, no cross-tree imports, no name collisions. The existing Doorway test suite is the regression gate; it exercises the real RetroPickDoorwayV1 lifecycle (unit/integration/fuzz/invariant with 4096 invariant calls, 0 reverts) and continues to pass against src/v1, confirming the move preserved behavior. No new behavior tests were invented per instructions."
+  }
+}

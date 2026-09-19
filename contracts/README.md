@@ -1,8 +1,8 @@
-# RetroPick V2 Launchpad Contracts
+# RetroPick V1 Launchpad Contracts
 
-**Status:** `experimental / behavior-preserving baseline`
+**Status:** `experimental baseline`
 
-A vendor-derived baseline of V2 fair-launch launchpad contracts, rebranded from the Pons V2 implementation to establish a RetroPick-owned starting point for future protocol development.
+RetroPick V1 provides a fair-launch launchpad system with bonding curves that graduate into permanent Uniswap V4 liquidity.
 
 ## ⚠️ Important Limitations
 
@@ -11,11 +11,11 @@ A vendor-derived baseline of V2 fair-launch launchpad contracts, rebranded from 
 - **Does NOT authorize production deployment**
 - **NOT audited, battle-tested, or production-ready**
 
-This baseline exists solely to provide a behavior-preserving, fully rebranded V2 fair-launch foundation within `contracts/` while preserving original economics and state machine behavior.
+This baseline serves as an experimental foundation for launchpad development within the RetroPick protocol ecosystem.
 
 ## Architecture
 
-RetroPick V2 provides a bonding curve launch mechanism that graduates into Uniswap V4:
+RetroPick V1 provides a bonding curve launch mechanism that graduates into Uniswap V4:
 
 ```
 Creator → Factory → Deployer → [Token + BondingCurve]
@@ -31,15 +31,15 @@ Full-range Uniswap V4 position + MemeHook + permanent lock
 
 | Contract | Purpose |
 |----------|---------|
-| `RetroPickV2LaunchFactory` | Main entry point, orchestrates launches and graduation |
-| `RetroPickV2LaunchDeployer` | Deploys token + curve pairs (EIP-170 size optimization) |
-| `RetroPickV2BondingCurve` | Constant-product trading, quote-denominated fees |
-| `RetroPickV2LauncherToken` | Fixed-supply ERC-20, entire supply minted to curve |
-| `RetroPickV2GraduationGuard` | Stateless V4 preflight validation |
-| `RetroPickV2GraduationExecutor` | Heavy graduation operations |
-| `RetroPickV2LaunchLocker` | Permanent position NFT custody (no withdrawal) |
-| `RetroPickV2BuybackVault` | Five-year linear vest for bought-back supply |
-| `RetroPickV2MemeHook` | Singleton V4 hook for graduated pools |
+| `RetroPickLaunchFactoryV1` | Main entry point, orchestrates launches and graduation |
+| `RetroPickLaunchDeployerV1` | Deploys token + curve pairs (EIP-170 size optimization) |
+| `RetroPickBondingCurveV1` | Constant-product trading, quote-denominated fees |
+| `RetroPickLauncherTokenV1` | Fixed-supply ERC-20, entire supply minted to curve |
+| `RetroPickGraduationGuardV1` | Stateless V4 preflight validation |
+| `RetroPickGraduationExecutorV1` | Heavy graduation operations |
+| `RetroPickLaunchLockerV1` | Permanent position NFT custody (no withdrawal) |
+| `RetroPickBuybackVaultV1` | Five-year linear vest for bought-back supply |
+| `RetroPickMemeHookV1` | Singleton V4 hook for graduated pools |
 
 ## Key Features
 
@@ -51,6 +51,14 @@ Full-range Uniswap V4 position + MemeHook + permanent lock
 - **Creator revenue:** Optional tax + fee share in quote currency
 - **Buyback vesting:** Linear 5-year vest, not burn
 
+## Build & Test
+
+```bash
+forge build
+forge test
+forge test --fuzz-runs 10000
+```
+
 ## Dependencies
 
 - Solidity `^0.8.26` with `evm_version = "cancun"`
@@ -59,45 +67,30 @@ Full-range Uniswap V4 position + MemeHook + permanent lock
 - Permit2 interfaces (MIT)
 - v4-hooks-public BaseHook (MIT)
 
-See `docs/rebrand/DEPENDENCIES.md` for complete dependency analysis and `licenses/` for required license texts.
+See `THIRD_PARTY_NOTICES.md` for complete dependency attribution and `licenses/` for required license texts.
 
-## Behavior Preservation
+## Security & Legal Status
 
-This implementation preserves the original V2 economics exactly:
-- ✓ Same bonding curve mathematics
-- ✓ Same fee calculations and bounds  
-- ✓ Same graduation state machine
-- ✓ Same access control semantics
-- ✓ Same CREATE2 deterministic deployment (different addresses due to renamed init code)
-
-See `docs/rebrand/BEHAVIOR_PARITY.md` for verification methodology.
-
-## Legal Status
-
-- **BUSL-1.1 dependencies:** `Pool.sol` and `Position.sol` require separate legal review for deployment rights
+- **BUSL-1.1 dependencies:** Some V4 core libraries require legal review for deployment rights
 - **Third-party licenses:** See `THIRD_PARTY_NOTICES.md` and `licenses/`
-- **Deployment rights:** Not established by this rebrand
-
-## Migration Evidence
-
-Complete rebrand documentation:
-- `docs/rebrand/BASELINE.md` - Original source snapshot
-- `docs/rebrand/FILE_CLASSIFICATION.md` - Retention/deletion decisions  
-- `docs/rebrand/RENAME_MAP.md` - All identifier changes
-- `docs/rebrand/DEPENDENCIES.md` - Dependency analysis and pinning
-- `docs/rebrand/MIGRATION_REPORT.md` - Complete migration record
+- **Security status:** Experimental baseline - requires full security review before production use
 
 ## Relationship to RetroPick Protocol
 
-This V2 launchpad baseline is **separate** from the canonical RetroPick protocol:
-- RetroPick native markets use complete-set collateralization: `1 collateral → 1 YES + 1 NO`
-- PRISM uses exact component backing: `B_i ≥ S*x_i`
-- This V2 baseline uses fixed-supply bonding curves
+This V1 launchpad is **separate** from the canonical RetroPick protocol systems:
 
-Future integration between systems is a separate architectural decision.
+- **RetroPick native markets:** Complete-set collateralization (`1 collateral → 1 YES + 1 NO`)
+- **PRISM structured products:** Exact component backing (`B_i ≥ S*x_i`)
+- **V1 launchpad:** Fixed-supply bonding curves
+
+Future integration between systems requires separate architectural decisions.
+
+## Documentation
+
+- **Migration audit:** `docs/rebrand/` - Complete extraction and verification documentation
+- **Legal compliance:** `THIRD_PARTY_NOTICES.md` - Required attribution for vendored dependencies  
+- **Upstream provenance:** `docs/rebrand/UPSTREAM_PROVENANCE.md` - Source derivation information
 
 ---
 
-**Generated:** 2026-09-18 from Pons Labs V2 @ `162310fb...`  
-**Rebrand:** Pure identity transformation, no logic changes  
-**Status:** Vendor-derived experimental baseline only
+**Status:** Experimental RetroPick V1 baseline for future protocol development

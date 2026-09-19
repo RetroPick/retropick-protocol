@@ -1,12 +1,12 @@
 # Agent Workflow
 
 **Status:** CANONICAL AGENT EXECUTION FLOW  
-**Phase control:** `docs/05-hackathon/PHASE_GATES.md`  
-**Protocol truth:** `docs/protocol/`  
-**Historical report reconciliation:** `docs/00-context/REPORT_RECONCILIATION.md`
+**Phase control:** `docs/prism/05-hackathon/PHASE_GATES.md`  
+**Protocol truth:** `docs/prism/protocol/`  
+**Historical report reconciliation:** `docs/prism/00-context/REPORT_RECONCILIATION.md`
 
 The hackathon-wide product strategy remains in:
-`docs/05-hackathon/RETROPICK_METROPOLIS_AGENT_DEVELOPMENT_WORKFLOW.md`.
+`docs/prism/05-hackathon/RETROPICK_METROPOLIS_AGENT_DEVELOPMENT_WORKFLOW.md`.
 
 Where historical wording conflicts with the canonical protocol docs or phase gates, the canonical protocol docs and accepted ADRs win.
 
@@ -146,7 +146,7 @@ Never use an integration as a shortcut around the financial model.
 ## 5. Per-goal execution
 
 1. Read `.agent/CURRENT_GOAL.md`.
-2. Read `docs/05-hackathon/PHASE_GATES.md`.
+2. Read `docs/prism/05-hackathon/PHASE_GATES.md`.
 3. Inspect canonical source-of-truth docs.
 4. Check accepted ADRs.
 5. Declare assumptions and acceptance criteria.

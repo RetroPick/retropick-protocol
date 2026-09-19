@@ -25,4 +25,15 @@
 6. `contracts/docs/launchpad/README.md`
 7. `docs/launchpad/06-hackathon/PHASE_GATES.md`
 
+## PRISM reading order
+
+1. `docs/prism/README.md`
+2. `docs/prism/00-context/EXECUTIVE_SUMMARY.md`
+3. `docs/prism/protocol/PRISM_PROTOCOL_SPEC.md`
+4. `docs/prism/protocol/INVARIANTS.md`
+5. `docs/prism/math/README.md`
+6. `docs/prism/04-architecture/SMART_CONTRACTS.md`
+7. `contracts/docs/prism/README.md`
+8. `docs/prism/05-hackathon/PHASE_GATES.md`
+
 No specialist may silently redefine another specialist's canonical interface.

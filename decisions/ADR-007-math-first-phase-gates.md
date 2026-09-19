@@ -34,4 +34,4 @@ Production Solidity does not begin before MATH-1 verdict.
 - contract storage/interfaces are derived after precision/invariant decisions;
 - schedule cuts remove breadth before solvency work.
 
-The detailed gate definitions live in `docs/05-hackathon/PHASE_GATES.md`.
+The detailed gate definitions live in `docs/prism/05-hackathon/PHASE_GATES.md`.

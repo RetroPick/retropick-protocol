@@ -2,7 +2,17 @@
 
 Protocol, market-structure, mathematical reference-model, and Metropolis delivery repository for **RetroPick + PRISM** on Monad.
 
-> **Start with [`docs/00-context/EXECUTIVE_SUMMARY.md`](docs/00-context/EXECUTIVE_SUMMARY.md)** for the canonical human-facing overview of the product thesis, architecture, mathematical model, lifecycle, hackathon scope, current phase, and immediate next work.
+> **Start with [`docs/prism/00-context/EXECUTIVE_SUMMARY.md`](docs/prism/00-context/EXECUTIVE_SUMMARY.md)** for the canonical human-facing overview of the product thesis, architecture, mathematical model, lifecycle, hackathon scope, current phase, and immediate next work.
+
+## Documentation products
+
+```text
+docs/
+├── launchpad/   Modern Launchpad
+└── prism/       Prediction + PRISM
+```
+
+Use [`docs/README.md`](docs/README.md) as the product documentation router.
 
 ## Modern Launchpad lane
 
@@ -35,7 +45,7 @@ SPEC-1
 -> SUBMISSION-1
 ```
 
-See [`docs/05-hackathon/PHASE_GATES.md`](docs/05-hackathon/PHASE_GATES.md).
+See [`docs/prism/05-hackathon/PHASE_GATES.md`](docs/prism/05-hackathon/PHASE_GATES.md).
 
 ---
 
@@ -112,10 +122,10 @@ in the simple fully collateralized binary model.
 The repository now separates protocol semantics, proof, executable semantics, and future implementation:
 
 ```text
-docs/protocol/
+docs/prism/protocol/
   WHAT the protocol means
         ↓
-docs/math/
+docs/prism/math/
   WHY those semantics hold
         ↓
 research/prism-model/
@@ -125,7 +135,7 @@ contracts/
   future Solidity implementation
 ```
 
-`docs/math/17_THEOREMS.md` is the canonical theorem/counterexample/hypothesis registry. It deliberately keeps empirical market claims separate from protocol-safety proofs.
+`docs/prism/math/17_THEOREMS.md` is the canonical theorem/counterexample/hypothesis registry. It deliberately keeps empirical market claims separate from protocol-safety proofs.
 
 ---
 
@@ -144,49 +154,49 @@ The historical architecture report has been reconciled. Canonical Phase 1 now ex
 - corrected `pFEDBTC` payoff table;
 - corrected complete-set open-interest accounting.
 
-See [`docs/00-context/REPORT_RECONCILIATION.md`](docs/00-context/REPORT_RECONCILIATION.md).
+See [`docs/prism/00-context/REPORT_RECONCILIATION.md`](docs/prism/00-context/REPORT_RECONCILIATION.md).
 
 ---
 
 ## Canonical entry points
 
 ### Human overview
-- [`docs/00-context/EXECUTIVE_SUMMARY.md`](docs/00-context/EXECUTIVE_SUMMARY.md)
-- [`docs/00-context/REPORT_RECONCILIATION.md`](docs/00-context/REPORT_RECONCILIATION.md)
+- [`docs/prism/00-context/EXECUTIVE_SUMMARY.md`](docs/prism/00-context/EXECUTIVE_SUMMARY.md)
+- [`docs/prism/00-context/REPORT_RECONCILIATION.md`](docs/prism/00-context/REPORT_RECONCILIATION.md)
 
 ### Agent/execution
 - [`AGENTS.md`](AGENTS.md)
 - [`.agent/CURRENT_GOAL.md`](.agent/CURRENT_GOAL.md)
-- [`docs/05-hackathon/PHASE_GATES.md`](docs/05-hackathon/PHASE_GATES.md)
-- [`docs/06-execution/ROADMAP.md`](docs/06-execution/ROADMAP.md)
+- [`docs/prism/05-hackathon/PHASE_GATES.md`](docs/prism/05-hackathon/PHASE_GATES.md)
+- [`docs/prism/06-execution/ROADMAP.md`](docs/prism/06-execution/ROADMAP.md)
 
 ### Protocol semantics
-- [`docs/protocol/README.md`](docs/protocol/README.md)
-- [`docs/protocol/PRISM_PROTOCOL_SPEC.md`](docs/protocol/PRISM_PROTOCOL_SPEC.md)
-- [`docs/protocol/ASSUMPTIONS.md`](docs/protocol/ASSUMPTIONS.md)
-- [`docs/protocol/MATH_MODEL.md`](docs/protocol/MATH_MODEL.md)
-- [`docs/protocol/CLAIMS.md`](docs/protocol/CLAIMS.md)
-- [`docs/protocol/INVARIANTS.md`](docs/protocol/INVARIANTS.md)
-- [`docs/protocol/STATE_MACHINE.md`](docs/protocol/STATE_MACHINE.md)
-- [`docs/protocol/FAILURE_MODES.md`](docs/protocol/FAILURE_MODES.md)
-- [`docs/protocol/PRECISION_MODEL.md`](docs/protocol/PRECISION_MODEL.md)
-- [`docs/protocol/CONTRACT_REQUIREMENTS.md`](docs/protocol/CONTRACT_REQUIREMENTS.md)
+- [`docs/prism/protocol/README.md`](docs/prism/protocol/README.md)
+- [`docs/prism/protocol/PRISM_PROTOCOL_SPEC.md`](docs/prism/protocol/PRISM_PROTOCOL_SPEC.md)
+- [`docs/prism/protocol/ASSUMPTIONS.md`](docs/prism/protocol/ASSUMPTIONS.md)
+- [`docs/prism/protocol/MATH_MODEL.md`](docs/prism/protocol/MATH_MODEL.md)
+- [`docs/prism/protocol/CLAIMS.md`](docs/prism/protocol/CLAIMS.md)
+- [`docs/prism/protocol/INVARIANTS.md`](docs/prism/protocol/INVARIANTS.md)
+- [`docs/prism/protocol/STATE_MACHINE.md`](docs/prism/protocol/STATE_MACHINE.md)
+- [`docs/prism/protocol/FAILURE_MODES.md`](docs/prism/protocol/FAILURE_MODES.md)
+- [`docs/prism/protocol/PRECISION_MODEL.md`](docs/prism/protocol/PRECISION_MODEL.md)
+- [`docs/prism/protocol/CONTRACT_REQUIREMENTS.md`](docs/prism/protocol/CONTRACT_REQUIREMENTS.md)
 
 ### Mathematical proof layer
-- [`docs/math/README.md`](docs/math/README.md)
-- [`docs/math/01_DEFINITIONS.md`](docs/math/01_DEFINITIONS.md)
-- [`docs/math/02_ASSUMPTIONS.md`](docs/math/02_ASSUMPTIONS.md)
-- [`docs/math/05_BACKING_SOLVENCY.md`](docs/math/05_BACKING_SOLVENCY.md)
-- [`docs/math/16_INVARIANTS.md`](docs/math/16_INVARIANTS.md)
-- [`docs/math/17_THEOREMS.md`](docs/math/17_THEOREMS.md)
+- [`docs/prism/math/README.md`](docs/prism/math/README.md)
+- [`docs/prism/math/01_DEFINITIONS.md`](docs/prism/math/01_DEFINITIONS.md)
+- [`docs/prism/math/02_ASSUMPTIONS.md`](docs/prism/math/02_ASSUMPTIONS.md)
+- [`docs/prism/math/05_BACKING_SOLVENCY.md`](docs/prism/math/05_BACKING_SOLVENCY.md)
+- [`docs/prism/math/16_INVARIANTS.md`](docs/prism/math/16_INVARIANTS.md)
+- [`docs/prism/math/17_THEOREMS.md`](docs/prism/math/17_THEOREMS.md)
 
 ### Architecture
-- [`docs/04-architecture/SYSTEM_ARCHITECTURE.md`](docs/04-architecture/SYSTEM_ARCHITECTURE.md)
-- [`docs/04-architecture/SMART_CONTRACTS.md`](docs/04-architecture/SMART_CONTRACTS.md)
+- [`docs/prism/04-architecture/SYSTEM_ARCHITECTURE.md`](docs/prism/04-architecture/SYSTEM_ARCHITECTURE.md)
+- [`docs/prism/04-architecture/SMART_CONTRACTS.md`](docs/prism/04-architecture/SMART_CONTRACTS.md)
 
 ### Hackathon
-- [`docs/05-hackathon/MVP.md`](docs/05-hackathon/MVP.md)
-- [`docs/05-hackathon/RETROPICK_METROPOLIS_AGENT_DEVELOPMENT_WORKFLOW.md`](docs/05-hackathon/RETROPICK_METROPOLIS_AGENT_DEVELOPMENT_WORKFLOW.md)
+- [`docs/prism/05-hackathon/MVP.md`](docs/prism/05-hackathon/MVP.md)
+- [`docs/prism/05-hackathon/RETROPICK_METROPOLIS_AGENT_DEVELOPMENT_WORKFLOW.md`](docs/prism/05-hackathon/RETROPICK_METROPOLIS_AGENT_DEVELOPMENT_WORKFLOW.md)
 
 ### Executable reference model
 - [`research/prism-model/README.md`](research/prism-model/README.md)
@@ -211,8 +221,8 @@ The accounting model uses Python exact `Fraction` arithmetic so Phase 1 does not
 
 ```text
 .agent/               agent control plane
-docs/protocol/         canonical protocol/economic semantics
-docs/math/             canonical proof and theorem traceability layer
+docs/prism/protocol/         canonical protocol/economic semantics
+docs/prism/math/             canonical proof and theorem traceability layer
 docs/                  broader project/product/hackathon documentation
 goals/                  execution goals
 decisions/              accepted architecture decisions

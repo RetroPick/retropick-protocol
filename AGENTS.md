@@ -13,31 +13,31 @@ Build RetroPick's Monad prediction-asset protocol and PRISM structured-asset lay
 1. `.agent/CURRENT_GOAL.md`
 2. `.agent/STATE.json`
 3. `.agent/DECISIONS.md`
-4. `docs/00-context/EXECUTIVE_SUMMARY.md`
-5. `docs/00-context/PROJECT.md`
-6. `docs/00-context/REPORT_RECONCILIATION.md`
-7. `docs/05-hackathon/PHASE_GATES.md`
-8. `docs/protocol/PRISM_PROTOCOL_SPEC.md`
-9. `docs/protocol/INVARIANTS.md`
-10. `docs/protocol/STATE_MACHINE.md`
-11. `docs/05-hackathon/RETROPICK_METROPOLIS_AGENT_DEVELOPMENT_WORKFLOW.md`
+4. `docs/prism/00-context/EXECUTIVE_SUMMARY.md`
+5. `docs/prism/00-context/PROJECT.md`
+6. `docs/prism/00-context/REPORT_RECONCILIATION.md`
+7. `docs/prism/05-hackathon/PHASE_GATES.md`
+8. `docs/prism/protocol/PRISM_PROTOCOL_SPEC.md`
+9. `docs/prism/protocol/INVARIANTS.md`
+10. `docs/prism/protocol/STATE_MACHINE.md`
+11. `docs/prism/05-hackathon/RETROPICK_METROPOLIS_AGENT_DEVELOPMENT_WORKFLOW.md`
 
 For mathematical/protocol work also read, in this order:
-- `docs/math/README.md`
-- `docs/math/01_DEFINITIONS.md`
-- `docs/math/02_ASSUMPTIONS.md`
-- `docs/math/05_BACKING_SOLVENCY.md`
-- `docs/math/16_INVARIANTS.md`
-- `docs/math/17_THEOREMS.md`
-- `docs/protocol/MATH_MODEL.md`
-- `docs/protocol/FAILURE_MODES.md`
-- `docs/protocol/PRECISION_MODEL.md`
-- `docs/protocol/CONTRACT_REQUIREMENTS.md`
+- `docs/prism/math/README.md`
+- `docs/prism/math/01_DEFINITIONS.md`
+- `docs/prism/math/02_ASSUMPTIONS.md`
+- `docs/prism/math/05_BACKING_SOLVENCY.md`
+- `docs/prism/math/16_INVARIANTS.md`
+- `docs/prism/math/17_THEOREMS.md`
+- `docs/prism/protocol/MATH_MODEL.md`
+- `docs/prism/protocol/FAILURE_MODES.md`
+- `docs/prism/protocol/PRECISION_MODEL.md`
+- `docs/prism/protocol/CONTRACT_REQUIREMENTS.md`
 - `research/prism-model/README.md`
 
 For implementation architecture also read:
-- `docs/04-architecture/SYSTEM_ARCHITECTURE.md`
-- `docs/04-architecture/SMART_CONTRACTS.md`
+- `docs/prism/04-architecture/SYSTEM_ARCHITECTURE.md`
+- `docs/prism/04-architecture/SMART_CONTRACTS.md`
 
 ---
 
@@ -46,20 +46,20 @@ For implementation architecture also read:
 When documents conflict, use this precedence:
 
 1. accepted ADRs under `decisions/`;
-2. canonical protocol semantics under `docs/protocol/`;
-3. canonical mathematical proof/claim classification under `docs/math/`, provided it does not redefine protocol semantics;
-4. `docs/05-hackathon/PHASE_GATES.md` for execution authorization;
+2. canonical protocol semantics under `docs/prism/protocol/`;
+3. canonical mathematical proof/claim classification under `docs/prism/math/`, provided it does not redefine protocol semantics;
+4. `docs/prism/05-hackathon/PHASE_GATES.md` for execution authorization;
 5. `.agent/CURRENT_GOAL.md` and `.agent/DECISIONS.md`;
-6. architecture docs under `docs/04-architecture/`;
+6. architecture docs under `docs/prism/04-architecture/`;
 7. canonical hackathon workflow;
-8. `docs/00-context/EXECUTIVE_SUMMARY.md` as the human-facing synthesis;
+8. `docs/prism/00-context/EXECUTIVE_SUMMARY.md` as the human-facing synthesis;
 9. product/research notes;
 10. historical reports;
 11. implementation.
 
 The Executive Summary is a synthesis, not a replacement for accepted ADRs or detailed canonical protocol specifications.
 
-`docs/math/` proves/classifies the accepted semantics. It may not silently redefine them. If a proof requires changing economics, stop and use the ADR/spec process.
+`docs/prism/math/` proves/classifies the accepted semantics. It may not silently redefine them. If a proof requires changing economics, stop and use the ADR/spec process.
 
 Historical or generated research is evidence/input, not authority over accepted protocol semantics.
 
@@ -98,7 +98,7 @@ Classify substantive claims as one of:
 - `NOT_YET_VALIDATED`
 - `COUNTEREXAMPLE_FOUND`
 
-The canonical claim registry for MATH-1 is `docs/math/17_THEOREMS.md`.
+The canonical claim registry for MATH-1 is `docs/prism/math/17_THEOREMS.md`.
 
 Never convert simulated or expected market behavior into a formal proof.
 
@@ -112,7 +112,7 @@ protocol invariant
 -> future Foundry/differential evidence
 ```
 
-Known missing oracle coverage must remain explicit in `docs/math/16_INVARIANTS.md`.
+Known missing oracle coverage must remain explicit in `docs/prism/math/16_INVARIANTS.md`.
 
 ---
 

@@ -23,9 +23,9 @@ Market math must not be confused with protocol safety.
 ## Proof-layer relationship
 
 ```text
-docs/protocol/    economic semantics
+docs/prism/protocol/    economic semantics
       ↓
-docs/math/        definitions, assumptions, proofs, theorem/invariant registry
+docs/prism/math/        definitions, assumptions, proofs, theorem/invariant registry
       ↓
 research/prism-model/   executable semantic oracle
       ↓
@@ -33,11 +33,11 @@ contracts/        future implementation
 ```
 
 Canonical math documents:
-- `../../docs/math/01_DEFINITIONS.md`
-- `../../docs/math/02_ASSUMPTIONS.md`
-- `../../docs/math/05_BACKING_SOLVENCY.md`
-- `../../docs/math/16_INVARIANTS.md`
-- `../../docs/math/17_THEOREMS.md`
+- `../../docs/prism/math/01_DEFINITIONS.md`
+- `../../docs/prism/math/02_ASSUMPTIONS.md`
+- `../../docs/prism/math/05_BACKING_SOLVENCY.md`
+- `../../docs/prism/math/16_INVARIANTS.md`
+- `../../docs/prism/math/17_THEOREMS.md`
 
 ## Files
 
@@ -124,7 +124,7 @@ NOT_YET_VALIDATED
 COUNTEREXAMPLE_FOUND
 ```
 
-`docs/math/17_THEOREMS.md` remains the canonical theorem/hypothesis registry.
+`docs/prism/math/17_THEOREMS.md` remains the canonical theorem/hypothesis registry.
 
 ## Current oracle coverage
 

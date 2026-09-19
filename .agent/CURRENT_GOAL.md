@@ -4,7 +4,7 @@
 **Status:** ACTIVE  
 **Phase:** P2 MATH-1  
 **Primary gate:** `MATH-1`  
-**Phase control:** `docs/05-hackathon/PHASE_GATES.md`
+**Phase control:** `docs/prism/05-hackathon/PHASE_GATES.md`
 
 ## Objective
 
@@ -54,12 +54,12 @@ SettlementBalance>=Supply*FinalPayout
 Canonical proof artifacts exist:
 
 ```text
-docs/math/README.md
-docs/math/01_DEFINITIONS.md
-docs/math/02_ASSUMPTIONS.md
-docs/math/05_BACKING_SOLVENCY.md
-docs/math/16_INVARIANTS.md
-docs/math/17_THEOREMS.md
+docs/prism/math/README.md
+docs/prism/math/01_DEFINITIONS.md
+docs/prism/math/02_ASSUMPTIONS.md
+docs/prism/math/05_BACKING_SOLVENCY.md
+docs/prism/math/16_INVARIANTS.md
+docs/prism/math/17_THEOREMS.md
 ```
 
 They distinguish exact theorems, executable verification, counterexamples and empirical market hypotheses.

@@ -90,7 +90,7 @@ No accounting counterexample occurred in the declared deterministic run.
 
 ## Scientific interpretation
 
-The algebraic proofs live in `docs/math/05_BACKING_SOLVENCY.md` and the theorem registry in `docs/math/17_THEOREMS.md`.
+The algebraic proofs live in `docs/prism/math/05_BACKING_SOLVENCY.md` and the theorem registry in `docs/prism/math/17_THEOREMS.md`.
 
 This evidence supports executable consistency of the Python reference model over the exercised cases. It does **not** prove:
 

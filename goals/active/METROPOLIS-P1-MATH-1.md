@@ -56,9 +56,9 @@ This closes the previous reference-model gaps for:
 Proof/theorem status is maintained in:
 
 ```text
-docs/math/05_BACKING_SOLVENCY.md
-docs/math/16_INVARIANTS.md
-docs/math/17_THEOREMS.md
+docs/prism/math/05_BACKING_SOLVENCY.md
+docs/prism/math/16_INVARIANTS.md
+docs/prism/math/17_THEOREMS.md
 ```
 
 ## Validation evidence

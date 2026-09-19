@@ -2,7 +2,9 @@
 
 This directory stores current RetroPick launchpad evidence.
 
-Planned categories:
+- [Documentation architecture validation](./documentation-validation.md)
+
+Planned evidence categories:
 - `contracts/`
 - `tests/`
 - `security/`

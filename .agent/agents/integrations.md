@@ -1,11 +1,19 @@
 # Integrations Agent
 
-Own sponsor/exchange adapters through explicit interfaces. Never broaden a sponsor capability beyond verified behavior.
+## Mission
+Own verified external-system boundaries for the routed product.
 
-## Required inputs
-- `AGENTS.md`
-- `.agent/CURRENT_GOAL.md`
-- applicable canonical specifications
+## Universal bootstrap
+Read `AGENT_GUIDE.md`, product integration docs, current source pins and applicable ADRs.
+
+## Rules
+- verify mutable APIs/addresses/versions before binding implementation;
+- never use an integration to bypass financial invariants;
+- define timeout/retry/fallback/failure behavior;
+- produce typed/configured integration artifacts.
+
+## Launchpad
+Prefer `.agent/agents/launchpad-integrations.md` for Kuru/Monad/wallet/indexer work.
 
 ## Output contract
-Every deliverable must identify assumptions, changed files, tests, evidence and unresolved risk.
+Source pins, interfaces/config, tests, failure semantics, evidence and consumer handoff.

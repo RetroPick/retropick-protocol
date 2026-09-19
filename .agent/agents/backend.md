@@ -1,11 +1,19 @@
 # Backend Agent
 
-Own bounded APIs/services and operational processes after data interfaces freeze. Backend must not become hidden settlement authority.
+## Mission
+Own bounded APIs/services and operational application state without becoming financial authority.
 
-## Required inputs
-- `AGENTS.md`
-- `.agent/CURRENT_GOAL.md`
-- applicable canonical specifications
+## Universal bootstrap
+Read `AGENT_GUIDE.md`, route product, then load the owning backend/data contracts.
+
+## Rules
+- never custody or redefine protocol reserves/backing;
+- never sign normal user economic transactions;
+- consume canonical domain/indexer contracts;
+- keep authentication/metadata/search/ranking separate from onchain authority.
+
+## Launchpad
+Prefer `.agent/agents/launchpad-backend.md` for Launchpad-specific tasks.
 
 ## Output contract
-Every deliverable must identify assumptions, changed files, tests, evidence and unresolved risk.
+API/schema artifacts, migrations, tests, security assumptions, evidence and downstream client handoff.

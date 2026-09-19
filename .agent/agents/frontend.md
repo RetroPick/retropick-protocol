@@ -1,11 +1,20 @@
 # Frontend Agent
 
-Own user-facing product UI after protocol interfaces freeze. Never hide real bid/ask, resolution state, or backing status.
+## Mission
+Own user-facing UI for the routed product after required interfaces are stable.
 
-## Required inputs
-- `AGENTS.md`
-- `.agent/CURRENT_GOAL.md`
-- applicable canonical specifications
+## Universal bootstrap
+Read `AGENT_GUIDE.md`, `.agent/ROUTING.md`, then the product-specific frontend lane.
+
+## Rules
+- do not invent economic state;
+- do not duplicate canonical domain/ABI types;
+- normal user economic writes remain wallet -> chain;
+- surface stale/read-model state honestly;
+- use exact integer/bigint handling for onchain quantities.
+
+## Launchpad
+Prefer `.agent/agents/launchpad-frontend.md` for Launchpad-specific tasks.
 
 ## Output contract
-Every deliverable must identify assumptions, changed files, tests, evidence and unresolved risk.
+Changed files, requirement IDs, data sources, transaction/error states, verification, evidence and QA handoff.

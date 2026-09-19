@@ -1,76 +1,44 @@
 # Launchpad Agent Control Plane Validation
 
-**Status:** PASS for control-plane structure; product DEVELOPMENT_READY remains open  
+**Status:** PASS for universal control-plane structure; product DEVELOPMENT_READY remains open  
 **Date:** 2026-09-20  
-**Validated commit:** `7c24e20e88cfaa1c6e71d953a949670f64392d31`
+**Supersedes:** the earlier Kiro-specific repository control-plane layout.
+
+## Universal agent result
+
+Repository agent workflow is now harness-neutral:
+
+```text
+AGENT_GUIDE.md
+AGENTS.md
+.agent/
+├── steering/
+├── agents/
+├── STATE.json
+├── CURRENT_GOAL.md
+├── ROUTING.md
+├── WORKFLOW.md
+└── HANDOFFS.md
+```
+
+The repository no longer requires a committed `.kiro/` tree. Cursor, Codex, Kiro, Hermes and other harnesses are expected to consume the same `.agent/` authority and development control-plane files.
 
 ## Structural result
 
-- canonical Launchpad product/protocol Markdown: 23 files;
-- current-code contract reference: 7 files;
-- Launchpad development/control documents: 102 Markdown/YAML files;
-- Kiro steering: 6 files;
-- Kiro custom agents: 9 files;
-- old numbered Launchpad documentation directories: absent;
-- old duplicate contract-doc filenames targeted by consolidation: absent.
+- Launchpad canonical product/protocol docs remain consolidated;
+- current-code contract reference remains separate;
+- implementation specifications remain under `development/launchpad/`;
+- machine control remains under `development/launchpad/control/`;
+- role ownership is now represented by universal Markdown under `.agent/agents/`;
+- durable steering is universal Markdown under `.agent/steering/`.
 
-## Agent-control result
+## Current-source blockers remain
 
-Current official Kiro IDE 1.0 / CLI 3.0 documentation supports:
-- workspace steering under `.kiro/steering/`;
-- Markdown custom agents under `.kiro/agents/`;
-- `resources`, `tools`, and capability-based `permissions.rules`;
-- nested `AGENTS.md`.
-
-Repository custom agents use those current schema concepts. A local Kiro parser/runtime was not available through the GitHub connector, so local CLI loading remains an implementation-environment smoke test.
-
-## Current-source findings encoded
-
-- V2 Factory is directly coupled to Uniswap V4 PoolManager/PositionManager/Permit2/hook/locker/graduation executor.
-- Kuru is TARGET, not current committed graduation runtime.
-- committed Launchpad test directories currently contain Doorway-focused tests, not Factory/Token/Curve/Graduation qualification.
-
-## Representative routing simulation
-
-### Implement Launchpad buy UI
-Read:
-`docs/launchpad/{PRODUCT,USER_FLOWS,PROTOCOL}.md`,
-`development/launchpad/frontend/*`,
-`development/launchpad/shared/*`,
-future `apps/web/AGENTS.md`.
-Owner: frontend.
-Forbidden: Solidity/backend/indexer mutation.
-Blocker: runtime workspace not implemented yet.
-
-### Implement launch metadata API
-Read:
-backend architecture/API/DB/auth/metadata specs plus shared domain.
-Owner: backend.
-Hard boundary: no reserve authority or user-trade signing.
-Blocker: backend runtime ADR/workspace not yet accepted/implemented.
-
-### Implement indexer Trade entity
-Read:
-indexing event/entity/reorg/query/sync specs plus generated contract event catalog.
-Owner: indexer.
-Hard boundary: derived read model only.
-Blocker: provider ADR and generated Launchpad event artifact.
-
-### Implement V2 Kuru graduation
-Read:
-canonical Graduation/Kuru/Invariant specs, contract target architecture, Kuru parameter policy and source pins.
-Owner: Solidity + integrations.
-Hard boundary: do not change bonding math; destination failure must preserve secured assets.
-Blocker: target Kuru deployment/API and parameter ADR acceptance.
-
-### Implement staging deployment
-Read:
-DevOps environment/deployment/CI/observability/runbook specs and machine gate definitions.
-Owner: DevOps.
-Blocker: preceding implementation/integration/security artifacts.
+- V2 Factory is still directly coupled to Uniswap V4 destination components;
+- Kuru remains target rather than completed committed graduation runtime;
+- committed contract test suites remain Doorway-focused rather than core Launchpad V2 qualification;
+- full-stack runtime remains unimplemented.
 
 ## Verdict
 
-The repository now provides bounded context, ownership, constraints, handoffs and machine-readable gates for agent development. The control-plane construction goal is structurally complete.
-
-The product is intentionally NOT marked DEVELOPMENT_READY because material implementation/decision blockers remain. This is a correctness property, not a documentation failure.
+Agent-control architecture is portable across harnesses. Product DEVELOPMENT_READY remains intentionally open until implementation blockers in `development/launchpad/control/status.yaml` close.

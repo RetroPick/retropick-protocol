@@ -45,8 +45,8 @@ Launchpad implementation is routed through:
 
 ```text
 AGENTS.md
-.kiro/steering/
-.kiro/agents/
+.agent/steering/
+.agent/agents/
 development/launchpad/
 development/launchpad/control/
 contracts/AGENTS.md

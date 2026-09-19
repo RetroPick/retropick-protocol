@@ -1,52 +1,39 @@
-# RetroPick Agent Router
+# RetroPick Agent Bootstrap
 
-This file is the repository-wide entry point. Keep it small. Product-specific detail lives in routed documents.
+All engineering agents, regardless of harness, use the shared control plane under:
+
+```text
+.agent/
+```
+
+Read [`AGENT_GUIDE.md`](AGENT_GUIDE.md) first for the repository map and authority model.
+
+Then read, in order:
+
+1. `.agent/README.md`
+2. `.agent/STATE.json`
+3. `.agent/CURRENT_GOAL.md`
+4. `.agent/ROUTING.md`
+5. relevant files under `.agent/steering/`
+6. the canonical product/protocol docs for your task
+7. the relevant `development/` implementation lane
+8. the nearest local `AGENTS.md`, if present
+9. relevant accepted/proposed ADRs
+
+Do not read or modify unrelated product lanes by default.
 
 ## Products
 
-### Launchpad V2
+- Launchpad V2: `docs/launchpad/` + `development/launchpad/`
+- Prediction + PRISM: `docs/prism/` + `research/prism-model/`
 
-Goal: fixed/capped ERC-20 launch -> bonding primary market -> safe graduation -> Kuru mature trading on Monad.
+## Global rules
 
-Read:
-1. `docs/launchpad/README.md`
-2. the owning canonical Launchpad spec
-3. `development/launchpad/README.md`
-4. the owning development lane
-5. nearest local `AGENTS.md`
-
-### Prediction + PRISM
-
-Read:
-1. `docs/prism/README.md`
-2. `docs/prism/protocol/PRISM_PROTOCOL_SPEC.md`
-3. `docs/prism/protocol/INVARIANTS.md`
-4. `docs/prism/math/README.md`
-5. PRISM phase-gate documents
-
-Do not mix Launchpad bonding/graduation semantics with Prediction/PRISM collateral/backing/settlement semantics.
-
-## Authority
-
-1. accepted ADRs;
-2. canonical product/protocol docs;
-3. development implementation specs;
-4. local AGENTS constraints;
-5. task spec;
-6. implementation.
-
-Code does not silently redefine higher authority.
-
-## Global engineering constraints
-
+- accepted ADRs and canonical specs outrank implementation;
+- code does not silently redefine protocol semantics;
+- backend/indexer are not economic authority;
 - normal user economic writes are wallet -> chain;
-- backend and indexer are not economic authority;
-- onchain integer values use bigint in TypeScript;
-- mutable external integrations require current source/version verification;
-- candidate technology choices are not binding until accepted;
-- no agent may declare MAINNET_AUTHORIZED;
-- no destructive scope expansion without an accepted task/ADR.
-
-## Verification
-
-No task is complete without exact commands/results, commit/ref, evidence path and downstream handoff where applicable.
+- onchain integer values use exact integer/bigint representations;
+- external mutable integrations require current-source verification;
+- every completed task requires verification, evidence and explicit handoff where applicable;
+- no agent may self-authorize unrestricted mainnet deployment.

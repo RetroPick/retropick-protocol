@@ -38,9 +38,9 @@ No committed Factory/Token/BondingCurve/fee/graduation core V2 test suite curren
 
 ## Agent infrastructure
 
-- existing `.agent/` is primarily PRISM-era execution infrastructure;
-- `.kiro/` was absent;
-- root `AGENTS.md` was PRISM-first and too large for multi-product routing.
+- `.agent/` is now the universal cross-harness control plane for Launchpad and PRISM;
+- tool-specific `.kiro/` repository configuration has been removed;
+- root `AGENT_GUIDE.md` and `AGENTS.md` route all agent harnesses into the same workflow.
 
 ## Consequence
 

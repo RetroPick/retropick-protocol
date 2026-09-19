@@ -1,18 +1,29 @@
-# Agent Routing
+# Universal Agent Routing
 
-This legacy router remains for compatibility. Launchpad implementation routing is canonical under `development/launchpad/agents/ROUTING.md`.
+## Launchpad
 
-| Work | Route |
-|---|---|
-| Launchpad planning | `development/launchpad/` |
-| Launchpad Solidity | `development/launchpad/contracts/` + `contracts/AGENTS.md` |
-| Launchpad integrations | `development/launchpad/integrations/` |
-| Launchpad indexer | `development/launchpad/indexing/` |
-| Launchpad backend | `development/launchpad/backend/` |
-| Launchpad frontend | `development/launchpad/frontend/` |
-| Launchpad security | `development/launchpad/security/` |
-| Launchpad E2E | `development/launchpad/testing/` |
-| Launchpad operations | `development/launchpad/devops/` |
-| PRISM | `docs/prism/README.md` and PRISM phase gates |
+| Work | Role file | Canonical implementation lane |
+|---|---|---|
+| planning/control | `.agent/agents/launchpad-planner.md` | `development/launchpad/` |
+| Solidity | `.agent/agents/launchpad-solidity.md` | `development/launchpad/contracts/` |
+| integrations/Kuru | `.agent/agents/launchpad-integrations.md` | `development/launchpad/integrations/` |
+| indexer | `.agent/agents/launchpad-indexer.md` | `development/launchpad/indexing/` |
+| backend | `.agent/agents/launchpad-backend.md` | `development/launchpad/backend/` |
+| frontend | `.agent/agents/launchpad-frontend.md` | `development/launchpad/frontend/` |
+| security | `.agent/agents/launchpad-security.md` | `development/launchpad/security/` |
+| QA/E2E | `.agent/agents/launchpad-qa.md` | `development/launchpad/testing/` |
+| CI/deploy/ops | `.agent/agents/launchpad-devops.md` | `development/launchpad/devops/` |
 
-No specialist may silently redefine another specialist's canonical interface.
+Launchpad canonical reading starts at `docs/launchpad/README.md`.
+
+## Prediction + PRISM
+
+Use existing generic roles under `.agent/agents/` and route through:
+- `docs/prism/README.md`;
+- protocol/math docs;
+- PRISM phase gates;
+- `research/prism-model/`.
+
+## Shared rule
+
+No specialist silently redefines another specialist's canonical interface. Cross-product changes require explicit scope and usually an ADR.

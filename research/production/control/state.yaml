@@ -1,0 +1,15 @@
+schema_version: 1
+platform: RetroPick Launchpad
+scope:
+  shared_platform: active
+  launchpad_core: active
+  prism: consumer_only_until_module_admission
+current_gate: PR-R0
+gates:
+  PR-R0: in_progress
+  PR-R1: blocked
+  PR-R2: blocked
+  PR-R3: blocked
+  PR-R4: blocked
+  PR-R5: blocked
+  PR-R6: blocked

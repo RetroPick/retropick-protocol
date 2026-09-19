@@ -1,0 +1,16 @@
+schema_version: 1
+gates:
+  PR-R0:
+    requires: [as-built-baseline, source-of-truth-audit, module-ontology]
+  PR-R1:
+    requires: [source-registry, dependency-qualification]
+  PR-R2:
+    requires: [benchmark-methodology, benchmark-manifests]
+  PR-R3:
+    requires: [staging-environment-manifest, measured-staging-results]
+  PR-R4:
+    requires: [resilience-results, security-coverage]
+  PR-R5:
+    requires: [capacity-model, cost-model]
+  PR-R6:
+    requires: [gap-matrix, risk-register, research-verdict]

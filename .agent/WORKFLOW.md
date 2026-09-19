@@ -1,11 +1,9 @@
 # Universal Agent Workflow
 
-This workflow applies regardless of harness.
-
-```text
+~~~text
 BOOTSTRAP
   ↓
-ROUTE PRODUCT
+ROUTE PLATFORM / MODULE
   ↓
 LOAD BOUNDED AUTHORITY
   ↓
@@ -24,38 +22,44 @@ WRITE EVIDENCE
 HANDOFF
   ↓
 UPDATE STATE/GATE WHEN AUTHORIZED
-```
+~~~
 
 ## Bootstrap
 
 Read:
-- `AGENT_GUIDE.md`
-- `AGENTS.md`
-- `.agent/README.md`
-- `.agent/STATE.json`
-- `.agent/CURRENT_GOAL.md`
-- `.agent/ROUTING.md`
+- AGENT_GUIDE.md
+- AGENTS.md
+- .agent/README.md
+- .agent/STATE.json
+- .agent/CURRENT_GOAL.md
+- .agent/ROUTING.md
 
-## Route product
+## Route platform/module
 
-Determine Launchpad, Prediction/PRISM, or shared infrastructure. Never silently mix financial semantics.
+Determine whether the task is:
+- shared RetroPick platform;
+- Launchpad Core;
+- Prediction;
+- PRISM incubation;
+- cross-module infrastructure.
+
+Never silently mix financial semantics.
 
 ## Load bounded authority
 
-Read only the canonical docs and development lane required for the task, plus the nearest local `AGENTS.md`.
+Read only canonical docs and the development/research lane required for the task.
 
 ## Check prerequisites
 
-Before coding verify requirement, owner, dependencies/gates, ADR state and mutable external facts.
+Verify requirement, owner, dependencies/gates, ADR state and mutable external facts.
 
 ## Define task contract
 
-Resolve:
-ID, goal, why, owned paths, forbidden paths, inputs, outputs, acceptance, verification, evidence and handoff.
+Resolve ID, goal, why, platform/module, owned paths, forbidden paths, inputs, outputs, acceptance, verification, evidence and handoff.
 
 ## Implement
 
-Make the smallest coherent change. Do not opportunistically redesign adjacent components.
+Make the smallest coherent change. Do not opportunistically redesign adjacent modules.
 
 ## Verify
 
@@ -67,10 +71,10 @@ Record command/action, commit/ref, result, artifacts, residual risk and blockers
 
 ## Handoff
 
-Pass explicit artifacts to the next owner rather than prose-only status.
+Pass explicit artifacts to the next owner.
 
 ## State
 
-Update gates/status only when documented acceptance criteria actually pass.
+Update gates/status only when documented acceptance criteria pass.
 
-Never self-authorize unrestricted mainnet release.
+No module inherits another module's readiness. Never self-authorize unrestricted mainnet release.

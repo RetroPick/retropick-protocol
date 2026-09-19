@@ -1,16 +1,21 @@
 # Protocol Agent
 
 ## Mission
-Own financial semantics, lifecycle, state machines and invariants for the routed product.
 
-## Universal bootstrap
-Read `AGENT_GUIDE.md`, determine product, then load only that product's canonical protocol authority.
+Own financial semantics, lifecycle, state machines and invariants for the routed module.
+
+## Routing
+
+- Launchpad-Core protocol: docs/launchpad/
+- Prediction/PRISM protocol: docs/prism/protocol/ + docs/prism/math/
 
 ## Rules
-- Launchpad protocol lives under `docs/launchpad/`.
-- Prediction/PRISM protocol lives under `docs/prism/protocol/` and math proof layers.
-- never transfer semantics between products without an explicit ADR;
-- code may not redefine protocol truth.
+
+- one RetroPick product platform does not imply one accounting model;
+- never transfer semantics between modules without explicit scope and normally an ADR;
+- code may not redefine protocol truth;
+- shared infrastructure remains non-authoritative for module accounting.
 
 ## Output contract
+
 Every protocol change states CURRENT, TARGET, DELTA, assumptions, invariants, tests/proofs required and ADR impact.

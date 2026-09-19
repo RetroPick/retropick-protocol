@@ -1,381 +1,149 @@
 # RetroPick Agent Engineering Guide
 
-This is the universal entry point for **Cursor, Codex, Kiro, Claude Code, Hermes, or any other coding agent** working in this repository.
+This is the universal entry point for Cursor, Codex, Kiro, Claude Code, Hermes, and other coding agents working in this repository.
 
-The repository does not use tool-specific workflow directories as its canonical control plane.
+The canonical agent control plane is:
 
-```text
+~~~text
 .agent/
-```
+~~~
 
-is the shared agent operating system.
-
-Every agent should begin here, then follow `AGENTS.md` and the routes below.
-
----
+Read this file, then AGENTS.md and the routed authority for the task.
 
 # 1. Mental model
 
-RetroPick has two separate product lanes:
+RetroPick is **one Launchpad platform** with shared product infrastructure and independently qualified financial modules.
 
-```text
-RetroPick
-├── Launchpad V2
+~~~text
+RetroPick Launchpad Platform
+├── Launchpad Core
 │   └── token launch -> bonding market -> graduation -> Kuru
-└── Prediction + PRISM
-    └── outcome assets -> exact-backed structured products -> settlement
-```
+├── Prediction Module
+│   └── event-linked outcome issuance/resolution
+└── PRISM Module
+    └── exact-backed structured outcome assets
+~~~
 
-They may share infrastructure, but they do **not** share financial semantics.
+Separate engineering qualification does not mean separate product.
 
-Do not mix:
+Shared product infrastructure may converge where safe. Financial semantics do not.
+
+Never mix:
 - Launchpad reserves/fees/graduation;
-- Prediction complete-set collateral;
+- Prediction complete-set collateral/resolution;
 - PRISM backing/replication/settlement.
 
----
-
-# 2. Repository authority layers
+# 2. Authority
 
 Use this precedence:
 
-```text
+~~~text
 accepted ADRs
-    ↓
-canonical product/protocol docs
-    ↓
-development architecture/control plane
-    ↓
-.agent steering + local AGENTS constraints
-    ↓
-task/goal specification
-    ↓
-implementation
-    ↓
-evidence
-```
+-> canonical platform/module docs
+-> development architecture/control plane
+-> .agent steering/local AGENTS constraints
+-> task/goal specification
+-> implementation
+-> evidence
+~~~
 
-Code does not silently redefine accepted protocol semantics.
+Code cannot silently redefine accepted financial semantics.
 
-If implementation requires changing an accepted architecture or financial invariant, create/supersede an ADR first.
+# 3. Repository map
 
----
+~~~text
+docs/platform/            umbrella product/platform architecture
+docs/launchpad/           Launchpad-Core WHAT/WHY
+docs/prism/               Prediction/PRISM WHAT/WHY + proof layers
 
-# 3. Directory map
+development/launchpad/    Launchpad-Core implementation HOW
+research/production/      shared platform + Launchpad production research
+research/prism-model/     PRISM executable semantic oracle
+research/prism/           broader PRISM incubation research
 
-```text
-retropick-protocol/
-│
-├── AGENT_GUIDE.md
-│   Full repository map for all agents.
-│
-├── AGENTS.md
-│   Small bootstrap/router. Read this at the start of every task.
-│
-├── .agent/
-│   Universal agent control plane shared by Cursor, Codex, Kiro, etc.
-│
-│   ├── README.md
-│   │   Control-plane overview.
-│   │
-│   ├── CONTEXT.md
-│   │   Current project/product context.
-│   │
-│   ├── CURRENT_GOAL.md
-│   │   Active goals by product.
-│   │
-│   ├── DECISIONS.md
-│   │   Agent-readable summary of accepted decisions.
-│   │
-│   ├── ROUTING.md
-│   │   Maps task type -> agent role -> required docs.
-│   │
-│   ├── WORKFLOW.md
-│   │   Universal execution workflow.
-│   │
-│   ├── HANDOFFS.md
-│   │   Artifact-based specialist handoff contract.
-│   │
-│   ├── STATE.json
-│   │   Machine-readable current product/gate state.
-│   │
-│   ├── steering/
-│   │   Durable instructions every agent should obey.
-│   │   ├── product.md
-│   │   ├── tech.md
-│   │   ├── structure.md
-│   │   ├── engineering.md
-│   │   ├── testing.md
-│   │   └── security.md
-│   │
-│   └── agents/
-│       Role instructions.
-│       Existing generic roles serve cross-product work.
-│       launchpad-* roles contain Launchpad-specific ownership.
-│
-├── docs/
-│   Canonical WHAT and WHY.
-│
-│   ├── README.md
-│   ├── launchpad/
-│   │   Product/protocol truth for Launchpad.
-│   └── prism/
-│       Product/protocol/math truth for Prediction + PRISM.
-│
-├── development/
-│   Canonical HOW for implementation.
-│
-│   └── launchpad/
-│       ├── README.md
-│       ├── GOAL.md
-│       ├── CURRENT_STATE.md
-│       ├── MASTER_PLAN.md
-│       ├── contracts/
-│       ├── shared/
-│       ├── indexing/
-│       ├── backend/
-│       ├── frontend/
-│       ├── integrations/
-│       ├── testing/
-│       ├── security/
-│       ├── devops/
-│       ├── hackathon/
-│       └── control/
-│           ├── requirements.yaml
-│           ├── components.yaml
-│           ├── dependencies.yaml
-│           ├── handoffs.yaml
-│           ├── gates.yaml
-│           └── status.yaml
-│
-├── contracts/
-│   Solidity implementation.
-│
-│   ├── AGENTS.md
-│   ├── src/
-│   ├── test/
-│   ├── script/
-│   └── docs/
-│       ├── launchpad/
-│       │   Current-code reference only.
-│       └── prism/
-│           PRISM contract-target/reference docs.
-│
-├── decisions/
-│   ADRs. Accepted ADRs outrank implementation.
-│
-├── goals/
-│   Scoped execution goals.
-│
-├── evidence/
-│   Reproducible proof of completed work.
-│
-├── research/
-│   Research and executable reference models.
-│
-├── apps/
-│   Product runtimes after architecture gates.
-│
-├── packages/
-│   Shared packages after interfaces stabilize.
-│
-├── scripts/
-│   Automation/deployment/evidence tooling.
-│
-└── tests/
-    Cross-layer/E2E tests.
-```
+contracts/                Solidity implementation/reference
+decisions/                ADR authority
+goals/                    scoped execution goals
+evidence/                 reproducible proof
+.agent/                   universal agent control plane
+~~~
 
----
-
-# 4. What each layer means
-
-## `docs/*` = WHAT / WHY
-
-Use for:
-- product behavior;
-- protocol semantics;
-- economics;
-- state machines;
-- invariants;
-- security boundaries;
-- canonical integration intent.
-
-Do not put detailed runtime implementation instructions here if they belong in `development/`.
-
-## `development/*` = HOW
-
-Use for:
-- target architecture;
-- frontend/backend/indexer implementation;
-- contract migration plans;
-- interfaces;
-- data models;
-- errors;
-- test matrices;
-- DevOps;
-- CI/CD;
-- handoffs;
-- implementation gates.
-
-## `contracts/docs/*` = CURRENT CODE REFERENCE
-
-Use for:
-- current ABI/event/storage/role/accounting reference;
-- deployment facts derived from existing Solidity.
-
-Do not use it to silently define future architecture.
-
-## `.agent/*` = HOW AGENTS WORK
-
-Use for:
-- routing;
-- durable steering;
-- specialist ownership;
-- execution workflow;
-- machine state;
-- handoffs.
-
-## `evidence/*` = PROOF
-
-Use for:
-- command output;
-- tx hashes;
-- deployment addresses;
-- test reports;
-- security findings;
-- screenshots only as supplemental proof.
-
----
-
-# 5. Mandatory agent bootstrap
+# 4. Mandatory bootstrap
 
 For every task:
 
-```text
+~~~text
 1. Read AGENT_GUIDE.md.
 2. Read AGENTS.md.
 3. Read .agent/STATE.json.
 4. Read .agent/CURRENT_GOAL.md.
-5. Use .agent/ROUTING.md to identify the product + specialist lane.
-6. Read the relevant .agent/steering files.
-7. Read only the canonical docs required for the task.
-8. Read the relevant development lane.
-9. Read the nearest local AGENTS.md if one exists.
-10. Check accepted/proposed ADRs.
-11. Identify owned and forbidden paths.
-12. Check prerequisites/gates before coding.
-```
-
-Do not read the entire repository by default.
+5. Use .agent/ROUTING.md.
+6. Determine platform/module + specialist lane.
+7. Read relevant steering.
+8. Read only required canonical docs.
+9. Read relevant development/research lane.
+10. Read nearest local AGENTS.md.
+11. Check ADRs and gates.
+12. Identify owned/read-only/forbidden paths.
+~~~
 
 Bounded context is intentional.
 
----
+# 5. Platform routing
 
-# 6. Launchpad task routing
+For umbrella product architecture and shared product surfaces read:
 
-## Product/UX
+~~~text
+docs/platform/
+.agent/ROUTING.md
+research/production/
+~~~
 
-Read:
+Shared-platform work includes discovery, portfolio/activity, wallet integration, common SDK/types, indexer infrastructure, APIs, observability, environment/config and common Kuru connectivity where safe.
 
-```text
-docs/launchpad/PRODUCT.md
-docs/launchpad/PRODUCT_SCOPE.md
-docs/launchpad/USER_FLOWS.md
-development/launchpad/frontend/
-```
+Shared infrastructure must not become financial authority.
 
-## Solidity
+# 6. Launchpad Core routing
 
-Read:
+Launchpad Core is the current production-engineering track.
 
-```text
-docs/launchpad/PROTOCOL.md
-docs/launchpad/BONDING_CURVE.md
-docs/launchpad/FEES_AND_ECONOMICS.md
-docs/launchpad/GRADUATION.md
-docs/launchpad/STATE_MACHINE.md
-docs/launchpad/INVARIANTS.md
+Product/UX:
+- docs/launchpad/PRODUCT.md
+- docs/launchpad/PRODUCT_SCOPE.md
+- docs/launchpad/USER_FLOWS.md
+- development/launchpad/frontend/
 
-development/launchpad/contracts/
-contracts/AGENTS.md
-contracts/docs/launchpad/
-```
+Solidity:
+- docs/launchpad/PROTOCOL.md
+- docs/launchpad/BONDING_CURVE.md
+- docs/launchpad/FEES_AND_ECONOMICS.md
+- docs/launchpad/GRADUATION.md
+- docs/launchpad/STATE_MACHINE.md
+- docs/launchpad/INVARIANTS.md
+- development/launchpad/contracts/
+- contracts/AGENTS.md
 
-## Kuru / integrations
+Kuru/integrations:
+- docs/launchpad/KURU.md
+- docs/launchpad/MONAD.md
+- docs/launchpad/INTEGRATIONS.md
+- development/launchpad/integrations/
 
-Read:
+QA/DevOps:
+- development/launchpad/testing/
+- development/launchpad/security/
+- development/launchpad/devops/
+- development/launchpad/control/
 
-```text
-docs/launchpad/KURU.md
-docs/launchpad/MONAD.md
-docs/launchpad/INTEGRATIONS.md
-development/launchpad/integrations/
-development/launchpad/contracts/GRADUATION_TO_KURU.md
-development/launchpad/contracts/KURU_MARKET_PARAMETERS.md
-```
+Launchpad Core follows its existing DEVELOPMENT_READY, HACKATHON_READY, STAGING_READY, MAINNET_CANDIDATE and MAINNET_AUTHORIZED gates.
 
-## Indexer
+# 7. Prediction / PRISM incubation routing
 
-Read:
-
-```text
-development/launchpad/indexing/
-development/launchpad/shared/
-development/launchpad/control/
-```
-
-## Backend
-
-Read:
-
-```text
-development/launchpad/backend/
-development/launchpad/shared/
-development/launchpad/indexing/QUERY_CONTRACT.md
-```
-
-## Frontend
-
-Read:
-
-```text
-docs/launchpad/PRODUCT.md
-docs/launchpad/USER_FLOWS.md
-development/launchpad/frontend/
-development/launchpad/shared/
-```
-
-## QA / E2E
-
-Read:
-
-```text
-development/launchpad/testing/
-development/launchpad/control/requirements.yaml
-development/launchpad/control/gates.yaml
-```
-
-## DevOps
-
-Read:
-
-```text
-development/launchpad/devops/
-development/launchpad/shared/ENVIRONMENT_SCHEMA.md
-development/launchpad/control/gates.yaml
-```
-
----
-
-# 7. Prediction / PRISM routing
-
-Prediction/PRISM remains math-first.
+Prediction and PRISM are RetroPick platform modules under independent qualification.
 
 Start with:
 
-```text
+~~~text
 docs/prism/README.md
 docs/prism/00-context/EXECUTIVE_SUMMARY.md
 docs/prism/protocol/PRISM_PROTOCOL_SPEC.md
@@ -383,25 +151,39 @@ docs/prism/protocol/INVARIANTS.md
 docs/prism/protocol/STATE_MACHINE.md
 docs/prism/math/README.md
 docs/prism/05-hackathon/PHASE_GATES.md
-```
+research/prism-model/README.md
+research/prism/README.md
+~~~
 
-For mathematical work also read:
-- theorem/assumption files under `docs/prism/math/`;
-- executable model under `research/prism-model/`.
+PRISM remains math-first.
 
-Do not authorize PRISM production Solidity before its own MATH-1 and CONTRACT-ARCH-1 gates close.
+Production Solidity remains blocked until its MATH-1 and CONTRACT-ARCH-1 gates authorize implementation.
 
----
+PRISM does not inherit Launchpad-Core release status merely because both belong to RetroPick.
 
-# 8. Universal task contract
+# 8. Production research routing
 
-Every agent task should resolve these fields before implementation:
+Production research primarily targets:
+- shared RetroPick platform infrastructure;
+- Launchpad Core.
 
-```text
+Read:
+- research/production/README.md
+- research/production/WORKFLOW.md
+- research/production/PRODUCTION_RESEARCH_GATES.md
+- research/production/matrices/
+
+PRISM may reuse shared infrastructure research but remains under its incubation program until module admission.
+
+# 9. Universal task contract
+
+Resolve before implementation:
+
+~~~text
 ID
 GOAL
 WHY
-PRODUCT
+PLATFORM/MODULE
 OWNER
 READ
 OWN
@@ -414,182 +196,65 @@ VERIFY
 EVIDENCE
 HANDOFF
 BLOCKERS
-```
+~~~
 
 If these cannot be resolved from repository authority, the task is not development-ready.
 
----
-
-# 9. Current vs target rule
+# 10. Current vs target
 
 Every architecture-changing task distinguishes:
 
-```text
+~~~text
 CURRENT
 TARGET
 DELTA
 MIGRATION ORDER
-```
-
-Example:
-
-```text
-CURRENT:
-Launchpad V2 graduation is Uniswap-V4-oriented.
-
-TARGET:
-Launchpad V2 graduates to Kuru.
-
-DELTA:
-Replace venue-specific graduation behavior while preserving accepted primary-market economics.
-
-MIGRATION ORDER:
-freeze current behavior with tests
--> verify Kuru
--> accept parameter policy
--> implement destination path
--> prove failure/retry safety
--> retire obsolete V4 coupling only after proof
-```
+~~~
 
 Never describe target architecture as already implemented.
 
----
+# 11. Ownership
 
-# 10. Agent ownership rule
+A specialist writes only owned paths, treats other specialist paths as read-only unless scope explicitly expands, does not invent missing upstream interfaces, and hands off explicit artifacts.
 
-A specialist:
-- writes only its owned paths;
-- treats other specialist paths as read-only unless the task explicitly expands ownership;
-- does not invent missing upstream interfaces;
-- hands off explicit artifacts to downstream agents.
+# 12. Decision states
 
-Examples:
+Architecture/technology decisions are:
 
-```text
-contracts -> ABI/events/deployment manifest -> SDK/indexer
-
-indexer -> entity/query/sync-health contract -> backend/frontend
-
-backend -> OpenAPI/client/error contract -> frontend
-
-frontend -> build/routes/E2E selectors -> QA
-
-DevOps -> environment/deployment/health manifest -> QA
-```
-
-Canonical handoffs are under:
-`development/launchpad/control/handoffs.yaml`.
-
----
-
-# 11. Machine-readable control
-
-For Launchpad, agents must consult:
-
-```text
-development/launchpad/control/requirements.yaml
-development/launchpad/control/components.yaml
-development/launchpad/control/dependencies.yaml
-development/launchpad/control/handoffs.yaml
-development/launchpad/control/gates.yaml
-development/launchpad/control/status.yaml
-```
-
-Markdown explains these controls.
-
-Do not maintain conflicting copies of the same status/configuration in multiple docs.
-
----
-
-# 12. Technology decision states
-
-A technology or architecture choice is one of:
-
-```text
+~~~text
 CANDIDATE
 DECIDED
 IMPLEMENTED
-```
+~~~
 
-A candidate suggestion is not permission to build it as though accepted.
+A candidate suggestion is not permission to implement it as accepted architecture.
 
-Check `decisions/` before implementing a major framework, provider, custody, authentication, storage, upgradeability, admin, or venue decision.
+# 13. Testing and evidence
 
----
+Completion may require unit, fuzz, invariant, integration, browser E2E, security/static analysis, deployment smoke and resilience/failure injection depending on layer.
 
-# 13. Testing and evidence rule
-
-A task is not complete merely because code compiles.
-
-Depending on layer, completion may require:
-- unit;
-- fuzz;
-- invariant;
-- integration;
-- browser E2E;
-- security/static analysis;
-- deployment smoke;
-- resilience/failure injection.
-
-Evidence must record:
+Evidence records:
 - exact command/action;
 - commit/ref;
 - result;
-- relevant artifact/output;
-- residual blockers;
+- artifacts;
+- residual risk/blockers;
 - downstream handoff.
 
----
+# 14. Security
 
-# 14. Security rules
-
-Global:
 - no secrets in repository;
-- no normal user economic transaction signed by backend;
-- indexer/backend cannot become canonical financial state;
+- backend/indexer are not canonical financial state;
 - frontend cannot invent reserves/economics;
-- external integration failure cannot silently corrupt protocol state;
+- normal user economic writes remain wallet -> chain;
+- external failures cannot silently corrupt protocol state;
 - agents cannot self-authorize unrestricted mainnet deployment;
-- do not bypass accepted invariants to make a hackathon demo work.
+- no hackathon shortcut may bypass accepted financial invariants.
 
----
+# 15. Completion
 
-# 15. Completion discipline
+Before DONE verify requirements, owned scope, tests, security cases, generated artifacts, evidence, handoffs, gate state and blockers.
 
-Before claiming DONE:
+The repository should always tell one coherent story:
 
-```text
-requirements satisfied?
-owned files coherent?
-forbidden scope untouched?
-tests passed?
-security cases covered?
-generated artifacts updated?
-evidence written?
-handoff produced?
-status/gate updated?
-blockers explicit?
-```
-
-If not, report partial completion accurately.
-
----
-
-# 16. First command for an agent
-
-The conceptual first action of any agent should be:
-
-```text
-READ:
-AGENT_GUIDE.md
-AGENTS.md
-.agent/README.md
-.agent/STATE.json
-.agent/CURRENT_GOAL.md
-.agent/ROUTING.md
-```
-
-Then narrow into the product/domain lane.
-
-That is the shared workflow for Cursor, Codex, Kiro, Hermes, and any other agent.
+**one RetroPick Launchpad platform, shared product infrastructure where safe, independently qualified financial modules.**

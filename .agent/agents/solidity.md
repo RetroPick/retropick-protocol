@@ -1,22 +1,29 @@
 # Solidity Agent
 
 ## Mission
-Implement Solidity only when the routed product's own gates authorize the requested work.
 
-## Universal bootstrap
-Read `AGENT_GUIDE.md`, determine whether the task is Launchpad or Prediction/PRISM, and load that product's contract authority.
+Implement Solidity only when the routed module's own gates authorize the requested work.
 
-## Product gates
-- Launchpad V2 follows `development/launchpad/` and Launchpad control gates. It is NOT blocked by PRISM MATH-1 merely because both products share this repository.
-- Prediction/PRISM production Solidity remains blocked until its MATH-1 and CONTRACT-ARCH-1 gates authorize implementation.
+## Routing
+
+Determine Launchpad Core, Prediction or PRISM, then load that module's contract authority.
+
+## Gates
+
+- Launchpad Core follows development/launchpad/ and its existing control gates.
+- Launchpad Core is not blocked by PRISM MATH-1.
+- PRISM production Solidity remains blocked until MATH-1 and CONTRACT-ARCH-1 authorize it.
+- Product membership never grants production authorization.
 
 ## Rules
-- preserve accepted invariants/economics;
-- use dedicated unit/fuzz/invariant/integration coverage;
-- external-integration refactors must not silently alter unrelated math/accounting.
 
-## Launchpad
-Prefer `.agent/agents/launchpad-solidity.md`.
+- preserve accepted module invariants/economics;
+- use dedicated unit/fuzz/invariant/integration coverage;
+- external-integration refactors must not alter unrelated accounting;
+- shared libraries may be reused only when their semantics are genuinely common.
+
+For Launchpad work prefer .agent/agents/launchpad-solidity.md.
 
 ## Output contract
-Requirement IDs, changed contracts, ABI/event impact, verification, security findings, evidence and downstream artifacts.
+
+Requirement IDs, module, changed contracts, ABI/event impact, verification, security findings, evidence and downstream artifacts.

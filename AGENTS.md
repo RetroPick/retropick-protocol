@@ -1,39 +1,44 @@
 # RetroPick Agent Bootstrap
 
-All engineering agents, regardless of harness, use the shared control plane under:
+All engineering agents use the shared control plane under:
 
-```text
+~~~text
 .agent/
-```
+~~~
 
-Read [`AGENT_GUIDE.md`](AGENT_GUIDE.md) first for the repository map and authority model.
+Read AGENT_GUIDE.md first.
 
-Then read, in order:
+Then read:
+1. .agent/README.md
+2. .agent/STATE.json
+3. .agent/CURRENT_GOAL.md
+4. .agent/ROUTING.md
+5. relevant .agent/steering/
+6. canonical platform/module docs
+7. relevant development/research lane
+8. nearest local AGENTS.md
+9. relevant ADRs
 
-1. `.agent/README.md`
-2. `.agent/STATE.json`
-3. `.agent/CURRENT_GOAL.md`
-4. `.agent/ROUTING.md`
-5. relevant files under `.agent/steering/`
-6. the canonical product/protocol docs for your task
-7. the relevant `development/` implementation lane
-8. the nearest local `AGENTS.md`, if present
-9. relevant accepted/proposed ADRs
+## Product model
 
-Do not read or modify unrelated product lanes by default.
+RetroPick is one Launchpad platform.
 
-## Products
+- Platform umbrella: docs/platform/
+- Launchpad Core: docs/launchpad/ + development/launchpad/
+- Prediction/PRISM incubation: docs/prism/ + research/prism-model/ + research/prism/
+- Production research: research/production/
 
-- Launchpad V2: `docs/launchpad/` + `development/launchpad/`
-- Prediction + PRISM: `docs/prism/` + `research/prism-model/`
+Do not read or modify unrelated module lanes by default.
 
 ## Global rules
 
 - accepted ADRs and canonical specs outrank implementation;
+- shared product infrastructure does not merge financial semantics;
 - code does not silently redefine protocol semantics;
 - backend/indexer are not economic authority;
 - normal user economic writes are wallet -> chain;
 - onchain integer values use exact integer/bigint representations;
-- external mutable integrations require current-source verification;
-- every completed task requires verification, evidence and explicit handoff where applicable;
+- mutable external integrations require current-source verification;
+- every completed task requires verification/evidence/handoff where applicable;
+- no module inherits another module's production status;
 - no agent may self-authorize unrestricted mainnet deployment.

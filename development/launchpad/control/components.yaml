@@ -1,0 +1,34 @@
+schema_version: 1
+components:
+  - id: contracts
+    owner: launchpad-solidity
+    paths: ["contracts/src/v2/**", "contracts/test/**", "contracts/script/**"]
+    produces: [abi-bundle, event-catalog, deployment-manifest, contract-test-report]
+  - id: domain
+    owner: launchpad-planner
+    paths: ["packages/domain/**"]
+    produces: [domain-schema]
+  - id: sdk
+    owner: launchpad-integrations
+    paths: ["packages/sdk/**", "packages/contracts/**"]
+    consumes: [abi-bundle, domain-schema]
+    produces: [typed-sdk]
+  - id: indexer
+    owner: launchpad-indexer
+    paths: ["apps/indexer/**"]
+    consumes: [abi-bundle, event-catalog, deployment-manifest, domain-schema]
+    produces: [entity-schema, query-contract, sync-health-contract]
+  - id: api
+    owner: launchpad-backend
+    paths: ["apps/api/**"]
+    consumes: [domain-schema, query-contract]
+    produces: [openapi-schema, api-client, api-test-report]
+  - id: web
+    owner: launchpad-frontend
+    paths: ["apps/web/**", "packages/ui/**"]
+    consumes: [domain-schema, typed-sdk, api-client, query-contract]
+    produces: [web-build, browser-test-report]
+  - id: deployment
+    owner: launchpad-devops
+    paths: ["scripts/**", ".github/**", "packages/config/**"]
+    produces: [environment-manifest, deployed-addresses, health-endpoints]

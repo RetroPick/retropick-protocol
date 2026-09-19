@@ -1,0 +1,27 @@
+schema_version: 1
+handoffs:
+  - id: contracts-to-sdk-indexer
+    producer: contracts
+    consumers: [sdk, indexer]
+    artifacts: [abi-bundle, event-catalog, deployment-manifest, contract-test-report]
+    validation: [abi-generation, event-schema-review]
+  - id: indexer-to-api-web
+    producer: indexer
+    consumers: [api, web]
+    artifacts: [entity-schema, query-contract, sync-health-contract, freshness-semantics]
+    validation: [indexer-rebuild, indexer-reorg]
+  - id: api-to-web
+    producer: api
+    consumers: [web]
+    artifacts: [openapi-schema, api-client, error-mapping, auth-semantics]
+    validation: [backend-contract-test]
+  - id: web-to-qa
+    producer: web
+    consumers: [launchpad-qa]
+    artifacts: [web-build, route-inventory, transaction-fixtures, stable-e2e-selectors]
+    validation: [frontend-unit, browser-smoke]
+  - id: deployment-to-qa
+    producer: deployment
+    consumers: [launchpad-qa]
+    artifacts: [environment-manifest, deployed-addresses, service-urls, health-endpoints]
+    validation: [deployment-smoke]

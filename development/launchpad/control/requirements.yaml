@@ -1,0 +1,60 @@
+schema_version: 1
+product: launchpad
+version: v2
+requirements:
+  - id: LP-PROD-001
+    title: Creator can create a fixed-or-capped ERC20 launch
+    owner: contracts
+    status: accepted
+    verification: [contract-unit, browser-e2e]
+  - id: LP-PROTO-001
+    title: Primary trading uses the accepted deterministic bonding curve
+    owner: contracts
+    status: accepted
+    verification: [contract-unit, contract-fuzz, contract-invariant]
+  - id: LP-PROTO-002
+    title: Real quote reserves and fees reconcile every value transfer
+    owner: contracts
+    status: accepted
+    verification: [contract-invariant]
+  - id: LP-PROTO-003
+    title: Secured graduation assets survive destination-market failure
+    owner: contracts
+    status: accepted
+    verification: [graduation-invariant, kuru-failure-integration]
+  - id: LP-PROTO-004
+    title: A successfully graduated launch cannot resume normal bonding trading
+    owner: contracts
+    status: accepted
+    verification: [contract-unit, contract-invariant]
+  - id: LP-SC-001
+    title: V2 core receives independent Factory Token Curve Fee Graduation coverage
+    owner: launchpad-solidity
+    status: ready
+    verification: [forge-unit, forge-fuzz, forge-invariant, forge-integration]
+  - id: LP-INT-001
+    title: Kuru market configuration is validated by protocol-owned policy
+    owner: launchpad-integrations
+    status: blocked_external_verification
+    verification: [kuru-live-integration]
+  - id: LP-IDX-001
+    title: Indexed state is reconstructible from chain events and exposes freshness
+    owner: launchpad-indexer
+    status: ready
+    verification: [indexer-rebuild, indexer-reorg]
+  - id: LP-BE-001
+    title: Backend is non-custodial and cannot redefine economic state
+    owner: launchpad-backend
+    status: ready
+    verification: [backend-unit, backend-integration]
+  - id: LP-FE-001
+    title: Browser exposes create buy sell graduation and mature-market lifecycle
+    owner: launchpad-frontend
+    status: ready
+    verification: [frontend-unit, browser-e2e]
+  - id: LP-E2E-001
+    title: Three-wallet golden path completes against a real staged environment
+    owner: launchpad-qa
+    status: blocked
+    depends_on: [LP-SC-001, LP-INT-001, LP-IDX-001, LP-BE-001, LP-FE-001]
+    verification: [browser-e2e, onchain-receipts]

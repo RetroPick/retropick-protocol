@@ -1,208 +1,52 @@
-# AGENTS.md
+# RetroPick Agent Router
 
-This file is the mandatory repository entry point for coding, research, validation, product and integration agents.
+This file is the repository-wide entry point. Keep it small. Product-specific detail lives in routed documents.
 
-## Mission
+## Products
 
-Build RetroPick's Monad prediction-asset protocol and PRISM structured-asset layer without allowing implementation convenience, sponsor integration, or UI shortcuts to override solvency, resolution, backing, or settlement semantics.
+### Launchpad V2
 
----
+Goal: fixed/capped ERC-20 launch -> bonding primary market -> safe graduation -> Kuru mature trading on Monad.
 
-## Read before work
+Read:
+1. `docs/launchpad/README.md`
+2. the owning canonical Launchpad spec
+3. `development/launchpad/README.md`
+4. the owning development lane
+5. nearest local `AGENTS.md`
 
-1. `.agent/CURRENT_GOAL.md`
-2. `.agent/STATE.json`
-3. `.agent/DECISIONS.md`
-4. `docs/prism/00-context/EXECUTIVE_SUMMARY.md`
-5. `docs/prism/00-context/PROJECT.md`
-6. `docs/prism/00-context/REPORT_RECONCILIATION.md`
-7. `docs/prism/05-hackathon/PHASE_GATES.md`
-8. `docs/prism/protocol/PRISM_PROTOCOL_SPEC.md`
-9. `docs/prism/protocol/INVARIANTS.md`
-10. `docs/prism/protocol/STATE_MACHINE.md`
-11. `docs/prism/05-hackathon/RETROPICK_METROPOLIS_AGENT_DEVELOPMENT_WORKFLOW.md`
+### Prediction + PRISM
 
-For mathematical/protocol work also read, in this order:
-- `docs/prism/math/README.md`
-- `docs/prism/math/01_DEFINITIONS.md`
-- `docs/prism/math/02_ASSUMPTIONS.md`
-- `docs/prism/math/05_BACKING_SOLVENCY.md`
-- `docs/prism/math/16_INVARIANTS.md`
-- `docs/prism/math/17_THEOREMS.md`
-- `docs/prism/protocol/MATH_MODEL.md`
-- `docs/prism/protocol/FAILURE_MODES.md`
-- `docs/prism/protocol/PRECISION_MODEL.md`
-- `docs/prism/protocol/CONTRACT_REQUIREMENTS.md`
-- `research/prism-model/README.md`
+Read:
+1. `docs/prism/README.md`
+2. `docs/prism/protocol/PRISM_PROTOCOL_SPEC.md`
+3. `docs/prism/protocol/INVARIANTS.md`
+4. `docs/prism/math/README.md`
+5. PRISM phase-gate documents
 
-For implementation architecture also read:
-- `docs/prism/04-architecture/SYSTEM_ARCHITECTURE.md`
-- `docs/prism/04-architecture/SMART_CONTRACTS.md`
+Do not mix Launchpad bonding/graduation semantics with Prediction/PRISM collateral/backing/settlement semantics.
 
----
+## Authority
 
-## Source-of-truth precedence
+1. accepted ADRs;
+2. canonical product/protocol docs;
+3. development implementation specs;
+4. local AGENTS constraints;
+5. task spec;
+6. implementation.
 
-When documents conflict, use this precedence:
+Code does not silently redefine higher authority.
 
-1. accepted ADRs under `decisions/`;
-2. canonical protocol semantics under `docs/prism/protocol/`;
-3. canonical mathematical proof/claim classification under `docs/prism/math/`, provided it does not redefine protocol semantics;
-4. `docs/prism/05-hackathon/PHASE_GATES.md` for execution authorization;
-5. `.agent/CURRENT_GOAL.md` and `.agent/DECISIONS.md`;
-6. architecture docs under `docs/prism/04-architecture/`;
-7. canonical hackathon workflow;
-8. `docs/prism/00-context/EXECUTIVE_SUMMARY.md` as the human-facing synthesis;
-9. product/research notes;
-10. historical reports;
-11. implementation.
+## Global engineering constraints
 
-The Executive Summary is a synthesis, not a replacement for accepted ADRs or detailed canonical protocol specifications.
+- normal user economic writes are wallet -> chain;
+- backend and indexer are not economic authority;
+- onchain integer values use bigint in TypeScript;
+- mutable external integrations require current source/version verification;
+- candidate technology choices are not binding until accepted;
+- no agent may declare MAINNET_AUTHORIZED;
+- no destructive scope expansion without an accepted task/ADR.
 
-`docs/prism/math/` proves/classifies the accepted semantics. It may not silently redefine them. If a proof requires changing economics, stop and use the ADR/spec process.
+## Verification
 
-Historical or generated research is evidence/input, not authority over accepted protocol semantics.
-
-Code must conform to the specification. Code does not silently redefine the specification.
-
----
-
-## Phase-gate rule
-
-Production Solidity is **not authorized** until MATH-1 closes and CONTRACT-ARCH-1 derives implementation responsibilities from the accepted model.
-
-Current dependency order:
-
-```text
-SPEC-1
--> MATH-1
--> CONTRACT-ARCH-1
--> CONTRACT-1
--> INTEGRATION-1 / PRODUCT-1
--> E2E-1
--> SUBMISSION-1
-```
-
-Parallel integration prototypes may use mocks but may not define or weaken financial semantics.
-
----
-
-## Scientific rule
-
-Classify substantive claims as one of:
-
-- `PROVEN_UNDER_ASSUMPTIONS`
-- `EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN`
-- `SUPPORTED_BY_SIMULATION`
-- `SUPPORTED_BY_LIVE_EVIDENCE`
-- `NOT_YET_VALIDATED`
-- `COUNTEREXAMPLE_FOUND`
-
-The canonical claim registry for MATH-1 is `docs/prism/math/17_THEOREMS.md`.
-
-Never convert simulated or expected market behavior into a formal proof.
-
-Every safety-critical invariant must be traceable through:
-
-```text
-protocol invariant
--> math theorem/assumptions
--> Python oracle assertion/check
--> future Solidity owner
--> future Foundry/differential evidence
-```
-
-Known missing oracle coverage must remain explicit in `docs/prism/math/16_INVARIANTS.md`.
-
----
-
-## Locked protocol constraints
-
-### Native RetroPick
-
-- A binary market is a fully collateralized complete-set system.
-- Conceptually `1 collateral -> 1 YES + 1 NO` and inverse merge.
-- Native market creation does not invoke PRISM spanning.
-- Resolution semantics are immutable/pinned before activation.
-- Complete-set OI is not `YES_supply + NO_supply`; in the simple canonical model it equals the collateralized complete-set quantity.
-
-### PRISM Phase 1 / v2
-
-- Hackathon PRISM series are non-negative exact-backed replicated baskets.
-- One PRISM share has immutable replication vector `x`.
-- Exact payoff is `h = Gx`.
-- Feasible long-only payoff cone is `{Gx | x >= 0}`.
-- Arbitrary AND/OR/custom nonlinear payoffs are not assumed replicable.
-- Basket mode may supply `x` directly; payoff mode must solve exact `Gx=h, x>=0` or reject.
-- Active backing must satisfy `B_i >= S*x_i`.
-- Mint is backing-first, mint-second.
-- Runtime mint checks component backing; they do not enumerate every terminal world.
-- Same-chain Monad backing is authoritative in the PRISM vault/accounting. No Phase-1 BackingMirror.
-- In-kind redemption burns/decreases liability first and releases proportional backing.
-- The same token type may back many series; the same reserved balance units may not be double pledged.
-- `RESOLVED` means final payout is known.
-- `REDEEMABLE` additionally requires `SettlementBalance >= Supply*FinalPayout`.
-- A resolved ERC-20 may remain transferable; its event uncertainty is gone, but relative price against another ERC-20 may continue moving.
-- Retail PRISM BUY is a Kuru secondary trade when liquidity exists.
-- Primary PRISM CREATE is a separate issuer/AP/market-maker/arbitrage path.
-
-### Accounting domains
-
-Never silently merge:
-
-```text
-protocol backing
-LP inventory
-market-maker inventory
-protocol fees
-settlement funds
-```
-
----
-
-## Explicit Phase-1 exclusions
-
-Do not introduce without a new accepted ADR:
-- Polymarket/Polygon custody as a hackathon dependency;
-- custom bridge;
-- cross-chain wrapped outcomes;
-- BackingMirror for same-chain balances;
-- statewise solvency loops inside every mint;
-- approximate replication;
-- generic StatePool/SLE;
-- arbitrary payoff bytecode;
-- protocol price oracle used to decide backing sufficiency.
-
----
-
-## Evidence rule
-
-No goal is complete without:
-- exact command or action;
-- commit/ref;
-- result;
-- relevant fixture/output;
-- updated gate/status;
-- documented assumptions;
-- residual risks/counterexamples.
-
-For sponsor claims, screenshots alone are insufficient when tx IDs, market IDs, logs, queries or contract state can provide stronger evidence.
-
-For theorem/exhaustive claims, evidence must also include the assumption set and, for bounded verification, the exact finite bounds explored.
-
----
-
-## Handoff rule
-
-Every specialist handoff must identify:
-- goal ID;
-- current gate;
-- input specification;
-- output files;
-- invariants/ADRs that may not change;
-- assumptions;
-- open questions;
-- evidence required;
-- whether the work is formal, exhaustive, simulated, or live.
-
-If a task requires violating a canonical invariant, stop and request an ADR rather than implementing around it.
+No task is complete without exact commands/results, commit/ref, evidence path and downstream handoff where applicable.

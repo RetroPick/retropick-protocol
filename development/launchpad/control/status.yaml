@@ -1,0 +1,17 @@
+schema_version: 1
+product: launchpad
+version: v2
+current_phase: DEV-0
+readiness:
+  DEVELOPMENT_READY: in_progress
+  HACKATHON_READY: blocked
+  STAGING_READY: blocked
+  MAINNET_CANDIDATE: blocked
+  MAINNET_AUTHORIZED: blocked
+blockers:
+  - id: BLOCK-CONTRACT-TESTS
+    reason: No committed core Launchpad V2 Factory/Curve/Graduation test suite.
+  - id: BLOCK-KURU-PIN
+    reason: Kuru target contracts/SDK/deployments and market policy must be pinned and verified before implementation.
+  - id: BLOCK-FULLSTACK
+    reason: apps and packages runtime implementation does not yet exist.

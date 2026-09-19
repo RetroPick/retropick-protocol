@@ -1,0 +1,39 @@
+schema_version: 1
+gates:
+  DEVELOPMENT_READY:
+    requires:
+      - canonical-product-protocol
+      - component-ownership
+      - implementation-specs
+      - requirement-traceability
+      - local-agent-contracts
+  HACKATHON_READY:
+    requires:
+      - contract-core-tests
+      - real-monad-deployment
+      - real-kuru-integration
+      - indexer-operational
+      - browser-golden-path
+      - no-blocking-security-finding
+      - reproducible-demo
+  STAGING_READY:
+    requires:
+      - reproducible-deployment
+      - environment-manifest
+      - integration-tests
+      - observability
+      - rollback-runbook
+  MAINNET_CANDIDATE:
+    requires:
+      - full-unit-fuzz-invariant
+      - malicious-token-tests
+      - kuru-qualification
+      - access-control-review
+      - static-analysis-triage
+      - manual-security-review
+      - e2e
+      - resilience-tests
+      - monitoring
+      - incident-plan
+  MAINNET_AUTHORIZED:
+    human_authorization_required: true

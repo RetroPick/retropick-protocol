@@ -4,6 +4,19 @@ Protocol, market-structure, mathematical reference-model, and Metropolis deliver
 
 > **Start with [`docs/00-context/EXECUTIVE_SUMMARY.md`](docs/00-context/EXECUTIVE_SUMMARY.md)** for the canonical human-facing overview of the product thesis, architecture, mathematical model, lifecycle, hackathon scope, current phase, and immediate next work.
 
+## Modern Launchpad lane
+
+RetroPick also maintains a separate modern launchpad workstream for standard/meme ERC-20 creation, bonding-curve primary markets, graduation and mature Kuru trading on Monad.
+
+Start at:
+- [`docs/launchpad/README.md`](docs/launchpad/README.md)
+- [`docs/launchpad/00-context/EXECUTIVE_SUMMARY.md`](docs/launchpad/00-context/EXECUTIVE_SUMMARY.md)
+- [`contracts/docs/launchpad/README.md`](contracts/docs/launchpad/README.md)
+
+The launchpad lane is intentionally separate from the Prediction/PRISM financial specifications below.
+
+---
+
 ## Current phase
 
 **P1 SPEC -> P2 MATH-1**

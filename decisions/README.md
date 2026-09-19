@@ -4,7 +4,7 @@ ADRs preserve accepted boundaries so agents do not repeatedly redesign settled s
 
 Status values: `PROPOSED`, `ACCEPTED`, `SUPERSEDED`, `REJECTED`.
 
-## Current accepted decisions
+## Accepted
 
 - `ADR-001-phase-1-math-first.md`
 - `ADR-002-exact-long-only-replication.md`
@@ -15,6 +15,10 @@ Status values: `PROPOSED`, `ACCEPTED`, `SUPERSEDED`, `REJECTED`.
 - `ADR-007-math-first-phase-gates.md`
 - `ADR-008-retropick-launchpad-v2-development-line.md`
 
-Launchpad venue, quote-asset, upgradeability and operations decisions should be separate ADRs when they become implementation-binding.
+## Proposed launchpad decisions
 
-If implementation requires contradicting an accepted ADR, do not work around it silently. Supersede it explicitly.
+- `ADR-009-kuru-default-launchpad-graduation-venue.md`
+- `ADR-010-same-quote-graduation.md`
+- `ADR-011-launchpad-quote-asset-policy.md`
+
+If implementation requires contradicting an accepted ADR, supersede it explicitly rather than working around it.

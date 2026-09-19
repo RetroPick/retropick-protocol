@@ -1,28 +1,29 @@
-# RetroPick Launchpad Contracts
+# RetroPick Contracts
 
-**Status:** active RetroPick launchpad contract workspace.
+The Solidity workspace currently contains stable/reference Launchpad V1 and active Launchpad V2 code, plus experimental Doorway reference code. Prediction/PRISM production Solidity is not yet authorized by its separate gates.
 
-The Solidity package contains two RetroPick launchpad generations:
+## Launchpad versions
 
-| Generation | Role | Development policy |
-|---|---|---|
-| V1 | stable/reference generation | security maintenance only |
-| V2 | active modern-launchpad generation | all new launchpad features and integrations |
+| Generation | Role |
+|---|---|
+| V1 | stable/reference, security maintenance |
+| V2 | active Launchpad development line |
 
-## Product lifecycle
+Current V2 primary mechanics include fixed-supply token deployment, bonding trading, quote economics, fees/buyback controls and a two-phase graduation design. The current committed graduation destination is still Uniswap-V4-oriented; Kuru is the target architecture and must not be described as already implemented.
 
-```text
-CREATE
--> fixed/capped ERC-20 issuance
--> bonding-curve primary trading
--> graduation readiness
--> secure graduation
--> mature secondary market
-```
+## Current test warning
 
-V1 currently includes Uniswap V4 graduation components. V2 is the active Monad development line and targets Kuru for mature secondary trading subject to the launchpad architecture gates.
+The committed unit/fuzz/invariant/integration tests are Doorway-focused. They do not qualify Factory/Token/Curve/Graduation P0 behavior.
 
-## Build and test
+## Documentation
+
+- `../docs/launchpad/` — canonical Launchpad product/protocol truth.
+- `../development/launchpad/contracts/` — target V2 implementation architecture.
+- `docs/launchpad/` — current Solidity reference.
+- `../docs/prism/` and `docs/prism/` — separate Prediction/PRISM specification/reference.
+- `THIRD_PARTY_NOTICES.md` and `licenses/` — legal/dependency notices.
+
+## Standard Foundry checks
 
 ```bash
 forge fmt --check
@@ -32,22 +33,4 @@ forge test
 forge test --fuzz-runs 10000
 ```
 
-V2 requires its own unit, fuzz, invariant and integration coverage whenever it diverges from V1.
-
-## Documentation
-
-- `docs/launchpad/` — product, protocol, architecture, integration, validation and production documentation.
-- `contracts/docs/launchpad/` — Modern Launchpad Solidity implementation documentation.
-- `contracts/docs/prism/` — Prediction + PRISM target Solidity implementation documentation.
-- `THIRD_PARTY_NOTICES.md` and `licenses/` — dependency license notices.
-
-## Security status
-
-No deployment is authorized solely because the contracts compile. Release qualification requires the launchpad security, integration, E2E and deployment gates described under `../docs/launchpad/08-validation/` and `../docs/launchpad/09-production/`.
-
-Known Doorway limitations and contract trust boundaries are tracked in `docs/launchpad/SECURITY_MODEL.md`.
-
-
-## PRISM contracts
-
-Prediction + PRISM implementation specifications live under `docs/prism/`. PRISM production Solidity remains gated by its MATH-1 and CONTRACT-ARCH-1 process; the current Launchpad V1/V2 code must not be mistaken for the PRISM financial kernel.
+Actual release qualification requires the dedicated Launchpad V2 suites defined under `../development/launchpad/testing/` and security gates under `../development/launchpad/security/`.

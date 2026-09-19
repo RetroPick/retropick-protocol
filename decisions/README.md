@@ -1,24 +1,26 @@
 # Architecture Decision Records
 
-ADRs preserve accepted boundaries so agents do not repeatedly redesign settled semantics.
-
-Status values: `PROPOSED`, `ACCEPTED`, `SUPERSEDED`, `REJECTED`.
+Status: `PROPOSED`, `ACCEPTED`, `SUPERSEDED`, `REJECTED`.
 
 ## Accepted
 
-- `ADR-001-phase-1-math-first.md`
-- `ADR-002-exact-long-only-replication.md`
-- `ADR-003-no-backing-mirror-phase1.md`
-- `ADR-004-admission-vs-runtime-invariants.md`
-- `ADR-005-retail-trade-vs-primary-create.md`
-- `ADR-006-resolved-vs-redeemable.md`
-- `ADR-007-math-first-phase-gates.md`
-- `ADR-008-retropick-launchpad-v2-development-line.md`
+- ADR-001 through ADR-007: Prediction/PRISM Phase-1 semantics/gates.
+- `ADR-008-retropick-launchpad-v2-development-line.md`: V1 stable/reference, V2 active Launchpad line.
 
-## Proposed launchpad decisions
+## Proposed Launchpad decisions
 
 - `ADR-009-kuru-default-launchpad-graduation-venue.md`
 - `ADR-010-same-quote-graduation.md`
 - `ADR-011-launchpad-quote-asset-policy.md`
+- `ADR-012-doorway-excluded-from-launchpad-p0.md`
+- `ADR-013-launchpad-typescript-workspace.md`
+- `ADR-014-launchpad-backend-runtime.md`
+- `ADR-015-launchpad-indexer-provider.md`
+- `ADR-016-launchpad-wallet-auth.md`
+- `ADR-017-launchpad-metadata-storage.md`
+- `ADR-018-launchpad-admin-key-model.md`
+- `ADR-019-launchpad-non-upgradeability.md`
+- `ADR-020-v4-retirement-after-kuru-proof.md`
+- `ADR-021-kuru-market-parameter-policy.md`
 
-If implementation requires contradicting an accepted ADR, supersede it explicitly rather than working around it.
+PROPOSED means agents must not treat the choice as binding implementation authority. Accept or supersede explicitly.

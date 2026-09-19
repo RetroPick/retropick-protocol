@@ -1,23 +1,22 @@
-# RetroPick Launchpad Solidity Documentation
+---
+id: LP-CODE-ROOT
+type: generated_current_state
+product: launchpad
+version: v2
+status: active
+source: contracts/src/v2
+---
 
-**Status:** ACTIVE  
-**Owner:** Smart Contracts  
-**Authority:** Implementation-level specification subordinate to `docs/launchpad/03-protocol/`.
+# Current Launchpad Solidity Reference
 
-This directory documents how RetroPick V1 and V2 Solidity implement launchpad semantics: contract responsibilities, storage, access control, ABI/events, curve accounting, fee accounting, graduation, invariants, security and deployment.
+This directory describes CURRENT committed Solidity. It does not define future Kuru architecture.
 
-## Version policy
+- Product/protocol authority: `../../../docs/launchpad/`.
+- Target implementation architecture: `../../../development/launchpad/contracts/`.
+- Current source: `../../src/v2/`.
 
-V1 is stable/reference. V2 is active development.
+## Current fact
 
-## Core contract responsibilities
+V2 primary launch/token/curve mechanics exist. Graduation is currently Uniswap-V4-oriented. Kuru is a target architecture, not current committed runtime.
 
-- Factory: launch configuration, orchestration and lifecycle ownership.
-- Deployer: deploy token/curve pairs while controlling factory bytecode size.
-- Launch token: fixed/capped ERC-20 representation.
-- Bonding curve: primary buy/sell and reserve/fee accounting.
-- Graduation guard/executor: preflight and transition into mature market infrastructure.
-- Buyback vault / fee components: isolated fee-side accounting.
-- Hook/locker components: venue-specific post-graduation behavior where enabled.
-
-Protocol requirements live in `../../../docs/launchpad/03-protocol/`; this directory must not redefine them.
+Doorway exists as experimental cross-chain reference and is OUT_OF_SCOPE_P0.

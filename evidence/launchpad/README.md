@@ -1,19 +1,10 @@
 # RetroPick Launchpad Evidence
 
-This directory stores current RetroPick launchpad evidence.
+Current control/document evidence:
+- `agent-control-plane-validation.md` — validates the agent-development control-plane structure.
+- `documentation-validation.md` — earlier documentation-namespace validation retained as historical evidence.
 
-- [Documentation architecture validation](./documentation-validation.md)
+Future evidence categories:
+`contracts/`, `tests/`, `security/`, `deployments/`, `kuru/`, `indexing/`, `frontend/`, `backend/`, `performance/`, `submission/`.
 
-Planned evidence categories:
-- `contracts/`
-- `tests/`
-- `security/`
-- `deployments/`
-- `kuru/`
-- `indexing/`
-- `frontend/`
-- `backend/`
-- `performance/`
-- `submission/`
-
-Evidence proves current implementation/deployment claims. It is not a product-history archive.
+Evidence proves current behavior. It does not turn target architecture into implemented fact.

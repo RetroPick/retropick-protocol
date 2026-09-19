@@ -37,7 +37,7 @@ import {
  *  - deterministic migration identifiers
  *
  * Known reference-implementation limitations (documented, not fixed in this
- * baseline; see docs/launchpad/SECURITY_NOTES.md):
+ * baseline; see contracts/docs/launchpad/SECURITY_NOTES.md):
  *  - migrateToSolana / requestFromSolana perform pure liquidity accounting and
  *    do NOT pull ERC-20 tokens via transferFrom.
  *  - attestMigration keys replay protection on sourceTxHash; MONAD_TO_SOLANA

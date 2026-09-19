@@ -2,6 +2,9 @@ schema_version: 1
 product: launchpad
 version: v2
 current_phase: DEV-0
+control_plane:
+  status: pass
+  validated_commit: 7c24e20e88cfaa1c6e71d953a949670f64392d31
 readiness:
   DEVELOPMENT_READY: in_progress
   HACKATHON_READY: blocked
@@ -10,8 +13,14 @@ readiness:
   MAINNET_AUTHORIZED: blocked
 blockers:
   - id: BLOCK-CONTRACT-TESTS
-    reason: No committed core Launchpad V2 Factory/Curve/Graduation test suite.
-  - id: BLOCK-KURU-PIN
-    reason: Kuru target contracts/SDK/deployments and market policy must be pinned and verified before implementation.
+    reason: No committed core Launchpad V2 Factory/Token/Curve/Fee/Graduation qualification suite exists yet.
+    next_owner: launchpad-solidity
+  - id: BLOCK-KURU-TARGET
+    reason: Kuru source code is pinned, but exact target Monad deployment addresses, concrete market-deploy call path and accepted RetroPick market-parameter policy remain unresolved.
+    next_owner: launchpad-integrations
+  - id: BLOCK-ARCH-ADRS
+    reason: Full-stack workspace, backend, indexer, auth, storage, admin, upgradeability and V4-retirement choices are PROPOSED rather than accepted.
+    next_owner: launchpad-planner
   - id: BLOCK-FULLSTACK
-    reason: apps and packages runtime implementation does not yet exist.
+    reason: apps/web, apps/api, apps/indexer and shared runtime packages are not implemented.
+    next_owner: launchpad-planner

@@ -1,96 +1,47 @@
-# RetroPick V1 Launchpad Contracts
+# RetroPick Launchpad Contracts
 
-**Status:** `experimental baseline`
+**Status:** active RetroPick launchpad contract workspace.
 
-RetroPick V1 provides a fair-launch launchpad system with bonding curves that graduate into permanent Uniswap V4 liquidity.
+The Solidity package contains two RetroPick launchpad generations:
 
-## ⚠️ Important Limitations
+| Generation | Role | Development policy |
+|---|---|---|
+| V1 | stable/reference generation | security maintenance only |
+| V2 | active modern-launchpad generation | all new launchpad features and integrations |
 
-- **NOT the canonical RetroPick Prediction or PRISM implementation**
-- **Does NOT bypass MATH-1 or CONTRACT-ARCH-1 phase gates**
-- **Does NOT authorize production deployment**
-- **NOT audited, battle-tested, or production-ready**
+## Product lifecycle
 
-This baseline serves as an experimental foundation for launchpad development within the RetroPick protocol ecosystem.
-
-## Architecture
-
-RetroPick V1 provides a bonding curve launch mechanism that graduates into Uniswap V4:
-
-```
-Creator → Factory → Deployer → [Token + BondingCurve]
-    ↓
-Primary trading on constant-product curve
-    ↓
-Graduation threshold crossed → Graduate → CreateGraduatedPool
-    ↓
-Full-range Uniswap V4 position + MemeHook + permanent lock
+```text
+CREATE
+-> fixed/capped ERC-20 issuance
+-> bonding-curve primary trading
+-> graduation readiness
+-> secure graduation
+-> mature secondary market
 ```
 
-## Core Contracts
+V1 currently includes Uniswap V4 graduation components. V2 is the active Monad development line and targets Kuru for mature secondary trading subject to the launchpad architecture gates.
 
-| Contract | Purpose |
-|----------|---------|
-| `RetroPickLaunchFactoryV1` | Main entry point, orchestrates launches and graduation |
-| `RetroPickLaunchDeployerV1` | Deploys token + curve pairs (EIP-170 size optimization) |
-| `RetroPickBondingCurveV1` | Constant-product trading, quote-denominated fees |
-| `RetroPickLauncherTokenV1` | Fixed-supply ERC-20, entire supply minted to curve |
-| `RetroPickGraduationGuardV1` | Stateless V4 preflight validation |
-| `RetroPickGraduationExecutorV1` | Heavy graduation operations |
-| `RetroPickLaunchLockerV1` | Permanent position NFT custody (no withdrawal) |
-| `RetroPickBuybackVaultV1` | Five-year linear vest for bought-back supply |
-| `RetroPickMemeHookV1` | Singleton V4 hook for graduated pools |
-
-## Key Features
-
-- **Bonding curve launch:** Full supply mints to constant-product curve
-- **Quote-denominated fees:** Protocol/creator/buyback split from first trade
-- **Two-phase graduation:** Safe threshold crossing + retryable pool creation
-- **Permanent liquidity lock:** No withdrawal path from graduated position
-- **Anti-snipe protection:** Price impact + reserved allocation limits
-- **Creator revenue:** Optional tax + fee share in quote currency
-- **Buyback vesting:** Linear 5-year vest, not burn
-
-## Build & Test
+## Build and test
 
 ```bash
+forge fmt --check
 forge build
+forge build --sizes
 forge test
 forge test --fuzz-runs 10000
 ```
 
-## Dependencies
-
-- Solidity `^0.8.26` with `evm_version = "cancun"`
-- OpenZeppelin Contracts (MIT)
-- Uniswap V4 Core + Periphery (MIT + BUSL-1.1)
-- Permit2 interfaces (MIT)
-- v4-hooks-public BaseHook (MIT)
-
-See `THIRD_PARTY_NOTICES.md` for complete dependency attribution and `licenses/` for required license texts.
-
-## Security & Legal Status
-
-- **BUSL-1.1 dependencies:** Some V4 core libraries require legal review for deployment rights
-- **Third-party licenses:** See `THIRD_PARTY_NOTICES.md` and `licenses/`
-- **Security status:** Experimental baseline - requires full security review before production use
-
-## Relationship to RetroPick Protocol
-
-This V1 launchpad is **separate** from the canonical RetroPick protocol systems:
-
-- **RetroPick native markets:** Complete-set collateralization (`1 collateral → 1 YES + 1 NO`)
-- **PRISM structured products:** Exact component backing (`B_i ≥ S*x_i`)
-- **V1 launchpad:** Fixed-supply bonding curves
-
-Future integration between systems requires separate architectural decisions.
+V2 requires its own unit, fuzz, invariant and integration coverage whenever it diverges from V1.
 
 ## Documentation
 
-- **Migration audit:** `docs/rebrand/` - Complete extraction and verification documentation
-- **Legal compliance:** `THIRD_PARTY_NOTICES.md` - Required attribution for vendored dependencies  
-- **Upstream provenance:** `docs/rebrand/UPSTREAM_PROVENANCE.md` - Source derivation information
+- `docs/launchpad/` — product, protocol, architecture, integration, validation and production documentation.
+- `contracts/docs/launchpad/` — Solidity implementation documentation.
+- `THIRD_PARTY_NOTICES.md` and `licenses/` — dependency license notices.
 
----
+## Security status
 
-**Status:** Experimental RetroPick V1 baseline for future protocol development
+No deployment is authorized solely because the contracts compile. Release qualification requires the launchpad security, integration, E2E and deployment gates described under `../docs/launchpad/08-validation/` and `../docs/launchpad/09-production/`.
+
+Known Doorway limitations and contract trust boundaries are tracked in `docs/launchpad/SECURITY_MODEL.md`.

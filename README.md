@@ -1,59 +1,68 @@
 # RetroPick Protocol
 
-RetroPick contains two deliberately separate products on Monad:
+RetroPick is one programmable onchain **Launchpad platform** on Monad.
 
-```text
-docs/
-├── launchpad/   RetroPick Launchpad V2
-└── prism/       Prediction + PRISM
-```
+The repository currently contains an established Launchpad Core plus independently qualified financial modules:
 
-Use [`docs/README.md`](docs/README.md) as the product router and [`AGENTS.md`](AGENTS.md) as the engineering-agent router.
+~~~text
+RetroPick Launchpad Platform
+├── Launchpad Core        current production-engineering track
+├── Prediction Markets    incubating financial module
+└── PRISM                 incubating structured-markets module
+~~~
 
-## Launchpad V2
-
-RetroPick Launchpad bootstraps fixed/capped ERC-20 assets through a bonding primary market and graduates successful launches into Kuru for mature secondary trading.
+The modules belong to one product platform. Their financial semantics, security invariants, and production qualification remain independent.
 
 Start with:
-- [`docs/launchpad/README.md`](docs/launchpad/README.md)
-- [`development/launchpad/README.md`](development/launchpad/README.md)
-- [`contracts/docs/launchpad/README.md`](contracts/docs/launchpad/README.md)
+- [Platform documentation](docs/platform/README.md)
+- [Launchpad Core](docs/launchpad/README.md)
+- [Prediction + PRISM](docs/prism/README.md)
+- [Engineering agent router](AGENTS.md)
 
-Current reality:
-- substantial V1/V2 Solidity exists;
+## Launchpad Core
+
+Launchpad Core is the current production-oriented launch primitive:
+
+~~~text
+CREATE
+-> fixed/capped ERC20
+-> bonding primary market
+-> demand/liquidity formation
+-> safe graduation
+-> Kuru mature market
+~~~
+
+Current repository reality remains explicit:
+- substantive V1/V2 Solidity exists;
 - current V2 graduation is still Uniswap-V4-oriented;
 - Kuru is the target V2 mature venue, not yet a completed committed integration;
 - web/API/indexer/shared TypeScript runtimes are not yet implemented;
-- current committed Foundry tests are Doorway-focused, so the Launchpad core still needs dedicated V2 qualification.
-
-## Prediction + PRISM
-
-PRISM remains a separate math-first product lane.
+- dedicated V2 core qualification remains required.
 
 Start with:
-- [`docs/prism/README.md`](docs/prism/README.md)
-- [`docs/prism/00-context/EXECUTIVE_SUMMARY.md`](docs/prism/00-context/EXECUTIVE_SUMMARY.md)
-- [`docs/prism/protocol/PRISM_PROTOCOL_SPEC.md`](docs/prism/protocol/PRISM_PROTOCOL_SPEC.md)
-- [`docs/prism/math/README.md`](docs/prism/math/README.md)
-- [`research/prism-model/README.md`](research/prism-model/README.md)
+- [docs/launchpad/README.md](docs/launchpad/README.md)
+- [development/launchpad/README.md](development/launchpad/README.md)
+- [contracts/docs/launchpad/README.md](contracts/docs/launchpad/README.md)
 
-PRISM production Solidity remains governed by its own MATH-1 and CONTRACT-ARCH-1 gates.
+## Prediction and PRISM
 
-## Engineering control plane
+Prediction and PRISM are **RetroPick Launchpad modules**, not separate startups or products.
 
-Launchpad implementation is routed through:
+They are intentionally isolated while their financial mechanisms are researched and qualified. PRISM currently remains governed by MATH-1 and CONTRACT-ARCH-1 before production Solidity can become authoritative.
 
-```text
-AGENTS.md
-.agent/steering/
-.agent/agents/
-development/launchpad/
-development/launchpad/control/
-contracts/AGENTS.md
-```
+Start with:
+- [docs/prism/README.md](docs/prism/README.md)
+- [docs/prism/00-context/EXECUTIVE_SUMMARY.md](docs/prism/00-context/EXECUTIVE_SUMMARY.md)
+- [docs/prism/math/README.md](docs/prism/math/README.md)
+- [research/prism-model/README.md](research/prism-model/README.md)
+- [research/prism/README.md](research/prism/README.md)
 
-The control plane encodes requirements, component ownership, dependency edges, artifact handoffs and readiness gates so ordinary implementation tasks do not redesign the system.
+## Platform rule
 
-## Boundary rule
+Shared product infrastructure should converge where safe: frontend, wallet integration, discovery, portfolio, indexing, APIs, SDK/types, observability, environment management and Kuru connectivity.
 
-Launchpad bonding/graduation semantics and PRISM backing/settlement semantics are independent. Shared chain, wallet, indexing or Kuru infrastructure does not make their financial models interchangeable.
+Financial semantics remain module-local.
+
+Launchpad bonding/graduation rules do not redefine PRISM backing/settlement rules, and PRISM research cannot block or weaken the existing Launchpad Core.
+
+A module joins the production platform only through explicit module admission and its own qualification gates.

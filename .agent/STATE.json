@@ -3,9 +3,15 @@
   "control_plane": ".agent",
   "agent_guide": "AGENT_GUIDE.md",
   "target_chain": "Monad",
-  "products": {
-    "launchpad": {
+  "platform": {
+    "product": "RetroPick Launchpad",
+    "model": "single-platform-independent-financial-modules"
+  },
+  "modules": {
+    "launchpad_core": {
       "version": "v2",
+      "state": "DEVELOPMENT",
+      "production_track": true,
       "control_plane_status": "PASS",
       "development_ready": "IN_PROGRESS",
       "status_source": "development/launchpad/control/status.yaml",
@@ -24,7 +30,14 @@
         "FULLSTACK_RUNTIME"
       ]
     },
+    "prediction": {
+      "state": "RESEARCH",
+      "production_track": false,
+      "qualification": "MODULE_SPECIFIC"
+    },
     "prism": {
+      "state": "RESEARCH",
+      "production_track": false,
       "current_goal": "METROPOLIS-P1-MATH-1",
       "current_gate": "MATH-1",
       "math_gate": "IN_PROGRESS",

@@ -1,3 +1,3 @@
 # Integrations
 
-Hackathon sponsor boundaries are defined by `docs/05-hackathon/RETROPICK_METROPOLIS_AGENT_DEVELOPMENT_WORKFLOW.md`.
+Hackathon sponsor boundaries are defined by `docs/prism/05-hackathon/RETROPICK_METROPOLIS_AGENT_DEVELOPMENT_WORKFLOW.md`.

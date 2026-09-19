@@ -6,7 +6,7 @@ Metropolis scope, sponsor strategy, MVP, phase gates, demo and submission eviden
 
 For hackathon implementation, use this precedence:
 
-1. `docs/protocol/*` for economic semantics and invariants;
+1. `docs/prism/protocol/*` for economic semantics and invariants;
 2. accepted ADRs under `decisions/`;
 3. `PHASE_GATES.md` for build authorization and dependency order;
 4. `MVP.md` and execution docs for scope;

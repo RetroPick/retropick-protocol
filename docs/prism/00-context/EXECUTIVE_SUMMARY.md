@@ -718,14 +718,14 @@ For a fast understanding of the repository:
 
 ```text
 README.md
-  -> docs/00-context/EXECUTIVE_SUMMARY.md
-  -> docs/00-context/REPORT_RECONCILIATION.md
-  -> docs/protocol/PRISM_PROTOCOL_SPEC.md
-  -> docs/protocol/MATH_MODEL.md
-  -> docs/protocol/INVARIANTS.md
-  -> docs/protocol/STATE_MACHINE.md
-  -> docs/05-hackathon/PHASE_GATES.md
-  -> docs/06-execution/ROADMAP.md
+  -> docs/prism/00-context/EXECUTIVE_SUMMARY.md
+  -> docs/prism/00-context/REPORT_RECONCILIATION.md
+  -> docs/prism/protocol/PRISM_PROTOCOL_SPEC.md
+  -> docs/prism/protocol/MATH_MODEL.md
+  -> docs/prism/protocol/INVARIANTS.md
+  -> docs/prism/protocol/STATE_MACHINE.md
+  -> docs/prism/05-hackathon/PHASE_GATES.md
+  -> docs/prism/06-execution/ROADMAP.md
 ```
 
 For implementation agents, `AGENTS.md` and `.agent/CURRENT_GOAL.md` remain mandatory control-plane entry points.

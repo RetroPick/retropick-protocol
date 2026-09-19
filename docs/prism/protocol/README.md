@@ -27,10 +27,10 @@ Detailed proof normalization and executable traceability live under `../math/`:
 Relationship:
 
 ```text
-docs/protocol/
+docs/prism/protocol/
   WHAT the accepted protocol means
         ↓
-docs/math/
+docs/prism/math/
   WHY those semantics hold mathematically
         ↓
 research/prism-model/

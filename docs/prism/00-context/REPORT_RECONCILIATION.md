@@ -11,13 +11,13 @@ The earlier architecture report is retained as research input, but it is not imp
 
 Canonical implementation authority is now:
 
-1. `docs/protocol/PRISM_PROTOCOL_SPEC.md`
-2. `docs/protocol/MATH_MODEL.md`
-3. `docs/protocol/INVARIANTS.md`
-4. `docs/protocol/STATE_MACHINE.md`
-5. `docs/protocol/CONTRACT_REQUIREMENTS.md`
-6. `docs/05-hackathon/RETROPICK_METROPOLIS_AGENT_DEVELOPMENT_WORKFLOW.md`
-7. `docs/06-execution/ROADMAP.md`
+1. `docs/prism/protocol/PRISM_PROTOCOL_SPEC.md`
+2. `docs/prism/protocol/MATH_MODEL.md`
+3. `docs/prism/protocol/INVARIANTS.md`
+4. `docs/prism/protocol/STATE_MACHINE.md`
+5. `docs/prism/protocol/CONTRACT_REQUIREMENTS.md`
+6. `docs/prism/05-hackathon/RETROPICK_METROPOLIS_AGENT_DEVELOPMENT_WORKFLOW.md`
+7. `docs/prism/06-execution/ROADMAP.md`
 
 If the old report conflicts with any file above, the canonical repository docs win.
 

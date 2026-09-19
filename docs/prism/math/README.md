@@ -9,16 +9,16 @@
 
 ## 1. Purpose
 
-`docs/math/` explains **why** the canonical protocol semantics are mathematically valid under explicit assumptions.
+`docs/prism/math/` explains **why** the canonical protocol semantics are mathematically valid under explicit assumptions.
 
 The repository layers are intentionally separate:
 
 ```text
-docs/protocol/
+docs/prism/protocol/
   WHAT the protocol means
         |
         v
-docs/math/
+docs/prism/math/
   WHY the semantics are valid
         |
         v
@@ -39,8 +39,8 @@ This folder does not redefine product semantics. If a proof requires changing pr
 When artifacts disagree:
 
 1. accepted ADRs define approved architecture changes;
-2. `docs/protocol/` defines canonical economic/protocol semantics;
-3. `docs/math/` defines derivations, theorem dependencies and proof classification for those semantics;
+2. `docs/prism/protocol/` defines canonical economic/protocol semantics;
+3. `docs/prism/math/` defines derivations, theorem dependencies and proof classification for those semantics;
 4. `research/prism-model/` must execute those semantics exactly;
 5. future Solidity must match the accepted semantics under the approved fixed-point tolerance;
 6. simulations/live market evidence may validate behavior but cannot repair an accounting contradiction.

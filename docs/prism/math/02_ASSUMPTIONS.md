@@ -5,7 +5,7 @@
 
 This file does not invent a second assumption namespace. It reuses the canonical protocol assumption IDs and maps them to the mathematical claims they support.
 
-If `docs/protocol/ASSUMPTIONS.md` changes, this dependency projection must be reviewed.
+If `docs/prism/protocol/ASSUMPTIONS.md` changes, this dependency projection must be reviewed.
 
 ---
 

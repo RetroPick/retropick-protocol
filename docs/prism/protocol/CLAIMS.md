@@ -7,19 +7,19 @@ Every important claim must have a type and evidence status. Do not use stronger 
 For detailed theorem dependencies, proof locations, Python-oracle mapping, counterexamples and empirical hypotheses, use:
 
 ```text
-docs/math/17_THEOREMS.md
+docs/prism/math/17_THEOREMS.md
 ```
 
-`docs/protocol/CLAIMS.md` is the concise protocol claim index. `docs/math/17_THEOREMS.md` is the detailed proof/evidence registry. They must not contradict each other.
+`docs/prism/protocol/CLAIMS.md` is the concise protocol claim index. `docs/prism/math/17_THEOREMS.md` is the detailed proof/evidence registry. They must not contradict each other.
 
 | ID | Claim | Type | Current status | Evidence / next gate |
 |---|---|---|---|---|
-| C-001 | `h=Gx` is the terminal payoff of an exact basket | formal/definition | `PROVEN_UNDER_ASSUMPTIONS` | `MATH_MODEL.md`, `docs/math/17_THEOREMS.md` |
-| C-002 | Valid exact-backed mint preserves component solvency | formal | `PROVEN_UNDER_ASSUMPTIONS` | `docs/math/05_BACKING_SOLVENCY.md` |
-| C-003 | Valid in-kind redemption preserves component solvency | formal | `PROVEN_UNDER_ASSUMPTIONS` | `docs/math/05_BACKING_SOLVENCY.md` |
-| C-004 | Exact non-negative component backing implies terminal solvency | formal | `PROVEN_UNDER_ASSUMPTIONS` | `docs/math/05_BACKING_SOLVENCY.md` |
-| C-005 | Final redemption preserves funding for remaining supply | formal | `PROVEN_UNDER_ASSUMPTIONS` | `docs/math/05_BACKING_SOLVENCY.md` |
-| C-006 | Arbitrary AND payoff is not always in the long-only span of marginal claims | formal counterexample | `COUNTEREXAMPLE_FOUND` | `docs/math/17_THEOREMS.md`, canonical AND fixture |
+| C-001 | `h=Gx` is the terminal payoff of an exact basket | formal/definition | `PROVEN_UNDER_ASSUMPTIONS` | `MATH_MODEL.md`, `docs/prism/math/17_THEOREMS.md` |
+| C-002 | Valid exact-backed mint preserves component solvency | formal | `PROVEN_UNDER_ASSUMPTIONS` | `docs/prism/math/05_BACKING_SOLVENCY.md` |
+| C-003 | Valid in-kind redemption preserves component solvency | formal | `PROVEN_UNDER_ASSUMPTIONS` | `docs/prism/math/05_BACKING_SOLVENCY.md` |
+| C-004 | Exact non-negative component backing implies terminal solvency | formal | `PROVEN_UNDER_ASSUMPTIONS` | `docs/prism/math/05_BACKING_SOLVENCY.md` |
+| C-005 | Final redemption preserves funding for remaining supply | formal | `PROVEN_UNDER_ASSUMPTIONS` | `docs/prism/math/05_BACKING_SOLVENCY.md` |
+| C-006 | Arbitrary AND payoff is not always in the long-only span of marginal claims | formal counterexample | `COUNTEREXAMPLE_FOUND` | `docs/prism/math/17_THEOREMS.md`, canonical AND fixture |
 | C-007 | `Fed=YES, BTC=NO` pays `1.00` for canonical `0.6 FED_YES + 0.4 BTC_NO` | exact fixture | `EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN` | payoff vector fixture |
 | C-008 | Same-chain BackingMirror is unnecessary for Phase-1 solvency accounting | architecture | `ACCEPTED` | ADR-003 |
 | C-009 | Component-wise runtime checks are sufficient after exact admission under Phase-1 assumptions | formal/architecture | `PROVEN_UNDER_ASSUMPTIONS` | ADR-004 + `T-BS-003` |
@@ -38,8 +38,8 @@ docs/math/17_THEOREMS.md
 | C-022 | External wrapped prediction positions can be made production-safe | future architecture | `NOT_YET_VALIDATED` | separate cross-chain spec/bridge proof |
 | C-023 | Attestation alone is equivalent to collateral custody | architecture | `REJECTED` | external backing requires actual lock/control |
 | C-024 | Passkey onboarding is equivalent to legal identity/KYC | product/legal | `REJECTED` | requires independent identity/compliance layer |
-| C-025 | Same reserved units cannot back two independent liabilities system-wide | accounting/global reservation | `NOT_YET_VALIDATED` in current single-series oracle | `docs/math/16_INVARIANTS.md`, `T-ALLOC-001` |
-| C-026 | Stateful partial-resolution backing replacement preserves all remaining liabilities | accounting/transformation | `NOT_YET_VALIDATED` | `docs/math/16_INVARIANTS.md`, `T-PARTIAL-002` |
+| C-025 | Same reserved units cannot back two independent liabilities system-wide | accounting/global reservation | `NOT_YET_VALIDATED` in current single-series oracle | `docs/prism/math/16_INVARIANTS.md`, `T-ALLOC-001` |
+| C-026 | Stateful partial-resolution backing replacement preserves all remaining liabilities | accounting/transformation | `NOT_YET_VALIDATED` | `docs/prism/math/16_INVARIANTS.md`, `T-PARTIAL-002` |
 | C-027 | Candidate fixed-point rounding inherits exact-rational solvency theorems | implementation equivalence | `NOT_YET_VALIDATED` | MATH-1D, `T-FP-001..004` |
 
 ---
@@ -73,4 +73,4 @@ The architecture/research program explicitly does not accept the claim as stated
 
 A claim may move to a stronger status only when the corresponding evidence artifact exists. A successful demo does not automatically promote a market-behavior claim to a theorem.
 
-Any theorem-status change must also update `docs/math/17_THEOREMS.md` when the claim has a theorem/hypothesis entry.
+Any theorem-status change must also update `docs/prism/math/17_THEOREMS.md` when the claim has a theorem/hypothesis entry.

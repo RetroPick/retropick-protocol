@@ -66,3 +66,18 @@ Financial semantics remain module-local.
 Launchpad bonding/graduation rules do not redefine PRISM backing/settlement rules, and PRISM research cannot block or weaken the existing Launchpad Core.
 
 A module joins the production platform only through explicit module admission and its own qualification gates.
+
+## Frontend prototype
+
+The interactive RetroPick Launchpad lives in [`apps/web`](apps/web). It is a responsive, fixture-backed prototype for the platform's Prediction Markets and PRISM modules. From the repository root:
+
+```bash
+pnpm install --frozen-lockfile
+pnpm dev:web
+pnpm typecheck:web
+pnpm lint:web
+pnpm test:web
+```
+
+The app does not deploy contracts, connect a wallet, or submit live orders. Its data, ticket, resolution and PRISM backing views remain explicit simulations until the relevant module qualification gates close.
+

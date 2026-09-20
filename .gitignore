@@ -1,4 +1,12 @@
 __pycache__/
+node_modules/
+apps/*/node_modules/
+apps/*/.next/
+apps/*/.vinext/
+apps/*/dist/
+apps/*/.wrangler/
+apps/*/.test-output/
+apps/*/*.tsbuildinfo
 *.py[cod]
 .pytest_cache/
 .venv/

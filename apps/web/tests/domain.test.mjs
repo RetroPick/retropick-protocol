@@ -1,0 +1,13 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {basketPreview,canRedeem,validAmount,settlementCovered} from '../.test-output/math.js';
+test('canonical pFEDBTC payoff and exact backing',()=>{const p=basketPreview(6000,4000,1000);assert.deepEqual(p.payoffs,[.4,0,1,.6]);assert.deepEqual(p.backing,[600,400]);});
+test('nonnegative normalized allocation rejects negative and overweight baskets',()=>{for(const a of [[-1,10001],[6000,5000],[0,0],[NaN,10000],[.5,9999.5]])assert.equal(basketPreview(...a,1000),null);});
+test('zero allocation is supported, never negative liability',()=>{assert.deepEqual(basketPreview(10000,0,5).payoffs,[0,0,1,1]);});
+test('supply rejects fractional, negative, zero and unbounded inputs',()=>{for(const n of [0,-1,1.5,Infinity,1000001])assert.equal(basketPreview(6000,4000,n),null);});
+test('RESOLVED alone cannot redeem even if marked funded',()=>assert.equal(canRedeem('RESOLVED',true,1),false));
+test('unfunded REDEEMABLE and zero payouts do not produce positive claims',()=>{assert.equal(canRedeem('REDEEMABLE',false,1),false);assert.equal(canRedeem('REDEEMABLE',true,0),false);});
+test('funded winning claim can redeem',()=>assert.equal(canRedeem('REDEEMABLE',true,1),true));
+test('settlement balance must cover all liabilities',()=>{assert.equal(settlementCovered(599,1000,.6),false);assert.equal(settlementCovered(600,1000,.6),true);assert.equal(settlementCovered(NaN,1000,.6),false);});
+test('trade amounts reject malformed, nonpositive and out-of-range values',()=>{for(const s of ['','-1','0','1e3','Infinity','NaN','1.001','10001'])assert.equal(validAmount(s),false);for(const s of ['1','10.50','10000'])assert.equal(validAmount(s),true);});
+test('bounded normalized baskets preserve canonical maximum and component sum',()=>{for(let a=0;a<=10000;a+=100){const p=basketPreview(a,10000-a,1000);assert.equal(p.payoffs[2],1);assert.equal(p.payoffs[1],0);assert.ok(Math.abs(p.backing[0]+p.backing[1]-1000)<1e-10);}});

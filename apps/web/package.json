@@ -6,7 +6,7 @@
     "node": ">=22.13.0"
   },
   "scripts": {
-    "dev": "vinext dev",
+    "dev": "vite",
     "build": "vinext build",
     "start": "wrangler dev --config dist/server/wrangler.json --local --ip 127.0.0.1",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",

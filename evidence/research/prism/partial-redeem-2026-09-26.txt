@@ -1,0 +1,52 @@
+tool: forge test
+command: forge test --match-contract PartialRedeemTest -vv
+cwd: /workspace/research/contract-kernels
+profile: default
+sha_base: fa9b9306b07a2dd71ffb625e251954c0f6ee4e5c
+weights: 10^18, 10^18
+decimals: 18, 18
+deposit: 2, 2
+mint: 2 by the depositor
+redeem: Solidity redeem(1) by the minter, Python FixedPointSeries.redeem(1)
+classification: existing_rule
+solidity_rejected: false
+python_rejected: false
+component_tokens_paid: 1,1
+python_released: 1,1
+python_series_balance: not_stored
+python_component_balances: not_stored
+supply: 2 before, 1 after
+backing_raw: 2,2 before, 1,1 after
+required_raw: 2,2 before, 1,1 after
+series_balance: 2 before, 1 after
+caller_component_balances: 0,0 before, 1,1 after
+backing_covers_remaining_supply: true
+adr_added: false
+math1: FAIL
+sweep_policy: NOT_YET_VALIDATED
+source_interface: proposed_not_frozen
+
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 1.08s
+Compiler run successful!
+
+Ran 1 test for test/prism/PartialRedeem.t.sol:PartialRedeemTest
+[PASS] test_minter_redeems_one_of_two() (gas: 802321)
+Logs:
+  classification: existing_rule
+  solidity_rejected: false
+  component_tokens_paid: 1,1
+  supply_before: 2
+  supply_after: 1
+  backing_raw_before: 2,2
+  backing_raw_after: 1,1
+  required_raw_before: 2,2
+  required_raw_after: 1,1
+  series_balance_before: 2
+  series_balance_after: 1
+  caller_component_balances_before: 0,0
+  caller_component_balances_after: 1,1
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 721.64µs (545.96µs CPU time)
+
+Ran 1 test suite in 5.71ms (721.64µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

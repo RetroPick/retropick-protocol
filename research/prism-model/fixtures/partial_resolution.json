@@ -1,0 +1,307 @@
+{
+  "schema": "partial_resolution_transform_fixtures_v1",
+  "source": "research/prism-model/partial_resolution.py",
+  "candidate": true,
+  "canonical_oracle": false,
+  "math_1": "FAIL",
+  "contract_1": "not_met",
+  "wired_to_prediction_tokens": false,
+  "component_count": 2,
+  "state_count": 4,
+  "payoff": [
+    [
+      0,
+      1
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      1,
+      1
+    ],
+    [
+      1,
+      0
+    ]
+  ],
+  "initial": {
+    "supply": "1000",
+    "backing": [
+      "600",
+      "400"
+    ],
+    "transformed": "0",
+    "possible_mask": "15",
+    "resolved_mask": "0",
+    "weights_wad": [
+      "600000000000000000",
+      "400000000000000000"
+    ]
+  },
+  "case_count": 6,
+  "cases": [
+    {
+      "id": "transform_component_1_pays_1",
+      "step_count": 1,
+      "steps": [
+        {
+          "op": "transform",
+          "expect": "ok",
+          "index": 1,
+          "payout": "1",
+          "cash_added": "400",
+          "supply": "1000",
+          "backing": [
+            "600",
+            "0"
+          ],
+          "transformed": "400",
+          "possible_mask": "5",
+          "resolved_mask": "2",
+          "weights_wad": [
+            "600000000000000000",
+            "400000000000000000"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "transform_component_1_pays_0",
+      "step_count": 1,
+      "steps": [
+        {
+          "op": "transform",
+          "expect": "ok",
+          "index": 1,
+          "payout": "0",
+          "cash_added": "0",
+          "supply": "1000",
+          "backing": [
+            "600",
+            "0"
+          ],
+          "transformed": "0",
+          "possible_mask": "10",
+          "resolved_mask": "2",
+          "weights_wad": [
+            "600000000000000000",
+            "400000000000000000"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wrong_component",
+      "step_count": 1,
+      "steps": [
+        {
+          "op": "transform",
+          "expect": "reject",
+          "error": "bad_component",
+          "index": 2,
+          "payout": "1",
+          "supply": "1000",
+          "backing": [
+            "600",
+            "400"
+          ],
+          "transformed": "0",
+          "possible_mask": "15",
+          "resolved_mask": "0",
+          "weights_wad": [
+            "600000000000000000",
+            "400000000000000000"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nonequivalent_payout",
+      "step_count": 1,
+      "steps": [
+        {
+          "op": "transform",
+          "expect": "reject",
+          "error": "nonequivalent",
+          "index": 1,
+          "payout": "2",
+          "supply": "1000",
+          "backing": [
+            "600",
+            "400"
+          ],
+          "transformed": "0",
+          "possible_mask": "15",
+          "resolved_mask": "0",
+          "weights_wad": [
+            "600000000000000000",
+            "400000000000000000"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "already_resolved",
+      "step_count": 2,
+      "steps": [
+        {
+          "op": "transform",
+          "expect": "ok",
+          "index": 1,
+          "payout": "1",
+          "cash_added": "400",
+          "supply": "1000",
+          "backing": [
+            "600",
+            "0"
+          ],
+          "transformed": "400",
+          "possible_mask": "5",
+          "resolved_mask": "2",
+          "weights_wad": [
+            "600000000000000000",
+            "400000000000000000"
+          ]
+        },
+        {
+          "op": "transform",
+          "expect": "reject",
+          "error": "already_resolved",
+          "index": 1,
+          "payout": "1",
+          "supply": "1000",
+          "backing": [
+            "600",
+            "0"
+          ],
+          "transformed": "400",
+          "possible_mask": "5",
+          "resolved_mask": "2",
+          "weights_wad": [
+            "600000000000000000",
+            "400000000000000000"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "reorder_forward",
+      "step_count": 2,
+      "steps": [
+        {
+          "op": "transform",
+          "expect": "ok",
+          "index": 0,
+          "payout": "1",
+          "cash_added": "600",
+          "supply": "1000",
+          "backing": [
+            "0",
+            "400"
+          ],
+          "transformed": "600",
+          "possible_mask": "12",
+          "resolved_mask": "1",
+          "weights_wad": [
+            "600000000000000000",
+            "400000000000000000"
+          ]
+        },
+        {
+          "op": "transform",
+          "expect": "ok",
+          "index": 1,
+          "payout": "1",
+          "cash_added": "400",
+          "supply": "1000",
+          "backing": [
+            "0",
+            "0"
+          ],
+          "transformed": "1000",
+          "possible_mask": "4",
+          "resolved_mask": "3",
+          "weights_wad": [
+            "600000000000000000",
+            "400000000000000000"
+          ]
+        }
+      ]
+    }
+  ],
+  "reorder_backward": {
+    "step_count": 2,
+    "steps": [
+      {
+        "op": "transform",
+        "expect": "ok",
+        "index": 1,
+        "payout": "1",
+        "cash_added": "400",
+        "supply": "1000",
+        "backing": [
+          "600",
+          "0"
+        ],
+        "transformed": "400",
+        "possible_mask": "5",
+        "resolved_mask": "2",
+        "weights_wad": [
+          "600000000000000000",
+          "400000000000000000"
+        ]
+      },
+      {
+        "op": "transform",
+        "expect": "ok",
+        "index": 0,
+        "payout": "1",
+        "cash_added": "600",
+        "supply": "1000",
+        "backing": [
+          "0",
+          "0"
+        ],
+        "transformed": "1000",
+        "possible_mask": "4",
+        "resolved_mask": "3",
+        "weights_wad": [
+          "600000000000000000",
+          "400000000000000000"
+        ]
+      }
+    ]
+  },
+  "negative_control": {
+    "equivalent": false,
+    "intended_index": 1,
+    "wrong_index": 0,
+    "old_backing": [
+      "600",
+      "400"
+    ],
+    "old_cash": "0",
+    "new_backing": [
+      "0",
+      "400"
+    ],
+    "new_cash": "400",
+    "remaining_mask": "5"
+  },
+  "positive_control": {
+    "equivalent": true,
+    "old_backing": [
+      "600",
+      "400"
+    ],
+    "old_cash": "0",
+    "new_backing": [
+      "600",
+      "0"
+    ],
+    "new_cash": "400",
+    "remaining_mask": "5"
+  }
+}

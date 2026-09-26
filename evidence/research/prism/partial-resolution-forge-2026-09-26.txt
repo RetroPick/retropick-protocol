@@ -1,0 +1,9 @@
+No files changed, compilation skipped
+
+Ran 2 tests for test/prism/CandidatePayoffTransform.t.sol:CandidatePayoffTransformDifferentialTest
+[PASS] test_matches_python_fixtures() (gas: 2195252)
+[PASS] test_negative_control_is_not_equivalent() (gas: 165828)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 11.10ms (12.41ms CPU time)
+
+Ran 1 test suite in 11.64ms (11.10ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)
+EXIT:0

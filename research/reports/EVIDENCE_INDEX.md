@@ -186,6 +186,8 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `evidence/research/prediction/slither-solc-legacy-2026-09-26.txt` | solc framework rejects legacy JSON on 0.8.26. Exit 1 |
 | `evidence/research/prediction/slither-sp16-2026-09-26.json` | fresh Slither 0.11.6 at 0636686. Exit 255. `_redeem` has no IR. Classification blocked_tool. S-P16 stays open |
 | `evidence/research/prediction/slither-sp16-2026-09-26.txt` | same run, command log |
+| `evidence/research/prediction/zero-address-initialize-2026-09-26.json` | `initialize(address(0))` stores the zero market. totalSupply stays 0. recorded_finding. Python has no counterpart |
+| `evidence/research/prediction/zero-address-initialize-2026-09-26.txt` | Forge default profile, 1 passed, gas 228257 |
 | `evidence/research/prediction/solhint-2026-09-26.txt` | solhint 5.2.0, exit 0, 42 warnings, 0 errors |
 | `evidence/research/repro/repro-local-2026-09-26.txt` | local rerun: 12 and 85 unit tests OK, Foundry 63 passed |
 | `evidence/research/repro/repro-local-2026-09-26-rerun.txt` | rerun at 0f14c30, exit 0. Prediction 15 OK, PRISM 109 OK, Foundry 76 passed, 0 failed, 1 skipped. The skip is the supply 0..16 walk |

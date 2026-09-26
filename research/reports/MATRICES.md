@@ -28,7 +28,7 @@ Every row points at evidence from this program. Status words are the program's c
 | Per-call settlement floor | COUNTEREXAMPLE_FOUND | `CX-FP-SETTLEMENT-001` |
 | Cumulative-floor candidate | PROVEN_UNDER_ASSUMPTIONS; domain check EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN | `cumulative_settlement.py`; not an oracle replacement |
 | MATH-1 PASS | FAIL | canonical per-call rule remains |
-| PRISM Solidity | not written | ADR-R07. Candidate architecture is PROPOSED only |
+| PRISM Solidity | candidate settlement kernel only | `CandidateCumulativeSettlement.sol` matches the Python fixtures. Series is not written. CONTRACT-1 not_met. Not MATH-1 PASS |
 | PRISM CONTRACT-ARCH-1 | proposed, not pass | `docs/prism/04-architecture/PHASE1_CANDIDATE_SERIES.md` |
 
 ## THEOREM_STATUS_MATRIX
@@ -95,8 +95,14 @@ R-I01..R-I12 in the task sense are the PRISM backing, admission, lifecycle, and 
 | full OutcomeToken CREATE | 534243 | assembly gas() around CREATE, code deposit included |
 | ERC-1167 clone CREATE | 41064 | 45-byte runtime |
 | storage-clone initialize | 96264 | decimals 6 and 18 |
+| candidate fund transfer | 25535 | assembly `gas()` around CALL. Supply 2, payout `10^18-1`, decimals 18, ceil funding 2 |
+| candidate `makeRedeemable` | 35308 | same scenario |
+| candidate first 1-unit redeem | 40041 | pays 0 |
+| candidate second 1-unit redeem | 52188 | pays 1 |
+| candidate fund + open + two redeems | 153072 | sum of those four CALL measurements |
+| `test_fund_and_redeem_gas` | 472420 | whole-test forge snapshot, includes deployment |
 
-The first six rows are whole-test gas from `research/contract-kernels/.gas-snapshot`. The CREATE rows are the assembly meter in `evidence/research/prediction/outcome-token-gas-2026-09-26.txt`.
+The six prediction rows above the CREATE rows, and `test_fund_and_redeem_gas`, are whole-test gas from `research/contract-kernels/.gas-snapshot`. The CREATE rows are the assembly meter in `evidence/research/prediction/outcome-token-gas-2026-09-26.txt`. The candidate CALL rows are the assembly meter in `evidence/research/prism/candidate-settlement-gas-2026-09-26.txt`.
 
 ## SECURITY_COVERAGE_MATRIX
 
@@ -117,6 +123,7 @@ The first six rows are whole-test gas from `research/contract-kernels/.gas-snaps
 | Decimals must be 18 | not established | deployer example uses 18 for its own token; router reads token decimals |
 | Deployment equals liquidity | false in the docs | deploy-market page separates vault deposit |
 | Live RetroPick market | BLOCKED | no router bytecode, no accepted router, no fork, no tx |
+| Second primary-source pass | BLOCKED | router, SDK, OrderBook, vault, fees, addresses, Monad Flow. `source-pass-2026-09-26.json` |
 | `calculatePrecisions` examples | MEASURED_LOCAL | Node 22.14.0 and ethers 5.7.1. Not RetroPick policy |
 
 ## CROSS_MODULE_DEPENDENCY_MATRIX
@@ -135,9 +142,9 @@ The first six rows are whole-test gas from `research/contract-kernels/.gas-snaps
 |---|---|
 | PRED-CONTRACT-1 | NOT PASS |
 | PRISM MATH-1 | FAIL |
-| MATH-1D candidate cumulative floor | PROVEN_UNDER_ASSUMPTIONS; ready for ADR acceptance; Solidity not written |
+| MATH-1D candidate cumulative floor | PROVEN_UNDER_ASSUMPTIONS; ready for ADR acceptance; Solidity `differential_research_kernel` |
 | PRISM CONTRACT-ARCH-1 | proposed |
-| PRISM CONTRACT-1 | not started |
+| PRISM CONTRACT-1 | not_met |
 | MODULE-ADMISSION-FINANCE-1 | not met |
 | Move into `contracts/src/v2` | not done |
 | Mainnet | not authorized |
@@ -147,7 +154,7 @@ The first six rows are whole-test gas from `research/contract-kernels/.gas-snaps
 | Risk | Severity | Disposition |
 |---|---|---|
 | Resolver can report a false YES/NO/INVALID | High trust assumption | accepted for this kernel, blocks trustless claims |
-| PRISM per-call settlement dust capture | High accounting defect | MATH-1D FAIL; candidate bound recorded; no Solidity |
+| PRISM per-call settlement dust capture | High accounting defect | MATH-1D FAIL. Candidate kernel matches the Python fixtures. Not an oracle pass |
 | Slither IR incomplete | Medium evidence gap | PRED-CONTRACT-1 not PASS |
 | Kuru parameters unknown | Medium | BLOCKED. Worksheet does not guess them |
 | Prediction `cancelDraft` missing | Low | P-I05 cancelled-draft branch NOT_YET_VALIDATED |

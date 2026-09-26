@@ -44,11 +44,17 @@ A holder who splits a balance can receive less than their isolated floor. Record
 
 The candidate has no mint. A shared global cursor charged on mint and refunded on redeem had 0 mismatches in 1920 samples. Per-call floor mint of the original two units, followed by a one-shot redeem, extracts 1 raw unit. That extraction belongs to the per-call rule.
 
-The candidate rule is ready for a human to accept or reject under ADR-R03. Canonical MATH-1 and MATH-1D stay FAIL until that acceptance. No PRISM settlement Solidity was written.
+The candidate rule is ready for a human to accept or reject under ADR-R03. Canonical MATH-1 and MATH-1D stay FAIL until that acceptance.
+
+`research/contract-kernels/src/prism/CandidateCumulativeSettlement.sol` is a research kernel of that candidate. Foundry differential tests matched the Python integers. Classification: `differential_research_kernel`. This is not MATH-1 PASS, not CONTRACT-1, and not a v2 promotion.
+
+Original case, supply 2, payout `10^18-1`, decimals 18, ceil funding 2. Order A then B pays 0 then 1. Order B then A pays 0 then 1. Both orders pay 1 in total and leave residual 1. Fairness case, supply 3, payout `10^18/2+1`, order A, B, A: receipts are 0 and 1. The sum is the one-shot floor 1 and the residual is 1. A supply-4 partition `1+2+1` pays 0, 2, 1, total 3, which is the one-shot floor. The one-shot redemption pays 3. Chunks `2+2` pay 1 then 2, total 3.
+
+Assembly `gas()` around CALL, optimizer 200, solc 0.8.26: fund transfer 25535, `makeRedeemable` 35308, first 1-unit redeem 40041, second 1-unit redeem 52188, sum 153072. The whole gas test in the forge snapshot is 472420 and includes deployment. Raw log: `evidence/research/prism/candidate-settlement-gas-2026-09-26.txt`.
 
 ## PRISM CONTRACT ARCHITECTURE
 
-**PROPOSED, not pass.** `docs/prism/04-architecture/PHASE1_CANDIDATE_SERIES.md` describes `PrismSeries` and `PrismSeriesToken` for the cumulative-floor candidate: backing before mint, one global redemption cursor, residual 0 or 1 under exact ceil funding, per-holder cursor forbidden, immutable. It is contingent on ADR-R03. Canonical MATH-1 stays FAIL. No PRISM Solidity was added. ADR-R04..R07 remain proposals. The canonical vault diagram was not rewritten.
+**PROPOSED, not pass.** `docs/prism/04-architecture/PHASE1_CANDIDATE_SERIES.md` describes `PrismSeries` and `PrismSeriesToken` for the cumulative-floor candidate: backing before mint, one global redemption cursor, residual 0 or 1 under exact ceil funding, per-holder cursor forbidden, immutable. It is contingent on ADR-R03. Canonical MATH-1 stays FAIL. The series token and mint path are not written. The settlement kernel above is not that series. ADR-R04..R07 remain proposals. The canonical vault diagram was not rewritten. CONTRACT-1 stays not_met.
 
 ## SOLIDITY KERNEL
 
@@ -72,7 +78,7 @@ On a separate optimized build, assembly `gas()` around `CREATE` measured one ful
 
 ## KURU COMPATIBILITY
 
-Documentation plus a local `calculatePrecisions` worksheet. RetroPick book parameters are BLOCKED. No deployment and no fork. PRED-KURU-1 stays blocked. `research/integration/kuru/PARAMETER_WORKSHEET.md`.
+Documentation plus a local `calculatePrecisions` worksheet, then a second primary-source pass of the router, SDK, OrderBook, vault, fee, contract-address, and Monad Kuru Flow pages. Those pages do not set RetroPick decimals, price precision, size precision, tick, min size, max size, maker/taker fees, or an allowance spender. RetroPick book parameters stay BLOCKED. No deployment and no fork. PRED-KURU-1 stays blocked. `research/integration/kuru/PARAMETER_WORKSHEET.md`.
 
 ## CROSS-MODULE INTEGRATION
 

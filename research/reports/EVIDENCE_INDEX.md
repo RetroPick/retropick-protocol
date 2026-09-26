@@ -30,9 +30,12 @@ python3 -m unittest discover -s tests -v
 
 cd ../integration/kuru
 node calculate_precisions.mjs
+
+cd ../../prism-model
+python3 generate_candidate_fixtures.py
 ```
 
-On 2026-09-26 the prism-model suite was 63 tests, OK. A later prediction-model run was 11 tests, OK, including `test_invariants`. The cumulative attack reported 378530 states, 2542061 transitions, 2.973316 seconds, and no new counterexample. `forge test` in the kernel was 24 tests, OK, including invariant runs 256, 128000 calls, 48023 handler reverts.
+On 2026-09-26 the prism-model suite was 63 tests, OK. A later prediction-model run was 11 tests, OK, including `test_invariants`. The cumulative attack reported 378530 states, 2542061 transitions, 2.973316 seconds, and no new counterexample. `forge test` in the kernel was 24 tests, OK, including invariant runs 256, 128000 calls, 48023 handler reverts. A later prism-model discovery was again 63 tests, OK. The candidate fixture generator wrote 7 cases. `forge test --match-path test/prism/*` was 3 tests, OK.
 
 Fixture files are committed under `research/prediction-model/fixtures/`. The tests rewrite them to the same JSON. A hash comparison is `sha256sum research/prediction-model/fixtures/*.json` before and after the unittest.
 
@@ -44,6 +47,7 @@ forge test
 forge snapshot
 forge coverage --report summary --fuzz-runs 256 --exclude-tests
 forge test --match-contract OutcomeTokenGasTest -vv
+forge test --match-path "test/prism/*" -vv
 ```
 
 Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 500, 128000 calls, 0 reverts, and fuzz runs 256. Optimizer settings were disabled by the coverage tool. Deployment gas used a separate optimized build.
@@ -68,7 +72,13 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `evidence/research/prediction/invariant-ids-2026-09-26.txt` | P-I01..P-I10 Python and Forge logs |
 | `evidence/research/prediction/kuru/` | outcome-token Kuru worksheet and helper output |
 | `evidence/research/prism/kuru/` | series-token Kuru worksheet and helper output |
-| `docs/prism/04-architecture/PHASE1_CANDIDATE_SERIES.md` | proposed PRISM architecture, no Solidity |
+| `docs/prism/04-architecture/PHASE1_CANDIDATE_SERIES.md` | proposed PRISM architecture. Candidate settlement kernel is separate and is not this series |
+| `evidence/research/prism/candidate-settlement-forge-2026-09-26.txt` | candidate kernel Foundry log, 3 tests passed |
+| `evidence/research/prism/candidate-settlement-gas-2026-09-26.txt` | raw fund and redeem gas log |
+| `evidence/research/prism/candidate-fixtures-2026-09-26.txt` | fixture generator log |
+| `evidence/research/prism/unittest-candidate-kernel-2026-09-26.txt` | prism-model unittest, 63 tests OK |
+| `research/prism-model/fixtures/candidate_cumulative_settlement.json` | Python candidate integers |
+| `evidence/research/prism/kuru/source-pass-2026-09-26.json` | second Kuru source pass. PRED-KURU-1 stays blocked |
 | `docs/prism/04-architecture/SOURCE_ASSET_INTERFACE.md` | proposed, not frozen |
 | `evidence/research/prediction/slither-2026-09-26.txt` | Slither log, including IR errors |
 | `research/prediction-model/outputs/exhaustive_summary.json` | 208-state search |

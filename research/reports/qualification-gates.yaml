@@ -28,7 +28,7 @@ prism:
   MATH-1D_candidate_cumulative_floor: proven_under_assumptions
   MATH-1D_candidate_domain_check: exhaustively_verified_within_domain
   MATH-1D_candidate_ready_for_adr_acceptance: true
-  MATH-1D_candidate_solidity: not_written
+  MATH-1D_candidate_solidity: differential_research_kernel
   MATH-1E: partial_z3_sympy
   MATH-1F: not_yet_validated
   MATH-1: fail

@@ -1,0 +1,24 @@
+python_command: python3 -m unittest tests.test_double_yes_redeem -v
+python_cwd: research/prediction-model
+python: Python 3.12.3
+python_exit_code: 0
+test_second_redeem_of_the_same_yes_balance_does_not_pay (tests.test_double_yes_redeem.DoubleYesRedeemTests.test_second_redeem_of_the_same_yes_balance_does_not_pay) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+
+forge_command: forge test --match-contract DoubleYesRedeemTest -vv
+forge_cwd: research/contract-kernels
+forge: forge Version: 1.8.3
+forge_commit: cae51ad458f6abb64852b7709eb784352429825d
+solc: 0.8.26
+profile: default
+FOUNDRY_PROFILE: unset
+forge_exit_code: 0
+Ran 1 test for test/prediction/DoubleYesRedeem.t.sol:DoubleYesRedeemTest
+[PASS] test_second_redeem_of_the_same_yes_balance_does_not_pay() (gas: 890687)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 777.92µs (262.27µs CPU time)
+
+Ran 1 test suite in 5.68ms (777.92µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

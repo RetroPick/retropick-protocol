@@ -182,6 +182,8 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `evidence/research/prediction/split-callback-2026-09-26.txt` | Python 1 test OK. Forge default profile, 1 passed, gas 564941 |
 | `evidence/research/prediction/live-collateral-withdrawal-2026-09-26.json` | existing_rule. No withdrawal while supply is live. Merge and redeem burn first |
 | `evidence/research/prediction/live-collateral-withdrawal-2026-09-26.txt` | Python 1 test OK. Forge default profile, 1 passed, gas 1694955 |
+| `evidence/research/prediction/double-yes-redeem-2026-09-26.json` | existing_rule. Second redeem of the same YES 4 reverts. Collateral falls once, from 4 to 0 |
+| `evidence/research/prediction/double-yes-redeem-2026-09-26.txt` | Python 1 test OK. Forge default profile, 1 passed, gas 890687 |
 | `evidence/research/prediction/resolved-redeem-contradiction-2026-09-26.txt` | `python3 -m unittest tests.test_resolved_redeem_contradiction -v`, 1 test OK, exit 0 |
 | `research/benchmarks/scripts/repro_local.sh` | rerun script. Not a fresh clone or virtualenv |
 | `research/prediction-model/outputs/exhaustive_summary.json` | 208-state search |

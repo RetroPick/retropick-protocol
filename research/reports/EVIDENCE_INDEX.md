@@ -92,7 +92,10 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `evidence/research/prism/unittest-backing-kernel-2026-09-26.txt` | prism-model unittest, 70 tests OK |
 | `research/prism-model/fixtures/backing_kernel.json` | FixedPointSeries and ReservationLedger integers |
 | `evidence/research/prediction/outcome-token-gas-2026-09-26.txt` | full ERC-20 versus ERC-1167 CREATE gas |
-| `evidence/research/prism/cumulative-floor-attack-2026-09-26.json` | candidate settlement attack |
+| `evidence/research/prism/cumulative-floor-attack-2026-09-26.json` | candidate settlement attack. Compositions through supply 12 |
+| `evidence/research/prism/cumulative-floor-supply16-2026-09-26.json` | compositions through supply 16 on 18 decimals. 917612 states, 7340046 transitions, clean |
+| `evidence/research/prism/backing-domain-2026-09-26.json` | PrismSeries backing grid. 81 states, 2187 transitions, clean |
+| `evidence/research/prism/extended-domains-2026-09-26.txt` | those two tests, exit 0 |
 | `evidence/research/prediction/invariant-ids-2026-09-26.txt` | P-I01..P-I10 Python and Forge logs |
 | `evidence/research/prism/invariant-coverage-2026-09-26.txt` | R-I02, remaining R-I11 edges, and R-I12. 3 tests, exit 0 |
 | `research/prism-model/tests/test_invariant_ids.py` | those three checks on the existing exact model |

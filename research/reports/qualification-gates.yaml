@@ -29,7 +29,9 @@ prediction:
 prism:
   RESEARCH: reproduced
   MATH-1A: measured_exact_model
-  MATH-1B: bounded_grids_only
+  MATH-1B: "bounded_grids_only. Composition supply 0..16 on 18 decimals, two holders, 917612 states, 7340046 transitions, 8.02598s, EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN. Backing weights {0, 1/2, 1}, supplies 0..8, quantities 0..8, 81 states, 2187 transitions, 0.054409s, EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN. Not a universal proof."
+  MATH-1D_candidate_supply16: exhaustively_verified_within_domain
+  backing_component_domain: exhaustively_verified_within_domain
   MATH-1C: stress_reproduced
   MATH-1D: fail
   MATH-1D_candidate_cumulative_floor: proven_under_assumptions

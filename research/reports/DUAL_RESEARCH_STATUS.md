@@ -22,6 +22,7 @@ PRED-CONTRACT-1: NOT PASS.
 MATH-1: FAIL.  
 MATH-1D: FAIL.  
 MATH-1D candidate cumulative floor: PROVEN_UNDER_ASSUMPTIONS. Domain check: EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN. Ready for ADR acceptance. Not an oracle pass.  
+MATH-1B: bounded_grids_only, not a universal proof. Compositions through supply 16 on 18 decimals, two holders: 917612 states, 7340046 transitions, 8.02598s, clean. The earlier search remains 378530 states through supply 12. Backing on PrismSeries with weights {0, 1/2, 1}, supplies 0..8, quantities 0..8: 81 states, 2187 transitions, 0.054409s, clean. Canonical MATH-1 stays FAIL.  
 MATH-1D candidate Solidity: `differential_research_kernel`. The kernel matches the Python fixtures. It is not MATH-1 PASS and it is not CONTRACT-1.  
 Component backing Solidity: `differential_research_kernel`. `CandidateComponentBacking` matches `FixedPointSeries` deposit, mint, and requirement-delta redeem. `CandidateReservationLedger` matches the duplicate-source rejection. This is not settlement, not MATH-1 PASS, and not CONTRACT-1.  
 Partial-resolution transform: `differential_research_kernel`. `CandidatePayoffTransform` matches the Python integers for a payoff-equivalent component conversion. Wrong component, non-equivalent payoff, and reorder were tested. It is not wired to prediction tokens. MATH-1 and CONTRACT-1 stay unmet.  

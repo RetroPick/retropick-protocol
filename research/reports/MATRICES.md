@@ -53,6 +53,8 @@ Every row points at evidence from this program. Status words are the program's c
 | T-FP-003 funding guard | PROVEN_UNDER_ASSUMPTIONS for funding only | addendum in `docs/prism/math/17_THEOREMS.md` |
 | CX-FP-SETTLEMENT-001 | COUNTEREXAMPLE_FOUND | probe JSON |
 | T-FP-CUM-001 | PROVEN_UNDER_ASSUMPTIONS | global-cursor identity; 378530 states, 2542061 transitions, 2.973316s |
+| T-FP-CUM-001 supply 16 | EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN | compositions 0..16, decimals 18, two holders. 917612 states, 7340046 transitions, 8.02598s. Not MATH-1 PASS |
+| Backing grid B >= Sx | EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN | PrismSeries weights {0, 1/2, 1}, supplies 0..8. 81 states, 2187 transitions, 0.054409s |
 | Global-cursor telescope, symbolic | PROVEN_UNDER_ASSUMPTIONS | SymPy 1.14.0 inductive cancellation. `candidate-telescope-proof-2026-09-26.json` |
 | Per-holder cursor telescope | COUNTEREXAMPLE_FOUND | witness gap 1. Z3 5.1.0. Not the candidate |
 | MATH-1F | measured_simulation | synthetic books. Not a solvency result |
@@ -189,6 +191,7 @@ The six prediction rows above the CREATE rows, and `test_fund_and_redeem_gas`, a
 | PRED-CONTRACT-1 | NOT PASS |
 | PRISM MATH-1 | FAIL |
 | MATH-1D candidate cumulative floor | PROVEN_UNDER_ASSUMPTIONS; ready for ADR acceptance; Solidity `differential_research_kernel` |
+| MATH-1B | bounded grids only. Supply-16 compositions and the backing grid are inside the note. Not a universal proof |
 | PRISM CONTRACT-ARCH-1 | proposed |
 | PRISM CONTRACT-1 | not_met |
 | backing_kernel_solidity | differential_research_kernel |

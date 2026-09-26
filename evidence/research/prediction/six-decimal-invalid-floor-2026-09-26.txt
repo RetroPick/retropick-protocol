@@ -1,0 +1,48 @@
+tool: python3 and forge test
+command: forge test --match-contract SixDecimalInvalidFloorTest -vv
+cwd: /workspace/research/contract-kernels
+profile: default
+sha_base: 3d17595944abe8b0d7a3bcc280cb330219cd3db3
+composition: supply 2 parts 1,1
+python_outcome_decimals: not_stored
+python_yes_payouts: 0,1
+python_no_payouts: 0,1
+python_liability: 2 then 2, 2 then 1, 1 then 1, 1 then 0
+python_collateral: 2 then 2, 2 then 1, 1 then 1, 1 then 0
+python_collateral_left: 0
+solidity_collateral_decimals: 6
+solidity_outcome_decimals: 6
+solidity_yes_payouts: 0,1
+solidity_no_payouts: 0,1
+solidity_collateral_left: 0
+recorded_cumulative_floor: 0,1 and collateral left 0
+per_call_floor: not_paid
+classification: existing_rule
+adr_added: none
+kuru_decimals_18: not_established
+math1: FAIL
+pred_math_1: partial
+pred_kuru_1: blocked
+
+No files changed, compilation skipped
+
+Ran 1 test for test/prediction/SixDecimalInvalidFloor.t.sol:SixDecimalInvalidFloorTest
+[PASS] test_supply_two_invalid_floor_at_six_decimals() (gas: 1183071)
+Logs:
+  classification: existing_rule
+  composition: supply 2 parts 1,1
+  collateral_decimals: 6
+  yes_decimals: 6
+  no_decimals: 6
+  yes_payout_0: 0
+  yes_payout_1: 1
+  no_payout_0: 0
+  no_payout_1: 1
+  collateral_left: 0
+  recorded_cumulative_floor: 0,1
+  per_call_floor: not_paid
+  kuru_decimals_18: not_established
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 1.27ms (452.27µs CPU time)
+
+Ran 1 test suite in 5.37ms (1.27ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

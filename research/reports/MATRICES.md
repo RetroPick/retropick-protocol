@@ -252,6 +252,7 @@ The six prediction rows above the CREATE rows, and `test_fund_and_redeem_gas`, a
 | False-return collateral | admission gap | recorded_contradiction, open. ADR-P08 PROPOSED, acceptance not granted. Python rejects FALSE_RETURN at construction. Solidity split reverts SafeERC20FailedOperation after activation. Supplies stay 0. `false-return-collateral-2026-09-26.json` |
 | Rebasing collateral | accounting gap | COUNTEREXAMPLE_FOUND. ADR-P06 and ADR-P09 stay PROPOSED. Acceptance not granted. Python rejects REBASING at construction. Test-only rebaseDown leaves balance 99 against liability 100. Locked, YES, and NO stay 100. `rebasing-collateral-2026-09-26.json` |
 | Split callback during transferFrom | reentrancy | existing_guard. `nonReentrant` reverts `ReentrancyGuardReentrantCall`. Locked, YES, NO, and token balance stay 0. `split-callback-2026-09-26.json` |
+| Withdrawal while supply is outstanding | custody | existing_rule. Factory, resolver, and an arbitrary caller cannot extract live collateral. Merge and redeem burn first. `live-collateral-withdrawal-2026-09-26.json` |
 | Clone cheaper, identity not independent | Medium | measured; kernel stays on full ERC-20; ADR-P01 PROPOSED |
 | Monad parallel-execution benefit | unmeasured | ADR-R06 is a hypothesis |
 | Two markets or two series sharing split/mint slots | INFERRED absent for these kernels | `docs/prism/04-architecture/STORAGE_ISOLATION.md`. Not a throughput measurement |

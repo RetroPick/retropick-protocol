@@ -1,0 +1,53 @@
+{
+  "classification": "EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN",
+  "domain": "rational G, h, and c with 1..16 states and 1..8 components; every column subset of size rank(G) is solved over Fractions",
+  "float_lp_used": false,
+  "not_kuru": true,
+  "not_solvency": true,
+  "not_math1_pass": true,
+  "and_with_constant": {
+    "status": "PRODUCT_NOT_REPLICABLE",
+    "x": "",
+    "cost": "",
+    "rechecked_equal": false,
+    "reason": "equality_inconsistent",
+    "bases_checked": 0,
+    "rays_checked": 0,
+    "runtime_seconds": "0.000081",
+    "classification": "EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN",
+    "domain": "rational G, h, and c with 1..16 states and 1..8 components; every column subset of size rank(G) is solved over Fractions",
+    "float_lp_used": false,
+    "not_kuru": true,
+    "not_solvency": true
+  },
+  "cheaper_duplicate_column": {
+    "status": "EXACT",
+    "x": "(0/1, 1/1)",
+    "cost": "1/1",
+    "rechecked_equal": true,
+    "reason": "exact_basic_minimum",
+    "bases_checked": 2,
+    "rays_checked": 2,
+    "runtime_seconds": "0.000128",
+    "classification": "EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN",
+    "domain": "rational G, h, and c with 1..16 states and 1..8 components; every column subset of size rank(G) is solved over Fractions",
+    "float_lp_used": false,
+    "not_kuru": true,
+    "not_solvency": true
+  },
+  "three_column_minimum": {
+    "status": "EXACT",
+    "x": "(0/1, 0/1, 1/1)",
+    "cost": "1/1",
+    "rechecked_equal": true,
+    "reason": "exact_basic_minimum",
+    "bases_checked": 3,
+    "rays_checked": 3,
+    "runtime_seconds": "0.000154",
+    "classification": "EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN",
+    "domain": "rational G, h, and c with 1..16 states and 1..8 components; every column subset of size rank(G) is solved over Fractions",
+    "float_lp_used": false,
+    "not_kuru": true,
+    "not_solvency": true
+  }
+}

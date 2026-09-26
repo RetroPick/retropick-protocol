@@ -290,6 +290,8 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `evidence/research/prediction/split-after-yes-redeem-2026-09-26.txt` | Forge default profile, 1 passed, gas 800846 |
 | `evidence/research/prediction/locked-split-2026-09-26.json` | existing_rule. Activate, close mint, no prior split, then split 1 rejects. Collateral pulled 0. Collateral locked stays 0. YES and NO stay 0. Solidity outside collateral stays 1000000. Python stores none |
 | `evidence/research/prediction/locked-split-2026-09-26.txt` | Forge default profile, 1 passed, gas 267940 |
+| `evidence/research/prediction/locked-merge-2026-09-26.json` | existing_rule. Split 4, close mint, merge 1 returns 1. Liability 4 then 3. Collateral locked 4 then 3. YES and NO 4 then 3. Solidity outside collateral 999996 then 999997. Python stores none. Inventory rows[19] is merge of 0 |
+| `evidence/research/prediction/locked-merge-2026-09-26.txt` | Forge default profile, 1 passed, gas 540379 |
 | `evidence/research/prediction/kuru-backing-claim-2026-09-26.json` | absent. Kuru orderbook liquidity is not protocol backing or redemption value. PRED-KURU-1 stays blocked |
 | `decisions/ADR-P12-configured-split-maximum.md` | PROPOSED. Acceptance not granted. Neither split was edited |
 | `evidence/research/prediction/resolved-redeem-contradiction-2026-09-26.txt` | `python3 -m unittest tests.test_resolved_redeem_contradiction -v`, 1 test OK, exit 0 |

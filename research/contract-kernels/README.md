@@ -16,7 +16,7 @@ Schema A is the implemented token shape. `PredictionMarket` still deploys two fu
 
 ## PRISM
 
-No PRISM settlement contract is in this harness. The current per-call settlement floor has a holder-value counterexample (`CX-FP-SETTLEMENT-001`). Implementing that rule, or silently replacing it, is stopped until an ADR accepts a repair.
+`src/prism/CandidateCumulativeSettlement.sol` is a research kernel of the cumulative-floor candidate in `research/prism-model/cumulative_settlement.py`. It is labeled candidate. It is not MATH-1 PASS and it is not a v2 promotion. Canonical `FixedPointSettlement.redeem` is not in this harness and was not replaced. The full series in `docs/prism/04-architecture/PHASE1_CANDIDATE_SERIES.md` is still a proposal. ADR-R07 still stops a production settlement port.
 
 ## Run
 

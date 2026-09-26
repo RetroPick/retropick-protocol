@@ -2,7 +2,7 @@
 
 **Status:** PROPOSED  
 **Contingent on:** human acceptance of ADR-R03. That acceptance is not granted.  
-**Solidity:** not written. `contracts/src/v2/` is unchanged. ADR-R07 still stops a settlement port.  
+**Solidity:** a candidate settlement kernel is in `research/contract-kernels/src/prism/CandidateCumulativeSettlement.sol`. It implements only the global-cursor redeem from `cumulative_settlement.py`. It is not this series, not MATH-1 PASS, and not a v2 promotion. The series token, mint path, and component vault are still not written. `contracts/src/v2/` is unchanged. ADR-R07 still stops a settlement port.  
 **Math:** this file does not restate canonical theorems. Settlement rounding is the candidate in `research/prism-model/cumulative_settlement.py`. Canonical `FixedPointSettlement.redeem` stays the failing per-call rule.
 
 Canonical diagrams that name a separate vault are not amended here.
@@ -155,7 +155,7 @@ Severity is the original program scale. Open High and Critical items stay open. 
 | S-R1 | Critical | Mint series tokens before backing is reserved | Open. Spec requires deposit-then-mint. No Solidity enforces it yet |
 | S-R2 | Critical | Ship `FixedPointSettlement.redeem` per-call floor (`CX-FP-SETTLEMENT-001`) | Open. Canonical MATH-1D is FAIL. The candidate is not accepted |
 | S-R3 | Critical | Per-holder redemption cursor | Open as a forbidden design. The negative control pays 0 on the original case |
-| S-R4 | High | Sweep residual that still belongs to holders | Open under the canonical rule, where fragmented redemptions leave dust 2. The candidate bound says exact ceil funding leaves 0 or 1 after full redemption. Not implemented |
+| S-R4 | High | Sweep residual that still belongs to holders | Open under the canonical rule, where fragmented redemptions leave dust 2. The candidate kernel pays the cumulative delta. On the original fixture the residual is 1. The series dust sink is still not implemented |
 | S-R5 | High | Fee-on-transfer or rebasing component credited at nominal amount | Open. Spec requires a balance-delta check. Not implemented |
 | S-R6 | High | Treating a prediction resolution, a Kuru price, or an indexer row as settlement funding | Open. Those are not backing |
 | S-R7 | Medium | Order of redemptions moves a carry between holders | Recorded on the candidate. Aggregate paid still matches the one-shot floor. Not dust capture |
@@ -163,4 +163,4 @@ Severity is the original program scale. Open High and Critical items stay open. 
 | S-R9 | Low | Adding an upgrade admin later | Out of policy. This spec is immutable |
 | S-R10 | Informational | Kuru `calculatePrecisions` examples are not series parameters | Worksheet rows for a series book are BLOCKED |
 
-No threat above is closed by this document.
+No threat above is closed by this document. The candidate settlement kernel does not close any row in this table.

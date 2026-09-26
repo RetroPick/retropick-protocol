@@ -1,0 +1,268 @@
+{
+  "schema": "candidate_cumulative_settlement_fixtures_v1",
+  "source": "research/prism-model/cumulative_settlement.py",
+  "candidate": true,
+  "canonical_oracle": false,
+  "math_1": "FAIL",
+  "math_1d": "FAIL",
+  "v2_promotion": false,
+  "case_count": 7,
+  "cases": [
+    {
+      "id": "cx_original_ab",
+      "supply": "2",
+      "payout_wad": "999999999999999999",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "2",
+      "one_shot_floor": "1",
+      "holder_count": 2,
+      "holders": [
+        "A",
+        "B"
+      ],
+      "balances": [
+        "1",
+        "1"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "1"
+      ],
+      "payouts": [
+        "0",
+        "1"
+      ],
+      "receipts": [
+        "0",
+        "1"
+      ],
+      "paid_total": "1",
+      "residual": "1"
+    },
+    {
+      "id": "cx_original_ba",
+      "supply": "2",
+      "payout_wad": "999999999999999999",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "2",
+      "one_shot_floor": "1",
+      "holder_count": 2,
+      "holders": [
+        "A",
+        "B"
+      ],
+      "balances": [
+        "1",
+        "1"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        1,
+        0
+      ],
+      "quantities": [
+        "1",
+        "1"
+      ],
+      "payouts": [
+        "0",
+        "1"
+      ],
+      "receipts": [
+        "1",
+        "0"
+      ],
+      "paid_total": "1",
+      "residual": "1"
+    },
+    {
+      "id": "fairness_aba",
+      "supply": "3",
+      "payout_wad": "500000000000000001",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "2",
+      "one_shot_floor": "1",
+      "holder_count": 2,
+      "holders": [
+        "A",
+        "B"
+      ],
+      "balances": [
+        "2",
+        "1"
+      ],
+      "step_count": 3,
+      "holder_index": [
+        0,
+        1,
+        0
+      ],
+      "quantities": [
+        "1",
+        "1",
+        "1"
+      ],
+      "payouts": [
+        "0",
+        "1",
+        "0"
+      ],
+      "receipts": [
+        "0",
+        "1"
+      ],
+      "paid_total": "1",
+      "residual": "1"
+    },
+    {
+      "id": "telescope_supply4_chunks_1_2_1",
+      "supply": "4",
+      "payout_wad": "999999999999999999",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "4",
+      "one_shot_floor": "3",
+      "holder_count": 1,
+      "holders": [
+        "A"
+      ],
+      "balances": [
+        "4"
+      ],
+      "step_count": 3,
+      "holder_index": [
+        0,
+        0,
+        0
+      ],
+      "quantities": [
+        "1",
+        "2",
+        "1"
+      ],
+      "payouts": [
+        "0",
+        "2",
+        "1"
+      ],
+      "receipts": [
+        "3"
+      ],
+      "paid_total": "3",
+      "residual": "1"
+    },
+    {
+      "id": "telescope_supply4_oneshot",
+      "supply": "4",
+      "payout_wad": "999999999999999999",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "4",
+      "one_shot_floor": "3",
+      "holder_count": 1,
+      "holders": [
+        "A"
+      ],
+      "balances": [
+        "4"
+      ],
+      "step_count": 1,
+      "holder_index": [
+        0
+      ],
+      "quantities": [
+        "4"
+      ],
+      "payouts": [
+        "3"
+      ],
+      "receipts": [
+        "3"
+      ],
+      "paid_total": "3",
+      "residual": "1"
+    },
+    {
+      "id": "telescope_supply4_chunks_2_2",
+      "supply": "4",
+      "payout_wad": "999999999999999999",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "4",
+      "one_shot_floor": "3",
+      "holder_count": 2,
+      "holders": [
+        "A",
+        "B"
+      ],
+      "balances": [
+        "2",
+        "2"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "2",
+        "2"
+      ],
+      "payouts": [
+        "1",
+        "2"
+      ],
+      "receipts": [
+        "1",
+        "2"
+      ],
+      "paid_total": "3",
+      "residual": "1"
+    },
+    {
+      "id": "decimals6_supply2_unit_chunks",
+      "supply": "2",
+      "payout_wad": "999999999999999999",
+      "decimals": 6,
+      "denominator": "1000000000000000000000000000000",
+      "ceil_funding": "1",
+      "one_shot_floor": "0",
+      "holder_count": 2,
+      "holders": [
+        "A",
+        "B"
+      ],
+      "balances": [
+        "1",
+        "1"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "1"
+      ],
+      "payouts": [
+        "0",
+        "0"
+      ],
+      "receipts": [
+        "0",
+        "0"
+      ],
+      "paid_total": "0",
+      "residual": "1"
+    }
+  ]
+}

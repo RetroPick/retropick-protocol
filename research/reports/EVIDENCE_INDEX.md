@@ -204,6 +204,8 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `evidence/research/prism/over-reserve-2026-09-26.txt` | Forge default profile, 1 passed, gas 214969 |
 | `evidence/research/prism/remainder-reserve-2026-09-26.json` | existing_rule. Deposit 100, reserve 60, reserve 40 succeeds. Reserved becomes 100. Available becomes 0. Series B becomes 40. Python accepts the same integers |
 | `evidence/research/prism/remainder-reserve-2026-09-26.txt` | Forge default profile, 1 passed, gas 235287 |
+| `evidence/research/prism/same-series-reserve-2026-09-26.json` | existing_rule. Deposit 100. Series A reserves 60, then series A reserves 40. Series A becomes 100. Reserved becomes 100. Available becomes 0. Python accepts the same integers |
+| `evidence/research/prism/same-series-reserve-2026-09-26.txt` | Forge default profile, 1 passed, gas 205460 |
 | `evidence/research/prediction/slither-2026-09-26.txt` | earlier Slither log, including IR errors |
 | `evidence/research/prediction/slither-focused-2026-09-26.txt` | focused Slither 0.11.6 rerun, exit 255, 14 results |
 | `evidence/research/prediction/slither-legacy-ast-2026-09-26.txt` | `--solc-force-legacy-json` under Foundry. `_redeem` still has no IR. Exit 255 |

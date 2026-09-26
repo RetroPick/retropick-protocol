@@ -215,6 +215,7 @@ The six prediction rows above the CREATE rows, and `test_fund_and_redeem_gas`, a
 | `CandidateComponentBacking.deposit` component walk | bounded_by_constructor. componentCount 2. backingRaw 0,0 then 1,1. Index 2 is not readable. `deposit-component-count-2026-09-26.json` |
 | `CandidateComponentBacking.mint` by a non-depositor | permissionless_mint. Weights 0,0. A deposits 1,1. B mints 2**256-1. Supply 0 then that quantity. backingRaw stays 1,1. B receives the series tokens. Python matches. `non-depositor-mint-2026-09-26.json` |
 | `CandidateComponentBacking.mint(1)` at wad weights | permissionless_mint. Weights 10^18, 10^18. A deposits 1,1. B mints 1. Supply 0 then 1. backingRaw stays 1,1. requiredRaw at supply 1 is 1,1. B receives the series token. Python matches. `positive-weight-non-depositor-mint-2026-09-26.json` |
+| `CandidateComponentBacking.mint(2)` at wad weights | existing_rule. Weights 10^18, 10^18. A deposits 1,1. B mint(2) reverts `InsufficientBacking(0, 1, 2)`. Supply stays 0. backingRaw stays 1,1. requiredRaw at supply 2 is 2,2. Python rejects. `over-mint-2026-09-26.json` |
 | Unredeemed `yesRedeemed` and `noRedeemed` | existing_rule. Before redeem, cursors 0 and 0 and liability equals locked 4. After redeemYes(1), 1, 0, 3, 3. S-P16 stays open. `unredeemed-liability-2026-09-26.json` |
 
 ## PROMOTION_GATE_MATRIX

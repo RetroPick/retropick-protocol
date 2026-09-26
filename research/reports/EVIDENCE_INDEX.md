@@ -98,6 +98,8 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `evidence/research/prism/extended-domains-2026-09-26.txt` | those two tests, exit 0 |
 | `evidence/research/prism/r-theorem-1-2026-09-26.json` | SymPy discharge of R-THEOREM-1 / T-REPL-001. PROVEN_UNDER_ASSUMPTIONS |
 | `evidence/research/prism/r-theorem-1-2026-09-26.txt` | that test, exit 0 |
+| `evidence/research/prism/r-theorem-5-2026-09-26.json` | SymPy and Z3 discharge of R-THEOREM-5 / T-BS-004. PROVEN_UNDER_ASSUMPTIONS |
+| `evidence/research/prism/r-theorem-5-2026-09-26.txt` | that test, exit 0 |
 | `evidence/research/prediction/invariant-ids-2026-09-26.txt` | P-I01..P-I10 Python and Forge logs |
 | `evidence/research/prism/invariant-coverage-2026-09-26.txt` | R-I02, remaining R-I11 edges, and R-I12. 3 tests, exit 0 |
 | `research/prism-model/tests/test_invariant_ids.py` | those three checks on the existing exact model |

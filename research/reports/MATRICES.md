@@ -60,6 +60,7 @@ Every row points at evidence from this program. Status words are the program's c
 | MATH-1F | measured_simulation | synthetic books. Not a solvency result |
 | Z3 two-component solvency | PROVEN_UNDER_ASSUMPTIONS | Z3 5.1.0 unsat. This is R-THEOREM-4 / T-BS-003 for two components and one state only |
 | R-THEOREM-1 / T-REPL-001 | PROVEN_UNDER_ASSUMPTIONS | SymPy 1.14.0. h=Gx on shapes 1..4 by 1..4. `r-theorem-1-2026-09-26.json`. Not MATH-1 PASS |
+| R-THEOREM-5 / T-BS-004 | PROVEN_UNDER_ASSUMPTIONS | SymPy 1.14.0 and Z3 5.1.0 unsat. Exact `QR` payment. `r-theorem-5-2026-09-26.json`. Not MATH-1 PASS |
 | Market demand hypotheses | NOT_YET_VALIDATED | unchanged |
 
 ## COUNTEREXAMPLE_MATRIX
@@ -191,7 +192,7 @@ The six prediction rows above the CREATE rows, and `test_fund_and_redeem_gas`, a
 |---|---|
 | PRED-CONTRACT-1 | NOT PASS |
 | PRISM MATH-1 | FAIL |
-| MATH-1E | partial_z3_sympy. R-THEOREM-1 discharged by SymPy. Not MATH-1 PASS |
+| MATH-1E | partial_z3_sympy. R-THEOREM-1 and R-THEOREM-5 discharged. R-THEOREM-6 not started. Not MATH-1 PASS |
 | MATH-1D candidate cumulative floor | PROVEN_UNDER_ASSUMPTIONS; ready for ADR acceptance; Solidity `differential_research_kernel` |
 | MATH-1B | bounded grids only. Supply-16 compositions and the backing grid are inside the note. Not a universal proof |
 | PRISM CONTRACT-ARCH-1 | proposed |

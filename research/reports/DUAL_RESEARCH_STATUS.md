@@ -22,7 +22,7 @@ Machine-readable copy: `research/reports/qualification-gates.yaml`.
 PRED-CONTRACT-1: NOT PASS.  
 MATH-1: FAIL.  
 MATH-1D: FAIL.  
-MATH-1E: partial_z3_sympy. R-THEOREM-1, mapped to T-REPL-001, is PROVEN_UNDER_ASSUMPTIONS by a SymPy 1.14.0 identity: h=Gx on every shape with 1..4 states and 1..4 components, in 0.020301s. The oracle payoff on weights (3/5, 2/5) is (2/5, 0, 1, 3/5). R-THEOREM-4 stays the existing two-component Z3 and SymPy check. R-THEOREM-2, R-THEOREM-3, R-THEOREM-5, and R-THEOREM-6 were not re-run. This is not MATH-1 PASS.  
+MATH-1E: partial_z3_sympy. R-THEOREM-1, mapped to T-REPL-001, is PROVEN_UNDER_ASSUMPTIONS by a SymPy 1.14.0 identity. R-THEOREM-5 is the fifth registry row, T-BS-004, not T-ALLOC-001. SymPy 1.14.0 shows `C - QR - (S - Q)R` equals `C - SR`. Z3 5.1.0 finds that negation unsat. Runtime 0.025699s. Classification PROVEN_UNDER_ASSUMPTIONS. The per-call rule still pays 0 on the supply-2 witness and is not exact `QR`; remaining funding on that witness still holds. R-THEOREM-6 was not started. This is not MATH-1 PASS.  
 MATH-1D candidate cumulative floor: PROVEN_UNDER_ASSUMPTIONS. Domain check: EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN. Ready for ADR acceptance. Not an oracle pass.  
 MATH-1B: bounded_grids_only, not a universal proof. Compositions through supply 16 on 18 decimals, two holders: 917612 states, 7340046 transitions, 8.02598s, clean. The earlier search remains 378530 states through supply 12. Backing on PrismSeries with weights {0, 1/2, 1}, supplies 0..8, quantities 0..8: 81 states, 2187 transitions, 0.054409s, clean. Canonical MATH-1 stays FAIL.  
 MATH-1D candidate Solidity: `differential_research_kernel`. The kernel matches the Python fixtures. It is not MATH-1 PASS and it is not CONTRACT-1.  

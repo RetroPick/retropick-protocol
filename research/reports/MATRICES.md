@@ -14,7 +14,7 @@ Every row points at evidence from this program. Status words are the program's c
 | Separate RESOLVED and REDEEMABLE | implemented in kernel | `test_yes_redemption_matches_fixture` expects revert before open |
 | No admin mint | tested | `test_user_cannot_mint_outcome` |
 | Standard collateral only | tested for fee-on-transfer | `test_fee_on_transfer_split_reverts` |
-| Kuru listing | BLOCKED | `research/integration/kuru/KURU_TOKEN_COMPATIBILITY.md` |
+| Kuru listing | BLOCKED | worksheet; RetroPick parameters not derived |
 | PRED-CONTRACT-1 PASS | not met | `docs/prediction/13_PRED_GATE.md` |
 
 ## PRISM_REQUIREMENT_MATRIX
@@ -28,7 +28,8 @@ Every row points at evidence from this program. Status words are the program's c
 | Per-call settlement floor | COUNTEREXAMPLE_FOUND | `CX-FP-SETTLEMENT-001` |
 | Cumulative-floor candidate | PROVEN_UNDER_ASSUMPTIONS; domain check EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN | `cumulative_settlement.py`; not an oracle replacement |
 | MATH-1 PASS | FAIL | canonical per-call rule remains |
-| PRISM Solidity | not written | `research/contract-kernels/README.md`, ADR-R07 |
+| PRISM Solidity | not written | ADR-R07. Candidate architecture is PROPOSED only |
+| PRISM CONTRACT-ARCH-1 | proposed, not pass | `docs/prism/04-architecture/PHASE1_CANDIDATE_SERIES.md` |
 
 ## THEOREM_STATUS_MATRIX
 
@@ -64,8 +65,8 @@ Every row points at evidence from this program. Status words are the program's c
 
 | ID | Python | Foundry | Gap |
 |---|---|---|---|
-| P-I01..P-I10 | `invariants.check_market` | partial | resolution not inside the issuance invariant |
-| Foundry issuance conservation | n/a | 256 runs, 128000 calls, 0 reverts | split/merge only |
+| P-I01..P-I10 | `invariant_ids.py` scenarios EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN | `PredictionInvariantIdsTest` 10 passed | P-I05 `cancelDraft` is NOT_YET_VALIDATED in the kernel |
+| Foundry issuance conservation | n/a | 256 runs, 128000 calls, 48023 handler reverts, invariant held | split, merge, closeMint, beginResolution. Not redemption |
 | R-I01..R-I12 | existing PRISM oracle for the subset already modeled | none | settlement fairness fails R-style holder payment even though funding holds |
 | X-I01..X-I07 | not modeled jointly | not built | BLOCKED |
 
@@ -115,7 +116,8 @@ The first six rows are whole-test gas from `research/contract-kernels/.gas-snaps
 | ERC-20 type-0 market shape | documented | Kuru router page, 2026-09-26 |
 | Decimals must be 18 | not established | deployer example uses 18 for its own token; router reads token decimals |
 | Deployment equals liquidity | false in the docs | deploy-market page separates vault deposit |
-| Live RetroPick market | BLOCKED | no router address accepted, no tx |
+| Live RetroPick market | BLOCKED | no router bytecode, no accepted router, no fork, no tx |
+| `calculatePrecisions` examples | MEASURED_LOCAL | Node 22.14.0 and ethers 5.7.1. Not RetroPick policy |
 
 ## CROSS_MODULE_DEPENDENCY_MATRIX
 
@@ -125,7 +127,7 @@ The first six rows are whole-test gas from `research/contract-kernels/.gas-snaps
 | PRISM settlement -> prediction resolution | source resolution is not PRISM funding. Settlement rule itself FAILs |
 | Either module -> Kuru | secondary only. Not required for redemption |
 | Either module -> Launchpad token | forbidden. Launcher token was not reused |
-| SOURCE-ASSET INTERFACE FREEZE | not frozen. PRED-CONTRACT-ARCH-1 is proposed, not accepted |
+| SOURCE-ASSET INTERFACE FREEZE | proposed_not_frozen. X-I01..X-I07 not tested |
 
 ## PROMOTION_GATE_MATRIX
 
@@ -134,6 +136,7 @@ The first six rows are whole-test gas from `research/contract-kernels/.gas-snaps
 | PRED-CONTRACT-1 | NOT PASS |
 | PRISM MATH-1 | FAIL |
 | MATH-1D candidate cumulative floor | PROVEN_UNDER_ASSUMPTIONS; ready for ADR acceptance; Solidity not written |
+| PRISM CONTRACT-ARCH-1 | proposed |
 | PRISM CONTRACT-1 | not started |
 | MODULE-ADMISSION-FINANCE-1 | not met |
 | Move into `contracts/src/v2` | not done |
@@ -146,7 +149,8 @@ The first six rows are whole-test gas from `research/contract-kernels/.gas-snaps
 | Resolver can report a false YES/NO/INVALID | High trust assumption | accepted for this kernel, blocks trustless claims |
 | PRISM per-call settlement dust capture | High accounting defect | MATH-1D FAIL; candidate bound recorded; no Solidity |
 | Slither IR incomplete | Medium evidence gap | PRED-CONTRACT-1 not PASS |
-| Kuru parameters unknown | Medium | BLOCKED |
+| Kuru parameters unknown | Medium | BLOCKED. Worksheet does not guess them |
+| Prediction `cancelDraft` missing | Low | P-I05 cancelled-draft branch NOT_YET_VALIDATED |
 | CompleteSetVault diagram versus kernel | process risk | ADR-P03 proposed, diagram not silently edited |
 | `native_market.py` lifecycle is narrower than canonical | spec drift | recorded, new model does not pretend otherwise |
 | Clone cheaper, identity not independent | Medium | measured; kernel stays on full ERC-20; ADR-P01 PROPOSED |

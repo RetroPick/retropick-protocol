@@ -15,6 +15,7 @@ prediction:
   forge_coverage: measured
   outcome_token_deployment_gas: measured
   PRED-KURU-1: blocked
+  P-I05_cancel_draft: not_yet_validated
   PLATFORM-INTEGRATION-1: not_met
   module_status: CONTRACT_CANDIDATE
 
@@ -31,13 +32,13 @@ prism:
   MATH-1E: partial_z3_sympy
   MATH-1F: not_yet_validated
   MATH-1: fail
-  CONTRACT-ARCH-1: not_met
+  CONTRACT-ARCH-1: proposed
   CONTRACT-1: not_met
   PLATFORM-INTEGRATION-1: not_met
   module_status: FAIL
 
 cross_module:
-  SOURCE-ASSET-INTERFACE-FREEZE: not_frozen
+  SOURCE-ASSET-INTERFACE-FREEZE: proposed_not_frozen
   CROSS-MODULE-DIFFERENTIAL-HARNESS: not_built
   MODULE-ADMISSION-FINANCE-1: not_met
   module_status: BLOCKED

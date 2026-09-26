@@ -27,9 +27,12 @@ python3 cumulative_settlement_attack.py
 
 cd ../prediction-model
 python3 -m unittest discover -s tests -v
+
+cd ../integration/kuru
+node calculate_precisions.mjs
 ```
 
-On 2026-09-26 the prism-model suite was 63 tests, OK, and the prediction-model suite was 10 tests, OK. The cumulative attack reported 378530 states, 2542061 transitions, 2.973316 seconds, and no new counterexample.
+On 2026-09-26 the prism-model suite was 63 tests, OK. A later prediction-model run was 11 tests, OK, including `test_invariants`. The cumulative attack reported 378530 states, 2542061 transitions, 2.973316 seconds, and no new counterexample. `forge test` in the kernel was 24 tests, OK, including invariant runs 256, 128000 calls, 48023 handler reverts.
 
 Fixture files are committed under `research/prediction-model/fixtures/`. The tests rewrite them to the same JSON. A hash comparison is `sha256sum research/prediction-model/fixtures/*.json` before and after the unittest.
 
@@ -62,6 +65,11 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `evidence/research/prediction/kernel-coverage-2026-09-26.txt` | forge coverage summary |
 | `evidence/research/prediction/outcome-token-gas-2026-09-26.txt` | full ERC-20 versus ERC-1167 CREATE gas |
 | `evidence/research/prism/cumulative-floor-attack-2026-09-26.json` | candidate settlement attack |
+| `evidence/research/prediction/invariant-ids-2026-09-26.txt` | P-I01..P-I10 Python and Forge logs |
+| `evidence/research/prediction/kuru/` | outcome-token Kuru worksheet and helper output |
+| `evidence/research/prism/kuru/` | series-token Kuru worksheet and helper output |
+| `docs/prism/04-architecture/PHASE1_CANDIDATE_SERIES.md` | proposed PRISM architecture, no Solidity |
+| `docs/prism/04-architecture/SOURCE_ASSET_INTERFACE.md` | proposed, not frozen |
 | `evidence/research/prediction/slither-2026-09-26.txt` | Slither log, including IR errors |
 | `research/prediction-model/outputs/exhaustive_summary.json` | 208-state search |
 | `research/contract-kernels/.gas-snapshot` | one gas snapshot |

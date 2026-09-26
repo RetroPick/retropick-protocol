@@ -22,7 +22,10 @@ PRED-CONTRACT-1: NOT PASS.
 MATH-1: FAIL.  
 MATH-1D: FAIL.  
 MATH-1D candidate cumulative floor: PROVEN_UNDER_ASSUMPTIONS. Domain check: EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN. Ready for ADR acceptance. Not an oracle pass.  
-MODULE-ADMISSION-FINANCE-1: not met.
+MODULE-ADMISSION-FINANCE-1: not met.  
+PRISM CONTRACT-ARCH-1: proposed, contingent on ADR-R03. Not a pass.  
+SOURCE-ASSET-INTERFACE-FREEZE: proposed_not_frozen.  
+PRED-KURU-1: blocked.
 
 ## What changed since the baseline
 
@@ -45,6 +48,7 @@ The baseline file remains the pre-change record. After it:
 - Human acceptance of ADR-P01..P07 and of ADR-R03's cumulative-floor repair. The candidate bound is recorded. Acceptance was not granted.
 - PRISM settlement Solidity after that acceptance. It was not written in this pass.
 - Complete Slither IR or another static-analysis pass. Forge coverage is now measured and is not a pass by itself.
-- Kuru router address, parameter policy, and a non-production compatibility test.
-- Cross-module differential harness.
+- Kuru router address and a RetroPick parameter set. The worksheet's book rows are BLOCKED. No fork and no deployment.
+- Cross-module differential harness. The source-asset list is `proposed_not_frozen`, not frozen. X-I01..X-I07 are not tested.
+- Kernel `cancelDraft` for the cancelled-draft branch of P-I05.
 - Echidna, Medusa, Halmos, Mythril, semgrep, solhint: not installed.

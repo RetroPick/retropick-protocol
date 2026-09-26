@@ -48,7 +48,7 @@ The candidate rule is ready for a human to accept or reject under ADR-R03. Canon
 
 ## PRISM CONTRACT ARCHITECTURE
 
-Not accepted. ADR-R04..R07 are proposals. No PRISM Solidity was added, because the settlement rule failed and the prediction token interface is not frozen.
+**PROPOSED, not pass.** `docs/prism/04-architecture/PHASE1_CANDIDATE_SERIES.md` describes `PrismSeries` and `PrismSeriesToken` for the cumulative-floor candidate: backing before mint, one global redemption cursor, residual 0 or 1 under exact ceil funding, per-holder cursor forbidden, immutable. It is contingent on ADR-R03. Canonical MATH-1 stays FAIL. No PRISM Solidity was added. ADR-R04..R07 remain proposals. The canonical vault diagram was not rewritten.
 
 ## SOLIDITY KERNEL
 
@@ -72,11 +72,11 @@ On a separate optimized build, assembly `gas()` around `CREATE` measured one ful
 
 ## KURU COMPATIBILITY
 
-Documentation only. `research/integration/kuru/KURU_TOKEN_COMPATIBILITY.md`. No deployment.
+Documentation plus a local `calculatePrecisions` worksheet. RetroPick book parameters are BLOCKED. No deployment and no fork. PRED-KURU-1 stays blocked. `research/integration/kuru/PARAMETER_WORKSHEET.md`.
 
 ## CROSS-MODULE INTEGRATION
 
-BLOCKED. Prediction ERC-20s were not deposited into a PRISM series. PRISM does not call a prediction interface. Kuru is not on the redeem path. Launchpad token was not reused.
+BLOCKED. The source-asset list is proposed and not frozen: `docs/prism/04-architecture/SOURCE_ASSET_INTERFACE.md`. Prediction ERC-20s were not deposited into a PRISM series. X-I01..X-I07 are not tested. Kuru is not on the redeem path. Launchpad token was not reused.
 
 ## BLOCKERS
 

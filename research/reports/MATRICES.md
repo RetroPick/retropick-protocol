@@ -39,6 +39,7 @@ Every row points at evidence from this program. Status words are the program's c
 | Transform of the other component after component 1 payout 1 | existing_rule | Component 0 payout 1 is accepted. Cash added 600. Backing 0 and 0. Transformed 1000. Possible mask 4. Resolved mask 3. Supply stays 1000. Python `terminal_solvency` on state 2 is 1000 against 1000. `other-component-transform-2026-09-26.json` |
 | Component 0 payout 0 after component 1 payout 1 | existing_rule | Accepted. Cash added 0. Backing 0 and 0. Transformed stays 400. Possible mask 1. Resolved mask 3. Supply stays 1000. Python `terminal_solvency` on state 0 is 400 against 400 and is not a candidate result. `other-component-zero-payout-2026-09-26.json` |
 | Component 0 payout 2 after component 1 payout 1 | existing_rule | Rejected on both sides. Backing stays 600 and 0. Transformed stays 400. Possible mask stays 5. Resolved mask stays 2. Revert strings differ. No ADR. `other-component-payout-two-2026-09-26.json` |
+| Index 2 payout 1 on the fresh two-component fixture | existing_rule | Rejected on both sides before any successful transform. Backing stays 600 and 400. Transformed stays 0. Possible mask stays 15. Resolved mask stays 0. Revert strings differ. No ADR. `index-two-transform-2026-09-26.json` |
 | PRISM CONTRACT-ARCH-1 | proposed, not pass | `docs/prism/04-architecture/PHASE1_CANDIDATE_SERIES.md` |
 
 ## THEOREM_STATUS_MATRIX

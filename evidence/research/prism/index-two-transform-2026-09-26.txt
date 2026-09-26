@@ -1,0 +1,42 @@
+tool: python3 and forge test
+command: forge test --match-contract OutOfRangeComponentTransformTest -vv
+cwd: /workspace/research/contract-kernels
+profile: default
+sha_base: 6f0e95448a2c4379ac94636f1feed6a6898bc3e9
+payoff: [[0,1],[0,0],[1,1],[1,0]]
+weights: 3/5,2/5
+supply: 1000
+backing_initial: 600,400
+python_function: apply_transform
+python_call: index 2 payout 1
+python_result: rejected PartialResolutionError invalid component index
+python_after: backing 600,400 transformed 0 possible_mask 15 resolved_mask 0
+classification: existing_rule
+adr_added: none
+math1: FAIL
+
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 899.14ms
+Compiler run successful!
+
+Ran 1 test for test/prism/OutOfRangeComponentTransform.t.sol:OutOfRangeComponentTransformTest
+[PASS] test_index_two_on_the_fresh_fixture() (gas: 153508)
+Logs:
+  backing0_before: 600
+  backing1_before: 400
+  transformed_before: 0
+  possible_mask_before: 15
+  resolved_mask_before: 0
+  call: rejected
+  error: BadComponent(2)
+  backing0_after: 600
+  backing1_after: 400
+  transformed_after: 0
+  possible_mask_after: 15
+  resolved_mask_after: 0
+  supply_after: 1000
+  classification: existing_rule
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 469.18µs (302.96µs CPU time)
+
+Ran 1 test suite in 5.34ms (469.18µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

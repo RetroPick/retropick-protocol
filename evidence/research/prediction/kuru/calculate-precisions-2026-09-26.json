@@ -1,0 +1,68 @@
+{
+  "node": "v22.14.0",
+  "results": [
+    {
+      "id": "docs-deploy-market-first-snippet",
+      "source": "https://docs.kuru.io/sdk/deploy-market",
+      "inputs": {
+        "quote": 10,
+        "base": 1,
+        "maxPrice": 10000,
+        "minSize": 1,
+        "tickSizeBps": 100
+      },
+      "status": "computed",
+      "output": {
+        "pricePrecision": "10000",
+        "sizePrecision": "100000000",
+        "tickSize": "1000",
+        "minSize": "100000000",
+        "maxSize": "1000000000000",
+        "priceDecimals": 4,
+        "sizeDecimals": 8
+      }
+    },
+    {
+      "id": "docs-deploy-market-router-example",
+      "source": "https://docs.kuru.io/sdk/deploy-market",
+      "inputs": {
+        "quote": 10,
+        "base": 1,
+        "maxPrice": 20,
+        "minSize": 0.01,
+        "tickSizeBps": 10
+      },
+      "status": "computed",
+      "output": {
+        "pricePrecision": "10000",
+        "sizePrecision": "100000",
+        "tickSize": "100",
+        "minSize": "1000",
+        "maxSize": "1000000000",
+        "priceDecimals": 4,
+        "sizeDecimals": 5
+      }
+    },
+    {
+      "id": "sdk-readme-example",
+      "source": "https://github.com/Kuru-Labs/kuru-sdk/blob/636509c2eafd63479d3f399703354e0d09f51e18/README.md",
+      "inputs": {
+        "quote": 1,
+        "base": 456789,
+        "maxPrice": 10,
+        "minSize": 0.01,
+        "tickSizeBps": 10
+      },
+      "status": "computed",
+      "output": {
+        "pricePrecision": "1000000000",
+        "sizePrecision": "10000000000",
+        "tickSize": "10",
+        "minSize": "100000000",
+        "maxSize": "10000000000000000",
+        "priceDecimals": 9,
+        "sizeDecimals": 10
+      }
+    }
+  ]
+}

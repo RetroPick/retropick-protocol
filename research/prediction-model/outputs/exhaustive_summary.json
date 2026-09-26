@@ -1,0 +1,11 @@
+{
+  "counterexample": "",
+  "failures": 0,
+  "max_unit": 3,
+  "result": "EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN",
+  "runtime_seconds": 0.086862,
+  "seed_supply": 0,
+  "states": 208,
+  "terminal_archived": 24,
+  "transitions": 522
+}

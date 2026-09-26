@@ -1,0 +1,23 @@
+{
+  "retrieved_at": "2026-09-26",
+  "asset": "PRISM series token",
+  "pred_kuru_1": "blocked",
+  "deployment": "not_run",
+  "why_not_simulated": "No series token is compiled. No Kuru router bytecode is in this repo. No RetroPick router is accepted. This slice forbids deployment.",
+  "helper_examples": "evidence/research/prism/kuru/calculate-precisions-2026-09-26.json",
+  "retropick_book": {
+    "type": { "value": 0, "classification": "SUPPORTED_BY_LIVE_EVIDENCE", "note": "call shape only" },
+    "base": { "value": null, "classification": "BLOCKED", "missing": "series ERC-20 does not exist" },
+    "quote": { "value": null, "classification": "BLOCKED" },
+    "decimals": { "value": null, "classification": "BLOCKED", "missing": "ADR-R05 does not freeze decimals" },
+    "pricePrecision": { "value": null, "classification": "BLOCKED" },
+    "sizePrecision": { "value": null, "classification": "BLOCKED" },
+    "tickSize": { "value": null, "classification": "BLOCKED" },
+    "minSize": { "value": null, "classification": "BLOCKED" },
+    "maxSize": { "value": null, "classification": "BLOCKED" },
+    "takerFeeBps": { "value": null, "classification": "BLOCKED" },
+    "makerFeeBps": { "value": null, "classification": "BLOCKED" },
+    "kuruAmmSpread": { "value": null, "classification": "BLOCKED" },
+    "allowance_spender": { "value": null, "classification": "BLOCKED" }
+  }
+}

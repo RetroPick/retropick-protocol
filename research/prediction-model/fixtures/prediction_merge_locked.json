@@ -1,0 +1,16 @@
+{
+  "collateral_locked": "3",
+  "liability": "3",
+  "merge_amount": "2",
+  "no_numerator": "0",
+  "no_redeemed": "0",
+  "no_supply": "3",
+  "released": "2",
+  "residual_to_sink": "0",
+  "result": "0",
+  "split_amount": "5",
+  "state": "2",
+  "yes_numerator": "0",
+  "yes_redeemed": "0",
+  "yes_supply": "3"
+}

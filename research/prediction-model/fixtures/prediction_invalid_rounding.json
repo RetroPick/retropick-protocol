@@ -1,0 +1,125 @@
+{
+  "residual": "1",
+  "steps": [
+    {
+      "collateral_locked": "5",
+      "liability": "4",
+      "no_redeemed": "0",
+      "no_supply": "5",
+      "payout": "0",
+      "result": "INVALID",
+      "side": "YES",
+      "state": "REDEEMABLE",
+      "yes_redeemed": "1",
+      "yes_supply": "4"
+    },
+    {
+      "collateral_locked": "4",
+      "liability": "3",
+      "no_redeemed": "0",
+      "no_supply": "5",
+      "payout": "1",
+      "result": "INVALID",
+      "side": "YES",
+      "state": "REDEEMABLE",
+      "yes_redeemed": "2",
+      "yes_supply": "3"
+    },
+    {
+      "collateral_locked": "4",
+      "liability": "3",
+      "no_redeemed": "0",
+      "no_supply": "5",
+      "payout": "0",
+      "result": "INVALID",
+      "side": "YES",
+      "state": "REDEEMABLE",
+      "yes_redeemed": "3",
+      "yes_supply": "2"
+    },
+    {
+      "collateral_locked": "3",
+      "liability": "2",
+      "no_redeemed": "0",
+      "no_supply": "5",
+      "payout": "1",
+      "result": "INVALID",
+      "side": "YES",
+      "state": "REDEEMABLE",
+      "yes_redeemed": "4",
+      "yes_supply": "1"
+    },
+    {
+      "collateral_locked": "3",
+      "liability": "2",
+      "no_redeemed": "0",
+      "no_supply": "5",
+      "payout": "0",
+      "result": "INVALID",
+      "side": "YES",
+      "state": "REDEEMABLE",
+      "yes_redeemed": "5",
+      "yes_supply": "0"
+    },
+    {
+      "collateral_locked": "3",
+      "liability": "2",
+      "no_redeemed": "1",
+      "no_supply": "4",
+      "payout": "0",
+      "result": "INVALID",
+      "side": "NO",
+      "state": "REDEEMABLE",
+      "yes_redeemed": "5",
+      "yes_supply": "0"
+    },
+    {
+      "collateral_locked": "2",
+      "liability": "1",
+      "no_redeemed": "2",
+      "no_supply": "3",
+      "payout": "1",
+      "result": "INVALID",
+      "side": "NO",
+      "state": "REDEEMABLE",
+      "yes_redeemed": "5",
+      "yes_supply": "0"
+    },
+    {
+      "collateral_locked": "2",
+      "liability": "1",
+      "no_redeemed": "3",
+      "no_supply": "2",
+      "payout": "0",
+      "result": "INVALID",
+      "side": "NO",
+      "state": "REDEEMABLE",
+      "yes_redeemed": "5",
+      "yes_supply": "0"
+    },
+    {
+      "collateral_locked": "1",
+      "liability": "0",
+      "no_redeemed": "4",
+      "no_supply": "1",
+      "payout": "1",
+      "result": "INVALID",
+      "side": "NO",
+      "state": "REDEEMABLE",
+      "yes_redeemed": "5",
+      "yes_supply": "0"
+    },
+    {
+      "collateral_locked": "1",
+      "liability": "0",
+      "no_redeemed": "5",
+      "no_supply": "0",
+      "payout": "0",
+      "result": "INVALID",
+      "side": "NO",
+      "state": "REDEEMABLE",
+      "yes_redeemed": "5",
+      "yes_supply": "0"
+    }
+  ]
+}

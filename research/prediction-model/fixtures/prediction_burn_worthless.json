@@ -1,0 +1,48 @@
+{
+  "after_archive": {
+    "collateral_locked": "0",
+    "liability": "0",
+    "no_numerator": "0",
+    "no_redeemed": "0",
+    "no_supply": "0",
+    "residual": "0",
+    "residual_to_sink": "0",
+    "result": "1",
+    "split_amount": "8",
+    "state": "6",
+    "yes_numerator": "2",
+    "yes_redeemed": "8",
+    "yes_supply": "0"
+  },
+  "after_burn": {
+    "collateral_locked": "0",
+    "liability": "0",
+    "no_numerator": "0",
+    "no_redeemed": "0",
+    "no_supply": "0",
+    "residual_to_sink": "0",
+    "result": "1",
+    "split_amount": "8",
+    "state": "5",
+    "yes_numerator": "2",
+    "yes_redeemed": "8",
+    "yes_supply": "0"
+  },
+  "after_redeem": {
+    "burn_amount": "8",
+    "collateral_locked": "0",
+    "liability": "0",
+    "no_numerator": "0",
+    "no_redeemed": "0",
+    "no_supply": "8",
+    "payout": "8",
+    "redeem_amount": "8",
+    "residual_to_sink": "0",
+    "result": "1",
+    "split_amount": "8",
+    "state": "5",
+    "yes_numerator": "2",
+    "yes_redeemed": "8",
+    "yes_supply": "0"
+  }
+}

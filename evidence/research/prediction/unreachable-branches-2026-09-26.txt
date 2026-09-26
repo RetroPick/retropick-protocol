@@ -1,0 +1,7 @@
+test_funding_branches_are_discharged (tests.test_unreachable_branches.UnreachableBranchTests.test_funding_branches_are_discharged) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.172s
+
+OK
+EXIT:0

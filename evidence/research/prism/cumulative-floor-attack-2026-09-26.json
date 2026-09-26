@@ -1,0 +1,108 @@
+{
+  "candidate": "CumulativeFloorSettlement",
+  "canonical_counterexample": {
+    "classification": "COUNTEREXAMPLE_FOUND",
+    "fragmented_paid_raw": 0,
+    "id": "CX-FP-SETTLEMENT-001",
+    "one_shot_floor_raw": 1,
+    "permanent": true,
+    "required_raw": 2,
+    "swept_dust_raw": 2
+  },
+  "canonical_math1": "FAIL",
+  "canonical_rule": "FixedPointSettlement.redeem",
+  "domain": {
+    "composition_supply_max": 12,
+    "decimals": [
+      18,
+      6,
+      0
+    ],
+    "labeled_composition_supply_max": 8,
+    "large_supplies": [
+      "2^128",
+      "2^256-1",
+      "10^6"
+    ],
+    "other_decimal_supply_max": 8,
+    "payouts_include": [
+      "0",
+      "1",
+      "333333333333333333",
+      "999999999999999999",
+      "1000000000000000000",
+      "1000000000000000001",
+      "2000000000000000000"
+    ],
+    "primary_decimals": 18,
+    "random_seed": 20260926,
+    "random_supply_max": 400,
+    "random_trials": 300,
+    "single_call_split_max": 24,
+    "tiny_stream": 4096,
+    "unit_sequence_supply_max": 12
+  },
+  "failures": [],
+  "leakage_bound": {
+    "assumptions": [
+      "non-negative integers",
+      "D = 10^18 * 10^(18-decimals) with decimals in 0..18",
+      "no mint on the settlement candidate",
+      "starting balance >= ceil(supply * payout / D)",
+      "every payout equals paid(R+q) - paid(R) on one global redeemed cursor",
+      "the whole supply is redeemed"
+    ],
+    "classification": "PROVEN_UNDER_ASSUMPTIONS",
+    "domain_check": "EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN",
+    "statement": "For any partition of a fixed supply, global-cursor payouts sum to floor(supply * payout / D). Against exact ceil funding the residual is 0 or 1. A single redemption pays floor(q * payout / D) or one more."
+  },
+  "new_counterexample": null,
+  "original_case": {
+    "candidate_paid": 1,
+    "candidate_residual": 1,
+    "orders": {
+      "AB": {
+        "paid": 1,
+        "receipts": {
+          "A": 0,
+          "B": 1
+        },
+        "residual": 1
+      },
+      "BA": {
+        "paid": 1,
+        "receipts": {
+          "A": 1,
+          "B": 0
+        },
+        "residual": 1
+      }
+    },
+    "per_holder_cursor_paid": 0
+  },
+  "per_call_mint_extraction_raw": 1,
+  "rejection": {
+    "attempts": 6,
+    "mutated": false
+  },
+  "runtime_seconds": 2.973316,
+  "self_fragmentation": {
+    "holder_a_below_isolated_floor": true,
+    "one_shot": 1,
+    "paid": 1,
+    "payout_wad": 500000000000000001,
+    "receipts": {
+      "A": 0,
+      "B": 1
+    },
+    "residual": 1,
+    "shortfall_received_by_other": true
+  },
+  "shared_cursor_cycle_mismatches": 0,
+  "shared_cursor_cycle_samples": 1920,
+  "single_call_max_shortfall_vs_isolated_floor": 0,
+  "single_call_max_surplus_vs_isolated_floor": 1,
+  "solidity": "not_written",
+  "states": 378530,
+  "transitions": 2542061
+}

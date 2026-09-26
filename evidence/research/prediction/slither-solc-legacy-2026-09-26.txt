@@ -1,0 +1,32 @@
+tool: slither 0.11.6
+command: slither src/prediction/PredictionMarket.sol --compile-force-framework solc --solc-force-legacy-json --solc-remaps openzeppelin-contracts/=../../contracts/lib/openzeppelin-contracts/
+sha: ef1ef74fe30df0bee6f6ec3b0e323305a27d023b
+purpose: bypass Foundry artifacts so the legacy AST flag is actually used
+'forge config --json' running
+Installing solc '0.8.26'...
+Version '0.8.26' installed.
+'/home/ubuntu/.solc-select/artifacts/solc-0.8.26/solc-0.8.26 --version' running
+'/home/ubuntu/.solc-select/artifacts/solc-0.8.26/solc-0.8.26 openzeppelin-contracts/=../../contracts/lib/openzeppelin-contracts/ forge-std/=../../contracts/lib/forge-std/src/ permit2/=../../contracts/lib/v4-periphery/lib/permit2/src/ v4-core/=../../contracts/lib/v4-core/src/ v4-hooks-public/=../../contracts/lib/v4-hooks-public/src/ v4-periphery/=../../contracts/lib/v4-periphery/src/ src/prediction/PredictionMarket.sol --combined-json abi,ast,bin,bin-runtime,srcmap,srcmap-runtime,userdoc,devdoc,hashes --optimize --optimize-runs 200 --evm-version cancun --allow-paths .,/workspace/research/contract-kernels/src/prediction' running
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/bin/slither", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/ubuntu/.local/lib/python3.12/site-packages/slither/__main__.py", line 815, in main
+    main_impl(all_detector_classes=detectors, all_printer_classes=printers)
+  File "/home/ubuntu/.local/lib/python3.12/site-packages/slither/__main__.py", line 936, in main_impl
+    ) = process_all(filename, args, detector_classes, printer_classes)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.local/lib/python3.12/site-packages/slither/__main__.py", line 100, in process_all
+    compilations = compile_all(target, **vars(args))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.local/lib/python3.12/site-packages/crytic_compile/crytic_compile.py", line 870, in compile_all
+    compilations.append(CryticCompile(target, **kwargs))
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.local/lib/python3.12/site-packages/crytic_compile/crytic_compile.py", line 279, in __init__
+    self._compile(**kwargs)
+  File "/home/ubuntu/.local/lib/python3.12/site-packages/crytic_compile/crytic_compile.py", line 725, in _compile
+    self._platform.compile(self, **kwargs)
+  File "/home/ubuntu/.local/lib/python3.12/site-packages/crytic_compile/platform/solc.py", line 199, in compile
+    raise InvalidCompilation("legacy JSON not supported from 0.8.x onwards")
+crytic_compile.platform.exceptions.InvalidCompilation: legacy JSON not supported from 0.8.x onwards
+exit_code: 1

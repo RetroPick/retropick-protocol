@@ -1,0 +1,30 @@
+{
+  "accounting_unchanged_by_quotes": {
+    "backing_covers_weights": "true",
+    "classification": "exact_on_declared_rationals",
+    "h_equals_gx": "true"
+  },
+  "arbitrage_will_happen": "NOT_YET_VALIDATED",
+  "crossed": {
+    "classification": "SUPPORTED_BY_SIMULATION",
+    "create_cost": "5",
+    "redeem_exceeds_create": "True",
+    "redeem_value": "8"
+  },
+  "depth_walk": {
+    "classification": "SUPPORTED_BY_SIMULATION",
+    "cost": "44"
+  },
+  "empty": {
+    "classification": "NOT_YET_VALIDATED",
+    "reason": "empty book"
+  },
+  "normal": {
+    "classification": "SUPPORTED_BY_SIMULATION",
+    "create_cost": "117/2",
+    "redeem_value": "87/2"
+  },
+  "not_a_protocol_theorem": true,
+  "not_kuru_liquidity": true,
+  "runtime_seconds": 0.000203
+}

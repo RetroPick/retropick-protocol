@@ -1,0 +1,67 @@
+tool: solhint
+5.2.0
+command: solhint -c /tmp/solhint-kernel.json -f stylish src/**/*.sol
+config: extends solhint:recommended
+cwd: /workspace/research/contract-kernels
+sha: 66760db99cb0181ebfbe7307026fd85d53040317
+install: npm install solhint@5 in /tmp/kernel-lint (local, not a repo dependency)
+
+src/prediction/ERC1167.sol
+  9:9  warning  Avoid to use inline assembly. It is acceptable only in rare cases  no-inline-assembly
+
+src/prediction/MockCollateral.sol
+   4:1  warning  Import in src/prediction/MockCollateral.sol doesn't exist in: openzeppelin-contracts/contracts/token/ERC20/ERC20.sol  import-path-check
+   8:5  warning  Immutable variables name are set to be in capitalized SNAKE_CASE                                                      immutable-vars-naming
+  11:5  warning  Explicitly mark visibility in function (Set ignoreConstructors to true if using solidity >=0.7.0)                     func-visibility
+
+src/prediction/OutcomeToken.sol
+   4:1  warning  Import in src/prediction/OutcomeToken.sol doesn't exist in: openzeppelin-contracts/contracts/token/ERC20/ERC20.sol  import-path-check
+  10:5  warning  Immutable variables name are set to be in capitalized SNAKE_CASE                                                    immutable-vars-naming
+  11:5  warning  Immutable variables name are set to be in capitalized SNAKE_CASE                                                    immutable-vars-naming
+  12:5  warning  Immutable variables name are set to be in capitalized SNAKE_CASE                                                    immutable-vars-naming
+  16:5  warning  Explicitly mark visibility in function (Set ignoreConstructors to true if using solidity >=0.7.0)                   func-visibility
+
+src/prediction/PredictionMarket.sol
+   4:1  warning  Import in src/prediction/PredictionMarket.sol doesn't exist in: openzeppelin-contracts/contracts/token/ERC20/IERC20.sol                     import-path-check
+   5:1  warning  Import in src/prediction/PredictionMarket.sol doesn't exist in: openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Metadata.sol  import-path-check
+   6:1  warning  Import in src/prediction/PredictionMarket.sol doesn't exist in: openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol            import-path-check
+   7:1  warning  Import in src/prediction/PredictionMarket.sol doesn't exist in: openzeppelin-contracts/contracts/utils/ReentrancyGuard.sol                  import-path-check
+  39:5  warning  Immutable variables name are set to be in capitalized SNAKE_CASE                                                                            immutable-vars-naming
+  40:5  warning  Immutable variables name are set to be in capitalized SNAKE_CASE                                                                            immutable-vars-naming
+  41:5  warning  Immutable variables name are set to be in capitalized SNAKE_CASE                                                                            immutable-vars-naming
+  42:5  warning  Immutable variables name are set to be in capitalized SNAKE_CASE                                                                            immutable-vars-naming
+  43:5  warning  Immutable variables name are set to be in capitalized SNAKE_CASE                                                                            immutable-vars-naming
+  44:5  warning  Immutable variables name are set to be in capitalized SNAKE_CASE                                                                            immutable-vars-naming
+  46:5  warning  Immutable variables name are set to be in capitalized SNAKE_CASE                                                                            immutable-vars-naming
+  47:5  warning  Immutable variables name are set to be in capitalized SNAKE_CASE                                                                            immutable-vars-naming
+  83:5  warning  Explicitly mark visibility in function (Set ignoreConstructors to true if using solidity >=0.7.0)                                           func-visibility
+
+src/prism/CandidateComponentBacking.sol
+   4:1  warning  Import in src/prism/CandidateComponentBacking.sol doesn't exist in: openzeppelin-contracts/contracts/token/ERC20/IERC20.sol           import-path-check
+   5:1  warning  Import in src/prism/CandidateComponentBacking.sol doesn't exist in: openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol  import-path-check
+   6:1  warning  Import in src/prism/CandidateComponentBacking.sol doesn't exist in: openzeppelin-contracts/contracts/utils/math/Math.sol              import-path-check
+   7:1  warning  Import in src/prism/CandidateComponentBacking.sol doesn't exist in: openzeppelin-contracts/contracts/utils/ReentrancyGuard.sol        import-path-check
+  29:5  warning  Immutable variables name are set to be in capitalized SNAKE_CASE                                                                      immutable-vars-naming
+  52:5  warning  Explicitly mark visibility in function (Set ignoreConstructors to true if using solidity >=0.7.0)                                     func-visibility
+
+src/prism/CandidateCumulativeSettlement.sol
+   4:1  warning  Import in src/prism/CandidateCumulativeSettlement.sol doesn't exist in: openzeppelin-contracts/contracts/token/ERC20/IERC20.sol           import-path-check
+   5:1  warning  Import in src/prism/CandidateCumulativeSettlement.sol doesn't exist in: openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol  import-path-check
+   6:1  warning  Import in src/prism/CandidateCumulativeSettlement.sol doesn't exist in: openzeppelin-contracts/contracts/utils/math/Math.sol              import-path-check
+   7:1  warning  Import in src/prism/CandidateCumulativeSettlement.sol doesn't exist in: openzeppelin-contracts/contracts/utils/ReentrancyGuard.sol        import-path-check
+  24:5  warning  Immutable variables name are set to be in capitalized SNAKE_CASE                                                                          immutable-vars-naming
+  25:5  warning  Immutable variables name are set to be in capitalized SNAKE_CASE                                                                          immutable-vars-naming
+  26:5  warning  Immutable variables name are set to be in capitalized SNAKE_CASE                                                                          immutable-vars-naming
+  28:5  warning  Immutable variables name are set to be in capitalized SNAKE_CASE                                                                          immutable-vars-naming
+  30:5  warning  Immutable variables name are set to be in capitalized SNAKE_CASE                                                                          immutable-vars-naming
+  52:5  warning  Explicitly mark visibility in function (Set ignoreConstructors to true if using solidity >=0.7.0)                                         func-visibility
+
+src/prism/CandidatePayoffTransform.sol
+  14:5  warning  Immutable variables name are set to be in capitalized SNAKE_CASE                                   immutable-vars-naming
+  15:5  warning  Immutable variables name are set to be in capitalized SNAKE_CASE                                   immutable-vars-naming
+  16:5  warning  Immutable variables name are set to be in capitalized SNAKE_CASE                                   immutable-vars-naming
+  33:5  warning  Explicitly mark visibility in function (Set ignoreConstructors to true if using solidity >=0.7.0)  func-visibility
+
+✖ 42 problems (0 errors, 42 warnings)
+
+exit_code: 0

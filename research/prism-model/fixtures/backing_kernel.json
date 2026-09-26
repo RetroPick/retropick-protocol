@@ -1,0 +1,661 @@
+{
+  "schema": "component_backing_kernel_fixtures_v1",
+  "source": "research/prism-model/fixed_point_model.py FixedPointSeries and reservation_ledger.py",
+  "not_settlement": true,
+  "not_fixed_point_settlement_redeem": true,
+  "canonical_oracle": false,
+  "math_1": "FAIL",
+  "contract_1": "not_met",
+  "v2_promotion": false,
+  "case_count": 11,
+  "cases": [
+    {
+      "id": "deposit_only",
+      "component_count": 2,
+      "weights_wad": [
+        "600000000000000000",
+        "400000000000000000"
+      ],
+      "decimals": [
+        18,
+        6
+      ],
+      "step_count": 1,
+      "steps": [
+        {
+          "op": "deposit",
+          "expect": "ok",
+          "supply": "0",
+          "backing": [
+            "3",
+            "1"
+          ],
+          "holder_balance": "0",
+          "required": [
+            "0",
+            "0"
+          ],
+          "amounts": [
+            "3",
+            "1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mint_within_backing",
+      "component_count": 2,
+      "weights_wad": [
+        "600000000000000000",
+        "400000000000000000"
+      ],
+      "decimals": [
+        18,
+        6
+      ],
+      "step_count": 2,
+      "steps": [
+        {
+          "op": "deposit",
+          "expect": "ok",
+          "supply": "0",
+          "backing": [
+            "3",
+            "1"
+          ],
+          "holder_balance": "0",
+          "required": [
+            "0",
+            "0"
+          ],
+          "amounts": [
+            "3",
+            "1"
+          ]
+        },
+        {
+          "op": "mint",
+          "expect": "ok",
+          "supply": "5",
+          "backing": [
+            "3",
+            "1"
+          ],
+          "holder_balance": "5",
+          "required": [
+            "3",
+            "1"
+          ],
+          "quantity": "5"
+        }
+      ]
+    },
+    {
+      "id": "mint_short",
+      "component_count": 2,
+      "weights_wad": [
+        "600000000000000000",
+        "400000000000000000"
+      ],
+      "decimals": [
+        18,
+        6
+      ],
+      "step_count": 2,
+      "steps": [
+        {
+          "op": "deposit",
+          "expect": "ok",
+          "supply": "0",
+          "backing": [
+            "2",
+            "1"
+          ],
+          "holder_balance": "0",
+          "required": [
+            "0",
+            "0"
+          ],
+          "amounts": [
+            "2",
+            "1"
+          ]
+        },
+        {
+          "op": "mint",
+          "expect": "reject",
+          "error": "insufficient_backing",
+          "supply": "0",
+          "backing": [
+            "2",
+            "1"
+          ],
+          "holder_balance": "0",
+          "required": [
+            "0",
+            "0"
+          ],
+          "quantity": "5",
+          "fail_index": 0,
+          "fail_backing": "2",
+          "fail_required": "3"
+        }
+      ]
+    },
+    {
+      "id": "mint_before_deposit",
+      "component_count": 2,
+      "weights_wad": [
+        "600000000000000000",
+        "400000000000000000"
+      ],
+      "decimals": [
+        18,
+        6
+      ],
+      "step_count": 1,
+      "steps": [
+        {
+          "op": "mint",
+          "expect": "reject",
+          "error": "insufficient_backing",
+          "supply": "0",
+          "backing": [
+            "0",
+            "0"
+          ],
+          "holder_balance": "0",
+          "required": [
+            "0",
+            "0"
+          ],
+          "quantity": "5",
+          "fail_index": 0,
+          "fail_backing": "0",
+          "fail_required": "3"
+        }
+      ]
+    },
+    {
+      "id": "mint_zero",
+      "component_count": 2,
+      "weights_wad": [
+        "600000000000000000",
+        "400000000000000000"
+      ],
+      "decimals": [
+        18,
+        6
+      ],
+      "step_count": 1,
+      "steps": [
+        {
+          "op": "mint",
+          "expect": "reject",
+          "error": "zero_quantity",
+          "supply": "0",
+          "backing": [
+            "0",
+            "0"
+          ],
+          "holder_balance": "0",
+          "required": [
+            "0",
+            "0"
+          ],
+          "quantity": "0"
+        }
+      ]
+    },
+    {
+      "id": "redeem_in_kind_small",
+      "component_count": 2,
+      "weights_wad": [
+        "600000000000000000",
+        "400000000000000000"
+      ],
+      "decimals": [
+        18,
+        6
+      ],
+      "step_count": 3,
+      "steps": [
+        {
+          "op": "deposit",
+          "expect": "ok",
+          "supply": "0",
+          "backing": [
+            "3",
+            "1"
+          ],
+          "holder_balance": "0",
+          "required": [
+            "0",
+            "0"
+          ],
+          "amounts": [
+            "3",
+            "1"
+          ]
+        },
+        {
+          "op": "mint",
+          "expect": "ok",
+          "supply": "5",
+          "backing": [
+            "3",
+            "1"
+          ],
+          "holder_balance": "5",
+          "required": [
+            "3",
+            "1"
+          ],
+          "quantity": "5"
+        },
+        {
+          "op": "redeem",
+          "expect": "ok",
+          "supply": "3",
+          "backing": [
+            "2",
+            "1"
+          ],
+          "holder_balance": "3",
+          "required": [
+            "2",
+            "1"
+          ],
+          "quantity": "2",
+          "released": [
+            "1",
+            "0"
+          ],
+          "naive_ceil_of_quantity": [
+            "2",
+            "1"
+          ],
+          "requirement_delta_differs_from_naive_ceil": true
+        }
+      ],
+      "supply_before_release": "5",
+      "supply_at_release": "3",
+      "backing0_at_release": "2"
+    },
+    {
+      "id": "redeem_above_balance",
+      "component_count": 2,
+      "weights_wad": [
+        "600000000000000000",
+        "400000000000000000"
+      ],
+      "decimals": [
+        18,
+        6
+      ],
+      "step_count": 3,
+      "steps": [
+        {
+          "op": "deposit",
+          "expect": "ok",
+          "supply": "0",
+          "backing": [
+            "3",
+            "1"
+          ],
+          "holder_balance": "0",
+          "required": [
+            "0",
+            "0"
+          ],
+          "amounts": [
+            "3",
+            "1"
+          ]
+        },
+        {
+          "op": "mint",
+          "expect": "ok",
+          "supply": "5",
+          "backing": [
+            "3",
+            "1"
+          ],
+          "holder_balance": "5",
+          "required": [
+            "3",
+            "1"
+          ],
+          "quantity": "5"
+        },
+        {
+          "op": "redeem",
+          "expect": "reject",
+          "error": "invalid_quantity",
+          "supply": "5",
+          "backing": [
+            "3",
+            "1"
+          ],
+          "holder_balance": "5",
+          "required": [
+            "3",
+            "1"
+          ],
+          "quantity": "6"
+        }
+      ]
+    },
+    {
+      "id": "prism_surplus_mint",
+      "component_count": 2,
+      "weights_wad": [
+        "600000000000000000",
+        "400000000000000000"
+      ],
+      "decimals": [
+        18,
+        18
+      ],
+      "step_count": 2,
+      "steps": [
+        {
+          "op": "deposit",
+          "expect": "ok",
+          "supply": "0",
+          "backing": [
+            "700",
+            "500"
+          ],
+          "holder_balance": "0",
+          "required": [
+            "0",
+            "0"
+          ],
+          "amounts": [
+            "700",
+            "500"
+          ]
+        },
+        {
+          "op": "mint",
+          "expect": "ok",
+          "supply": "1000",
+          "backing": [
+            "700",
+            "500"
+          ],
+          "holder_balance": "1000",
+          "required": [
+            "600",
+            "400"
+          ],
+          "quantity": "1000"
+        }
+      ]
+    },
+    {
+      "id": "prism_overmint",
+      "component_count": 2,
+      "weights_wad": [
+        "600000000000000000",
+        "400000000000000000"
+      ],
+      "decimals": [
+        18,
+        18
+      ],
+      "step_count": 2,
+      "steps": [
+        {
+          "op": "deposit",
+          "expect": "ok",
+          "supply": "0",
+          "backing": [
+            "599",
+            "400"
+          ],
+          "holder_balance": "0",
+          "required": [
+            "0",
+            "0"
+          ],
+          "amounts": [
+            "599",
+            "400"
+          ]
+        },
+        {
+          "op": "mint",
+          "expect": "reject",
+          "error": "insufficient_backing",
+          "supply": "0",
+          "backing": [
+            "599",
+            "400"
+          ],
+          "holder_balance": "0",
+          "required": [
+            "0",
+            "0"
+          ],
+          "quantity": "1000",
+          "fail_index": 0,
+          "fail_backing": "599",
+          "fail_required": "600"
+        }
+      ]
+    },
+    {
+      "id": "prism_in_kind_redeem",
+      "component_count": 2,
+      "weights_wad": [
+        "600000000000000000",
+        "400000000000000000"
+      ],
+      "decimals": [
+        18,
+        18
+      ],
+      "step_count": 3,
+      "steps": [
+        {
+          "op": "deposit",
+          "expect": "ok",
+          "supply": "0",
+          "backing": [
+            "600",
+            "400"
+          ],
+          "holder_balance": "0",
+          "required": [
+            "0",
+            "0"
+          ],
+          "amounts": [
+            "600",
+            "400"
+          ]
+        },
+        {
+          "op": "mint",
+          "expect": "ok",
+          "supply": "1000",
+          "backing": [
+            "600",
+            "400"
+          ],
+          "holder_balance": "1000",
+          "required": [
+            "600",
+            "400"
+          ],
+          "quantity": "1000"
+        },
+        {
+          "op": "redeem",
+          "expect": "ok",
+          "supply": "750",
+          "backing": [
+            "450",
+            "300"
+          ],
+          "holder_balance": "750",
+          "required": [
+            "450",
+            "300"
+          ],
+          "quantity": "250",
+          "released": [
+            "150",
+            "100"
+          ],
+          "naive_ceil_of_quantity": [
+            "150",
+            "100"
+          ],
+          "requirement_delta_differs_from_naive_ceil": false
+        }
+      ]
+    },
+    {
+      "id": "wad_minimum_backing",
+      "component_count": 2,
+      "weights_wad": [
+        "600000000000000000",
+        "400000000000000000"
+      ],
+      "decimals": [
+        18,
+        6
+      ],
+      "step_count": 3,
+      "steps": [
+        {
+          "op": "deposit",
+          "expect": "ok",
+          "supply": "0",
+          "backing": [
+            "600000000000000000",
+            "400000"
+          ],
+          "holder_balance": "0",
+          "required": [
+            "0",
+            "0"
+          ],
+          "amounts": [
+            "600000000000000000",
+            "400000"
+          ]
+        },
+        {
+          "op": "mint",
+          "expect": "ok",
+          "supply": "1000000000000000000",
+          "backing": [
+            "600000000000000000",
+            "400000"
+          ],
+          "holder_balance": "1000000000000000000",
+          "required": [
+            "600000000000000000",
+            "400000"
+          ],
+          "quantity": "1000000000000000000"
+        },
+        {
+          "op": "redeem",
+          "expect": "ok",
+          "supply": "666666666666666667",
+          "backing": [
+            "400000000000000001",
+            "266667"
+          ],
+          "holder_balance": "666666666666666667",
+          "required": [
+            "400000000000000001",
+            "266667"
+          ],
+          "quantity": "333333333333333333",
+          "released": [
+            "199999999999999999",
+            "133333"
+          ],
+          "naive_ceil_of_quantity": [
+            "200000000000000000",
+            "133334"
+          ],
+          "requirement_delta_differs_from_naive_ceil": true
+        }
+      ]
+    }
+  ],
+  "prism_cross_check": {
+    "status": "agree",
+    "weights_wad": [
+      "600000000000000000",
+      "400000000000000000"
+    ],
+    "decimals": [
+      18,
+      18
+    ],
+    "surplus_deposit": [
+      "700",
+      "500"
+    ],
+    "surplus_mint": "1000",
+    "surplus_backing": [
+      "700",
+      "500"
+    ],
+    "surplus_supply": "1000",
+    "surplus_margin": [
+      "100",
+      "100"
+    ],
+    "overmint_deposit": [
+      "599",
+      "400"
+    ],
+    "overmint_quantity": "1000",
+    "overmint_rejected": true,
+    "redeem_deposit": [
+      "600",
+      "400"
+    ],
+    "redeem_mint": "1000",
+    "redeem_quantity": "250",
+    "redeem_released": [
+      "150",
+      "100"
+    ],
+    "redeem_supply": "750"
+  },
+  "reservation": {
+    "asset_label": "FED_YES",
+    "series_a_label": "SERIES_A",
+    "series_b_label": "SERIES_B",
+    "asset_id": "1",
+    "series_a": "1",
+    "series_b": "2",
+    "deposit": "100",
+    "balance_after_deposit": "100",
+    "empty_series_amount": "1",
+    "empty_series_rejected": true,
+    "available_after_empty_reject": "100",
+    "total_reserved_after_empty_reject": "0",
+    "reserve_a": "60",
+    "available_after_a": "40",
+    "total_reserved_after_a": "60",
+    "reserve_b_rejected": "50",
+    "available_after_reject": "40",
+    "total_reserved_after_reject": "60",
+    "reserve_b_accepted": "40",
+    "total_reserved": "100",
+    "available": "0",
+    "reserved_a": "60",
+    "reserved_b": "40"
+  }
+}

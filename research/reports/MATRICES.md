@@ -1,0 +1,226 @@
+# Qualification matrices
+
+Every row points at evidence from this program. Status words are the program's classifications, not marketing.
+
+## PREDICTION_REQUIREMENT_MATRIX
+
+| Requirement | Status | Evidence |
+|---|---|---|
+| 1 collateral splits into 1 YES + 1 NO | PROVEN for the zero-fee model | `research/prediction-model/theorems.py` P-THEOREM-1, fixture `prediction_split` |
+| Merge is the inverse before resolution | PROVEN | P-THEOREM-2, fixture `prediction_merge` |
+| YES_WIN / NO_WIN payouts | PROVEN on the integer path | P-THEOREM-4, Foundry `test_yes_redemption_matches_fixture` |
+| INVALID not automatic | RECOMMENDATION plus explicit enum | ADR-P05, Polymarket resolution page retrieved 2026-09-26 |
+| Cumulative INVALID floor | PROVEN on tested amounts; half-up is a counterexample | `docs/prediction/07_ROUNDING.md` |
+| Separate RESOLVED and REDEEMABLE | implemented in kernel | `test_yes_redemption_matches_fixture` expects revert before open |
+| No admin mint | tested | `test_user_cannot_mint_outcome` |
+| Standard collateral only | tested for fee-on-transfer | `test_fee_on_transfer_split_reverts` |
+| Kuru listing | BLOCKED | worksheet; RetroPick parameters not derived |
+| Kernel operations have Python fixtures and Foundry assertions | measured | `PredictionDifferentialTest`, 14 passed. No integer mismatch |
+| `Underfunded` and `LiveLiability` reachable | PROVEN_UNDER_ASSUMPTIONS unreachable | `unreachable-branches-2026-09-26.json`. Branch coverage stays 94.44% (34/36) |
+| PRED-CONTRACT-1 PASS | not met | `docs/prediction/13_PRED_GATE.md` |
+
+## PRISM_REQUIREMENT_MATRIX
+
+| Requirement | Status | Evidence |
+|---|---|---|
+| `h=Gx`, `x>=0` | REPRODUCED | existing replication tests; ADR-002 |
+| Minimum-cost exact `Gx=h` | EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN | `minimum_cost_replication.py`. Not Kuru. Not solvency. Not MATH-1 PASS |
+| AND is not replicated by A, B, and 1 | PRODUCT_NOT_REPLICABLE | `minimum_cost_replication.py` equality inconsistency. Prior Z3 row stays COUNTEREXAMPLE_FOUND |
+| Backing before mint | REPRODUCED | `test_model.py` |
+| Component requirement delta round trip | PROVEN by construction; 200 samples, 0 mismatches | `math1_probe.component_round_trip_samples` |
+| Per-call settlement floor | COUNTEREXAMPLE_FOUND | `CX-FP-SETTLEMENT-001` |
+| Cumulative-floor candidate | PROVEN_UNDER_ASSUMPTIONS; domain check EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN | `cumulative_settlement.py`; not an oracle replacement |
+| Global-cursor telescope | PROVEN_UNDER_ASSUMPTIONS for the inductive identity only | SymPy 1.14.0. Not canonical MATH-1 |
+| MATH-1F synthetic quotes | measured_simulation | `market_microstructure.py`. Not solvency. Not Kuru |
+| MATH-1 PASS | FAIL | canonical per-call rule remains |
+| PRISM Solidity | settlement, component backing, and a payoff-transform candidate | Settlement and backing kernels are unchanged. `partial_resolution_transform` is `differential_research_kernel`. CONTRACT-1 not_met. Not MATH-1 PASS |
+| Payoff-equivalent partial transform | differential_research_kernel | `partial_resolution.py` and `CandidatePayoffTransform.sol`. Wrong component, non-equivalent payoff, and reorder are tested. Not wired to prediction tokens |
+| PRISM CONTRACT-ARCH-1 | proposed, not pass | `docs/prism/04-architecture/PHASE1_CANDIDATE_SERIES.md` |
+
+## THEOREM_STATUS_MATRIX
+
+| ID | Status | Evidence |
+|---|---|---|
+| P-THEOREM-1 | PROVEN | `theorems.all_theorems` |
+| P-THEOREM-2 | PROVEN | same |
+| P-THEOREM-3 | PROVEN | same, three results on one market |
+| P-THEOREM-4 | PROVEN | same |
+| P-THEOREM-5 | PROVEN | illegal operations rejected |
+| P-THEOREM-6 qualified floor | PROVEN | invalid market of 5 units |
+| P-THEOREM-6 half-up | COUNTEREXAMPLE_FOUND | `half_up_both_sides(1) == 2` |
+| P-THEOREM-6 per-call floor | COUNTEREXAMPLE_FOUND | `fragmentation_gap(5) > 0` |
+| P-THEOREM-7 | PROVEN | supplies differ after burn, liability holds |
+| T-FP-003 funding guard | PROVEN_UNDER_ASSUMPTIONS for funding only | addendum in `docs/prism/math/17_THEOREMS.md` |
+| CX-FP-SETTLEMENT-001 | COUNTEREXAMPLE_FOUND | probe JSON |
+| T-FP-CUM-001 | PROVEN_UNDER_ASSUMPTIONS | global-cursor identity; 378530 states, 2542061 transitions, 2.973316s |
+| Global-cursor telescope, symbolic | PROVEN_UNDER_ASSUMPTIONS | SymPy 1.14.0 inductive cancellation. `candidate-telescope-proof-2026-09-26.json` |
+| Per-holder cursor telescope | COUNTEREXAMPLE_FOUND | witness gap 1. Z3 5.1.0. Not the candidate |
+| MATH-1F | measured_simulation | synthetic books. Not a solvency result |
+| Z3 two-component solvency | PROVEN_UNDER_ASSUMPTIONS | Z3 5.1.0 unsat |
+| Market demand hypotheses | NOT_YET_VALIDATED | unchanged |
+
+## COUNTEREXAMPLE_MATRIX
+
+| ID | What fails | Minimal case | Evidence |
+|---|---|---|---|
+| CX-PRED-HALF-UP | both sides ceil(q/2) | q=1 pays 2 | `complete_set.naive_half_up` |
+| CX-PRED-FRAGMENT | per-call floor(q/2) | 1-unit stream pays 0 | `fixed_point.fragmentation_gap` |
+| CX-PRED-FEE-NAIVE | credit nominal amount | received 90, credit 100 | `theorems.fee_on_transfer_naive_credit_is_insolvent` |
+| CX-REPL-001 | AND from marginals | target (0,0,0,1) | existing test plus Z3 |
+| CX-FP-SETTLEMENT-001 | per-call settlement floor | supply 2, payout 1e18-1, dust 2, holders 0 | `test_math1_probe.py` and `test_cumulative_settlement.py` |
+| Candidate self-split | not a dust-sweep counterexample | A receives 0, B receives 1, sum equals one-shot, residual 1 | `cumulative_settlement_attack.py` |
+
+## INVARIANT_COVERAGE_MATRIX
+
+| ID | Python | Foundry | Gap |
+|---|---|---|---|
+| P-I01 | `invariant_ids.py` via `test_invariants.py` | `test_P_I01_supplies_match_balances` | executable |
+| P-I02 | `invariant_ids.py` via `test_invariants.py` | `test_P_I02_conservation_through_resolution_pending` and `invariant_preResolutionConservation` | executable. Issuance invariant does not walk redemption |
+| P-I03 | `invariant_ids.py` via `test_invariants.py` | `test_P_I03_split_only_while_open_and_equal` | executable |
+| P-I04 | `invariant_ids.py` via `test_invariants.py` | `test_P_I04_merge_while_locked_releases_equal_collateral` | executable |
+| P-I05 | `invariant_ids.py` via `test_invariants.py`, including `cancel_draft` | `test_P_I05_spec_hash_is_immutable` | kernel `cancelDraft` is NOT_YET_VALIDATED |
+| P-I06 | `invariant_ids.py` via `test_invariants.py` | `test_P_I06_one_result_from_pending_by_resolver` | executable |
+| P-I07 | `invariant_ids.py` via `test_invariants.py` | `test_P_I07_redeem_only_redeemable_balance` | executable |
+| P-I08 | `invariant_ids.py` via `test_invariants.py` | `test_P_I08_collateral_covers_liability` | executable |
+| P-I09 | `invariant_ids.py` via `test_invariants.py` | `test_P_I09_no_admin_mint` | executable |
+| P-I10 | `invariant_ids.py` via `test_invariants.py` | `test_P_I10_archive_only_at_zero_supply` | executable |
+| Foundry issuance conservation | n/a | 256 runs, 128000 calls, 48023 handler reverts, invariant held | split, merge, closeMint, beginResolution. Not redemption |
+| R-I01 | `test_replication.py` `test_exact_component_is_replicable` and `test_known_and_is_not_replicable` | none | executable. INV-P01 |
+| R-I02 | `test_invariant_ids.py` `test_r_i02_activated_weights_and_matrix_stay_fixed` | none on `PrismSeries` | executable. INV-P02. Previously prose only |
+| R-I03 | `test_model.py` `test_exact_mint_then_redeem` | `CandidateComponentBacking.t.sol` `test_matches_python_fixtures` | executable. INV-P03 |
+| R-I04 | `test_model.py` `test_overmint_rejected` | backing fixtures reject an underbacked mint | executable. INV-P04 |
+| R-I05 | `test_model.py` `test_exact_mint_then_redeem` | requirement-delta redeem in the backing kernel | executable. INV-P05 |
+| R-I06 | `test_model.py` `test_terminal_solvency_all_states` | none | executable. INV-P06 |
+| R-I07 | `test_executable_gaps.py` `test_cross_series_double_allocation_is_rejected` | `test_reservation_matches_fixture` | executable. INV-P07 |
+| R-I08 | `test_partial_resolution.py` `test_component_transform_preserves_remaining_states` | `CandidatePayoffTransform.t.sol` `test_matches_python_fixtures` | executable. INV-P08 |
+| R-I09 | `test_settlement.py` `test_underfunded_cannot_become_redeemable` | `test_final_supply_is_not_redeemable_until_funded` | executable. INV-P09. Gate key `R-I08_resolved_not_redeemable` still names this test and was not renamed |
+| R-I10 | exact model `test_exact_final_redemption`. Canonical per-call `test_per_call_rule_remains_the_counterexample`. Candidate `test_candidate_pays_the_original_case_without_replacing_the_oracle` | candidate differential fixtures | COUNTEREXAMPLE_FOUND on `FixedPointSettlement.redeem`. Candidate asserted. Canonical MATH-1 stays FAIL. INV-P10 |
+| R-I11 | `test_lifecycle.py` `test_no_resurrection`; `test_invariant_ids.py` `test_r_i11_redeemable_and_archived_do_not_reopen` | none | executable. INV-P11. RESOLVED to ACTIVE was already tested. REDEEMABLE and ARCHIVED edges were not |
+| R-I12 | `test_invariant_ids.py` `test_r_i12_final_resolution_is_committed_once` | none | executable. INV-P12. Previously prose only |
+| X-I01..X-I07 | not modeled jointly | not built | BLOCKED |
+| X-I01 | not built | not built | NOT_YET_VALIDATED. source interface not frozen |
+| X-I02 | not built | not built | NOT_YET_VALIDATED. source interface not frozen |
+| X-I03 | not built | not built | NOT_YET_VALIDATED. source interface not frozen |
+| X-I04 | not built | not built | NOT_YET_VALIDATED. source interface not frozen |
+| X-I05 | not built | not built | NOT_YET_VALIDATED. source interface not frozen |
+| X-I06 | not built | not built | NOT_YET_VALIDATED. source interface not frozen |
+| X-I07 | not built | not built | NOT_YET_VALIDATED. source interface not frozen |
+
+R-I01..R-I12 are INV-P01..INV-P12 in `docs/prism/math/16_INVARIANTS.md`. This program does not renumber them. The gate key `R-I08_resolved_not_redeemable` remains the name of the funding-refusal test. That statement is INV-P09, so its coverage row is R-I09. No cross-module deposit harness was added.
+
+## BENCHMARK_MATRIX
+
+| Benchmark | Result | Evidence |
+|---|---|---|
+| Payoff 2/4 .. 16/16 | 0.0028s .. 0.0531s for 200 iterations | `research/benchmarks/README.md`. Not rerun |
+| Replication solve 2/4, 4/4, 4/16, 8/16 | five local samples, medians 0.000084s, 0.000275s, 0.000553s, 0.013973s | `reference-model-timings-2026-09-26.json`. Not an SLO |
+| Replication solve 16/16 | NOT_RUN | domain cap is 8 components |
+| Prediction exhaustive max_unit 3 | 208 states, 522 transitions, five samples, median 0.084142s | earlier single run 0.086862s remains in `exhaustive_summary.json` |
+| Foundry test gas | snapshot file | `.gas-snapshot` |
+| Outcome token deployment | full pair 1068486; clone pair 789955 | `evidence/research/prediction/outcome-token-gas-2026-09-26.txt` |
+| Percentiles | not reported | sample size too small |
+
+## GAS_MATRIX
+
+| Test | Gas in one snapshot | Note |
+|---|---|---|
+| test_split_matches_fixture | 312956 | whole test |
+| test_merge_matches_fixture | 349076 | whole test |
+| test_yes_redemption_matches_fixture | 659504 | whole test |
+| test_invalid_cumulative_floor_matches_fixture | 1262455 | whole test |
+| test_fee_on_transfer_split_reverts | 145431 | whole test |
+| test_user_cannot_mint_outcome | 35804 | whole test |
+| full OutcomeToken CREATE | 534243 | assembly gas() around CREATE, code deposit included |
+| ERC-1167 clone CREATE | 41064 | 45-byte runtime |
+| storage-clone initialize | 96264 | decimals 6 and 18 |
+| candidate fund transfer | 25535 | assembly `gas()` around CALL. Supply 2, payout `10^18-1`, decimals 18, ceil funding 2 |
+| candidate `makeRedeemable` | 35308 | same scenario |
+| candidate first 1-unit redeem | 40041 | pays 0 |
+| candidate second 1-unit redeem | 52188 | pays 1 |
+| candidate fund + open + two redeems | 153072 | sum of those four CALL measurements |
+| `test_fund_and_redeem_gas` | 472420 | whole-test forge snapshot, includes deployment |
+| prediction market deploy | 2438030 | assembly `gas()` around CREATE. Includes two internal outcome tokens. One test, both paths |
+| prediction `split(100)` | 206722 | assembly `gas()` around CALL. Decimals 18 |
+| prediction `merge(40)` | 37041 | after that split |
+| prediction `resolve` YES | 48909 | after unmetered `closeMint` and `beginResolution` |
+| prediction redeem winner | 34979 | `redeemYes(60)` pays 60 |
+| prediction redeem INVALID | 37779 | `redeemYes(5)` pays 2 |
+| `test_prediction_operation_gas` | 6578687 | whole test, includes deployment. Prefer the CALL rows |
+
+The six prediction rows above the CREATE rows, and `test_fund_and_redeem_gas`, are whole-test gas from `research/contract-kernels/.gas-snapshot`. The CREATE rows for a standalone outcome token are the assembly meter in `evidence/research/prediction/outcome-token-gas-2026-09-26.txt`. The prediction CALL rows are `evidence/research/prediction/operation-gas-2026-09-26.txt`. The candidate CALL rows are the assembly meter in `evidence/research/prism/candidate-settlement-gas-2026-09-26.txt`.
+
+## SECURITY_COVERAGE_MATRIX
+
+| Tool | Result |
+|---|---|
+| forge test | Foundry 1.8.3; coverage run was 59 tests, exit 0 |
+| forge fuzz | coverage command used 64 runs |
+| forge invariant | coverage command: 256 runs, depth 500, 128000 calls, 47348 reverts |
+| forge coverage | PredictionMarket lines 100.00% (119/119), branches 94.44% (34/36). Fuzz runs 64. Invariant runs 256. `kernel-coverage-fuzz64-2026-09-26.txt` |
+| slither 0.11.6 complete IR | BLOCKED_TOOL. Legacy JSON flag does not produce IR for `_redeem`. `slither-legacy-ast-2026-09-26.txt` and `slither-solc-legacy-2026-09-26.txt`. S-P16 stays open |
+| solhint 5.2.0 | exit 0, 42 warnings, 0 errors. `solhint-2026-09-26.txt`. Style and import-path warnings. Not PRED-CONTRACT-1 |
+| echidna, medusa, halmos, mythril, semgrep | BLOCKED_TOOL |
+
+## KURU_COMPATIBILITY_MATRIX
+
+| Check | Status | Evidence |
+|---|---|---|
+| ERC-20 type-0 market shape | documented | Kuru router page, 2026-09-26 |
+| Decimals must be 18 | not established | deployer example uses 18 for its own token; router reads token decimals |
+| Deployment equals liquidity | false in the docs | deploy-market page separates vault deposit |
+| Live RetroPick market | BLOCKED | no router bytecode, no accepted router, no fork, no tx |
+| Second primary-source pass | BLOCKED | router, SDK, OrderBook, vault, fees, addresses, Monad Flow. `source-pass-2026-09-26.json` |
+| `calculatePrecisions` examples | MEASURED_LOCAL | Node 22.14.0 and ethers 5.7.1. Not RetroPick policy |
+
+## CROSS_MODULE_DEPENDENCY_MATRIX
+
+| Edge | Status |
+|---|---|
+| Prediction outcome ERC-20 -> PRISM backing | not wired. ADR-R04 says plain ERC-20 after prediction qualification |
+| PRISM settlement -> prediction resolution | source resolution is not PRISM funding. Settlement rule itself FAILs |
+| Either module -> Kuru | secondary only. Not required for redemption |
+| Either module -> Launchpad token | forbidden. Launcher token was not reused |
+| SOURCE-ASSET INTERFACE FREEZE | proposed_not_frozen. X-I01..X-I07 not tested |
+
+## PROMOTION_GATE_MATRIX
+
+| Gate | Status |
+|---|---|
+| PRED-CONTRACT-1 | NOT PASS |
+| PRISM MATH-1 | FAIL |
+| MATH-1D candidate cumulative floor | PROVEN_UNDER_ASSUMPTIONS; ready for ADR acceptance; Solidity `differential_research_kernel` |
+| PRISM CONTRACT-ARCH-1 | proposed |
+| PRISM CONTRACT-1 | not_met |
+| backing_kernel_solidity | differential_research_kernel |
+| partial_resolution_transform | differential_research_kernel |
+| minimum_cost_replication | exhaustively_verified_within_domain. Not Kuru. Not solvency |
+| storage_slot_isolation | inferred. ADR-R06 stays PROPOSED |
+| R-I08 resolved supply is not redeemable | measured. Gate key unchanged. Coverage row is R-I09 / INV-P09 |
+| R-I02 immutable replication | measured. `test_r_i02_activated_weights_and_matrix_stay_fixed` |
+| R-I12 resolution once | measured. `test_r_i12_final_resolution_is_committed_once` |
+| X-I01..X-I07 | not_yet_validated. source interface not frozen |
+| Unreachable `Underfunded` / `LiveLiability` | PROVEN_UNDER_ASSUMPTIONS |
+| benchmarks_measured | local_single_environment. Not admission |
+| static_analysis | measured_with_findings. Slither IR still incomplete. Not PRED-CONTRACT-1 |
+| slither_complete_ir | blocked_tool |
+| S-P16 redeemed cursor | open analyzer gap. Inspection PROVEN_UNDER_ASSUMPTIONS. Not closed |
+| reproducibility_local | rerun_pass. Not a fresh clone or virtualenv |
+| MODULE-ADMISSION-FINANCE-1 | not met |
+| Move into `contracts/src/v2` | not done |
+| Mainnet | not authorized |
+
+## OPEN_RISK_REGISTER
+
+| Risk | Severity | Disposition |
+|---|---|---|
+| Resolver can report a false YES/NO/INVALID | High trust assumption | accepted for this kernel, blocks trustless claims |
+| PRISM per-call settlement dust capture | High accounting defect | MATH-1D FAIL. Candidate kernel matches the Python fixtures. Not an oracle pass |
+| Slither IR incomplete | Medium evidence gap | PRED-CONTRACT-1 not PASS |
+| Kuru parameters unknown | Medium | BLOCKED. Worksheet does not guess them |
+| Prediction `cancelDraft` missing | Low | P-I05 cancelled-draft branch NOT_YET_VALIDATED |
+| CompleteSetVault diagram versus kernel | process risk | ADR-P03 proposed, diagram not silently edited |
+| `native_market.py` lifecycle is narrower than canonical | spec drift | recorded, new model does not pretend otherwise |
+| Clone cheaper, identity not independent | Medium | measured; kernel stays on full ERC-20; ADR-P01 PROPOSED |
+| Monad parallel-execution benefit | unmeasured | ADR-R06 is a hypothesis |
+| Two markets or two series sharing split/mint slots | INFERRED absent for these kernels | `docs/prism/04-architecture/STORAGE_ISOLATION.md`. Not a throughput measurement |
+| PredictionMarket branch coverage 94.44% (34/36) | Medium testing gap | Open. The two unexecuted branches are PROVEN_UNDER_ASSUMPTIONS unreachable. Coverage was not re-run and is not 100%. `unreachable-branches-2026-09-26.json` |

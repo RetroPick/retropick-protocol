@@ -1,0 +1,68 @@
+schema_version: 1
+recorded_at: 2026-09-26
+branch: cursor/finance-qualification-bbd4
+human_acceptance: not_granted
+mainnet_authorized: false
+promotion_into_contracts_src_v2: false
+benchmarks_measured: local_single_environment
+static_analysis: measured_with_findings
+slither_complete_ir: blocked_tool
+S-P16_redeemed_cursor: proven_under_assumptions_open_analyzer_gap
+reproducibility_local: rerun_pass
+
+prediction:
+  PRED-RESEARCH: recorded
+  PRED-SPEC-1: proposed
+  PRED-MODEL-1: measured
+  PRED-MATH-1: partial
+  PRED-CONTRACT-ARCH-1: proposed
+  PRED-CONTRACT-1: not_pass
+  forge_coverage: measured
+  outcome_token_deployment_gas: measured
+  PRED-KURU-1: blocked
+  P-I05_cancel_draft: not_yet_validated
+  unreachable_funding_branches: proven_under_assumptions
+  storage_slot_isolation: inferred
+  PLATFORM-INTEGRATION-1: not_met
+  module_status: CONTRACT_CANDIDATE
+
+prism:
+  RESEARCH: reproduced
+  MATH-1A: measured_exact_model
+  MATH-1B: bounded_grids_only
+  MATH-1C: stress_reproduced
+  MATH-1D: fail
+  MATH-1D_candidate_cumulative_floor: proven_under_assumptions
+  MATH-1D_candidate_domain_check: exhaustively_verified_within_domain
+  MATH-1D_candidate_ready_for_adr_acceptance: true
+  MATH-1D_candidate_solidity: differential_research_kernel
+  MATH-1E: partial_z3_sympy
+  MATH-1F: measured_simulation
+  MATH-1F_scope: synthetic_quotes_not_solvency_not_kuru
+  MATH-1: fail
+  CONTRACT-ARCH-1: proposed
+  CONTRACT-1: not_met
+  backing_kernel_solidity: differential_research_kernel
+  partial_resolution_transform: differential_research_kernel
+  minimum_cost_replication: exhaustively_verified_within_domain
+  minimum_cost_replication_scope: declared_rational_basis_enumeration_not_kuru_not_solvency
+  storage_slot_isolation: inferred
+  R-I08_resolved_not_redeemable: measured
+  R-I02_immutable_replication: measured
+  R-I12_resolution_once: measured
+  PLATFORM-INTEGRATION-1: not_met
+  module_status: FAIL
+
+cross_module:
+  SOURCE-ASSET-INTERFACE-FREEZE: proposed_not_frozen
+  X-I01_through_X-I07: not_yet_validated
+  X-I_blocker: source_interface_not_frozen
+  CROSS-MODULE-DIFFERENTIAL-HARNESS: not_built
+  MODULE-ADMISSION-FINANCE-1: not_met
+  module_status: BLOCKED
+
+module_admission_finance_1:
+  meaning: ready_to_request_promotion_into_v2_source_tree
+  met: false
+  mainnet_ready: false
+  legally_approved: false

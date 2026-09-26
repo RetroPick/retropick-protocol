@@ -183,3 +183,36 @@ The final MATH-1 verdict still requires:
 - no unresolved accounting counterexample.
 
 Production Solidity remains downstream of `CONTRACT-ARCH-1`.
+
+---
+
+## 8. Fresh evidence addendum — 2026-09-26
+
+This addendum does not delete earlier rows. It records a new run and a counterexample.
+
+Source: `research/prism-model/math1_probe.py`, test `test_math1_probe.py`, log classification in `research/prism/reports/PRISM_REPRODUCTION_REPORT.md`.
+
+| ID | Claim | Status | Evidence |
+|---|---|---|---|
+| `CX-FP-SETTLEMENT-001` | Per-call `floor(q * payout / D)` settlement redemption can pay holders less than the one-shot floor. For supply 2, payout `10^18-1`, 18 decimals, required funding is 2, one-shot floor pays 1, two 1-unit redemptions pay 0, and `sweepable_dust()` is 2. | `COUNTEREXAMPLE_FOUND` | `math1_probe.settlement_fragmentation_counterexample` |
+| `T-FP-003` | Guarded rounded redemption preserves the ceil funding requirement for remaining supply. | unchanged `PROVEN_UNDER_ASSUMPTIONS` for that narrower funding claim | the counterexample above stays solvent while underpaying holders |
+| `T-FP-CUM-001` | Cumulative floor settlement pays `floor(supply * payout / D)` in total, and dust against exact ceil funding is 0 or 1. | `PROVEN_UNDER_ASSUMPTIONS` for integer division; grid of 240 cases had worst dust 1 | candidate repair, not an accepted replacement |
+| `CX-REPL-001` | A, B, and the constant-1 column do not replicate AND. | reconfirmed `COUNTEREXAMPLE_FOUND` | existing solver returned None; Z3 5.1.0 reported unsat |
+| `T-BS-003` | Two-component, one-state, non-negative backing implies terminal value at least supply times payoff. | reconfirmed `PROVEN_UNDER_ASSUMPTIONS` by Z3 unsat of the negation and by a SymPy 1.14.0 identity | not a substitute for the general write-up |
+
+MATH-1D for the current per-call settlement payout rule is **FAIL**. The component requirement-delta mint/redeem round trip did not show extraction in 200 deterministic samples (seed 20260926) and is zero by construction of that delta. That does not repair settlement.
+
+No PRISM settlement Solidity is authorized off this addendum. A human-accepted ADR would be required before replacing the payout rule.
+
+## 9. Candidate cumulative floor — 2026-09-26
+
+This section does not replace section 8 and does not mark MATH-1 PASS. `FixedPointSettlement.redeem` is unchanged.
+
+Source: `research/prism-model/cumulative_settlement.py`, `cumulative_settlement_attack.py`, `tests/test_cumulative_settlement.py`.
+
+| ID | Claim | Status | Evidence |
+|---|---|---|---|
+| `CX-FP-SETTLEMENT-001` | Per-call settlement floor. Supply 2, payout `10^18-1`, two 1-unit redemptions pay 0, sweepable dust 2. | still `COUNTEREXAMPLE_FOUND` | permanent regression |
+| `T-FP-CUM-001` | Global-cursor payouts over any partition sum to `floor(supply * payout / D)`. Exact ceil funding leaves residual 0 or 1. One redemption pays the isolated floor or one more. | `PROVEN_UNDER_ASSUMPTIONS` | integer telescoping. Domain check `EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN`: 378530 states, 2542061 transitions, 2.973316s, no new counterexample |
+
+A holder who splits can miss a carry that another holder receives. That moves value between holders. It does not increase dust above the ceil-floor residual. The candidate has no mint function. No settlement Solidity was added.

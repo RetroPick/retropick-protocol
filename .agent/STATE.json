@@ -40,7 +40,9 @@
       "production_track": false,
       "current_goal": "METROPOLIS-P1-MATH-1",
       "current_gate": "MATH-1",
-      "math_gate": "IN_PROGRESS",
+      "math_gate": "FAIL",
+      "math_gate_reason": "CX-FP-SETTLEMENT-001 per-call settlement floor strands holder value into sweepable dust",
+      "math_gate_evidence": "research/prism/reports/PRISM_REPRODUCTION_REPORT.md",
       "production_solidity_authorized": false,
       "protocol_mode": "exact-backed-long-only-replication",
       "phase_control": "docs/prism/05-hackathon/PHASE_GATES.md"

@@ -1,0 +1,29 @@
+command: forge test --match-contract PredictionOperationGasTest -vv
+working_directory: research/contract-kernels
+kernel_sha: c0af8e584137fa35ef4d71b4d8a46d260798deb4
+foundry: 1.8.3 (cae51ad458, 2026-09-15)
+solc: 0.8.26
+optimizer: true
+optimizer_runs: 200
+evm_version: cancun
+meter: assembly gas() immediately before and after CALL or CREATE
+sample: one local Foundry test. Not a percentile.
+date: 2026-09-26
+result: PASS (1 test)
+whole_test_gas: 6578687
+whole_test_note: includes deployment. Prefer the CALL and CREATE rows below.
+
+market_deploy_yes_path_gas: 2438030
+split_100_gas: 206722
+merge_40_gas: 37041
+resolve_yes_gas: 48909
+redeem_yes_winner_60_gas: 34979
+market_deploy_invalid_path_gas: 2438030
+redeem_invalid_yes_5_gas: 37779
+
+scenario_yes: split 100, merge 40, resolve YES_WIN, redeemYes 60 pays 60. Decimals 18.
+scenario_invalid: split 5, resolve INVALID, redeemYes 5 pays 2. Decimals 18.
+unmetered_setup: closeMint, beginResolution, openRedemption
+market_deploy_includes: two OutcomeToken creations inside the PredictionMarket constructor
+standalone_outcome_token_create_not_rerun: 534243 in evidence/research/prediction/outcome-token-gas-2026-09-26.txt
+protocol_factory_deploy: NOT_RUN. The kernel has no factory contract.

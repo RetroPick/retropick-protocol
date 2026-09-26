@@ -1,0 +1,9 @@
+wrote /workspace/research/prism-model/fixtures/candidate_cumulative_settlement.json
+cases 7
+cx_original_ab paid_total=1 one_shot=1 residual=1 payouts=0,1
+cx_original_ba paid_total=1 one_shot=1 residual=1 payouts=0,1
+fairness_aba paid_total=1 one_shot=1 residual=1 payouts=0,1,0
+telescope_supply4_chunks_1_2_1 paid_total=3 one_shot=3 residual=1 payouts=0,2,1
+telescope_supply4_oneshot paid_total=3 one_shot=3 residual=1 payouts=3
+telescope_supply4_chunks_2_2 paid_total=3 one_shot=3 residual=1 payouts=1,2
+decimals6_supply2_unit_chunks paid_total=0 one_shot=0 residual=1 payouts=0,0

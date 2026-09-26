@@ -43,6 +43,7 @@ Invariant coverage: P-I01..P-I10 are executable. P-I05 `cancelDraft` is measured
 Benchmarks: `benchmarks_measured: local_single_environment`. One Foundry gas test and five-sample reference timings. Not admission. 16/16 replication solve was NOT_RUN. No percentiles.  
 Static analysis: `measured_with_findings`. A complete Slither IR is `blocked_tool`. `--solc-force-legacy-json` still leaves `_redeem` without IR, and solc 0.8 rejects legacy JSON. S-P16 stays open. Inspection of the redeemed cursors is PROVEN_UNDER_ASSUMPTIONS and did not change storage. This is not PRED-CONTRACT-1 PASS.  
 Local reproducibility: `rerun_pass`. Rerun of `research/benchmarks/scripts/repro_local.sh` at `0f14c30b1143067e051693fc9c0633683a937ce6`, Python 3.12.3, forge 1.8.3 (`cae51ad458f6abb64852b7709eb784352429825d`). Prediction unit tests 15 OK. PRISM unit tests 109 OK. Default-profile `forge test`: 76 passed, 0 failed, 1 skipped (77 total). The skip is `test_invalidCompositionsMatchCumulativeFloor` because `block.gaslimit` is below the composition walk. `test_supplyTwoPartsPayCumulativeFloor` passed. This command did not re-execute the supply 0..16 domain. Existing interpreter and existing Foundry install. This is not a clean clone and not a fresh virtualenv. The same forge command ran `invariant_preResolutionConservation` without a named seed (256 runs, 128000 calls, 46825 reverts, pass). That count belongs to this command and leaves the seeds 20260926 and 20260927 at 47971 and 46395. Log: `evidence/research/repro/repro-local-2026-09-26-rerun.txt`. The earlier log stays `evidence/research/repro/repro-local-2026-09-26.txt`.  
+Contradiction 2 stays open. Classification `recorded_contradiction`. Log: `evidence/research/prediction/resolved-redeem-contradiction-2026-09-26.json`.  
 MODULE-ADMISSION-FINANCE-1: not met.  
 PRISM CONTRACT-ARCH-1: proposed, contingent on ADR-R03. Not a pass.  
 SOURCE-ASSET-INTERFACE-FREEZE: proposed_not_frozen.  
@@ -59,7 +60,7 @@ The baseline file remains the pre-change record. After it:
 ## Contradictions still open
 
 1. Canonical diagrams name `CompleteSetVault`. ADR-P03 proposes not to deploy one. The diagram was not rewritten as if the ADR were accepted.
-2. `research/prism-model/native_market.py` still collapses RESOLVED and REDEEMABLE. The new prediction model does not.
+2. `research/prism-model/native_market.py` still collapses RESOLVED and REDEEMABLE. `BinaryCompleteSetMarket.redeem("YES", 1)` after `split(4)` and `resolve("YES")` pays 1 while the state stays `RESOLVED`. Collateral moves from 4 to 3. The enum is ACTIVE, RESOLVED, ARCHIVED. `PredictionMarket.redeem` on a YES_WIN market in `RESOLVED` raises `redeem only while REDEEMABLE`. Collateral stays 4 and `yes_redeemed` stays 0. Classification: recorded_contradiction. The contradiction stays open. This is not a theorem pass. MATH-1 stays FAIL. PRED-MATH-1 stays partial. PRED-CONTRACT-1 stays not_pass. Log: `evidence/research/prediction/resolved-redeem-contradiction-2026-09-26.json`.
 3. Evidence note from 2026-09-17 says 51 tests. Baseline discovery saw 55. Later discovery saw 60 after new tests.
 4. Launchpad `status.yaml` still says the web app is unimplemented. That lane was not edited.
 5. `.agent/STATE.json` previously said MATH-1 `IN_PROGRESS`. It now says `FAIL` for the settlement rule. Accepted ADR-002 is unchanged.

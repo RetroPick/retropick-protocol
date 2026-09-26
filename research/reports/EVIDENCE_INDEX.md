@@ -173,6 +173,8 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `evidence/research/prediction/solhint-2026-09-26.txt` | solhint 5.2.0, exit 0, 42 warnings, 0 errors |
 | `evidence/research/repro/repro-local-2026-09-26.txt` | local rerun: 12 and 85 unit tests OK, Foundry 63 passed |
 | `evidence/research/repro/repro-local-2026-09-26-rerun.txt` | rerun at 0f14c30, exit 0. Prediction 15 OK, PRISM 109 OK, Foundry 76 passed, 0 failed, 1 skipped. The skip is the supply 0..16 walk |
+| `evidence/research/prediction/resolved-redeem-contradiction-2026-09-26.json` | contradiction 2 stays open. Native redeem pays 1 inside RESOLVED. Prediction redeem rejects before REDEEMABLE |
+| `evidence/research/prediction/resolved-redeem-contradiction-2026-09-26.txt` | `python3 -m unittest tests.test_resolved_redeem_contradiction -v`, 1 test OK, exit 0 |
 | `research/benchmarks/scripts/repro_local.sh` | rerun script. Not a fresh clone or virtualenv |
 | `research/prediction-model/outputs/exhaustive_summary.json` | 208-state search |
 | `research/contract-kernels/.gas-snapshot` | one gas snapshot |

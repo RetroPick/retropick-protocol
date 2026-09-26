@@ -1,0 +1,10 @@
+command: python3 -m unittest tests.test_resolved_redeem_contradiction -v
+cwd: research/prediction-model
+python: Python 3.12.3
+exit_code: 0
+test_native_redeem_in_resolved_and_prediction_rejects_before_redeemable (tests.test_resolved_redeem_contradiction.ResolvedRedeemContradictionTests.test_native_redeem_in_resolved_and_prediction_rejects_before_redeemable) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK

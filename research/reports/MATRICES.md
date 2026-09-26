@@ -248,7 +248,7 @@ The six prediction rows above the CREATE rows, and `test_fund_and_redeem_gas`, a
 | Kuru parameters unknown | Medium | BLOCKED. Worksheet does not guess them |
 | Prediction `cancelDraft` | Low | DRAFT to ARCHIVED measured. Collateral does not move. Not PRED-CONTRACT-1 PASS |
 | CompleteSetVault diagram versus kernel | process risk | ADR-P03 proposed, diagram not silently edited |
-| `native_market.py` lifecycle is narrower than canonical | spec drift | recorded, new model does not pretend otherwise |
+| `native_market.py` lifecycle is narrower than canonical | spec drift | recorded_contradiction, open. Native redeem pays 1 inside RESOLVED. Prediction redeem rejects before REDEEMABLE and leaves collateral at 4. `resolved-redeem-contradiction-2026-09-26.json` |
 | Clone cheaper, identity not independent | Medium | measured; kernel stays on full ERC-20; ADR-P01 PROPOSED |
 | Monad parallel-execution benefit | unmeasured | ADR-R06 is a hypothesis |
 | Two markets or two series sharing split/mint slots | INFERRED absent for these kernels | `docs/prism/04-architecture/STORAGE_ISOLATION.md`. Not a throughput measurement |

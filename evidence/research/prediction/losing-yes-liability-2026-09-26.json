@@ -1,0 +1,52 @@
+{
+  "adr_added": false,
+  "adr_p15": "PROPOSED",
+  "adr_p16": "PROPOSED",
+  "after": {
+    "collateral_locked": "4",
+    "liability": "4",
+    "no_redeemed": "0",
+    "yes_redeemed": "1"
+  },
+  "before": {
+    "collateral_locked": "4",
+    "liability": "4",
+    "no_redeemed": "0",
+    "yes_redeemed": "0"
+  },
+  "canonical_math1": "FAIL",
+  "case": "no_win_yes_redeem_liability",
+  "classification": "existing_rule",
+  "command": "forge test --match-contract LosingYesLiabilityTest -vv",
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "gas": 628527,
+  "implementations_changed": false,
+  "liability_equals_collateral_after": true,
+  "liability_equals_collateral_before": true,
+  "payout": "0",
+  "profile": "default",
+  "python": {
+    "after": {
+      "collateral_locked": "4",
+      "liability": "4",
+      "no_redeemed": "0",
+      "yes_redeemed": "1"
+    },
+    "before": {
+      "collateral_locked": "4",
+      "liability": "4",
+      "no_redeemed": "0",
+      "yes_redeemed": "0"
+    },
+    "function": "redeem of the YES side",
+    "payout": "0"
+  },
+  "result": "NO_WIN",
+  "s_p16": "open",
+  "sha_base": "ba9252c2b14201587a4666c4cdeb0774f8cffdc0",
+  "solidity_function": "redeemYes",
+  "split": "4",
+  "tests_failed": 0,
+  "tests_passed": 1
+}

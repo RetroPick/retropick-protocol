@@ -1,0 +1,29 @@
+tool: python3 3.12.3
+command: python3 -m unittest tests.test_precision_boundary tests.test_precision_boundary_fixtures -v
+cwd: /workspace/research/prism-model
+sha: 3a435343fe3b592bd9b6ba6a573c372547d4dd75
+test_solidity_domain_excludes_overflow_and_keeps_per_call_in_python (tests.test_precision_boundary_fixtures.PrecisionBoundaryFixtureTests.test_solidity_domain_excludes_overflow_and_keeps_per_call_in_python) ... ok
+test_decimal_bound_matrix (tests.test_precision_boundary.PrecisionBoundaryTests.test_decimal_bound_matrix) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.009s
+
+OK
+exit_code: 0
+
+tool: forge 1.8.3 (cae51ad458f6abb64852b7709eb784352429825d)
+solc: 0.8.26
+optimizer: true
+optimizer_runs: 200
+via_ir: false
+command: forge test --match-contract CandidatePrecisionBoundaryDifferentialTest -vv
+cwd: /workspace/research/contract-kernels
+No files changed, compilation skipped
+
+Ran 1 test for test/prism/CandidatePrecisionBoundary.t.sol:CandidatePrecisionBoundaryDifferentialTest
+[PASS] test_matches_fitting_cumulative_cells() (gas: 88244838)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 2.10s (2.10s CPU time)
+
+Ran 1 test suite in 2.10s (2.10s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
+mismatch: none
+exit_code: 0

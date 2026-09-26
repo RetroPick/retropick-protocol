@@ -1,0 +1,70 @@
+{
+  "adr_added": false,
+  "adr_p15": "PROPOSED",
+  "adr_p16": "PROPOSED",
+  "adr_p17": "PROPOSED",
+  "after": {
+    "collateral_locked": "0",
+    "liability": "0",
+    "no_supply": "0",
+    "yes_supply": "0"
+  },
+  "before": {
+    "collateral_locked": "0",
+    "liability": "0",
+    "no_supply": "0",
+    "yes_supply": "0"
+  },
+  "canonical_math1": "FAIL",
+  "case": "split_while_locked_before_resolution",
+  "classification": "existing_rule",
+  "collateral_pulled": "0",
+  "command": "forge test --match-contract LockedSplitTest -vv",
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "gas": 267940,
+  "implementations_changed": false,
+  "inventory_note": "rejection-inventory-2026-09-26.json has no split row while LOCKED. Its LOCKED rows start at index 17 after a prior split, with collateral, YES, and NO at 4.",
+  "liability_equals_collateral_after": true,
+  "prior_split": "0",
+  "profile": "default",
+  "python": {
+    "after": {
+      "collateral_locked": "0",
+      "liability": "0",
+      "no_supply": "0",
+      "outside_collateral": "not_stored",
+      "yes_supply": "0"
+    },
+    "before": {
+      "collateral_locked": "0",
+      "liability": "0",
+      "no_supply": "0",
+      "outside_collateral": "not_stored",
+      "yes_supply": "0"
+    },
+    "collateral_pulled": "0",
+    "error": "split only while OPEN",
+    "function": "split",
+    "lifecycle": "activate then close_mint",
+    "rejected": true
+  },
+  "resolved": false,
+  "s_p16": "open",
+  "sha_base": "8e9bfe80ad6abe7b24d71bb700adcbe6ea602928",
+  "solidity": {
+    "after": {
+      "outside_collateral": "1000000"
+    },
+    "before": {
+      "outside_collateral": "1000000"
+    },
+    "error": "BadState",
+    "function": "split",
+    "lifecycle": "activate then closeMint",
+    "rejected": true
+  },
+  "state": "LOCKED",
+  "tests_failed": 0,
+  "tests_passed": 1
+}

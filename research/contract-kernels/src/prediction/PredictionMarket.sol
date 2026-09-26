@@ -34,6 +34,11 @@ contract PredictionMarket is ReentrancyGuard {
         INVALID
     }
 
+    enum CancelReason {
+        NONE,
+        CANCELLED_BEFORE_ACTIVATION
+    }
+
     uint256 private constant PAYOUT_DENOMINATOR = 2;
 
     IERC20 public immutable collateral;
@@ -48,6 +53,7 @@ contract PredictionMarket is ReentrancyGuard {
 
     State public state;
     Result public result;
+    CancelReason public cancelReason;
     uint256 public collateralLocked;
     uint256 public yesSupply;
     uint256 public noSupply;
@@ -69,6 +75,7 @@ contract PredictionMarket is ReentrancyGuard {
     error LiveLiability();
 
     event MarketActivated(address indexed yesToken, address indexed noToken);
+    event DraftCancelled(CancelReason reason);
     event Split(address indexed account, uint256 amount);
     event Merged(address indexed account, uint256 amount);
     event MintClosed();
@@ -108,6 +115,16 @@ contract PredictionMarket is ReentrancyGuard {
         if (state != State.DRAFT) revert BadState();
         state = State.OPEN;
         emit MarketActivated(address(yesToken), address(noToken));
+    }
+
+    /// @notice DRAFT to ARCHIVED. The factory is the same caller as activate. No collateral moves.
+    function cancelDraft() external {
+        if (msg.sender != factory) revert NotFactory();
+        if (state != State.DRAFT) revert BadState();
+        if (collateralLocked != 0) revert BadState();
+        cancelReason = CancelReason.CANCELLED_BEFORE_ACTIVATION;
+        state = State.ARCHIVED;
+        emit DraftCancelled(cancelReason);
     }
 
     /// @notice P-I08. Before resolution the liability is the locked collateral.

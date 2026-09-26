@@ -117,7 +117,7 @@ Every row points at evidence from this program. Status words are the program's c
 | R-I03 | `test_model.py` `test_exact_mint_then_redeem` | `CandidateComponentBacking.t.sol` `test_matches_python_fixtures` | executable. INV-P03 |
 | R-I04 | `test_model.py` `test_overmint_rejected` | backing fixtures reject an underbacked mint | executable. INV-P04 |
 | R-I05 | `test_model.py` `test_exact_mint_then_redeem` | requirement-delta redeem in the backing kernel | executable. INV-P05 |
-| R-I06 | `test_model.py` `test_terminal_solvency_all_states` | none | executable. INV-P06 |
+| R-I06 | `test_model.py` `test_terminal_solvency_all_states` | none | Python recorded_gap. INV-P06. Supply 1000, backing 600,400, required 600,400. All four terminal rows pass. The candidate has no terminal states. ADR-R17 PROPOSED. Acceptance not granted. Foundry is not executable for this edge. `terminal-solvency-2026-09-26.json` |
 | R-I07 | `test_executable_gaps.py` `test_cross_series_double_allocation_is_rejected` | `test_reservation_matches_fixture` | executable. INV-P07 |
 | R-I08 | `test_partial_resolution.py` `test_component_transform_preserves_remaining_states` | `CandidatePayoffTransform.t.sol` `test_matches_python_fixtures` | executable. INV-P08 |
 | R-I09 | `test_settlement.py` `test_underfunded_cannot_become_redeemable` | `test_final_supply_is_not_redeemable_until_funded` | executable. INV-P09. Gate key `R-I08_resolved_not_redeemable` still names this test and was not renamed |

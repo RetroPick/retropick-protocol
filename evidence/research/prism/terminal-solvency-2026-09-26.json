@@ -1,0 +1,52 @@
+{
+  "adr_added": "ADR-R17",
+  "adr_r15": "PROPOSED",
+  "adr_r16": "PROPOSED",
+  "canonical_math1": "FAIL",
+  "candidate": {
+    "backing_check": "requiredRaw per component",
+    "note": "CandidateComponentBacking and CandidateCumulativeSettlement have no payoff matrix and cannot express the four Python terminal states. No terminal solvency call was executed.",
+    "settlement_check": "ceilFunding and redeemable bool",
+    "terminal_states": "absent",
+    "terminal_step": "not_executed"
+  },
+  "case": "terminal_solvency",
+  "classification": "recorded_gap",
+  "command": "forge test --match-contract TerminalSolvencyAbsenceTest -vv",
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "foundry_r_i06": "not_executable",
+  "gas": 7605,
+  "id": "TERMINAL-SOLVENCY",
+  "implementations_changed": false,
+  "invariant": "INV-P06",
+  "payoff_rows": [
+    [0, 1],
+    [0, 0],
+    [1, 1],
+    [1, 0]
+  ],
+  "pred_kuru_1": "blocked",
+  "profile": "default",
+  "python": {
+    "all_terminal_rows_pass": true,
+    "backing": ["600", "400"],
+    "component_backed": true,
+    "function": "PrismSeries.mint_with_exact_backing then terminal_solvency",
+    "required_backing": ["600", "400"],
+    "rows": [
+      {"backing_value": "400", "liability": "400", "state": 0, "backed": true},
+      {"backing_value": "0", "liability": "0", "state": 1, "backed": true},
+      {"backing_value": "1000", "liability": "1000", "state": 2, "backed": true},
+      {"backing_value": "600", "liability": "600", "state": 3, "backed": true}
+    ],
+    "supply": "1000",
+    "terminal_payoff": ["2/5", "0", "1", "3/5"],
+    "weights": ["3/5", "2/5"]
+  },
+  "s_p16": "open",
+  "sha_base": "3112fe402ec4e5a9ba8d19ba2c92da8c059a94d3",
+  "source_interface": "proposed_not_frozen",
+  "tests_failed": 0,
+  "tests_passed": 1
+}

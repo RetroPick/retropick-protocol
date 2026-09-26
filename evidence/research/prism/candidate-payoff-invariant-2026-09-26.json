@@ -1,0 +1,43 @@
+{
+  "calls": 32768,
+  "canonical_math1": "FAIL",
+  "counterexample": null,
+  "depth": 128,
+  "fail_on_revert": false,
+  "fixture": {
+    "backing": [600, 400],
+    "components": 2,
+    "payoff": [[0, 1], [0, 0], [1, 1], [1, 0]],
+    "states": 4,
+    "supply": 1000,
+    "weights_wad": ["6e17", "4e17"]
+  },
+  "forge_commit": "cae51ad458f6abb64852b7709eb784352429825d",
+  "forge_version": "1.8.3",
+  "handlers": ["transformComponent"],
+  "id": "CANDIDATE-PAYOFF-INVARIANT",
+  "invariants": [
+    "invariant_supplyUnchanged",
+    "invariant_resolvedComponentStaysResolved",
+    "invariant_matchingPayoffValuesUnchanged",
+    "invariant_rejectedTransformLeavesStateUnchanged",
+    "invariant_successfulTransformIsPayoffEquivalent"
+  ],
+  "kernel_status": "differential_research_kernel",
+  "optimizer": true,
+  "optimizer_runs": 200,
+  "result": "pass",
+  "reverts": 0,
+  "runs": 256,
+  "seeds": [20260926, 20260927],
+  "solc": "0.8.26",
+  "via_ir": false,
+  "warmup": {
+    "calls": 512,
+    "depth": 16,
+    "result": "pass",
+    "reverts": 0,
+    "runs": 32,
+    "seeds": [20260926, 20260927]
+  }
+}

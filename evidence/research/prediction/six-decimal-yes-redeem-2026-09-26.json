@@ -1,0 +1,73 @@
+{
+  "adr_added": false,
+  "adr_p02": "PROPOSED. Outcome decimals match the approved collateral. This witness does not edit that decision and does not open a second decimal rule.",
+  "canonical_math1": "FAIL",
+  "case": "collateral_decimals_6_split_1_yes_win_redeem_1",
+  "classification": "existing_rule",
+  "command": "forge test --match-contract SixDecimalYesRedeemTest -vv",
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "gas": 693968,
+  "implementations_changed": false,
+  "kuru_decimals_must_be_18": "not_established",
+  "liability_equals_collateral_after": true,
+  "liability_equals_collateral_before": true,
+  "payout": "1",
+  "pred_kuru_1": "blocked",
+  "profile": "default",
+  "python": {
+    "after": {
+      "collateral_locked": "0",
+      "liability": "0",
+      "no_redeemed": "0",
+      "no_supply": "1",
+      "yes_redeemed": "1",
+      "yes_supply": "0"
+    },
+    "before": {
+      "collateral_locked": "1",
+      "liability": "1",
+      "no_redeemed": "0",
+      "no_supply": "1",
+      "yes_redeemed": "0",
+      "yes_supply": "1"
+    },
+    "collateral_decimals": "not_stored",
+    "constructor": "create_market(integer=True, collateral, dust_sink). No decimals parameter.",
+    "function": "redeem of the YES side",
+    "outcome_decimals": "not_stored",
+    "payout": "1",
+    "rejected_decimals_6": false
+  },
+  "result": "YES_WIN",
+  "s_p16": "open",
+  "sha_base": "b04dca3fdde580a8c36ef85126365f58575dad18",
+  "solidity": {
+    "after": {
+      "collateral_locked": "0",
+      "liability": "0",
+      "no_redeemed": "0",
+      "no_supply": "1",
+      "yes_redeemed": "1",
+      "yes_supply": "0"
+    },
+    "before": {
+      "collateral_locked": "1",
+      "liability": "1",
+      "no_redeemed": "0",
+      "no_supply": "1",
+      "yes_redeemed": "0",
+      "yes_supply": "1"
+    },
+    "collateral_decimals": 6,
+    "no_decimals": 6,
+    "outcome_decimals": 6,
+    "payout": "1",
+    "rejected_decimals_6": false,
+    "yes_decimals": 6
+  },
+  "solidity_function": "redeemYes",
+  "split": "1",
+  "tests_failed": 0,
+  "tests_passed": 1
+}

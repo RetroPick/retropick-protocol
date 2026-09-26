@@ -202,6 +202,8 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `evidence/research/prediction/second-yes-resolution-2026-09-26.txt` | Python 1 test OK. Forge default profile, 1 passed, gas 527769 |
 | `evidence/research/prediction/unequal-merge-2026-09-26.json` | existing_rule. OPEN merge of YES 1 and NO 4 reverts. Collateral, YES, and NO stay 4 |
 | `evidence/research/prediction/unequal-merge-2026-09-26.txt` | Python 1 test OK. Forge default profile, 1 passed, gas 661526 |
+| `evidence/research/prediction/uint256-split-2026-09-26.json` | recorded_contradiction. Solidity split of uint256 max stays at 2**256-1. split(1) panics. Python split(1) reaches 2**256 |
+| `evidence/research/prediction/uint256-split-2026-09-26.txt` | Python 1 test OK. Forge default profile, 1 passed, gas 711665 |
 | `evidence/research/prediction/resolved-redeem-contradiction-2026-09-26.txt` | `python3 -m unittest tests.test_resolved_redeem_contradiction -v`, 1 test OK, exit 0 |
 | `research/benchmarks/scripts/repro_local.sh` | rerun script. Not a fresh clone or virtualenv |
 | `research/prediction-model/outputs/exhaustive_summary.json` | 208-state search |

@@ -1,0 +1,37 @@
+tool: forge test
+command: forge test --match-contract OutsiderMintTest -vv
+cwd: /workspace/research/contract-kernels
+profile: default
+FOUNDRY_PROFILE: unset
+sha_base: a4a52f622a7702e77dd1dcc3effa7463b5a5682c
+call: OutcomeToken.mint
+caller: outsider
+amount: 1
+error: NotMarket
+classification: existing_rule
+total_supply_before: 4
+holder_balance_before: 4
+total_supply_after: 4
+holder_balance_after: 4
+python: no OutcomeToken
+adr_added: false
+s_p16: open
+token_edited: false
+
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 1.07s
+Compiler run successful!
+
+Ran 1 test for test/prediction/OutsiderMint.t.sol:OutsiderMintTest
+[PASS] test_outsider_mint_of_one_yes_leaves_supply() (gas: 322367)
+Logs:
+  classification: existing_rule
+  error: NotMarket
+  total_supply_before: 4
+  holder_balance_before: 4
+  total_supply_after: 4
+  holder_balance_after: 4
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 626.53µs (114.09µs CPU time)
+
+Ran 1 test suite in 5.37ms (626.53µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

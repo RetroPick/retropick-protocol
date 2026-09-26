@@ -4,6 +4,7 @@ branch: cursor/finance-qualification-bbd4
 human_acceptance: not_granted
 mainnet_authorized: false
 promotion_into_contracts_src_v2: false
+benchmarks_measured: local_single_environment
 
 prediction:
   PRED-RESEARCH: recorded

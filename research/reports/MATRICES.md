@@ -86,8 +86,10 @@ R-I01..R-I12 in the task sense are the PRISM backing, admission, lifecycle, and 
 
 | Benchmark | Result | Evidence |
 |---|---|---|
-| Payoff 2/4 .. 16/16 | 0.0028s .. 0.0531s for 200 iterations | `research/benchmarks/README.md` |
-| Prediction exhaustive max_unit 3 | 208 states, 0 failures, 0.087s | `outputs/exhaustive_summary.json` |
+| Payoff 2/4 .. 16/16 | 0.0028s .. 0.0531s for 200 iterations | `research/benchmarks/README.md`. Not rerun |
+| Replication solve 2/4, 4/4, 4/16, 8/16 | five local samples, medians 0.000084s, 0.000275s, 0.000553s, 0.013973s | `reference-model-timings-2026-09-26.json`. Not an SLO |
+| Replication solve 16/16 | NOT_RUN | domain cap is 8 components |
+| Prediction exhaustive max_unit 3 | 208 states, 522 transitions, five samples, median 0.084142s | earlier single run 0.086862s remains in `exhaustive_summary.json` |
 | Foundry test gas | snapshot file | `.gas-snapshot` |
 | Outcome token deployment | full pair 1068486; clone pair 789955 | `evidence/research/prediction/outcome-token-gas-2026-09-26.txt` |
 | Percentiles | not reported | sample size too small |
@@ -111,8 +113,15 @@ R-I01..R-I12 in the task sense are the PRISM backing, admission, lifecycle, and 
 | candidate second 1-unit redeem | 52188 | pays 1 |
 | candidate fund + open + two redeems | 153072 | sum of those four CALL measurements |
 | `test_fund_and_redeem_gas` | 472420 | whole-test forge snapshot, includes deployment |
+| prediction market deploy | 2438030 | assembly `gas()` around CREATE. Includes two internal outcome tokens. One test, both paths |
+| prediction `split(100)` | 206722 | assembly `gas()` around CALL. Decimals 18 |
+| prediction `merge(40)` | 37041 | after that split |
+| prediction `resolve` YES | 48909 | after unmetered `closeMint` and `beginResolution` |
+| prediction redeem winner | 34979 | `redeemYes(60)` pays 60 |
+| prediction redeem INVALID | 37779 | `redeemYes(5)` pays 2 |
+| `test_prediction_operation_gas` | 6578687 | whole test, includes deployment. Prefer the CALL rows |
 
-The six prediction rows above the CREATE rows, and `test_fund_and_redeem_gas`, are whole-test gas from `research/contract-kernels/.gas-snapshot`. The CREATE rows are the assembly meter in `evidence/research/prediction/outcome-token-gas-2026-09-26.txt`. The candidate CALL rows are the assembly meter in `evidence/research/prism/candidate-settlement-gas-2026-09-26.txt`.
+The six prediction rows above the CREATE rows, and `test_fund_and_redeem_gas`, are whole-test gas from `research/contract-kernels/.gas-snapshot`. The CREATE rows for a standalone outcome token are the assembly meter in `evidence/research/prediction/outcome-token-gas-2026-09-26.txt`. The prediction CALL rows are `evidence/research/prediction/operation-gas-2026-09-26.txt`. The candidate CALL rows are the assembly meter in `evidence/research/prism/candidate-settlement-gas-2026-09-26.txt`.
 
 ## SECURITY_COVERAGE_MATRIX
 
@@ -161,6 +170,7 @@ The six prediction rows above the CREATE rows, and `test_fund_and_redeem_gas`, a
 | storage_slot_isolation | inferred. ADR-R06 stays PROPOSED |
 | R-I08 resolved supply is not redeemable | measured |
 | Unreachable `Underfunded` / `LiveLiability` | PROVEN_UNDER_ASSUMPTIONS |
+| benchmarks_measured | local_single_environment. Not admission |
 | MODULE-ADMISSION-FINANCE-1 | not met |
 | Move into `contracts/src/v2` | not done |
 | Mainnet | not authorized |

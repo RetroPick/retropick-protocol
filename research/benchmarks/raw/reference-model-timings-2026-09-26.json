@@ -1,0 +1,182 @@
+{
+  "kernel_sha": "c0af8e584137fa35ef4d71b4d8a46d260798deb4",
+  "not_live_markets": true,
+  "not_an_slo": true,
+  "replication_solve": {
+    "2/4": {
+      "sample_size": 5,
+      "seconds": [
+        8e-05,
+        8e-05,
+        8.4e-05,
+        9.3e-05,
+        0.000158
+      ],
+      "min": 8e-05,
+      "median": 8.4e-05,
+      "max": 0.000158,
+      "note": "min, median, and max of one local process; not a service percentile",
+      "detail": {
+        "status": "EXACT",
+        "rechecked_equal": true,
+        "cost": "2/1",
+        "bases_checked": 1,
+        "rays_checked": 0,
+        "reason": "exact_basic_minimum"
+      },
+      "shape": "2/4",
+      "matrix": "binary indicators of state index bits; target is G times the all-ones vector; unit costs are 1"
+    },
+    "4/4": {
+      "sample_size": 5,
+      "seconds": [
+        0.000273,
+        0.000275,
+        0.000275,
+        0.00029,
+        0.000297
+      ],
+      "min": 0.000273,
+      "median": 0.000275,
+      "max": 0.000297,
+      "note": "min, median, and max of one local process; not a service percentile",
+      "detail": {
+        "status": "EXACT",
+        "rechecked_equal": true,
+        "cost": "2/1",
+        "bases_checked": 6,
+        "rays_checked": 2,
+        "reason": "exact_basic_minimum"
+      },
+      "shape": "4/4",
+      "matrix": "binary indicators of state index bits; target is G times the all-ones vector; unit costs are 1"
+    },
+    "4/16": {
+      "sample_size": 5,
+      "seconds": [
+        0.000549,
+        0.000552,
+        0.000553,
+        0.000554,
+        0.000573
+      ],
+      "min": 0.000549,
+      "median": 0.000553,
+      "max": 0.000573,
+      "note": "min, median, and max of one local process; not a service percentile",
+      "detail": {
+        "status": "EXACT",
+        "rechecked_equal": true,
+        "cost": "4/1",
+        "bases_checked": 1,
+        "rays_checked": 0,
+        "reason": "exact_basic_minimum"
+      },
+      "shape": "4/16",
+      "matrix": "binary indicators of state index bits; target is G times the all-ones vector; unit costs are 1"
+    },
+    "8/16": {
+      "sample_size": 5,
+      "seconds": [
+        0.013886,
+        0.013956,
+        0.013973,
+        0.014035,
+        0.014117
+      ],
+      "min": 0.013886,
+      "median": 0.013973,
+      "max": 0.014117,
+      "note": "min, median, and max of one local process; not a service percentile",
+      "detail": {
+        "status": "EXACT",
+        "rechecked_equal": true,
+        "cost": "4/1",
+        "bases_checked": 70,
+        "rays_checked": 4,
+        "reason": "exact_basic_minimum"
+      },
+      "shape": "8/16",
+      "matrix": "binary indicators of state index bits; target is G times the all-ones vector; unit costs are 1"
+    },
+    "16/16": {
+      "status": "NOT_RUN",
+      "reason": "shape 16/16 exceeds the solver domain of 16 states and 8 components",
+      "domain_cap_states": 16,
+      "domain_cap_components": 8
+    }
+  },
+  "prediction_exhaustive_max_unit_3": {
+    "sample_size": 5,
+    "seconds": [
+      0.083795,
+      0.084089,
+      0.084142,
+      0.084338,
+      0.085207
+    ],
+    "min": 0.083795,
+    "median": 0.084142,
+    "max": 0.085207,
+    "note": "min, median, and max of one local process; not a service percentile",
+    "detail": {
+      "max_unit": 3,
+      "seed_supply": 0,
+      "states": 208,
+      "transitions": 522,
+      "failures": 0,
+      "counterexample": "",
+      "runtime_seconds": 0.084057,
+      "result": "EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN",
+      "terminal_archived": 24
+    }
+  },
+  "candidate_telescope_check": {
+    "sample_size": 5,
+    "seconds": [
+      0.011266,
+      0.011271,
+      0.011724,
+      0.012034,
+      0.268256
+    ],
+    "min": 0.011266,
+    "median": 0.011724,
+    "max": 0.268256,
+    "note": "min, median, and max of one local process; not a service percentile",
+    "detail": {
+      "canonical_math_1": "FAIL",
+      "identity": "sum of global-cursor deltas = floor(supply * payout / D)",
+      "global_cursor": {
+        "sympy_version": "1.14.0",
+        "inductive_step_cancels": "True",
+        "five_part_composition_cancels": "True",
+        "floor_of_zero_is_zero": "True",
+        "classification": "PROVEN_UNDER_ASSUMPTIONS",
+        "assumptions": "one global cursor; paid(R)=floor(R*payout/D); D>0; non-negative integers; paid(0)=0"
+      },
+      "per_holder_cursor": {
+        "sympy_version": "1.14.0",
+        "identically_zero": "undecided",
+        "witness_payout": "999999999999999999",
+        "witness_gap": "1",
+        "classification": "COUNTEREXAMPLE_FOUND"
+      },
+      "z3_witness": {
+        "z3_version": "5.1.0",
+        "per_holder_differs_on_original_case": "true",
+        "classification": "COUNTEREXAMPLE_FOUND"
+      },
+      "python_regression": {
+        "global_paid": 1,
+        "one_shot": 1,
+        "per_holder_paid": 0,
+        "global_matches_one_shot": "True",
+        "per_holder_matches_one_shot": "False"
+      },
+      "runtime_seconds": 0.011719
+    }
+  },
+  "prior_single_exhaustive_summary": "research/prediction-model/outputs/exhaustive_summary.json",
+  "prior_payoff_loops_not_rerun": "evidence/research/prism/math1-probe-2026-09-26.json"
+}

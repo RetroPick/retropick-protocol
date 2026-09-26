@@ -68,6 +68,10 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 |---|---|
 | `evidence/research/baseline/` | baseline unittest, adversarial, scenarios, Doorway Forge summary |
 | `evidence/research/prism/math1-probe-2026-09-26.json` | probe output |
+| `evidence/research/prediction/operation-gas-2026-09-26.txt` | one Foundry run of prediction CALL and market CREATE gas |
+| `research/benchmarks/reports/prediction-operation-gas-2026-09-26.md` | gas rows, SHA, optimizer, and the one-run limitation |
+| `evidence/research/benchmarks/reference-model-timings-2026-09-26.json` | five-sample replication, exhaustive, and telescope timings |
+| `research/benchmarks/raw/reference-model-timings-2026-09-26.json` | same timing output |
 | `evidence/research/prediction/kernel-forge-2026-09-26.txt` | kernel test log |
 | `evidence/research/prediction/kernel-coverage-2026-09-26.txt` | earlier forge coverage summary, branches 30.56% (11/36) |
 | `evidence/research/prediction/kernel-coverage-fuzz64-2026-09-26.txt` | remeasured coverage. PredictionMarket branches 94.44% (34/36). Fuzz runs 64. Invariant runs 256 |

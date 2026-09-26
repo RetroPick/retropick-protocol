@@ -30,6 +30,7 @@ MATH-1F: measured_simulation on declared synthetic books. It is not a solvency r
 Minimum-cost replication: EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN for declared rational matrices of at most 16 states and 8 components. A AND B with columns A, B, and the constant 1 is PRODUCT_NOT_REPLICABLE. This is not Kuru and not a solvency theorem.  
 Storage-slot isolation: INFERRED from the current kernel layouts. Two markets do not share split slots. Two series contracts do not share mint slots. Monad throughput was not measured. ADR-R06 stays PROPOSED.  
 R-I08: measured. `CandidateCumulativeSettlement.redeem` reverts `NotRedeemable` until `makeRedeemable`. The payout formula was not changed.  
+Benchmarks: `benchmarks_measured: local_single_environment`. One Foundry gas test and five-sample reference timings. Not admission. 16/16 replication solve was NOT_RUN. No percentiles.  
 MODULE-ADMISSION-FINANCE-1: not met.  
 PRISM CONTRACT-ARCH-1: proposed, contingent on ADR-R03. Not a pass.  
 SOURCE-ASSET-INTERFACE-FREEZE: proposed_not_frozen.  

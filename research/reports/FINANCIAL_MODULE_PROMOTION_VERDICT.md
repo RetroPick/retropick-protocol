@@ -90,7 +90,11 @@ A per-holder cursor does not telescope. SymPy did not decide the symbolic gap (`
 
 ## BENCHMARKS
 
-`research/benchmarks/README.md`. No percentiles. No invented SLOs.
+`research/benchmarks/README.md`. No percentiles. No invented SLOs. `benchmarks_measured` is `local_single_environment`. That is not admission.
+
+One Foundry test, assembly `gas()` around CALL or CREATE, optimizer 200, solc 0.8.26, kernel SHA `c0af8e584137fa35ef4d71b4d8a46d260798deb4`. Market deploy 2438030, including two internal outcome tokens. `split(100)` 206722. `merge(40)` 37041. `resolve` YES 48909. `redeemYes(60)` on a YES win 34979 and pays 60. `redeemYes(5)` after INVALID 37779 and pays 2. The whole test is 6578687 and includes deployment, so the CALL rows are the measurement. Standalone outcome-token CREATE stays 534243 and was not rerun. There is no protocol factory contract, so that deploy was not run. Log: `evidence/research/prediction/operation-gas-2026-09-26.txt`.
+
+Replication solve on declared binary matrices, five samples, exact re-check true: 2/4 median 0.000084s, 4/4 median 0.000275s, 4/16 median 0.000553s, 8/16 median 0.013973s. 16/16 was NOT_RUN because the solver cap is 8 components. Prediction exhaustive search, five samples: 208 states, 522 transitions, median 0.084142s. The committed summary file was not rewritten. Telescope check, five samples: median 0.011724s, max 0.268256s. Its classifications were unchanged and canonical MATH-1 stays FAIL. Raw: `evidence/research/benchmarks/reference-model-timings-2026-09-26.json`.
 
 ## SECURITY
 

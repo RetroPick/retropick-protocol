@@ -1,0 +1,46 @@
+tool: forge test
+command: forge test --match-contract TransferredYesRedeemTest -vv
+cwd: /workspace/research/contract-kernels
+profile: default
+sha_base: 5edf30f3ce09850f71a79ddb9a82dd20c78176b6
+split: 4
+transfer: 1 YES from A to B
+result: YES_WIN
+redeem: Solidity redeemYes(1) from B, Python redeem YES 1 from bob
+classification: existing_rule
+payout: 1
+payout_recipient: bob
+before: liability 4, collateral locked 4, A collateral 999996, B collateral 0, YES 4, NO 4, yes_redeemed 0, no_redeemed 0
+after: liability 3, collateral locked 3, A collateral 999996, B collateral 1, YES 3, NO 4, yes_redeemed 1, no_redeemed 0
+python: payout 1 to bob. Liability 4 then 3. Collateral locked 4 then 3. Supplies and cursors match. The model stores no per-account collateral balance.
+adr_added: false
+adr_p15: PROPOSED
+adr_p16: PROPOSED
+math1: FAIL
+
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 1.21s
+Compiler run successful!
+
+Ran 1 test for test/prediction/TransferredYesRedeem.t.sol:TransferredYesRedeemTest
+[PASS] test_redeem_transferred_yes_pays_the_holder() (gas: 862377)
+Logs:
+  classification: existing_rule
+  payout_recipient: bob
+  payout: 1
+  alice_collateral_before: 999996
+  bob_collateral_before: 0
+  alice_collateral_after: 999996
+  bob_collateral_after: 1
+  liability_before: 4
+  collateral_before: 4
+  liability_after: 3
+  collateral_after: 3
+  yes_supply_after: 3
+  no_supply_after: 4
+  yes_redeemed_after: 1
+  no_redeemed_after: 0
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 759.77µs (228.20µs CPU time)
+
+Ran 1 test suite in 5.48ms (759.77µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

@@ -1,0 +1,87 @@
+'forge clean' running (wd: /workspace/research/contract-kernels)
+'forge config --json' running
+'forge build --build-info --deny never --skip ./test/** ./script/** --force' running (wd: /workspace/research/contract-kernels)
+ERROR:Slither:Failed to resolved name for reference id 618 in /workspace/contracts/lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol.
+ERROR:Slither:Failed to resolved name for reference id 592 in /workspace/contracts/lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol.
+ERROR:Slither:Failed to resolved name for reference id 3099 in /workspace/contracts/lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol.
+ERROR:Slither:Failed to resolved name for reference id 2974 in /workspace/contracts/lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol.
+ERROR:Slither:Failed to resolved name for reference id 618 in /workspace/contracts/lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol.
+ERROR:Slither:Failed to resolved name for reference id 3181 in /workspace/contracts/lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol.
+ERROR:Slither:Failed to resolved name for reference id 592 in /workspace/contracts/lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol.
+ERROR:Slither:Failed to resolved name for reference id 3309 in /workspace/contracts/lib/openzeppelin-contracts/contracts/utils/ReentrancyGuard.sol.
+ERROR:Slither:Failed to resolved name for reference id 618 in /workspace/research/contract-kernels/src/prediction/MockCollateral.sol.
+ERROR:Slither:Failed to resolved name for reference id 592 in /workspace/research/contract-kernels/src/prediction/MockCollateral.sol.
+ERROR:Slither:Failed to resolved name for reference id 2974 in /workspace/research/contract-kernels/src/prediction/MockCollateral.sol.
+ERROR:Slither:Failed to resolved name for reference id 3099 in /workspace/research/contract-kernels/src/prediction/MockCollateral.sol.
+ERROR:Slither:Failed to resolved name for reference id 618 in /workspace/research/contract-kernels/src/prediction/OutcomeToken.sol.
+ERROR:Slither:Failed to resolved name for reference id 592 in /workspace/research/contract-kernels/src/prediction/OutcomeToken.sol.
+ERROR:Slither:Failed to resolved name for reference id 2974 in /workspace/research/contract-kernels/src/prediction/OutcomeToken.sol.
+ERROR:Slither:Failed to resolved name for reference id 3099 in /workspace/research/contract-kernels/src/prediction/OutcomeToken.sol.
+ERROR:Slither:Failed to resolved name for reference id 592 in /workspace/research/contract-kernels/src/prediction/PredictionMarket.sol.
+ERROR:Slither:Failed to resolved name for reference id 3099 in /workspace/research/contract-kernels/src/prediction/PredictionMarket.sol.
+ERROR:Slither:Failed to resolved name for reference id 2974 in /workspace/research/contract-kernels/src/prediction/PredictionMarket.sol.
+ERROR:Slither:Failed to resolved name for reference id 618 in /workspace/research/contract-kernels/src/prediction/PredictionMarket.sol.
+ERROR:Slither:Failed to resolved name for reference id 3181 in /workspace/research/contract-kernels/src/prediction/PredictionMarket.sol.
+ERROR:Slither:Failed to resolved name for reference id 3309 in /workspace/research/contract-kernels/src/prediction/PredictionMarket.sol.
+ERROR:ContractSolcParsing:Missing inheritance MockCollateral (062fb719d8a8b7fb)
+Missing inheritance ID: 3099
+Inheritance found:
+	 - ERC20 (ID 514)
+
+ERROR:ContractSolcParsing:Missing inheritance OutcomeToken (062fb719d8a8b7fb)
+Missing inheritance ID: 3099
+Inheritance found:
+	 - ERC20 (ID 514)
+
+ERROR:ContractSolcParsing:Missing params '_msgSender()' src/prediction/MockCollateral.sol#7-35 (1 - 2)
+ERROR:ContractSolcParsing:Missing params '_msgSender()' src/prediction/OutcomeToken.sol#9-37 (1 - 2)
+ERROR:ConvertToIR:Function not found mint
+ERROR:ContractSolcParsing:Impossible to generate IR for PredictionMarket.split (src/prediction/PredictionMarket.sol#123-136):
+ 'NoneType' object has no attribute 'type'
+ERROR:ConvertToIR:Function not found burn
+ERROR:ContractSolcParsing:Impossible to generate IR for PredictionMarket.merge (src/prediction/PredictionMarket.sol#138-148):
+ 'NoneType' object has no attribute 'type'
+ERROR:ConvertToIR:Function not found burn
+ERROR:ContractSolcParsing:Impossible to generate IR for PredictionMarket.burnWorthless (src/prediction/PredictionMarket.sol#202-215):
+ 'NoneType' object has no attribute 'type'
+ERROR:ConvertToIR:Function not found burn
+ERROR:ContractSolcParsing:Impossible to generate IR for PredictionMarket._redeem (src/prediction/PredictionMarket.sol#228-246):
+ 'NoneType' object has no attribute 'type'
+INFO:Detectors:
+Detector: uninitialized-state
+PredictionMarket.yesRedeemed (src/prediction/PredictionMarket.sol#54) is never initialized. It is used in:
+	- PredictionMarket.liability() (src/prediction/PredictionMarket.sol#114-121)
+PredictionMarket.noRedeemed (src/prediction/PredictionMarket.sol#55) is never initialized. It is used in:
+	- PredictionMarket.liability() (src/prediction/PredictionMarket.sol#114-121)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#uninitialized-state-variables
+INFO:Detectors:
+Detector: pragma
+5 different versions of Solidity are used:
+	- Version constraint >=0.6.2 is used by:
+		->=0.6.2 (../../contracts/lib/openzeppelin-contracts/contracts/interfaces/IERC1363.sol#4)
+		->=0.6.2 (../../contracts/lib/openzeppelin-contracts/contracts/interfaces/IERC20Metadata.sol#4)
+		->=0.6.2 (../../contracts/lib/openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Metadata.sol#4)
+	- Version constraint >=0.4.16 is used by:
+		->=0.4.16 (../../contracts/lib/openzeppelin-contracts/contracts/interfaces/IERC165.sol#4)
+		->=0.4.16 (../../contracts/lib/openzeppelin-contracts/contracts/interfaces/IERC20.sol#4)
+		->=0.4.16 (../../contracts/lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol#4)
+		->=0.4.16 (../../contracts/lib/openzeppelin-contracts/contracts/utils/introspection/IERC165.sol#4)
+	- Version constraint >=0.8.4 is used by:
+		->=0.8.4 (../../contracts/lib/openzeppelin-contracts/contracts/interfaces/draft-IERC6093.sol#4)
+	- Version constraint ^0.8.20 is used by:
+		-^0.8.20 (../../contracts/lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol#4)
+		-^0.8.20 (../../contracts/lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol#4)
+		-^0.8.20 (../../contracts/lib/openzeppelin-contracts/contracts/utils/Context.sol#4)
+		-^0.8.20 (../../contracts/lib/openzeppelin-contracts/contracts/utils/ReentrancyGuard.sol#4)
+		-^0.8.20 (../../contracts/lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#5)
+	- Version constraint 0.8.26 is used by:
+		-0.8.26 (src/prediction/MockCollateral.sol#2)
+		-0.8.26 (src/prediction/OutcomeToken.sol#2)
+		-0.8.26 (src/prediction/PredictionMarket.sol#2)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#different-pragma-directives-are-used
+INFO:Detectors:
+Detector: constable-states
+PredictionMarket.noRedeemed (src/prediction/PredictionMarket.sol#55) should be constant 
+PredictionMarket.yesRedeemed (src/prediction/PredictionMarket.sol#54) should be constant 
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#state-variables-that-could-be-declared-constant
+INFO:Slither:. analyzed (15 contracts with 102 detectors), 5 result(s) found

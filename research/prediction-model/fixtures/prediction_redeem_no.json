@@ -1,0 +1,16 @@
+{
+  "collateral_locked": "75",
+  "liability": "75",
+  "no_numerator": "2",
+  "no_redeemed": "25",
+  "no_supply": "75",
+  "payout": "25",
+  "redeem_amount": "25",
+  "residual_to_sink": "0",
+  "result": "2",
+  "split_amount": "100",
+  "state": "5",
+  "yes_numerator": "0",
+  "yes_redeemed": "0",
+  "yes_supply": "100"
+}

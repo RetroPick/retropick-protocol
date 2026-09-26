@@ -1,0 +1,31 @@
+{
+  "after_archive": {
+    "collateral_locked": "0",
+    "liability": "0",
+    "no_numerator": "1",
+    "no_redeemed": "5",
+    "no_supply": "0",
+    "residual": "1",
+    "residual_to_sink": "1",
+    "result": "3",
+    "split_amount": "5",
+    "state": "6",
+    "yes_numerator": "1",
+    "yes_redeemed": "5",
+    "yes_supply": "0"
+  },
+  "before_archive": {
+    "collateral_locked": "1",
+    "liability": "0",
+    "no_numerator": "1",
+    "no_redeemed": "5",
+    "no_supply": "0",
+    "residual_to_sink": "0",
+    "result": "3",
+    "split_amount": "5",
+    "state": "5",
+    "yes_numerator": "1",
+    "yes_redeemed": "5",
+    "yes_supply": "0"
+  }
+}

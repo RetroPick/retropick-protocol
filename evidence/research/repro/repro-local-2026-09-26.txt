@@ -1,0 +1,136 @@
+git_sha: 82ec6c3b0fe3c5bc58cc898cf387c5dfe4950dac
+python: Python 3.12.3
+forge: forge Version: 1.8.3
+note: existing interpreter and existing Foundry install. No virtualenv was created. No fresh clone.
+=== prediction-model unittest ===
+............
+----------------------------------------------------------------------
+Ran 12 tests in 0.252s
+
+OK
+prediction_model: PASS
+=== prism-model unittest ===
+.....................................................................................
+----------------------------------------------------------------------
+Ran 85 tests in 3.306s
+
+OK
+prism_model: PASS
+=== forge test (not coverage) ===
+Compiling 57 files with Solc 0.8.26
+Solc 0.8.26 finished in 3.93s
+Compiler run successful!
+
+Ran 14 tests for test/prediction/PredictionBranchCoverage.t.sol:PredictionBranchCoverageTest
+[PASS] test_activate_rejects_non_factory_and_repeat() (gas: 115424)
+[PASS] test_archive_before_redeemable_reverts() (gas: 40722)
+[PASS] test_begin_resolution_access_and_open_state() (gas: 90288)
+[PASS] test_close_mint_access_and_repeat() (gas: 90398)
+[PASS] test_constructor_rejects_zero_collateral() (gas: 9559)
+[PASS] test_constructor_rejects_zero_dust_sink() (gas: 9489)
+[PASS] test_constructor_rejects_zero_resolver() (gas: 9531)
+[PASS] test_draft_rejects_split_and_merge() (gas: 77878)
+[PASS] test_merge_zero_rejected() (gas: 291381)
+[PASS] test_no_win_burns_worthless_yes_and_rejects_paying_side() (gas: 593065)
+[PASS] test_open_redemption_rejects_unresolved_and_repeat() (gas: 475262)
+[PASS] test_resolve_none_rejected() (gas: 101078)
+[PASS] test_user_cannot_burn_outcome() (gas: 74862)
+[PASS] test_zero_redeem_rejected() (gas: 503599)
+Suite result: ok. 14 passed; 0 failed; 0 skipped; finished in 1.62ms (992.38µs CPU time)
+
+Ran 10 tests for test/prediction/PredictionInvariantIds.t.sol:PredictionInvariantIdsTest
+[PASS] test_P_I01_supplies_match_balances() (gas: 300804)
+[PASS] test_P_I02_conservation_through_resolution_pending() (gas: 351663)
+[PASS] test_P_I03_split_only_while_open_and_equal() (gas: 337267)
+[PASS] test_P_I04_merge_while_locked_releases_equal_collateral() (gas: 473422)
+[PASS] test_P_I05_spec_hash_is_immutable() (gas: 389517)
+[PASS] test_P_I06_one_result_from_pending_by_resolver() (gas: 455266)
+[PASS] test_P_I07_redeem_only_redeemable_balance() (gas: 577320)
+[PASS] test_P_I08_collateral_covers_liability() (gas: 567263)
+[PASS] test_P_I09_no_admin_mint() (gas: 63879)
+[PASS] test_P_I10_archive_only_at_zero_supply() (gas: 638627)
+Suite result: ok. 10 passed; 0 failed; 0 skipped; finished in 1.39ms (839.19µs CPU time)
+
+Ran 14 tests for test/prediction/PredictionDifferential.t.sol:PredictionDifferentialTest
+[PASS] test_archive_invalid_reads_fixture() (gas: 948092)
+[PASS] test_begin_resolution_reads_fixture() (gas: 412803)
+[PASS] test_burn_worthless_and_archive_read_fixture() (gas: 1004787)
+[PASS] test_close_mint_reads_fixture() (gas: 384704)
+[PASS] test_invalid_stream_reads_fixture() (gas: 1192491)
+[PASS] test_merge_locked_reads_fixture() (gas: 492596)
+[PASS] test_merge_reads_fixture() (gas: 379197)
+[PASS] test_redeem_no_reads_fixture() (gas: 663385)
+[PASS] test_redeem_yes_reads_fixture() (gas: 690710)
+[PASS] test_rejections_read_fixture() (gas: 4955986)
+[PASS] test_resolve_invalid_reads_fixture() (gas: 522117)
+[PASS] test_resolve_no_reads_fixture() (gas: 502204)
+[PASS] test_resolve_yes_reads_fixture() (gas: 538946)
+[PASS] test_split_reads_fixture() (gas: 314343)
+Suite result: ok. 14 passed; 0 failed; 0 skipped; finished in 7.60ms (7.14ms CPU time)
+
+Ran 2 tests for test/prism/CandidatePayoffTransform.t.sol:CandidatePayoffTransformDifferentialTest
+[PASS] test_matches_python_fixtures() (gas: 2195252)
+[PASS] test_negative_control_is_not_equivalent() (gas: 165828)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 12.41ms (12.23ms CPU time)
+
+Ran 1 test for test/prism/CandidateSettlementGas.t.sol:CandidateSettlementGasTest
+[PASS] test_fund_and_redeem_gas() (gas: 472420)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 244.82µs (181.72µs CPU time)
+
+Ran 4 tests for test/prediction/OutcomeTokenGas.t.sol:OutcomeTokenGasTest
+[PASS] test_full_deployment_versus_erc1167() (gas: 2272068)
+[PASS] test_immutable_outcome_token_clone_shares_identity() (gas: 148793)
+[PASS] test_storage_clone_initializer_cannot_replay() (gas: 284509)
+[PASS] test_storage_clone_moves_balances_only_through_its_market() (gas: 558984)
+Suite result: ok. 4 passed; 0 failed; 0 skipped; finished in 690.40µs (545.43µs CPU time)
+
+Ran 3 tests for test/prism/CandidateCumulativeSettlement.t.sol:CandidateCumulativeSettlementDifferentialTest
+[PASS] test_final_supply_is_not_redeemable_until_funded() (gas: 365710)
+[PASS] test_matches_python_fixtures() (gas: 2873277)
+[PASS] test_underfunded_does_not_open() (gas: 126466)
+Suite result: ok. 3 passed; 0 failed; 0 skipped; finished in 7.19ms (7.07ms CPU time)
+
+Ran 1 test for test/prediction/PredictionOperationGas.t.sol:PredictionOperationGasTest
+[PASS] test_prediction_operation_gas() (gas: 6578687)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 600.04µs (516.95µs CPU time)
+
+Ran 4 tests for test/prism/CandidateComponentBacking.t.sol:CandidateComponentBackingDifferentialTest
+[PASS] test_fee_on_transfer_deposit_does_not_credit_backing() (gas: 388886)
+[PASS] test_matches_python_fixtures() (gas: 8038244)
+[PASS] test_redeem_transfers_after_supply_is_burned() (gas: 1768952)
+[PASS] test_reservation_matches_fixture() (gas: 369335)
+Suite result: ok. 4 passed; 0 failed; 0 skipped; finished in 36.21ms (35.89ms CPU time)
+
+Ran 9 tests for test/prediction/PredictionMarket.t.sol:PredictionMarketTest
+[PASS] testFuzz_invalid_dust_bound(uint32) (runs: 256, μ: 701545, ~: 703261)
+[PASS] testFuzz_split_merge_conserves(uint96) (runs: 256, μ: 408309, ~: 408208)
+[PASS] test_double_resolve_reverts() (gas: 404006)
+[PASS] test_fee_on_transfer_split_reverts() (gas: 145431)
+[PASS] test_invalid_cumulative_floor_matches_fixture() (gas: 1262455)
+[PASS] test_merge_matches_fixture() (gas: 349076)
+[PASS] test_split_matches_fixture() (gas: 312956)
+[PASS] test_user_cannot_mint_outcome() (gas: 35804)
+[PASS] test_yes_redemption_matches_fixture() (gas: 659504)
+Suite result: ok. 9 passed; 0 failed; 0 skipped; finished in 38.27ms (58.42ms CPU time)
+
+Ran 1 test for test/prediction/PredictionInvariant.t.sol:PredictionInvariantTest
+[PASS] invariant_preResolutionConservation() (runs: 256, calls: 128000, reverts: 46683)
+
+╭-------------------------+-----------------+-------+---------+----------╮
+| Contract                | Selector        | Calls | Reverts | Discards |
++========================================================================+
+| PredictionInvariantTest | beginResolution | 32024 | 0       | 0        |
+|-------------------------+-----------------+-------+---------+----------|
+| PredictionInvariantTest | closeMint       | 31805 | 0       | 0        |
+|-------------------------+-----------------+-------+---------+----------|
+| PredictionInvariantTest | merge           | 32262 | 15019   | 0        |
+|-------------------------+-----------------+-------+---------+----------|
+| PredictionInvariantTest | split           | 31909 | 31664   | 0        |
+╰-------------------------+-----------------+-------+---------+----------╯
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 5.26s (5.26s CPU time)
+
+Ran 11 test suites in 5.27s (5.36s CPU time): 63 tests passed, 0 failed, 0 skipped (63 total tests)
+forge_test: PASS
+repro_exit: 0
+post_script_note: ExhaustiveTests rewrote research/prediction-model/outputs/exhaustive_summary.json runtime_seconds from 0.086862 to 0.084698. States, transitions, and failures were unchanged. The committed file was restored to 0.086862.

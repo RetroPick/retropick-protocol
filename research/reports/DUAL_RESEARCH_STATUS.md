@@ -31,6 +31,8 @@ Minimum-cost replication: EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN for declared ratio
 Storage-slot isolation: INFERRED from the current kernel layouts. Two markets do not share split slots. Two series contracts do not share mint slots. Monad throughput was not measured. ADR-R06 stays PROPOSED.  
 R-I08: measured. `CandidateCumulativeSettlement.redeem` reverts `NotRedeemable` until `makeRedeemable`. The payout formula was not changed.  
 Benchmarks: `benchmarks_measured: local_single_environment`. One Foundry gas test and five-sample reference timings. Not admission. 16/16 replication solve was NOT_RUN. No percentiles.  
+Static analysis: `measured_with_findings`. Slither 0.11.6 focused rerun exited 255 with incomplete IR. solhint 5.2.0 exited 0 with 42 warnings and 0 errors. S-P16 stays open. This is not PRED-CONTRACT-1 PASS.  
+Local reproducibility: `rerun_pass`. Prediction unit tests 12 OK, PRISM unit tests 85 OK, Foundry 63 passed and 0 failed. Existing interpreter. No fresh virtualenv.  
 MODULE-ADMISSION-FINANCE-1: not met.  
 PRISM CONTRACT-ARCH-1: proposed, contingent on ADR-R03. Not a pass.  
 SOURCE-ASSET-INTERFACE-FREEZE: proposed_not_frozen.  
@@ -60,4 +62,4 @@ The baseline file remains the pre-change record. After it:
 - Kuru router address and a RetroPick parameter set. The worksheet's book rows are BLOCKED after a second primary-source pass. No fork and no deployment.
 - Cross-module differential harness. The source-asset list is `proposed_not_frozen`, not frozen. X-I01..X-I07 are not tested.
 - Kernel `cancelDraft` for the cancelled-draft branch of P-I05.
-- Echidna, Medusa, Halmos, Mythril, semgrep, solhint: not installed.
+- Echidna, Medusa, Halmos, Mythril, semgrep: not installed. solhint 5.2.0 ran locally and is not a clean-audit substitute. Slither's focused rerun still has incomplete IR.

@@ -59,7 +59,7 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 
 - `pnpm test:web` (no `node_modules`)
 - Kuru testnet or fork
-- echidna, medusa, halmos, mythril, semgrep, solhint
+- echidna, medusa, halmos, mythril, semgrep
 - a second clone of the repository in an empty directory
 
 ## Evidence paths
@@ -109,7 +109,11 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `evidence/research/prism/market-microstructure-2026-09-26.json` | MATH-1F synthetic quotes. Not solvency |
 | `evidence/research/prism/candidate-telescope-proof-2026-09-26.json` | SymPy 1.14.0 and Z3 5.1.0 cursor check |
 | `docs/prism/04-architecture/SOURCE_ASSET_INTERFACE.md` | proposed, not frozen |
-| `evidence/research/prediction/slither-2026-09-26.txt` | Slither log, including IR errors |
+| `evidence/research/prediction/slither-2026-09-26.txt` | earlier Slither log, including IR errors |
+| `evidence/research/prediction/slither-focused-2026-09-26.txt` | focused Slither 0.11.6 rerun, exit 255, 14 results |
+| `evidence/research/prediction/solhint-2026-09-26.txt` | solhint 5.2.0, exit 0, 42 warnings, 0 errors |
+| `evidence/research/repro/repro-local-2026-09-26.txt` | local rerun: 12 and 85 unit tests OK, Foundry 63 passed |
+| `research/benchmarks/scripts/repro_local.sh` | rerun script. Not a fresh clone or virtualenv |
 | `research/prediction-model/outputs/exhaustive_summary.json` | 208-state search |
 | `research/contract-kernels/.gas-snapshot` | one gas snapshot |
 

@@ -75,6 +75,12 @@ Prediction `explore(max_unit=3)`, five samples: 208 states, 522 transitions, 0 f
 
 Candidate telescope check, five samples: min 0.011266s, median 0.011724s, max 0.268256s. The maximum is one slower call. Classifications were unchanged. Canonical MATH-1 stays FAIL.
 
+## Local reproducibility
+
+`research/benchmarks/scripts/repro_local.sh` prints the git SHA and runs prediction-model unit tests, prism-model unit tests, and `forge test`. It does not run coverage. The recorded run is `82ec6c3b0fe3c5bc58cc898cf387c5dfe4950dac`: 12 prediction tests OK, 85 PRISM tests OK, 63 Foundry tests passed and 0 failed. Log: `evidence/research/repro/repro-local-2026-09-26.txt`.
+
+This is not a clean checkout of the whole monorepo and not a fresh virtualenv. The script used the existing Python 3.12.3 interpreter and the existing Foundry 1.8.3 install. The prediction exhaustive test rewrote `exhaustive_summary.json` runtime from 0.086862 to 0.084698. That committed file was restored.
+
 ## Not measured
 
 Protocol factory deployment. Replication solve at 16/16. Kuru inclusion latency. Monad conflict rates. p50/p90/p95/p99.

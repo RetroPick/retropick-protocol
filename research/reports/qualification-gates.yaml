@@ -5,6 +5,8 @@ human_acceptance: not_granted
 mainnet_authorized: false
 promotion_into_contracts_src_v2: false
 benchmarks_measured: local_single_environment
+static_analysis: measured_with_findings
+reproducibility_local: rerun_pass
 
 prediction:
   PRED-RESEARCH: recorded

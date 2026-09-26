@@ -1,0 +1,35 @@
+{
+  "adr_added": false,
+  "canonical_math1": "FAIL",
+  "case": "constructor_decimals_19",
+  "classification": "existing_rule",
+  "command": "forge test --match-contract DecimalsNineteenRejectTest -vv",
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "gas": 12736,
+  "implementations_changed": false,
+  "kuru_decimals_must_be_18": "not_established",
+  "mint": "not_executed",
+  "pred_kuru_1": "blocked",
+  "profile": "default",
+  "python": {
+    "accepted": false,
+    "decimals": [19, 19],
+    "error": "FixedPointModelError: Phase-1 normalized component decimals must be 0..18",
+    "stored_decimals": null,
+    "weights_wad": ["1000000000000000000", "1000000000000000000"]
+  },
+  "revert_strings_differ": true,
+  "s_p16": "open",
+  "sha_base": "1975579b2de6aa09b2c0f3719775ab33c2770ffc",
+  "solidity": {
+    "accepted": false,
+    "decimals": [19, 19],
+    "error": "DecimalsOutOfRange(19)",
+    "stored_decimals": null,
+    "weights_wad": ["1000000000000000000", "1000000000000000000"]
+  },
+  "tests_failed": 0,
+  "tests_passed": 1,
+  "weights_wad": ["1000000000000000000", "1000000000000000000"]
+}

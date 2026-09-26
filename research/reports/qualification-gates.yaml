@@ -22,6 +22,7 @@ prediction:
   outcome_token_deployment_gas: measured
   PRED-KURU-1: blocked
   P-I05_cancel_draft: "measured. Factory cancelDraft moves DRAFT to ARCHIVED with CANCELLED_BEFORE_ACTIVATION. Collateral stays put. OPEN and REDEEMABLE reject. Immutable spec-hash branch unchanged. PRED-CONTRACT-1 stays not_pass."
+  issuance_stateful_invariant: "measured. default profile. forge 1.8.3, solc 0.8.26, optimizer 200, via IR off. Seeds 20260926 and 20260927. 256 runs, depth 500, 128000 calls, reverts 47971 and 46395, 0 discards. Invariant held. Handlers split, merge, closeMint, beginResolution do not call cancelDraft. PRED-CONTRACT-1 stays not_pass."
   unreachable_funding_branches: proven_under_assumptions
   storage_slot_isolation: inferred
   PLATFORM-INTEGRATION-1: not_met

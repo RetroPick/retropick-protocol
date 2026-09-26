@@ -1,0 +1,38 @@
+tool: forge 1.8.3 (cae51ad458f6abb64852b7709eb784352429825d)
+solc: 0.8.26
+optimizer: true
+optimizer_runs: 200
+via_ir: false
+profile: default
+FOUNDRY_PROFILE: unset
+fail_on_revert: false
+runs: 256
+depth: 500
+cwd: /workspace/research/contract-kernels
+sha: b5ca2583b320824c075c3b21f6bf1d6db1a78074
+handlers: split, merge, closeMint, beginResolution
+handler_calls_cancelDraft: false
+The test contract is the only fuzz target. None of its handlers call PredictionMarket.cancelDraft.
+
+seed 20260926
+command: forge test --match-contract PredictionInvariantTest --fuzz-seed 20260926 -vv
+exit_code: 0
+[PASS] invariant_preResolutionConservation() (runs: 256, calls: 128000, reverts: 47971)
+beginResolution calls 31817 reverts 0 discards 0
+closeMint calls 31953 reverts 0 discards 0
+merge calls 32138 reverts 16138 discards 0
+split calls 32092 reverts 31833 discards 0
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 5.27s (5.27s CPU time)
+
+seed 20260927
+command: forge test --match-contract PredictionInvariantTest --fuzz-seed 20260927 -vv
+exit_code: 0
+[PASS] invariant_preResolutionConservation() (runs: 256, calls: 128000, reverts: 46395)
+beginResolution calls 31882 reverts 0 discards 0
+closeMint calls 31989 reverts 0 discards 0
+merge calls 32319 reverts 14817 discards 0
+split calls 31810 reverts 31578 discards 0
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 5.28s (5.28s CPU time)
+
+No counterexample. The invariant was not weakened. cancelDraft was not added as a handler.
+PRED-CONTRACT-1: not_pass

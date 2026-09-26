@@ -154,7 +154,7 @@ final zero-supply settlement-dust policy (classified in section 11; the residual
 fixed-point partial-resolution transform if required onchain
 Z3/SymPy proof artifacts where useful
 live Kuru LP/MM/fee-domain separation checks
-Foundry differential + stateful invariant suite (candidate settlement suite recorded in section 12; kernel stays differential_research_kernel)
+Foundry differential + stateful invariant suite (settlement in section 12; backing and reservation in section 13; kernels stay differential_research_kernel)
 ```
 
 If any of those exposes a counterexample, theorem/assumption status must be downgraded and the economic model revisited.
@@ -265,3 +265,25 @@ This section does not mark MATH-1 PASS, does not change the payout, and does not
 | `invariant_exactCeilLeftoverIsZeroOrOne` | when that funding equals the exact ceil and the supply is fully redeemed, the leftover is 0 or 1 |
 
 A warmup of 32 runs and depth 16 passed on seeds 20260926 and 20260927: 512 calls, 0 reverts. The recorded campaign is 256 runs and depth 128 on the same seeds: 32768 calls, 0 reverts, 0 discards. Forge 1.8.3, solc 0.8.26, optimizer 200, via IR off. Both seeds passed. No counterexample. Evidence: `evidence/research/prism/candidate-settlement-invariant-2026-09-26.json`. The kernel stays `differential_research_kernel`. Canonical MATH-1 stays FAIL.
+
+## 13. Backing and reservation stateful invariants — 2026-09-26
+
+This section does not mark MATH-1 PASS and does not change either kernel. Both stay `differential_research_kernel`. `fail_on_revert` is false. Handlers return before known revert paths, and a rejected call is attempted with try/catch so the prior state can be compared. Forge 1.8.3, solc 0.8.26, optimizer 200, via IR off. Warmup 32 runs and depth 16, then 256 runs and depth 128, seeds 20260926 and 20260927. Each recorded campaign is 32768 calls, 0 reverts, 0 discards. No counterexample.
+
+`CandidateComponentBacking` handlers are `deposit`, `mint`, and `redeem`. Weights are `WAD/2` and `WAD/2`, decimals 18 and 18. The requirement check uses the contract's `requiredRaw`.
+
+| Invariant | Check |
+|---|---|
+| `invariant_supplyIncreasesOnlyThroughMint` | supply equals successful mints minus successful redeems, and the caller balance equals supply |
+| `invariant_backingCoversOwnRequirement` | after every successful call, `backingRaw[i] >= requiredRaw(supply)[i]` for every component |
+| `invariant_redeemDecreasesSupplyBeforeRelease` | when a redeem transfers backing, the supply observed during that transfer is already the post-redeem supply |
+
+A rejected mint or redeem leaves supply, holder balance, and backing unchanged. Evidence: `evidence/research/prism/candidate-backing-invariant-2026-09-26.json`.
+
+`CandidateReservationLedger` exposes `deposit` and `reserve`. It has no `release` and no `withdraw`, and neither function was added. The handler set is `deposit` and `reserve`. A rejected reserve, including an empty series id, leaves `balance`, `totalReserved`, and `reservedFor` unchanged.
+
+| Invariant | Check |
+|---|---|
+| `invariant_reservationsWithinBalance` | for each asset, the sum of `reservedFor` over the handler's series ids equals `totalReserved`, that sum is at most `balance`, and `available` equals `balance - totalReserved` |
+
+Evidence: `evidence/research/prism/candidate-reservation-invariant-2026-09-26.json`. Canonical MATH-1 stays FAIL.

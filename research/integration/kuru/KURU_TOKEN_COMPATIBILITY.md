@@ -45,3 +45,5 @@ No production market was deployed. No testnet trade was executed.
 ## Worksheet, 2026-09-26
 
 `research/integration/kuru/PARAMETER_WORKSHEET.md` records a second read of the router, deploy-market, MarginAccount, and contract-address pages, plus `@kuru-labs/kuru-sdk` 0.0.97 commit `636509c2eafd63479d3f399703354e0d09f51e18`. Three published `calculatePrecisions` input tuples were run locally. RetroPick book fields stay BLOCKED. The Kuru mainnet router address on the docs page is not a RetroPick target.
+
+A later pass the same day re-read the docs index, OrderBook, OrderBook SDK, both SDK quick starts, architecture, KuruAMMVault, vaults technical, integration, how-fees-work, contract addresses, and the Monad Kuru Flow guide. No page publishes RetroPick decimals, price precision, size precision, tick, min size, max size, maker/taker fees, or a chosen allowance spender. PRED-KURU-1 stays blocked. Evidence: `evidence/research/prism/kuru/source-pass-2026-09-26.json`.

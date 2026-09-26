@@ -1,0 +1,147 @@
+{
+  "retrieved_at": "2026-09-26",
+  "pred_kuru_1": "blocked",
+  "deployment": "not_run",
+  "rpc_read": "not_run",
+  "precision_calculator_page": "not_listed_in_llms_txt",
+  "precision_helper": "ParamCreator.calculatePrecisions on the deploy-market page and kuru-sdk 0.0.97",
+  "retropick_rows": "BLOCKED",
+  "why_blocked": "No checked source specifies RetroPick decimals, price precision, size precision, tick, min size, max size, maker/taker fees, or a chosen allowance spender. Documentation examples and official Kuru markets were not copied into those rows.",
+  "sources": [
+    {
+      "name": "Docs index",
+      "url": "https://docs.kuru.io/llms.txt",
+      "retrieved_at": "2026-09-26",
+      "version": "docs index, no semver",
+      "classification": "SUPPORTED_BY_LIVE_EVIDENCE",
+      "uncertainty": "No page titled precision calculator is listed.",
+      "quotation": "The index lists Deploy Markets, Router, OrderBook, MarginAccount, KuruAMMVault, Vaults Technical, Contract Addresses, Integration, and How Fees Work. It does not list a precision calculator."
+    },
+    {
+      "name": "Router",
+      "url": "https://docs.kuru.io/contracts/Router",
+      "retrieved_at": "2026-09-26",
+      "version": "docs page, no semver",
+      "classification": "SUPPORTED_BY_LIVE_EVIDENCE",
+      "uncertainty": "Call shape only.",
+      "quotation": "deployProxy takes sizePrecision, pricePrecision, tickSize, minSize, maxSize, takerFeeBps, makerFeeBps, and kuruAmmSpread. No RetroPick values are published."
+    },
+    {
+      "name": "Deploy a market",
+      "url": "https://docs.kuru.io/sdk/deploy-market",
+      "retrieved_at": "2026-09-26",
+      "version": "docs page, no semver",
+      "classification": "SUPPORTED_BY_LIVE_EVIDENCE",
+      "uncertainty": "Example numbers are not RetroPick policy.",
+      "quotation": "We recommend using the calculatePrecisions function to get the suggested parameters for the market."
+    },
+    {
+      "name": "OrderBook SDK",
+      "url": "https://docs.kuru.io/sdk/orderbook-sdk",
+      "retrieved_at": "2026-09-26",
+      "version": "docs page, no semver",
+      "classification": "SUPPORTED_BY_LIVE_EVIDENCE",
+      "uncertainty": "The sample reads params from a caller-supplied market.",
+      "quotation": "Place orders, manage positions. Price and size must respect the market's tick and min size. No RetroPick market is named."
+    },
+    {
+      "name": "SDK quick start",
+      "url": "https://docs.kuru.io/sdk/quickstart-sdk",
+      "retrieved_at": "2026-09-26",
+      "version": "docs page, no semver",
+      "classification": "SUPPORTED_BY_LIVE_EVIDENCE",
+      "uncertainty": "Placeholders.",
+      "quotation": "const price = \"\"; const size = \"\";"
+    },
+    {
+      "name": "Python SDK quick start",
+      "url": "https://docs.kuru.io/sdk/py-sdk-quickstart",
+      "retrieved_at": "2026-09-26",
+      "version": "docs page, no semver",
+      "classification": "SUPPORTED_BY_LIVE_EVIDENCE",
+      "uncertainty": "On-chain params are fetched and not printed.",
+      "quotation": "load_all_configs() automatically loads config.toml, fetches the market's on-chain params, and sets price_precision, size_precision, tick_size, and token addresses/decimals/symbols."
+    },
+    {
+      "name": "Architecture",
+      "url": "https://docs.kuru.io/contracts/Architecture-overview",
+      "retrieved_at": "2026-09-26",
+      "version": "docs page, no semver",
+      "classification": "SUPPORTED_BY_LIVE_EVIDENCE",
+      "uncertainty": "Qualitative warning, no numeric RetroPick policy.",
+      "quotation": "a low sizePrecision will wreck the backstop liquidity and wrong pricePrecision might make it impossible to place limit orders on certain pairs."
+    },
+    {
+      "name": "OrderBook",
+      "url": "https://docs.kuru.io/contracts/OrderBook",
+      "retrieved_at": "2026-09-26",
+      "version": "docs page, no semver",
+      "classification": "SUPPORTED_BY_LIVE_EVIDENCE",
+      "uncertainty": "Type signature only.",
+      "quotation": "function addBuyOrder(uint32 _price, uint96 _size, bool _postOnly) external"
+    },
+    {
+      "name": "MarginAccount",
+      "url": "https://docs.kuru.io/contracts/MarginAccount",
+      "retrieved_at": "2026-09-26",
+      "version": "docs page, no semver",
+      "classification": "SUPPORTED_BY_LIVE_EVIDENCE",
+      "uncertainty": "Deposit spender is the MarginAccount for that call. RetroPick has not chosen a path.",
+      "quotation": "function deposit(address _user, address _token, uint256 _amount) external payable. For ERC20 tokens, transfers from caller to contract."
+    },
+    {
+      "name": "KuruAMMVault",
+      "url": "https://docs.kuru.io/contracts/KuruAMMVault",
+      "retrieved_at": "2026-09-26",
+      "version": "docs page, no semver",
+      "classification": "SUPPORTED_BY_LIVE_EVIDENCE",
+      "uncertainty": "Vault mechanics, not a RetroPick market.",
+      "quotation": "SPREAD_CONSTANT - Spread between bid/ask prices (e.g., 100 = 1% spread). For first deposit, mints minimum liquidity (10^3 shares) to margin account. Ask size: (SPREAD_CONSTANT * baseAmount) / (20000 + SPREAD_CONSTANT). Bid size: (SPREAD_CONSTANT * baseAmount) / 20000."
+    },
+    {
+      "name": "Vaults technical",
+      "url": "https://docs.kuru.io/contracts/Vaults-technical",
+      "retrieved_at": "2026-09-26",
+      "version": "docs page, no semver",
+      "classification": "SUPPORTED_BY_LIVE_EVIDENCE",
+      "uncertainty": "30 bps is a worked example.",
+      "quotation": "let us assume that the vault is placing orders at a gap of 30 BPS."
+    },
+    {
+      "name": "Integration",
+      "url": "https://docs.kuru.io/contracts/Integration",
+      "retrieved_at": "2026-09-26",
+      "version": "docs page, no semver",
+      "classification": "SUPPORTED_BY_LIVE_EVIDENCE",
+      "uncertainty": "Indexer events only.",
+      "quotation": "Listen to Router MarketRegistered to discover all markets. For each market, listen to OrderBook Trade."
+    },
+    {
+      "name": "How fees work",
+      "url": "https://docs.kuru.io/liquidity/how-fees-work",
+      "retrieved_at": "2026-09-26",
+      "version": "docs page, no semver",
+      "classification": "SUPPORTED_BY_LIVE_EVIDENCE",
+      "uncertainty": "LP spread examples, not maker/taker bps for RetroPick.",
+      "quotation": "When you set a fee tier (like 0.05% or 0.30%), you're setting how far apart your bid and ask orders are spaced."
+    },
+    {
+      "name": "Contract addresses",
+      "url": "https://docs.kuru.io/contracts/Contract-addresses",
+      "retrieved_at": "2026-09-26",
+      "version": "docs page, no semver",
+      "classification": "SUPPORTED_BY_LIVE_EVIDENCE",
+      "uncertainty": "Addresses without market parameters. Not a RetroPick target.",
+      "quotation": "Router (market factory) 0xd651346d7c789536ebf06dc72aE3C8502cd695CC. MON-USDC 0x065C9d28E428A0db40191a54d33d5b7c71a9C394. MON-AUSD 0x131a2e70a5b31a517a74b8c567149bc294470da9. The page does not publish pricePrecision, sizePrecision, tickSize, minSize, maxSize, takerFeeBps, or makerFeeBps."
+    },
+    {
+      "name": "Monad Kuru Flow guide",
+      "url": "https://docs.monad.xyz/guides/kuru-flow",
+      "retrieved_at": "2026-09-26",
+      "version": "docs page, no semver",
+      "classification": "SUPPORTED_BY_LIVE_EVIDENCE",
+      "uncertainty": "Aggregator guide. Chain id 143 is that guide's mainnet. Not a RetroPick order book.",
+      "quotation": "MON native 0x0000000000000000000000000000000000000000 decimals 18. USDC 0x754704Bc059F8C67012fEd69BC8A327a5aafb603 decimals 6. Native MON does not require approval. Allowance for an ERC-20 swap is checked against quote.transaction.to. Sample REFERRER_FEE_BPS = 50."
+    }
+  ]
+}

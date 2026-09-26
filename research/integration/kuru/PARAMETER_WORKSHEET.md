@@ -70,3 +70,41 @@ A deployment or fork simulation was not run.
 - No RPC endpoint was configured, so a fork was not started.
 
 `PRED-KURU-1` stays blocked. "Existing ERC-20 pair deployment verified" is not met.
+
+## Second primary-source pass, 2026-09-26
+
+The docs index at https://docs.kuru.io/llms.txt was read again. It has no page titled precision calculator. Precision still comes from `ParamCreator.calculatePrecisions` on the deploy-market page and in `@kuru-labs/kuru-sdk` 0.0.97. No RetroPick market was deployed. No RPC read of a live book was performed. Official market addresses are not RetroPick markets.
+
+| Source | URL | Retrieved | Version / date | Classification | Uncertainty |
+|---|---|---|---|---|---|
+| Docs index | https://docs.kuru.io/llms.txt | 2026-09-26 | docs index, no semver | SUPPORTED_BY_LIVE_EVIDENCE | No precision-calculator page is listed |
+| Router | https://docs.kuru.io/contracts/Router | 2026-09-26 | docs page, no semver | SUPPORTED_BY_LIVE_EVIDENCE | Call shape only. No RetroPick values |
+| Deploy a market | https://docs.kuru.io/sdk/deploy-market | 2026-09-26 | docs page, no semver | SUPPORTED_BY_LIVE_EVIDENCE | `calculatePrecisions` examples are not a RetroPick book |
+| OrderBook SDK | https://docs.kuru.io/sdk/orderbook-sdk | 2026-09-26 | docs page, no semver | SUPPORTED_BY_LIVE_EVIDENCE | Reads params from a caller-supplied market |
+| SDK quick start | https://docs.kuru.io/sdk/quickstart-sdk | 2026-09-26 | docs page, no semver | SUPPORTED_BY_LIVE_EVIDENCE | Price and size in the sample are empty placeholders |
+| Python SDK quick start | https://docs.kuru.io/sdk/py-sdk-quickstart | 2026-09-26 | docs page, no semver | SUPPORTED_BY_LIVE_EVIDENCE | Says `load_all_configs()` fetches on-chain params. It does not print them |
+| Architecture | https://docs.kuru.io/contracts/Architecture-overview | 2026-09-26 | docs page, no semver | SUPPORTED_BY_LIVE_EVIDENCE | Warns about low `sizePrecision` and wrong `pricePrecision`. No numeric policy |
+| OrderBook | https://docs.kuru.io/contracts/OrderBook | 2026-09-26 | docs page, no semver | SUPPORTED_BY_LIVE_EVIDENCE | `addBuyOrder(uint32 _price, uint96 _size, bool _postOnly)` is a type signature |
+| MarginAccount | https://docs.kuru.io/contracts/MarginAccount | 2026-09-26 | docs page, no semver | SUPPORTED_BY_LIVE_EVIDENCE | `deposit` transfers ERC-20 from the caller. Spender for RetroPick is not chosen |
+| KuruAMMVault | https://docs.kuru.io/contracts/KuruAMMVault | 2026-09-26 | docs page, no semver | SUPPORTED_BY_LIVE_EVIDENCE | Vault formulas below. Not a RetroPick market |
+| Vaults technical | https://docs.kuru.io/contracts/Vaults-technical | 2026-09-26 | docs page, no semver | SUPPORTED_BY_LIVE_EVIDENCE | 30 bps is a worked example of the curve |
+| Integration | https://docs.kuru.io/contracts/Integration | 2026-09-26 | docs page, no semver | SUPPORTED_BY_LIVE_EVIDENCE | Indexer events only |
+| How fees work | https://docs.kuru.io/liquidity/how-fees-work | 2026-09-26 | docs page, no semver | SUPPORTED_BY_LIVE_EVIDENCE | LP spread examples, not RetroPick maker/taker bps |
+| Contract addresses | https://docs.kuru.io/contracts/Contract-addresses | 2026-09-26 | docs page, no semver | SUPPORTED_BY_LIVE_EVIDENCE | Addresses without price, size, tick, min, max, or fees |
+| Monad Kuru Flow guide | https://docs.monad.xyz/guides/kuru-flow | 2026-09-26 | docs page, no semver | SUPPORTED_BY_LIVE_EVIDENCE | MON and USDC decimals for that guide's mainnet. Not a RetroPick book |
+
+### Quotations that do not fill a RetroPick row
+
+KuruAMMVault: "SPREAD_CONSTANT - Spread between bid/ask prices (e.g., 100 = 1% spread)." "For first deposit, mints minimum liquidity (10^3 shares) to margin account." Ask size `(SPREAD_CONSTANT * baseAmount) / (20000 + SPREAD_CONSTANT)`. Bid size `(SPREAD_CONSTANT * baseAmount) / 20000`. The vault initialize text says it approves the margin account for unlimited transfers. That is the vault's own approval, not a RetroPick user spender.
+
+How fees work: "When you set a fee tier (like 0.05% or 0.30%), you're setting how far apart your bid and ask orders are spaced." Those are LP spread examples. The page does not set `takerFeeBps` or `makerFeeBps` for a RetroPick market.
+
+Contract addresses lists mainnet MON-USDC `0x065C9d28E428A0db40191a54d33d5b7c71a9C394` and MON-AUSD `0x131a2e70a5b31a517a74b8c567149bc294470da9`, plus router `0xd651346d7c789536ebf06dc72aE3C8502cd695CC`. The page does not publish price precision, size precision, tick, min size, max size, or maker/taker fees for those markets.
+
+Monad Kuru Flow guide, token table: MON native `0x0000000000000000000000000000000000000000` decimals 18; USDC `0x754704Bc059F8C67012fEd69BC8A327a5aafb603` decimals 6. "Native MON does not require approval." For an ERC-20 Flow swap the guide checks allowance against `quote.transaction.to`. The sample sets `REFERRER_FEE_BPS = 50`. That is an integrator example on the aggregator path, not a RetroPick order-book fee and not a chosen allowance spender.
+
+Python SDK: "`load_all_configs()` automatically loads `config.toml`, fetches the market's on-chain params, and sets `price_precision`, `size_precision`, `tick_size`, and token addresses/decimals/symbols." The page does not print a market's numbers. `deposit_base(..., auto_approve=True)` does not name the spender.
+
+### RetroPick rows after this pass
+
+Decimals, price precision, size precision, tick, min size, max size, maker fee, taker fee, and allowance spender stay BLOCKED. The sources above were checked so that block is not a missed page. Documentation examples were not copied into the RetroPick rows.

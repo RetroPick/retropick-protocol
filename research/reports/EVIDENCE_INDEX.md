@@ -98,6 +98,8 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `evidence/research/prism/rebasing-component-backing-2026-09-26.txt` | Forge default profile, 1 passed, gas 663233 |
 | `evidence/research/prism/fee-on-transfer-component-backing-2026-09-26.json` | existing_rule. Shortfall on a 9-of-10 deposit. Token balance, backingRaw, requiredRaw, and supply stay 0 |
 | `evidence/research/prism/fee-on-transfer-component-backing-2026-09-26.txt` | Forge default profile, 1 passed, gas 575199 |
+| `evidence/research/prism/fee-on-transfer-settlement-funding-2026-09-26.json` | existing_rule. Underfunded. Transfer of 2 delivers 1. Token balance 1. No payout |
+| `evidence/research/prism/fee-on-transfer-settlement-funding-2026-09-26.txt` | Forge default profile, 1 passed, gas 512925 |
 | `evidence/research/prism/backing-fixtures-2026-09-26.txt` | backing fixture generator log |
 | `evidence/research/prism/unittest-backing-kernel-2026-09-26.txt` | prism-model unittest, 70 tests OK |
 | `research/prism-model/fixtures/backing_kernel.json` | FixedPointSeries and ReservationLedger integers |

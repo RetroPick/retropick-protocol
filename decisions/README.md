@@ -30,4 +30,5 @@ PROPOSED means agents must not treat the choice as binding implementation author
 These files are proposals from the research-to-contract program. They do not supersede ADR-001 through ADR-007.
 
 - `ADR-P01` through `ADR-P07`: prediction token, decimals, custody, lifecycle, INVALID rounding, collateral, resolution hash.
+- `ADR-P08`: false-return collateral before activation. PROPOSED. Acceptance is not granted. The kernel was not edited.
 - `ADR-R01` through `ADR-R07`: replication confirmation, component rounding, settlement-floor failure, ERC-20 backing boundary, series token shape, isolation, Solidity stop.

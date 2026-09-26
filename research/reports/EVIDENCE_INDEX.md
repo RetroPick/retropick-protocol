@@ -139,6 +139,8 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `evidence/research/prism/candidate-backing-invariant-2026-09-26.json` | Component-backing stateful invariants. 256 runs, depth 128, seeds 20260926 and 20260927, 0 reverts. No counterexample |
 | `evidence/research/prism/candidate-reservation-invariant-2026-09-26.json` | Reservation-ledger stateful invariants. deposit and reserve only. 256 runs, depth 128, 0 reverts. No counterexample |
 | `evidence/research/prism/candidate-backing-reservation-invariants-2026-09-26.txt` | Forge 1.8.3 warmup 32/16 and recorded 256/128 campaigns for both suites, both seeds, exit 0 |
+| `evidence/research/prism/candidate-payoff-invariant-2026-09-26.json` | Payoff-transform stateful invariants. 256 runs, depth 128, seeds 20260926 and 20260927, 0 reverts. No counterexample |
+| `evidence/research/prism/candidate-payoff-invariant-2026-09-26.txt` | Forge 1.8.3 warmup 32/16 and recorded 256/128 campaigns, both seeds, exit 0 |
 | `research/prism-model/fixtures/precision_boundary_cumulative.json` | cumulative fixtures for the uint256-fitting cells and the Python per-call regressions |
 | `evidence/research/prediction/invariant-ids-2026-09-26.txt` | P-I01..P-I10 Python and Forge logs |
 | `evidence/research/prism/invariant-coverage-2026-09-26.txt` | R-I02, remaining R-I11 edges, and R-I12. 3 tests, exit 0 |

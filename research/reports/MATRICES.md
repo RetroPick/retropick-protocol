@@ -80,6 +80,7 @@ Every row points at evidence from this program. Status words are the program's c
 | Candidate settlement stateful invariants | pass on two seeds; kernel stays differential_research_kernel | 256 runs, depth 128, 32768 calls, 0 reverts. Seeds 20260926 and 20260927. fail_on_revert false. No counterexample. `candidate-settlement-invariant-2026-09-26.json`. Not MATH-1 PASS |
 | Candidate backing stateful invariants | pass on two seeds; kernel stays differential_research_kernel | deposit, mint, redeem. 256 runs, depth 128, 32768 calls, 0 reverts. Seeds 20260926 and 20260927. `candidate-backing-invariant-2026-09-26.json`. Not MATH-1 PASS |
 | Candidate reservation stateful invariants | pass on two seeds; kernel stays differential_research_kernel | deposit and reserve. No withdraw was added. 256 runs, depth 128, 32768 calls, 0 reverts. Seeds 20260926 and 20260927. `candidate-reservation-invariant-2026-09-26.json`. Not MATH-1 PASS |
+| Candidate payoff-transform stateful invariants | pass on two seeds; kernel stays differential_research_kernel | transformComponent. 256 runs, depth 128, 32768 calls, 0 reverts. Seeds 20260926 and 20260927. `candidate-payoff-invariant-2026-09-26.json`. Not MATH-1 PASS |
 | Market demand hypotheses | NOT_YET_VALIDATED | unchanged |
 
 ## COUNTEREXAMPLE_MATRIX
@@ -211,7 +212,7 @@ The six prediction rows above the CREATE rows, and `test_fund_and_redeem_gas`, a
 |---|---|
 | PRED-CONTRACT-1 | NOT PASS |
 | PRISM MATH-1 | FAIL |
-| MATH-1E | partial_z3_sympy. R-THEOREM-1, R-THEOREM-5, R-THEOREM-6, T-PARTIAL-002, T-FP-001 through T-FP-004, T-BS-001 through T-BS-003, T-NATIVE-001 through T-NATIVE-002, T-LC-001, T-LC-002, and T-PARTIAL-001 discharged. Precision boundary 6/8/18 matches the Solidity candidate on 129 uint256-fitting cumulative cells. Zero-supply settlement dust sits; sweep policy NOT_YET_VALIDATED. Candidate settlement, backing, and reservation invariants: 256 runs, depth 128, two seeds, 0 reverts. Not MATH-1 PASS. Canonical per-call settlement floor still fails |
+| MATH-1E | partial_z3_sympy. R-THEOREM-1, R-THEOREM-5, R-THEOREM-6, T-PARTIAL-002, T-FP-001 through T-FP-004, T-BS-001 through T-BS-003, T-NATIVE-001 through T-NATIVE-002, T-LC-001, T-LC-002, and T-PARTIAL-001 discharged. Precision boundary 6/8/18 matches the Solidity candidate on 129 uint256-fitting cumulative cells. Zero-supply settlement dust sits; sweep policy NOT_YET_VALIDATED. Candidate settlement, backing, reservation, and payoff-transform invariants: 256 runs, depth 128, two seeds, 0 reverts. Not MATH-1 PASS. Canonical per-call settlement floor still fails |
 | MATH-1D candidate cumulative floor | PROVEN_UNDER_ASSUMPTIONS; ready for ADR acceptance; Solidity `differential_research_kernel` |
 | MATH-1B | bounded grids only. Supply-16 compositions and the backing grid are inside the note. Not a universal proof |
 | PRISM CONTRACT-ARCH-1 | proposed |

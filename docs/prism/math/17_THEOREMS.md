@@ -154,7 +154,7 @@ final zero-supply settlement-dust policy (classified in section 11; the residual
 fixed-point partial-resolution transform if required onchain
 Z3/SymPy proof artifacts where useful
 live Kuru LP/MM/fee-domain separation checks
-Foundry differential + stateful invariant suite (settlement in section 12; backing and reservation in section 13; kernels stay differential_research_kernel)
+Foundry differential + stateful invariant suite (settlement in section 12; backing and reservation in section 13; payoff transform in section 14; kernels stay differential_research_kernel)
 ```
 
 If any of those exposes a counterexample, theorem/assumption status must be downgraded and the economic model revisited.
@@ -287,3 +287,17 @@ A rejected mint or redeem leaves supply, holder balance, and backing unchanged. 
 | `invariant_reservationsWithinBalance` | for each asset, the sum of `reservedFor` over the handler's series ids equals `totalReserved`, that sum is at most `balance`, and `available` equals `balance - totalReserved` |
 
 Evidence: `evidence/research/prism/candidate-reservation-invariant-2026-09-26.json`. Canonical MATH-1 stays FAIL.
+
+## 14. Payoff-transform stateful invariants — 2026-09-26
+
+This section does not mark MATH-1 PASS and does not change `CandidatePayoffTransform`. The kernel stays `differential_research_kernel`. `fail_on_revert` is false. The handler is `transformComponent`. Known reject paths are attempted with try/catch. The matrix is the existing differential fixture: 4 states, components paying `(0, 1)`, `(0, 0)`, `(1, 1)`, and `(1, 0)`, backing 600 and 400, supply 1000.
+
+| Invariant | Check |
+|---|---|
+| `invariant_supplyUnchanged` | `supplyUnits` stays 1000 |
+| `invariant_resolvedComponentStaysResolved` | `resolvedMask` equals the bits set by successful transforms, so a resolved component is not transformed again |
+| `invariant_matchingPayoffValuesUnchanged` | after a successful transform, every state whose component payoff equals the submitted payout keeps the same stored backing value |
+| `invariant_rejectedTransformLeavesStateUnchanged` | a rejected transform leaves `transformed`, `backing`, and `resolvedMask` unchanged |
+| `invariant_successfulTransformIsPayoffEquivalent` | `payoffEquivalent` accepts the pre-transform and post-transform portfolios on the post-transform possible mask |
+
+Forge 1.8.3, solc 0.8.26, optimizer 200, via IR off. Warmup 32 runs and depth 16 on seeds 20260926 and 20260927: 512 calls, 0 reverts. The recorded campaign is 256 runs and depth 128 on the same seeds: 32768 calls, 0 reverts, 0 discards, about 1.93s each. Both seeds passed. No counterexample. Evidence: `evidence/research/prism/candidate-payoff-invariant-2026-09-26.json`. Canonical MATH-1 stays FAIL.

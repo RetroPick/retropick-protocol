@@ -269,6 +269,7 @@ The six prediction rows above the CREATE rows, and `test_fund_and_redeem_gas`, a
 | INVALID burn of NO after YES dust | accounting | existing_rule. Collateral 3, YES 0, NO 5. Python raises `side is not worthless`. Solidity reverts `NotWorthless`. `invalid-burn-rejected-2026-09-26.json` |
 | Second activate while OPEN | lifecycle | existing_rule. Python raises `activate only from DRAFT`. Solidity reverts `BadState`. Collateral, YES, and NO stay 0. State stays OPEN. `repeat-activate-2026-09-26.json` |
 | Split of 1 while DRAFT | lifecycle | existing_rule. Python raises `split only while OPEN`. Solidity reverts `BadState`. Collateral, YES, and NO stay 0. State stays DRAFT. `draft-split-2026-09-26.json` |
+| Rejection inventory, 72 calls | lifecycle | 71 rows existing_rule. `archive` from DRAFT is recorded_contradiction. ADR-P13 PROPOSED. Acceptance not granted. Python state becomes ARCHIVED and raises `P-I05`. Solidity reverts `BadState` and stays DRAFT. Collateral, YES, and NO stay 0. `rejection-inventory-2026-09-26.json` |
 | Clone cheaper, identity not independent | Medium | measured; kernel stays on full ERC-20; ADR-P01 PROPOSED |
 | Monad parallel-execution benefit | unmeasured | ADR-R06 is a hypothesis |
 | Two markets or two series sharing split/mint slots | INFERRED absent for these kernels | `docs/prism/04-architecture/STORAGE_ISOLATION.md`. Not a throughput measurement |

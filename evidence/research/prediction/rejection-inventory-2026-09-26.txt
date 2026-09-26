@@ -1,0 +1,24 @@
+python_command: python3 -m unittest tests.test_rejection_inventory -v
+python_cwd: research/prediction-model
+python: Python 3.12.3
+python_exit_code: 0
+test_rejection_inventory (tests.test_rejection_inventory.RejectionInventoryTests.test_rejection_inventory) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.003s
+
+OK
+
+forge_command: forge test --match-contract RejectionInventoryTest -vv
+forge_cwd: research/contract-kernels
+forge: forge Version: 1.8.3
+forge_commit: cae51ad458f6abb64852b7709eb784352429825d
+solc: 0.8.26
+profile: default
+FOUNDRY_PROFILE: unset
+forge_exit_code: 0
+Ran 1 test for test/prediction/RejectionInventory.t.sol:RejectionInventoryTest
+[PASS] test_rejection_inventory() (gas: 8197908)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 3.20ms (2.83ms CPU time)
+
+Ran 1 test suite in 9.45ms (3.20ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

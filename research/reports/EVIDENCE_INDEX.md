@@ -278,6 +278,8 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `evidence/research/prediction/transferred-yes-redeem-2026-09-26.json` | existing_rule. A splits 4, transfers 1 YES to B, YES_WIN, B redeemYes 1 pays 1 to B. A collateral stays 999996. B collateral 0 then 1. Liability 4 then 3. Collateral locked 4 then 3. Python pays 1 to bob |
 | `evidence/research/prediction/transferred-yes-redeem-2026-09-26.txt` | Forge default profile, 1 passed, gas 862377 |
 | `decisions/ADR-P17-python-outcome-transfer-absent.md` | PROPOSED. Acceptance not granted. Python has no outcome transfer. Solidity OutcomeToken transfer is used. The book edit is not a payout contradiction. The transferred YES witness stays existing_rule |
+| `evidence/research/prediction/full-yes-redeem-2026-09-26.json` | existing_rule. Split 4, YES_WIN, redeemYes 4 pays 4. Liability 4 then 0. Collateral locked 4 then 0. YES supply 4 then 0. NO supply 4. yes_redeemed 0 then 4. no_redeemed stays 0. Python matches |
+| `evidence/research/prediction/full-yes-redeem-2026-09-26.txt` | Forge default profile, 1 passed, gas 677150 |
 | `evidence/research/prediction/kuru-backing-claim-2026-09-26.json` | absent. Kuru orderbook liquidity is not protocol backing or redemption value. PRED-KURU-1 stays blocked |
 | `decisions/ADR-P12-configured-split-maximum.md` | PROPOSED. Acceptance not granted. Neither split was edited |
 | `evidence/research/prediction/resolved-redeem-contradiction-2026-09-26.txt` | `python3 -m unittest tests.test_resolved_redeem_contradiction -v`, 1 test OK, exit 0 |

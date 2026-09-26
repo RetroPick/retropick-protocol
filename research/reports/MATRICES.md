@@ -131,7 +131,7 @@ The six prediction rows above the CREATE rows, and `test_fund_and_redeem_gas`, a
 | forge fuzz | coverage command used 64 runs |
 | forge invariant | coverage command: 256 runs, depth 500, 128000 calls, 47348 reverts |
 | forge coverage | PredictionMarket lines 100.00% (119/119), branches 94.44% (34/36). Fuzz runs 64. Invariant runs 256. `kernel-coverage-fuzz64-2026-09-26.txt` |
-| slither 0.11.6 focused rerun | exit 255, IR still incomplete, 14 detector results. `slither-focused-2026-09-26.txt`. Not a clean pass. S-P16 stays open |
+| slither 0.11.6 complete IR | BLOCKED_TOOL. Legacy JSON flag does not produce IR for `_redeem`. `slither-legacy-ast-2026-09-26.txt` and `slither-solc-legacy-2026-09-26.txt`. S-P16 stays open |
 | solhint 5.2.0 | exit 0, 42 warnings, 0 errors. `solhint-2026-09-26.txt`. Style and import-path warnings. Not PRED-CONTRACT-1 |
 | echidna, medusa, halmos, mythril, semgrep | BLOCKED_TOOL |
 
@@ -173,6 +173,8 @@ The six prediction rows above the CREATE rows, and `test_fund_and_redeem_gas`, a
 | Unreachable `Underfunded` / `LiveLiability` | PROVEN_UNDER_ASSUMPTIONS |
 | benchmarks_measured | local_single_environment. Not admission |
 | static_analysis | measured_with_findings. Slither IR still incomplete. Not PRED-CONTRACT-1 |
+| slither_complete_ir | blocked_tool |
+| S-P16 redeemed cursor | open analyzer gap. Inspection PROVEN_UNDER_ASSUMPTIONS. Not closed |
 | reproducibility_local | rerun_pass. Not a fresh clone or virtualenv |
 | MODULE-ADMISSION-FINANCE-1 | not met |
 | Move into `contracts/src/v2` | not done |

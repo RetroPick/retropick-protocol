@@ -31,7 +31,7 @@ Minimum-cost replication: EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN for declared ratio
 Storage-slot isolation: INFERRED from the current kernel layouts. Two markets do not share split slots. Two series contracts do not share mint slots. Monad throughput was not measured. ADR-R06 stays PROPOSED.  
 R-I08: measured. `CandidateCumulativeSettlement.redeem` reverts `NotRedeemable` until `makeRedeemable`. The payout formula was not changed.  
 Benchmarks: `benchmarks_measured: local_single_environment`. One Foundry gas test and five-sample reference timings. Not admission. 16/16 replication solve was NOT_RUN. No percentiles.  
-Static analysis: `measured_with_findings`. Slither 0.11.6 focused rerun exited 255 with incomplete IR. solhint 5.2.0 exited 0 with 42 warnings and 0 errors. S-P16 stays open. This is not PRED-CONTRACT-1 PASS.  
+Static analysis: `measured_with_findings`. A complete Slither IR is `blocked_tool`. `--solc-force-legacy-json` still leaves `_redeem` without IR, and solc 0.8 rejects legacy JSON. S-P16 stays open. Inspection of the redeemed cursors is PROVEN_UNDER_ASSUMPTIONS and did not change storage. This is not PRED-CONTRACT-1 PASS.  
 Local reproducibility: `rerun_pass`. Prediction unit tests 12 OK, PRISM unit tests 85 OK, Foundry 63 passed and 0 failed. Existing interpreter. No fresh virtualenv.  
 MODULE-ADMISSION-FINANCE-1: not met.  
 PRISM CONTRACT-ARCH-1: proposed, contingent on ADR-R03. Not a pass.  

@@ -6,6 +6,8 @@ mainnet_authorized: false
 promotion_into_contracts_src_v2: false
 benchmarks_measured: local_single_environment
 static_analysis: measured_with_findings
+slither_complete_ir: blocked_tool
+S-P16_redeemed_cursor: proven_under_assumptions_open_analyzer_gap
 reproducibility_local: rerun_pass
 
 prediction:

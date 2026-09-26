@@ -111,6 +111,8 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `docs/prism/04-architecture/SOURCE_ASSET_INTERFACE.md` | proposed, not frozen |
 | `evidence/research/prediction/slither-2026-09-26.txt` | earlier Slither log, including IR errors |
 | `evidence/research/prediction/slither-focused-2026-09-26.txt` | focused Slither 0.11.6 rerun, exit 255, 14 results |
+| `evidence/research/prediction/slither-legacy-ast-2026-09-26.txt` | `--solc-force-legacy-json` under Foundry. `_redeem` still has no IR. Exit 255 |
+| `evidence/research/prediction/slither-solc-legacy-2026-09-26.txt` | solc framework rejects legacy JSON on 0.8.26. Exit 1 |
 | `evidence/research/prediction/solhint-2026-09-26.txt` | solhint 5.2.0, exit 0, 42 warnings, 0 errors |
 | `evidence/research/repro/repro-local-2026-09-26.txt` | local rerun: 12 and 85 unit tests OK, Foundry 63 passed |
 | `research/benchmarks/scripts/repro_local.sh` | rerun script. Not a fresh clone or virtualenv |

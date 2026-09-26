@@ -10,7 +10,7 @@ Every row points at evidence from this program. Status words are the program's c
 | Merge is the inverse before resolution | PROVEN | P-THEOREM-2, fixture `prediction_merge` |
 | YES_WIN / NO_WIN payouts | PROVEN on the integer path | P-THEOREM-4, Foundry `test_yes_redemption_matches_fixture` |
 | INVALID not automatic | RECOMMENDATION plus explicit enum | ADR-P05, Polymarket resolution page retrieved 2026-09-26 |
-| Cumulative INVALID floor | EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN on compositions 0..16; per-call and half-up stay COUNTEREXAMPLE_FOUND. PRED-MATH-1 partial | `docs/prediction/07_ROUNDING.md`. 131087 states, 2097154 transitions, 0.410255s. Solidity replay matched, 0 mismatches, 79.76s. `block_gas_limit` 600000000000 is profile `invalid_floor_compositions` only |
+| Cumulative INVALID floor | EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN on compositions 0..16; per-call and half-up stay COUNTEREXAMPLE_FOUND. PRED-MATH-1 partial | `docs/prediction/07_ROUNDING.md`. 131087 states, 2097154 transitions, 0.410255s. Solidity replay matched, 0 mismatches, 79.76s. `block_gas_limit` 600000000000 is profile `invalid_floor_compositions` only. The default suite skips the walk and still runs the supply-2 test |
 | Separate RESOLVED and REDEEMABLE | implemented in kernel | `test_yes_redemption_matches_fixture` expects revert before open |
 | No admin mint | tested | `test_user_cannot_mint_outcome` |
 | Standard collateral only | tested for fee-on-transfer | `test_fee_on_transfer_split_reverts` |
@@ -51,7 +51,7 @@ Every row points at evidence from this program. Status words are the program's c
 | P-THEOREM-6 per-call floor | COUNTEREXAMPLE_FOUND | `fragmentation_gap(5) > 0` |
 | INVALID floor compositions | EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN for the cumulative floor | supply 0..16, holders A and B, both cursors. 131087 states, 2097154 transitions, 0.410255s. `invalid-floor-compositions-2026-09-26.json` |
 | INVALID per-call composition witness | COUNTEREXAMPLE_FOUND | supply 2, parts (1, 1), one-shot 1, per-call 0. 128512 gap rows. Half-up of 1 on both sides pays 2 |
-| Solidity INVALID redeem | matches the cumulative floor | same 131087 states and 2097154 transitions, 0 mismatches, 79.76s. `block_gas_limit` 600000000000 is profile `invalid_floor_compositions` only. Isolated re-run 2 passed, 0 failed, same counts, 79.63s. Research candidate. PRED-MATH-1 stays partial |
+| Solidity INVALID redeem | matches the cumulative floor | same 131087 states and 2097154 transitions, 0 mismatches, 79.76s. `block_gas_limit` 600000000000 is profile `invalid_floor_compositions` only. Isolated re-run 2 passed, 0 failed, same counts, 79.63s. Default suite skips the walk. Named profile still executes it: 131087 states, 2097154 transitions, 0 mismatches. Research candidate. PRED-MATH-1 stays partial |
 | P-THEOREM-7 | PROVEN | supplies differ after burn, liability holds |
 | T-FP-003 funding guard | PROVEN_UNDER_ASSUMPTIONS for funding only | addendum in `docs/prism/math/17_THEOREMS.md` |
 | CX-FP-SETTLEMENT-001 | COUNTEREXAMPLE_FOUND | probe JSON |

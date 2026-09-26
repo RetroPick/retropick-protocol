@@ -10,10 +10,12 @@ import {PredictionMarket} from "../../src/prediction/PredictionMarket.sol";
 /// @notice Replays ordered compositions through the existing INVALID redeem path.
 /// @dev The path is PredictionMarket._redeem with numerators (1, 1). This test does not change that payout.
 ///      The walk is one transaction of about 3.71e11 gas.
-///      Run it with FOUNDRY_PROFILE=invalid_floor_compositions, which sets block_gas_limit.
-///      The default profile does not set that limit.
+///      It runs when block.gaslimit covers that walk. Profile invalid_floor_compositions does.
+///      The default profile does not, so the walk skips and the two-part test still runs.
 contract PredictionInvalidFloorCompositionsTest is Test {
     uint256 internal constant SUPPLY_MAX = 16;
+    /// @dev Measured gas of the supply 0..16 walk. Not a new domain bound.
+    uint256 internal constant WALK_GAS = 370_972_939_410;
 
     MockCollateral internal collateral;
     PredictionMarket internal market;
@@ -65,6 +67,13 @@ contract PredictionInvalidFloorCompositionsTest is Test {
     }
 
     function test_invalidCompositionsMatchCumulativeFloor() public {
+        if (block.gaslimit < WALK_GAS) {
+            console2.log("skipped_walk");
+            console2.log("block_gaslimit", block.gaslimit);
+            console2.log("walk_gas", WALK_GAS);
+            vm.skip(true, "block gas limit is below the composition walk");
+            return;
+        }
         uint256 states = 1;
         uint256 transitions = 2;
         uint256 gapRows;

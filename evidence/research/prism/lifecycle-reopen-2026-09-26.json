@@ -1,0 +1,95 @@
+{
+  "adr_added": false,
+  "archived_edge": {
+    "candidate": {
+      "archived_state": "absent",
+      "function": "none",
+      "note": "CandidateCumulativeSettlement, CandidateComponentBacking, CandidateReservationLedger, and CandidatePayoffTransform do not declare ARCHIVED and do not declare a transition out of it.",
+      "rejected": "not_executed"
+    },
+    "classification": "recorded_gap",
+    "python": {
+      "after": "ARCHIVED",
+      "attempts": [
+        {
+          "after": "ARCHIVED",
+          "error": "illegal transition: ARCHIVED -> DRAFT",
+          "rejected": true,
+          "target": "DRAFT"
+        },
+        {
+          "after": "ARCHIVED",
+          "error": "illegal transition: ARCHIVED -> ACTIVE",
+          "rejected": true,
+          "target": "ACTIVE"
+        },
+        {
+          "after": "ARCHIVED",
+          "error": "illegal transition: ARCHIVED -> MINT_PAUSED",
+          "rejected": true,
+          "target": "MINT_PAUSED"
+        },
+        {
+          "after": "ARCHIVED",
+          "error": "illegal transition: ARCHIVED -> RESOLUTION_PENDING",
+          "rejected": true,
+          "target": "RESOLUTION_PENDING"
+        },
+        {
+          "after": "ARCHIVED",
+          "error": "illegal transition: ARCHIVED -> RESOLVED",
+          "rejected": true,
+          "target": "RESOLVED"
+        },
+        {
+          "after": "ARCHIVED",
+          "error": "illegal transition: ARCHIVED -> REDEEMABLE",
+          "rejected": true,
+          "target": "REDEEMABLE"
+        }
+      ],
+      "before": "ARCHIVED",
+      "function": "lifecycle.transition",
+      "rejected": true
+    }
+  },
+  "canonical_math1": "FAIL",
+  "case": "lifecycle_reopen",
+  "command": "forge test --match-contract LifecycleReopenAbsenceTest -vv",
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "foundry_r_i11": "not_executable",
+  "gas": 215895,
+  "id": "LIFECYCLE-REOPEN",
+  "implementations_changed": false,
+  "invariant": "INV-P11",
+  "pred_kuru_1": "blocked",
+  "profile": "default",
+  "redeemable_edge": {
+    "candidate": {
+      "after_open": "redeemable bool true",
+      "before_open": "redeemable bool false",
+      "closest_call": "CandidateCumulativeSettlement.makeRedeemable",
+      "note": "The bool is not a REDEEMABLE lifecycle state. makeRedeemable only sets it true. No function sets it false. After the open call it stays true.",
+      "reopen_function": "absent",
+      "series_state": "absent"
+    },
+    "classification": "recorded_gap",
+    "python": {
+      "after": "REDEEMABLE",
+      "before": "REDEEMABLE",
+      "error": "illegal transition: REDEEMABLE -> ACTIVE",
+      "function": "lifecycle.transition",
+      "rejected": true,
+      "target": "ACTIVE"
+    }
+  },
+  "s_p16": "open",
+  "sha_base": "fbf4cb4448f75e0e5c01df82a779c6eff39c6012",
+  "source_interface": "proposed_not_frozen",
+  "sweep_added": false,
+  "sweep_policy": "NOT_YET_VALIDATED",
+  "tests_failed": 0,
+  "tests_passed": 1,
+  "x_i01_through_x_i07": "NOT_YET_VALIDATED"
+}

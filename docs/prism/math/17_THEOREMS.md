@@ -169,6 +169,7 @@ Exact/accounting theorem set now includes:
 T-REPL-001
 T-BS-001..004
 T-ALLOC-001
+T-PARTIAL-001
 T-PARTIAL-002
 T-NATIVE-001..002
 T-LC-001..002
@@ -216,3 +217,15 @@ Source: `research/prism-model/cumulative_settlement.py`, `cumulative_settlement_
 | `T-FP-CUM-001` | Global-cursor payouts over any partition sum to `floor(supply * payout / D)`. Exact ceil funding leaves residual 0 or 1. One redemption pays the isolated floor or one more. | `PROVEN_UNDER_ASSUMPTIONS` | integer telescoping. Domain check `EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN`: 378530 states, 2542061 transitions, 2.973316s, no new counterexample |
 
 A holder who splits can miss a carry that another holder receives. That moves value between holders. It does not increase dust above the ceil-floor residual. The candidate has no mint function. No settlement Solidity was added.
+
+## 10. Precision boundary — 2026-09-26
+
+This section does not mark MATH-1 PASS and does not change either payout formula.
+
+Configured domain, not a uint256 enumeration. Decimals are 6, 8, and 18. Supplies are 0, 1, 2, 2^8, 2^16, 2^32, and 2^64. Payouts are 0, 1, D/2, D-1, D, D+1, 2^128, and 2^256-1, where D = 10^18 * 10^(18-decimals). The matrix has 168 cells. Runtime 0.001788s. Evidence: `evidence/research/prism/precision-boundary-6-8-18-2026-09-26.json`.
+
+Zero supply rejects a one-unit redemption. Exact ceil funding of that empty book sweeps dust 0. Supply 1 redeems the one-shot floor and leaves dust 0 or 1.
+
+`CX-FP-SETTLEMENT-001` reproduces at decimals 6, 8, and 18. Supply 2 and payout D-1: two 1-unit per-call redemptions pay 0, the one-shot floor is 1, required funding is 2, and sweepable dust is 2. The same per-call underpayment appears on 48 cells. The smallest cell in this domain is supply 2, decimals 18, payout D/2 = 5*10^17, which pays 0 against one-shot 1. That is the same defect, not a new economic rule. The candidate cumulative floor matches the one-shot floor on every cell, and the ceil residual stays in {0, 1}.
+
+Classification of this matrix: `EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN`. Canonical MATH-1 stays FAIL.

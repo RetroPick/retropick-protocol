@@ -75,6 +75,7 @@ Every row points at evidence from this program. Status words are the program's c
 | T-LC-001 | PROVEN_UNDER_ASSUMPTIONS | Exact enumeration of `lifecycle.transition`. 7 edges, 42 rejected. No path back to ACTIVE. `t-lc-001-2026-09-26.json`. Not MATH-1 PASS |
 | T-LC-002 | PROVEN_UNDER_ASSUMPTIONS | Exact enumeration of `PrismSeries.resolve`. One commit from RESOLUTION_PENDING. Second call unchanged. `t-lc-002-2026-09-26.json`. Not MATH-1 PASS |
 | T-PARTIAL-001 | PROVEN_UNDER_ASSUMPTIONS | SymPy 1.14.0 on 30 partitions. Z3 5.1.0 unsat. Basket 3/5 and 2/5 returns 18/25. `t-partial-001-2026-09-26.json`. Not MATH-1 PASS |
+| Precision boundary 6/8/18 | EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN | 168 cells. `CX-FP-SETTLEMENT-001` reproduced at decimals 6, 8, and 18. Same underpayment on 48 cells. Cumulative floor clean. `precision-boundary-6-8-18-2026-09-26.json`. Not MATH-1 PASS |
 | Market demand hypotheses | NOT_YET_VALIDATED | unchanged |
 
 ## COUNTEREXAMPLE_MATRIX
@@ -85,7 +86,7 @@ Every row points at evidence from this program. Status words are the program's c
 | CX-PRED-FRAGMENT | per-call floor(q/2) | 1-unit stream pays 0 | `fixed_point.fragmentation_gap` |
 | CX-PRED-FEE-NAIVE | credit nominal amount | received 90, credit 100 | `theorems.fee_on_transfer_naive_credit_is_insolvent` |
 | CX-REPL-001 | AND from marginals | target (0,0,0,1) | existing test plus Z3 |
-| CX-FP-SETTLEMENT-001 | per-call settlement floor | supply 2, payout 1e18-1, dust 2, holders 0 | `test_math1_probe.py` and `test_cumulative_settlement.py` |
+| CX-FP-SETTLEMENT-001 | per-call settlement floor | supply 2, payout D-1, dust 2, holders 0. Same defect at decimals 6, 8, and 18 | `test_math1_probe.py`, `test_cumulative_settlement.py`, and `precision-boundary-6-8-18-2026-09-26.json` |
 | Candidate self-split | not a dust-sweep counterexample | A receives 0, B receives 1, sum equals one-shot, residual 1 | `cumulative_settlement_attack.py` |
 
 ## INVARIANT_COVERAGE_MATRIX
@@ -206,7 +207,7 @@ The six prediction rows above the CREATE rows, and `test_fund_and_redeem_gas`, a
 |---|---|
 | PRED-CONTRACT-1 | NOT PASS |
 | PRISM MATH-1 | FAIL |
-| MATH-1E | partial_z3_sympy. R-THEOREM-1, R-THEOREM-5, R-THEOREM-6, T-PARTIAL-002, T-FP-001 through T-FP-004, T-BS-001 through T-BS-003, T-NATIVE-001 through T-NATIVE-002, T-LC-001, T-LC-002, and T-PARTIAL-001 discharged. Not MATH-1 PASS. Canonical per-call settlement floor still fails |
+| MATH-1E | partial_z3_sympy. R-THEOREM-1, R-THEOREM-5, R-THEOREM-6, T-PARTIAL-002, T-FP-001 through T-FP-004, T-BS-001 through T-BS-003, T-NATIVE-001 through T-NATIVE-002, T-LC-001, T-LC-002, and T-PARTIAL-001 discharged. Precision boundary 6/8/18 is inside its configured domain only. Not MATH-1 PASS. Canonical per-call settlement floor still fails |
 | MATH-1D candidate cumulative floor | PROVEN_UNDER_ASSUMPTIONS; ready for ADR acceptance; Solidity `differential_research_kernel` |
 | MATH-1B | bounded grids only. Supply-16 compositions and the backing grid are inside the note. Not a universal proof |
 | PRISM CONTRACT-ARCH-1 | proposed |

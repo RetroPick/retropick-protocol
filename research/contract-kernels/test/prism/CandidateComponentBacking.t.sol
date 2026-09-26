@@ -275,7 +275,7 @@ contract CandidateComponentBackingDifferentialTest is Test {
         }
     }
 
-    function _assertReleased(string memory json, string memory stepPrefix, uint256[] memory got) internal view {
+    function _assertReleased(string memory json, string memory stepPrefix, uint256[] memory got) internal pure {
         uint256 n = got.length;
         for (uint256 i; i < n; ++i) {
             assertEq(got[i], _at(json, stepPrefix, ".released[", i));

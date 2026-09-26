@@ -169,14 +169,16 @@ contract PredictionBranchCoverageTest is Test {
     }
 
     function test_user_cannot_burn_outcome() public {
+        OutcomeToken yes = market.yesToken();
+        OutcomeToken no = market.noToken();
         vm.expectRevert(OutcomeToken.NotMarket.selector);
         vm.prank(alice);
-        market.yesToken().burn(alice, 1);
+        yes.burn(alice, 1);
         vm.expectRevert(OutcomeToken.NotMarket.selector);
         vm.prank(alice);
-        market.noToken().burn(alice, 1);
-        assertEq(market.yesToken().totalSupply(), 0);
-        assertEq(market.noToken().totalSupply(), 0);
+        no.burn(alice, 1);
+        assertEq(yes.totalSupply(), 0);
+        assertEq(no.totalSupply(), 0);
     }
 
     function _draft() internal returns (PredictionMarket draft) {

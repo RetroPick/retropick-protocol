@@ -207,6 +207,8 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `evidence/research/prism/indivisible-weight-reverse-redeem-2026-09-26.txt` | Forge default profile, 1 passed, gas 1217011 |
 | `evidence/research/prism/lifecycle-reopen-2026-09-26.json` | recorded_gap. Python rejects REDEEMABLE to ACTIVE and every earlier exit from ARCHIVED. The candidate has no such state or reopen function. R-I11 is not executable on Foundry |
 | `evidence/research/prism/lifecycle-reopen-2026-09-26.txt` | Forge default profile, 1 passed, gas 215895. Python lifecycle transitions recorded in the same log |
+| `evidence/research/prism/final-resolution-once-2026-09-26.json` | recorded_gap. Python resolve(2) commits payout 1. resolve(0) raises and leaves payout 1. The candidate has no final-resolution commit. R-I12 is not executable on Foundry |
+| `evidence/research/prism/final-resolution-once-2026-09-26.txt` | Forge default profile, 1 passed, gas 11168. Python second resolve recorded in the same log |
 | `evidence/research/prism/non-depositor-redeem-2026-09-26.json` | redeem_pays_caller. Weights 10^18, 10^18. A deposits 1,1. B mints 1 and redeems 1. Supply 1 then 0. backingRaw 1,1 then 0,0. Component tokens sit with B |
 | `evidence/research/prism/non-depositor-redeem-2026-09-26.txt` | Forge default profile, 1 passed, gas 780289 |
 | `decisions/ADR-R10-non-depositor-redeem-pays-the-caller.md` | PROPOSED. Acceptance not granted. Mint and redeem were not edited |

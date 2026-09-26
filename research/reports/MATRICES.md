@@ -123,7 +123,7 @@ Every row points at evidence from this program. Status words are the program's c
 | R-I09 | `test_settlement.py` `test_underfunded_cannot_become_redeemable` | `test_final_supply_is_not_redeemable_until_funded` | executable. INV-P09. Gate key `R-I08_resolved_not_redeemable` still names this test and was not renamed |
 | R-I10 | exact model `test_exact_final_redemption`. Canonical per-call `test_per_call_rule_remains_the_counterexample`. Candidate `test_candidate_pays_the_original_case_without_replacing_the_oracle` | candidate differential fixtures | COUNTEREXAMPLE_FOUND on `FixedPointSettlement.redeem`. Candidate asserted. Canonical MATH-1 stays FAIL. INV-P10 |
 | R-I11 | `test_lifecycle.py` `test_no_resurrection`; `test_invariant_ids.py` `test_r_i11_redeemable_and_archived_do_not_reopen` | none | Python recorded_gap. INV-P11. RESOLVED to ACTIVE was already tested. Python rejects REDEEMABLE to ACTIVE and earlier exits from ARCHIVED. The candidate has no such state or reopen. Foundry is not executable for these edges. `lifecycle-reopen-2026-09-26.json` |
-| R-I12 | `test_invariant_ids.py` `test_r_i12_final_resolution_is_committed_once` | none | executable. INV-P12. Previously prose only |
+| R-I12 | `test_invariant_ids.py` `test_r_i12_final_resolution_is_committed_once` | none | Python recorded_gap. INV-P12. Python commits payout 1, then rejects a second resolve and leaves that payout. The candidate has no final-resolution commit. Foundry is not executable for this edge. `final-resolution-once-2026-09-26.json` |
 | X-I01..X-I07 | not modeled jointly | not built | BLOCKED |
 | X-I01 | not built | not built | NOT_YET_VALIDATED. source interface not frozen |
 | X-I02 | not built | not built | NOT_YET_VALIDATED. source interface not frozen |

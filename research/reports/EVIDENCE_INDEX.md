@@ -200,6 +200,8 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `evidence/research/prediction/double-yes-redeem-2026-09-26.txt` | Python 1 test OK. Forge default profile, 1 passed, gas 890687 |
 | `evidence/research/prediction/second-yes-resolution-2026-09-26.json` | existing_rule. Second resolve after YES_WIN leaves numerators 2 and 0. Collateral, YES, and NO stay 4 |
 | `evidence/research/prediction/second-yes-resolution-2026-09-26.txt` | Python 1 test OK. Forge default profile, 1 passed, gas 527769 |
+| `evidence/research/prediction/unequal-merge-2026-09-26.json` | existing_rule. OPEN merge of YES 1 and NO 4 reverts. Collateral, YES, and NO stay 4 |
+| `evidence/research/prediction/unequal-merge-2026-09-26.txt` | Python 1 test OK. Forge default profile, 1 passed, gas 661526 |
 | `evidence/research/prediction/resolved-redeem-contradiction-2026-09-26.txt` | `python3 -m unittest tests.test_resolved_redeem_contradiction -v`, 1 test OK, exit 0 |
 | `research/benchmarks/scripts/repro_local.sh` | rerun script. Not a fresh clone or virtualenv |
 | `research/prediction-model/outputs/exhaustive_summary.json` | 208-state search |

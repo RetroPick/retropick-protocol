@@ -15,4 +15,8 @@ Checked by `research/prediction-model/invariants.py` after successful operations
 | P-I09 | No admin mint. Kernel mint/burn is `only` the market | `admin_mint` reverts; `OutcomeToken.mint` reverts for other callers |
 | P-I10 | No withdrawal that drops collateral below liability. Residual moves only on archive at zero supply | `admin_withdraw` reverts; `archive` |
 
-The Foundry invariant `invariant_preResolutionConservation` covered split and merge only. It did not walk resolution. Classification: EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN for the Python search with `max_unit = 3`. The Foundry run is a stateful fuzz of issuance, not a proof of P-I08 after every resolution path. Resolution paths are covered by unit and fuzz tests, not by that invariant.
+Python `research/prediction-model/invariant_ids.py` runs one positive case and one rejecting case for each id. Classification on those scenarios: EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN. That is not a uint256 proof.
+
+Foundry `PredictionInvariantIdsTest` encodes P-I01 through P-I10 for operations the kernel has. The cancelled-draft branch of P-I05 is NOT_YET_VALIDATED in the kernel because `cancelDraft` does not exist. The immutable `resolutionSpecHash` branch is tested.
+
+`invariant_preResolutionConservation` checks P-I01 and P-I02 while the state is OPEN, LOCKED, or RESOLUTION_PENDING. Handlers are split, merge, closeMint, and beginResolution. The 2026-09-26 `forge test` run was 256 runs, 128000 calls, 48023 handler reverts, and the invariant held. It still does not walk redemption. Redemption is in `test_P_I07`, `test_P_I08`, and `test_P_I10`.

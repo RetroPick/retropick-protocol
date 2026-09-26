@@ -34,9 +34,25 @@ contract PredictionInvariantTest is Test {
         market.merge(amount);
     }
 
+    function closeMint() external {
+        if (market.state() == PredictionMarket.State.OPEN) market.closeMint();
+    }
+
+    function beginResolution() external {
+        if (market.state() == PredictionMarket.State.LOCKED) market.beginResolution();
+    }
+
     function invariant_preResolutionConservation() public view {
+        PredictionMarket.State state = market.state();
+        if (
+            state != PredictionMarket.State.OPEN && state != PredictionMarket.State.LOCKED
+                && state != PredictionMarket.State.RESOLUTION_PENDING
+        ) return;
         assertEq(market.yesSupply(), market.noSupply());
         assertEq(market.yesSupply(), market.collateralLocked());
+        assertEq(market.yesToken().totalSupply(), market.yesSupply());
+        assertEq(market.noToken().totalSupply(), market.noSupply());
+        assertEq(market.yesToken().balanceOf(address(this)), market.yesSupply());
         assertGe(market.collateralLocked(), market.liability());
     }
 }

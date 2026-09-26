@@ -1,0 +1,79 @@
+command: python3 -m unittest discover -s tests -v
+working_directory: research/prediction-model
+exit: 0
+
+test_each_id_holds_on_its_scenario (test_invariants.InvariantIdTests.test_each_id_holds_on_its_scenario) ... ok
+test_sequences (test_market.AdversarialTests.test_sequences) ... ok
+test_small_domain (test_market.ExhaustiveTests.test_small_domain) ... ok
+test_fixture_numbers (test_market.FixtureTests.test_fixture_numbers) ... ok
+test_invalid_dust_is_modulus_two (test_market.IntegerPolicyTests.test_invalid_dust_is_modulus_two) ... ok
+test_scale_conversion_matches_native_floor (test_market.IntegerPolicyTests.test_scale_conversion_matches_native_floor) ... ok
+test_cancel_draft (test_market.LifecycleTests.test_cancel_draft) ... ok
+test_full_yes_path_and_archive (test_market.LifecycleTests.test_full_yes_path_and_archive) ... ok
+test_merge_allowed_while_locked (test_market.LifecycleTests.test_merge_allowed_while_locked) ... ok
+test_half_up_counterexample_is_concrete (test_market.TheoremTests.test_half_up_counterexample_is_concrete) ... ok
+test_theorem_labels (test_market.TheoremTests.test_theorem_labels) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.091s
+
+OK
+
+command: forge test
+working_directory: research/contract-kernels
+exit: 0
+
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 1.25s
+Compiler run successful!
+
+Ran 4 tests for test/prediction/OutcomeTokenGas.t.sol:OutcomeTokenGasTest
+[PASS] test_full_deployment_versus_erc1167() (gas: 2272068)
+[PASS] test_immutable_outcome_token_clone_shares_identity() (gas: 148793)
+[PASS] test_storage_clone_initializer_cannot_replay() (gas: 284509)
+[PASS] test_storage_clone_moves_balances_only_through_its_market() (gas: 558984)
+Suite result: ok. 4 passed; 0 failed; 0 skipped; finished in 1.00ms (715.54µs CPU time)
+
+Ran 10 tests for test/prediction/PredictionInvariantIds.t.sol:PredictionInvariantIdsTest
+[PASS] test_P_I01_supplies_match_balances() (gas: 300804)
+[PASS] test_P_I02_conservation_through_resolution_pending() (gas: 351663)
+[PASS] test_P_I03_split_only_while_open_and_equal() (gas: 337267)
+[PASS] test_P_I04_merge_while_locked_releases_equal_collateral() (gas: 473422)
+[PASS] test_P_I05_spec_hash_is_immutable() (gas: 389517)
+[PASS] test_P_I06_one_result_from_pending_by_resolver() (gas: 455266)
+[PASS] test_P_I07_redeem_only_redeemable_balance() (gas: 577320)
+[PASS] test_P_I08_collateral_covers_liability() (gas: 567263)
+[PASS] test_P_I09_no_admin_mint() (gas: 63879)
+[PASS] test_P_I10_archive_only_at_zero_supply() (gas: 638627)
+Suite result: ok. 10 passed; 0 failed; 0 skipped; finished in 1.49ms (1.08ms CPU time)
+
+Ran 9 tests for test/prediction/PredictionMarket.t.sol:PredictionMarketTest
+[PASS] testFuzz_invalid_dust_bound(uint32) (runs: 256, μ: 701743, ~: 703261)
+[PASS] testFuzz_split_merge_conserves(uint96) (runs: 256, μ: 408323, ~: 408636)
+[PASS] test_double_resolve_reverts() (gas: 404006)
+[PASS] test_fee_on_transfer_split_reverts() (gas: 145431)
+[PASS] test_invalid_cumulative_floor_matches_fixture() (gas: 1262455)
+[PASS] test_merge_matches_fixture() (gas: 349076)
+[PASS] test_split_matches_fixture() (gas: 312956)
+[PASS] test_user_cannot_mint_outcome() (gas: 35804)
+[PASS] test_yes_redemption_matches_fixture() (gas: 659504)
+Suite result: ok. 9 passed; 0 failed; 0 skipped; finished in 36.98ms (70.02ms CPU time)
+
+Ran 1 test for test/prediction/PredictionInvariant.t.sol:PredictionInvariantTest
+[PASS] invariant_preResolutionConservation() (runs: 256, calls: 128000, reverts: 48023)
+
+╭-------------------------+-----------------+-------+---------+----------╮
+| Contract                | Selector        | Calls | Reverts | Discards |
++========================================================================+
+| PredictionInvariantTest | beginResolution | 32109 | 0       | 0        |
+|-------------------------+-----------------+-------+---------+----------|
+| PredictionInvariantTest | closeMint       | 31710 | 0       | 0        |
+|-------------------------+-----------------+-------+---------+----------|
+| PredictionInvariantTest | merge           | 31948 | 16047   | 0        |
+|-------------------------+-----------------+-------+---------+----------|
+| PredictionInvariantTest | split           | 32233 | 31976   | 0        |
+╰-------------------------+-----------------+-------+---------+----------╯
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 5.42s (5.42s CPU time)
+
+Ran 4 test suites in 5.42s (5.46s CPU time): 24 tests passed, 0 failed, 0 skipped (24 total tests)

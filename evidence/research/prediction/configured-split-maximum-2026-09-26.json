@@ -1,0 +1,66 @@
+{
+  "canonical_math1": "FAIL",
+  "case": "split(1000000001)",
+  "classification": "recorded_contradiction",
+  "id": "CONFIGURED-SPLIT-MAXIMUM",
+  "implementations_changed": false,
+  "kernels_agree": false,
+  "math_1_progress": false,
+  "pred_contract_1": "not_pass",
+  "pred_math_1": "partial",
+  "python": {
+    "after": {
+      "collateral_locked": "0",
+      "no_supply": "0",
+      "state": "OPEN",
+      "yes_supply": "0"
+    },
+    "attempted": "1000000001",
+    "before": {
+      "collateral_locked": "0",
+      "no_supply": "0",
+      "state": "OPEN",
+      "yes_supply": "0"
+    },
+    "error": "amount exceeds configured maximum",
+    "function": "PredictionMarket.split",
+    "max_amount": "1000000000",
+    "module": "research/prediction-model/market.py"
+  },
+  "rule": "Python with max_amount 1000000000 rejects split(1000000001). Solidity has no such cap.",
+  "solidity": {
+    "after": {
+      "collateral_balance": "1000000001",
+      "collateral_locked": "1000000001",
+      "no_supply": "1000000001",
+      "state": "OPEN",
+      "yes_supply": "1000000001"
+    },
+    "attempted": "1000000001",
+    "before": {
+      "collateral_balance": "0",
+      "collateral_locked": "0",
+      "no_supply": "0",
+      "state": "OPEN",
+      "yes_supply": "0"
+    },
+    "command": "forge test --match-contract ConfiguredSplitMaximumTest -vv",
+    "cwd": "research/contract-kernels",
+    "error": "",
+    "exit_code": 0,
+    "failed": 0,
+    "forge_commit": "cae51ad458f6abb64852b7709eb784352429825d",
+    "forge_version": "1.8.3",
+    "function": "PredictionMarket.split",
+    "funded": "1000000001",
+    "module": "research/contract-kernels/src/prediction/PredictionMarket.sol",
+    "optimizer": true,
+    "optimizer_runs": 200,
+    "passed": 1,
+    "profile": "default",
+    "solc": "0.8.26",
+    "test_gas": 315609,
+    "via_ir": false
+  },
+  "theorem_pass": false
+}

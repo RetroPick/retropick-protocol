@@ -1,0 +1,67 @@
+tool: slither
+version: 0.11.6
+command: slither src/prediction/PredictionMarket.sol --foundry-compile-all --exclude-dependencies --filter-paths openzeppelin-contracts
+cwd: /workspace/research/contract-kernels
+profile: default
+FOUNDRY_PROFILE: unset
+sha_base: 17f0b49b3c7c7b90e8fd650b7e5e6b21b4083730
+exit_code: 255
+redeem_has_ir: false
+classification: blocked_tool
+s_p16: open
+error: Impossible to generate IR for PredictionMarket._redeem; Function not found burn; 'NoneType' object has no attribute 'type'
+note: This invocation does not give _redeem IR. The project-wide run remains slither-sp16-2026-09-26.json, blocked_tool. This is not PRED-CONTRACT-1 PASS.
+
+Multiple frameworks detected: Foundry, solc, Solc-json. Using Foundry (highest priority). Use --compile-force-framework to override.
+'forge clean' running (wd: /workspace/research/contract-kernels)
+'forge config --json' running
+'forge build --build-info --deny never src/prediction/PredictionMarket.sol' running (wd: /workspace/research/contract-kernels)
+ERROR:Slither:Failed to resolved name for reference id 618 in /workspace/contracts/lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol.
+ERROR:Slither:Failed to resolved name for reference id 592 in /workspace/contracts/lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol.
+ERROR:Slither:Failed to resolved name for reference id 3032 in /workspace/contracts/lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol.
+ERROR:Slither:Failed to resolved name for reference id 2907 in /workspace/contracts/lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol.
+ERROR:Slither:Failed to resolved name for reference id 618 in /workspace/contracts/lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol.
+ERROR:Slither:Failed to resolved name for reference id 3114 in /workspace/contracts/lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol.
+ERROR:Slither:Failed to resolved name for reference id 592 in /workspace/contracts/lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol.
+ERROR:Slither:Failed to resolved name for reference id 3242 in /workspace/contracts/lib/openzeppelin-contracts/contracts/utils/ReentrancyGuard.sol.
+ERROR:Slither:Failed to resolved name for reference id 618 in /workspace/research/contract-kernels/src/prediction/OutcomeToken.sol.
+ERROR:Slither:Failed to resolved name for reference id 592 in /workspace/research/contract-kernels/src/prediction/OutcomeToken.sol.
+ERROR:Slither:Failed to resolved name for reference id 3032 in /workspace/research/contract-kernels/src/prediction/OutcomeToken.sol.
+ERROR:Slither:Failed to resolved name for reference id 2907 in /workspace/research/contract-kernels/src/prediction/OutcomeToken.sol.
+ERROR:Slither:Failed to resolved name for reference id 592 in /workspace/research/contract-kernels/src/prediction/PredictionMarket.sol.
+ERROR:Slither:Failed to resolved name for reference id 3032 in /workspace/research/contract-kernels/src/prediction/PredictionMarket.sol.
+ERROR:Slither:Failed to resolved name for reference id 2907 in /workspace/research/contract-kernels/src/prediction/PredictionMarket.sol.
+ERROR:Slither:Failed to resolved name for reference id 618 in /workspace/research/contract-kernels/src/prediction/PredictionMarket.sol.
+ERROR:Slither:Failed to resolved name for reference id 3114 in /workspace/research/contract-kernels/src/prediction/PredictionMarket.sol.
+ERROR:Slither:Failed to resolved name for reference id 3242 in /workspace/research/contract-kernels/src/prediction/PredictionMarket.sol.
+ERROR:ContractSolcParsing:Missing inheritance OutcomeToken (900541388cd2498a)
+Missing inheritance ID: 3032
+Inheritance found:
+	 - ERC20 (ID 514)
+
+ERROR:ContractSolcParsing:Missing params '_msgSender()' src/prediction/OutcomeToken.sol#9-37 (1 - 2)
+ERROR:ConvertToIR:Function not found mint
+ERROR:ContractSolcParsing:Impossible to generate IR for PredictionMarket.split (src/prediction/PredictionMarket.sol#140-153):
+ 'NoneType' object has no attribute 'type'
+ERROR:ConvertToIR:Function not found burn
+ERROR:ContractSolcParsing:Impossible to generate IR for PredictionMarket.merge (src/prediction/PredictionMarket.sol#155-165):
+ 'NoneType' object has no attribute 'type'
+ERROR:ConvertToIR:Function not found burn
+ERROR:ContractSolcParsing:Impossible to generate IR for PredictionMarket.burnWorthless (src/prediction/PredictionMarket.sol#219-232):
+ 'NoneType' object has no attribute 'type'
+ERROR:ConvertToIR:Function not found burn
+ERROR:ContractSolcParsing:Impossible to generate IR for PredictionMarket._redeem (src/prediction/PredictionMarket.sol#245-263):
+ 'NoneType' object has no attribute 'type'
+INFO:Detectors:
+Detector: uninitialized-state
+PredictionMarket.yesRedeemed (src/prediction/PredictionMarket.sol#60) is never initialized. It is used in:
+	- PredictionMarket.liability() (src/prediction/PredictionMarket.sol#131-138)
+PredictionMarket.noRedeemed (src/prediction/PredictionMarket.sol#61) is never initialized. It is used in:
+	- PredictionMarket.liability() (src/prediction/PredictionMarket.sol#131-138)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#uninitialized-state-variables
+INFO:Detectors:
+Detector: constable-states
+PredictionMarket.noRedeemed (src/prediction/PredictionMarket.sol#61) should be constant 
+PredictionMarket.yesRedeemed (src/prediction/PredictionMarket.sol#60) should be constant 
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#state-variables-that-could-be-declared-constant
+INFO:Slither:src/prediction/PredictionMarket.sol analyzed (14 contracts with 102 detectors), 4 result(s) found

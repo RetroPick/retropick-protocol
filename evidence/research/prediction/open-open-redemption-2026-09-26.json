@@ -1,0 +1,48 @@
+{
+  "adr_added": false,
+  "adr_p04": "PROPOSED",
+  "adr_p15": "PROPOSED",
+  "after": {
+    "collateral_locked": "4",
+    "liability": "4",
+    "state": "OPEN"
+  },
+  "before": {
+    "collateral_locked": "4",
+    "liability": "4",
+    "state": "OPEN"
+  },
+  "canonical_math1": "FAIL",
+  "case": "open_redemption_while_open_before_close",
+  "classification": "existing_rule",
+  "command": "forge test --match-contract OpenOpenRedemptionTest -vv",
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "gas": 355189,
+  "implementations_changed": false,
+  "inventory_row": {
+    "file": "evidence/research/prediction/rejection-inventory-2026-09-26.json",
+    "function": "open_redemption",
+    "index": 14,
+    "note": "The inventory rejects open_redemption while OPEN and leaves collateral at 4. It does not record liability.",
+    "state": "OPEN"
+  },
+  "profile": "default",
+  "python": {
+    "accepted": false,
+    "error": "illegal transition OPEN -> REDEEMABLE",
+    "error_type": "PredictionError",
+    "function": "open_redemption"
+  },
+  "resolved": false,
+  "s_p16": "open",
+  "sha_base": "e8a037e04f6949d12ff4370678d09c24b469afab",
+  "solidity": {
+    "accepted": false,
+    "error": "BadState",
+    "function": "openRedemption"
+  },
+  "split": "4",
+  "tests_failed": 0,
+  "tests_passed": 1
+}

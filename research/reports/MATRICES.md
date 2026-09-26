@@ -26,7 +26,8 @@ Every row points at evidence from this program. Status words are the program's c
 | Backing before mint | REPRODUCED | `test_model.py` |
 | Component requirement delta round trip | PROVEN by construction; 200 samples, 0 mismatches | `math1_probe.component_round_trip_samples` |
 | Per-call settlement floor | COUNTEREXAMPLE_FOUND | `CX-FP-SETTLEMENT-001` |
-| MATH-1 PASS | FAIL | `research/prism/reports/PRISM_REPRODUCTION_REPORT.md` |
+| Cumulative-floor candidate | PROVEN_UNDER_ASSUMPTIONS; domain check EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN | `cumulative_settlement.py`; not an oracle replacement |
+| MATH-1 PASS | FAIL | canonical per-call rule remains |
 | PRISM Solidity | not written | `research/contract-kernels/README.md`, ADR-R07 |
 
 ## THEOREM_STATUS_MATRIX
@@ -44,7 +45,7 @@ Every row points at evidence from this program. Status words are the program's c
 | P-THEOREM-7 | PROVEN | supplies differ after burn, liability holds |
 | T-FP-003 funding guard | PROVEN_UNDER_ASSUMPTIONS for funding only | addendum in `docs/prism/math/17_THEOREMS.md` |
 | CX-FP-SETTLEMENT-001 | COUNTEREXAMPLE_FOUND | probe JSON |
-| T-FP-CUM-001 | PROVEN_UNDER_ASSUMPTIONS | integer ceil/floor identity; 240-case grid |
+| T-FP-CUM-001 | PROVEN_UNDER_ASSUMPTIONS | global-cursor identity; 378530 states, 2542061 transitions, 2.973316s |
 | Z3 two-component solvency | PROVEN_UNDER_ASSUMPTIONS | Z3 5.1.0 unsat |
 | Market demand hypotheses | NOT_YET_VALIDATED | unchanged |
 
@@ -56,7 +57,8 @@ Every row points at evidence from this program. Status words are the program's c
 | CX-PRED-FRAGMENT | per-call floor(q/2) | 1-unit stream pays 0 | `fixed_point.fragmentation_gap` |
 | CX-PRED-FEE-NAIVE | credit nominal amount | received 90, credit 100 | `theorems.fee_on_transfer_naive_credit_is_insolvent` |
 | CX-REPL-001 | AND from marginals | target (0,0,0,1) | existing test plus Z3 |
-| CX-FP-SETTLEMENT-001 | per-call settlement floor | supply 2, payout 1e18-1, dust 2, holders 0 | `test_math1_probe.py` |
+| CX-FP-SETTLEMENT-001 | per-call settlement floor | supply 2, payout 1e18-1, dust 2, holders 0 | `test_math1_probe.py` and `test_cumulative_settlement.py` |
+| Candidate self-split | not a dust-sweep counterexample | A receives 0, B receives 1, sum equals one-shot, residual 1 | `cumulative_settlement_attack.py` |
 
 ## INVARIANT_COVERAGE_MATRIX
 
@@ -76,6 +78,7 @@ R-I01..R-I12 in the task sense are the PRISM backing, admission, lifecycle, and 
 | Payoff 2/4 .. 16/16 | 0.0028s .. 0.0531s for 200 iterations | `research/benchmarks/README.md` |
 | Prediction exhaustive max_unit 3 | 208 states, 0 failures, 0.087s | `outputs/exhaustive_summary.json` |
 | Foundry test gas | snapshot file | `.gas-snapshot` |
+| Outcome token deployment | full pair 1068486; clone pair 789955 | `evidence/research/prediction/outcome-token-gas-2026-09-26.txt` |
 | Percentiles | not reported | sample size too small |
 
 ## GAS_MATRIX
@@ -88,17 +91,20 @@ R-I01..R-I12 in the task sense are the PRISM backing, admission, lifecycle, and 
 | test_invalid_cumulative_floor_matches_fixture | 1262455 | whole test |
 | test_fee_on_transfer_split_reverts | 145431 | whole test |
 | test_user_cannot_mint_outcome | 35804 | whole test |
+| full OutcomeToken CREATE | 534243 | assembly gas() around CREATE, code deposit included |
+| ERC-1167 clone CREATE | 41064 | 45-byte runtime |
+| storage-clone initialize | 96264 | decimals 6 and 18 |
 
-Source: `research/contract-kernels/.gas-snapshot`. Isolated function gas was not traced.
+The first six rows are whole-test gas from `research/contract-kernels/.gas-snapshot`. The CREATE rows are the assembly meter in `evidence/research/prediction/outcome-token-gas-2026-09-26.txt`.
 
 ## SECURITY_COVERAGE_MATRIX
 
 | Tool | Result |
 |---|---|
-| forge test | 10 passed, Foundry 1.8.3 |
+| forge test | Foundry 1.8.3; coverage run included fuzz and the 256-run invariant |
 | forge fuzz | 256 runs, two tests |
-| forge invariant | 256 runs, depth 500, 0 reverts |
-| forge coverage | not run |
+| forge invariant | 256 runs, depth 500, 128000 calls, 0 reverts |
+| forge coverage | PredictionMarket lines 89.92% (107/119), branches 30.56% (11/36). Evidence file has the full table |
 | slither 0.11.6 | exit 255, IR incomplete, detectors listed in `docs/prediction/10_SECURITY.md` |
 | echidna, medusa, halmos, mythril, semgrep, solhint | BLOCKED_TOOL |
 
@@ -127,6 +133,7 @@ Source: `research/contract-kernels/.gas-snapshot`. Isolated function gas was not
 |---|---|
 | PRED-CONTRACT-1 | NOT PASS |
 | PRISM MATH-1 | FAIL |
+| MATH-1D candidate cumulative floor | PROVEN_UNDER_ASSUMPTIONS; ready for ADR acceptance; Solidity not written |
 | PRISM CONTRACT-1 | not started |
 | MODULE-ADMISSION-FINANCE-1 | not met |
 | Move into `contracts/src/v2` | not done |
@@ -137,10 +144,10 @@ Source: `research/contract-kernels/.gas-snapshot`. Isolated function gas was not
 | Risk | Severity | Disposition |
 |---|---|---|
 | Resolver can report a false YES/NO/INVALID | High trust assumption | accepted for this kernel, blocks trustless claims |
-| PRISM per-call settlement dust capture | High accounting defect | MATH-1D FAIL, no Solidity |
+| PRISM per-call settlement dust capture | High accounting defect | MATH-1D FAIL; candidate bound recorded; no Solidity |
 | Slither IR incomplete | Medium evidence gap | PRED-CONTRACT-1 not PASS |
 | Kuru parameters unknown | Medium | BLOCKED |
 | CompleteSetVault diagram versus kernel | process risk | ADR-P03 proposed, diagram not silently edited |
 | `native_market.py` lifecycle is narrower than canonical | spec drift | recorded, new model does not pretend otherwise |
-| Clone gas unknown | Low | schema A chosen without a gas horse-race |
+| Clone cheaper, identity not independent | Medium | measured; kernel stays on full ERC-20; ADR-P01 PROPOSED |
 | Monad parallel-execution benefit | unmeasured | ADR-R06 is a hypothesis |

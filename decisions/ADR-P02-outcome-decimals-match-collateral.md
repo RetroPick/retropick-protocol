@@ -15,9 +15,11 @@ Match collateral decimals. Or always use 18 and convert at the vault.
 
 `compare_scales(48)` found 0 mismatches for scales 1e6, 1e12, and 1e18 against collateral-native half-floor. Winner payout is a 1:1 integer identity only when units match.
 
+The deployment-gas bench initialized one storage clone at 6 decimals and the other at 18. Both initializations cost 96264 gas. That run did not change the rule that outcome decimals are copied from collateral.
+
 ## Benchmark
 
-The scale grid is a rounding check, not a gas benchmark.
+The scale grid is a rounding check. Deployment gas is recorded separately in `evidence/research/prediction/outcome-token-gas-2026-09-26.txt`.
 
 ## Security implications
 

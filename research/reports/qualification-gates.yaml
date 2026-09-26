@@ -12,6 +12,8 @@ prediction:
   PRED-MATH-1: partial
   PRED-CONTRACT-ARCH-1: proposed
   PRED-CONTRACT-1: not_pass
+  forge_coverage: measured
+  outcome_token_deployment_gas: measured
   PRED-KURU-1: blocked
   PLATFORM-INTEGRATION-1: not_met
   module_status: CONTRACT_CANDIDATE
@@ -22,6 +24,10 @@ prism:
   MATH-1B: bounded_grids_only
   MATH-1C: stress_reproduced
   MATH-1D: fail
+  MATH-1D_candidate_cumulative_floor: proven_under_assumptions
+  MATH-1D_candidate_domain_check: exhaustively_verified_within_domain
+  MATH-1D_candidate_ready_for_adr_acceptance: true
+  MATH-1D_candidate_solidity: not_written
   MATH-1E: partial_z3_sympy
   MATH-1F: not_yet_validated
   MATH-1: fail

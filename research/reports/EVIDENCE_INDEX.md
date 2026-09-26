@@ -23,10 +23,13 @@ python3 -m unittest discover -s tests -v
 python3 adversarial.py
 python3 scenarios.py
 python3 math1_probe.py
+python3 cumulative_settlement_attack.py
 
 cd ../prediction-model
 python3 -m unittest discover -s tests -v
 ```
+
+On 2026-09-26 the prism-model suite was 63 tests, OK, and the prediction-model suite was 10 tests, OK. The cumulative attack reported 378530 states, 2542061 transitions, 2.973316 seconds, and no new counterexample.
 
 Fixture files are committed under `research/prediction-model/fixtures/`. The tests rewrite them to the same JSON. A hash comparison is `sha256sum research/prediction-model/fixtures/*.json` before and after the unittest.
 
@@ -36,9 +39,11 @@ Fixture files are committed under `research/prediction-model/fixtures/`. The tes
 cd research/contract-kernels
 forge test
 forge snapshot
+forge coverage --report summary --fuzz-runs 256 --exclude-tests
+forge test --match-contract OutcomeTokenGasTest -vv
 ```
 
-Recorded result: 10 tests passed, Foundry 1.8.3, including invariant runs 256, depth 500, 128000 calls, 0 reverts.
+Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 500, 128000 calls, 0 reverts, and fuzz runs 256. Optimizer settings were disabled by the coverage tool. Deployment gas used a separate optimized build.
 
 ## Not reproduced
 
@@ -46,7 +51,6 @@ Recorded result: 10 tests passed, Foundry 1.8.3, including invariant runs 256, d
 - Kuru testnet or fork
 - echidna, medusa, halmos, mythril, semgrep, solhint
 - a second clone of the repository in an empty directory
-- `forge coverage`
 
 ## Evidence paths
 
@@ -55,6 +59,9 @@ Recorded result: 10 tests passed, Foundry 1.8.3, including invariant runs 256, d
 | `evidence/research/baseline/` | baseline unittest, adversarial, scenarios, Doorway Forge summary |
 | `evidence/research/prism/math1-probe-2026-09-26.json` | probe output |
 | `evidence/research/prediction/kernel-forge-2026-09-26.txt` | kernel test log |
+| `evidence/research/prediction/kernel-coverage-2026-09-26.txt` | forge coverage summary |
+| `evidence/research/prediction/outcome-token-gas-2026-09-26.txt` | full ERC-20 versus ERC-1167 CREATE gas |
+| `evidence/research/prism/cumulative-floor-attack-2026-09-26.json` | candidate settlement attack |
 | `evidence/research/prediction/slither-2026-09-26.txt` | Slither log, including IR errors |
 | `research/prediction-model/outputs/exhaustive_summary.json` | 208-state search |
 | `research/contract-kernels/.gas-snapshot` | one gas snapshot |

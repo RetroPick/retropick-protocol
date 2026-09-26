@@ -21,6 +21,7 @@ Machine-readable copy: `research/reports/qualification-gates.yaml`.
 PRED-CONTRACT-1: NOT PASS.  
 MATH-1: FAIL.  
 MATH-1D: FAIL.  
+MATH-1D candidate cumulative floor: PROVEN_UNDER_ASSUMPTIONS. Domain check: EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN. Ready for ADR acceptance. Not an oracle pass.  
 MODULE-ADMISSION-FINANCE-1: not met.
 
 ## What changed since the baseline
@@ -41,10 +42,9 @@ The baseline file remains the pre-change record. After it:
 
 ## Blockers
 
-- Human acceptance of ADR-P01..P07 and ADR-R03's repair.
-- MATH-1D redesign before any PRISM settlement contract.
-- Complete Slither IR or another static-analysis pass.
-- Coverage percentage.
+- Human acceptance of ADR-P01..P07 and of ADR-R03's cumulative-floor repair. The candidate bound is recorded. Acceptance was not granted.
+- PRISM settlement Solidity after that acceptance. It was not written in this pass.
+- Complete Slither IR or another static-analysis pass. Forge coverage is now measured and is not a pass by itself.
 - Kuru router address, parameter policy, and a non-production compatibility test.
 - Cross-module differential harness.
 - Echidna, Medusa, Halmos, Mythril, semgrep, solhint: not installed.

@@ -13,7 +13,9 @@ Keep per-call floor. Switch to cumulative floor. Forbid fragmented redemption an
 
 ## Evidence
 
-Supply 2, payout `10^18-1`, 18 decimals: required 2, one-shot floor 1, two 1-unit redemptions pay 0, sweepable dust 2. Grid of 240 cumulative-floor cases: worst dust 1, paid equals one-shot.
+Supply 2, payout `10^18-1`, 18 decimals: required 2, one-shot floor 1, two 1-unit redemptions pay 0, sweepable dust 2. `FixedPointSettlement.redeem` still does that. A separate `CumulativeFloorSettlement` pays 1 on the same case and leaves residual 1. A per-holder cursor pays 0 and is not the candidate.
+
+The candidate bound is PROVEN_UNDER_ASSUMPTIONS: any partition sums to `floor(supply * payout / D)`, and exact ceil funding leaves a residual of 0 or 1. The Python search is EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN: 378530 states, 2542061 transitions, 2.973316 seconds, no new counterexample. Evidence: `evidence/research/prism/cumulative-floor-attack-2026-09-26.json`.
 
 ## Benchmark
 
@@ -29,7 +31,7 @@ Changing the oracle without an accepted ADR would hide the counterexample. Leavi
 
 ## Recommendation
 
-Do not port settlement to Solidity. Accept or reject the cumulative repair in a later decision. Until then MATH-1 stays FAIL.
+The cumulative candidate is ready for acceptance or rejection. Accepting it would not, by itself, authorize settlement Solidity. Canonical MATH-1 stays FAIL until a human accepts the repair.
 
 ## Confidence
 

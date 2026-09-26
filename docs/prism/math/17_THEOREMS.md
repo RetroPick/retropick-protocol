@@ -203,3 +203,16 @@ Source: `research/prism-model/math1_probe.py`, test `test_math1_probe.py`, log c
 MATH-1D for the current per-call settlement payout rule is **FAIL**. The component requirement-delta mint/redeem round trip did not show extraction in 200 deterministic samples (seed 20260926) and is zero by construction of that delta. That does not repair settlement.
 
 No PRISM settlement Solidity is authorized off this addendum. A human-accepted ADR would be required before replacing the payout rule.
+
+## 9. Candidate cumulative floor — 2026-09-26
+
+This section does not replace section 8 and does not mark MATH-1 PASS. `FixedPointSettlement.redeem` is unchanged.
+
+Source: `research/prism-model/cumulative_settlement.py`, `cumulative_settlement_attack.py`, `tests/test_cumulative_settlement.py`.
+
+| ID | Claim | Status | Evidence |
+|---|---|---|---|
+| `CX-FP-SETTLEMENT-001` | Per-call settlement floor. Supply 2, payout `10^18-1`, two 1-unit redemptions pay 0, sweepable dust 2. | still `COUNTEREXAMPLE_FOUND` | permanent regression |
+| `T-FP-CUM-001` | Global-cursor payouts over any partition sum to `floor(supply * payout / D)`. Exact ceil funding leaves residual 0 or 1. One redemption pays the isolated floor or one more. | `PROVEN_UNDER_ASSUMPTIONS` | integer telescoping. Domain check `EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN`: 378530 states, 2542061 transitions, 2.973316s, no new counterexample |
+
+A holder who splits can miss a carry that another holder receives. That moves value between holders. It does not increase dust above the ceil-floor residual. The candidate has no mint function. No settlement Solidity was added.

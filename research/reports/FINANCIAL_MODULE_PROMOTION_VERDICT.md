@@ -12,7 +12,7 @@ Prediction integer and exact models, exhaustive search, adversarial rejections, 
 
 ## PREDICTION TOKEN SCHEMA
 
-Proposed: two full ERC-20s, decimals copied from collateral, `market()` and `outcomeIndex()` only, no owner mint. ADR-P01, ADR-P02. Clone and beacon gas were not measured.
+Proposed: two full ERC-20s, decimals copied from collateral, `market()` and `outcomeIndex()` only, no owner mint. ADR-P01, ADR-P02. ERC-1167 deployment gas was measured and the kernel was not switched to clones.
 
 ## PREDICTION MARKET ARCHITECTURE
 
@@ -28,7 +28,23 @@ Existing oracle re-ran. 55 tests on the baseline commit, 60 after the new probe 
 
 ## PRISM MATH-1
 
-**FAIL.** MATH-1D per-call settlement floor is the blocking counterexample `CX-FP-SETTLEMENT-001` (holders paid 0, sweepable dust 2, one-shot floor would have paid 1). Component requirement-delta round trip did not show extraction. Exact-fraction solvency tests did not fail. Market hypotheses stay NOT_YET_VALIDATED. A cumulative-floor repair is proposed in ADR-R03 and was not written into the oracle.
+**FAIL.** MATH-1D per-call settlement floor is the blocking counterexample `CX-FP-SETTLEMENT-001` (holders paid 0, sweepable dust 2, one-shot floor would have paid 1). `FixedPointSettlement.redeem` was not edited. Component requirement-delta round trip did not show extraction. Exact-fraction solvency tests did not fail. Market hypotheses stay NOT_YET_VALIDATED.
+
+## Candidate cumulative settlement
+
+This is not an oracle replacement and it is not MATH-1 PASS.
+
+`CumulativeFloorSettlement` keeps one global redeemed cursor. For any partition of a fixed supply the payouts sum to `floor(supply * payout / D)`. Against exact ceil funding the residual is 0 or 1. A single redemption pays `floor(q * payout / D)` or one more.
+
+That bound is **PROVEN_UNDER_ASSUMPTIONS** for exact non-negative integer division, no mint on this candidate, a starting balance at or above ceil funding, and redemption of the whole supply. The Python candidate matched the bound on the searched domain: **EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN**. The search visited 378530 states and 2542061 transitions in 2.973316 seconds. No new counterexample was found.
+
+The original case pays 1 and leaves residual 1. Both holder orders do that. A per-holder cursor on the same case pays 0. That negative control is not the candidate.
+
+A holder who splits a balance can receive less than their isolated floor. Recorded example: payout `10^18/2 + 1`, supply 3, order A then B then A. A receives 0 and B receives 1. The sum is still the one-shot floor and the ceil-funded residual is 1. The unit moves to the other holder. It is not swept. Single-call redemptions in the search had shortfall 0 and surplus at most 1.
+
+The candidate has no mint. A shared global cursor charged on mint and refunded on redeem had 0 mismatches in 1920 samples. Per-call floor mint of the original two units, followed by a one-shot redeem, extracts 1 raw unit. That extraction belongs to the per-call rule.
+
+The candidate rule is ready for a human to accept or reject under ADR-R03. Canonical MATH-1 and MATH-1D stay FAIL until that acceptance. No PRISM settlement Solidity was written.
 
 ## PRISM CONTRACT ARCHITECTURE
 
@@ -49,6 +65,10 @@ Python fixtures and Foundry assertions agree for split 100, merge to 60, YES pay
 ## SECURITY
 
 Foundry unit, fuzz, and issuance invariant passed. Slither 0.11.6 did not finish a complete IR. Other listed tools were absent. Resolver honesty is an accepted trust assumption. No known unbacked-mint bug in the qualified kernel. PRED-CONTRACT-1 is still not PASS.
+
+`forge coverage --report summary --fuzz-runs 256 --exclude-tests` exited 0 on 2026-09-26. Coverage disables the optimizer. 14 tests passed, including invariant runs 256, depth 500, 128000 calls, 0 reverts, and fuzz runs 256. `PredictionMarket.sol` lines 89.92% (107/119), statements 78.75% (126/160), branches 30.56% (11/36), functions 92.86% (13/14). `OutcomeToken.sol` lines 100% (12/12), branches 50% (1/2). The report total, including touched OpenZeppelin files, is lines 75.14% (266/354) and branches 25.88% (22/85).
+
+On a separate optimized build, assembly `gas()` around `CREATE` measured one full `OutcomeToken` at 534243 gas (runtime 2276 bytes). Two full tokens cost 1068486. A storage twin plus two ERC-1167 clones cost 789955: implementation 515299, each clone create 41064, each initialize 96264. A clone of `OutcomeToken` itself shares immutable market, index, and decimals. The market still deploys two full tokens. ADR-P01 stays PROPOSED.
 
 ## KURU COMPATIBILITY
 

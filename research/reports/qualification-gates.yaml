@@ -8,7 +8,7 @@ benchmarks_measured: local_single_environment
 static_analysis: measured_with_findings
 slither_complete_ir: blocked_tool
 S-P16_redeemed_cursor: proven_under_assumptions_open_analyzer_gap
-reproducibility_local: rerun_pass
+reproducibility_local: "rerun_pass. SHA 0f14c30b1143067e051693fc9c0633683a937ce6. Python 3.12.3. forge 1.8.3 commit cae51ad458f6abb64852b7709eb784352429825d. Prediction unit tests 15 OK. PRISM unit tests 109 OK. Default-profile forge test 76 passed, 0 failed, 1 skipped (77 total). The skip is test_invalidCompositionsMatchCumulativeFloor because block.gaslimit is below the composition walk. This rerun did not re-execute the supply 0..16 domain. Script exit 0. Existing interpreter and existing Foundry install. Not a clean clone and not a fresh virtualenv. Log evidence/research/repro/repro-local-2026-09-26-rerun.txt. Earlier log evidence/research/repro/repro-local-2026-09-26.txt stays the prior record. Admission gates stay unchanged."
 
 prediction:
   PRED-RESEARCH: recorded

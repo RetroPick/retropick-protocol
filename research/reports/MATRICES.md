@@ -233,7 +233,7 @@ The six prediction rows above the CREATE rows, and `test_fund_and_redeem_gas`, a
 | static_analysis | measured_with_findings. Slither IR still incomplete. Not PRED-CONTRACT-1 |
 | slither_complete_ir | blocked_tool |
 | S-P16 redeemed cursor | open analyzer gap. Inspection PROVEN_UNDER_ASSUMPTIONS. Not closed |
-| reproducibility_local | rerun_pass. Not a fresh clone or virtualenv |
+| reproducibility_local | rerun_pass at 0f14c30. Python 3.12.3, forge 1.8.3. Prediction 15 OK, PRISM 109 OK, Foundry 76 passed, 0 failed, 1 skipped. The skip is the supply 0..16 walk. This command did not re-execute that domain. Existing interpreter and existing Foundry install. Not a clean clone or a fresh virtualenv |
 | MODULE-ADMISSION-FINANCE-1 | not met |
 | Move into `contracts/src/v2` | not done |
 | Mainnet | not authorized |

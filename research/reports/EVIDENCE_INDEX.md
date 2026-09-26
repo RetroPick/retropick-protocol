@@ -246,6 +246,8 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `evidence/research/prism/six-decimal-indivisible-weight-2026-09-26.txt` | Forge default profile, 1 passed, gas 884613. Python required raw and redeem recorded in the same log |
 | `evidence/research/prism/decimals-19-reject-2026-09-26.json` | existing_rule. Weights 10^18 and 10^18. Both constructors reject decimals 19 and 19. Python FixedPointModelError. Solidity DecimalsOutOfRange(19). Mint not executed. No ADR |
 | `evidence/research/prism/decimals-19-reject-2026-09-26.txt` | Forge default profile, 1 passed, gas 12736. Python exception recorded in the same log |
+| `evidence/research/prism/mixed-decimal-backing-2026-09-26.json` | existing_rule. Decimals 6 and 18. Weights 10^30+1 and 10^30+1. requiredRaw at supply 1 is 2 and 10^12+1. Deposit that pair, mint 1, redeem pays 2 and 10^12+1. backingRaw then 0 and 0. Python matches |
+| `evidence/research/prism/mixed-decimal-backing-2026-09-26.txt` | Forge default profile, 1 passed, gas 787017. Python required raw and redeem recorded in the same log |
 | `evidence/research/prediction/slither-2026-09-26.txt` | earlier Slither log, including IR errors |
 | `evidence/research/prediction/slither-focused-2026-09-26.txt` | focused Slither 0.11.6 rerun, exit 255, 14 results |
 | `evidence/research/prediction/slither-legacy-ast-2026-09-26.txt` | `--solc-force-legacy-json` under Foundry. `_redeem` still has no IR. Exit 255 |

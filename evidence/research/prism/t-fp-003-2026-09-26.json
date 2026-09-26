@@ -1,0 +1,44 @@
+{
+  "assumptions": [
+    "nonnegative supply, payout, and balance",
+    "0 < Q <= S",
+    "positive denominator WAD * decimal factor",
+    "the book starts at or above the ceil requirement",
+    "payout is the per-call floor",
+    "the claim is remaining funding, not holder fairness"
+  ],
+  "canonical_math1": "FAIL",
+  "checker": "z3_and_fixed_point_settlement",
+  "classification": "PROVEN_UNDER_ASSUMPTIONS",
+  "counterexample": null,
+  "cx_fp_settlement_001": "COUNTEREXAMPLE_FOUND",
+  "fragmentation_witness": {
+    "after_first_balance": 2,
+    "after_first_required": 1,
+    "after_first_supply": 1,
+    "decimals": 18,
+    "first_payout": 0,
+    "funding_held": true,
+    "holders_receive_one_shot": false,
+    "one_shot_floor": 1,
+    "payout_wad": 999999999999999999,
+    "required_raw": 2,
+    "second_payout": 0,
+    "supply": 2,
+    "sweepable_dust": 2
+  },
+  "funded_shortfall": "unsat",
+  "holder_sum_claim": "not_this_statement",
+  "id": "T-FP-003",
+  "rejected_underfunded_call": {
+    "balance": 1,
+    "payout_wad": 1000000000000000000,
+    "rejected": true,
+    "supply": 2,
+    "unchanged": true
+  },
+  "runtime_seconds": 0.017595,
+  "statement": "A redemption pays floor(Q*R/(WAD*f)) and is accepted only when the remaining balance is at least Req(S-Q)=ceil((S-Q)*R/(WAD*f))",
+  "written_claim": "conservative aggregate settlement requirement plus guarded rounded redemption preserves funding",
+  "z3_version": "5.1.0"
+}

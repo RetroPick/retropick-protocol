@@ -1,0 +1,32 @@
+{
+  "retrieved_at": "2026-09-26",
+  "asset": "binary outcome token",
+  "pred_kuru_1": "blocked",
+  "deployment": "not_run",
+  "why_not_simulated": "No Kuru router bytecode is in this repo, no RetroPick router is accepted, and this slice forbids deployment. No RPC fork was configured.",
+  "helper": {
+    "classification": "MEASURED_LOCAL",
+    "command": "node research/integration/kuru/calculate_precisions.mjs",
+    "node": "v22.14.0",
+    "ethers_cross_check": "5.7.1",
+    "source_commit": "636509c2eafd63479d3f399703354e0d09f51e18",
+    "package": "@kuru-labs/kuru-sdk",
+    "package_version": "0.0.97",
+    "examples_are_not_retropick_policy": true
+  },
+  "retropick_book": {
+    "type": { "value": 0, "classification": "SUPPORTED_BY_LIVE_EVIDENCE", "note": "call shape only" },
+    "base": { "value": null, "classification": "BLOCKED" },
+    "quote": { "value": null, "classification": "BLOCKED" },
+    "decimals": { "value": null, "classification": "BLOCKED" },
+    "pricePrecision": { "value": null, "classification": "BLOCKED" },
+    "sizePrecision": { "value": null, "classification": "BLOCKED" },
+    "tickSize": { "value": null, "classification": "BLOCKED" },
+    "minSize": { "value": null, "classification": "BLOCKED" },
+    "maxSize": { "value": null, "classification": "BLOCKED" },
+    "takerFeeBps": { "value": null, "classification": "BLOCKED" },
+    "makerFeeBps": { "value": null, "classification": "BLOCKED" },
+    "kuruAmmSpread": { "value": null, "classification": "BLOCKED" },
+    "allowance_spender": { "value": null, "classification": "BLOCKED" }
+  }
+}

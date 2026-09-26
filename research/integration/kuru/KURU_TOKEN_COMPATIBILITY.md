@@ -41,3 +41,7 @@ The Kuru token-and-market deployer example parses the new token's supply with 18
 | Fees and tick | Documented ranges exist. RetroPick has not accepted a prediction or PRISM parameter set. ADR-021 is PROPOSED and is a Launchpad decision | BLOCKED for a RetroPick parameter choice |
 
 No production market was deployed. No testnet trade was executed.
+
+## Worksheet, 2026-09-26
+
+`research/integration/kuru/PARAMETER_WORKSHEET.md` records a second read of the router, deploy-market, MarginAccount, and contract-address pages, plus `@kuru-labs/kuru-sdk` 0.0.97 commit `636509c2eafd63479d3f399703354e0d09f51e18`. Three published `calculatePrecisions` input tuples were run locally. RetroPick book fields stay BLOCKED. The Kuru mainnet router address on the docs page is not a RetroPick target.

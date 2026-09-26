@@ -6,4 +6,4 @@ Phase-1 outcome tokens are ERC-20s, so the documented Kuru type-0 router path is
 
 Listing is not liquidity. Margin-account inventory is not protocol collateral. The protocol redeem path does not call Kuru. If Kuru is down, winners still redeem against the market contract.
 
-No book was deployed. No quote, tick, or fee is accepted for RetroPick prediction markets. ADR-021 remains a proposed Launchpad decision and does not set prediction parameters.
+No book was deployed. A local parameter worksheet is in `research/integration/kuru/PARAMETER_WORKSHEET.md`. Published `calculatePrecisions` examples were executed with Node 22.14.0 and checked against ethers 5.7.1. RetroPick decimals, price precision, size precision, tick, min size, max size, and fees stay BLOCKED. A market simulation was not run: this repo has no Kuru router bytecode, no accepted router, and no configured fork. PRED-KURU-1 stays blocked. ADR-021 remains a proposed Launchpad decision and does not set prediction parameters.

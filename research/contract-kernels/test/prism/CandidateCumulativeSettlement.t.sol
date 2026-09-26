@@ -30,6 +30,35 @@ contract CandidateCumulativeSettlementDifferentialTest is Test {
         assertFalse(book.redeemable());
     }
 
+    /// @notice R-I08. Constructor allocation is the final supply. `redeem` reverts
+    ///         until `makeRedeemable`. After funding, the first unit still pays 0.
+    function test_final_supply_is_not_redeemable_until_funded() public {
+        MockCollateral token = new MockCollateral(18);
+        (address[] memory holders, uint256[] memory amounts) = _pair();
+        CandidateCumulativeSettlement book =
+            new CandidateCumulativeSettlement(address(token), 10 ** 18 - 1, 18, holders, amounts);
+        assertEq(book.supplyUnits(), 2);
+        assertFalse(book.redeemable());
+
+        vm.prank(holders[0]);
+        vm.expectRevert(CandidateCumulativeSettlement.NotRedeemable.selector);
+        book.redeem(1);
+
+        token.mint(address(book), 1);
+        vm.expectRevert(abi.encodeWithSelector(CandidateCumulativeSettlement.Underfunded.selector, 1, 2));
+        book.makeRedeemable();
+        assertFalse(book.redeemable());
+        vm.prank(holders[0]);
+        vm.expectRevert(CandidateCumulativeSettlement.NotRedeemable.selector);
+        book.redeem(1);
+
+        token.mint(address(book), 1);
+        book.makeRedeemable();
+        assertTrue(book.redeemable());
+        vm.prank(holders[0]);
+        assertEq(book.redeem(1), 0);
+    }
+
     function _replay(string memory json, uint256 i) internal {
         string memory prefix = string.concat(".cases[", vm.toString(i), "]");
         string memory id = vm.parseJsonString(json, string.concat(prefix, ".id"));

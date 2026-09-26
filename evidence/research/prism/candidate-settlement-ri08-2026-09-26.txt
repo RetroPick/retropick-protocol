@@ -1,0 +1,11 @@
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 1.13s
+Compiler run successful!
+
+Ran 3 tests for test/prism/CandidateCumulativeSettlement.t.sol:CandidateCumulativeSettlementDifferentialTest
+[PASS] test_final_supply_is_not_redeemable_until_funded() (gas: 365710)
+[PASS] test_matches_python_fixtures() (gas: 2873277)
+[PASS] test_underfunded_does_not_open() (gas: 126466)
+Suite result: ok. 3 passed; 0 failed; 0 skipped; finished in 7.69ms (7.56ms CPU time)
+
+Ran 1 test suite in 8.54ms (7.69ms CPU time): 3 tests passed, 0 failed, 0 skipped (3 total tests)

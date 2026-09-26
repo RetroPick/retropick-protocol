@@ -1,0 +1,100 @@
+{
+  "and_counterexample": {
+    "classification": "COUNTEREXAMPLE_FOUND",
+    "result": "None"
+  },
+  "component_round_trip": {
+    "mismatches": 0,
+    "samples": 200,
+    "seed": 20260926
+  },
+  "cumulative_floor_dust": {
+    "bounded_by_one": true,
+    "checked": 240,
+    "worst_dust": 1
+  },
+  "independent_surplus": {
+    "cases": 162,
+    "max_extra": 2,
+    "max_supply": 3
+  },
+  "multi_seed": [
+    {
+      "fixed_steps": 200,
+      "reservation_rejected": 0,
+      "runtime_seconds": 0.007497,
+      "seed": 1
+    },
+    {
+      "fixed_steps": 200,
+      "reservation_rejected": 0,
+      "runtime_seconds": 0.007252,
+      "seed": 7
+    },
+    {
+      "fixed_steps": 200,
+      "reservation_rejected": 0,
+      "runtime_seconds": 0.007221,
+      "seed": 20260917
+    },
+    {
+      "fixed_steps": 200,
+      "reservation_rejected": 0,
+      "runtime_seconds": 0.007151,
+      "seed": 20260926
+    }
+  ],
+  "payoff_runtimes": [
+    {
+      "components": 2,
+      "iterations": 200,
+      "runtime_seconds": 0.002785,
+      "states": 4
+    },
+    {
+      "components": 4,
+      "iterations": 200,
+      "runtime_seconds": 0.004483,
+      "states": 4
+    },
+    {
+      "components": 4,
+      "iterations": 200,
+      "runtime_seconds": 0.015734,
+      "states": 16
+    },
+    {
+      "components": 8,
+      "iterations": 200,
+      "runtime_seconds": 0.028532,
+      "states": 16
+    },
+    {
+      "components": 16,
+      "iterations": 200,
+      "runtime_seconds": 0.053079,
+      "states": 16
+    }
+  ],
+  "runtime_seconds": 0.408215,
+  "settlement_fragmentation": {
+    "classification": "COUNTEREXAMPLE_FOUND",
+    "fragmented_paid_raw": 0,
+    "one_shot_floor_raw": 1,
+    "payout_wad": 999999999999999999,
+    "per_unit_floor_raw": 0,
+    "required_raw": 2,
+    "supply": 2,
+    "swept_dust_raw": 2
+  },
+  "sympy": {
+    "classification": "PROVEN_UNDER_ASSUMPTIONS",
+    "gap_matches_margin_dot_payoff": "True",
+    "sympy_version": "1.14.0"
+  },
+  "z3": {
+    "and_with_constant": "COUNTEREXAMPLE_FOUND",
+    "two_component_terminal_solvency": "PROVEN_UNDER_ASSUMPTIONS",
+    "z3_version": "5.1.0"
+  }
+}

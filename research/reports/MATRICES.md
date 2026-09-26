@@ -209,7 +209,7 @@ The six prediction rows above the CREATE rows, and `test_fund_and_redeem_gas`, a
 | PRISM settlement -> prediction resolution | source resolution is not PRISM funding. Settlement rule itself FAILs |
 | Either module -> Kuru | secondary only. Not required for redemption |
 | Either module -> Launchpad token | forbidden. Launcher token was not reused |
-| SOURCE-ASSET INTERFACE FREEZE | proposed_not_frozen. X-I01..X-I07 not tested |
+| SOURCE-ASSET INTERFACE FREEZE | proposed_not_frozen. Comparison is recorded_gap. Interface was not frozen. X-I01..X-I07 not tested. `source-interface-comparison-2026-09-26.json` |
 
 ## PROMOTION_GATE_MATRIX
 
@@ -229,7 +229,7 @@ The six prediction rows above the CREATE rows, and `test_fund_and_redeem_gas`, a
 | R-I08 resolved supply is not redeemable | measured. Gate key unchanged. Coverage row is R-I09 / INV-P09 |
 | R-I02 immutable replication | measured. `test_r_i02_activated_weights_and_matrix_stay_fixed` |
 | R-I12 resolution once | measured. `test_r_i12_final_resolution_is_committed_once` |
-| X-I01..X-I07 | not_yet_validated. source interface not frozen |
+| X-I01..X-I07 | not_yet_validated. source interface not frozen. `source-interface-comparison-2026-09-26.json` |
 | Unreachable `Underfunded` / `LiveLiability` | PROVEN_UNDER_ASSUMPTIONS |
 | benchmarks_measured | local_single_environment. Not admission |
 | static_analysis | measured_with_findings. Slither IR still incomplete. Not PRED-CONTRACT-1 |

@@ -180,6 +180,7 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `evidence/research/prism/market-microstructure-2026-09-26.json` | MATH-1F synthetic quotes. Not solvency |
 | `evidence/research/prism/candidate-telescope-proof-2026-09-26.json` | SymPy 1.14.0 and Z3 5.1.0 cursor check |
 | `docs/prism/04-architecture/SOURCE_ASSET_INTERFACE.md` | proposed, not frozen |
+| `evidence/research/prism/source-interface-comparison-2026-09-26.json` | recorded_gap. Python lacks the proposed accessors. Interface was not frozen. X-I01..X-I07 stay NOT_YET_VALIDATED |
 | `evidence/research/prediction/slither-2026-09-26.txt` | earlier Slither log, including IR errors |
 | `evidence/research/prediction/slither-focused-2026-09-26.txt` | focused Slither 0.11.6 rerun, exit 255, 14 results |
 | `evidence/research/prediction/slither-legacy-ast-2026-09-26.txt` | `--solc-force-legacy-json` under Foundry. `_redeem` still has no IR. Exit 255 |

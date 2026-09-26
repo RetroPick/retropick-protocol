@@ -176,6 +176,8 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `evidence/research/prediction/resolved-redeem-contradiction-2026-09-26.json` | contradiction 2 stays open. Native redeem pays 1 inside RESOLVED. Prediction redeem rejects before REDEEMABLE |
 | `evidence/research/prediction/false-return-collateral-2026-09-26.json` | false-return collateral stays open. Python rejects construction. Solidity split reverts SafeERC20FailedOperation |
 | `evidence/research/prediction/false-return-collateral-2026-09-26.txt` | Python 1 test OK. Forge default profile, 1 passed, 0 failed |
+| `evidence/research/prediction/rebasing-collateral-2026-09-26.json` | COUNTEREXAMPLE_FOUND. Balance 99, collateralLocked 100, YES 100, NO 100, liability 100 |
+| `evidence/research/prediction/rebasing-collateral-2026-09-26.txt` | Python 1 test OK. Forge default profile, 1 passed, gas 787902 |
 | `evidence/research/prediction/resolved-redeem-contradiction-2026-09-26.txt` | `python3 -m unittest tests.test_resolved_redeem_contradiction -v`, 1 test OK, exit 0 |
 | `research/benchmarks/scripts/repro_local.sh` | rerun script. Not a fresh clone or virtualenv |
 | `research/prediction-model/outputs/exhaustive_summary.json` | 208-state search |

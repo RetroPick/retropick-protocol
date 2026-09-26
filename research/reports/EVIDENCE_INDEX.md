@@ -211,6 +211,8 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `evidence/research/prediction/configured-split-maximum-2026-09-26.txt` | Python 1 test OK. Forge default profile, 1 passed, gas 315609 |
 | `evidence/research/prediction/invalid-burn-rejected-2026-09-26.json` | existing_rule. After INVALID YES dust, burn of NO 1 reverts. Collateral 3, YES 0, NO 5 |
 | `evidence/research/prediction/invalid-burn-rejected-2026-09-26.txt` | Python 1 test OK. Forge default profile, 1 passed, gas 962224 |
+| `evidence/research/prediction/repeat-activate-2026-09-26.json` | existing_rule. A second activate while OPEN reverts. Collateral, YES, and NO stay 0 |
+| `evidence/research/prediction/repeat-activate-2026-09-26.txt` | Python 1 test OK. Forge default profile, 1 passed, gas 134353 |
 | `decisions/ADR-P12-configured-split-maximum.md` | PROPOSED. Acceptance not granted. Neither split was edited |
 | `evidence/research/prediction/resolved-redeem-contradiction-2026-09-26.txt` | `python3 -m unittest tests.test_resolved_redeem_contradiction -v`, 1 test OK, exit 0 |
 | `research/benchmarks/scripts/repro_local.sh` | rerun script. Not a fresh clone or virtualenv |

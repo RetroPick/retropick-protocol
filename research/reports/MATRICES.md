@@ -267,6 +267,7 @@ The six prediction rows above the CREATE rows, and `test_fund_and_redeem_gas`, a
 | Split of 2**256 | accounting | existing_rule. After split 10, Python raises `amount exceeds configured maximum` and collateral, YES, and NO stay 10. Solidity cannot encode the argument, so the second split is not called and those figures stay 10. `split-max-2026-09-26.json` |
 | Split one past 1000000000 | accounting | recorded_contradiction, open. ADR-P12 PROPOSED. Acceptance not granted. Python rejects `split(1000000001)` and leaves collateral, YES, and NO at 0. Solidity mints and those figures become 1000000001. `configured-split-maximum-2026-09-26.json` |
 | INVALID burn of NO after YES dust | accounting | existing_rule. Collateral 3, YES 0, NO 5. Python raises `side is not worthless`. Solidity reverts `NotWorthless`. `invalid-burn-rejected-2026-09-26.json` |
+| Second activate while OPEN | lifecycle | existing_rule. Python raises `activate only from DRAFT`. Solidity reverts `BadState`. Collateral, YES, and NO stay 0. State stays OPEN. `repeat-activate-2026-09-26.json` |
 | Clone cheaper, identity not independent | Medium | measured; kernel stays on full ERC-20; ADR-P01 PROPOSED |
 | Monad parallel-execution benefit | unmeasured | ADR-R06 is a hypothesis |
 | Two markets or two series sharing split/mint slots | INFERRED absent for these kernels | `docs/prism/04-architecture/STORAGE_ISOLATION.md`. Not a throughput measurement |

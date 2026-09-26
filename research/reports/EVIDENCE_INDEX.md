@@ -183,6 +183,8 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `evidence/research/prism/source-interface-comparison-2026-09-26.json` | recorded_gap. Python lacks the proposed accessors. Interface was not frozen. X-I01..X-I07 stay NOT_YET_VALIDATED |
 | `evidence/research/prism/deposit-component-count-2026-09-26.json` | bounded_by_constructor. Two constructor slots. backingRaw 0,0 then 1,1. Python credits the same integers |
 | `evidence/research/prism/deposit-component-count-2026-09-26.txt` | Forge default profile, 1 passed, gas 556488 |
+| `evidence/research/prism/non-depositor-mint-2026-09-26.json` | permissionless_mint. A deposits 1,1. B mints 2**256-1. Supply 0 then that quantity. backingRaw stays 1,1. B receives the series tokens. Python matches supply and backing |
+| `evidence/research/prism/non-depositor-mint-2026-09-26.txt` | Forge default profile, 1 passed, gas 671578 |
 | `evidence/research/prediction/slither-2026-09-26.txt` | earlier Slither log, including IR errors |
 | `evidence/research/prediction/slither-focused-2026-09-26.txt` | focused Slither 0.11.6 rerun, exit 255, 14 results |
 | `evidence/research/prediction/slither-legacy-ast-2026-09-26.txt` | `--solc-force-legacy-json` under Foundry. `_redeem` still has no IR. Exit 255 |

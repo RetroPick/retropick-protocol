@@ -1,0 +1,83 @@
+{
+  "adr_added": false,
+  "alice_component_balances_after": [
+    "0",
+    "0"
+  ],
+  "alice_component_balances_before": [
+    "0",
+    "0"
+  ],
+  "backing_raw_after": [
+    "1",
+    "1"
+  ],
+  "backing_raw_before": [
+    "1",
+    "1"
+  ],
+  "bob_received_series_tokens": true,
+  "bob_series_balance_after": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+  "bob_series_balance_before": "0",
+  "call": "CandidateComponentBacking.mint",
+  "caller": "account_B",
+  "canonical_math1": "FAIL",
+  "case": "non_depositor_mint",
+  "classification": "permissionless_mint",
+  "command": "forge test --match-contract NonDepositorMintTest -vv",
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "decimals": [
+    18,
+    18
+  ],
+  "deposit_amounts": [
+    "1",
+    "1"
+  ],
+  "depositor": "account_A",
+  "gas": 671578,
+  "id": "NON-DEPOSITOR-MINT",
+  "implementations_changed": false,
+  "mint_edited": false,
+  "mint_quantity": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+  "pred_contract_1": "not_pass",
+  "pred_kuru_1": "blocked",
+  "pred_math_1": "partial",
+  "profile": "default",
+  "python": {
+    "backing_raw_after": [
+      "1",
+      "1"
+    ],
+    "backing_raw_before_mint": [
+      "1",
+      "1"
+    ],
+    "function": "FixedPointSeries.deposit_raw then FixedPointSeries.mint",
+    "holder_balances": false,
+    "note": "FixedPointSeries has no account. It does not assign series tokens to B. Supply and backingRaw match Solidity.",
+    "rejected": false,
+    "required_raw_after": [
+      "0",
+      "0"
+    ],
+    "supply_after": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+    "supply_before_mint": "0"
+  },
+  "required_raw_at_mint_quantity": [
+    "0",
+    "0"
+  ],
+  "s_p16": "open",
+  "sha_base": "d4fd0d2c72db10fe0f73723a529295e5ce4862a0",
+  "supply_after": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+  "supply_before": "0",
+  "tests_failed": 0,
+  "tests_passed": 1,
+  "weights_wad": [
+    "0",
+    "0"
+  ],
+  "x_i01_through_x_i07": "NOT_YET_VALIDATED"
+}

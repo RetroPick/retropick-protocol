@@ -1,0 +1,63 @@
+tool: forge test
+command: forge test --match-contract IndivisibleWeightPartialRedeemTest -vv
+cwd: /workspace/research/contract-kernels
+profile: default
+sha_base: a8775316e409904533dd063f49a15f6e9de5e7c8
+weights: 10^18+1, 10^18+1
+decimals: 18, 18
+constructor_rejected: false on Solidity and Python
+required_raw_for_supply_2: 3, 3 on both sides
+deposit: exactly that requirement, 3, 3
+mint: 2 by the depositor
+redeem: Solidity redeem(1) by the minter, Python FixedPointSeries.redeem(1)
+classification: existing_rule
+component_tokens_paid: 1,1
+python_released: 1,1
+supply: 2 before, 1 after
+backing_raw: 3,3 before, 2,2 after
+required_raw: 3,3 before, 2,2 after
+backing_covers_remaining_supply: true
+settlement_floor_failure: unchanged
+adr_added: false
+math1: FAIL
+sweep_policy: NOT_YET_VALIDATED
+source_interface: proposed_not_frozen
+
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 1.11s
+Compiler run successful!
+
+Ran 1 test for test/prism/IndivisibleWeightPartialRedeem.t.sol:IndivisibleWeightPartialRedeemTest
+[PASS] test_minter_redeems_one_of_two_at_indivisible_weights() (gas: 861775)
+Logs:
+  constructor_rejected: 0
+  deposit_required_0: 3
+  deposit_required_1: 3
+  before
+  supply: 2
+  backing0: 3
+  backing1: 3
+  required0: 3
+  required1: 3
+  series: 2
+  component0: 0
+  component1: 0
+  covers0: 1
+  covers1: 1
+  paid_0: 1
+  paid_1: 1
+  after
+  supply: 1
+  backing0: 2
+  backing1: 2
+  required0: 2
+  required1: 2
+  series: 1
+  component0: 1
+  component1: 1
+  covers0: 1
+  covers1: 1
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 722.78µs (571.60µs CPU time)
+
+Ran 1 test suite in 5.42ms (722.78µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

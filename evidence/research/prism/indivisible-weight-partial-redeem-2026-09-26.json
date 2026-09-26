@@ -1,0 +1,100 @@
+{
+  "adr_added": false,
+  "backing_covers_remaining_supply": true,
+  "backing_raw_after": [
+    "2",
+    "2"
+  ],
+  "backing_raw_before": [
+    "3",
+    "3"
+  ],
+  "call": "CandidateComponentBacking.redeem",
+  "caller": "minter",
+  "canonical_math1": "FAIL",
+  "case": "indivisible_weight_partial_redeem",
+  "classification": "existing_rule",
+  "command": "forge test --match-contract IndivisibleWeightPartialRedeemTest -vv",
+  "component_tokens_paid": [
+    "1",
+    "1"
+  ],
+  "constructor_rejected": false,
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "decimals": [
+    18,
+    18
+  ],
+  "deposit_amounts": [
+    "3",
+    "3"
+  ],
+  "gas": 861775,
+  "id": "INDIVISIBLE-WEIGHT-PARTIAL-REDEEM",
+  "implementations_changed": false,
+  "mint_quantity": "2",
+  "note": "This match does not change the existing per-call settlement floor failure.",
+  "pred_kuru_1": "blocked",
+  "profile": "default",
+  "python": {
+    "backing_raw_after": [
+      "2",
+      "2"
+    ],
+    "backing_raw_before": [
+      "3",
+      "3"
+    ],
+    "constructor_rejected": false,
+    "function": "FixedPointSeries.required_backing_raw then deposit_raw then mint then redeem",
+    "note": "FixedPointSeries has no account and no series balance. The released tuple is the component payout. The deposit is required_backing_raw(2).",
+    "rejected": false,
+    "released": [
+      "1",
+      "1"
+    ],
+    "required_raw_after": [
+      "2",
+      "2"
+    ],
+    "required_raw_before": [
+      "3",
+      "3"
+    ],
+    "required_raw_for_supply_2": [
+      "3",
+      "3"
+    ],
+    "supply_after": "1",
+    "supply_before": "2"
+  },
+  "redeem_edited": false,
+  "redeem_quantity": "1",
+  "required_raw_after": [
+    "2",
+    "2"
+  ],
+  "required_raw_before": [
+    "3",
+    "3"
+  ],
+  "required_raw_for_supply_2": [
+    "3",
+    "3"
+  ],
+  "s_p16": "open",
+  "sha_base": "a8775316e409904533dd063f49a15f6e9de5e7c8",
+  "source_interface": "proposed_not_frozen",
+  "supply_after": "1",
+  "supply_before": "2",
+  "sweep_added": false,
+  "sweep_policy": "NOT_YET_VALIDATED",
+  "tests_failed": 0,
+  "tests_passed": 1,
+  "weights_wad": [
+    "1000000000000000001",
+    "1000000000000000001"
+  ],
+  "x_i01_through_x_i07": "NOT_YET_VALIDATED"
+}

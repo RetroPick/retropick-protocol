@@ -1,0 +1,113 @@
+{
+  "canonical_math1": "FAIL",
+  "cumulative_floor": {
+    "classification": "EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN",
+    "counterexample": null,
+    "failure_count": 0,
+    "one_shot": "integer_side_obligation(supply, 1, 2)",
+    "rule": "integer_payout_delta(redeemed_before, quantity, 1, 2)"
+  },
+  "denominator": 2,
+  "distinct_from_market_search": "exhaustive_search.explore is the market state machine and is not called. test_invalid_dust_is_modulus_two remains the 1-unit stream for amounts 1..32.",
+  "domain": "ordered compositions of outstanding INVALID supply 0..16, holders A and B, labelings all-A and alternating, both YES and NO cursors",
+  "formula_changed": false,
+  "half_up": {
+    "both_sides_payment": 2,
+    "classification": "COUNTEREXAMPLE_FOUND",
+    "collateral_unit": 1,
+    "quantity": 1,
+    "rule": "naive_half_up on each side"
+  },
+  "holders": [
+    "A",
+    "B"
+  ],
+  "id": "PRED-INVALID-FLOOR-COMPOSITIONS",
+  "kernel_status": "research_candidate",
+  "labeled_compositions": 131070,
+  "labelings": [
+    "all-A",
+    "alternating"
+  ],
+  "numerator": 1,
+  "per_call_floor": {
+    "classification": "COUNTEREXAMPLE_FOUND",
+    "fragmentation_gap_supply_5": 2,
+    "gap_rows": 128512,
+    "rule": "per_call_floor_half",
+    "smallest_witness": {
+      "cumulative_paid": 1,
+      "gap": 1,
+      "holders": [
+        "A",
+        "A"
+      ],
+      "labeling": "all-A",
+      "one_shot": 1,
+      "parts": [
+        1,
+        1
+      ],
+      "per_call_paid": 0,
+      "supply": 2
+    }
+  },
+  "pred_math_1": "partial",
+  "runtime_seconds": 0.410255,
+  "solidity_execution": {
+    "block_gas_limit": 600000000000,
+    "command": "forge test --match-contract PredictionInvalidFloorCompositionsTest -vv",
+    "contract": "PredictionMarket",
+    "denominator": 2,
+    "forge": "1.8.3",
+    "forge_commit": "cae51ad458f6abb64852b7709eb784352429825d",
+    "function": "_redeem",
+    "gas": 370972939410,
+    "holders": [
+      "alice",
+      "bob"
+    ],
+    "implements_cumulative_floor": true,
+    "implements_per_call_floor": false,
+    "invalid_numerators": [
+      1,
+      1
+    ],
+    "labelings": [
+      "all-A",
+      "alternating"
+    ],
+    "matched": true,
+    "mismatches": 0,
+    "optimizer": true,
+    "optimizer_runs": 200,
+    "per_call_gap_rows": 128512,
+    "per_call_would_pay": [
+      0,
+      0
+    ],
+    "residual_on_supply_2": 0,
+    "runtime_seconds": 79.76,
+    "smallest_witness_no_payouts": [
+      0,
+      1
+    ],
+    "smallest_witness_yes_payouts": [
+      0,
+      1
+    ],
+    "solc": "0.8.26",
+    "source": "research/contract-kernels/src/prediction/PredictionMarket.sol",
+    "states": 131087,
+    "supply_max": 16,
+    "tests_failed": 0,
+    "tests_passed": 2,
+    "transitions": 2097154,
+    "via_ir": false,
+    "witness_test_gas": 851776
+  },
+  "states": 131087,
+  "supply_max": 16,
+  "supply_min": 0,
+  "transitions": 2097154
+}

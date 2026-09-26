@@ -7,6 +7,8 @@ solc_version = "0.8.26"
 evm_version = "cancun"
 optimizer = true
 optimizer_runs = 200
+# The INVALID composition walk is one transaction of about 3.71e11 gas.
+block_gas_limit = 600000000000
 fs_permissions = [
     { access = "read", path = "../prediction-model/fixtures" },
     { access = "read", path = "../prism-model/fixtures" },

@@ -1,0 +1,49 @@
+{
+  "assumptions": [
+    "exact arithmetic",
+    "Q > 0",
+    "backing before the mint is at least S*x_i",
+    "the mint deposits exactly Q*x_i and then increases supply by Q",
+    "one component; other components are independent",
+    "PrismSeries.mint_with_exact_backing is the executable model"
+  ],
+  "backing_shortfall": "unsat",
+  "canonical_math1": "FAIL",
+  "checker": "sympy_z3_and_prism_series",
+  "classification": "PROVEN_UNDER_ASSUMPTIONS",
+  "counterexample": null,
+  "exact_mint": {
+    "backing_after": [
+      "600",
+      "400"
+    ],
+    "margin_after": [
+      "0",
+      "0"
+    ],
+    "margin_before": [
+      "0",
+      "0"
+    ],
+    "quantity": 1000,
+    "supply_after": "1000"
+  },
+  "id": "T-BS-001",
+  "margin_identity": true,
+  "runtime_seconds": 0.022542,
+  "statement": "If B_i >= S*x_i, S' = S+Q, and B_i' = B_i+Q*x_i, then B_i' >= S'*x_i and the margin is unchanged",
+  "surplus_mint": {
+    "margin_after": [
+      "1",
+      "0"
+    ],
+    "margin_before": [
+      "1",
+      "0"
+    ],
+    "quantity": 5
+  },
+  "sympy_version": "1.14.0",
+  "written_claim": "exact-backed mint preserves component backing and margin",
+  "z3_version": "5.1.0"
+}

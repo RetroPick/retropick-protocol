@@ -105,7 +105,7 @@ Every row points at evidence from this program. Status words are the program's c
 | P-I02 | `invariant_ids.py` via `test_invariants.py` | `test_P_I02_conservation_through_resolution_pending` and `invariant_preResolutionConservation` | executable. Issuance invariant does not walk redemption |
 | P-I03 | `invariant_ids.py` via `test_invariants.py` | `test_P_I03_split_only_while_open_and_equal` | executable |
 | P-I04 | `invariant_ids.py` via `test_invariants.py` | `test_P_I04_merge_while_locked_releases_equal_collateral` | executable |
-| P-I05 | `invariant_ids.py` via `test_invariants.py`, including `cancel_draft` | `test_P_I05_spec_hash_is_immutable` | kernel `cancelDraft` is NOT_YET_VALIDATED |
+| P-I05 | `invariant_ids.py` via `test_invariants.py`, including `cancel_draft` | `test_P_I05_spec_hash_is_immutable` and `test_P_I05_cancel_draft_archives_without_moving_collateral` | kernel `cancelDraft` measured. Collateral does not move. Other P-I05 branch unchanged |
 | P-I06 | `invariant_ids.py` via `test_invariants.py` | `test_P_I06_one_result_from_pending_by_resolver` | executable |
 | P-I07 | `invariant_ids.py` via `test_invariants.py` | `test_P_I07_redeem_only_redeemable_balance` | executable |
 | P-I08 | `invariant_ids.py` via `test_invariants.py` | `test_P_I08_collateral_covers_liability` | executable |
@@ -246,7 +246,7 @@ The six prediction rows above the CREATE rows, and `test_fund_and_redeem_gas`, a
 | PRISM per-call settlement dust capture | High accounting defect | MATH-1D FAIL. Candidate kernel matches the Python fixtures. Not an oracle pass |
 | Slither IR incomplete | Medium evidence gap | PRED-CONTRACT-1 not PASS |
 | Kuru parameters unknown | Medium | BLOCKED. Worksheet does not guess them |
-| Prediction `cancelDraft` missing | Low | P-I05 cancelled-draft branch NOT_YET_VALIDATED |
+| Prediction `cancelDraft` | Low | DRAFT to ARCHIVED measured. Collateral does not move. Not PRED-CONTRACT-1 PASS |
 | CompleteSetVault diagram versus kernel | process risk | ADR-P03 proposed, diagram not silently edited |
 | `native_market.py` lifecycle is narrower than canonical | spec drift | recorded, new model does not pretend otherwise |
 | Clone cheaper, identity not independent | Medium | measured; kernel stays on full ERC-20; ADR-P01 PROPOSED |

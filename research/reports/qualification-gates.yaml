@@ -21,7 +21,7 @@ prediction:
   forge_coverage: measured
   outcome_token_deployment_gas: measured
   PRED-KURU-1: blocked
-  P-I05_cancel_draft: not_yet_validated
+  P-I05_cancel_draft: "measured. Factory cancelDraft moves DRAFT to ARCHIVED with CANCELLED_BEFORE_ACTIVATION. Collateral stays put. OPEN and REDEEMABLE reject. Immutable spec-hash branch unchanged. PRED-CONTRACT-1 stays not_pass."
   unreachable_funding_branches: proven_under_assumptions
   storage_slot_isolation: inferred
   PLATFORM-INTEGRATION-1: not_met

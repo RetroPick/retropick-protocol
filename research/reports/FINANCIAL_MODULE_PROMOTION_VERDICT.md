@@ -132,7 +132,7 @@ Assembly `gas()` around CALL, optimizer 200, solc 0.8.26: fund transfer 25535, `
 
 Python fixtures and Foundry assertions agree for split 100, merge to 60, YES payout 25, NO payout 0, and INVALID 1-unit streams on supply 5 leaving residual 1.
 
-`PredictionDifferentialTest` reads the fixture files for split, merge, close mint, begin resolution, resolve YES, resolve NO, resolve INVALID, redeem YES, redeem NO, burn worthless, archive, locked merge, the INVALID stream, and the rejected sequences the kernel can express. 14 tests passed. No integer mismatch, so no new COUNTEREXAMPLE_FOUND. `cancelDraft` is still absent. P-I05_cancel_draft stays not_yet_validated.
+`PredictionDifferentialTest` reads the fixture files for split, merge, close mint, begin resolution, resolve YES, resolve NO, resolve INVALID, redeem YES, redeem NO, burn worthless, archive, locked merge, the INVALID stream, and the rejected sequences the kernel can express. 14 tests passed. No integer mismatch, so no new COUNTEREXAMPLE_FOUND. Factory `cancelDraft` moves DRAFT to ARCHIVED with reason `CANCELLED_BEFORE_ACTIVATION` and does not move collateral. OPEN and REDEEMABLE reject it. P-I05_cancel_draft is measured. The immutable spec-hash branch is unchanged. PRED-CONTRACT-1 stays not_pass. Log: `evidence/research/prediction/cancel-draft-2026-09-26.json`.
 
 ## MATH-1F
 

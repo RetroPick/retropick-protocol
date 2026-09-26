@@ -52,6 +52,8 @@ T-BS-001 says an exact-backed mint preserves component backing and margin. For `
 
 T-BS-002 says an exact in-kind redemption preserves remaining backing. For `0<Q<=S`, `S'=S-Q` and `B'=B-Qx`. SymPy 1.14.0 reduces the new margin to the old margin. Z3 5.1.0 reports unsat for a redemption that starts backed and ends below `S'x`. Redeeming 250 from an exact supply of 1000 on weights 3/5 and 2/5 releases 150 and 100 and leaves backing 450 and 300, supply 750, and margin 0 and 0. A prior margin of 1 and 0 is unchanged by redeeming 2 from supply 5. Classification: **PROVEN_UNDER_ASSUMPTIONS**. No counterexample. Runtime 0.022627 seconds. Canonical MATH-1 stays FAIL because the per-call settlement floor still fails. Log: `evidence/research/prism/t-bs-002-2026-09-26.json`.
 
+T-BS-003 says exact nonnegative replication plus component backing implies terminal solvency in every state. `math1_probe.py` only discharges two components and one state. SymPy 1.14.0 shows `V-L` equals `sum_i (B_i-S*x_i)*g_i` for a symbolic component count `n`. Z3 5.1.0 reports the inductive step unsat, so every finite sum of those nonnegative products stays nonnegative. A 3-component series with 4 terminal states, supply 4, and exact backing is solvent in every state. Payoff -1 with backing 2, supply 1, and weight 1 gives value -2 against liability -1; that sign is outside the written assumption. Classification: **PROVEN_UNDER_ASSUMPTIONS** for every finite component count. No counterexample inside the assumption. Runtime 0.106505 seconds. Canonical MATH-1 stays FAIL because the per-call settlement floor still fails. Log: `evidence/research/prism/t-bs-003-2026-09-26.json`.
+
 ## Candidate cumulative settlement
 
 This is not an oracle replacement and it is not MATH-1 PASS.

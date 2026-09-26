@@ -35,6 +35,7 @@ Every row points at evidence from this program. Status words are the program's c
 | MATH-1 PASS | FAIL | canonical per-call rule remains |
 | PRISM Solidity | settlement, component backing, and a payoff-transform candidate | Settlement and backing kernels are unchanged. `partial_resolution_transform` is `differential_research_kernel`. CONTRACT-1 not_met. Not MATH-1 PASS |
 | Payoff-equivalent partial transform | differential_research_kernel | `partial_resolution.py` and `CandidatePayoffTransform.sol`. Wrong component, non-equivalent payoff, and reorder are tested. Not wired to prediction tokens |
+| Second transform of an already transformed component | existing_rule | Component 1 payout 1 on the fixture book adds cash 400. The second call rejects on both sides and leaves supply 1000, backing 600 and 0, transformed 400, possible mask 5, and resolved mask 2. `second-component-transform-2026-09-26.json` |
 | PRISM CONTRACT-ARCH-1 | proposed, not pass | `docs/prism/04-architecture/PHASE1_CANDIDATE_SERIES.md` |
 
 ## THEOREM_STATUS_MATRIX

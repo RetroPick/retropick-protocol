@@ -1,0 +1,82 @@
+{
+  "canonical_math1": "FAIL",
+  "case": "resolver commits a second different result after the first YES resolution",
+  "classification": "existing_rule",
+  "id": "SECOND-YES-RESOLUTION",
+  "implementations_changed": false,
+  "kernels_agree": true,
+  "math_1_progress": false,
+  "pred_contract_1": "not_pass",
+  "pred_math_1": "partial",
+  "python": {
+    "after_second": {
+      "collateral_locked": "4",
+      "no_numerator": "0",
+      "no_supply": "4",
+      "result": "YES_WIN",
+      "state": "RESOLVED",
+      "yes_numerator": "2",
+      "yes_supply": "4"
+    },
+    "before_second": {
+      "collateral_locked": "4",
+      "no_numerator": "0",
+      "no_supply": "4",
+      "result": "YES_WIN",
+      "state": "RESOLVED",
+      "yes_numerator": "2",
+      "yes_supply": "4"
+    },
+    "changed": false,
+    "error": "illegal transition RESOLVED -> RESOLVED",
+    "first_result": "YES_WIN",
+    "function": "PredictionMarket.resolve",
+    "module": "research/prediction-model/market.py",
+    "quantity": "4",
+    "second_result": "NO_WIN"
+  },
+  "rule": "the second resolve reverts and the payout vector stays YES_WIN numerators 2 and 0",
+  "solidity": {
+    "after_second": {
+      "collateral_balance": "4",
+      "collateral_locked": "4",
+      "no_numerator": "0",
+      "no_supply": "4",
+      "result": "YES_WIN",
+      "state": "RESOLVED",
+      "yes_numerator": "2",
+      "yes_supply": "4"
+    },
+    "before_second": {
+      "collateral_balance": "4",
+      "collateral_locked": "4",
+      "no_numerator": "0",
+      "no_supply": "4",
+      "result": "YES_WIN",
+      "state": "RESOLVED",
+      "yes_numerator": "2",
+      "yes_supply": "4"
+    },
+    "changed": false,
+    "command": "forge test --match-contract SecondYesResolutionTest -vv",
+    "cwd": "research/contract-kernels",
+    "error": "BadState",
+    "exit_code": 0,
+    "failed": 0,
+    "first_result": "YES_WIN",
+    "forge_commit": "cae51ad458f6abb64852b7709eb784352429825d",
+    "forge_version": "1.8.3",
+    "function": "PredictionMarket.resolve",
+    "module": "research/contract-kernels/src/prediction/PredictionMarket.sol",
+    "optimizer": true,
+    "optimizer_runs": 200,
+    "passed": 1,
+    "profile": "default",
+    "quantity": "4",
+    "second_result": "NO_WIN",
+    "solc": "0.8.26",
+    "test_gas": 527769,
+    "via_ir": false
+  },
+  "theorem_pass": false
+}

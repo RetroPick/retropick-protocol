@@ -1,0 +1,44 @@
+tool: python3 and forge test
+command: forge test --match-contract OpenRedemptionYesRedeemTest -vv
+cwd: /workspace/research/contract-kernels
+profile: default
+sha_base: f70377262be6a2bf8b2a084d4c9fb53c09223662
+split: 4
+result: YES_WIN
+python_open: open_redemption
+solidity_open: openRedemption
+python_redeem: redeem of 1 YES
+solidity_redeem: redeemYes(1)
+before_open: RESOLVED, liability 4, collateral locked 4
+after_open: REDEEMABLE, liability 4, collateral locked 4
+payout: 1
+after_redeem: REDEEMABLE, liability 3, collateral locked 3, YES supply 3, yes_redeemed 1
+classification: existing_rule
+adr_added: false
+adr_p04: PROPOSED
+adr_p15: PROPOSED
+math1: FAIL
+
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 1.09s
+Compiler run successful!
+
+Ran 1 test for test/prediction/OpenRedemptionYesRedeem.t.sol:OpenRedemptionYesRedeemTest
+[PASS] test_open_redemption_then_redeem_one_yes() (gas: 739782)
+Logs:
+  state_before_open: RESOLVED
+  liability_before_open: 4
+  collateral_before_open: 4
+  open_function: openRedemption
+  state_after_open: REDEEMABLE
+  liability_after_open: 4
+  collateral_after_open: 4
+  payout: 1
+  liability_after_redeem: 3
+  collateral_after_redeem: 3
+  state_after_redeem: REDEEMABLE
+  classification: existing_rule
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 706.50µs (190.56µs CPU time)
+
+Ran 1 test suite in 5.50ms (706.50µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

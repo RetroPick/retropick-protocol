@@ -1,0 +1,52 @@
+{
+  "adr_added": false,
+  "adr_p04": "PROPOSED",
+  "adr_p15": "PROPOSED",
+  "adr_p16": "PROPOSED",
+  "adr_p17": "PROPOSED",
+  "after_open": {
+    "collateral_locked": "4",
+    "liability": "4",
+    "state": "REDEEMABLE"
+  },
+  "after_redeem": {
+    "collateral_locked": "3",
+    "liability": "3",
+    "no_redeemed": "0",
+    "no_supply": "4",
+    "state": "REDEEMABLE",
+    "yes_redeemed": "1",
+    "yes_supply": "3"
+  },
+  "before_open": {
+    "collateral_locked": "4",
+    "liability": "4",
+    "state": "RESOLVED"
+  },
+  "canonical_math1": "FAIL",
+  "case": "open_redemption_then_redeem_one_yes",
+  "classification": "existing_rule",
+  "command": "forge test --match-contract OpenRedemptionYesRedeemTest -vv",
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "gas": 739782,
+  "implementations_changed": false,
+  "payout": "1",
+  "profile": "default",
+  "python": {
+    "open_function": "open_redemption",
+    "payout": "1",
+    "redeem_function": "redeem"
+  },
+  "resolved_result": "YES_WIN",
+  "s_p16": "open",
+  "sha_base": "f70377262be6a2bf8b2a084d4c9fb53c09223662",
+  "solidity": {
+    "open_function": "openRedemption",
+    "payout": "1",
+    "redeem_function": "redeemYes"
+  },
+  "split": "4",
+  "tests_failed": 0,
+  "tests_passed": 1
+}

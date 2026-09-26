@@ -284,6 +284,8 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `evidence/research/prediction/over-yes-redeem-2026-09-26.txt` | Forge default profile, 1 passed, gas 717668 |
 | `evidence/research/prediction/zero-yes-redeem-2026-09-26.json` | existing_rule. Split 4, YES_WIN, redeemYes 0 reverts ZeroAmount. Python raises redeem quantity must be positive. No payout. Liability stays 4. Collateral locked stays 4. Supplies and redeemed cursors stay unchanged |
 | `evidence/research/prediction/zero-yes-redeem-2026-09-26.txt` | Forge default profile, 1 passed, gas 680560 |
+| `evidence/research/prediction/merge-after-yes-redeem-2026-09-26.json` | existing_rule. Split 4, YES_WIN, redeem 1 YES pays 1, then merge 1 rejects. Liability stays 3. Collateral locked stays 3. YES supply 3. NO supply 4. yes_redeemed 1. no_redeemed 0. Inventory rows[50] has no prior redeem |
+| `evidence/research/prediction/merge-after-yes-redeem-2026-09-26.txt` | Forge default profile, 1 passed, gas 805594 |
 | `evidence/research/prediction/kuru-backing-claim-2026-09-26.json` | absent. Kuru orderbook liquidity is not protocol backing or redemption value. PRED-KURU-1 stays blocked |
 | `decisions/ADR-P12-configured-split-maximum.md` | PROPOSED. Acceptance not granted. Neither split was edited |
 | `evidence/research/prediction/resolved-redeem-contradiction-2026-09-26.txt` | `python3 -m unittest tests.test_resolved_redeem_contradiction -v`, 1 test OK, exit 0 |

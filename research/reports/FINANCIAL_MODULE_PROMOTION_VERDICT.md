@@ -48,6 +48,8 @@ T-FP-003 says the conservative settlement requirement plus a guarded floor redem
 
 T-FP-004 says a minimum-backing mint followed by the inverse requirement-delta redemption has zero net component extraction. The mint deposits `Req(S+Q)-Req(S)`. Redeeming that same quantity releases the same delta. SymPy 1.14.0 reduces the two deltas to the same expression. Z3 5.1.0 reports unsat for a ceil cycle that releases a different amount, deposits a negative amount, or changes raw backing. On weights `WAD/2` and 18 decimals, mint 5 then redeem 5 deposits and releases 3 and 3. Supply and backing return to 0. A prior surplus of 1 and 1 remains after the same cycle. Classification: **PROVEN_UNDER_ASSUMPTIONS**. No counterexample. Runtime 0.034207 seconds. This is not the per-call settlement floor. That underpayment is still `CX-FP-SETTLEMENT-001`. MATH-1 stays FAIL. Log: `evidence/research/prism/t-fp-004-2026-09-26.json`.
 
+T-BS-001 says an exact-backed mint preserves component backing and margin. For `Q>0`, `S'=S+Q` and `B'=B+Qx`. SymPy 1.14.0 reduces the new margin to the old margin. Z3 5.1.0 reports unsat for a positive mint that starts backed and ends below `S'x`. `PrismSeries.mint_with_exact_backing(1000)` on weights 3/5 and 2/5 ends at backing 600 and 400 with margin 0 and 0. Depositing a surplus of 1 and 0, then minting 5, leaves that margin unchanged. Classification: **PROVEN_UNDER_ASSUMPTIONS**. No counterexample. Runtime 0.022542 seconds. The earlier bounded grid is not this identity. Canonical MATH-1 stays FAIL because the per-call settlement floor still fails. Log: `evidence/research/prism/t-bs-001-2026-09-26.json`.
+
 ## Candidate cumulative settlement
 
 This is not an oracle replacement and it is not MATH-1 PASS.

@@ -193,6 +193,7 @@ The six prediction rows above the CREATE rows, and `test_fund_and_redeem_gas`, a
 | `redeemNo(1)` after split 4 and `NO_WIN` | existing_rule. Payout 1. Collateral 3, YES supply 4, NO supply 3, NO redeemed cursor 1. Python redeem of the NO side matches. ADR-P15 stays a name proposal. Not a payout disagreement. `no-redeem-2026-09-26.json` |
 | `redeemYes(1)` after split 4 and `NO_WIN` | existing_rule. Payout 0. Collateral stays 4. YES supply 3. NO supply 4. YES redeemed cursor 1. NO redeemed cursor 0. Python redeem of the YES side matches. `burnWorthless` was not called. ADR-P15 stays a name proposal. `losing-yes-redeem-2026-09-26.json` |
 | Liability around `redeemYes(1)` after split 4 and `NO_WIN` | existing_rule. Liability 4 before and after. Collateral locked 4 before and after. YES redeemed cursor 0 then 1. NO redeemed cursor stays 0. Python matches. Liability stays equal to collateral locked. `losing-yes-liability-2026-09-26.json` |
+| `redeemNo(1)` after split 4 and `YES_WIN` | existing_rule. Payout 0. Liability 4 before and after. Collateral locked 4 before and after. YES supply 4. NO supply 3. YES redeemed cursor 0. NO redeemed cursor 1. Python redeem of the NO side matches. Liability stays equal to collateral locked. `losing-no-redeem-2026-09-26.json` |
 | solhint 5.2.0 | exit 0, 42 warnings, 0 errors. `solhint-2026-09-26.txt`. Style and import-path warnings. Not PRED-CONTRACT-1 |
 | echidna, medusa, halmos, mythril, semgrep | BLOCKED_TOOL |
 

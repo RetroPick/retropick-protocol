@@ -1,0 +1,45 @@
+tool: python3 and forge test
+command: forge test --match-contract OtherComponentTransformTest -vv
+cwd: /workspace/research/contract-kernels
+profile: default
+sha_base: 7edda939d481a6a83b43ed711e59996bd0f3fc35
+payoff: [[0,1],[0,0],[1,1],[1,0]]
+weights: 3/5,2/5
+supply: 1000
+python_function: apply_transform
+python_first: accepted cash_added 400
+python_before_second: backing 600,0 transformed 400 possible_mask 5 resolved_mask 2
+python_second: accepted cash_added 600
+python_after: backing 0,0 transformed 1000 possible_states 2 possible_mask 4 resolved_mask 3
+python_terminal_solvency: state 2 backing_value 1000 liability 1000 covered true
+classification: existing_rule
+adr_added: none
+math1: FAIL
+sweep_policy: NOT_YET_VALIDATED
+
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 884.66ms
+Compiler run successful!
+
+Ran 1 test for test/prism/OtherComponentTransform.t.sol:OtherComponentTransformTest
+[PASS] test_transform_the_other_component() (gas: 287803)
+Logs:
+  first_cash_added: 400
+  backing0_before: 600
+  backing1_before: 0
+  transformed_before: 400
+  possible_mask_before: 5
+  resolved_mask_before: 2
+  second_call: accepted
+  cash_added: 600
+  backing0_after: 0
+  backing1_after: 0
+  transformed_after: 1000
+  possible_mask_after: 4
+  resolved_mask_after: 3
+  supply_after: 1000
+  classification: existing_rule
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 440.85µs (293.29µs CPU time)
+
+Ran 1 test suite in 5.43ms (440.85µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

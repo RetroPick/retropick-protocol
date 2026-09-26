@@ -198,6 +198,8 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `evidence/research/prism/funder-residual-redeem-2026-09-26.txt` | Forge default profile, 1 passed, gas 395690 |
 | `evidence/research/prism/two-unit-redeems-2026-09-26.json` | cumulative_floor_match. One holder, supply 2. redeem(1) then redeem(1) pays 0 then 1. Kernel balance 2 then 1. Canonical per-call pays 0 then 0. MATH-1 stays FAIL |
 | `evidence/research/prism/two-unit-redeems-2026-09-26.txt` | Forge default profile, 1 passed, gas 431562 |
+| `evidence/research/prism/two-holder-redeems-2026-09-26.json` | cumulative_floor_match. A then B each redeem 1. Payouts 0 then 1. The unit goes to B. Kernel balance ends at 1. paidRaw ends at 1 |
+| `evidence/research/prism/two-holder-redeems-2026-09-26.txt` | Forge default profile, 1 passed, gas 437214 |
 | `evidence/research/prediction/slither-2026-09-26.txt` | earlier Slither log, including IR errors |
 | `evidence/research/prediction/slither-focused-2026-09-26.txt` | focused Slither 0.11.6 rerun, exit 255, 14 results |
 | `evidence/research/prediction/slither-legacy-ast-2026-09-26.txt` | `--solc-force-legacy-json` under Foundry. `_redeem` still has no IR. Exit 255 |

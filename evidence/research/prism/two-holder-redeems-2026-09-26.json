@@ -1,0 +1,56 @@
+{
+  "adr_added": false,
+  "adr_r03_note": "ADR-R03 records the canonical per-call counterexample and says a per-holder cursor pays 0. This witness matches the global cumulative floor, so no new ADR is added.",
+  "adr_r10": "PROPOSED",
+  "after_a": {
+    "alice_settlement_balance": "0",
+    "bob_settlement_balance": "0",
+    "kernel_balance": "2",
+    "paid_raw": "0",
+    "payout": "0"
+  },
+  "after_b": {
+    "alice_settlement_balance": "0",
+    "bob_settlement_balance": "1",
+    "kernel_balance": "1",
+    "paid_raw": "1",
+    "payout": "1"
+  },
+  "canonical_math1": "FAIL",
+  "case": "two_holder_redeems",
+  "ceil_funding": "2",
+  "classification": "cumulative_floor_match",
+  "command": "forge test --match-contract TwoHolderRedeemsTest -vv",
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "decimals": 18,
+  "gas": 437214,
+  "id": "TWO-HOLDER-REDEEMS",
+  "implementations_changed": false,
+  "kernel": "research/contract-kernels/src/prism/CandidateCumulativeSettlement.sol",
+  "order": [
+    "A",
+    "B"
+  ],
+  "payout_a": "0",
+  "payout_b": "1",
+  "payout_wad": "999999999999999999",
+  "pred_kuru_1": "blocked",
+  "profile": "default",
+  "python_cumulative": {
+    "function": "CumulativeFloorSettlement.redeem",
+    "note": "Python names holders A and B and one balance_raw pool. Payouts in order are 0 then 1. Receipts end at A 0 and B 1. balance_raw ends at 1. paid_raw ends at 1.",
+    "payouts": [
+      "0",
+      "1"
+    ]
+  },
+  "redeem_edited": false,
+  "s_p16": "open",
+  "sha_base": "69389c57132285d77f565224249c3866b1c706fd",
+  "supply": "2",
+  "sweep_policy": "NOT_YET_VALIDATED",
+  "tests_failed": 0,
+  "tests_passed": 1,
+  "unit_goes_to_later_redeem": true
+}

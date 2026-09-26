@@ -1,0 +1,11 @@
+tool: python3 3.12.3
+command: python3 -m unittest tests.test_t_lc_001 -v
+cwd: /workspace/research/prism-model
+sha: 2c33986e2e2366c1644f34d97e05595970ded8d5
+test_no_resurrection_into_issuance (tests.test_t_lc_001.TLc001Tests.test_no_resurrection_into_issuance) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK
+exit_code: 0

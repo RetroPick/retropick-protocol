@@ -242,6 +242,8 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `evidence/research/prism/activated-immutability-2026-09-26.txt` | Forge default profile, 2 passed, gas 694749 and 291088. Python immutability results recorded in the same log |
 | `evidence/research/prism/six-decimal-component-backing-2026-09-26.json` | existing_rule. Weights 10^18 and 10^18. Decimals 6 and 6. requiredRaw at supply 1 is 1 and 1. Deposit 1 and 1, mint 1, redeem pays 1 and 1. backingRaw 1,1 then 0,0. Python matches |
 | `evidence/research/prism/six-decimal-component-backing-2026-09-26.txt` | Forge default profile, 1 passed, gas 754322. Python required raw and redeem recorded in the same log |
+| `evidence/research/prism/six-decimal-indivisible-weight-2026-09-26.json` | existing_rule. Decimals 6 and 6. Weights 10^30+1 and 10^30+1. requiredRaw at supply 2 is 3 and 3. requiredRaw at supply 1 is 2 and 2. Deposit 3 and 3, mint 2, redeem pays 1 and 1. backingRaw 3,3 then 2,2. Python matches |
+| `evidence/research/prism/six-decimal-indivisible-weight-2026-09-26.txt` | Forge default profile, 1 passed, gas 884613. Python required raw and redeem recorded in the same log |
 | `evidence/research/prediction/slither-2026-09-26.txt` | earlier Slither log, including IR errors |
 | `evidence/research/prediction/slither-focused-2026-09-26.txt` | focused Slither 0.11.6 rerun, exit 255, 14 results |
 | `evidence/research/prediction/slither-legacy-ast-2026-09-26.txt` | `--solc-force-legacy-json` under Foundry. `_redeem` still has no IR. Exit 255 |

@@ -189,6 +189,8 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `evidence/research/prism/positive-weight-non-depositor-mint-2026-09-26.txt` | Forge default profile, 1 passed, gas 633405 |
 | `evidence/research/prism/over-mint-2026-09-26.json` | existing_rule. Weights 10^18, 10^18. A deposits 1,1. B mint(2) reverts InsufficientBacking(0, 1, 2). Supply stays 0. backingRaw stays 1,1. requiredRaw at supply 2 is 2,2. Python rejects |
 | `evidence/research/prism/over-mint-2026-09-26.txt` | Forge default profile, 1 passed, gas 549077 |
+| `evidence/research/prism/non-depositor-redeem-2026-09-26.json` | redeem_pays_caller. Weights 10^18, 10^18. A deposits 1,1. B mints 1 and redeems 1. Supply 1 then 0. backingRaw 1,1 then 0,0. Component tokens sit with B |
+| `evidence/research/prism/non-depositor-redeem-2026-09-26.txt` | Forge default profile, 1 passed, gas 780289 |
 | `evidence/research/prediction/slither-2026-09-26.txt` | earlier Slither log, including IR errors |
 | `evidence/research/prediction/slither-focused-2026-09-26.txt` | focused Slither 0.11.6 rerun, exit 255, 14 results |
 | `evidence/research/prediction/slither-legacy-ast-2026-09-26.txt` | `--solc-force-legacy-json` under Foundry. `_redeem` still has no IR. Exit 255 |

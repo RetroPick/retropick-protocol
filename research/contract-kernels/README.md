@@ -12,7 +12,7 @@ Isolated Foundry harness. Nothing here is promoted into `contracts/src/v2/`.
 - `RESOLVED` and `REDEEMABLE` are separate;
 - no admin mint.
 
-Schema A is the implemented token shape. Clones and beacons are not deployed by this kernel.
+Schema A is the implemented token shape. `PredictionMarket` still deploys two full `OutcomeToken` contracts. `OutcomeTokenGas.t.sol` measures an ERC-1167 alternative and does not wire it into the market. Beacons are not deployed.
 
 ## PRISM
 

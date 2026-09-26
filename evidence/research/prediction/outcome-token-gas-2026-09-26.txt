@@ -1,0 +1,38 @@
+command: forge test --match-contract OutcomeTokenGasTest -vv
+working_directory: research/contract-kernels
+foundry: 1.8.3 (cae51ad458, 2026-09-15)
+solc: 0.8.26
+optimizer: true
+optimizer_runs: 200
+evm_version: cancun
+meter: assembly gas() immediately before and after CREATE or CALL
+date: 2026-09-26
+result: PASS (4 tests)
+
+full_yes_gas: 534243
+full_no_gas: 534243
+full_pair_gas: 1068486
+full_runtime_bytes: 2276
+outcome_token_creation_code_bytes: 3100
+
+clone_implementation_gas: 515299
+clone_implementation_runtime_bytes: 2413
+cloneable_creation_code_bytes: 2441
+clone_create_gas: 41064
+clone_runtime_bytes: 45
+clone_initialize_gas: 96264
+clone_pair_gas: 789955
+
+immutable_clone_of_OutcomeToken_runtime_bytes: 45
+immutable_clone_shares_market_outcomeIndex_decimals: true
+immutable_clone_name_and_symbol: empty
+storage_clone_second_initialize: revert AlreadyInitialized
+storage_clone_mint_and_burn_only_from_recorded_market: pass
+
+pair_delta_full_minus_clone: 278531
+marginal_full_token: 534243
+marginal_clone_create_plus_initialize: 137328
+
+Kernel decision: PredictionMarket still deploys two full OutcomeToken contracts.
+The storage twin is a measurement artifact, not the market's token.
+ADR-P01 remains PROPOSED.

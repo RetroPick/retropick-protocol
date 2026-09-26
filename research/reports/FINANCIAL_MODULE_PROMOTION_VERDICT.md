@@ -22,6 +22,8 @@ Proposed: the market contract is the collateral controller. ADR-P03. Canonical C
 
 P-THEOREM-1 through P-THEOREM-5 and P-THEOREM-7: PROVEN for the qualified model on the tests that call them. P-THEOREM-6 qualified cumulative floor: PROVEN on those tests. Half-up and per-call floor: COUNTEREXAMPLE_FOUND. Exhaustive domain `max_unit=3`: 208 states, 0 failures. This is not a universal uint256 proof.
 
+Ordered compositions of outstanding INVALID supply 0 through 16, holders A and B, labelings all-A and alternating, both YES and NO cursors: the cumulative floor pays `floor(supply / 2)` on every composition. Classification of that domain: **EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN**. Counts: 131087 states, 2097154 transitions, 131070 labeled compositions, 0.410255 seconds. The per-call floor remains **COUNTEREXAMPLE_FOUND**. The smallest witness in the domain is supply 2, parts `(1, 1)`, one-shot 1, per-call payment 0. 128512 labeled compositions underpay. `fragmentation_gap(5)` remains 2. Half-up remains **COUNTEREXAMPLE_FOUND** because `half_up_both_sides(1)` is 2. `PredictionMarket._redeem` with INVALID numerators `(1, 1)` is the cumulative floor. The Foundry replay matched those counts with 0 mismatches in 79.76 seconds. Supply 2 pays 0 then 1 on each side. PRED-MATH-1 stays partial. The kernel stays a research candidate. Log: `evidence/research/prediction/invalid-floor-compositions-2026-09-26.json`.
+
 ## PRISM MODEL
 
 Existing oracle re-ran. 55 tests on the baseline commit, 60 after the new probe tests. Adversarial JSON from 2026-09-17 reproduced. AND counterexample reproduced.

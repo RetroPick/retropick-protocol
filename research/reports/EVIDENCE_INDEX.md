@@ -77,6 +77,8 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `evidence/research/prediction/kernel-coverage-fuzz64-2026-09-26.txt` | remeasured coverage. PredictionMarket branches 94.44% (34/36). Fuzz runs 64. Invariant runs 256 |
 | `evidence/research/prediction/unreachable-branches-2026-09-26.json` | Underfunded and LiveLiability classified PROVEN_UNDER_ASSUMPTIONS. Coverage not re-run |
 | `evidence/research/prediction/unreachable-branches-2026-09-26.txt` | prediction unit test for that classification |
+| `evidence/research/prediction/invalid-floor-compositions-2026-09-26.json` | INVALID compositions supply 0..16. Cumulative floor clean. Per-call witness supply 2 parts (1, 1). Solidity matched |
+| `evidence/research/prediction/invalid-floor-compositions-2026-09-26.txt` | python3 3.12.3 and forge 1.8.3 logs for that domain |
 | `evidence/research/prism/unittest-minimum-cost-2026-09-26.txt` | prism-model unittest, 85 tests OK |
 | `evidence/research/prism/minimum-cost-replication-2026-09-26.json` | exact minimum-cost replication. AND with constant 1 is PRODUCT_NOT_REPLICABLE |
 | `evidence/research/prism/storage-layout-2026-09-26.json` | forge storage layouts. Isolation conclusion is INFERRED |

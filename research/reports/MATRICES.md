@@ -112,7 +112,7 @@ Every row points at evidence from this program. Status words are the program's c
 | P-I09 | `invariant_ids.py` via `test_invariants.py` | `test_P_I09_no_admin_mint` | executable |
 | P-I10 | `invariant_ids.py` via `test_invariants.py` | `test_P_I10_archive_only_at_zero_supply` | executable |
 | Foundry issuance conservation | n/a | 256 runs, depth 500, default profile, seeds 20260926 and 20260927. 128000 calls each, reverts 47971 and 46395, 0 discards, invariant held | split, merge, closeMint, beginResolution. Those handlers do not call `cancelDraft`. Not redemption |
-| R-I01 | `test_replication.py` `test_exact_component_is_replicable` and `test_known_and_is_not_replicable` | none | executable. INV-P01 |
+| R-I01 | `test_replication.py` `test_exact_component_is_replicable` and `test_known_and_is_not_replicable` | none | Python recorded_gap. INV-P01. Exact target returns 0,1. Known target returns none. The candidate has no replication check. ADR-R18 PROPOSED. Acceptance not granted. Foundry is not executable for this edge. `replication-check-2026-09-26.json` |
 | R-I02 | `test_invariant_ids.py` `test_r_i02_activated_weights_and_matrix_stay_fixed` | none on `PrismSeries` | executable. INV-P02. Previously prose only |
 | R-I03 | `test_model.py` `test_exact_mint_then_redeem` | `CandidateComponentBacking.t.sol` `test_matches_python_fixtures` | executable. INV-P03 |
 | R-I04 | `test_model.py` `test_overmint_rejected` | backing fixtures reject an underbacked mint | executable. INV-P04 |

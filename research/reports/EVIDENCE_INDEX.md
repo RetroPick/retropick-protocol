@@ -235,6 +235,9 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `evidence/research/prism/terminal-solvency-2026-09-26.json` | recorded_gap. Python supply 1000, backing 600,400, required 600,400. Four terminal rows pass. The candidate has no terminal states. ADR-R17 PROPOSED. R-I06 is not executable on Foundry |
 | `evidence/research/prism/terminal-solvency-2026-09-26.txt` | Forge default profile, 1 passed, gas 7605. Python terminal rows recorded in the same log |
 | `decisions/ADR-R17-candidate-has-no-terminal-solvency.md` | PROPOSED. Acceptance not granted. Python terminal solvency passes. The candidate has no terminal states. The open decision is a candidate check or PrismSeries only. No winner. Does not supersede ADR-R15 or ADR-R16. Not MATH-1 PASS |
+| `evidence/research/prism/replication-check-2026-09-26.json` | recorded_gap. Python exact target returns 0,1. Known target returns none. The candidate has no replication check. ADR-R18 PROPOSED. R-I01 is not executable on Foundry |
+| `evidence/research/prism/replication-check-2026-09-26.txt` | Forge default profile, 1 passed, gas 7328. Python replication results recorded in the same log |
+| `decisions/ADR-R18-candidate-has-no-replication-check.md` | PROPOSED. Acceptance not granted. Python accepts the exact case and rejects the known case. The candidate has no replication check. Does not supersede ADR-R17. Approximate replication was not opened. Not MATH-1 PASS |
 | `evidence/research/prediction/slither-2026-09-26.txt` | earlier Slither log, including IR errors |
 | `evidence/research/prediction/slither-focused-2026-09-26.txt` | focused Slither 0.11.6 rerun, exit 255, 14 results |
 | `evidence/research/prediction/slither-legacy-ast-2026-09-26.txt` | `--solc-force-legacy-json` under Foundry. `_redeem` still has no IR. Exit 255 |

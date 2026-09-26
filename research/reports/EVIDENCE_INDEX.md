@@ -203,6 +203,8 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `evidence/research/prism/indivisible-weight-two-holders-2026-09-26.txt` | Forge default profile, 1 passed, gas 608568 |
 | `evidence/research/prism/indivisible-weight-two-mint-redeem-2026-09-26.json` | existing_rule. Weights 10^18+1, 10^18+1. A deposits 3,3. A mints 1. B mints 1. A redeem pays 1,1. B redeem pays 2,2. Supply 0. backingRaw 0,0. B receives the larger tuple. Python releases 1,1 then 2,2 |
 | `evidence/research/prism/indivisible-weight-two-mint-redeem-2026-09-26.txt` | Forge default profile, 1 passed, gas 1217077 |
+| `evidence/research/prism/indivisible-weight-reverse-redeem-2026-09-26.json` | existing_rule. Weights 10^18+1, 10^18+1. A deposits 3,3. A mints 1. B mints 1. B redeems first and is paid 1,1. A is paid 2,2. The larger tuple follows the later redeem. backingRaw ends 0,0. Python releases 1,1 then 2,2 |
+| `evidence/research/prism/indivisible-weight-reverse-redeem-2026-09-26.txt` | Forge default profile, 1 passed, gas 1217011 |
 | `evidence/research/prism/non-depositor-redeem-2026-09-26.json` | redeem_pays_caller. Weights 10^18, 10^18. A deposits 1,1. B mints 1 and redeems 1. Supply 1 then 0. backingRaw 1,1 then 0,0. Component tokens sit with B |
 | `evidence/research/prism/non-depositor-redeem-2026-09-26.txt` | Forge default profile, 1 passed, gas 780289 |
 | `decisions/ADR-R10-non-depositor-redeem-pays-the-caller.md` | PROPOSED. Acceptance not granted. Mint and redeem were not edited |

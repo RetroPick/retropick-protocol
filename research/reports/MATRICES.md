@@ -211,6 +211,7 @@ The six prediction rows above the CREATE rows, and `test_fund_and_redeem_gas`, a
 | Either module -> Launchpad token | forbidden. Launcher token was not reused |
 | SOURCE-ASSET INTERFACE FREEZE | proposed_not_frozen. Comparison is recorded_gap. Interface was not frozen. X-I01..X-I07 not tested. `source-interface-comparison-2026-09-26.json` |
 | `CandidateComponentBacking.deposit` component walk | bounded_by_constructor. componentCount 2. backingRaw 0,0 then 1,1. Index 2 is not readable. `deposit-component-count-2026-09-26.json` |
+| Unredeemed `yesRedeemed` and `noRedeemed` | existing_rule. Before redeem, cursors 0 and 0 and liability equals locked 4. After redeemYes(1), 1, 0, 3, 3. S-P16 stays open. `unredeemed-liability-2026-09-26.json` |
 
 ## PROMOTION_GATE_MATRIX
 

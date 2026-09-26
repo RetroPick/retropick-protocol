@@ -204,6 +204,8 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `evidence/research/prediction/live-collateral-withdrawal-2026-09-26.json` | existing_rule. No withdrawal while supply is live. Merge and redeem burn first |
 | `evidence/research/prediction/live-collateral-withdrawal-2026-09-26.txt` | Python 1 test OK. Forge default profile, 1 passed, gas 1694955 |
 | `evidence/research/prediction/double-yes-redeem-2026-09-26.json` | existing_rule. Second redeem of the same YES 4 reverts. Collateral falls once, from 4 to 0 |
+| `evidence/research/prediction/unredeemed-liability-2026-09-26.json` | existing_rule. Before redeem, cursors 0 and 0, locked 4, liability 4. After redeemYes(1), 1, 0, 3, 3 |
+| `evidence/research/prediction/unredeemed-liability-2026-09-26.txt` | Python 1 test OK. Forge default profile, 1 passed, gas 660397 |
 | `evidence/research/prediction/double-yes-redeem-2026-09-26.txt` | Python 1 test OK. Forge default profile, 1 passed, gas 890687 |
 | `evidence/research/prediction/second-yes-resolution-2026-09-26.json` | existing_rule. Second resolve after YES_WIN leaves numerators 2 and 0. Collateral, YES, and NO stay 4 |
 | `evidence/research/prediction/second-yes-resolution-2026-09-26.txt` | Python 1 test OK. Forge default profile, 1 passed, gas 527769 |

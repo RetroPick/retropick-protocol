@@ -1,0 +1,26 @@
+{
+  "after_no": {
+    "collateral_locked": "75",
+    "liability": "75",
+    "no_redeemed": "10",
+    "no_supply": "90",
+    "payout": "0",
+    "result": "YES_WIN",
+    "state": "REDEEMABLE",
+    "yes_redeemed": "25",
+    "yes_supply": "75"
+  },
+  "after_yes": {
+    "collateral_locked": "75",
+    "liability": "75",
+    "no_redeemed": "0",
+    "no_supply": "100",
+    "payout": "25",
+    "result": "YES_WIN",
+    "state": "REDEEMABLE",
+    "yes_redeemed": "25",
+    "yes_supply": "75"
+  },
+  "no_payout": "0",
+  "payout": "25"
+}

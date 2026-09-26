@@ -1,0 +1,13 @@
+{
+  "steps": [
+    {
+      "collateral_locked": "60",
+      "liability": "60",
+      "no_redeemed": "0",
+      "no_supply": "60",
+      "state": "OPEN",
+      "yes_redeemed": "0",
+      "yes_supply": "60"
+    }
+  ]
+}

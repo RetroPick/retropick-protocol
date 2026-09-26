@@ -43,8 +43,7 @@ def normalized_half_collateral_out(supply_raw: int, token_scale: int) -> int:
 def dust_bound(collateral: int) -> int:
     """Dust left when both sides of an equal complete set are fully redeemed."""
 
-    one_side = collateral // 2
-    return collateral - (one_side + one_side)
+    return collateral - collateral_native_half_total(collateral)
 
 
 def compare_scales(max_supply: int = 64) -> dict[str, int | bool]:

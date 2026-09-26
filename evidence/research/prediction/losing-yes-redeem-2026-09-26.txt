@@ -1,0 +1,37 @@
+tool: forge test
+command: forge test --match-contract LosingYesRedeemTest -vv
+cwd: /workspace/research/contract-kernels
+profile: default
+sha_base: 77026bc08f80a8a7be982a60c94218de787d7e85
+split: 4
+result: NO_WIN
+redeem: Solidity redeemYes(1), Python redeem YES 1
+burnWorthless: not called
+classification: existing_rule
+payout: 0
+before: collateral 4, YES 4, NO 4, yes_redeemed 0, no_redeemed 0
+after: collateral 4, YES 3, NO 4, yes_redeemed 1, no_redeemed 0
+python: payout 0, same integers
+adr_added: false
+adr_p15: PROPOSED name proposal, not a payout disagreement
+adr_p16: PROPOSED
+math1: FAIL
+
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 1.07s
+Compiler run successful!
+
+Ran 1 test for test/prediction/LosingYesRedeem.t.sol:LosingYesRedeemTest
+[PASS] test_redeem_one_yes_after_no_win() (gas: 586104)
+Logs:
+  classification: existing_rule
+  payout: 0
+  collateral_after: 4
+  yes_supply_after: 3
+  no_supply_after: 4
+  yes_redeemed_after: 1
+  no_redeemed_after: 0
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 659.26µs (150.81µs CPU time)
+
+Ran 1 test suite in 5.59ms (659.26µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

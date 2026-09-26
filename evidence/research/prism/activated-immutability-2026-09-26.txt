@@ -1,0 +1,56 @@
+tool: python3 and forge test
+command: forge test --match-contract ActivatedImmutabilityTest -vv
+cwd: /workspace/research/contract-kernels
+profile: default
+sha_base: b60581d0e4c366f515b1fc6e690f01f6744dfb15
+python_weights_before: 3/5,2/5
+python_weights_after: 3/5,2/5
+python_matrix_before: [[0,1],[0,0],[1,1],[1,0]]
+python_matrix_after: [[0,1],[0,0],[1,1],[1,0]]
+python_item_assignment: AttributeError tuple has no __setitem__
+backing_weights_before: 600000000000000000,400000000000000000
+backing_weights_after: 600000000000000000,400000000000000000
+backing_setter: absent
+backing_payoff_matrix: absent
+transform_weights_before: 600000000000000000,400000000000000000
+transform_weights_after: 600000000000000000,400000000000000000
+transform_payoff_before: 0,1,0,0,1,1,1,0
+transform_payoff_after: 0,1,0,0,1,1,1,0
+transform_setter: absent
+weight_edge: existing_rule
+matrix_edge: existing_rule
+adr_added: none
+adr_r17: already records backing has no payoff matrix
+math1: FAIL
+source_interface: proposed_not_frozen
+
+test_r_i02_activated_weights_and_matrix_stay_fixed (tests.test_invariant_ids.PrismInvariantIdTests.test_r_i02_activated_weights_and_matrix_stay_fixed) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+
+No files changed, compilation skipped
+
+Ran 2 tests for test/prism/ActivatedImmutability.t.sol:ActivatedImmutabilityTest
+[PASS] test_backing_weights_stay_fixed() (gas: 694749)
+Logs:
+  backing_weights_before: 600000000000000000,400000000000000000
+  backing_weights_after: 600000000000000000,400000000000000000
+  backing_setter: absent
+  backing_payoff_matrix: absent
+  weight_edge: existing_rule
+
+[PASS] test_transform_weights_and_payoff_stay_fixed() (gas: 291088)
+Logs:
+  transform_weights_before: 600000000000000000,400000000000000000
+  transform_weights_after: 600000000000000000,400000000000000000
+  transform_payoff_before: 0,1,0,0,1,1,1,0
+  transform_payoff_after: 0,1,0,0,1,1,1,0
+  transform_setter: absent
+  matrix_edge: existing_rule
+
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 844.62µs (906.34µs CPU time)
+
+Ran 1 test suite in 5.83ms (844.62µs CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)

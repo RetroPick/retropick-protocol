@@ -38,7 +38,7 @@ prism:
   MATH-1D_candidate_domain_check: exhaustively_verified_within_domain
   MATH-1D_candidate_ready_for_adr_acceptance: true
   MATH-1D_candidate_solidity: differential_research_kernel
-  MATH-1E: "partial_z3_sympy. R-THEOREM-1 (T-REPL-001) SymPy 1.14.0 PROVEN_UNDER_ASSUMPTIONS. R-THEOREM-5 (T-BS-004) SymPy 1.14.0 and Z3 5.1.0 PROVEN_UNDER_ASSUMPTIONS, 0.025699s. R-THEOREM-6 (T-ALLOC-001) was not started. Not MATH-1 PASS."
+  MATH-1E: "partial_z3_sympy. R-THEOREM-1 (T-REPL-001) SymPy 1.14.0 PROVEN_UNDER_ASSUMPTIONS. R-THEOREM-5 (T-BS-004) SymPy 1.14.0 and Z3 5.1.0 PROVEN_UNDER_ASSUMPTIONS, 0.025699s. R-THEOREM-6 (T-ALLOC-001) Z3 5.1.0 PROVEN_UNDER_ASSUMPTIONS, 0.009577s. Reserve 60 then 50 against balance 100 is rejected and the ledger is unchanged. Not MATH-1 PASS. The canonical per-call settlement floor still fails."
   MATH-1F: measured_simulation
   MATH-1F_scope: synthetic_quotes_not_solvency_not_kuru
   MATH-1: fail

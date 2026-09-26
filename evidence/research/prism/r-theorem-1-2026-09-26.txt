@@ -1,0 +1,11 @@
+tool: python3 3.12.3
+command: python3 -m unittest tests.test_r_theorem_1 -v
+cwd: /workspace/research/prism-model
+sha: e10cc995a8040ba1afc3fb192d0e4e476b6cfa27
+test_h_equals_gx_for_finite_shapes (tests.test_r_theorem_1.RTheorem1Tests.test_h_equals_gx_for_finite_shapes) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.021s
+
+OK
+exit_code: 0

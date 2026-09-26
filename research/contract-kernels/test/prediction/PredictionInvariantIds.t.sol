@@ -8,7 +8,7 @@ import {OutcomeToken} from "../../src/prediction/OutcomeToken.sol";
 import {PredictionMarket} from "../../src/prediction/PredictionMarket.sol";
 
 /// @notice One executable case for each prediction invariant the kernel can perform.
-/// @dev P-I05's cancelled-draft branch is not here. The kernel has no cancelDraft.
+/// @dev P-I05 covers the immutable spec hash and the cancelled-draft branch.
 contract PredictionInvariantIdsTest is Test {
     MockCollateral internal collateral;
     PredictionMarket internal market;
@@ -92,6 +92,65 @@ contract PredictionInvariantIdsTest is Test {
         assertEq(market.resolutionSpecHash(), specHash);
     }
 
+    function test_P_I05_cancel_draft_archives_without_moving_collateral() public {
+        PredictionMarket draft = _draft();
+        uint256 marketBalance = collateral.balanceOf(address(draft));
+        uint256 sinkBalance = collateral.balanceOf(dustSink);
+        draft.cancelDraft();
+        assertEq(uint256(draft.state()), uint256(PredictionMarket.State.ARCHIVED));
+        assertEq(uint256(draft.cancelReason()), uint256(PredictionMarket.CancelReason.CANCELLED_BEFORE_ACTIVATION));
+        assertEq(draft.collateralLocked(), 0);
+        assertEq(draft.yesSupply(), 0);
+        assertEq(draft.noSupply(), 0);
+        assertEq(collateral.balanceOf(address(draft)), marketBalance);
+        assertEq(collateral.balanceOf(dustSink), sinkBalance);
+        assertEq(draft.resolutionSpecHash(), specHash);
+        vm.expectRevert(PredictionMarket.BadState.selector);
+        draft.activate();
+        vm.expectRevert(PredictionMarket.BadState.selector);
+        draft.split(1);
+        vm.expectRevert(PredictionMarket.BadState.selector);
+        draft.merge(1);
+        vm.prank(resolver);
+        vm.expectRevert(PredictionMarket.BadState.selector);
+        draft.resolve(PredictionMarket.Result.YES_WIN);
+        vm.expectRevert(PredictionMarket.BadState.selector);
+        draft.redeemYes(1);
+        assertEq(uint256(draft.state()), uint256(PredictionMarket.State.ARCHIVED));
+        assertEq(draft.collateralLocked(), 0);
+    }
+
+    function test_cancelDraft_rejects_open_and_redeemable() public {
+        uint256 openLocked = market.collateralLocked();
+        vm.expectRevert(PredictionMarket.BadState.selector);
+        market.cancelDraft();
+        assertEq(uint256(market.state()), uint256(PredictionMarket.State.OPEN));
+        assertEq(market.collateralLocked(), openLocked);
+        assertEq(uint256(market.cancelReason()), uint256(PredictionMarket.CancelReason.NONE));
+
+        vm.prank(alice);
+        market.split(2);
+        _yesWin();
+        market.openRedemption();
+        assertEq(uint256(market.state()), uint256(PredictionMarket.State.REDEEMABLE));
+        uint256 redeemableLocked = market.collateralLocked();
+        vm.expectRevert(PredictionMarket.BadState.selector);
+        market.cancelDraft();
+        assertEq(uint256(market.state()), uint256(PredictionMarket.State.REDEEMABLE));
+        assertEq(market.collateralLocked(), redeemableLocked);
+        assertEq(collateral.balanceOf(address(market)), redeemableLocked);
+    }
+
+    function test_cancelDraft_rejects_non_factory() public {
+        PredictionMarket draft = _draft();
+        vm.prank(alice);
+        vm.expectRevert(PredictionMarket.NotFactory.selector);
+        draft.cancelDraft();
+        assertEq(uint256(draft.state()), uint256(PredictionMarket.State.DRAFT));
+        assertEq(uint256(draft.cancelReason()), uint256(PredictionMarket.CancelReason.NONE));
+        assertEq(draft.collateralLocked(), 0);
+    }
+
     function test_P_I06_one_result_from_pending_by_resolver() public {
         vm.prank(alice);
         market.split(3);
@@ -163,6 +222,10 @@ contract PredictionInvariantIdsTest is Test {
         assertEq(residual, 0);
         assertEq(market.collateralLocked(), 0);
         assertEq(uint256(market.state()), uint256(PredictionMarket.State.ARCHIVED));
+    }
+
+    function _draft() internal returns (PredictionMarket draft) {
+        draft = new PredictionMarket(address(collateral), resolver, dustSink, specHash, "Yes", "YES", "No", "NO");
     }
 
     function _yesWin() internal {

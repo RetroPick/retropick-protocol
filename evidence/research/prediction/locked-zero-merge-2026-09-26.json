@@ -1,0 +1,69 @@
+{
+  "adr_added": false,
+  "adr_p15": "PROPOSED",
+  "adr_p16": "PROPOSED",
+  "adr_p17": "PROPOSED",
+  "after": {
+    "collateral_locked": "4",
+    "liability": "4",
+    "no_supply": "4",
+    "yes_supply": "4"
+  },
+  "before": {
+    "collateral_locked": "4",
+    "liability": "4",
+    "no_supply": "4",
+    "yes_supply": "4"
+  },
+  "canonical_math1": "FAIL",
+  "case": "merge_zero_while_locked",
+  "classification": "existing_rule",
+  "collateral_returned": "none",
+  "command": "forge test --match-contract LockedZeroMergeTest -vv",
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "gas": 468753,
+  "implementations_changed": false,
+  "inventory_row": {
+    "argument": "0",
+    "file": "evidence/research/prediction/rejection-inventory-2026-09-26.json",
+    "function": "merge",
+    "index": 19,
+    "note": "The inventory rejects merge of 0 while LOCKED and leaves collateral, YES, and NO at 4. It does not record liability or collateral returned.",
+    "state": "LOCKED"
+  },
+  "liability_equals_collateral_after": true,
+  "profile": "default",
+  "python": {
+    "after": {
+      "collateral_locked": "4",
+      "liability": "4",
+      "no_supply": "4",
+      "yes_supply": "4"
+    },
+    "before": {
+      "collateral_locked": "4",
+      "liability": "4",
+      "no_supply": "4",
+      "yes_supply": "4"
+    },
+    "collateral_returned": "none",
+    "error": "merge quantity must be positive",
+    "function": "merge",
+    "rejected": true
+  },
+  "resolved": false,
+  "s_p16": "open",
+  "sha_base": "7fa5d8dcebe59757a750058e41dc301bfeadadcb",
+  "solidity": {
+    "collateral_returned": "none",
+    "error": "ZeroAmount",
+    "function": "merge",
+    "rejected": true
+  },
+  "split": "4",
+  "state": "LOCKED",
+  "state_unchanged": true,
+  "tests_failed": 0,
+  "tests_passed": 1
+}

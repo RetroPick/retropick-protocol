@@ -19,7 +19,7 @@ Threats use the kernel and the reference model as they exist. No mainnet deploym
 | S-P10 | High | Kuru inventory or a Kuru price treated as prediction collateral | Open. No book was deployed. Redeem does not call Kuru | `research/integration/kuru/PARAMETER_WORKSHEET.md` |
 | S-P11 | High | Outcome token deposited into PRISM before the source interface is frozen | Open. No deposit harness | `docs/prism/04-architecture/SOURCE_ASSET_INTERFACE.md` is `proposed_not_frozen` |
 | S-P12 | Medium | ERC-1167 clone of `OutcomeToken` sharing immutable market, index, and decimals | Measured. The kernel still deploys two full tokens | `evidence/research/prediction/outcome-token-gas-2026-09-26.txt` |
-| S-P13 | Low | `cancelDraft` is absent | Open. P-I05 cancelled-draft branch is NOT_YET_VALIDATED in the kernel | `docs/prediction/09_INVARIANTS.md` |
+| S-P13 | Low | Cancel before activation | Measured in the research kernel. DRAFT to ARCHIVED with `CANCELLED_BEFORE_ACTIVATION`. Collateral does not move. Not an audit close. PRED-CONTRACT-1 stays not_pass | `evidence/research/prediction/cancel-draft-2026-09-26.json` |
 | S-P14 | Informational | Foundry issuance invariant calls `closeMint` and `beginResolution` | Held on the recorded runs. Reverts are allowed by `fail_on_revert = false` | `invariant-ids-2026-09-26.txt` cites 48023 handler reverts. The local rerun in `repro-local-2026-09-26.txt` is a different command and recorded 46683 reverts |
 | S-P15 | Medium | `PredictionMarket.sol` branch coverage is 94.44% (34/36) | Open as coverage. The two unexecuted branches are classified PROVEN_UNDER_ASSUMPTIONS unreachable. Not 100% branch coverage and not an audit close | `evidence/research/prediction/unreachable-branches-2026-09-26.json` |
 

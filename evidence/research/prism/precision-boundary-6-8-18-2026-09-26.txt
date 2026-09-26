@@ -1,0 +1,11 @@
+tool: python3 3.12.3
+command: python3 -m unittest tests.test_precision_boundary -v
+cwd: /workspace/research/prism-model
+sha: ae3fd040dbd43b64f041451df7ad734fd6f6b9cb
+test_decimal_bound_matrix (tests.test_precision_boundary.PrecisionBoundaryTests.test_decimal_bound_matrix) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.002s
+
+OK
+exit_code: 0

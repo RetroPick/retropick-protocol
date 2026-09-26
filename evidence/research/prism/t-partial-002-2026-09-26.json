@@ -1,0 +1,73 @@
+{
+  "algebraic_iff": "on one state, old backing value equals new backing value iff B_i*g_i equals the cash credit B_i*r_i",
+  "assumptions": [
+    "one resolved component is replaced by cash equal to balance times its payout",
+    "other component balances and prior cash are unchanged",
+    "a remaining state is one whose component payoff equals that payout",
+    "partial_resolution.py is the executable model and is not modified"
+  ],
+  "canonical_math1": "FAIL",
+  "checker": "sympy_z3_and_partial_resolution",
+  "classification": "PROVEN_UNDER_ASSUMPTIONS",
+  "counterexample": null,
+  "failed_shapes": [],
+  "id": "T-PARTIAL-002",
+  "model_check": {
+    "cash_added": "400",
+    "mismatched_portfolio_equivalent": false,
+    "preserves_remaining": true,
+    "preserves_state_outside": false,
+    "remaining": [
+      0,
+      2
+    ]
+  },
+  "remaining_state_negation": "unsat",
+  "runtime_seconds": 0.028305,
+  "shapes": [
+    [
+      1,
+      0
+    ],
+    [
+      2,
+      0
+    ],
+    [
+      2,
+      1
+    ],
+    [
+      3,
+      0
+    ],
+    [
+      3,
+      1
+    ],
+    [
+      3,
+      2
+    ],
+    [
+      4,
+      0
+    ],
+    [
+      4,
+      1
+    ],
+    [
+      4,
+      2
+    ],
+    [
+      4,
+      3
+    ]
+  ],
+  "sympy_version": "1.14.0",
+  "value_iff_component_payoff": "unsat",
+  "written_claim": "V'_B(omega)=V_B(omega) for every remaining state with g_i(omega)=r_i after replacing component i by cash B_i*r_i",
+  "z3_version": "5.1.0"
+}

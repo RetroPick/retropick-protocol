@@ -10,7 +10,7 @@ import {PredictionMarket} from "../../src/prediction/PredictionMarket.sol";
 /// @notice Reject and access-control paths that already exist on PredictionMarket.
 /// @dev No new market behavior. `Underfunded` and `LiveLiability` are not forced:
 ///      the current formulas keep collateral and liability together, and a zero
-///      supply implies zero liability. There is no pause and no cancelDraft.
+///      supply implies zero liability. There is no pause. cancelDraft is DRAFT to ARCHIVED only.
 contract PredictionBranchCoverageTest is Test {
     MockCollateral internal collateral;
     PredictionMarket internal market;

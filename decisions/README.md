@@ -30,4 +30,12 @@ PROPOSED means agents must not treat the choice as binding implementation author
 These files are proposals from the research-to-contract program. They do not supersede ADR-001 through ADR-007.
 
 - `ADR-P01` through `ADR-P07`: prediction token, decimals, custody, lifecycle, INVALID rounding, collateral, resolution hash.
+- `ADR-P08`: false-return collateral before activation. PROPOSED. Acceptance is not granted. The kernel was not edited.
+- `ADR-P09`: `collateralLocked` is not the rebasing token balance. PROPOSED. Acceptance is not granted. The counterexample stays `COUNTEREXAMPLE_FOUND`. The kernel was not edited.
+- `ADR-P10`: native redeem stays outside prediction RESOLVED. PROPOSED. Acceptance is not granted. Contradiction 2 stays open. Neither redeem function was edited.
+- `ADR-P11`: uint256 split domain. PROPOSED. Acceptance is not granted. The contradiction stays `recorded_contradiction`. Split was not edited.
+- `ADR-P12`: configured split maximum. PROPOSED. Acceptance is not granted. The contradiction stays `recorded_contradiction`. Split was not edited.
+- `ADR-P13`: archive from DRAFT. PROPOSED. Acceptance is not granted. The contradiction stays `recorded_contradiction`. Archive was not edited.
 - `ADR-R01` through `ADR-R07`: replication confirmation, component rounding, settlement-floor failure, ERC-20 backing boundary, series token shape, isolation, Solidity stop.
+- `ADR-R08`: `backingRaw` is not the rebasing component token balance. PROPOSED. Acceptance is not granted. The counterexample stays `COUNTEREXAMPLE_FOUND`. The kernel was not edited.
+- `ADR-R09`: `redeemable` is not proof the live settlement balance still covers the floor. PROPOSED. Acceptance is not granted. The redeem revert stays `existing_rule`. The kernel was not edited.

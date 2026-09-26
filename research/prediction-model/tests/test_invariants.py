@@ -17,8 +17,10 @@ class InvariantIdTests(unittest.TestCase):
         self.assertEqual(set(report), {f"P-I0{index}" for index in range(1, 10)} | {"P-I10"})
         for identifier, row in report.items():
             self.assertEqual(row["classification"], "EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN", identifier)
-        self.assertEqual(report["P-I05"]["kernel_cancel_draft"], "NOT_YET_VALIDATED")
-        self.assertEqual(report["P-I05"]["kernel_missing_operation"], "cancelDraft")
+        self.assertEqual(report["P-I05"]["kernel_cancel_draft"], "measured")
+        self.assertEqual(report["P-I05"]["kernel_operation"], "cancelDraft")
+        self.assertEqual(report["P-I05"]["cancelled_draft_reason"], "CANCELLED_BEFORE_ACTIVATION")
+        self.assertEqual(report["P-I05"]["cancelled_draft_collateral"], "0")
 
 
 if __name__ == "__main__":

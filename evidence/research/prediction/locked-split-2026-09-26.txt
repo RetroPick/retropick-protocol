@@ -1,0 +1,47 @@
+tool: forge test
+command: forge test --match-contract LockedSplitTest -vv
+cwd: /workspace/research/contract-kernels
+profile: default
+sha_base: 8e9bfe80ad6abe7b24d71bb700adcbe6ea602928
+lifecycle: activate, then closeMint / close_mint, no prior split, no resolution
+split: Solidity split(1), Python split of 1
+inventory: no split row while LOCKED. LOCKED rows start at index 17 after a prior split of 4
+classification: existing_rule
+python_rejected: true
+python_error: split only while OPEN
+python_outside_collateral: not_stored
+solidity_rejected: true
+solidity_error: BadState
+collateral_pulled: 0
+outside_collateral: 1000000 before and after
+before: liability 0, collateral locked 0, YES 0, NO 0
+after: liability 0, collateral locked 0, YES 0, NO 0
+adr_added: false
+adr_p15: PROPOSED
+adr_p16: PROPOSED
+adr_p17: PROPOSED
+math1: FAIL
+
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 1.16s
+Compiler run successful!
+
+Ran 1 test for test/prediction/LockedSplit.t.sol:LockedSplitTest
+[PASS] test_split_while_locked_reverts() (gas: 267940)
+Logs:
+  classification: existing_rule
+  solidity_rejected: true
+  solidity_error: BadState
+  collateral_pulled: 0
+  alice_collateral_before: 1000000
+  alice_collateral_after: 1000000
+  liability_before: 0
+  collateral_before: 0
+  liability_after: 0
+  collateral_after: 0
+  yes_supply_after: 0
+  no_supply_after: 0
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 674.24µs (118.36µs CPU time)
+
+Ran 1 test suite in 5.58ms (674.24µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

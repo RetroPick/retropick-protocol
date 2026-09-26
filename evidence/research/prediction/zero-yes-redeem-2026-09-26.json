@@ -1,0 +1,67 @@
+{
+  "adr_added": false,
+  "adr_p15": "PROPOSED",
+  "adr_p16": "PROPOSED",
+  "adr_p17": "PROPOSED",
+  "after": {
+    "collateral_locked": "4",
+    "liability": "4",
+    "no_redeemed": "0",
+    "no_supply": "4",
+    "yes_redeemed": "0",
+    "yes_supply": "4"
+  },
+  "before": {
+    "collateral_locked": "4",
+    "liability": "4",
+    "no_redeemed": "0",
+    "no_supply": "4",
+    "yes_redeemed": "0",
+    "yes_supply": "4"
+  },
+  "canonical_math1": "FAIL",
+  "case": "yes_win_redeem_zero_yes",
+  "classification": "existing_rule",
+  "command": "forge test --match-contract ZeroYesRedeemTest -vv",
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "gas": 680560,
+  "implementations_changed": false,
+  "liability_equals_collateral_after": true,
+  "payout": "none",
+  "profile": "default",
+  "python": {
+    "after": {
+      "collateral_locked": "4",
+      "liability": "4",
+      "no_redeemed": "0",
+      "no_supply": "4",
+      "yes_redeemed": "0",
+      "yes_supply": "4"
+    },
+    "before": {
+      "collateral_locked": "4",
+      "liability": "4",
+      "no_redeemed": "0",
+      "no_supply": "4",
+      "yes_redeemed": "0",
+      "yes_supply": "4"
+    },
+    "error": "redeem quantity must be positive",
+    "function": "redeem of the YES side",
+    "payout": "none",
+    "rejected": true
+  },
+  "result": "YES_WIN",
+  "s_p16": "open",
+  "sha_base": "e99186bf398620ebc84a0886678e025648037634",
+  "solidity": {
+    "error": "ZeroAmount",
+    "rejected": true
+  },
+  "solidity_function": "redeemYes",
+  "split": "4",
+  "state_unchanged": true,
+  "tests_failed": 0,
+  "tests_passed": 1
+}

@@ -1,0 +1,55 @@
+tool: python3 3.12.3
+command: python3 -m unittest tests.test_market.LifecycleTests.test_cancel_draft tests.test_market.LifecycleTests.test_cancel_draft_rejects_open_and_redeemable tests.test_market.LifecycleTests.test_cancel_draft_does_not_move_locked_collateral tests.test_invariants.InvariantIdTests.test_each_id_holds_on_its_scenario -v
+cwd: /workspace/research/prediction-model
+sha: 470808924fd529e6b94193935758e17ae2b7cdb6
+exit_code: 0
+
+test_cancel_draft ... ok
+test_cancel_draft_rejects_open_and_redeemable ... ok
+test_cancel_draft_does_not_move_locked_collateral ... ok
+test_each_id_holds_on_its_scenario ... ok
+Ran 4 tests in 0.001s
+OK
+
+transition: DRAFT -> ARCHIVED
+reason: CANCELLED_BEFORE_ACTIVATION
+collateral_moved: false
+collateral_locked_after_cancel: 0
+open_rejection_leaves_state: OPEN
+open_rejection_leaves_collateral_locked: 4
+redeemable_rejection_leaves_state: REDEEMABLE
+redeemable_rejection_leaves_collateral_locked: 2
+nonzero_draft_collateral_stays: 1
+P-I05 scenario classification: EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN
+kernel_cancel_draft: measured
+
+tool: forge 1.8.3 (cae51ad458f6abb64852b7709eb784352429825d)
+solc: 0.8.26
+optimizer: true
+optimizer_runs: 200
+via_ir: false
+profile: default
+FOUNDRY_PROFILE: unset
+cwd: /workspace/research/contract-kernels
+sha: 470808924fd529e6b94193935758e17ae2b7cdb6
+command: forge test --match-contract PredictionInvariantIdsTest -vv
+exit_code: 0
+
+13 passed, 0 failed
+test_P_I05_cancel_draft_archives_without_moving_collateral pass gas 277225
+test_P_I05_spec_hash_is_immutable pass
+test_cancelDraft_rejects_open_and_redeemable pass gas 542129
+test_cancelDraft_rejects_non_factory pass gas 51727
+Suite result: ok. 13 passed; 0 failed; 0 skipped; finished in 1.47ms (1.88ms CPU time)
+Ran 1 test suite in 5.78ms (1.47ms CPU time)
+
+caller: factory, same caller as activate
+market collateral balance unchanged
+dust sink balance unchanged
+cancelled draft collateralLocked: 0
+later activate, split, merge, resolve, and redeem revert BadState
+OPEN and REDEEMABLE cancelDraft revert BadState and leave collateralLocked unchanged
+PredictionInvariant.t.sol was not edited. The stateful issuance invariant was not re-run.
+PRED-MATH-1: partial
+PRED-CONTRACT-1: not_pass
+canonical MATH-1: FAIL

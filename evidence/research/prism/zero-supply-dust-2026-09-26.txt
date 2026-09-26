@@ -1,0 +1,32 @@
+tool: python3 3.12.3
+command: python3 -m unittest tests.test_zero_supply_dust -v
+cwd: /workspace/research/prism-model
+sha: e1e84725fcc8cc063078ea9164bf9ca9d0c5274e
+test_residual_sits_unwithdrawn (tests.test_zero_supply_dust.ZeroSupplyDustTests.test_residual_sits_unwithdrawn) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.019s
+
+OK
+exit_code: 0
+
+tool: forge 1.8.3 (cae51ad458f6abb64852b7709eb784352429825d)
+solc: 0.8.26
+optimizer: true
+optimizer_runs: 200
+via_ir: false
+command: forge test --match-contract CandidateZeroSupplyDustTest -vv
+cwd: /workspace/research/contract-kernels
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 1.05s
+Compiler run successful!
+
+Ran 4 tests for test/prism/CandidateZeroSupplyDust.t.sol:CandidateZeroSupplyDustTest
+[PASS] test_constructor_reverts_when_supply_is_zero() (gas: 5261)
+[PASS] test_exact_ceil_residual_sits_after_supply_reaches_zero() (gas: 392386)
+[PASS] test_surplus_above_ceil_also_sits() (gas: 338124)
+[PASS] test_zero_payout_leaves_a_zero_balance() (gas: 254567)
+Suite result: ok. 4 passed; 0 failed; 0 skipped; finished in 761.24µs (1.11ms CPU time)
+
+Ran 1 test suite in 5.69ms (761.24µs CPU time): 4 tests passed, 0 failed, 0 skipped (4 total tests)
+exit_code: 0

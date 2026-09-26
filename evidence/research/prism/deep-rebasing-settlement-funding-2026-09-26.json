@@ -1,0 +1,58 @@
+{
+  "acceptance_granted": false,
+  "adr_added": false,
+  "canonical_math1": "FAIL",
+  "case": "post-redeemable settlement rebase below the one-shot floor",
+  "classification": "existing_rule",
+  "contract_1": "not_met",
+  "error": "PayoutExceedsBalance",
+  "id": "DEEP-REBASING-SETTLEMENT-FUNDING",
+  "implementations_changed": false,
+  "kernel": "research/contract-kernels/src/prism/CandidateCumulativeSettlement.sol",
+  "math_1_progress": false,
+  "one_shot_floor": "1",
+  "redeemable_while_balance_below_floor": true,
+  "rule": "redeem reverts PayoutExceedsBalance before paidRaw changes when the payout exceeds the live balance",
+  "solidity": {
+    "after_rebase": {
+      "one_shot_floor": "1",
+      "paid_raw": "0",
+      "redeemable": true,
+      "token_balance": "0"
+    },
+    "after_redeem": {
+      "holder_balance": "0",
+      "paid_raw": "0",
+      "payout": "0",
+      "redeemable": true,
+      "reverted": true,
+      "token_balance": "0"
+    },
+    "ceil_funding": "2",
+    "command": "forge test --match-contract DeepRebasingSettlementFundingTest -vv",
+    "cwd": "research/contract-kernels",
+    "decimals": 18,
+    "exit_code": 0,
+    "failed": 0,
+    "forge_commit": "cae51ad458f6abb64852b7709eb784352429825d",
+    "forge_version": "1.8.3",
+    "funded": "2",
+    "optimizer": true,
+    "optimizer_runs": 200,
+    "passed": 1,
+    "payout_wad": "999999999999999999",
+    "profile": "default",
+    "rebase_amount": "2",
+    "redeem_quantity": "2",
+    "revert": {
+      "balance": "0",
+      "payout": "1",
+      "selector": "PayoutExceedsBalance"
+    },
+    "solc": "0.8.26",
+    "supply": "2",
+    "test_gas": 584736,
+    "via_ir": false
+  },
+  "theorem_pass": false
+}

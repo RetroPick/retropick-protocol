@@ -1,0 +1,23 @@
+python_command: python3 -m unittest tests.test_split_callback -v
+python_cwd: research/prediction-model
+python: Python 3.12.3
+python_exit_code: 0
+test_erc777_class_and_nested_split (tests.test_split_callback.SplitCallbackTests.test_erc777_class_and_nested_split) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+
+forge_command: forge test --match-contract SplitCallbackTest -vv
+forge_cwd: research/contract-kernels
+forge: forge Version: 1.8.3
+forge_commit: cae51ad458f6abb64852b7709eb784352429825d
+solc: 0.8.26
+profile: default
+forge_exit_code: 0
+Ran 1 test for test/prediction/SplitCallback.t.sol:SplitCallbackTest
+[PASS] test_callback_split_reverts_and_credits_nothing() (gas: 564941)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 792.48µs (560.20µs CPU time)
+
+Ran 1 test suite in 5.97ms (792.48µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

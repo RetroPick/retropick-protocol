@@ -1,0 +1,168 @@
+{
+  "accepting_state": "RESOLUTION_PENDING",
+  "after_commit": {
+    "archived_attempt": {
+      "accepted": false,
+      "error": "ModelError",
+      "unchanged": true
+    },
+    "archived_state": "ARCHIVED",
+    "payout": "1",
+    "redeemable_attempt": {
+      "accepted": false,
+      "error": "ModelError",
+      "unchanged": true
+    },
+    "redeemable_state": "REDEEMABLE",
+    "reopen": [
+      {
+        "call": "activate",
+        "error": "LifecycleError",
+        "raised": true,
+        "unchanged": true
+      },
+      {
+        "call": "start_resolution",
+        "error": "ModelError",
+        "raised": true,
+        "unchanged": true
+      },
+      {
+        "call": "resolve_component",
+        "error": "ModelError",
+        "raised": true,
+        "unchanged": true
+      }
+    ],
+    "resolved_state": "RESOLVED"
+  },
+  "api_commit": {
+    "accepted": [
+      {
+        "index": 2,
+        "payout": "1",
+        "state": "RESOLVED"
+      }
+    ],
+    "accepted_count": 1,
+    "expected_payout": "1",
+    "final": {
+      "payout": "1",
+      "state": "RESOLVED"
+    },
+    "rejected_unchanged": true
+  },
+  "assumptions": [
+    "the oracle is PrismSeries.resolve and is not modified",
+    "a commit is a resolve call that returns",
+    "the checked terminals are the four rows of the declared payoff matrix",
+    "RESOLVED and REDEEMABLE remain distinct states",
+    "cancelDraft is not a lifecycle transition and is not added"
+  ],
+  "canonical_math1": "FAIL",
+  "checker": "exact_enumeration",
+  "classification": "PROVEN_UNDER_ASSUMPTIONS",
+  "counterexample": null,
+  "id": "T-LC-002",
+  "narrow_commit": {
+    "accepted": [
+      {
+        "index": 0,
+        "payout": "2/5",
+        "state": "RESOLVED"
+      }
+    ],
+    "accepted_count": 1,
+    "expected_payout": "2/5",
+    "final": {
+      "payout": "2/5",
+      "state": "RESOLVED"
+    },
+    "rejected_unchanged": true,
+    "state_before_commit": "RESOLUTION_PENDING"
+  },
+  "oracle": "PrismSeries.resolve",
+  "resolved_distinct_from_redeemable": true,
+  "runtime_seconds": 0.000605,
+  "state_guard": [
+    {
+      "accepted": [],
+      "accepted_count": 0,
+      "final": {
+        "payout": null,
+        "state": "DRAFT"
+      },
+      "rejected_unchanged": true,
+      "state": "DRAFT"
+    },
+    {
+      "accepted": [],
+      "accepted_count": 0,
+      "final": {
+        "payout": null,
+        "state": "ACTIVE"
+      },
+      "rejected_unchanged": true,
+      "state": "ACTIVE"
+    },
+    {
+      "accepted": [],
+      "accepted_count": 0,
+      "final": {
+        "payout": null,
+        "state": "MINT_PAUSED"
+      },
+      "rejected_unchanged": true,
+      "state": "MINT_PAUSED"
+    },
+    {
+      "accepted": [
+        {
+          "index": 0,
+          "payout": "2/5",
+          "state": "RESOLVED"
+        }
+      ],
+      "accepted_count": 1,
+      "final": {
+        "payout": "2/5",
+        "state": "RESOLVED"
+      },
+      "rejected_unchanged": true,
+      "state": "RESOLUTION_PENDING"
+    },
+    {
+      "accepted": [],
+      "accepted_count": 0,
+      "final": {
+        "payout": "7/3",
+        "state": "RESOLVED"
+      },
+      "rejected_unchanged": true,
+      "state": "RESOLVED"
+    },
+    {
+      "accepted": [],
+      "accepted_count": 0,
+      "final": {
+        "payout": "7/3",
+        "state": "REDEEMABLE"
+      },
+      "rejected_unchanged": true,
+      "state": "REDEEMABLE"
+    },
+    {
+      "accepted": [],
+      "accepted_count": 0,
+      "final": {
+        "payout": "7/3",
+        "state": "ARCHIVED"
+      },
+      "rejected_unchanged": true,
+      "state": "ARCHIVED"
+    }
+  ],
+  "statement": "PrismSeries.resolve commits a final payout only from RESOLUTION_PENDING, and a second call leaves that payout and the resulting state unchanged",
+  "terminal_count": 4,
+  "written_claim": "canonical final PRISM resolution cannot be committed twice"
+}

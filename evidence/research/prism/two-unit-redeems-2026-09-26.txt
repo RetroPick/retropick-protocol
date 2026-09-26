@@ -1,0 +1,41 @@
+tool: forge test
+command: forge test --match-contract TwoUnitRedeemsTest -vv
+cwd: /workspace/research/contract-kernels
+profile: default
+FOUNDRY_PROFILE: unset
+sha_base: 99567c4d292f375f2bb5c3236e3cc90ac71daef2
+book: one holder, supply 2, payout 10^18-1, decimals 18, ceil funding 2
+calls: redeem(1) then redeem(1)
+classification: cumulative_floor_match
+kernel_payouts: 0 then 1
+paid_raw: 0 then 1
+holder_settlement_balance: 0 then 1
+kernel_balance: 2 then 1
+holder_series_balance: 1 then 0
+python_cumulative: CumulativeFloorSettlement pays 0 then 1. balance_raw 2 then 1. paid_raw 0 then 1.
+canonical_per_call: FixedPointSettlement.redeem pays 0 then 0. MATH-1 stays FAIL because of that existing counterexample. ADR-R03 already records it.
+adr_added: false
+adr_r10: PROPOSED
+sweep_policy: NOT_YET_VALIDATED
+redeem_edited: false
+
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 1.01s
+Compiler run successful!
+
+Ran 1 test for test/prism/TwoUnitRedeems.t.sol:TwoUnitRedeemsTest
+[PASS] test_two_redeems_of_one_pay_zero_then_one() (gas: 431562)
+Logs:
+  classification: cumulative_floor_match
+  first_payout: 0
+  second_payout: 1
+  paid_raw_after_first: 0
+  paid_raw_after_second: 1
+  holder_token_after_first: 0
+  holder_token_after_second: 1
+  kernel_after_first: 2
+  kernel_after_second: 1
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 556.54µs (392.34µs CPU time)
+
+Ran 1 test suite in 5.65ms (556.54µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

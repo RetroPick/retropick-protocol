@@ -1,0 +1,64 @@
+{
+  "asserts": [
+    "total paid equals floor(supply * payout / D)",
+    "ceil-funded residual is 0 or 1",
+    "no partition pays more than the one-shot floor"
+  ],
+  "axis": "compositions",
+  "canonical_math1": "FAIL",
+  "composition_supply_max": 16,
+  "decimals": 18,
+  "domain_check": "EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN",
+  "failure_count": 0,
+  "failures": [],
+  "fairness_case": {
+    "one_shot": 1,
+    "paid": 1,
+    "payout_wad": 500000000000000001,
+    "receipts": {
+      "A": 0,
+      "B": 1
+    },
+    "residual": 1
+  },
+  "holders": [
+    "A",
+    "B"
+  ],
+  "labelings": [
+    "all-A",
+    "alternating"
+  ],
+  "minimal_counterexample": null,
+  "original_case": {
+    "AB": {
+      "paid": 1,
+      "receipts": {
+        "A": 0,
+        "B": 1
+      },
+      "residual": 1
+    },
+    "BA": {
+      "paid": 1,
+      "receipts": {
+        "A": 1,
+        "B": 0
+      },
+      "residual": 1
+    }
+  },
+  "payouts": [
+    "0",
+    "1",
+    "333333333333333333",
+    "999999999999999999",
+    "1000000000000000000",
+    "1000000000000000001",
+    "2000000000000000000"
+  ],
+  "previous_composition_supply_max": 12,
+  "runtime_seconds": 8.02598,
+  "states": 917612,
+  "transitions": 7340046
+}

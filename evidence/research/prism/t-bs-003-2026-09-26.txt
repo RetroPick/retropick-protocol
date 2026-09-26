@@ -1,0 +1,11 @@
+tool: python3 3.12.3
+command: python3 -m unittest tests.test_t_bs_003 -v
+cwd: /workspace/research/prism-model
+sha: dc1c0db12e59df73441362dca828b3281d944224
+test_component_backing_implies_terminal_solvency (tests.test_t_bs_003.TBs003Tests.test_component_backing_implies_terminal_solvency) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.107s
+
+OK
+exit_code: 0

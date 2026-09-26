@@ -1,0 +1,48 @@
+tool: forge test
+command: forge test --match-contract NonDepositorMintTest -vv
+cwd: /workspace/research/contract-kernels
+profile: default
+FOUNDRY_PROFILE: unset
+sha_base: d4fd0d2c72db10fe0f73723a529295e5ce4862a0
+call: CandidateComponentBacking.mint
+caller: account B
+depositor: account A
+weights_wad: 0,0
+decimals: 18,18
+deposit: 1,1
+mint_quantity: 2**256-1
+classification: permissionless_mint
+supply_before: 0
+supply_after: 115792089237316195423570985008687907853269984665640564039457584007913129639935
+backing_raw_before: 1,1
+backing_raw_after: 1,1
+alice_component_balances_before: 0,0
+alice_component_balances_after: 0,0
+bob_series_before: 0
+bob_received_series_tokens: true
+required_raw: 0,0
+python: FixedPointSeries.deposit_raw((1, 1)) then mint(2**256-1). Supply and backingRaw match. No account field.
+adr_added: false
+mint_edited: false
+s_p16: open
+
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 1.15s
+Compiler run successful!
+
+Ran 1 test for test/prism/NonDepositorMint.t.sol:NonDepositorMintTest
+[PASS] test_non_depositor_mints_the_largest_backed_quantity() (gas: 671578)
+Logs:
+  classification: permissionless_mint
+  supply_before: 0
+  backing_raw_before: 1,1
+  alice_component_balances_before: 0,0
+  bob_series_before: 0
+  supply_after: uint256 max
+  backing_raw_after: 1,1
+  alice_component_balances_after: 0,0
+  bob_received_series: true
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 688.70µs (524.88µs CPU time)
+
+Ran 1 test suite in 5.41ms (688.70µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

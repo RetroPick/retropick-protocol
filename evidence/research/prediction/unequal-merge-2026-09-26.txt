@@ -1,0 +1,24 @@
+python_command: python3 -m unittest tests.test_unequal_merge -v
+python_cwd: research/prediction-model
+python: Python 3.12.3
+python_exit_code: 0
+test_merge_of_unequal_yes_and_no_leaves_books_unchanged (tests.test_unequal_merge.UnequalMergeTests.test_merge_of_unequal_yes_and_no_leaves_books_unchanged) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+
+forge_command: forge test --match-contract UnequalMergeTest -vv
+forge_cwd: research/contract-kernels
+forge: forge Version: 1.8.3
+forge_commit: cae51ad458f6abb64852b7709eb784352429825d
+solc: 0.8.26
+profile: default
+FOUNDRY_PROFILE: unset
+forge_exit_code: 0
+Ran 1 test for test/prediction/UnequalMerge.t.sol:UnequalMergeTest
+[PASS] test_merge_of_unequal_yes_and_no_leaves_books_unchanged() (gas: 661526)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 777.68µs (210.76µs CPU time)
+
+Ran 1 test suite in 5.51ms (777.68µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

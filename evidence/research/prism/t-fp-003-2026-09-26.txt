@@ -1,0 +1,11 @@
+tool: python3 3.12.3
+command: python3 -m unittest tests.test_t_fp_003 -v
+cwd: /workspace/research/prism-model
+sha: 75d26afd3d28cf54740baa5c3887e14d87c74225
+test_guarded_floor_redemption_preserves_funding (tests.test_t_fp_003.TFp003Tests.test_guarded_floor_redemption_preserves_funding) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.018s
+
+OK
+exit_code: 0

@@ -1,0 +1,63 @@
+{
+  "assumptions": [
+    "Q > 0 and S >= 0",
+    "nonnegative weight and raw backing",
+    "positive denominator WAD * decimal factor",
+    "Req is mul_div_ceil(supply, weight, denominator)",
+    "the redeem quantity equals the mint quantity",
+    "no extra deposit is added between the mint and the redeem",
+    "the oracle is FixedPointSeries, not FixedPointSettlement"
+  ],
+  "canonical_math1": "FAIL",
+  "checker": "sympy_z3_and_fixed_point_series",
+  "classification": "PROVEN_UNDER_ASSUMPTIONS",
+  "closed_cycle": {
+    "backing_after": [
+      0,
+      0
+    ],
+    "deposited": [
+      3,
+      3
+    ],
+    "mint_quantity": 5,
+    "net_extraction": [
+      0,
+      0
+    ],
+    "released": [
+      3,
+      3
+    ],
+    "supply_after": 0
+  },
+  "counterexample": null,
+  "cycle_shortfall": "unsat",
+  "delta_identity": true,
+  "id": "T-FP-004",
+  "runtime_seconds": 0.034207,
+  "settlement_redemption": "not_this_statement",
+  "statement": "The mint deposits Req(S+Q)-Req(S), the redeem of that same quantity releases that delta, and backing returns to its pre-cycle value",
+  "surplus_preserved": {
+    "backing_after": [
+      1,
+      1
+    ],
+    "deposited": [
+      3,
+      3
+    ],
+    "prior_surplus": [
+      1,
+      1
+    ],
+    "released": [
+      3,
+      3
+    ],
+    "surplus_unchanged": true
+  },
+  "sympy_version": "1.14.0",
+  "written_claim": "minimum-backing mint followed by inverse requirement-delta redemption has zero net component extraction",
+  "z3_version": "5.1.0"
+}

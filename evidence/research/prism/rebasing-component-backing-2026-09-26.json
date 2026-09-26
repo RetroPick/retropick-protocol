@@ -1,0 +1,52 @@
+{
+  "adr": "ADR-R08",
+  "adr_status": "PROPOSED",
+  "acceptance_granted": false,
+  "balance_change": "test_token_rebaseDown",
+  "canonical_math1": "FAIL",
+  "case": "rebasing component after deposit and mint",
+  "classification": "COUNTEREXAMPLE_FOUND",
+  "contract_1": "not_met",
+  "id": "REBASING-COMPONENT-BACKING",
+  "implementations_changed": false,
+  "kernel": "research/contract-kernels/src/prism/CandidateComponentBacking.sol",
+  "kernel_rebase_function": false,
+  "math_1_progress": false,
+  "pred_contract_1": "not_pass",
+  "pred_kuru_1": "blocked",
+  "pred_math_1": "partial",
+  "solidity": {
+    "after_mint": {
+      "backing_raw": "100",
+      "required_raw": "100",
+      "supply": "100",
+      "token_balance": "100"
+    },
+    "after_rebase": {
+      "backing_raw": "100",
+      "required_raw": "100",
+      "supply": "100",
+      "token_balance": "99"
+    },
+    "command": "forge test --match-contract RebasingComponentBackingTest -vv",
+    "component_count": 1,
+    "cwd": "research/contract-kernels",
+    "decimals": 18,
+    "deposit": "100",
+    "exit_code": 0,
+    "failed": 0,
+    "forge_commit": "cae51ad458f6abb64852b7709eb784352429825d",
+    "forge_version": "1.8.3",
+    "mint": "100",
+    "optimizer": true,
+    "optimizer_runs": 200,
+    "passed": 1,
+    "profile": "default",
+    "rebase_amount": "1",
+    "solc": "0.8.26",
+    "test_gas": 663233,
+    "via_ir": false,
+    "weight_wad": "1000000000000000000"
+  },
+  "theorem_pass": false
+}

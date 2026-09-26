@@ -1,0 +1,11 @@
+tool: python3 3.12.3
+command: python3 -m unittest tests.test_t_bs_002 -v
+cwd: /workspace/research/prism-model
+sha: b5cb53fe2d5c15b2dda8986d567f3147aaaab117
+test_in_kind_redemption_preserves_margin (tests.test_t_bs_002.TBs002Tests.test_in_kind_redemption_preserves_margin) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.023s
+
+OK
+exit_code: 0

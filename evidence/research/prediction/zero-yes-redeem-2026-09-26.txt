@@ -1,0 +1,45 @@
+tool: forge test
+command: forge test --match-contract ZeroYesRedeemTest -vv
+cwd: /workspace/research/contract-kernels
+profile: default
+sha_base: e99186bf398620ebc84a0886678e025648037634
+split: 4
+result: YES_WIN
+redeem: Solidity redeemYes(0) from the splitter, Python redeem YES 0 from the same account
+classification: existing_rule
+python_rejected: true
+python_error: redeem quantity must be positive
+solidity_rejected: true
+solidity_error: ZeroAmount
+payout: none
+before: liability 4, collateral locked 4, YES 4, NO 4, yes_redeemed 0, no_redeemed 0
+after: liability 4, collateral locked 4, YES 4, NO 4, yes_redeemed 0, no_redeemed 0
+adr_added: false
+adr_p15: PROPOSED
+adr_p16: PROPOSED
+adr_p17: PROPOSED
+math1: FAIL
+
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 1.10s
+Compiler run successful!
+
+Ran 1 test for test/prediction/ZeroYesRedeem.t.sol:ZeroYesRedeemTest
+[PASS] test_redeem_zero_yes_after_yes_win_reverts() (gas: 680560)
+Logs:
+  classification: existing_rule
+  solidity_rejected: true
+  solidity_error: ZeroAmount
+  payout: none
+  liability_before: 4
+  collateral_before: 4
+  liability_after: 4
+  collateral_after: 4
+  yes_supply_after: 4
+  no_supply_after: 4
+  yes_redeemed_after: 0
+  no_redeemed_after: 0
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 748.42µs (186.90µs CPU time)
+
+Ran 1 test suite in 5.62ms (748.42µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

@@ -1,0 +1,39 @@
+tool: forge test
+command: forge test --match-contract OverReserveTest -vv
+cwd: /workspace/research/contract-kernels
+profile: default
+FOUNDRY_PROFILE: unset
+sha_base: cd0fc79d7434750fab102e1a5d700b746c66281f
+deposit: 100
+first_reserve: series A, 60
+second_reserve: series B, 50
+classification: existing_rule
+error: InsufficientUnreserved(asset, 50, 40)
+before: balance 100, reserved 60, available 40, series A 60, series B 0
+after: balance 100, reserved 60, available 40, series A 60, series B 0
+python: ReservationLedger rejects with insufficient unreserved balance for ASSET: requested=50, available=40. Same integers.
+release_added: false
+withdraw_added: false
+adr_added: false
+adr_r10: PROPOSED
+math1: FAIL
+reserve_edited: false
+
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 827.72ms
+Compiler run successful!
+
+Ran 1 test for test/prism/OverReserve.t.sol:OverReserveTest
+[PASS] test_second_reserve_of_50_reverts() (gas: 214969)
+Logs:
+  classification: existing_rule
+  error: InsufficientUnreserved(asset, 50, 40)
+  balance_after: 100
+  reserved_after: 60
+  available_after: 40
+  series_a_after: 60
+  series_b_after: 0
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 371.05µs (230.16µs CPU time)
+
+Ran 1 test suite in 5.42ms (371.05µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

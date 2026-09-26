@@ -1,0 +1,48 @@
+tool: forge 1.8.3 (cae51ad458f6abb64852b7709eb784352429825d)
+solc: 0.8.26
+optimizer: true
+optimizer_runs: 200
+via_ir: false
+fail_on_revert: false
+cwd: /workspace/research/contract-kernels
+sha: 362e598c3e04d41a1caf6025ff61b21ec756db0d
+
+warmup command: forge test --match-contract CandidateCumulativeSettlementInvariantTest -vv --fuzz-seed 20260926
+config: runs 32, depth 16
+[PASS] invariant_balanceIncreasesOnlyThroughFund
+[PASS] invariant_eachRedeemPaysCumulativeFloorDelta
+[PASS] invariant_exactCeilLeftoverIsZeroOrOne
+[PASS] invariant_fullRedemptionLeftoverMatchesFunding
+[PASS] invariant_redeemedSupplyNeverExceedsConstructed
+invariants (runs: 32, calls: 512, reverts: 0)
+fund 166, makeRedeemable 160, redeem 186, discards 0
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 32.84ms
+exit_code: 0
+
+warmup command: forge test --match-contract CandidateCumulativeSettlementInvariantTest -vv --fuzz-seed 20260927
+config: runs 32, depth 16
+invariants (runs: 32, calls: 512, reverts: 0)
+fund 176, makeRedeemable 166, redeem 170, discards 0
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 32.56ms
+exit_code: 0
+
+command: forge test --match-contract CandidateCumulativeSettlementInvariantTest -vv --fuzz-seed 20260926
+config: runs 256, depth 128
+[PASS] invariant_balanceIncreasesOnlyThroughFund
+[PASS] invariant_eachRedeemPaysCumulativeFloorDelta
+[PASS] invariant_exactCeilLeftoverIsZeroOrOne
+[PASS] invariant_fullRedemptionLeftoverMatchesFunding
+[PASS] invariant_redeemedSupplyNeverExceedsConstructed
+invariants (runs: 256, calls: 32768, reverts: 0)
+fund 10956, makeRedeemable 10880, redeem 10932, discards 0
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 2.06s
+exit_code: 0
+
+command: forge test --match-contract CandidateCumulativeSettlementInvariantTest -vv --fuzz-seed 20260927
+config: runs 256, depth 128
+invariants (runs: 256, calls: 32768, reverts: 0)
+fund 10782, makeRedeemable 10999, redeem 10987, discards 0
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 2.09s
+exit_code: 0
+
+counterexample: none

@@ -1,0 +1,5393 @@
+{
+  "schema": "precision_boundary_cumulative_fixtures_v1",
+  "source": "research/prism-model/cumulative_settlement.py",
+  "per_call_source": "research/prism-model/fixed_point_model.py FixedPointSettlement.redeem",
+  "solidity_candidate": "research/contract-kernels/src/prism/CandidateCumulativeSettlement.sol",
+  "per_call_rule_in_solidity": false,
+  "candidate": true,
+  "canonical_oracle": false,
+  "math_1": "FAIL",
+  "math_1d": "FAIL",
+  "kernel_status": "differential_research_kernel",
+  "v2_promotion": false,
+  "uint256_max": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+  "cell_count": 168,
+  "solidity_case_count": 129,
+  "excluded_overflow_count": 15,
+  "excluded_zero_supply_count": 24,
+  "per_call_regression_count": 48,
+  "cases": [
+    {
+      "id": "d6_s1_p0",
+      "supply": "1",
+      "payout_wad": "0",
+      "decimals": 6,
+      "denominator": "1000000000000000000000000000000",
+      "ceil_funding": "0",
+      "one_shot_floor": "0",
+      "holder_count": 1,
+      "balances": [
+        "1"
+      ],
+      "step_count": 1,
+      "holder_index": [
+        0
+      ],
+      "quantities": [
+        "1"
+      ],
+      "payouts": [
+        "0"
+      ],
+      "receipts": [
+        "0"
+      ],
+      "paid_total": "0",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d6_s1_p1",
+      "supply": "1",
+      "payout_wad": "1",
+      "decimals": 6,
+      "denominator": "1000000000000000000000000000000",
+      "ceil_funding": "1",
+      "one_shot_floor": "0",
+      "holder_count": 1,
+      "balances": [
+        "1"
+      ],
+      "step_count": 1,
+      "holder_index": [
+        0
+      ],
+      "quantities": [
+        "1"
+      ],
+      "payouts": [
+        "0"
+      ],
+      "receipts": [
+        "0"
+      ],
+      "paid_total": "0",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d6_s1_p500000000000000000000000000000",
+      "supply": "1",
+      "payout_wad": "500000000000000000000000000000",
+      "decimals": 6,
+      "denominator": "1000000000000000000000000000000",
+      "ceil_funding": "1",
+      "one_shot_floor": "0",
+      "holder_count": 1,
+      "balances": [
+        "1"
+      ],
+      "step_count": 1,
+      "holder_index": [
+        0
+      ],
+      "quantities": [
+        "1"
+      ],
+      "payouts": [
+        "0"
+      ],
+      "receipts": [
+        "0"
+      ],
+      "paid_total": "0",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d6_s1_p999999999999999999999999999999",
+      "supply": "1",
+      "payout_wad": "999999999999999999999999999999",
+      "decimals": 6,
+      "denominator": "1000000000000000000000000000000",
+      "ceil_funding": "1",
+      "one_shot_floor": "0",
+      "holder_count": 1,
+      "balances": [
+        "1"
+      ],
+      "step_count": 1,
+      "holder_index": [
+        0
+      ],
+      "quantities": [
+        "1"
+      ],
+      "payouts": [
+        "0"
+      ],
+      "receipts": [
+        "0"
+      ],
+      "paid_total": "0",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d6_s1_p1000000000000000000000000000000",
+      "supply": "1",
+      "payout_wad": "1000000000000000000000000000000",
+      "decimals": 6,
+      "denominator": "1000000000000000000000000000000",
+      "ceil_funding": "1",
+      "one_shot_floor": "1",
+      "holder_count": 1,
+      "balances": [
+        "1"
+      ],
+      "step_count": 1,
+      "holder_index": [
+        0
+      ],
+      "quantities": [
+        "1"
+      ],
+      "payouts": [
+        "1"
+      ],
+      "receipts": [
+        "1"
+      ],
+      "paid_total": "1",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d6_s1_p1000000000000000000000000000001",
+      "supply": "1",
+      "payout_wad": "1000000000000000000000000000001",
+      "decimals": 6,
+      "denominator": "1000000000000000000000000000000",
+      "ceil_funding": "2",
+      "one_shot_floor": "1",
+      "holder_count": 1,
+      "balances": [
+        "1"
+      ],
+      "step_count": 1,
+      "holder_index": [
+        0
+      ],
+      "quantities": [
+        "1"
+      ],
+      "payouts": [
+        "1"
+      ],
+      "receipts": [
+        "1"
+      ],
+      "paid_total": "1",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d6_s1_p340282366920938463463374607431768211456",
+      "supply": "1",
+      "payout_wad": "340282366920938463463374607431768211456",
+      "decimals": 6,
+      "denominator": "1000000000000000000000000000000",
+      "ceil_funding": "340282367",
+      "one_shot_floor": "340282366",
+      "holder_count": 1,
+      "balances": [
+        "1"
+      ],
+      "step_count": 1,
+      "holder_index": [
+        0
+      ],
+      "quantities": [
+        "1"
+      ],
+      "payouts": [
+        "340282366"
+      ],
+      "receipts": [
+        "340282366"
+      ],
+      "paid_total": "340282366",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d6_s1_p115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "supply": "1",
+      "payout_wad": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "decimals": 6,
+      "denominator": "1000000000000000000000000000000",
+      "ceil_funding": "115792089237316195423570985008687907853269984666",
+      "one_shot_floor": "115792089237316195423570985008687907853269984665",
+      "holder_count": 1,
+      "balances": [
+        "1"
+      ],
+      "step_count": 1,
+      "holder_index": [
+        0
+      ],
+      "quantities": [
+        "1"
+      ],
+      "payouts": [
+        "115792089237316195423570985008687907853269984665"
+      ],
+      "receipts": [
+        "115792089237316195423570985008687907853269984665"
+      ],
+      "paid_total": "115792089237316195423570985008687907853269984665",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d6_s2_p0",
+      "supply": "2",
+      "payout_wad": "0",
+      "decimals": 6,
+      "denominator": "1000000000000000000000000000000",
+      "ceil_funding": "0",
+      "one_shot_floor": "0",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "1"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "1"
+      ],
+      "payouts": [
+        "0",
+        "0"
+      ],
+      "receipts": [
+        "0",
+        "0"
+      ],
+      "paid_total": "0",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d6_s2_p1",
+      "supply": "2",
+      "payout_wad": "1",
+      "decimals": 6,
+      "denominator": "1000000000000000000000000000000",
+      "ceil_funding": "1",
+      "one_shot_floor": "0",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "1"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "1"
+      ],
+      "payouts": [
+        "0",
+        "0"
+      ],
+      "receipts": [
+        "0",
+        "0"
+      ],
+      "paid_total": "0",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d6_s2_p500000000000000000000000000000",
+      "supply": "2",
+      "payout_wad": "500000000000000000000000000000",
+      "decimals": 6,
+      "denominator": "1000000000000000000000000000000",
+      "ceil_funding": "1",
+      "one_shot_floor": "1",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "1"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "1"
+      ],
+      "payouts": [
+        "0",
+        "1"
+      ],
+      "receipts": [
+        "0",
+        "1"
+      ],
+      "paid_total": "1",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d6_s2_p999999999999999999999999999999",
+      "supply": "2",
+      "payout_wad": "999999999999999999999999999999",
+      "decimals": 6,
+      "denominator": "1000000000000000000000000000000",
+      "ceil_funding": "2",
+      "one_shot_floor": "1",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "1"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "1"
+      ],
+      "payouts": [
+        "0",
+        "1"
+      ],
+      "receipts": [
+        "0",
+        "1"
+      ],
+      "paid_total": "1",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d6_s2_p1000000000000000000000000000000",
+      "supply": "2",
+      "payout_wad": "1000000000000000000000000000000",
+      "decimals": 6,
+      "denominator": "1000000000000000000000000000000",
+      "ceil_funding": "2",
+      "one_shot_floor": "2",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "1"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "1"
+      ],
+      "payouts": [
+        "1",
+        "1"
+      ],
+      "receipts": [
+        "1",
+        "1"
+      ],
+      "paid_total": "2",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d6_s2_p1000000000000000000000000000001",
+      "supply": "2",
+      "payout_wad": "1000000000000000000000000000001",
+      "decimals": 6,
+      "denominator": "1000000000000000000000000000000",
+      "ceil_funding": "3",
+      "one_shot_floor": "2",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "1"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "1"
+      ],
+      "payouts": [
+        "1",
+        "1"
+      ],
+      "receipts": [
+        "1",
+        "1"
+      ],
+      "paid_total": "2",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d6_s2_p340282366920938463463374607431768211456",
+      "supply": "2",
+      "payout_wad": "340282366920938463463374607431768211456",
+      "decimals": 6,
+      "denominator": "1000000000000000000000000000000",
+      "ceil_funding": "680564734",
+      "one_shot_floor": "680564733",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "1"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "1"
+      ],
+      "payouts": [
+        "340282366",
+        "340282367"
+      ],
+      "receipts": [
+        "340282366",
+        "340282367"
+      ],
+      "paid_total": "680564733",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d6_s256_p0",
+      "supply": "256",
+      "payout_wad": "0",
+      "decimals": 6,
+      "denominator": "1000000000000000000000000000000",
+      "ceil_funding": "0",
+      "one_shot_floor": "0",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "255"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "255"
+      ],
+      "payouts": [
+        "0",
+        "0"
+      ],
+      "receipts": [
+        "0",
+        "0"
+      ],
+      "paid_total": "0",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d6_s256_p1",
+      "supply": "256",
+      "payout_wad": "1",
+      "decimals": 6,
+      "denominator": "1000000000000000000000000000000",
+      "ceil_funding": "1",
+      "one_shot_floor": "0",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "255"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "255"
+      ],
+      "payouts": [
+        "0",
+        "0"
+      ],
+      "receipts": [
+        "0",
+        "0"
+      ],
+      "paid_total": "0",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d6_s256_p500000000000000000000000000000",
+      "supply": "256",
+      "payout_wad": "500000000000000000000000000000",
+      "decimals": 6,
+      "denominator": "1000000000000000000000000000000",
+      "ceil_funding": "128",
+      "one_shot_floor": "128",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "255"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "255"
+      ],
+      "payouts": [
+        "0",
+        "128"
+      ],
+      "receipts": [
+        "0",
+        "128"
+      ],
+      "paid_total": "128",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d6_s256_p999999999999999999999999999999",
+      "supply": "256",
+      "payout_wad": "999999999999999999999999999999",
+      "decimals": 6,
+      "denominator": "1000000000000000000000000000000",
+      "ceil_funding": "256",
+      "one_shot_floor": "255",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "255"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "255"
+      ],
+      "payouts": [
+        "0",
+        "255"
+      ],
+      "receipts": [
+        "0",
+        "255"
+      ],
+      "paid_total": "255",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d6_s256_p1000000000000000000000000000000",
+      "supply": "256",
+      "payout_wad": "1000000000000000000000000000000",
+      "decimals": 6,
+      "denominator": "1000000000000000000000000000000",
+      "ceil_funding": "256",
+      "one_shot_floor": "256",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "255"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "255"
+      ],
+      "payouts": [
+        "1",
+        "255"
+      ],
+      "receipts": [
+        "1",
+        "255"
+      ],
+      "paid_total": "256",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d6_s256_p1000000000000000000000000000001",
+      "supply": "256",
+      "payout_wad": "1000000000000000000000000000001",
+      "decimals": 6,
+      "denominator": "1000000000000000000000000000000",
+      "ceil_funding": "257",
+      "one_shot_floor": "256",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "255"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "255"
+      ],
+      "payouts": [
+        "1",
+        "255"
+      ],
+      "receipts": [
+        "1",
+        "255"
+      ],
+      "paid_total": "256",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d6_s256_p340282366920938463463374607431768211456",
+      "supply": "256",
+      "payout_wad": "340282366920938463463374607431768211456",
+      "decimals": 6,
+      "denominator": "1000000000000000000000000000000",
+      "ceil_funding": "87112285932",
+      "one_shot_floor": "87112285931",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "255"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "255"
+      ],
+      "payouts": [
+        "340282366",
+        "86772003565"
+      ],
+      "receipts": [
+        "340282366",
+        "86772003565"
+      ],
+      "paid_total": "87112285931",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d6_s65536_p0",
+      "supply": "65536",
+      "payout_wad": "0",
+      "decimals": 6,
+      "denominator": "1000000000000000000000000000000",
+      "ceil_funding": "0",
+      "one_shot_floor": "0",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "65535"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "65535"
+      ],
+      "payouts": [
+        "0",
+        "0"
+      ],
+      "receipts": [
+        "0",
+        "0"
+      ],
+      "paid_total": "0",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d6_s65536_p1",
+      "supply": "65536",
+      "payout_wad": "1",
+      "decimals": 6,
+      "denominator": "1000000000000000000000000000000",
+      "ceil_funding": "1",
+      "one_shot_floor": "0",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "65535"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "65535"
+      ],
+      "payouts": [
+        "0",
+        "0"
+      ],
+      "receipts": [
+        "0",
+        "0"
+      ],
+      "paid_total": "0",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d6_s65536_p500000000000000000000000000000",
+      "supply": "65536",
+      "payout_wad": "500000000000000000000000000000",
+      "decimals": 6,
+      "denominator": "1000000000000000000000000000000",
+      "ceil_funding": "32768",
+      "one_shot_floor": "32768",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "65535"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "65535"
+      ],
+      "payouts": [
+        "0",
+        "32768"
+      ],
+      "receipts": [
+        "0",
+        "32768"
+      ],
+      "paid_total": "32768",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d6_s65536_p999999999999999999999999999999",
+      "supply": "65536",
+      "payout_wad": "999999999999999999999999999999",
+      "decimals": 6,
+      "denominator": "1000000000000000000000000000000",
+      "ceil_funding": "65536",
+      "one_shot_floor": "65535",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "65535"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "65535"
+      ],
+      "payouts": [
+        "0",
+        "65535"
+      ],
+      "receipts": [
+        "0",
+        "65535"
+      ],
+      "paid_total": "65535",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d6_s65536_p1000000000000000000000000000000",
+      "supply": "65536",
+      "payout_wad": "1000000000000000000000000000000",
+      "decimals": 6,
+      "denominator": "1000000000000000000000000000000",
+      "ceil_funding": "65536",
+      "one_shot_floor": "65536",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "65535"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "65535"
+      ],
+      "payouts": [
+        "1",
+        "65535"
+      ],
+      "receipts": [
+        "1",
+        "65535"
+      ],
+      "paid_total": "65536",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d6_s65536_p1000000000000000000000000000001",
+      "supply": "65536",
+      "payout_wad": "1000000000000000000000000000001",
+      "decimals": 6,
+      "denominator": "1000000000000000000000000000000",
+      "ceil_funding": "65537",
+      "one_shot_floor": "65536",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "65535"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "65535"
+      ],
+      "payouts": [
+        "1",
+        "65535"
+      ],
+      "receipts": [
+        "1",
+        "65535"
+      ],
+      "paid_total": "65536",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d6_s65536_p340282366920938463463374607431768211456",
+      "supply": "65536",
+      "payout_wad": "340282366920938463463374607431768211456",
+      "decimals": 6,
+      "denominator": "1000000000000000000000000000000",
+      "ceil_funding": "22300745198531",
+      "one_shot_floor": "22300745198530",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "65535"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "65535"
+      ],
+      "payouts": [
+        "340282366",
+        "22300404916164"
+      ],
+      "receipts": [
+        "340282366",
+        "22300404916164"
+      ],
+      "paid_total": "22300745198530",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d6_s4294967296_p0",
+      "supply": "4294967296",
+      "payout_wad": "0",
+      "decimals": 6,
+      "denominator": "1000000000000000000000000000000",
+      "ceil_funding": "0",
+      "one_shot_floor": "0",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "4294967295"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "4294967295"
+      ],
+      "payouts": [
+        "0",
+        "0"
+      ],
+      "receipts": [
+        "0",
+        "0"
+      ],
+      "paid_total": "0",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d6_s4294967296_p1",
+      "supply": "4294967296",
+      "payout_wad": "1",
+      "decimals": 6,
+      "denominator": "1000000000000000000000000000000",
+      "ceil_funding": "1",
+      "one_shot_floor": "0",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "4294967295"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "4294967295"
+      ],
+      "payouts": [
+        "0",
+        "0"
+      ],
+      "receipts": [
+        "0",
+        "0"
+      ],
+      "paid_total": "0",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d6_s4294967296_p500000000000000000000000000000",
+      "supply": "4294967296",
+      "payout_wad": "500000000000000000000000000000",
+      "decimals": 6,
+      "denominator": "1000000000000000000000000000000",
+      "ceil_funding": "2147483648",
+      "one_shot_floor": "2147483648",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "4294967295"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "4294967295"
+      ],
+      "payouts": [
+        "0",
+        "2147483648"
+      ],
+      "receipts": [
+        "0",
+        "2147483648"
+      ],
+      "paid_total": "2147483648",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d6_s4294967296_p999999999999999999999999999999",
+      "supply": "4294967296",
+      "payout_wad": "999999999999999999999999999999",
+      "decimals": 6,
+      "denominator": "1000000000000000000000000000000",
+      "ceil_funding": "4294967296",
+      "one_shot_floor": "4294967295",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "4294967295"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "4294967295"
+      ],
+      "payouts": [
+        "0",
+        "4294967295"
+      ],
+      "receipts": [
+        "0",
+        "4294967295"
+      ],
+      "paid_total": "4294967295",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d6_s4294967296_p1000000000000000000000000000000",
+      "supply": "4294967296",
+      "payout_wad": "1000000000000000000000000000000",
+      "decimals": 6,
+      "denominator": "1000000000000000000000000000000",
+      "ceil_funding": "4294967296",
+      "one_shot_floor": "4294967296",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "4294967295"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "4294967295"
+      ],
+      "payouts": [
+        "1",
+        "4294967295"
+      ],
+      "receipts": [
+        "1",
+        "4294967295"
+      ],
+      "paid_total": "4294967296",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d6_s4294967296_p1000000000000000000000000000001",
+      "supply": "4294967296",
+      "payout_wad": "1000000000000000000000000000001",
+      "decimals": 6,
+      "denominator": "1000000000000000000000000000000",
+      "ceil_funding": "4294967297",
+      "one_shot_floor": "4294967296",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "4294967295"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "4294967295"
+      ],
+      "payouts": [
+        "1",
+        "4294967295"
+      ],
+      "receipts": [
+        "1",
+        "4294967295"
+      ],
+      "paid_total": "4294967296",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d6_s4294967296_p340282366920938463463374607431768211456",
+      "supply": "4294967296",
+      "payout_wad": "340282366920938463463374607431768211456",
+      "decimals": 6,
+      "denominator": "1000000000000000000000000000000",
+      "ceil_funding": "1461501637330902919",
+      "one_shot_floor": "1461501637330902918",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "4294967295"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "4294967295"
+      ],
+      "payouts": [
+        "340282366",
+        "1461501636990620552"
+      ],
+      "receipts": [
+        "340282366",
+        "1461501636990620552"
+      ],
+      "paid_total": "1461501637330902918",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d6_s18446744073709551616_p0",
+      "supply": "18446744073709551616",
+      "payout_wad": "0",
+      "decimals": 6,
+      "denominator": "1000000000000000000000000000000",
+      "ceil_funding": "0",
+      "one_shot_floor": "0",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "18446744073709551615"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "18446744073709551615"
+      ],
+      "payouts": [
+        "0",
+        "0"
+      ],
+      "receipts": [
+        "0",
+        "0"
+      ],
+      "paid_total": "0",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d6_s18446744073709551616_p1",
+      "supply": "18446744073709551616",
+      "payout_wad": "1",
+      "decimals": 6,
+      "denominator": "1000000000000000000000000000000",
+      "ceil_funding": "1",
+      "one_shot_floor": "0",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "18446744073709551615"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "18446744073709551615"
+      ],
+      "payouts": [
+        "0",
+        "0"
+      ],
+      "receipts": [
+        "0",
+        "0"
+      ],
+      "paid_total": "0",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d6_s18446744073709551616_p500000000000000000000000000000",
+      "supply": "18446744073709551616",
+      "payout_wad": "500000000000000000000000000000",
+      "decimals": 6,
+      "denominator": "1000000000000000000000000000000",
+      "ceil_funding": "9223372036854775808",
+      "one_shot_floor": "9223372036854775808",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "18446744073709551615"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "18446744073709551615"
+      ],
+      "payouts": [
+        "0",
+        "9223372036854775808"
+      ],
+      "receipts": [
+        "0",
+        "9223372036854775808"
+      ],
+      "paid_total": "9223372036854775808",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d6_s18446744073709551616_p999999999999999999999999999999",
+      "supply": "18446744073709551616",
+      "payout_wad": "999999999999999999999999999999",
+      "decimals": 6,
+      "denominator": "1000000000000000000000000000000",
+      "ceil_funding": "18446744073709551616",
+      "one_shot_floor": "18446744073709551615",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "18446744073709551615"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "18446744073709551615"
+      ],
+      "payouts": [
+        "0",
+        "18446744073709551615"
+      ],
+      "receipts": [
+        "0",
+        "18446744073709551615"
+      ],
+      "paid_total": "18446744073709551615",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d6_s18446744073709551616_p1000000000000000000000000000000",
+      "supply": "18446744073709551616",
+      "payout_wad": "1000000000000000000000000000000",
+      "decimals": 6,
+      "denominator": "1000000000000000000000000000000",
+      "ceil_funding": "18446744073709551616",
+      "one_shot_floor": "18446744073709551616",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "18446744073709551615"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "18446744073709551615"
+      ],
+      "payouts": [
+        "1",
+        "18446744073709551615"
+      ],
+      "receipts": [
+        "1",
+        "18446744073709551615"
+      ],
+      "paid_total": "18446744073709551616",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d6_s18446744073709551616_p1000000000000000000000000000001",
+      "supply": "18446744073709551616",
+      "payout_wad": "1000000000000000000000000000001",
+      "decimals": 6,
+      "denominator": "1000000000000000000000000000000",
+      "ceil_funding": "18446744073709551617",
+      "one_shot_floor": "18446744073709551616",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "18446744073709551615"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "18446744073709551615"
+      ],
+      "payouts": [
+        "1",
+        "18446744073709551615"
+      ],
+      "receipts": [
+        "1",
+        "18446744073709551615"
+      ],
+      "paid_total": "18446744073709551616",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d6_s18446744073709551616_p340282366920938463463374607431768211456",
+      "supply": "18446744073709551616",
+      "payout_wad": "340282366920938463463374607431768211456",
+      "decimals": 6,
+      "denominator": "1000000000000000000000000000000",
+      "ceil_funding": "6277101735386680763835789424",
+      "one_shot_floor": "6277101735386680763835789423",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "18446744073709551615"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "18446744073709551615"
+      ],
+      "payouts": [
+        "340282366",
+        "6277101735386680763495507057"
+      ],
+      "receipts": [
+        "340282366",
+        "6277101735386680763495507057"
+      ],
+      "paid_total": "6277101735386680763835789423",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d8_s1_p0",
+      "supply": "1",
+      "payout_wad": "0",
+      "decimals": 8,
+      "denominator": "10000000000000000000000000000",
+      "ceil_funding": "0",
+      "one_shot_floor": "0",
+      "holder_count": 1,
+      "balances": [
+        "1"
+      ],
+      "step_count": 1,
+      "holder_index": [
+        0
+      ],
+      "quantities": [
+        "1"
+      ],
+      "payouts": [
+        "0"
+      ],
+      "receipts": [
+        "0"
+      ],
+      "paid_total": "0",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d8_s1_p1",
+      "supply": "1",
+      "payout_wad": "1",
+      "decimals": 8,
+      "denominator": "10000000000000000000000000000",
+      "ceil_funding": "1",
+      "one_shot_floor": "0",
+      "holder_count": 1,
+      "balances": [
+        "1"
+      ],
+      "step_count": 1,
+      "holder_index": [
+        0
+      ],
+      "quantities": [
+        "1"
+      ],
+      "payouts": [
+        "0"
+      ],
+      "receipts": [
+        "0"
+      ],
+      "paid_total": "0",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d8_s1_p5000000000000000000000000000",
+      "supply": "1",
+      "payout_wad": "5000000000000000000000000000",
+      "decimals": 8,
+      "denominator": "10000000000000000000000000000",
+      "ceil_funding": "1",
+      "one_shot_floor": "0",
+      "holder_count": 1,
+      "balances": [
+        "1"
+      ],
+      "step_count": 1,
+      "holder_index": [
+        0
+      ],
+      "quantities": [
+        "1"
+      ],
+      "payouts": [
+        "0"
+      ],
+      "receipts": [
+        "0"
+      ],
+      "paid_total": "0",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d8_s1_p9999999999999999999999999999",
+      "supply": "1",
+      "payout_wad": "9999999999999999999999999999",
+      "decimals": 8,
+      "denominator": "10000000000000000000000000000",
+      "ceil_funding": "1",
+      "one_shot_floor": "0",
+      "holder_count": 1,
+      "balances": [
+        "1"
+      ],
+      "step_count": 1,
+      "holder_index": [
+        0
+      ],
+      "quantities": [
+        "1"
+      ],
+      "payouts": [
+        "0"
+      ],
+      "receipts": [
+        "0"
+      ],
+      "paid_total": "0",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d8_s1_p10000000000000000000000000000",
+      "supply": "1",
+      "payout_wad": "10000000000000000000000000000",
+      "decimals": 8,
+      "denominator": "10000000000000000000000000000",
+      "ceil_funding": "1",
+      "one_shot_floor": "1",
+      "holder_count": 1,
+      "balances": [
+        "1"
+      ],
+      "step_count": 1,
+      "holder_index": [
+        0
+      ],
+      "quantities": [
+        "1"
+      ],
+      "payouts": [
+        "1"
+      ],
+      "receipts": [
+        "1"
+      ],
+      "paid_total": "1",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d8_s1_p10000000000000000000000000001",
+      "supply": "1",
+      "payout_wad": "10000000000000000000000000001",
+      "decimals": 8,
+      "denominator": "10000000000000000000000000000",
+      "ceil_funding": "2",
+      "one_shot_floor": "1",
+      "holder_count": 1,
+      "balances": [
+        "1"
+      ],
+      "step_count": 1,
+      "holder_index": [
+        0
+      ],
+      "quantities": [
+        "1"
+      ],
+      "payouts": [
+        "1"
+      ],
+      "receipts": [
+        "1"
+      ],
+      "paid_total": "1",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d8_s1_p340282366920938463463374607431768211456",
+      "supply": "1",
+      "payout_wad": "340282366920938463463374607431768211456",
+      "decimals": 8,
+      "denominator": "10000000000000000000000000000",
+      "ceil_funding": "34028236693",
+      "one_shot_floor": "34028236692",
+      "holder_count": 1,
+      "balances": [
+        "1"
+      ],
+      "step_count": 1,
+      "holder_index": [
+        0
+      ],
+      "quantities": [
+        "1"
+      ],
+      "payouts": [
+        "34028236692"
+      ],
+      "receipts": [
+        "34028236692"
+      ],
+      "paid_total": "34028236692",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d8_s1_p115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "supply": "1",
+      "payout_wad": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "decimals": 8,
+      "denominator": "10000000000000000000000000000",
+      "ceil_funding": "11579208923731619542357098500868790785326998466565",
+      "one_shot_floor": "11579208923731619542357098500868790785326998466564",
+      "holder_count": 1,
+      "balances": [
+        "1"
+      ],
+      "step_count": 1,
+      "holder_index": [
+        0
+      ],
+      "quantities": [
+        "1"
+      ],
+      "payouts": [
+        "11579208923731619542357098500868790785326998466564"
+      ],
+      "receipts": [
+        "11579208923731619542357098500868790785326998466564"
+      ],
+      "paid_total": "11579208923731619542357098500868790785326998466564",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d8_s2_p0",
+      "supply": "2",
+      "payout_wad": "0",
+      "decimals": 8,
+      "denominator": "10000000000000000000000000000",
+      "ceil_funding": "0",
+      "one_shot_floor": "0",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "1"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "1"
+      ],
+      "payouts": [
+        "0",
+        "0"
+      ],
+      "receipts": [
+        "0",
+        "0"
+      ],
+      "paid_total": "0",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d8_s2_p1",
+      "supply": "2",
+      "payout_wad": "1",
+      "decimals": 8,
+      "denominator": "10000000000000000000000000000",
+      "ceil_funding": "1",
+      "one_shot_floor": "0",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "1"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "1"
+      ],
+      "payouts": [
+        "0",
+        "0"
+      ],
+      "receipts": [
+        "0",
+        "0"
+      ],
+      "paid_total": "0",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d8_s2_p5000000000000000000000000000",
+      "supply": "2",
+      "payout_wad": "5000000000000000000000000000",
+      "decimals": 8,
+      "denominator": "10000000000000000000000000000",
+      "ceil_funding": "1",
+      "one_shot_floor": "1",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "1"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "1"
+      ],
+      "payouts": [
+        "0",
+        "1"
+      ],
+      "receipts": [
+        "0",
+        "1"
+      ],
+      "paid_total": "1",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d8_s2_p9999999999999999999999999999",
+      "supply": "2",
+      "payout_wad": "9999999999999999999999999999",
+      "decimals": 8,
+      "denominator": "10000000000000000000000000000",
+      "ceil_funding": "2",
+      "one_shot_floor": "1",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "1"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "1"
+      ],
+      "payouts": [
+        "0",
+        "1"
+      ],
+      "receipts": [
+        "0",
+        "1"
+      ],
+      "paid_total": "1",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d8_s2_p10000000000000000000000000000",
+      "supply": "2",
+      "payout_wad": "10000000000000000000000000000",
+      "decimals": 8,
+      "denominator": "10000000000000000000000000000",
+      "ceil_funding": "2",
+      "one_shot_floor": "2",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "1"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "1"
+      ],
+      "payouts": [
+        "1",
+        "1"
+      ],
+      "receipts": [
+        "1",
+        "1"
+      ],
+      "paid_total": "2",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d8_s2_p10000000000000000000000000001",
+      "supply": "2",
+      "payout_wad": "10000000000000000000000000001",
+      "decimals": 8,
+      "denominator": "10000000000000000000000000000",
+      "ceil_funding": "3",
+      "one_shot_floor": "2",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "1"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "1"
+      ],
+      "payouts": [
+        "1",
+        "1"
+      ],
+      "receipts": [
+        "1",
+        "1"
+      ],
+      "paid_total": "2",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d8_s2_p340282366920938463463374607431768211456",
+      "supply": "2",
+      "payout_wad": "340282366920938463463374607431768211456",
+      "decimals": 8,
+      "denominator": "10000000000000000000000000000",
+      "ceil_funding": "68056473385",
+      "one_shot_floor": "68056473384",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "1"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "1"
+      ],
+      "payouts": [
+        "34028236692",
+        "34028236692"
+      ],
+      "receipts": [
+        "34028236692",
+        "34028236692"
+      ],
+      "paid_total": "68056473384",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d8_s256_p0",
+      "supply": "256",
+      "payout_wad": "0",
+      "decimals": 8,
+      "denominator": "10000000000000000000000000000",
+      "ceil_funding": "0",
+      "one_shot_floor": "0",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "255"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "255"
+      ],
+      "payouts": [
+        "0",
+        "0"
+      ],
+      "receipts": [
+        "0",
+        "0"
+      ],
+      "paid_total": "0",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d8_s256_p1",
+      "supply": "256",
+      "payout_wad": "1",
+      "decimals": 8,
+      "denominator": "10000000000000000000000000000",
+      "ceil_funding": "1",
+      "one_shot_floor": "0",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "255"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "255"
+      ],
+      "payouts": [
+        "0",
+        "0"
+      ],
+      "receipts": [
+        "0",
+        "0"
+      ],
+      "paid_total": "0",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d8_s256_p5000000000000000000000000000",
+      "supply": "256",
+      "payout_wad": "5000000000000000000000000000",
+      "decimals": 8,
+      "denominator": "10000000000000000000000000000",
+      "ceil_funding": "128",
+      "one_shot_floor": "128",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "255"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "255"
+      ],
+      "payouts": [
+        "0",
+        "128"
+      ],
+      "receipts": [
+        "0",
+        "128"
+      ],
+      "paid_total": "128",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d8_s256_p9999999999999999999999999999",
+      "supply": "256",
+      "payout_wad": "9999999999999999999999999999",
+      "decimals": 8,
+      "denominator": "10000000000000000000000000000",
+      "ceil_funding": "256",
+      "one_shot_floor": "255",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "255"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "255"
+      ],
+      "payouts": [
+        "0",
+        "255"
+      ],
+      "receipts": [
+        "0",
+        "255"
+      ],
+      "paid_total": "255",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d8_s256_p10000000000000000000000000000",
+      "supply": "256",
+      "payout_wad": "10000000000000000000000000000",
+      "decimals": 8,
+      "denominator": "10000000000000000000000000000",
+      "ceil_funding": "256",
+      "one_shot_floor": "256",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "255"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "255"
+      ],
+      "payouts": [
+        "1",
+        "255"
+      ],
+      "receipts": [
+        "1",
+        "255"
+      ],
+      "paid_total": "256",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d8_s256_p10000000000000000000000000001",
+      "supply": "256",
+      "payout_wad": "10000000000000000000000000001",
+      "decimals": 8,
+      "denominator": "10000000000000000000000000000",
+      "ceil_funding": "257",
+      "one_shot_floor": "256",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "255"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "255"
+      ],
+      "payouts": [
+        "1",
+        "255"
+      ],
+      "receipts": [
+        "1",
+        "255"
+      ],
+      "paid_total": "256",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d8_s256_p340282366920938463463374607431768211456",
+      "supply": "256",
+      "payout_wad": "340282366920938463463374607431768211456",
+      "decimals": 8,
+      "denominator": "10000000000000000000000000000",
+      "ceil_funding": "8711228593177",
+      "one_shot_floor": "8711228593176",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "255"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "255"
+      ],
+      "payouts": [
+        "34028236692",
+        "8677200356484"
+      ],
+      "receipts": [
+        "34028236692",
+        "8677200356484"
+      ],
+      "paid_total": "8711228593176",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d8_s65536_p0",
+      "supply": "65536",
+      "payout_wad": "0",
+      "decimals": 8,
+      "denominator": "10000000000000000000000000000",
+      "ceil_funding": "0",
+      "one_shot_floor": "0",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "65535"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "65535"
+      ],
+      "payouts": [
+        "0",
+        "0"
+      ],
+      "receipts": [
+        "0",
+        "0"
+      ],
+      "paid_total": "0",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d8_s65536_p1",
+      "supply": "65536",
+      "payout_wad": "1",
+      "decimals": 8,
+      "denominator": "10000000000000000000000000000",
+      "ceil_funding": "1",
+      "one_shot_floor": "0",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "65535"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "65535"
+      ],
+      "payouts": [
+        "0",
+        "0"
+      ],
+      "receipts": [
+        "0",
+        "0"
+      ],
+      "paid_total": "0",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d8_s65536_p5000000000000000000000000000",
+      "supply": "65536",
+      "payout_wad": "5000000000000000000000000000",
+      "decimals": 8,
+      "denominator": "10000000000000000000000000000",
+      "ceil_funding": "32768",
+      "one_shot_floor": "32768",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "65535"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "65535"
+      ],
+      "payouts": [
+        "0",
+        "32768"
+      ],
+      "receipts": [
+        "0",
+        "32768"
+      ],
+      "paid_total": "32768",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d8_s65536_p9999999999999999999999999999",
+      "supply": "65536",
+      "payout_wad": "9999999999999999999999999999",
+      "decimals": 8,
+      "denominator": "10000000000000000000000000000",
+      "ceil_funding": "65536",
+      "one_shot_floor": "65535",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "65535"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "65535"
+      ],
+      "payouts": [
+        "0",
+        "65535"
+      ],
+      "receipts": [
+        "0",
+        "65535"
+      ],
+      "paid_total": "65535",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d8_s65536_p10000000000000000000000000000",
+      "supply": "65536",
+      "payout_wad": "10000000000000000000000000000",
+      "decimals": 8,
+      "denominator": "10000000000000000000000000000",
+      "ceil_funding": "65536",
+      "one_shot_floor": "65536",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "65535"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "65535"
+      ],
+      "payouts": [
+        "1",
+        "65535"
+      ],
+      "receipts": [
+        "1",
+        "65535"
+      ],
+      "paid_total": "65536",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d8_s65536_p10000000000000000000000000001",
+      "supply": "65536",
+      "payout_wad": "10000000000000000000000000001",
+      "decimals": 8,
+      "denominator": "10000000000000000000000000000",
+      "ceil_funding": "65537",
+      "one_shot_floor": "65536",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "65535"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "65535"
+      ],
+      "payouts": [
+        "1",
+        "65535"
+      ],
+      "receipts": [
+        "1",
+        "65535"
+      ],
+      "paid_total": "65536",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d8_s65536_p340282366920938463463374607431768211456",
+      "supply": "65536",
+      "payout_wad": "340282366920938463463374607431768211456",
+      "decimals": 8,
+      "denominator": "10000000000000000000000000000",
+      "ceil_funding": "2230074519853063",
+      "one_shot_floor": "2230074519853062",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "65535"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "65535"
+      ],
+      "payouts": [
+        "34028236692",
+        "2230040491616370"
+      ],
+      "receipts": [
+        "34028236692",
+        "2230040491616370"
+      ],
+      "paid_total": "2230074519853062",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d8_s4294967296_p0",
+      "supply": "4294967296",
+      "payout_wad": "0",
+      "decimals": 8,
+      "denominator": "10000000000000000000000000000",
+      "ceil_funding": "0",
+      "one_shot_floor": "0",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "4294967295"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "4294967295"
+      ],
+      "payouts": [
+        "0",
+        "0"
+      ],
+      "receipts": [
+        "0",
+        "0"
+      ],
+      "paid_total": "0",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d8_s4294967296_p1",
+      "supply": "4294967296",
+      "payout_wad": "1",
+      "decimals": 8,
+      "denominator": "10000000000000000000000000000",
+      "ceil_funding": "1",
+      "one_shot_floor": "0",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "4294967295"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "4294967295"
+      ],
+      "payouts": [
+        "0",
+        "0"
+      ],
+      "receipts": [
+        "0",
+        "0"
+      ],
+      "paid_total": "0",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d8_s4294967296_p5000000000000000000000000000",
+      "supply": "4294967296",
+      "payout_wad": "5000000000000000000000000000",
+      "decimals": 8,
+      "denominator": "10000000000000000000000000000",
+      "ceil_funding": "2147483648",
+      "one_shot_floor": "2147483648",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "4294967295"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "4294967295"
+      ],
+      "payouts": [
+        "0",
+        "2147483648"
+      ],
+      "receipts": [
+        "0",
+        "2147483648"
+      ],
+      "paid_total": "2147483648",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d8_s4294967296_p9999999999999999999999999999",
+      "supply": "4294967296",
+      "payout_wad": "9999999999999999999999999999",
+      "decimals": 8,
+      "denominator": "10000000000000000000000000000",
+      "ceil_funding": "4294967296",
+      "one_shot_floor": "4294967295",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "4294967295"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "4294967295"
+      ],
+      "payouts": [
+        "0",
+        "4294967295"
+      ],
+      "receipts": [
+        "0",
+        "4294967295"
+      ],
+      "paid_total": "4294967295",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d8_s4294967296_p10000000000000000000000000000",
+      "supply": "4294967296",
+      "payout_wad": "10000000000000000000000000000",
+      "decimals": 8,
+      "denominator": "10000000000000000000000000000",
+      "ceil_funding": "4294967296",
+      "one_shot_floor": "4294967296",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "4294967295"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "4294967295"
+      ],
+      "payouts": [
+        "1",
+        "4294967295"
+      ],
+      "receipts": [
+        "1",
+        "4294967295"
+      ],
+      "paid_total": "4294967296",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d8_s4294967296_p10000000000000000000000000001",
+      "supply": "4294967296",
+      "payout_wad": "10000000000000000000000000001",
+      "decimals": 8,
+      "denominator": "10000000000000000000000000000",
+      "ceil_funding": "4294967297",
+      "one_shot_floor": "4294967296",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "4294967295"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "4294967295"
+      ],
+      "payouts": [
+        "1",
+        "4294967295"
+      ],
+      "receipts": [
+        "1",
+        "4294967295"
+      ],
+      "paid_total": "4294967296",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d8_s4294967296_p340282366920938463463374607431768211456",
+      "supply": "4294967296",
+      "payout_wad": "340282366920938463463374607431768211456",
+      "decimals": 8,
+      "denominator": "10000000000000000000000000000",
+      "ceil_funding": "146150163733090291821",
+      "one_shot_floor": "146150163733090291820",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "4294967295"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "4294967295"
+      ],
+      "payouts": [
+        "34028236692",
+        "146150163699062055128"
+      ],
+      "receipts": [
+        "34028236692",
+        "146150163699062055128"
+      ],
+      "paid_total": "146150163733090291820",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d8_s18446744073709551616_p0",
+      "supply": "18446744073709551616",
+      "payout_wad": "0",
+      "decimals": 8,
+      "denominator": "10000000000000000000000000000",
+      "ceil_funding": "0",
+      "one_shot_floor": "0",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "18446744073709551615"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "18446744073709551615"
+      ],
+      "payouts": [
+        "0",
+        "0"
+      ],
+      "receipts": [
+        "0",
+        "0"
+      ],
+      "paid_total": "0",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d8_s18446744073709551616_p1",
+      "supply": "18446744073709551616",
+      "payout_wad": "1",
+      "decimals": 8,
+      "denominator": "10000000000000000000000000000",
+      "ceil_funding": "1",
+      "one_shot_floor": "0",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "18446744073709551615"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "18446744073709551615"
+      ],
+      "payouts": [
+        "0",
+        "0"
+      ],
+      "receipts": [
+        "0",
+        "0"
+      ],
+      "paid_total": "0",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d8_s18446744073709551616_p5000000000000000000000000000",
+      "supply": "18446744073709551616",
+      "payout_wad": "5000000000000000000000000000",
+      "decimals": 8,
+      "denominator": "10000000000000000000000000000",
+      "ceil_funding": "9223372036854775808",
+      "one_shot_floor": "9223372036854775808",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "18446744073709551615"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "18446744073709551615"
+      ],
+      "payouts": [
+        "0",
+        "9223372036854775808"
+      ],
+      "receipts": [
+        "0",
+        "9223372036854775808"
+      ],
+      "paid_total": "9223372036854775808",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d8_s18446744073709551616_p9999999999999999999999999999",
+      "supply": "18446744073709551616",
+      "payout_wad": "9999999999999999999999999999",
+      "decimals": 8,
+      "denominator": "10000000000000000000000000000",
+      "ceil_funding": "18446744073709551616",
+      "one_shot_floor": "18446744073709551615",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "18446744073709551615"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "18446744073709551615"
+      ],
+      "payouts": [
+        "0",
+        "18446744073709551615"
+      ],
+      "receipts": [
+        "0",
+        "18446744073709551615"
+      ],
+      "paid_total": "18446744073709551615",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d8_s18446744073709551616_p10000000000000000000000000000",
+      "supply": "18446744073709551616",
+      "payout_wad": "10000000000000000000000000000",
+      "decimals": 8,
+      "denominator": "10000000000000000000000000000",
+      "ceil_funding": "18446744073709551616",
+      "one_shot_floor": "18446744073709551616",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "18446744073709551615"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "18446744073709551615"
+      ],
+      "payouts": [
+        "1",
+        "18446744073709551615"
+      ],
+      "receipts": [
+        "1",
+        "18446744073709551615"
+      ],
+      "paid_total": "18446744073709551616",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d8_s18446744073709551616_p10000000000000000000000000001",
+      "supply": "18446744073709551616",
+      "payout_wad": "10000000000000000000000000001",
+      "decimals": 8,
+      "denominator": "10000000000000000000000000000",
+      "ceil_funding": "18446744073709551617",
+      "one_shot_floor": "18446744073709551616",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "18446744073709551615"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "18446744073709551615"
+      ],
+      "payouts": [
+        "1",
+        "18446744073709551615"
+      ],
+      "receipts": [
+        "1",
+        "18446744073709551615"
+      ],
+      "paid_total": "18446744073709551616",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d8_s18446744073709551616_p340282366920938463463374607431768211456",
+      "supply": "18446744073709551616",
+      "payout_wad": "340282366920938463463374607431768211456",
+      "decimals": 8,
+      "denominator": "10000000000000000000000000000",
+      "ceil_funding": "627710173538668076383578942321",
+      "one_shot_floor": "627710173538668076383578942320",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "18446744073709551615"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "18446744073709551615"
+      ],
+      "payouts": [
+        "34028236692",
+        "627710173538668076349550705628"
+      ],
+      "receipts": [
+        "34028236692",
+        "627710173538668076349550705628"
+      ],
+      "paid_total": "627710173538668076383578942320",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d18_s1_p0",
+      "supply": "1",
+      "payout_wad": "0",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "0",
+      "one_shot_floor": "0",
+      "holder_count": 1,
+      "balances": [
+        "1"
+      ],
+      "step_count": 1,
+      "holder_index": [
+        0
+      ],
+      "quantities": [
+        "1"
+      ],
+      "payouts": [
+        "0"
+      ],
+      "receipts": [
+        "0"
+      ],
+      "paid_total": "0",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d18_s1_p1",
+      "supply": "1",
+      "payout_wad": "1",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "1",
+      "one_shot_floor": "0",
+      "holder_count": 1,
+      "balances": [
+        "1"
+      ],
+      "step_count": 1,
+      "holder_index": [
+        0
+      ],
+      "quantities": [
+        "1"
+      ],
+      "payouts": [
+        "0"
+      ],
+      "receipts": [
+        "0"
+      ],
+      "paid_total": "0",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d18_s1_p500000000000000000",
+      "supply": "1",
+      "payout_wad": "500000000000000000",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "1",
+      "one_shot_floor": "0",
+      "holder_count": 1,
+      "balances": [
+        "1"
+      ],
+      "step_count": 1,
+      "holder_index": [
+        0
+      ],
+      "quantities": [
+        "1"
+      ],
+      "payouts": [
+        "0"
+      ],
+      "receipts": [
+        "0"
+      ],
+      "paid_total": "0",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d18_s1_p999999999999999999",
+      "supply": "1",
+      "payout_wad": "999999999999999999",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "1",
+      "one_shot_floor": "0",
+      "holder_count": 1,
+      "balances": [
+        "1"
+      ],
+      "step_count": 1,
+      "holder_index": [
+        0
+      ],
+      "quantities": [
+        "1"
+      ],
+      "payouts": [
+        "0"
+      ],
+      "receipts": [
+        "0"
+      ],
+      "paid_total": "0",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d18_s1_p1000000000000000000",
+      "supply": "1",
+      "payout_wad": "1000000000000000000",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "1",
+      "one_shot_floor": "1",
+      "holder_count": 1,
+      "balances": [
+        "1"
+      ],
+      "step_count": 1,
+      "holder_index": [
+        0
+      ],
+      "quantities": [
+        "1"
+      ],
+      "payouts": [
+        "1"
+      ],
+      "receipts": [
+        "1"
+      ],
+      "paid_total": "1",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d18_s1_p1000000000000000001",
+      "supply": "1",
+      "payout_wad": "1000000000000000001",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "2",
+      "one_shot_floor": "1",
+      "holder_count": 1,
+      "balances": [
+        "1"
+      ],
+      "step_count": 1,
+      "holder_index": [
+        0
+      ],
+      "quantities": [
+        "1"
+      ],
+      "payouts": [
+        "1"
+      ],
+      "receipts": [
+        "1"
+      ],
+      "paid_total": "1",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d18_s1_p340282366920938463463374607431768211456",
+      "supply": "1",
+      "payout_wad": "340282366920938463463374607431768211456",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "340282366920938463464",
+      "one_shot_floor": "340282366920938463463",
+      "holder_count": 1,
+      "balances": [
+        "1"
+      ],
+      "step_count": 1,
+      "holder_index": [
+        0
+      ],
+      "quantities": [
+        "1"
+      ],
+      "payouts": [
+        "340282366920938463463"
+      ],
+      "receipts": [
+        "340282366920938463463"
+      ],
+      "paid_total": "340282366920938463463",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d18_s1_p115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "supply": "1",
+      "payout_wad": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "115792089237316195423570985008687907853269984665640564039458",
+      "one_shot_floor": "115792089237316195423570985008687907853269984665640564039457",
+      "holder_count": 1,
+      "balances": [
+        "1"
+      ],
+      "step_count": 1,
+      "holder_index": [
+        0
+      ],
+      "quantities": [
+        "1"
+      ],
+      "payouts": [
+        "115792089237316195423570985008687907853269984665640564039457"
+      ],
+      "receipts": [
+        "115792089237316195423570985008687907853269984665640564039457"
+      ],
+      "paid_total": "115792089237316195423570985008687907853269984665640564039457",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d18_s2_p0",
+      "supply": "2",
+      "payout_wad": "0",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "0",
+      "one_shot_floor": "0",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "1"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "1"
+      ],
+      "payouts": [
+        "0",
+        "0"
+      ],
+      "receipts": [
+        "0",
+        "0"
+      ],
+      "paid_total": "0",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d18_s2_p1",
+      "supply": "2",
+      "payout_wad": "1",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "1",
+      "one_shot_floor": "0",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "1"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "1"
+      ],
+      "payouts": [
+        "0",
+        "0"
+      ],
+      "receipts": [
+        "0",
+        "0"
+      ],
+      "paid_total": "0",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d18_s2_p500000000000000000",
+      "supply": "2",
+      "payout_wad": "500000000000000000",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "1",
+      "one_shot_floor": "1",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "1"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "1"
+      ],
+      "payouts": [
+        "0",
+        "1"
+      ],
+      "receipts": [
+        "0",
+        "1"
+      ],
+      "paid_total": "1",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d18_s2_p999999999999999999",
+      "supply": "2",
+      "payout_wad": "999999999999999999",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "2",
+      "one_shot_floor": "1",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "1"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "1"
+      ],
+      "payouts": [
+        "0",
+        "1"
+      ],
+      "receipts": [
+        "0",
+        "1"
+      ],
+      "paid_total": "1",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d18_s2_p1000000000000000000",
+      "supply": "2",
+      "payout_wad": "1000000000000000000",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "2",
+      "one_shot_floor": "2",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "1"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "1"
+      ],
+      "payouts": [
+        "1",
+        "1"
+      ],
+      "receipts": [
+        "1",
+        "1"
+      ],
+      "paid_total": "2",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d18_s2_p1000000000000000001",
+      "supply": "2",
+      "payout_wad": "1000000000000000001",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "3",
+      "one_shot_floor": "2",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "1"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "1"
+      ],
+      "payouts": [
+        "1",
+        "1"
+      ],
+      "receipts": [
+        "1",
+        "1"
+      ],
+      "paid_total": "2",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d18_s2_p340282366920938463463374607431768211456",
+      "supply": "2",
+      "payout_wad": "340282366920938463463374607431768211456",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "680564733841876926927",
+      "one_shot_floor": "680564733841876926926",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "1"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "1"
+      ],
+      "payouts": [
+        "340282366920938463463",
+        "340282366920938463463"
+      ],
+      "receipts": [
+        "340282366920938463463",
+        "340282366920938463463"
+      ],
+      "paid_total": "680564733841876926926",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d18_s256_p0",
+      "supply": "256",
+      "payout_wad": "0",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "0",
+      "one_shot_floor": "0",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "255"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "255"
+      ],
+      "payouts": [
+        "0",
+        "0"
+      ],
+      "receipts": [
+        "0",
+        "0"
+      ],
+      "paid_total": "0",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d18_s256_p1",
+      "supply": "256",
+      "payout_wad": "1",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "1",
+      "one_shot_floor": "0",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "255"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "255"
+      ],
+      "payouts": [
+        "0",
+        "0"
+      ],
+      "receipts": [
+        "0",
+        "0"
+      ],
+      "paid_total": "0",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d18_s256_p500000000000000000",
+      "supply": "256",
+      "payout_wad": "500000000000000000",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "128",
+      "one_shot_floor": "128",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "255"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "255"
+      ],
+      "payouts": [
+        "0",
+        "128"
+      ],
+      "receipts": [
+        "0",
+        "128"
+      ],
+      "paid_total": "128",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d18_s256_p999999999999999999",
+      "supply": "256",
+      "payout_wad": "999999999999999999",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "256",
+      "one_shot_floor": "255",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "255"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "255"
+      ],
+      "payouts": [
+        "0",
+        "255"
+      ],
+      "receipts": [
+        "0",
+        "255"
+      ],
+      "paid_total": "255",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d18_s256_p1000000000000000000",
+      "supply": "256",
+      "payout_wad": "1000000000000000000",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "256",
+      "one_shot_floor": "256",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "255"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "255"
+      ],
+      "payouts": [
+        "1",
+        "255"
+      ],
+      "receipts": [
+        "1",
+        "255"
+      ],
+      "paid_total": "256",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d18_s256_p1000000000000000001",
+      "supply": "256",
+      "payout_wad": "1000000000000000001",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "257",
+      "one_shot_floor": "256",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "255"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "255"
+      ],
+      "payouts": [
+        "1",
+        "255"
+      ],
+      "receipts": [
+        "1",
+        "255"
+      ],
+      "paid_total": "256",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d18_s256_p340282366920938463463374607431768211456",
+      "supply": "256",
+      "payout_wad": "340282366920938463463374607431768211456",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "87112285931760246646624",
+      "one_shot_floor": "87112285931760246646623",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "255"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "255"
+      ],
+      "payouts": [
+        "340282366920938463463",
+        "86772003564839308183160"
+      ],
+      "receipts": [
+        "340282366920938463463",
+        "86772003564839308183160"
+      ],
+      "paid_total": "87112285931760246646623",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d18_s65536_p0",
+      "supply": "65536",
+      "payout_wad": "0",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "0",
+      "one_shot_floor": "0",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "65535"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "65535"
+      ],
+      "payouts": [
+        "0",
+        "0"
+      ],
+      "receipts": [
+        "0",
+        "0"
+      ],
+      "paid_total": "0",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d18_s65536_p1",
+      "supply": "65536",
+      "payout_wad": "1",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "1",
+      "one_shot_floor": "0",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "65535"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "65535"
+      ],
+      "payouts": [
+        "0",
+        "0"
+      ],
+      "receipts": [
+        "0",
+        "0"
+      ],
+      "paid_total": "0",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d18_s65536_p500000000000000000",
+      "supply": "65536",
+      "payout_wad": "500000000000000000",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "32768",
+      "one_shot_floor": "32768",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "65535"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "65535"
+      ],
+      "payouts": [
+        "0",
+        "32768"
+      ],
+      "receipts": [
+        "0",
+        "32768"
+      ],
+      "paid_total": "32768",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d18_s65536_p999999999999999999",
+      "supply": "65536",
+      "payout_wad": "999999999999999999",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "65536",
+      "one_shot_floor": "65535",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "65535"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "65535"
+      ],
+      "payouts": [
+        "0",
+        "65535"
+      ],
+      "receipts": [
+        "0",
+        "65535"
+      ],
+      "paid_total": "65535",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d18_s65536_p1000000000000000000",
+      "supply": "65536",
+      "payout_wad": "1000000000000000000",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "65536",
+      "one_shot_floor": "65536",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "65535"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "65535"
+      ],
+      "payouts": [
+        "1",
+        "65535"
+      ],
+      "receipts": [
+        "1",
+        "65535"
+      ],
+      "paid_total": "65536",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d18_s65536_p1000000000000000001",
+      "supply": "65536",
+      "payout_wad": "1000000000000000001",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "65537",
+      "one_shot_floor": "65536",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "65535"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "65535"
+      ],
+      "payouts": [
+        "1",
+        "65535"
+      ],
+      "receipts": [
+        "1",
+        "65535"
+      ],
+      "paid_total": "65536",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d18_s65536_p340282366920938463463374607431768211456",
+      "supply": "65536",
+      "payout_wad": "340282366920938463463374607431768211456",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "22300745198530623141535719",
+      "one_shot_floor": "22300745198530623141535718",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "65535"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "65535"
+      ],
+      "payouts": [
+        "340282366920938463463",
+        "22300404916163702203072255"
+      ],
+      "receipts": [
+        "340282366920938463463",
+        "22300404916163702203072255"
+      ],
+      "paid_total": "22300745198530623141535718",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d18_s4294967296_p0",
+      "supply": "4294967296",
+      "payout_wad": "0",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "0",
+      "one_shot_floor": "0",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "4294967295"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "4294967295"
+      ],
+      "payouts": [
+        "0",
+        "0"
+      ],
+      "receipts": [
+        "0",
+        "0"
+      ],
+      "paid_total": "0",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d18_s4294967296_p1",
+      "supply": "4294967296",
+      "payout_wad": "1",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "1",
+      "one_shot_floor": "0",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "4294967295"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "4294967295"
+      ],
+      "payouts": [
+        "0",
+        "0"
+      ],
+      "receipts": [
+        "0",
+        "0"
+      ],
+      "paid_total": "0",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d18_s4294967296_p500000000000000000",
+      "supply": "4294967296",
+      "payout_wad": "500000000000000000",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "2147483648",
+      "one_shot_floor": "2147483648",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "4294967295"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "4294967295"
+      ],
+      "payouts": [
+        "0",
+        "2147483648"
+      ],
+      "receipts": [
+        "0",
+        "2147483648"
+      ],
+      "paid_total": "2147483648",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d18_s4294967296_p999999999999999999",
+      "supply": "4294967296",
+      "payout_wad": "999999999999999999",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "4294967296",
+      "one_shot_floor": "4294967295",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "4294967295"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "4294967295"
+      ],
+      "payouts": [
+        "0",
+        "4294967295"
+      ],
+      "receipts": [
+        "0",
+        "4294967295"
+      ],
+      "paid_total": "4294967295",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d18_s4294967296_p1000000000000000000",
+      "supply": "4294967296",
+      "payout_wad": "1000000000000000000",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "4294967296",
+      "one_shot_floor": "4294967296",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "4294967295"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "4294967295"
+      ],
+      "payouts": [
+        "1",
+        "4294967295"
+      ],
+      "receipts": [
+        "1",
+        "4294967295"
+      ],
+      "paid_total": "4294967296",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d18_s4294967296_p1000000000000000001",
+      "supply": "4294967296",
+      "payout_wad": "1000000000000000001",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "4294967297",
+      "one_shot_floor": "4294967296",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "4294967295"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "4294967295"
+      ],
+      "payouts": [
+        "1",
+        "4294967295"
+      ],
+      "receipts": [
+        "1",
+        "4294967295"
+      ],
+      "paid_total": "4294967296",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d18_s4294967296_p340282366920938463463374607431768211456",
+      "supply": "4294967296",
+      "payout_wad": "340282366920938463463374607431768211456",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "1461501637330902918203684832717",
+      "one_shot_floor": "1461501637330902918203684832716",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "4294967295"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "4294967295"
+      ],
+      "payouts": [
+        "340282366920938463463",
+        "1461501636990620551282746369253"
+      ],
+      "receipts": [
+        "340282366920938463463",
+        "1461501636990620551282746369253"
+      ],
+      "paid_total": "1461501637330902918203684832716",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d18_s18446744073709551616_p0",
+      "supply": "18446744073709551616",
+      "payout_wad": "0",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "0",
+      "one_shot_floor": "0",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "18446744073709551615"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "18446744073709551615"
+      ],
+      "payouts": [
+        "0",
+        "0"
+      ],
+      "receipts": [
+        "0",
+        "0"
+      ],
+      "paid_total": "0",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d18_s18446744073709551616_p1",
+      "supply": "18446744073709551616",
+      "payout_wad": "1",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "19",
+      "one_shot_floor": "18",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "18446744073709551615"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "18446744073709551615"
+      ],
+      "payouts": [
+        "0",
+        "18"
+      ],
+      "receipts": [
+        "0",
+        "18"
+      ],
+      "paid_total": "18",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d18_s18446744073709551616_p500000000000000000",
+      "supply": "18446744073709551616",
+      "payout_wad": "500000000000000000",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "9223372036854775808",
+      "one_shot_floor": "9223372036854775808",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "18446744073709551615"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "18446744073709551615"
+      ],
+      "payouts": [
+        "0",
+        "9223372036854775808"
+      ],
+      "receipts": [
+        "0",
+        "9223372036854775808"
+      ],
+      "paid_total": "9223372036854775808",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d18_s18446744073709551616_p999999999999999999",
+      "supply": "18446744073709551616",
+      "payout_wad": "999999999999999999",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "18446744073709551598",
+      "one_shot_floor": "18446744073709551597",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "18446744073709551615"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "18446744073709551615"
+      ],
+      "payouts": [
+        "0",
+        "18446744073709551597"
+      ],
+      "receipts": [
+        "0",
+        "18446744073709551597"
+      ],
+      "paid_total": "18446744073709551597",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d18_s18446744073709551616_p1000000000000000000",
+      "supply": "18446744073709551616",
+      "payout_wad": "1000000000000000000",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "18446744073709551616",
+      "one_shot_floor": "18446744073709551616",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "18446744073709551615"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "18446744073709551615"
+      ],
+      "payouts": [
+        "1",
+        "18446744073709551615"
+      ],
+      "receipts": [
+        "1",
+        "18446744073709551615"
+      ],
+      "paid_total": "18446744073709551616",
+      "residual": "0",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d18_s18446744073709551616_p1000000000000000001",
+      "supply": "18446744073709551616",
+      "payout_wad": "1000000000000000001",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "18446744073709551635",
+      "one_shot_floor": "18446744073709551634",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "18446744073709551615"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "18446744073709551615"
+      ],
+      "payouts": [
+        "1",
+        "18446744073709551633"
+      ],
+      "receipts": [
+        "1",
+        "18446744073709551633"
+      ],
+      "paid_total": "18446744073709551634",
+      "residual": "1",
+      "product_fits_uint256": true
+    },
+    {
+      "id": "d18_s18446744073709551616_p340282366920938463463374607431768211456",
+      "supply": "18446744073709551616",
+      "payout_wad": "340282366920938463463374607431768211456",
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "ceil_funding": "6277101735386680763835789423207666416103",
+      "one_shot_floor": "6277101735386680763835789423207666416102",
+      "holder_count": 2,
+      "balances": [
+        "1",
+        "18446744073709551615"
+      ],
+      "step_count": 2,
+      "holder_index": [
+        0,
+        1
+      ],
+      "quantities": [
+        "1",
+        "18446744073709551615"
+      ],
+      "payouts": [
+        "340282366920938463463",
+        "6277101735386680763495507056286727952639"
+      ],
+      "receipts": [
+        "340282366920938463463",
+        "6277101735386680763495507056286727952639"
+      ],
+      "paid_total": "6277101735386680763835789423207666416102",
+      "residual": "1",
+      "product_fits_uint256": true
+    }
+  ],
+  "excluded_overflow": [
+    {
+      "decimals": 6,
+      "supply": "2",
+      "payout_wad": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "reason": "supply * payout_wad does not fit in uint256"
+    },
+    {
+      "decimals": 6,
+      "supply": "256",
+      "payout_wad": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "reason": "supply * payout_wad does not fit in uint256"
+    },
+    {
+      "decimals": 6,
+      "supply": "65536",
+      "payout_wad": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "reason": "supply * payout_wad does not fit in uint256"
+    },
+    {
+      "decimals": 6,
+      "supply": "4294967296",
+      "payout_wad": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "reason": "supply * payout_wad does not fit in uint256"
+    },
+    {
+      "decimals": 6,
+      "supply": "18446744073709551616",
+      "payout_wad": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "reason": "supply * payout_wad does not fit in uint256"
+    },
+    {
+      "decimals": 8,
+      "supply": "2",
+      "payout_wad": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "reason": "supply * payout_wad does not fit in uint256"
+    },
+    {
+      "decimals": 8,
+      "supply": "256",
+      "payout_wad": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "reason": "supply * payout_wad does not fit in uint256"
+    },
+    {
+      "decimals": 8,
+      "supply": "65536",
+      "payout_wad": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "reason": "supply * payout_wad does not fit in uint256"
+    },
+    {
+      "decimals": 8,
+      "supply": "4294967296",
+      "payout_wad": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "reason": "supply * payout_wad does not fit in uint256"
+    },
+    {
+      "decimals": 8,
+      "supply": "18446744073709551616",
+      "payout_wad": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "reason": "supply * payout_wad does not fit in uint256"
+    },
+    {
+      "decimals": 18,
+      "supply": "2",
+      "payout_wad": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "reason": "supply * payout_wad does not fit in uint256"
+    },
+    {
+      "decimals": 18,
+      "supply": "256",
+      "payout_wad": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "reason": "supply * payout_wad does not fit in uint256"
+    },
+    {
+      "decimals": 18,
+      "supply": "65536",
+      "payout_wad": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "reason": "supply * payout_wad does not fit in uint256"
+    },
+    {
+      "decimals": 18,
+      "supply": "4294967296",
+      "payout_wad": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "reason": "supply * payout_wad does not fit in uint256"
+    },
+    {
+      "decimals": 18,
+      "supply": "18446744073709551616",
+      "payout_wad": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "reason": "supply * payout_wad does not fit in uint256"
+    }
+  ],
+  "excluded_zero_supply": [
+    {
+      "decimals": 6,
+      "supply": "0",
+      "payout_wad": "0",
+      "reason": "CandidateCumulativeSettlement constructor reverts ZeroSupply"
+    },
+    {
+      "decimals": 6,
+      "supply": "0",
+      "payout_wad": "1",
+      "reason": "CandidateCumulativeSettlement constructor reverts ZeroSupply"
+    },
+    {
+      "decimals": 6,
+      "supply": "0",
+      "payout_wad": "500000000000000000000000000000",
+      "reason": "CandidateCumulativeSettlement constructor reverts ZeroSupply"
+    },
+    {
+      "decimals": 6,
+      "supply": "0",
+      "payout_wad": "999999999999999999999999999999",
+      "reason": "CandidateCumulativeSettlement constructor reverts ZeroSupply"
+    },
+    {
+      "decimals": 6,
+      "supply": "0",
+      "payout_wad": "1000000000000000000000000000000",
+      "reason": "CandidateCumulativeSettlement constructor reverts ZeroSupply"
+    },
+    {
+      "decimals": 6,
+      "supply": "0",
+      "payout_wad": "1000000000000000000000000000001",
+      "reason": "CandidateCumulativeSettlement constructor reverts ZeroSupply"
+    },
+    {
+      "decimals": 6,
+      "supply": "0",
+      "payout_wad": "340282366920938463463374607431768211456",
+      "reason": "CandidateCumulativeSettlement constructor reverts ZeroSupply"
+    },
+    {
+      "decimals": 6,
+      "supply": "0",
+      "payout_wad": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "reason": "CandidateCumulativeSettlement constructor reverts ZeroSupply"
+    },
+    {
+      "decimals": 8,
+      "supply": "0",
+      "payout_wad": "0",
+      "reason": "CandidateCumulativeSettlement constructor reverts ZeroSupply"
+    },
+    {
+      "decimals": 8,
+      "supply": "0",
+      "payout_wad": "1",
+      "reason": "CandidateCumulativeSettlement constructor reverts ZeroSupply"
+    },
+    {
+      "decimals": 8,
+      "supply": "0",
+      "payout_wad": "5000000000000000000000000000",
+      "reason": "CandidateCumulativeSettlement constructor reverts ZeroSupply"
+    },
+    {
+      "decimals": 8,
+      "supply": "0",
+      "payout_wad": "9999999999999999999999999999",
+      "reason": "CandidateCumulativeSettlement constructor reverts ZeroSupply"
+    },
+    {
+      "decimals": 8,
+      "supply": "0",
+      "payout_wad": "10000000000000000000000000000",
+      "reason": "CandidateCumulativeSettlement constructor reverts ZeroSupply"
+    },
+    {
+      "decimals": 8,
+      "supply": "0",
+      "payout_wad": "10000000000000000000000000001",
+      "reason": "CandidateCumulativeSettlement constructor reverts ZeroSupply"
+    },
+    {
+      "decimals": 8,
+      "supply": "0",
+      "payout_wad": "340282366920938463463374607431768211456",
+      "reason": "CandidateCumulativeSettlement constructor reverts ZeroSupply"
+    },
+    {
+      "decimals": 8,
+      "supply": "0",
+      "payout_wad": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "reason": "CandidateCumulativeSettlement constructor reverts ZeroSupply"
+    },
+    {
+      "decimals": 18,
+      "supply": "0",
+      "payout_wad": "0",
+      "reason": "CandidateCumulativeSettlement constructor reverts ZeroSupply"
+    },
+    {
+      "decimals": 18,
+      "supply": "0",
+      "payout_wad": "1",
+      "reason": "CandidateCumulativeSettlement constructor reverts ZeroSupply"
+    },
+    {
+      "decimals": 18,
+      "supply": "0",
+      "payout_wad": "500000000000000000",
+      "reason": "CandidateCumulativeSettlement constructor reverts ZeroSupply"
+    },
+    {
+      "decimals": 18,
+      "supply": "0",
+      "payout_wad": "999999999999999999",
+      "reason": "CandidateCumulativeSettlement constructor reverts ZeroSupply"
+    },
+    {
+      "decimals": 18,
+      "supply": "0",
+      "payout_wad": "1000000000000000000",
+      "reason": "CandidateCumulativeSettlement constructor reverts ZeroSupply"
+    },
+    {
+      "decimals": 18,
+      "supply": "0",
+      "payout_wad": "1000000000000000001",
+      "reason": "CandidateCumulativeSettlement constructor reverts ZeroSupply"
+    },
+    {
+      "decimals": 18,
+      "supply": "0",
+      "payout_wad": "340282366920938463463374607431768211456",
+      "reason": "CandidateCumulativeSettlement constructor reverts ZeroSupply"
+    },
+    {
+      "decimals": 18,
+      "supply": "0",
+      "payout_wad": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "reason": "CandidateCumulativeSettlement constructor reverts ZeroSupply"
+    }
+  ],
+  "per_call_regressions": [
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 6,
+      "supply": "2",
+      "payout_wad": "500000000000000000000000000000",
+      "per_call_receipts": [
+        "0",
+        "0"
+      ],
+      "fragmented_paid_raw": "0",
+      "one_shot_floor_raw": "1",
+      "required_raw": "1",
+      "sweepable_dust_raw": "1",
+      "solidity_domain": true,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 6,
+      "supply": "2",
+      "payout_wad": "999999999999999999999999999999",
+      "per_call_receipts": [
+        "0",
+        "0"
+      ],
+      "fragmented_paid_raw": "0",
+      "one_shot_floor_raw": "1",
+      "required_raw": "2",
+      "sweepable_dust_raw": "2",
+      "solidity_domain": true,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 6,
+      "supply": "2",
+      "payout_wad": "340282366920938463463374607431768211456",
+      "per_call_receipts": [
+        "340282366",
+        "340282366"
+      ],
+      "fragmented_paid_raw": "680564732",
+      "one_shot_floor_raw": "680564733",
+      "required_raw": "680564734",
+      "sweepable_dust_raw": "2",
+      "solidity_domain": true,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 6,
+      "supply": "2",
+      "payout_wad": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "per_call_receipts": [
+        "115792089237316195423570985008687907853269984665",
+        "115792089237316195423570985008687907853269984665"
+      ],
+      "fragmented_paid_raw": "231584178474632390847141970017375815706539969330",
+      "one_shot_floor_raw": "231584178474632390847141970017375815706539969331",
+      "required_raw": "231584178474632390847141970017375815706539969332",
+      "sweepable_dust_raw": "2",
+      "solidity_domain": false,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 6,
+      "supply": "256",
+      "payout_wad": "500000000000000000000000000000",
+      "per_call_receipts": [
+        "0",
+        "127"
+      ],
+      "fragmented_paid_raw": "127",
+      "one_shot_floor_raw": "128",
+      "required_raw": "128",
+      "sweepable_dust_raw": "1",
+      "solidity_domain": true,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 6,
+      "supply": "256",
+      "payout_wad": "999999999999999999999999999999",
+      "per_call_receipts": [
+        "0",
+        "254"
+      ],
+      "fragmented_paid_raw": "254",
+      "one_shot_floor_raw": "255",
+      "required_raw": "256",
+      "sweepable_dust_raw": "2",
+      "solidity_domain": true,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 6,
+      "supply": "256",
+      "payout_wad": "340282366920938463463374607431768211456",
+      "per_call_receipts": [
+        "340282366",
+        "86772003564"
+      ],
+      "fragmented_paid_raw": "87112285930",
+      "one_shot_floor_raw": "87112285931",
+      "required_raw": "87112285932",
+      "sweepable_dust_raw": "2",
+      "solidity_domain": true,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 6,
+      "supply": "65536",
+      "payout_wad": "500000000000000000000000000000",
+      "per_call_receipts": [
+        "0",
+        "32767"
+      ],
+      "fragmented_paid_raw": "32767",
+      "one_shot_floor_raw": "32768",
+      "required_raw": "32768",
+      "sweepable_dust_raw": "1",
+      "solidity_domain": true,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 6,
+      "supply": "65536",
+      "payout_wad": "999999999999999999999999999999",
+      "per_call_receipts": [
+        "0",
+        "65534"
+      ],
+      "fragmented_paid_raw": "65534",
+      "one_shot_floor_raw": "65535",
+      "required_raw": "65536",
+      "sweepable_dust_raw": "2",
+      "solidity_domain": true,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 6,
+      "supply": "65536",
+      "payout_wad": "340282366920938463463374607431768211456",
+      "per_call_receipts": [
+        "340282366",
+        "22300404916163"
+      ],
+      "fragmented_paid_raw": "22300745198529",
+      "one_shot_floor_raw": "22300745198530",
+      "required_raw": "22300745198531",
+      "sweepable_dust_raw": "2",
+      "solidity_domain": true,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 6,
+      "supply": "65536",
+      "payout_wad": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "per_call_receipts": [
+        "115792089237316195423570985008687907853269984665",
+        "7588434568167516867083724502544362041164048445062754"
+      ],
+      "fragmented_paid_raw": "7588550360256754183279148073529370729071901715047419",
+      "one_shot_floor_raw": "7588550360256754183279148073529370729071901715047420",
+      "required_raw": "7588550360256754183279148073529370729071901715047421",
+      "sweepable_dust_raw": "2",
+      "solidity_domain": false,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 6,
+      "supply": "4294967296",
+      "payout_wad": "500000000000000000000000000000",
+      "per_call_receipts": [
+        "0",
+        "2147483647"
+      ],
+      "fragmented_paid_raw": "2147483647",
+      "one_shot_floor_raw": "2147483648",
+      "required_raw": "2147483648",
+      "sweepable_dust_raw": "1",
+      "solidity_domain": true,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 6,
+      "supply": "4294967296",
+      "payout_wad": "999999999999999999999999999999",
+      "per_call_receipts": [
+        "0",
+        "4294967294"
+      ],
+      "fragmented_paid_raw": "4294967294",
+      "one_shot_floor_raw": "4294967295",
+      "required_raw": "4294967296",
+      "sweepable_dust_raw": "2",
+      "solidity_domain": true,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 6,
+      "supply": "4294967296",
+      "payout_wad": "340282366920938463463374607431768211456",
+      "per_call_receipts": [
+        "340282366",
+        "1461501636990620551"
+      ],
+      "fragmented_paid_raw": "1461501637330902917",
+      "one_shot_floor_raw": "1461501637330902918",
+      "required_raw": "1461501637330902919",
+      "sweepable_dust_raw": "2",
+      "solidity_domain": true,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 6,
+      "supply": "4294967296",
+      "payout_wad": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "per_call_receipts": [
+        "115792089237316195423570985008687907853269984665",
+        "497323236293994552918066052723249855091768242944077732774"
+      ],
+      "fragmented_paid_raw": "497323236409786642155382248146820840100456150797347717439",
+      "one_shot_floor_raw": "497323236409786642155382248146820840100456150797347717440",
+      "required_raw": "497323236409786642155382248146820840100456150797347717441",
+      "sweepable_dust_raw": "2",
+      "solidity_domain": false,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 6,
+      "supply": "18446744073709551616",
+      "payout_wad": "500000000000000000000000000000",
+      "per_call_receipts": [
+        "0",
+        "9223372036854775807"
+      ],
+      "fragmented_paid_raw": "9223372036854775807",
+      "one_shot_floor_raw": "9223372036854775808",
+      "required_raw": "9223372036854775808",
+      "sweepable_dust_raw": "1",
+      "solidity_domain": true,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 6,
+      "supply": "18446744073709551616",
+      "payout_wad": "999999999999999999999999999999",
+      "per_call_receipts": [
+        "0",
+        "18446744073709551614"
+      ],
+      "fragmented_paid_raw": "18446744073709551614",
+      "one_shot_floor_raw": "18446744073709551615",
+      "required_raw": "18446744073709551616",
+      "sweepable_dust_raw": "2",
+      "solidity_domain": true,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 6,
+      "supply": "18446744073709551616",
+      "payout_wad": "340282366920938463463374607431768211456",
+      "per_call_receipts": [
+        "340282366",
+        "6277101735386680763495507056"
+      ],
+      "fragmented_paid_raw": "6277101735386680763835789422",
+      "one_shot_floor_raw": "6277101735386680763835789423",
+      "required_raw": "6277101735386680763835789424",
+      "sweepable_dust_raw": "2",
+      "solidity_domain": true,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 6,
+      "supply": "18446744073709551616",
+      "payout_wad": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "per_call_receipts": [
+        "115792089237316195423570985008687907853269984665",
+        "2135987035920910082279229616932235919179133537347964862093771623156"
+      ],
+      "fragmented_paid_raw": "2135987035920910082395021706169552114602704522356652769947041607821",
+      "one_shot_floor_raw": "2135987035920910082395021706169552114602704522356652769947041607822",
+      "required_raw": "2135987035920910082395021706169552114602704522356652769947041607823",
+      "sweepable_dust_raw": "2",
+      "solidity_domain": false,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 8,
+      "supply": "2",
+      "payout_wad": "5000000000000000000000000000",
+      "per_call_receipts": [
+        "0",
+        "0"
+      ],
+      "fragmented_paid_raw": "0",
+      "one_shot_floor_raw": "1",
+      "required_raw": "1",
+      "sweepable_dust_raw": "1",
+      "solidity_domain": true,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 8,
+      "supply": "2",
+      "payout_wad": "9999999999999999999999999999",
+      "per_call_receipts": [
+        "0",
+        "0"
+      ],
+      "fragmented_paid_raw": "0",
+      "one_shot_floor_raw": "1",
+      "required_raw": "2",
+      "sweepable_dust_raw": "2",
+      "solidity_domain": true,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 8,
+      "supply": "256",
+      "payout_wad": "5000000000000000000000000000",
+      "per_call_receipts": [
+        "0",
+        "127"
+      ],
+      "fragmented_paid_raw": "127",
+      "one_shot_floor_raw": "128",
+      "required_raw": "128",
+      "sweepable_dust_raw": "1",
+      "solidity_domain": true,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 8,
+      "supply": "256",
+      "payout_wad": "9999999999999999999999999999",
+      "per_call_receipts": [
+        "0",
+        "254"
+      ],
+      "fragmented_paid_raw": "254",
+      "one_shot_floor_raw": "255",
+      "required_raw": "256",
+      "sweepable_dust_raw": "2",
+      "solidity_domain": true,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 8,
+      "supply": "256",
+      "payout_wad": "340282366920938463463374607431768211456",
+      "per_call_receipts": [
+        "34028236692",
+        "8677200356483"
+      ],
+      "fragmented_paid_raw": "8711228593175",
+      "one_shot_floor_raw": "8711228593176",
+      "required_raw": "8711228593177",
+      "sweepable_dust_raw": "2",
+      "solidity_domain": true,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 8,
+      "supply": "65536",
+      "payout_wad": "5000000000000000000000000000",
+      "per_call_receipts": [
+        "0",
+        "32767"
+      ],
+      "fragmented_paid_raw": "32767",
+      "one_shot_floor_raw": "32768",
+      "required_raw": "32768",
+      "sweepable_dust_raw": "1",
+      "solidity_domain": true,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 8,
+      "supply": "65536",
+      "payout_wad": "9999999999999999999999999999",
+      "per_call_receipts": [
+        "0",
+        "65534"
+      ],
+      "fragmented_paid_raw": "65534",
+      "one_shot_floor_raw": "65535",
+      "required_raw": "65536",
+      "sweepable_dust_raw": "2",
+      "solidity_domain": true,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 8,
+      "supply": "4294967296",
+      "payout_wad": "5000000000000000000000000000",
+      "per_call_receipts": [
+        "0",
+        "2147483647"
+      ],
+      "fragmented_paid_raw": "2147483647",
+      "one_shot_floor_raw": "2147483648",
+      "required_raw": "2147483648",
+      "sweepable_dust_raw": "1",
+      "solidity_domain": true,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 8,
+      "supply": "4294967296",
+      "payout_wad": "9999999999999999999999999999",
+      "per_call_receipts": [
+        "0",
+        "4294967294"
+      ],
+      "fragmented_paid_raw": "4294967294",
+      "one_shot_floor_raw": "4294967295",
+      "required_raw": "4294967296",
+      "sweepable_dust_raw": "2",
+      "solidity_domain": true,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 8,
+      "supply": "18446744073709551616",
+      "payout_wad": "5000000000000000000000000000",
+      "per_call_receipts": [
+        "0",
+        "9223372036854775807"
+      ],
+      "fragmented_paid_raw": "9223372036854775807",
+      "one_shot_floor_raw": "9223372036854775808",
+      "required_raw": "9223372036854775808",
+      "sweepable_dust_raw": "1",
+      "solidity_domain": true,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 8,
+      "supply": "18446744073709551616",
+      "payout_wad": "9999999999999999999999999999",
+      "per_call_receipts": [
+        "0",
+        "18446744073709551614"
+      ],
+      "fragmented_paid_raw": "18446744073709551614",
+      "one_shot_floor_raw": "18446744073709551615",
+      "required_raw": "18446744073709551616",
+      "sweepable_dust_raw": "2",
+      "solidity_domain": true,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 18,
+      "supply": "2",
+      "payout_wad": "500000000000000000",
+      "per_call_receipts": [
+        "0",
+        "0"
+      ],
+      "fragmented_paid_raw": "0",
+      "one_shot_floor_raw": "1",
+      "required_raw": "1",
+      "sweepable_dust_raw": "1",
+      "solidity_domain": true,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 18,
+      "supply": "2",
+      "payout_wad": "999999999999999999",
+      "per_call_receipts": [
+        "0",
+        "0"
+      ],
+      "fragmented_paid_raw": "0",
+      "one_shot_floor_raw": "1",
+      "required_raw": "2",
+      "sweepable_dust_raw": "2",
+      "solidity_domain": true,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 18,
+      "supply": "2",
+      "payout_wad": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "per_call_receipts": [
+        "115792089237316195423570985008687907853269984665640564039457",
+        "115792089237316195423570985008687907853269984665640564039457"
+      ],
+      "fragmented_paid_raw": "231584178474632390847141970017375815706539969331281128078914",
+      "one_shot_floor_raw": "231584178474632390847141970017375815706539969331281128078915",
+      "required_raw": "231584178474632390847141970017375815706539969331281128078916",
+      "sweepable_dust_raw": "2",
+      "solidity_domain": false,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 18,
+      "supply": "256",
+      "payout_wad": "500000000000000000",
+      "per_call_receipts": [
+        "0",
+        "127"
+      ],
+      "fragmented_paid_raw": "127",
+      "one_shot_floor_raw": "128",
+      "required_raw": "128",
+      "sweepable_dust_raw": "1",
+      "solidity_domain": true,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 18,
+      "supply": "256",
+      "payout_wad": "999999999999999999",
+      "per_call_receipts": [
+        "0",
+        "254"
+      ],
+      "fragmented_paid_raw": "254",
+      "one_shot_floor_raw": "255",
+      "required_raw": "256",
+      "sweepable_dust_raw": "2",
+      "solidity_domain": true,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 18,
+      "supply": "256",
+      "payout_wad": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "per_call_receipts": [
+        "115792089237316195423570985008687907853269984665640564039457",
+        "29526982755515629833010601177215416502583846089738343830061683"
+      ],
+      "fragmented_paid_raw": "29642774844752946028434172162224104410437116074403984394101140",
+      "one_shot_floor_raw": "29642774844752946028434172162224104410437116074403984394101141",
+      "required_raw": "29642774844752946028434172162224104410437116074403984394101142",
+      "sweepable_dust_raw": "2",
+      "solidity_domain": false,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 18,
+      "supply": "65536",
+      "payout_wad": "500000000000000000",
+      "per_call_receipts": [
+        "0",
+        "32767"
+      ],
+      "fragmented_paid_raw": "32767",
+      "one_shot_floor_raw": "32768",
+      "required_raw": "32768",
+      "sweepable_dust_raw": "1",
+      "solidity_domain": true,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 18,
+      "supply": "65536",
+      "payout_wad": "999999999999999999",
+      "per_call_receipts": [
+        "0",
+        "65534"
+      ],
+      "fragmented_paid_raw": "65534",
+      "one_shot_floor_raw": "65535",
+      "required_raw": "65536",
+      "sweepable_dust_raw": "2",
+      "solidity_domain": true,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 18,
+      "supply": "65536",
+      "payout_wad": "340282366920938463463374607431768211456",
+      "per_call_receipts": [
+        "340282366920938463463",
+        "22300404916163702203072254"
+      ],
+      "fragmented_paid_raw": "22300745198530623141535717",
+      "one_shot_floor_raw": "22300745198530623141535718",
+      "required_raw": "22300745198530623141535719",
+      "sweepable_dust_raw": "2",
+      "solidity_domain": true,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 18,
+      "supply": "65536",
+      "payout_wad": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "per_call_receipts": [
+        "115792089237316195423570985008687907853269984665640564039457",
+        "7588434568167516867083724502544362041164048445062754364325852767"
+      ],
+      "fragmented_paid_raw": "7588550360256754183279148073529370729071901715047420004889892224",
+      "one_shot_floor_raw": "7588550360256754183279148073529370729071901715047420004889892225",
+      "required_raw": "7588550360256754183279148073529370729071901715047420004889892226",
+      "sweepable_dust_raw": "2",
+      "solidity_domain": false,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 18,
+      "supply": "4294967296",
+      "payout_wad": "500000000000000000",
+      "per_call_receipts": [
+        "0",
+        "2147483647"
+      ],
+      "fragmented_paid_raw": "2147483647",
+      "one_shot_floor_raw": "2147483648",
+      "required_raw": "2147483648",
+      "sweepable_dust_raw": "1",
+      "solidity_domain": true,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 18,
+      "supply": "4294967296",
+      "payout_wad": "999999999999999999",
+      "per_call_receipts": [
+        "0",
+        "4294967294"
+      ],
+      "fragmented_paid_raw": "4294967294",
+      "one_shot_floor_raw": "4294967295",
+      "required_raw": "4294967296",
+      "sweepable_dust_raw": "2",
+      "solidity_domain": true,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 18,
+      "supply": "4294967296",
+      "payout_wad": "340282366920938463463374607431768211456",
+      "per_call_receipts": [
+        "340282366920938463463",
+        "1461501636990620551282746369252"
+      ],
+      "fragmented_paid_raw": "1461501637330902918203684832715",
+      "one_shot_floor_raw": "1461501637330902918203684832716",
+      "required_raw": "1461501637330902918203684832717",
+      "sweepable_dust_raw": "2",
+      "solidity_domain": true,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 18,
+      "supply": "4294967296",
+      "payout_wad": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "per_call_receipts": [
+        "115792089237316195423570985008687907853269984665640564039457",
+        "497323236293994552918066052723249855091768242944077732774823412853701"
+      ],
+      "fragmented_paid_raw": "497323236409786642155382248146820840100456150797347717440463976893158",
+      "one_shot_floor_raw": "497323236409786642155382248146820840100456150797347717440463976893159",
+      "required_raw": "497323236409786642155382248146820840100456150797347717440463976893160",
+      "sweepable_dust_raw": "2",
+      "solidity_domain": false,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 18,
+      "supply": "18446744073709551616",
+      "payout_wad": "500000000000000000",
+      "per_call_receipts": [
+        "0",
+        "9223372036854775807"
+      ],
+      "fragmented_paid_raw": "9223372036854775807",
+      "one_shot_floor_raw": "9223372036854775808",
+      "required_raw": "9223372036854775808",
+      "sweepable_dust_raw": "1",
+      "solidity_domain": true,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 18,
+      "supply": "18446744073709551616",
+      "payout_wad": "999999999999999999",
+      "per_call_receipts": [
+        "0",
+        "18446744073709551596"
+      ],
+      "fragmented_paid_raw": "18446744073709551596",
+      "one_shot_floor_raw": "18446744073709551597",
+      "required_raw": "18446744073709551598",
+      "sweepable_dust_raw": "2",
+      "solidity_domain": true,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 18,
+      "supply": "18446744073709551616",
+      "payout_wad": "340282366920938463463374607431768211456",
+      "per_call_receipts": [
+        "340282366920938463463",
+        "6277101735386680763495507056286727952638"
+      ],
+      "fragmented_paid_raw": "6277101735386680763835789423207666416101",
+      "one_shot_floor_raw": "6277101735386680763835789423207666416102",
+      "required_raw": "6277101735386680763835789423207666416103",
+      "sweepable_dust_raw": "2",
+      "solidity_domain": true,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 18,
+      "supply": "18446744073709551616",
+      "payout_wad": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "per_call_receipts": [
+        "115792089237316195423570985008687907853269984665640564039457",
+        "2135987035920910082279229616932235919179133537347964862093771623156579161741164"
+      ],
+      "fragmented_paid_raw": "2135987035920910082395021706169552114602704522356652769947041607822219725780621",
+      "one_shot_floor_raw": "2135987035920910082395021706169552114602704522356652769947041607822219725780622",
+      "required_raw": "2135987035920910082395021706169552114602704522356652769947041607822219725780623",
+      "sweepable_dust_raw": "2",
+      "solidity_domain": false,
+      "solidity_implements_per_call_rule": false,
+      "same_defect": true
+    }
+  ],
+  "cx_fp_settlement_001": [
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 6,
+      "supply": "2",
+      "payout_wad": "999999999999999999999999999999",
+      "per_call_receipts": [
+        "0",
+        "0"
+      ],
+      "fragmented_paid_raw": "0",
+      "one_shot_floor_raw": "1",
+      "required_raw": "2",
+      "sweepable_dust_raw": "2",
+      "same_defect": true,
+      "solidity_implements_per_call_rule": false
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 8,
+      "supply": "2",
+      "payout_wad": "9999999999999999999999999999",
+      "per_call_receipts": [
+        "0",
+        "0"
+      ],
+      "fragmented_paid_raw": "0",
+      "one_shot_floor_raw": "1",
+      "required_raw": "2",
+      "sweepable_dust_raw": "2",
+      "same_defect": true,
+      "solidity_implements_per_call_rule": false
+    },
+    {
+      "id": "CX-FP-SETTLEMENT-001",
+      "decimals": 18,
+      "supply": "2",
+      "payout_wad": "999999999999999999",
+      "per_call_receipts": [
+        "0",
+        "0"
+      ],
+      "fragmented_paid_raw": "0",
+      "one_shot_floor_raw": "1",
+      "required_raw": "2",
+      "sweepable_dust_raw": "2",
+      "same_defect": true,
+      "solidity_implements_per_call_rule": false
+    }
+  ]
+}

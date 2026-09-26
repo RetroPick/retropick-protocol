@@ -1,0 +1,123 @@
+tool: python3 3.12.3
+command: python3 -m unittest tests.test_invalid_floor_compositions -v
+cwd: /workspace/research/prediction-model
+sha: 5f51b86200fa5260eb8285e04187947b5350b169
+exit_code: 0
+
+test_cumulative_floor_telescopes_on_supply_compositions ... ok
+Ran 1 test in 0.411s
+OK
+
+checker runtime_seconds: 0.410255
+supply: 0..16
+holders: A, B
+labelings: all-A, alternating
+states: 131087
+transitions: 2097154
+labeled_compositions: 131070
+cumulative_floor: EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN
+per_call_floor: COUNTEREXAMPLE_FOUND
+smallest_witness: supply 2, parts (1, 1), labeling all-A, holders A A, one_shot 1, cumulative_paid 1, per_call_paid 0, gap 1
+gap_rows: 128512
+fragmentation_gap_supply_5: 2
+half_up: COUNTEREXAMPLE_FOUND
+half_up_both_sides(1): 2
+pred_math_1: partial
+canonical_math1: FAIL
+
+tool: forge 1.8.3 (cae51ad458f6abb64852b7709eb784352429825d)
+solc: 0.8.26
+optimizer: true
+optimizer_runs: 200
+via_ir: false
+profile: default
+note: this run set block_gas_limit on the default profile. That placement was replaced by profile invalid_floor_compositions.
+block_gas_limit: 600000000000
+cwd: /workspace/research/contract-kernels
+sha: 5f51b86200fa5260eb8285e04187947b5350b169
+command: forge test --match-contract PredictionInvalidFloorCompositionsTest -vv
+exit_code: 0
+
+[PASS] test_invalidCompositionsMatchCumulativeFloor() (gas: 370972939410)
+supply_max 16
+states 131087
+transitions 2097154
+per_call_gap_rows 128512
+mismatches 0
+[PASS] test_supplyTwoPartsPayCumulativeFloor() (gas: 851776)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 79.76s (79.76s CPU time)
+Ran 1 test suite in 80.24s (79.76s CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)
+
+solidity_redeem: PredictionMarket._redeem with INVALID numerators (1, 1) and denominator 2
+smallest_witness_payouts: YES 0 then 1, NO 0 then 1
+per_call_would_pay: 0 then 0
+implements_cumulative_floor: true
+implements_per_call_floor: false
+matched: true
+
+profile isolation
+sha: 2ec722d60af329629409300db34136b569f0f440
+forge: 1.8.3 (cae51ad458f6abb64852b7709eb784352429825d)
+solc: 0.8.26
+optimizer: true
+optimizer_runs: 200
+via_ir: false
+cwd: /workspace/research/contract-kernels
+
+composition profile: invalid_floor_compositions
+block_gas_limit: 600000000000
+scope: PredictionInvalidFloorCompositionsTest only. The default profile does not set this limit.
+command: FOUNDRY_PROFILE=invalid_floor_compositions forge test --match-contract PredictionInvalidFloorCompositionsTest -vv
+exit_code: 0
+[PASS] test_invalidCompositionsMatchCumulativeFloor() (gas: 370972939410)
+supply_max 16
+states 131087
+transitions 2097154
+per_call_gap_rows 128512
+mismatches 0
+[PASS] test_supplyTwoPartsPayCumulativeFloor() (gas: 851776)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 79.63s (79.63s CPU time)
+Ran 1 test suite in 80.13s (79.63s CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)
+
+default profile gas test
+FOUNDRY_PROFILE: unset
+profile: default
+block_gas_limit: unset
+command: forge test --match-contract PredictionOperationGasTest --match-test test_prediction_operation_gas -vv
+exit_code: 0
+[PASS] test_prediction_operation_gas() (gas: 6578687)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 913.53µs (740.08µs CPU time)
+Ran 1 test suite in 5.55ms (913.53µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
+
+default suite skips the walk
+sha: de45cc779618312da85054c44f05ed9d44d27823
+forge: 1.8.3 (cae51ad458f6abb64852b7709eb784352429825d)
+solc: 0.8.26
+optimizer: true
+optimizer_runs: 200
+via_ir: false
+profile: default
+FOUNDRY_PROFILE: unset
+walk_gas_threshold: 370972939410
+command: forge test --match-contract PredictionInvalidFloorCompositionsTest -vv
+exit_code: 0
+[SKIP: block gas limit is below the composition walk] test_invalidCompositionsMatchCumulativeFloor() (gas: 0)
+[PASS] test_supplyTwoPartsPayCumulativeFloor() (gas: 851776)
+Suite result: ok. 1 passed; 0 failed; 1 skipped; finished in 1.11ms (470.99µs CPU time)
+Ran 1 test suite in 6.32ms (1.11ms CPU time): 1 tests passed, 0 failed, 1 skipped (2 total tests)
+
+named profile still executes the walk
+profile: invalid_floor_compositions
+block_gas_limit: 600000000000
+command: FOUNDRY_PROFILE=invalid_floor_compositions forge test --match-contract PredictionInvalidFloorCompositionsTest -vv
+exit_code: 0
+[PASS] test_invalidCompositionsMatchCumulativeFloor() (gas: 370972939687)
+supply_max 16
+states 131087
+transitions 2097154
+per_call_gap_rows 128512
+mismatches 0
+[PASS] test_supplyTwoPartsPayCumulativeFloor() (gas: 851776)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 81.26s (81.26s CPU time)
+Ran 1 test suite in 81.80s (81.26s CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)
+classification unchanged: cumulative floor EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN. Per-call and half-up stay COUNTEREXAMPLE_FOUND.

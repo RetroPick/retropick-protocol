@@ -10,7 +10,7 @@ Every row points at evidence from this program. Status words are the program's c
 | Merge is the inverse before resolution | PROVEN | P-THEOREM-2, fixture `prediction_merge` |
 | YES_WIN / NO_WIN payouts | PROVEN on the integer path | P-THEOREM-4, Foundry `test_yes_redemption_matches_fixture` |
 | INVALID not automatic | RECOMMENDATION plus explicit enum | ADR-P05, Polymarket resolution page retrieved 2026-09-26 |
-| Cumulative INVALID floor | PROVEN on tested amounts; half-up is a counterexample | `docs/prediction/07_ROUNDING.md` |
+| Cumulative INVALID floor | EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN on compositions 0..16; per-call and half-up stay COUNTEREXAMPLE_FOUND. PRED-MATH-1 partial | `docs/prediction/07_ROUNDING.md`. 131087 states, 2097154 transitions, 0.410255s. Solidity replay matched, 0 mismatches, 79.76s. `block_gas_limit` 600000000000 is profile `invalid_floor_compositions` only. The default suite skips the walk and still runs the supply-2 test |
 | Separate RESOLVED and REDEEMABLE | implemented in kernel | `test_yes_redemption_matches_fixture` expects revert before open |
 | No admin mint | tested | `test_user_cannot_mint_outcome` |
 | Standard collateral only | tested for fee-on-transfer | `test_fee_on_transfer_split_reverts` |
@@ -49,14 +49,41 @@ Every row points at evidence from this program. Status words are the program's c
 | P-THEOREM-6 qualified floor | PROVEN | invalid market of 5 units |
 | P-THEOREM-6 half-up | COUNTEREXAMPLE_FOUND | `half_up_both_sides(1) == 2` |
 | P-THEOREM-6 per-call floor | COUNTEREXAMPLE_FOUND | `fragmentation_gap(5) > 0` |
+| INVALID floor compositions | EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN for the cumulative floor | supply 0..16, holders A and B, both cursors. 131087 states, 2097154 transitions, 0.410255s. `invalid-floor-compositions-2026-09-26.json` |
+| INVALID per-call composition witness | COUNTEREXAMPLE_FOUND | supply 2, parts (1, 1), one-shot 1, per-call 0. 128512 gap rows. Half-up of 1 on both sides pays 2 |
+| Solidity INVALID redeem | matches the cumulative floor | same 131087 states and 2097154 transitions, 0 mismatches, 79.76s. `block_gas_limit` 600000000000 is profile `invalid_floor_compositions` only. Isolated re-run 2 passed, 0 failed, same counts, 79.63s. Default suite skips the walk. Named profile still executes it: 131087 states, 2097154 transitions, 0 mismatches. Research candidate. PRED-MATH-1 stays partial |
 | P-THEOREM-7 | PROVEN | supplies differ after burn, liability holds |
 | T-FP-003 funding guard | PROVEN_UNDER_ASSUMPTIONS for funding only | addendum in `docs/prism/math/17_THEOREMS.md` |
 | CX-FP-SETTLEMENT-001 | COUNTEREXAMPLE_FOUND | probe JSON |
 | T-FP-CUM-001 | PROVEN_UNDER_ASSUMPTIONS | global-cursor identity; 378530 states, 2542061 transitions, 2.973316s |
+| T-FP-CUM-001 supply 16 | EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN | compositions 0..16, decimals 18, two holders. 917612 states, 7340046 transitions, 8.02598s. Not MATH-1 PASS |
+| Backing grid B >= Sx | EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN | PrismSeries weights {0, 1/2, 1}, supplies 0..8. 81 states, 2187 transitions, 0.054409s |
 | Global-cursor telescope, symbolic | PROVEN_UNDER_ASSUMPTIONS | SymPy 1.14.0 inductive cancellation. `candidate-telescope-proof-2026-09-26.json` |
 | Per-holder cursor telescope | COUNTEREXAMPLE_FOUND | witness gap 1. Z3 5.1.0. Not the candidate |
 | MATH-1F | measured_simulation | synthetic books. Not a solvency result |
-| Z3 two-component solvency | PROVEN_UNDER_ASSUMPTIONS | Z3 5.1.0 unsat |
+| Z3 two-component solvency | PROVEN_UNDER_ASSUMPTIONS | Z3 5.1.0 unsat. This is R-THEOREM-4 / T-BS-003 for two components and one state only |
+| R-THEOREM-1 / T-REPL-001 | PROVEN_UNDER_ASSUMPTIONS | SymPy 1.14.0. h=Gx on shapes 1..4 by 1..4. `r-theorem-1-2026-09-26.json`. Not MATH-1 PASS |
+| R-THEOREM-5 / T-BS-004 | PROVEN_UNDER_ASSUMPTIONS | SymPy 1.14.0 and Z3 5.1.0 unsat. Exact `QR` payment. `r-theorem-5-2026-09-26.json`. Not MATH-1 PASS |
+| R-THEOREM-6 / T-ALLOC-001 | PROVEN_UNDER_ASSUMPTIONS | Z3 5.1.0 unsat on deposit, reserve, release, and withdraw. Reserve 60 then 50 against 100 rejected. `r-theorem-6-2026-09-26.json`. Not MATH-1 PASS |
+| T-PARTIAL-002 | PROVEN_UNDER_ASSUMPTIONS | SymPy 1.14.0 and Z3 5.1.0. Value equality on a state iff `B_i*g_i = B_i*r_i`. `t-partial-002-2026-09-26.json`. Not MATH-1 PASS |
+| T-FP-001 | PROVEN_UNDER_ASSUMPTIONS | Z3 5.1.0 unsat. Ceil mint requirement. Floor raw 0 does not cover weight 1. `t-fp-001-2026-09-26.json`. Not MATH-1 PASS |
+| T-FP-002 | PROVEN_UNDER_ASSUMPTIONS | SymPy 1.14.0 margin identity. Z3 5.1.0 unsat. Supply 5 redeem 2 leaves backing 2 against requirement 2. `t-fp-002-2026-09-26.json`. Not MATH-1 PASS |
+| T-FP-003 | PROVEN_UNDER_ASSUMPTIONS for funding only | Z3 5.1.0 unsat. Supply 2, payout `10^18-1` pays 0+0, one-shot floor 1, dust 2, funding holds. `t-fp-003-2026-09-26.json`. Not MATH-1 PASS |
+| T-FP-004 | PROVEN_UNDER_ASSUMPTIONS | SymPy 1.14.0 and Z3 5.1.0 unsat. Mint 5 then redeem 5 moves 3 and 3 both ways. `t-fp-004-2026-09-26.json`. Not MATH-1 PASS |
+| T-BS-001 | PROVEN_UNDER_ASSUMPTIONS | SymPy 1.14.0 margin identity. Z3 5.1.0 unsat. Exact mint of 1000 leaves margin 0. `t-bs-001-2026-09-26.json`. Not MATH-1 PASS |
+| T-BS-002 | PROVEN_UNDER_ASSUMPTIONS | SymPy 1.14.0 margin identity. Z3 5.1.0 unsat. Redeem 250 from supply 1000 leaves margin 0. `t-bs-002-2026-09-26.json`. Not MATH-1 PASS |
+| T-BS-003 | PROVEN_UNDER_ASSUMPTIONS for every finite component count | SymPy 1.14.0 sum identity. Z3 5.1.0 inductive step unsat. 3 components, 4 states solvent. `t-bs-003-2026-09-26.json`. Not MATH-1 PASS |
+| T-NATIVE-001 | PROVEN_UNDER_ASSUMPTIONS | SymPy 1.14.0 gap identity. Z3 5.1.0 unsat. Split 100 merge 25 leaves 75. `t-native-001-2026-09-26.json`. Not MATH-1 PASS |
+| T-NATIVE-002 | PROVEN_UNDER_ASSUMPTIONS for valid YES and NO | Z3 5.1.0 unsat. Unit payoffs 1+0 and 0+1. Invalid payout unspecified. `t-native-002-2026-09-26.json`. Not MATH-1 PASS |
+| T-LC-001 | PROVEN_UNDER_ASSUMPTIONS | Exact enumeration of `lifecycle.transition`. 7 edges, 42 rejected. No path back to ACTIVE. `t-lc-001-2026-09-26.json`. Not MATH-1 PASS |
+| T-LC-002 | PROVEN_UNDER_ASSUMPTIONS | Exact enumeration of `PrismSeries.resolve`. One commit from RESOLUTION_PENDING. Second call unchanged. `t-lc-002-2026-09-26.json`. Not MATH-1 PASS |
+| T-PARTIAL-001 | PROVEN_UNDER_ASSUMPTIONS | SymPy 1.14.0 on 30 partitions. Z3 5.1.0 unsat. Basket 3/5 and 2/5 returns 18/25. `t-partial-001-2026-09-26.json`. Not MATH-1 PASS |
+| Precision boundary 6/8/18 | EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN | 168 cells. Solidity matches 129 fitting cumulative cells. 15 overflow products and 24 zero-supply cells excluded. Per-call rule is not in Solidity. Forge 1.8.3, solc 0.8.26, optimizer 200, 1 passed. `precision-boundary-solidity-2026-09-26.json`. Not MATH-1 PASS |
+| Zero-supply settlement dust | residual bound PROVEN_UNDER_ASSUMPTIONS; sweep policy NOT_YET_VALIDATED | Exact ceil funding leaves 0 or 1, and that residual sits. 24 Python zero-supply cells leave balance 0. Solidity `ZeroSupply` still reverts. No extraction witness. Forge 1.8.3, 4 passed. `zero-supply-dust-2026-09-26.json`. Not MATH-1 PASS |
+| Candidate settlement stateful invariants | pass on two seeds; kernel stays differential_research_kernel | 256 runs, depth 128, 32768 calls, 0 reverts. Seeds 20260926 and 20260927. fail_on_revert false. No counterexample. `candidate-settlement-invariant-2026-09-26.json`. Not MATH-1 PASS |
+| Candidate backing stateful invariants | pass on two seeds; kernel stays differential_research_kernel | deposit, mint, redeem. 256 runs, depth 128, 32768 calls, 0 reverts. Seeds 20260926 and 20260927. `candidate-backing-invariant-2026-09-26.json`. Not MATH-1 PASS |
+| Candidate reservation stateful invariants | pass on two seeds; kernel stays differential_research_kernel | deposit and reserve. No withdraw was added. 256 runs, depth 128, 32768 calls, 0 reverts. Seeds 20260926 and 20260927. `candidate-reservation-invariant-2026-09-26.json`. Not MATH-1 PASS |
+| Candidate payoff-transform stateful invariants | pass on two seeds; kernel stays differential_research_kernel | transformComponent. 256 runs, depth 128, 32768 calls, 0 reverts. Seeds 20260926 and 20260927. `candidate-payoff-invariant-2026-09-26.json`. Not MATH-1 PASS |
 | Market demand hypotheses | NOT_YET_VALIDATED | unchanged |
 
 ## COUNTEREXAMPLE_MATRIX
@@ -67,7 +94,7 @@ Every row points at evidence from this program. Status words are the program's c
 | CX-PRED-FRAGMENT | per-call floor(q/2) | 1-unit stream pays 0 | `fixed_point.fragmentation_gap` |
 | CX-PRED-FEE-NAIVE | credit nominal amount | received 90, credit 100 | `theorems.fee_on_transfer_naive_credit_is_insolvent` |
 | CX-REPL-001 | AND from marginals | target (0,0,0,1) | existing test plus Z3 |
-| CX-FP-SETTLEMENT-001 | per-call settlement floor | supply 2, payout 1e18-1, dust 2, holders 0 | `test_math1_probe.py` and `test_cumulative_settlement.py` |
+| CX-FP-SETTLEMENT-001 | per-call settlement floor | supply 2, payout D-1, dust 2, holders 0. Same defect at decimals 6, 8, and 18 | `test_math1_probe.py`, `test_cumulative_settlement.py`, and `precision-boundary-6-8-18-2026-09-26.json` |
 | Candidate self-split | not a dust-sweep counterexample | A receives 0, B receives 1, sum equals one-shot, residual 1 | `cumulative_settlement_attack.py` |
 
 ## INVARIANT_COVERAGE_MATRIX
@@ -78,13 +105,13 @@ Every row points at evidence from this program. Status words are the program's c
 | P-I02 | `invariant_ids.py` via `test_invariants.py` | `test_P_I02_conservation_through_resolution_pending` and `invariant_preResolutionConservation` | executable. Issuance invariant does not walk redemption |
 | P-I03 | `invariant_ids.py` via `test_invariants.py` | `test_P_I03_split_only_while_open_and_equal` | executable |
 | P-I04 | `invariant_ids.py` via `test_invariants.py` | `test_P_I04_merge_while_locked_releases_equal_collateral` | executable |
-| P-I05 | `invariant_ids.py` via `test_invariants.py`, including `cancel_draft` | `test_P_I05_spec_hash_is_immutable` | kernel `cancelDraft` is NOT_YET_VALIDATED |
+| P-I05 | `invariant_ids.py` via `test_invariants.py`, including `cancel_draft` | `test_P_I05_spec_hash_is_immutable` and `test_P_I05_cancel_draft_archives_without_moving_collateral` | kernel `cancelDraft` measured. Collateral does not move. Other P-I05 branch unchanged |
 | P-I06 | `invariant_ids.py` via `test_invariants.py` | `test_P_I06_one_result_from_pending_by_resolver` | executable |
 | P-I07 | `invariant_ids.py` via `test_invariants.py` | `test_P_I07_redeem_only_redeemable_balance` | executable |
 | P-I08 | `invariant_ids.py` via `test_invariants.py` | `test_P_I08_collateral_covers_liability` | executable |
 | P-I09 | `invariant_ids.py` via `test_invariants.py` | `test_P_I09_no_admin_mint` | executable |
 | P-I10 | `invariant_ids.py` via `test_invariants.py` | `test_P_I10_archive_only_at_zero_supply` | executable |
-| Foundry issuance conservation | n/a | 256 runs, 128000 calls, 48023 handler reverts, invariant held | split, merge, closeMint, beginResolution. Not redemption |
+| Foundry issuance conservation | n/a | 256 runs, depth 500, default profile, seeds 20260926 and 20260927. 128000 calls each, reverts 47971 and 46395, 0 discards, invariant held | split, merge, closeMint, beginResolution. Those handlers do not call `cancelDraft`. Not redemption |
 | R-I01 | `test_replication.py` `test_exact_component_is_replicable` and `test_known_and_is_not_replicable` | none | executable. INV-P01 |
 | R-I02 | `test_invariant_ids.py` `test_r_i02_activated_weights_and_matrix_stay_fixed` | none on `PrismSeries` | executable. INV-P02. Previously prose only |
 | R-I03 | `test_model.py` `test_exact_mint_then_redeem` | `CandidateComponentBacking.t.sol` `test_matches_python_fixtures` | executable. INV-P03 |
@@ -157,7 +184,26 @@ The six prediction rows above the CREATE rows, and `test_fund_and_redeem_gas`, a
 | forge fuzz | coverage command used 64 runs |
 | forge invariant | coverage command: 256 runs, depth 500, 128000 calls, 47348 reverts |
 | forge coverage | PredictionMarket lines 100.00% (119/119), branches 94.44% (34/36). Fuzz runs 64. Invariant runs 256. `kernel-coverage-fuzz64-2026-09-26.txt` |
-| slither 0.11.6 complete IR | BLOCKED_TOOL. Legacy JSON flag does not produce IR for `_redeem`. `slither-legacy-ast-2026-09-26.txt` and `slither-solc-legacy-2026-09-26.txt`. S-P16 stays open |
+| slither 0.11.6 complete IR | BLOCKED_TOOL. Fresh Foundry run at 0636686, exit 255, `_redeem` has no IR. `slither-sp16-2026-09-26.json`. `OutcomeToken.burn` is the call those functions reach. `slither-burn-lookup-2026-09-26.json`. The quote does not give `_redeem` IR. Legacy JSON logs remain `slither-legacy-ast-2026-09-26.txt` and `slither-solc-legacy-2026-09-26.txt`. S-P16 stays open |
+| forge inspect ir-optimized | compiler_sees_redeem_analyzer_does_not. Default profile, forge 1.8.3, exit 0. Output contains `_redeem` and `burn`. `compiler-redeem-ir-2026-09-26.json`. Not Slither IR. S-P16 stays open. Not PRED-CONTRACT-1 |
+| slither foundry target | BLOCKED_TOOL. `slither src/prediction/PredictionMarket.sol --foundry-compile-all --exclude-dependencies --filter-paths openzeppelin-contracts`, exit 255. `_redeem` has no IR. `Function not found burn`. `slither-foundry-target-2026-09-26.json`. Project-wide run remains blocked_tool. S-P16 stays open |
+| `CloneableOutcomeToken.initialize(address(0))` | recorded_finding. Stores market `address(0)`. `_initialized` becomes true. `totalSupply` stays 0. Python has no counterpart. No payout. ADR-P14 PROPOSED. Acceptance not granted. `zero-address-initialize-2026-09-26.json` |
+| Prediction market state-changing names | ADR-P15 PROPOSED. Acceptance not granted. Solidity: `activate`, `cancelDraft`, `split`, `merge`, `closeMint`, `beginResolution`, `resolve`, `openRedemption`, `redeemYes`, `redeemNo`, `burnWorthless`, `archive`. Python: `activate`, `cancel_draft`, `split`, `merge`, `close_mint`, `begin_resolution`, `resolve`, `open_redemption`, `redeem`, `burn_worthless`, `archive`. Unmatched: `redeemYes`, `redeemNo`, `redeem`. Not PRED-CONTRACT-1 PASS. Not MATH-1 PASS. `ADR-P15-prediction-redeem-entry-points.md` |
+| Python `try_replace_spec`, `admin_mint`, `admin_withdraw`, `pause_redemption` | recorded_gap. After split 4, each raises and collateral, YES, and NO stay 4. Errors: `resolution spec is immutable after activation`, `no admin mint`, `no admin withdrawal of collateral`, `Phase-1 has no redemption pause`. Solidity declares none. ADR-P16 PROPOSED. Acceptance not granted. `python-stub-rejects-2026-09-26.json` |
+| `redeemNo(1)` after split 4 and `NO_WIN` | existing_rule. Payout 1. Collateral 3, YES supply 4, NO supply 3, NO redeemed cursor 1. Python redeem of the NO side matches. ADR-P15 stays a name proposal. Not a payout disagreement. `no-redeem-2026-09-26.json` |
+| `redeemYes(1)` after split 4 and `NO_WIN` | existing_rule. Payout 0. Collateral stays 4. YES supply 3. NO supply 4. YES redeemed cursor 1. NO redeemed cursor 0. Python redeem of the YES side matches. `burnWorthless` was not called. ADR-P15 stays a name proposal. `losing-yes-redeem-2026-09-26.json` |
+| Liability around `redeemYes(1)` after split 4 and `NO_WIN` | existing_rule. Liability 4 before and after. Collateral locked 4 before and after. YES redeemed cursor 0 then 1. NO redeemed cursor stays 0. Python matches. Liability stays equal to collateral locked. `losing-yes-liability-2026-09-26.json` |
+| `redeemNo(1)` after split 4 and `YES_WIN` | existing_rule. Payout 0. Liability 4 before and after. Collateral locked 4 before and after. YES supply 4. NO supply 3. YES redeemed cursor 0. NO redeemed cursor 1. Python redeem of the NO side matches. Liability stays equal to collateral locked. `losing-no-redeem-2026-09-26.json` |
+| `redeemYes(1)` by B after A splits 4, transfers 1 YES to B, and `YES_WIN` | existing_rule. Payout 1 to B. A's collateral stays 999996. B's collateral goes from 0 to 1. Liability 4 then 3. Collateral locked 4 then 3. YES supply 3. NO supply 4. YES redeemed cursor 1. NO redeemed cursor 0. Python redeem of the YES side from bob pays 1 to bob and leaves the same liability, locked collateral, supplies, and cursors. Python stores no per-account collateral balance. `transferred-yes-redeem-2026-09-26.json` |
+| Python outcome-token transfer | ADR-P17 PROPOSED. Acceptance not granted. Python has no transfer function. Solidity `OutcomeToken` transfer moves 1 YES. A differential witness may edit the outcome books before redeem. The redeem integers matched. The book edit is not a payout contradiction. The witness stays existing_rule. `ADR-P17-python-outcome-transfer-absent.md` |
+| `redeemYes(4)` after split 4 and `YES_WIN` | existing_rule. Payout 4. Liability 4 then 0. Collateral locked 4 then 0. YES supply 4 then 0. NO supply 4. YES redeemed cursor 0 then 4. NO redeemed cursor stays 0. Python redeem of 4 on the YES side matches. Liability stays equal to collateral locked. `full-yes-redeem-2026-09-26.json` |
+| `redeemYes(5)` after split 4 and `YES_WIN` | existing_rule. The splitter holds 4 YES. Solidity reverts `ERC20InsufficientBalance`. Python raises `redeem exceeds balance`. No payout. Liability stays 4. Collateral locked stays 4. YES supply stays 4. NO supply stays 4. Both redeemed cursors stay 0. `over-yes-redeem-2026-09-26.json` |
+| `redeemYes(0)` after split 4 and `YES_WIN` | existing_rule. Solidity reverts `ZeroAmount`. Python raises `redeem quantity must be positive`. No payout. Liability stays 4. Collateral locked stays 4. YES supply stays 4. NO supply stays 4. Both redeemed cursors stay 0. The revert texts differ. The integers do not. `zero-yes-redeem-2026-09-26.json` |
+| `merge(1)` after split 4, `YES_WIN`, and `redeemYes(1)` | existing_rule. Redeem pays 1. Before and after the merge, liability is 3 and collateral locked is 3. YES supply 3. NO supply 4. YES redeemed cursor 1. NO redeemed cursor 0. Solidity reverts `BadState`. Python raises `merge only while OPEN or LOCKED`. No collateral is returned. Inventory `rows[50]` is the redeemable merge without a prior redeem. `merge-after-yes-redeem-2026-09-26.json` |
+| `split(1)` after split 4, `YES_WIN`, and `redeemYes(1)` | existing_rule. Redeem pays 1. The splitter still holds outside collateral. Before and after the second split, liability is 3 and collateral locked is 3. YES supply 3. NO supply 4. YES redeemed cursor 1. NO redeemed cursor 0. Solidity reverts `BadState` and pulls 0. Python raises `split only while OPEN` and pulls 0. Inventory `rows[49]` is the redeemable split without a prior redeem. `split-after-yes-redeem-2026-09-26.json` |
+| `split(1)` while `LOCKED` with no prior split | existing_rule. Activate, then close mint, no resolution. Solidity reverts `BadState` and pulls 0. Outside collateral stays 1000000. Python raises `split only while OPEN` and stores no outside balance. Collateral locked stays 0. YES supply stays 0. NO supply stays 0. Liability stays 0. The inventory has no split row while `LOCKED`. `locked-split-2026-09-26.json` |
+| `merge(1)` while `LOCKED` after split 4 | existing_rule. No resolution. Both sides accept and return 1. Liability 4 then 3. Collateral locked 4 then 3. YES supply 4 then 3. NO supply 4 then 3. Solidity outside collateral 999996 then 999997. Python stores no outside balance and returns 1. Inventory `rows[19]` is merge of 0. `locked-merge-2026-09-26.json` |
+| `merge(0)` while `LOCKED` after split 4 | existing_rule. No resolution. Solidity reverts `ZeroAmount`. Python raises `merge quantity must be positive`. No collateral is returned. Liability stays 4. Collateral locked stays 4. YES supply stays 4. NO supply stays 4. The revert texts differ. The integers do not. Inventory `rows[19]`. `locked-zero-merge-2026-09-26.json` |
 | solhint 5.2.0 | exit 0, 42 warnings, 0 errors. `solhint-2026-09-26.txt`. Style and import-path warnings. Not PRED-CONTRACT-1 |
 | echidna, medusa, halmos, mythril, semgrep | BLOCKED_TOOL |
 
@@ -171,6 +217,7 @@ The six prediction rows above the CREATE rows, and `test_fund_and_redeem_gas`, a
 | Live RetroPick market | BLOCKED | no router bytecode, no accepted router, no fork, no tx |
 | Second primary-source pass | BLOCKED | router, SDK, OrderBook, vault, fees, addresses, Monad Flow. `source-pass-2026-09-26.json` |
 | `calculatePrecisions` examples | MEASURED_LOCAL | Node 22.14.0 and ethers 5.7.1. Not RetroPick policy |
+| Kuru orderbook liquidity as backing or redemption value | absent | No kernel or Python model reads it. PRED-KURU-1 stays blocked. `kuru-backing-claim-2026-09-26.json` |
 
 ## CROSS_MODULE_DEPENDENCY_MATRIX
 
@@ -180,7 +227,14 @@ The six prediction rows above the CREATE rows, and `test_fund_and_redeem_gas`, a
 | PRISM settlement -> prediction resolution | source resolution is not PRISM funding. Settlement rule itself FAILs |
 | Either module -> Kuru | secondary only. Not required for redemption |
 | Either module -> Launchpad token | forbidden. Launcher token was not reused |
-| SOURCE-ASSET INTERFACE FREEZE | proposed_not_frozen. X-I01..X-I07 not tested |
+| SOURCE-ASSET INTERFACE FREEZE | proposed_not_frozen. Comparison is recorded_gap. Interface was not frozen. X-I01..X-I07 not tested. `source-interface-comparison-2026-09-26.json` |
+| `CandidateComponentBacking.deposit` component walk | bounded_by_constructor. componentCount 2. backingRaw 0,0 then 1,1. Index 2 is not readable. `deposit-component-count-2026-09-26.json` |
+| `CandidateComponentBacking.mint` by a non-depositor | permissionless_mint. Weights 0,0. A deposits 1,1. B mints 2**256-1. Supply 0 then that quantity. backingRaw stays 1,1. B receives the series tokens. Python matches. `non-depositor-mint-2026-09-26.json` |
+| `CandidateComponentBacking.mint(1)` at wad weights | permissionless_mint. Weights 10^18, 10^18. A deposits 1,1. B mints 1. Supply 0 then 1. backingRaw stays 1,1. requiredRaw at supply 1 is 1,1. B receives the series token. Python matches. `positive-weight-non-depositor-mint-2026-09-26.json` |
+| `CandidateComponentBacking.mint(2)` at wad weights | existing_rule. Weights 10^18, 10^18. A deposits 1,1. B mint(2) reverts `InsufficientBacking(0, 1, 2)`. Supply stays 0. backingRaw stays 1,1. requiredRaw at supply 2 is 2,2. Python rejects. `over-mint-2026-09-26.json` |
+| `CandidateComponentBacking.redeem(2)` after mint 1 | existing_rule. Weights 10^18, 10^18. Deposit 1,1. The minter redeems 2. Solidity reverts `InvalidQuantity(2, 1)`. Supply stays 1. backingRaw stays 1,1. requiredRaw at supply 1 is 1,1. Series balance stays 1. Python raises `invalid redemption quantity`. `over-redeem-2026-09-26.json` |
+| `CandidateComponentBacking.redeem(1)` by a non-depositor | redeem_pays_caller. Weights 10^18, 10^18. A deposits 1,1. B mints 1 and redeems 1. Supply 1 then 0. backingRaw 1,1 then 0,0. Component tokens sit with B. Python matches supply and backing. ADR-R10 PROPOSED. Acceptance not granted. `non-depositor-redeem-2026-09-26.json` |
+| Unredeemed `yesRedeemed` and `noRedeemed` | existing_rule. Before redeem, cursors 0 and 0 and liability equals locked 4. After redeemYes(1), 1, 0, 3, 3. S-P16 stays open. `unredeemed-liability-2026-09-26.json` |
 
 ## PROMOTION_GATE_MATRIX
 
@@ -188,7 +242,9 @@ The six prediction rows above the CREATE rows, and `test_fund_and_redeem_gas`, a
 |---|---|
 | PRED-CONTRACT-1 | NOT PASS |
 | PRISM MATH-1 | FAIL |
+| MATH-1E | partial_z3_sympy. R-THEOREM-1, R-THEOREM-5, R-THEOREM-6, T-PARTIAL-002, T-FP-001 through T-FP-004, T-BS-001 through T-BS-003, T-NATIVE-001 through T-NATIVE-002, T-LC-001, T-LC-002, and T-PARTIAL-001 discharged. Precision boundary 6/8/18 matches the Solidity candidate on 129 uint256-fitting cumulative cells. Zero-supply settlement dust sits; sweep policy NOT_YET_VALIDATED. Candidate settlement, backing, reservation, and payoff-transform invariants: 256 runs, depth 128, two seeds, 0 reverts. Not MATH-1 PASS. Canonical per-call settlement floor still fails |
 | MATH-1D candidate cumulative floor | PROVEN_UNDER_ASSUMPTIONS; ready for ADR acceptance; Solidity `differential_research_kernel` |
+| MATH-1B | bounded grids only. Supply-16 compositions and the backing grid are inside the note. Not a universal proof |
 | PRISM CONTRACT-ARCH-1 | proposed |
 | PRISM CONTRACT-1 | not_met |
 | backing_kernel_solidity | differential_research_kernel |
@@ -198,13 +254,13 @@ The six prediction rows above the CREATE rows, and `test_fund_and_redeem_gas`, a
 | R-I08 resolved supply is not redeemable | measured. Gate key unchanged. Coverage row is R-I09 / INV-P09 |
 | R-I02 immutable replication | measured. `test_r_i02_activated_weights_and_matrix_stay_fixed` |
 | R-I12 resolution once | measured. `test_r_i12_final_resolution_is_committed_once` |
-| X-I01..X-I07 | not_yet_validated. source interface not frozen |
+| X-I01..X-I07 | not_yet_validated. source interface not frozen. `source-interface-comparison-2026-09-26.json` |
 | Unreachable `Underfunded` / `LiveLiability` | PROVEN_UNDER_ASSUMPTIONS |
 | benchmarks_measured | local_single_environment. Not admission |
 | static_analysis | measured_with_findings. Slither IR still incomplete. Not PRED-CONTRACT-1 |
 | slither_complete_ir | blocked_tool |
-| S-P16 redeemed cursor | open analyzer gap. Inspection PROVEN_UNDER_ASSUMPTIONS. Not closed |
-| reproducibility_local | rerun_pass. Not a fresh clone or virtualenv |
+| S-P16 redeemed cursor | open analyzer gap. Fresh run 0636686 still has no IR for `_redeem`. Inspection PROVEN_UNDER_ASSUMPTIONS. Not closed |
+| reproducibility_local | rerun_pass at 0f14c30. Python 3.12.3, forge 1.8.3. Prediction 15 OK, PRISM 109 OK, Foundry 76 passed, 0 failed, 1 skipped. The skip is the supply 0..16 walk. This command did not re-execute that domain. Existing interpreter and existing Foundry install. Not a clean clone or a fresh virtualenv |
 | MODULE-ADMISSION-FINANCE-1 | not met |
 | Move into `contracts/src/v2` | not done |
 | Mainnet | not authorized |
@@ -217,9 +273,42 @@ The six prediction rows above the CREATE rows, and `test_fund_and_redeem_gas`, a
 | PRISM per-call settlement dust capture | High accounting defect | MATH-1D FAIL. Candidate kernel matches the Python fixtures. Not an oracle pass |
 | Slither IR incomplete | Medium evidence gap | PRED-CONTRACT-1 not PASS |
 | Kuru parameters unknown | Medium | BLOCKED. Worksheet does not guess them |
-| Prediction `cancelDraft` missing | Low | P-I05 cancelled-draft branch NOT_YET_VALIDATED |
+| Prediction `cancelDraft` | Low | DRAFT to ARCHIVED measured. Collateral does not move. Not PRED-CONTRACT-1 PASS |
 | CompleteSetVault diagram versus kernel | process risk | ADR-P03 proposed, diagram not silently edited |
-| `native_market.py` lifecycle is narrower than canonical | spec drift | recorded, new model does not pretend otherwise |
+| `native_market.py` lifecycle is narrower than canonical | spec drift | recorded_contradiction, open. ADR-P10 PROPOSED. Acceptance not granted. Native redeem pays 1 inside RESOLVED. Prediction redeem rejects before REDEEMABLE and leaves collateral at 4. Neither redeem was edited. `resolved-redeem-contradiction-2026-09-26.json` |
+| False-return collateral | admission gap | recorded_contradiction, open. ADR-P08 PROPOSED, acceptance not granted. Python rejects FALSE_RETURN at construction. Solidity split reverts SafeERC20FailedOperation after activation. Supplies stay 0. `false-return-collateral-2026-09-26.json` |
+| Rebasing collateral | accounting gap | COUNTEREXAMPLE_FOUND. ADR-P06 and ADR-P09 stay PROPOSED. Acceptance not granted. Python rejects REBASING at construction. Test-only rebaseDown leaves balance 99 against liability 100. Locked, YES, and NO stay 100. `rebasing-collateral-2026-09-26.json` |
+| Rebasing component backing | accounting gap | COUNTEREXAMPLE_FOUND. ADR-R08 PROPOSED. Acceptance not granted. After deposit 100 and mint 100, rebaseDown of 1 leaves token balance 99, backingRaw 100, requiredRaw 100, supply 100. `rebasing-component-backing-2026-09-26.json` |
+| Fee-on-transfer component deposit | accounting | existing_rule. `Shortfall` when delivery is 9 of 10. Token balance, backingRaw, requiredRaw, and supply stay 0. `fee-on-transfer-component-backing-2026-09-26.json` |
+| Duplicate component token | accounting | existing_rule. Same ERC-20 in both slots. backingRaw 10 and 10 against token balance 20. `mint(11)` reverts `InsufficientBacking`. `duplicate-component-backing-2026-09-26.json` |
+| Zero component weight | accounting | existing_rule. Constructor accepts weight 0. Required 0 and 4. Backing 0 and 4. Supply 4. `zero-weight-component-backing-2026-09-26.json` |
+| Fee-on-transfer settlement funding | accounting | existing_rule. `Underfunded`. Transfer of ceil 2 delivers 1. Token balance 1. `redeemable` stays false and `paidRaw` stays 0. `fee-on-transfer-settlement-funding-2026-09-26.json` |
+| Post-redeemable settlement rebase | accounting | existing_rule. After funding 2 and `makeRedeemable`, rebaseDown of 1 leaves balance 1. `redeem(2)` pays 1. `paidRaw` becomes 1 and the balance becomes 0. `rebasing-settlement-funding-2026-09-26.json` |
+| Settlement balance below the floor | accounting | existing_rule for the `PayoutExceedsBalance` revert. ADR-R09 PROPOSED. Acceptance not granted. rebaseDown of 2 leaves balance 0 below floor 1. `redeemable` stays true. `paidRaw` stays 0. `deep-rebasing-settlement-funding-2026-09-26.json` |
+| Settlement payee when the funder is not the holder | payout | settlement_pays_holder. Supply 2, ceil funding 2. After redeem of 2, funder 0, holder 1, kernel 1. `paidRaw` 1. Python paid amount matches. ADR-R10 stays PROPOSED. `settlement-pays-holder-2026-09-26.json` |
+| Funder `redeem(1)` after the residual | payout | existing_rule. Reverts `InvalidQuantity(1, 0)`. Funder 0, holder 1, kernel 1, `paidRaw` 1. Residual stays in the kernel. No sweep. Sweep policy stays NOT_YET_VALIDATED. `funder-residual-redeem-2026-09-26.json` |
+| Two `redeem(1)` calls on supply 2 | payout | cumulative_floor_match. Kernel pays 0 then 1. `paidRaw` ends at 1. Kernel balance ends at 1. Python cumulative floor pays 0 then 1. Canonical per-call pays 0 then 0. MATH-1 stays FAIL. `two-unit-redeems-2026-09-26.json` |
+| Two holders, A then B, each `redeem(1)` | payout | cumulative_floor_match. A is paid 0. B is paid 1. The unit goes to the later redeem. Kernel balance ends at 1. `paidRaw` ends at 1. Python pays 0 then 1. `two-holder-redeems-2026-09-26.json` |
+| Reserve 60 then reserve 50 against balance 100 | reservation | existing_rule. Second reserve reverts `InsufficientUnreserved(asset, 50, 40)`. Reserved stays 60. Available stays 40. Series A stays 60. Series B stays 0. Python rejects the same integers. `over-reserve-2026-09-26.json` |
+| Reserve 60 then reserve 40 against balance 100 | reservation | existing_rule. Second reserve succeeds. Total reserved becomes 100. Available becomes 0. Series A stays 60. Series B becomes 40. Python accepts the same integers. `remainder-reserve-2026-09-26.json` |
+| Series A reserves 60 then series A reserves 40 against balance 100 | reservation | existing_rule. Second reserve succeeds. Series A becomes 100. Total reserved becomes 100. Available becomes 0. Python accepts the same integers. `same-series-reserve-2026-09-26.json` |
+| Python `release` and `withdraw` versus `CandidateReservationLedger` | reservation | ADR-R11 PROPOSED. Acceptance not granted. Python state-changing names are `deposit`, `reserve`, `release`, and `withdraw`. Solidity state-changing names are `deposit` and `reserve`. The contract does not declare `release` or `withdraw`. T-ALLOC-001 stays `r-theorem-6-2026-09-26.json` and is not MATH-1 PASS. `ADR-R11-python-release-and-withdraw-are-absent-from-the-ledger.md` |
+| `FixedPointSeries` versus `CandidateComponentBacking` state-changing names | backing | ADR-R12 PROPOSED. Acceptance not granted. Python names are `deposit_raw`, `mint`, `mint_with_minimum_backing`, `redeem`, and `sweep_dust`. Solidity names are `deposit`, `mint`, and `redeem`. Views and constructors omitted. Not CONTRACT-1. Not MATH-1 PASS. `ADR-R12-component-backing-state-changing-names.md` |
+| Settlement state-changing names | settlement | ADR-R13 PROPOSED. Acceptance not granted. `CandidateCumulativeSettlement`: `makeRedeemable`, `redeem`. `CumulativeFloorSettlement`: `make_redeemable`, `redeem`. `FixedPointSettlement`: `fund`, `make_redeemable`, `redeem`. `fund` is only on `FixedPointSettlement`. No state-changing sweep. Sweep policy stays NOT_YET_VALIDATED. Per-call floor stays ADR-R03. Not CONTRACT-1. Not MATH-1 PASS. `ADR-R13-settlement-fund-is-only-on-fixed-point-settlement.md` |
+| Split callback during transferFrom | reentrancy | existing_guard. `nonReentrant` reverts `ReentrancyGuardReentrantCall`. Locked, YES, NO, and token balance stay 0. `split-callback-2026-09-26.json` |
+| Withdrawal while supply is outstanding | custody | existing_rule. Factory, resolver, and an arbitrary caller cannot extract live collateral. Merge and redeem burn first. `live-collateral-withdrawal-2026-09-26.json` |
+| Same YES balance redeemed twice | payout | existing_rule. After YES_WIN and open redemption, redeem of YES 4 pays 4 once. The second call reverts and collateral stays 0. `double-yes-redeem-2026-09-26.json` |
+| Second result after YES_WIN | resolution | existing_rule. A later NO_WIN reverts. Numerators stay 2 and 0. Collateral, YES, and NO stay 4. `second-yes-resolution-2026-09-26.json` |
+| Unequal YES and NO merge | accounting | existing_rule. OPEN market. Holder YES 1 and NO 4. `merge(4)` reverts. Collateral, YES, and NO stay 4. `unequal-merge-2026-09-26.json` |
+| Split at the uint256 boundary | accounting | recorded_contradiction, open. ADR-P11 PROPOSED. Acceptance not granted. Solidity `split(uint256 max)` leaves collateral, YES, and NO at `2**256-1`. `split(1)` reverts `Panic(0x11)` and those figures stay put. Python `split(1)` raises the three figures to `2**256`. Split was not edited. `uint256-split-2026-09-26.json` |
+| Split of 2**256 | accounting | existing_rule. After split 10, Python raises `amount exceeds configured maximum` and collateral, YES, and NO stay 10. Solidity cannot encode the argument, so the second split is not called and those figures stay 10. `split-max-2026-09-26.json` |
+| Split one past 1000000000 | accounting | recorded_contradiction, open. ADR-P12 PROPOSED. Acceptance not granted. Python rejects `split(1000000001)` and leaves collateral, YES, and NO at 0. Solidity mints and those figures become 1000000001. `configured-split-maximum-2026-09-26.json` |
+| INVALID burn of NO after YES dust | accounting | existing_rule. Collateral 3, YES 0, NO 5. Python raises `side is not worthless`. Solidity reverts `NotWorthless`. `invalid-burn-rejected-2026-09-26.json` |
+| Outsider `OutcomeToken.burn` of 1 YES | access | existing_rule. After split(4), totalSupply 4 and holder balance 4. Outsider burn reverts `NotMarket`. Both figures stay 4. Python has no OutcomeToken. S-P16 stays open. `outsider-burn-2026-09-26.json` |
+| Outsider `OutcomeToken.mint` of 1 YES | access | existing_rule. After split(4), totalSupply 4 and holder balance 4. Outsider mint reverts `NotMarket`. Both figures stay 4. Python has no OutcomeToken. S-P16 stays open. `outsider-mint-2026-09-26.json` |
+| Second activate while OPEN | lifecycle | existing_rule. Python raises `activate only from DRAFT`. Solidity reverts `BadState`. Collateral, YES, and NO stay 0. State stays OPEN. `repeat-activate-2026-09-26.json` |
+| Split of 1 while DRAFT | lifecycle | existing_rule. Python raises `split only while OPEN`. Solidity reverts `BadState`. Collateral, YES, and NO stay 0. State stays DRAFT. `draft-split-2026-09-26.json` |
+| Rejection inventory, 72 calls | lifecycle | 71 rows existing_rule. `archive` from DRAFT is recorded_contradiction. ADR-P13 PROPOSED. Acceptance not granted. Python state becomes ARCHIVED and raises `P-I05`. Solidity reverts `BadState` and stays DRAFT. Collateral, YES, and NO stay 0. `rejection-inventory-2026-09-26.json` |
 | Clone cheaper, identity not independent | Medium | measured; kernel stays on full ERC-20; ADR-P01 PROPOSED |
 | Monad parallel-execution benefit | unmeasured | ADR-R06 is a hypothesis |
 | Two markets or two series sharing split/mint slots | INFERRED absent for these kernels | `docs/prism/04-architecture/STORAGE_ISOLATION.md`. Not a throughput measurement |

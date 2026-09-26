@@ -1,0 +1,72 @@
+{
+  "allowed_count": 7,
+  "allowed_edges": [
+    "ACTIVE->MINT_PAUSED",
+    "ACTIVE->RESOLUTION_PENDING",
+    "DRAFT->ACTIVE",
+    "MINT_PAUSED->RESOLUTION_PENDING",
+    "REDEEMABLE->ARCHIVED",
+    "RESOLUTION_PENDING->RESOLVED",
+    "RESOLVED->REDEEMABLE"
+  ],
+  "assumptions": [
+    "the oracle is the implemented SeriesState graph in lifecycle.py",
+    "ACTIVE is the only issuance state because it is the only state that permits mint",
+    "DRAFT to ACTIVE is the only legal entry into issuance",
+    "RESOLVED and REDEEMABLE remain distinct states",
+    "cancelDraft is not a lifecycle transition and is not added"
+  ],
+  "cancel_draft_edge": false,
+  "canonical_math1": "FAIL",
+  "checker": "exact_enumeration",
+  "classification": "PROVEN_UNDER_ASSUMPTIONS",
+  "counterexample": null,
+  "forbidden": [
+    {
+      "edge": "RESOLVED->ACTIVE",
+      "permitted": false,
+      "raised": true
+    },
+    {
+      "edge": "REDEEMABLE->ACTIVE",
+      "permitted": false,
+      "raised": true
+    },
+    {
+      "edge": "ARCHIVED->ACTIVE",
+      "permitted": false,
+      "raised": true
+    },
+    {
+      "edge": "ARCHIVED->RESOLVED",
+      "permitted": false,
+      "raised": true
+    },
+    {
+      "edge": "DRAFT->REDEEMABLE",
+      "permitted": false,
+      "raised": true
+    }
+  ],
+  "id": "T-LC-001",
+  "issuance_state": "ACTIVE",
+  "oracle": "lifecycle.transition",
+  "pair_count": 49,
+  "redeemable_to_resolved": false,
+  "rejected_count": 42,
+  "resolved_distinct_from_redeemable": true,
+  "resurrection_edges": [],
+  "resurrection_paths": [],
+  "runtime_seconds": 0.000185,
+  "statement": "No implemented lifecycle edge enters ACTIVE except DRAFT to ACTIVE, no edge enters DRAFT, and no non-DRAFT state can reach ACTIVE",
+  "states": [
+    "DRAFT",
+    "ACTIVE",
+    "MINT_PAUSED",
+    "RESOLUTION_PENDING",
+    "RESOLVED",
+    "REDEEMABLE",
+    "ARCHIVED"
+  ],
+  "written_claim": "canonical PRISM lifecycle has no resurrection into issuance"
+}

@@ -1,0 +1,29 @@
+tool: forge test
+command: forge test --match-contract DepositComponentCountTest -vv
+cwd: /workspace/research/contract-kernels
+profile: default
+FOUNDRY_PROFILE: unset
+classification: bounded_by_constructor
+component_count: 2
+backing_raw_before: 0, 0
+backing_raw_after: 1, 1
+python_backing_raw_after: 1, 1
+python_rejected: false
+adr_added: false
+deposit_edited: false
+
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 1.06s
+Compiler run successful!
+
+Ran 1 test for test/prism/DepositComponentCount.t.sol:DepositComponentCountTest
+[PASS] test_deposit_credits_only_the_constructor_slots() (gas: 556488)
+Logs:
+  classification: bounded_by_constructor
+  component_count: 2
+  backing_raw_0: 1
+  backing_raw_1: 1
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 799.59µs (612.41µs CPU time)
+
+Ran 1 test suite in 5.68ms (799.59µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

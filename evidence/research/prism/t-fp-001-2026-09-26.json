@@ -1,0 +1,48 @@
+{
+  "accepted_mint": {
+    "backing": [
+      1,
+      1
+    ],
+    "covers_exact": true,
+    "equals_requirement": true,
+    "supply": 1
+  },
+  "assumptions": [
+    "nonnegative supply, weight, and raw backing",
+    "positive WAD and decimal factor",
+    "requirement is mul_div_ceil(supply, weight, WAD * factor)",
+    "normalized units are raw times the decimal factor",
+    "the claim is component mint backing, not settlement payout"
+  ],
+  "backed_raw_shortfall": "unsat",
+  "canonical_math1": "FAIL",
+  "ceil_shortfall": "unsat",
+  "checker": "z3_and_fixed_point_series",
+  "classification": "PROVEN_UNDER_ASSUMPTIONS",
+  "counterexample": null,
+  "floor_control": {
+    "ceil_covers_exact": true,
+    "ceil_raw": 1,
+    "decimals": 18,
+    "floor_covers_exact": false,
+    "floor_raw": 0,
+    "supply": 1,
+    "weight": 1
+  },
+  "id": "T-FP-001",
+  "rejected_mint": {
+    "backing": [
+      1,
+      0
+    ],
+    "rejected": true,
+    "supply": 0,
+    "unchanged": true
+  },
+  "runtime_seconds": 0.013474,
+  "settlement_redemption": "not_this_statement",
+  "statement": "A mint is accepted only when raw backing is at least Req_i(S+Q)=ceil((S+Q)*x_i/(WAD*f_i)) for every component, and that raw amount normalizes to at least (S+Q)*x_i/WAD",
+  "written_claim": "ceil total-supply component requirement prevents integer mint underreservation",
+  "z3_version": "5.1.0"
+}

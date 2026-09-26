@@ -1,0 +1,39 @@
+tool: forge test
+command: forge test --match-contract FunderResidualRedeemTest -vv
+cwd: /workspace/research/contract-kernels
+profile: default
+FOUNDRY_PROFILE: unset
+sha_base: 975174d78c7305ec893620e1598c7ca1d1f8fe87
+book: supply 2, payout 10^18-1, decimals 18, ceil funding 2
+holder_redeem: full supply 2, pays 1
+funder_call: CandidateCumulativeSettlement.redeem(1)
+classification: existing_rule
+error: InvalidQuantity(1, 0)
+before: funder 0, holder 1, kernel 1, paidRaw 1
+after: funder 0, holder 1, kernel 1, paidRaw 1
+residual_stays_in_kernel: true
+sweep_added: false
+sweep_policy: NOT_YET_VALIDATED
+adr_added: false
+adr_r10: PROPOSED
+redeem_edited: false
+
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 1.01s
+Compiler run successful!
+
+Ran 1 test for test/prism/FunderResidualRedeem.t.sol:FunderResidualRedeemTest
+[PASS] test_funder_redeem_of_one_leaves_the_residual() (gas: 395690)
+Logs:
+  classification: existing_rule
+  error: InvalidQuantity(1, 0)
+  funder_after: 0
+  holder_after: 1
+  kernel_after: 1
+  paid_raw_after: 1
+  residual_stays_in_kernel: true
+  sweep_added: false
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 522.02µs (370.43µs CPU time)
+
+Ran 1 test suite in 5.53ms (522.02µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

@@ -1,0 +1,28 @@
+tool: forge test
+command: forge test --match-contract UnredeemedLiabilityTest -vv
+cwd: /workspace/research/contract-kernels
+profile: default
+FOUNDRY_PROFILE: unset
+python: python3 -m unittest tests.test_unredeemed_liability
+classification: existing_rule
+before_redeem: yes_redeemed 0, no_redeemed 0, collateral_locked 4, liability 4
+after_redeem_yes_1: yes_redeemed 1, no_redeemed 0, collateral_locked 3, liability 3
+adr_added: false
+s_p16: open
+
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 1.07s
+Compiler run successful!
+
+Ran 1 test for test/prediction/UnredeemedLiability.t.sol:UnredeemedLiabilityTest
+[PASS] test_cursors_stay_zero_until_redeem_yes_one() (gas: 660397)
+Logs:
+  classification: existing_rule
+  yes_redeemed_after: 1
+  no_redeemed_after: 0
+  collateral_locked_after: 3
+  liability_after: 3
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 726.90µs (172.58µs CPU time)
+
+Ran 1 test suite in 5.30ms (726.90µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

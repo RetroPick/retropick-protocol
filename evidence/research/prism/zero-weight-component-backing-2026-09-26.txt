@@ -1,0 +1,13 @@
+forge_command: forge test --match-contract ZeroWeightComponentBackingTest -vv
+forge_cwd: research/contract-kernels
+forge: forge Version: 1.8.3
+forge_commit: cae51ad458f6abb64852b7709eb784352429825d
+solc: 0.8.26
+profile: default
+FOUNDRY_PROFILE: unset
+forge_exit_code: 0
+Ran 1 test for test/prism/ZeroWeightComponentBacking.t.sol:ZeroWeightComponentBackingTest
+[PASS] test_zero_weight_requires_zero_and_positive_slot_stays_backed() (gas: 911911)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 499.57µs (346.36µs CPU time)
+
+Ran 1 test suite in 5.65ms (499.57µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

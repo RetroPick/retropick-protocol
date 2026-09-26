@@ -1,0 +1,55 @@
+{
+  "call_counts": {
+    "20260926": {
+      "fund": 10956,
+      "makeRedeemable": 10880,
+      "redeem": 10932
+    },
+    "20260927": {
+      "fund": 10782,
+      "makeRedeemable": 10999,
+      "redeem": 10987
+    }
+  },
+  "calls": 32768,
+  "canonical_math1": "FAIL",
+  "counterexample": null,
+  "depth": 128,
+  "fail_on_revert": false,
+  "fixture": {
+    "amounts": [3, 5],
+    "decimals": 18,
+    "holders": 2,
+    "payout_wad": "10^18-1",
+    "supply": 8
+  },
+  "forge_commit": "cae51ad458f6abb64852b7709eb784352429825d",
+  "forge_version": "1.8.3",
+  "handlers": ["fund", "makeRedeemable", "redeem"],
+  "id": "CANDIDATE-SETTLEMENT-INVARIANT",
+  "invariants": [
+    "invariant_redeemedSupplyNeverExceedsConstructed",
+    "invariant_eachRedeemPaysCumulativeFloorDelta",
+    "invariant_balanceIncreasesOnlyThroughFund",
+    "invariant_fullRedemptionLeftoverMatchesFunding",
+    "invariant_exactCeilLeftoverIsZeroOrOne"
+  ],
+  "kernel_status": "differential_research_kernel",
+  "optimizer": true,
+  "optimizer_runs": 200,
+  "result": "pass",
+  "reverts": 0,
+  "runs": 256,
+  "seeds": [20260926, 20260927],
+  "solc": "0.8.26",
+  "sweep_policy": "NOT_YET_VALIDATED",
+  "via_ir": false,
+  "warmup": {
+    "calls": 512,
+    "depth": 16,
+    "result": "pass",
+    "reverts": 0,
+    "runs": 32,
+    "seeds": [20260926, 20260927]
+  }
+}

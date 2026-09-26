@@ -1,0 +1,54 @@
+{
+  "assumptions": [
+    "exact arithmetic",
+    "0 < Q <= S",
+    "nonnegative weight",
+    "backing before redemption is at least S*x_i",
+    "the redemption decreases supply by Q and backing by Q*x_i",
+    "PrismSeries.redeem_in_kind is the executable model"
+  ],
+  "backing_shortfall": "unsat",
+  "canonical_math1": "FAIL",
+  "checker": "sympy_z3_and_prism_series",
+  "classification": "PROVEN_UNDER_ASSUMPTIONS",
+  "counterexample": null,
+  "exact_redeem": {
+    "backing_after": [
+      "450",
+      "300"
+    ],
+    "margin_after": [
+      "0",
+      "0"
+    ],
+    "margin_before": [
+      "0",
+      "0"
+    ],
+    "quantity": 250,
+    "released": [
+      "150",
+      "100"
+    ],
+    "supply_after": "750",
+    "supply_before": 1000
+  },
+  "id": "T-BS-002",
+  "margin_identity": true,
+  "runtime_seconds": 0.022627,
+  "statement": "If 0<Q<=S and B_i>=S*x_i, with S'=S-Q and B_i'=B_i-Q*x_i, then B_i'>=S'*x_i and the margin is unchanged",
+  "surplus_redeem": {
+    "margin_after": [
+      "1",
+      "0"
+    ],
+    "margin_before": [
+      "1",
+      "0"
+    ],
+    "quantity": 2
+  },
+  "sympy_version": "1.14.0",
+  "written_claim": "exact in-kind redemption preserves remaining backing",
+  "z3_version": "5.1.0"
+}

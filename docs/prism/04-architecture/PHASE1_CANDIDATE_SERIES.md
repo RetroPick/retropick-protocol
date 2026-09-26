@@ -48,6 +48,8 @@ One contract can enforce "deposit, then mint" and the global redemption cursor w
 
 Holder balances live on `PrismSeriesToken`, not in a second map here.
 
+Slot isolation of the current research kernels is recorded in `STORAGE_ISOLATION.md`. That note is INFERRED from storage layout. It does not accept ADR-R06 and it is not a Monad throughput claim.
+
 ### Structs
 
 `Component { token, weightWad }` is constructor input only. After construction the parallel arrays are immutable.

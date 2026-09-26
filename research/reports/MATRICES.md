@@ -24,7 +24,8 @@ Every row points at evidence from this program. Status words are the program's c
 | Requirement | Status | Evidence |
 |---|---|---|
 | `h=Gx`, `x>=0` | REPRODUCED | existing replication tests; ADR-002 |
-| AND is not replicated by A, B, and 1 | COUNTEREXAMPLE_FOUND | `math1_probe.py` Z3 and solver |
+| Minimum-cost exact `Gx=h` | EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN | `minimum_cost_replication.py`. Not Kuru. Not solvency. Not MATH-1 PASS |
+| AND is not replicated by A, B, and 1 | PRODUCT_NOT_REPLICABLE | `minimum_cost_replication.py` equality inconsistency. Prior Z3 row stays COUNTEREXAMPLE_FOUND |
 | Backing before mint | REPRODUCED | `test_model.py` |
 | Component requirement delta round trip | PROVEN by construction; 200 samples, 0 mismatches | `math1_probe.component_round_trip_samples` |
 | Per-call settlement floor | COUNTEREXAMPLE_FOUND | `CX-FP-SETTLEMENT-001` |
@@ -76,6 +77,7 @@ Every row points at evidence from this program. Status words are the program's c
 | P-I01..P-I10 | `invariant_ids.py` scenarios EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN | `PredictionInvariantIdsTest` 10 passed | P-I05 `cancelDraft` is NOT_YET_VALIDATED in the kernel |
 | Foundry issuance conservation | n/a | 256 runs, 128000 calls, 48023 handler reverts, invariant held | split, merge, closeMint, beginResolution. Not redemption |
 | R-I01..R-I12 | existing PRISM oracle for the subset already modeled | none | settlement fairness fails R-style holder payment even though funding holds |
+| R-I08 final supply is not redeemable | candidate has no separate resolve step; constructor supply starts closed | `test_final_supply_is_not_redeemable_until_funded` | `redeem` reverts `NotRedeemable` until `makeRedeemable`. Payout formula unchanged |
 | X-I01..X-I07 | not modeled jointly | not built | BLOCKED |
 
 R-I01..R-I12 in the task sense are the PRISM backing, admission, lifecycle, and settlement invariants already numbered INV-P01.. in `docs/prism/math/16_INVARIANTS.md`. This program does not renumber them. Cross-module X-invariants are not claimed.
@@ -155,6 +157,9 @@ The six prediction rows above the CREATE rows, and `test_fund_and_redeem_gas`, a
 | PRISM CONTRACT-1 | not_met |
 | backing_kernel_solidity | differential_research_kernel |
 | partial_resolution_transform | differential_research_kernel |
+| minimum_cost_replication | exhaustively_verified_within_domain. Not Kuru. Not solvency |
+| storage_slot_isolation | inferred. ADR-R06 stays PROPOSED |
+| R-I08 resolved supply is not redeemable | measured |
 | Unreachable `Underfunded` / `LiveLiability` | PROVEN_UNDER_ASSUMPTIONS |
 | MODULE-ADMISSION-FINANCE-1 | not met |
 | Move into `contracts/src/v2` | not done |
@@ -173,4 +178,5 @@ The six prediction rows above the CREATE rows, and `test_fund_and_redeem_gas`, a
 | `native_market.py` lifecycle is narrower than canonical | spec drift | recorded, new model does not pretend otherwise |
 | Clone cheaper, identity not independent | Medium | measured; kernel stays on full ERC-20; ADR-P01 PROPOSED |
 | Monad parallel-execution benefit | unmeasured | ADR-R06 is a hypothesis |
+| Two markets or two series sharing split/mint slots | INFERRED absent for these kernels | `docs/prism/04-architecture/STORAGE_ISOLATION.md`. Not a throughput measurement |
 | PredictionMarket branch coverage 94.44% (34/36) | Medium testing gap | Open. The two unexecuted branches are PROVEN_UNDER_ASSUMPTIONS unreachable. Coverage was not re-run and is not 100%. `unreachable-branches-2026-09-26.json` |

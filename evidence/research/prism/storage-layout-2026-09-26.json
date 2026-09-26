@@ -1,0 +1,419 @@
+{
+  "command": "forge inspect <contract> storage-layout --json",
+  "solc": "0.8.26",
+  "optimizer_runs": 200,
+  "evm_version": "cancun",
+  "classification": "INFERRED",
+  "not_a_monad_throughput_measurement": true,
+  "reentrancy_guard_slot": "0x9b779b17422d0df92223018b32b4d1fa46e071723d6817e2486d003becc55f00",
+  "layouts": {
+    "PredictionMarket": {
+      "storage": [
+        {
+          "astId": 1862,
+          "contract": "src/prediction/PredictionMarket.sol:PredictionMarket",
+          "label": "state",
+          "offset": 0,
+          "slot": "0",
+          "type": "t_enum(State)1832"
+        },
+        {
+          "astId": 1865,
+          "contract": "src/prediction/PredictionMarket.sol:PredictionMarket",
+          "label": "result",
+          "offset": 1,
+          "slot": "0",
+          "type": "t_enum(Result)1837"
+        },
+        {
+          "astId": 1867,
+          "contract": "src/prediction/PredictionMarket.sol:PredictionMarket",
+          "label": "collateralLocked",
+          "offset": 0,
+          "slot": "1",
+          "type": "t_uint256"
+        },
+        {
+          "astId": 1869,
+          "contract": "src/prediction/PredictionMarket.sol:PredictionMarket",
+          "label": "yesSupply",
+          "offset": 0,
+          "slot": "2",
+          "type": "t_uint256"
+        },
+        {
+          "astId": 1871,
+          "contract": "src/prediction/PredictionMarket.sol:PredictionMarket",
+          "label": "noSupply",
+          "offset": 0,
+          "slot": "3",
+          "type": "t_uint256"
+        },
+        {
+          "astId": 1873,
+          "contract": "src/prediction/PredictionMarket.sol:PredictionMarket",
+          "label": "yesRedeemed",
+          "offset": 0,
+          "slot": "4",
+          "type": "t_uint256"
+        },
+        {
+          "astId": 1875,
+          "contract": "src/prediction/PredictionMarket.sol:PredictionMarket",
+          "label": "noRedeemed",
+          "offset": 0,
+          "slot": "5",
+          "type": "t_uint256"
+        },
+        {
+          "astId": 1877,
+          "contract": "src/prediction/PredictionMarket.sol:PredictionMarket",
+          "label": "yesNumerator",
+          "offset": 0,
+          "slot": "6",
+          "type": "t_uint256"
+        },
+        {
+          "astId": 1879,
+          "contract": "src/prediction/PredictionMarket.sol:PredictionMarket",
+          "label": "noNumerator",
+          "offset": 0,
+          "slot": "7",
+          "type": "t_uint256"
+        },
+        {
+          "astId": 1881,
+          "contract": "src/prediction/PredictionMarket.sol:PredictionMarket",
+          "label": "collateralAtResolution",
+          "offset": 0,
+          "slot": "8",
+          "type": "t_uint256"
+        }
+      ],
+      "types": {
+        "t_enum(Result)1837": {
+          "encoding": "inplace",
+          "label": "enum PredictionMarket.Result",
+          "numberOfBytes": "1"
+        },
+        "t_enum(State)1832": {
+          "encoding": "inplace",
+          "label": "enum PredictionMarket.State",
+          "numberOfBytes": "1"
+        },
+        "t_uint256": {
+          "encoding": "inplace",
+          "label": "uint256",
+          "numberOfBytes": "32"
+        }
+      }
+    },
+    "OutcomeToken": {
+      "storage": [
+        {
+          "astId": 22,
+          "contract": "src/prediction/OutcomeToken.sol:OutcomeToken",
+          "label": "_balances",
+          "offset": 0,
+          "slot": "0",
+          "type": "t_mapping(t_address,t_uint256)"
+        },
+        {
+          "astId": 28,
+          "contract": "src/prediction/OutcomeToken.sol:OutcomeToken",
+          "label": "_allowances",
+          "offset": 0,
+          "slot": "1",
+          "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))"
+        },
+        {
+          "astId": 30,
+          "contract": "src/prediction/OutcomeToken.sol:OutcomeToken",
+          "label": "_totalSupply",
+          "offset": 0,
+          "slot": "2",
+          "type": "t_uint256"
+        },
+        {
+          "astId": 32,
+          "contract": "src/prediction/OutcomeToken.sol:OutcomeToken",
+          "label": "_name",
+          "offset": 0,
+          "slot": "3",
+          "type": "t_string_storage"
+        },
+        {
+          "astId": 34,
+          "contract": "src/prediction/OutcomeToken.sol:OutcomeToken",
+          "label": "_symbol",
+          "offset": 0,
+          "slot": "4",
+          "type": "t_string_storage"
+        }
+      ],
+      "types": {
+        "t_address": {
+          "encoding": "inplace",
+          "label": "address",
+          "numberOfBytes": "20"
+        },
+        "t_mapping(t_address,t_mapping(t_address,t_uint256))": {
+          "encoding": "mapping",
+          "key": "t_address",
+          "label": "mapping(address => mapping(address => uint256))",
+          "numberOfBytes": "32",
+          "value": "t_mapping(t_address,t_uint256)"
+        },
+        "t_mapping(t_address,t_uint256)": {
+          "encoding": "mapping",
+          "key": "t_address",
+          "label": "mapping(address => uint256)",
+          "numberOfBytes": "32",
+          "value": "t_uint256"
+        },
+        "t_string_storage": {
+          "encoding": "bytes",
+          "label": "string",
+          "numberOfBytes": "32"
+        },
+        "t_uint256": {
+          "encoding": "inplace",
+          "label": "uint256",
+          "numberOfBytes": "32"
+        }
+      }
+    },
+    "CandidateComponentBacking": {
+      "storage": [
+        {
+          "astId": 4502,
+          "contract": "src/prism/CandidateComponentBacking.sol:CandidateComponentBacking",
+          "label": "_tokens",
+          "offset": 0,
+          "slot": "0",
+          "type": "t_array(t_contract(IERC20)77)dyn_storage"
+        },
+        {
+          "astId": 4505,
+          "contract": "src/prism/CandidateComponentBacking.sol:CandidateComponentBacking",
+          "label": "_weightsWad",
+          "offset": 0,
+          "slot": "1",
+          "type": "t_array(t_uint256)dyn_storage"
+        },
+        {
+          "astId": 4508,
+          "contract": "src/prism/CandidateComponentBacking.sol:CandidateComponentBacking",
+          "label": "_decimals",
+          "offset": 0,
+          "slot": "2",
+          "type": "t_array(t_uint8)dyn_storage"
+        },
+        {
+          "astId": 4511,
+          "contract": "src/prism/CandidateComponentBacking.sol:CandidateComponentBacking",
+          "label": "backingRaw",
+          "offset": 0,
+          "slot": "3",
+          "type": "t_array(t_uint256)dyn_storage"
+        },
+        {
+          "astId": 4513,
+          "contract": "src/prism/CandidateComponentBacking.sol:CandidateComponentBacking",
+          "label": "supplyUnits",
+          "offset": 0,
+          "slot": "4",
+          "type": "t_uint256"
+        },
+        {
+          "astId": 4517,
+          "contract": "src/prism/CandidateComponentBacking.sol:CandidateComponentBacking",
+          "label": "balanceOf",
+          "offset": 0,
+          "slot": "5",
+          "type": "t_mapping(t_address,t_uint256)"
+        }
+      ],
+      "types": {
+        "t_address": {
+          "encoding": "inplace",
+          "label": "address",
+          "numberOfBytes": "20"
+        },
+        "t_array(t_contract(IERC20)77)dyn_storage": {
+          "encoding": "dynamic_array",
+          "label": "contract IERC20[]",
+          "numberOfBytes": "32",
+          "base": "t_contract(IERC20)77"
+        },
+        "t_array(t_uint256)dyn_storage": {
+          "encoding": "dynamic_array",
+          "label": "uint256[]",
+          "numberOfBytes": "32",
+          "base": "t_uint256"
+        },
+        "t_array(t_uint8)dyn_storage": {
+          "encoding": "dynamic_array",
+          "label": "uint8[]",
+          "numberOfBytes": "32",
+          "base": "t_uint8"
+        },
+        "t_contract(IERC20)77": {
+          "encoding": "inplace",
+          "label": "contract IERC20",
+          "numberOfBytes": "20"
+        },
+        "t_mapping(t_address,t_uint256)": {
+          "encoding": "mapping",
+          "key": "t_address",
+          "label": "mapping(address => uint256)",
+          "numberOfBytes": "32",
+          "value": "t_uint256"
+        },
+        "t_uint256": {
+          "encoding": "inplace",
+          "label": "uint256",
+          "numberOfBytes": "32"
+        },
+        "t_uint8": {
+          "encoding": "inplace",
+          "label": "uint8",
+          "numberOfBytes": "1"
+        }
+      }
+    },
+    "CandidateCumulativeSettlement": {
+      "storage": [
+        {
+          "astId": 4506,
+          "contract": "src/prism/CandidateCumulativeSettlement.sol:CandidateCumulativeSettlement",
+          "label": "supplyUnits",
+          "offset": 0,
+          "slot": "0",
+          "type": "t_uint256"
+        },
+        {
+          "astId": 4508,
+          "contract": "src/prism/CandidateCumulativeSettlement.sol:CandidateCumulativeSettlement",
+          "label": "redeemedUnits",
+          "offset": 0,
+          "slot": "1",
+          "type": "t_uint256"
+        },
+        {
+          "astId": 4510,
+          "contract": "src/prism/CandidateCumulativeSettlement.sol:CandidateCumulativeSettlement",
+          "label": "paidRaw",
+          "offset": 0,
+          "slot": "2",
+          "type": "t_uint256"
+        },
+        {
+          "astId": 4512,
+          "contract": "src/prism/CandidateCumulativeSettlement.sol:CandidateCumulativeSettlement",
+          "label": "redeemable",
+          "offset": 0,
+          "slot": "3",
+          "type": "t_bool"
+        },
+        {
+          "astId": 4516,
+          "contract": "src/prism/CandidateCumulativeSettlement.sol:CandidateCumulativeSettlement",
+          "label": "balances",
+          "offset": 0,
+          "slot": "4",
+          "type": "t_mapping(t_address,t_uint256)"
+        }
+      ],
+      "types": {
+        "t_address": {
+          "encoding": "inplace",
+          "label": "address",
+          "numberOfBytes": "20"
+        },
+        "t_bool": {
+          "encoding": "inplace",
+          "label": "bool",
+          "numberOfBytes": "1"
+        },
+        "t_mapping(t_address,t_uint256)": {
+          "encoding": "mapping",
+          "key": "t_address",
+          "label": "mapping(address => uint256)",
+          "numberOfBytes": "32",
+          "value": "t_uint256"
+        },
+        "t_uint256": {
+          "encoding": "inplace",
+          "label": "uint256",
+          "numberOfBytes": "32"
+        }
+      }
+    },
+    "CandidatePayoffTransform": {
+      "storage": [
+        {
+          "astId": 11,
+          "contract": "src/prism/CandidatePayoffTransform.sol:CandidatePayoffTransform",
+          "label": "_weightsWad",
+          "offset": 0,
+          "slot": "0",
+          "type": "t_array(t_uint256)dyn_storage"
+        },
+        {
+          "astId": 14,
+          "contract": "src/prism/CandidatePayoffTransform.sol:CandidatePayoffTransform",
+          "label": "_payoff",
+          "offset": 0,
+          "slot": "1",
+          "type": "t_array(t_uint256)dyn_storage"
+        },
+        {
+          "astId": 17,
+          "contract": "src/prism/CandidatePayoffTransform.sol:CandidatePayoffTransform",
+          "label": "backing",
+          "offset": 0,
+          "slot": "2",
+          "type": "t_array(t_uint256)dyn_storage"
+        },
+        {
+          "astId": 19,
+          "contract": "src/prism/CandidatePayoffTransform.sol:CandidatePayoffTransform",
+          "label": "transformed",
+          "offset": 0,
+          "slot": "3",
+          "type": "t_uint256"
+        },
+        {
+          "astId": 21,
+          "contract": "src/prism/CandidatePayoffTransform.sol:CandidatePayoffTransform",
+          "label": "possibleMask",
+          "offset": 0,
+          "slot": "4",
+          "type": "t_uint256"
+        },
+        {
+          "astId": 23,
+          "contract": "src/prism/CandidatePayoffTransform.sol:CandidatePayoffTransform",
+          "label": "resolvedMask",
+          "offset": 0,
+          "slot": "5",
+          "type": "t_uint256"
+        }
+      ],
+      "types": {
+        "t_array(t_uint256)dyn_storage": {
+          "encoding": "dynamic_array",
+          "label": "uint256[]",
+          "numberOfBytes": "32",
+          "base": "t_uint256"
+        },
+        "t_uint256": {
+          "encoding": "inplace",
+          "label": "uint256",
+          "numberOfBytes": "32"
+        }
+      }
+    }
+  }
+}

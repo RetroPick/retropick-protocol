@@ -73,6 +73,11 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `evidence/research/prediction/kernel-coverage-fuzz64-2026-09-26.txt` | remeasured coverage. PredictionMarket branches 94.44% (34/36). Fuzz runs 64. Invariant runs 256 |
 | `evidence/research/prediction/unreachable-branches-2026-09-26.json` | Underfunded and LiveLiability classified PROVEN_UNDER_ASSUMPTIONS. Coverage not re-run |
 | `evidence/research/prediction/unreachable-branches-2026-09-26.txt` | prediction unit test for that classification |
+| `evidence/research/prism/unittest-minimum-cost-2026-09-26.txt` | prism-model unittest, 85 tests OK |
+| `evidence/research/prism/minimum-cost-replication-2026-09-26.json` | exact minimum-cost replication. AND with constant 1 is PRODUCT_NOT_REPLICABLE |
+| `evidence/research/prism/storage-layout-2026-09-26.json` | forge storage layouts. Isolation conclusion is INFERRED |
+| `docs/prism/04-architecture/STORAGE_ISOLATION.md` | slots `split` and `mint` touch. Not a Monad throughput claim |
+| `evidence/research/prism/candidate-settlement-ri08-2026-09-26.txt` | candidate settlement Foundry log, 3 tests passed, including R-I08 |
 | `evidence/research/prism/unittest-partial-resolution-2026-09-26.txt` | prism-model unittest after the transform tests |
 | `evidence/research/prism/partial-resolution-forge-2026-09-26.txt` | payoff-transform Foundry log |
 | `evidence/research/prism/partial-resolution-fixtures-2026-09-26.txt` | transform fixture generator log |

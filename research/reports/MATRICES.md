@@ -184,7 +184,7 @@ The six prediction rows above the CREATE rows, and `test_fund_and_redeem_gas`, a
 | forge fuzz | coverage command used 64 runs |
 | forge invariant | coverage command: 256 runs, depth 500, 128000 calls, 47348 reverts |
 | forge coverage | PredictionMarket lines 100.00% (119/119), branches 94.44% (34/36). Fuzz runs 64. Invariant runs 256. `kernel-coverage-fuzz64-2026-09-26.txt` |
-| slither 0.11.6 complete IR | BLOCKED_TOOL. Legacy JSON flag does not produce IR for `_redeem`. `slither-legacy-ast-2026-09-26.txt` and `slither-solc-legacy-2026-09-26.txt`. S-P16 stays open |
+| slither 0.11.6 complete IR | BLOCKED_TOOL. Fresh Foundry run at 0636686, exit 255, `_redeem` has no IR. `slither-sp16-2026-09-26.json`. Legacy JSON logs remain `slither-legacy-ast-2026-09-26.txt` and `slither-solc-legacy-2026-09-26.txt`. S-P16 stays open |
 | solhint 5.2.0 | exit 0, 42 warnings, 0 errors. `solhint-2026-09-26.txt`. Style and import-path warnings. Not PRED-CONTRACT-1 |
 | echidna, medusa, halmos, mythril, semgrep | BLOCKED_TOOL |
 
@@ -233,7 +233,7 @@ The six prediction rows above the CREATE rows, and `test_fund_and_redeem_gas`, a
 | benchmarks_measured | local_single_environment. Not admission |
 | static_analysis | measured_with_findings. Slither IR still incomplete. Not PRED-CONTRACT-1 |
 | slither_complete_ir | blocked_tool |
-| S-P16 redeemed cursor | open analyzer gap. Inspection PROVEN_UNDER_ASSUMPTIONS. Not closed |
+| S-P16 redeemed cursor | open analyzer gap. Fresh run 0636686 still has no IR for `_redeem`. Inspection PROVEN_UNDER_ASSUMPTIONS. Not closed |
 | reproducibility_local | rerun_pass at 0f14c30. Python 3.12.3, forge 1.8.3. Prediction 15 OK, PRISM 109 OK, Foundry 76 passed, 0 failed, 1 skipped. The skip is the supply 0..16 walk. This command did not re-execute that domain. Existing interpreter and existing Foundry install. Not a clean clone or a fresh virtualenv |
 | MODULE-ADMISSION-FINANCE-1 | not met |
 | Move into `contracts/src/v2` | not done |

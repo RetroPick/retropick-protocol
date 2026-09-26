@@ -1,0 +1,39 @@
+{
+  "adr_added": false,
+  "canonical_math1": "FAIL",
+  "classification": "blocked_tool",
+  "command": "slither . --exclude-dependencies --filter-paths openzeppelin-contracts",
+  "contracts_analyzed": 24,
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "detector_count": 102,
+  "exit_code": 255,
+  "findings_seen_without_complete_ir": [
+    "uninitialized-state yesRedeemed and noRedeemed in liability",
+    "uninitialized-local",
+    "missing-zero-check CloneableOutcomeToken.initialize",
+    "calls-loop CandidateComponentBacking.deposit",
+    "assembly ERC1167.clone",
+    "too-many-digits ERC1167.clone",
+    "constable-states yesRedeemed and noRedeemed"
+  ],
+  "functions_without_ir": [
+    "PredictionMarket.split",
+    "PredictionMarket.merge",
+    "PredictionMarket.burnWorthless",
+    "PredictionMarket._redeem"
+  ],
+  "id": "S-P16",
+  "implementations_changed": false,
+  "ir_error": "Function not found burn; 'NoneType' object has no attribute 'type'",
+  "kernel_changed": false,
+  "legacy_json_rerun": false,
+  "pred_contract_1": "not_pass",
+  "pred_kuru_1": "blocked",
+  "redeem_has_ir": false,
+  "result_count": 14,
+  "s_p16": "open",
+  "sha": "06366860d21402767b91578204afc1d9a1596893",
+  "tool": "slither",
+  "version": "0.11.6"
+}

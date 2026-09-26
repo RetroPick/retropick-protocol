@@ -1,0 +1,88 @@
+{
+  "canonical_math1": "FAIL",
+  "case": "invalid_burn_rejected",
+  "classification": "existing_rule",
+  "id": "INVALID-BURN-REJECTED",
+  "implementations_changed": false,
+  "kernels_agree": true,
+  "math_1_progress": false,
+  "pred_contract_1": "not_pass",
+  "pred_math_1": "partial",
+  "python": {
+    "after": {
+      "alice_no": "5",
+      "alice_yes": "0",
+      "collateral_locked": "3",
+      "no_supply": "5",
+      "state": "REDEEMABLE",
+      "yes_supply": "0"
+    },
+    "attempted": "1",
+    "before": {
+      "alice_no": "5",
+      "alice_yes": "0",
+      "collateral_locked": "3",
+      "no_supply": "5",
+      "state": "REDEEMABLE",
+      "yes_supply": "0"
+    },
+    "error": "side is not worthless",
+    "function": "PredictionMarket.burn_worthless",
+    "module": "research/prediction-model/market.py",
+    "side": "NO",
+    "yes_payouts": [
+      "0",
+      "1",
+      "0",
+      "1",
+      "0"
+    ]
+  },
+  "rule": "after the INVALID YES dust stream, burn of NO 1 reverts and the books stay put",
+  "solidity": {
+    "after": {
+      "alice_no": "5",
+      "alice_yes": "0",
+      "collateral_balance": "3",
+      "collateral_locked": "3",
+      "no_supply": "5",
+      "state": "REDEEMABLE",
+      "yes_supply": "0"
+    },
+    "attempted": "1",
+    "before": {
+      "alice_no": "5",
+      "alice_yes": "0",
+      "collateral_balance": "3",
+      "collateral_locked": "3",
+      "no_supply": "5",
+      "state": "REDEEMABLE",
+      "yes_supply": "0"
+    },
+    "command": "forge test --match-contract InvalidBurnRejectedTest -vv",
+    "cwd": "research/contract-kernels",
+    "error": "NotWorthless",
+    "exit_code": 0,
+    "failed": 0,
+    "forge_commit": "cae51ad458f6abb64852b7709eb784352429825d",
+    "forge_version": "1.8.3",
+    "function": "PredictionMarket.burnWorthless",
+    "module": "research/contract-kernels/src/prediction/PredictionMarket.sol",
+    "optimizer": true,
+    "optimizer_runs": 200,
+    "passed": 1,
+    "profile": "default",
+    "side": "NO",
+    "solc": "0.8.26",
+    "test_gas": 962224,
+    "via_ir": false,
+    "yes_payouts": [
+      "0",
+      "1",
+      "0",
+      "1",
+      "0"
+    ]
+  },
+  "theorem_pass": false
+}

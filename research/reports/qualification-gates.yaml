@@ -42,6 +42,7 @@ prediction:
   forge_coverage: measured
   outcome_token_deployment_gas: measured
   PRED-KURU-1: blocked
+  kuru_backing_claim: "absent. No research kernel and no Python model reads Kuru orderbook liquidity as protocol backing or redemption value. Prediction liability is locked collateral. PRISM redeem releases backingRaw. market_microstructure.py sets not_kuru_liquidity true. No router and no liquidity assumption was added. PRED-KURU-1 stays blocked. MATH-1 stays FAIL. PRED-CONTRACT-1 stays not_pass. Log evidence/research/prediction/kuru-backing-claim-2026-09-26.json."
   P-I05_cancel_draft: "measured. Factory cancelDraft moves DRAFT to ARCHIVED with CANCELLED_BEFORE_ACTIVATION. Collateral stays put. OPEN and REDEEMABLE reject. Immutable spec-hash branch unchanged. PRED-CONTRACT-1 stays not_pass."
   issuance_stateful_invariant: "measured. default profile. forge 1.8.3, solc 0.8.26, optimizer 200, via IR off. Seeds 20260926 and 20260927. 256 runs, depth 500, 128000 calls, reverts 47971 and 46395, 0 discards. Invariant held. Handlers split, merge, closeMint, beginResolution do not call cancelDraft. PRED-CONTRACT-1 stays not_pass."
   unreachable_funding_branches: proven_under_assumptions

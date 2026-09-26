@@ -68,7 +68,8 @@ Rejection inventory: 72 remaining public calls that both sides can execute where
 MODULE-ADMISSION-FINANCE-1: not met.  
 PRISM CONTRACT-ARCH-1: proposed, contingent on ADR-R03. Not a pass.  
 SOURCE-ASSET-INTERFACE-FREEZE: proposed_not_frozen.  
-PRED-KURU-1: blocked.
+PRED-KURU-1: blocked.  
+Kuru backing claim: absent. No research kernel and no Python model reads Kuru orderbook liquidity as protocol backing or as redemption value. Prediction liability is locked collateral. PRISM component redeem releases the drop in `backingRaw`. `market_microstructure.py` sets `not_kuru_liquidity` true. PRED-KURU-1 stays blocked. MATH-1 stays FAIL. Log: `evidence/research/prediction/kuru-backing-claim-2026-09-26.json`.
 
 ## What changed since the baseline
 

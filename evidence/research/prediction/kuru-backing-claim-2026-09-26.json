@@ -1,0 +1,57 @@
+{
+  "canonical_math1": "FAIL",
+  "case": "kuru_orderbook_liquidity_as_backing_or_redemption",
+  "classification": "absent",
+  "id": "KURU-BACKING-CLAIM",
+  "implementations_changed": false,
+  "integration_added": false,
+  "kernels_searched": [
+    "research/contract-kernels/src/prediction",
+    "research/contract-kernels/src/prism",
+    "research/prediction-model",
+    "research/prism-model"
+  ],
+  "kuru_identifier_in_prediction_model": false,
+  "kuru_identifier_in_solidity_kernels": false,
+  "math_1_progress": false,
+  "pred_contract_1": "not_pass",
+  "pred_kuru_1": "blocked",
+  "pred_math_1": "partial",
+  "quotes": [
+    {
+      "file": "research/integration/kuru/PARAMETER_WORKSHEET.md",
+      "text": "This worksheet does not set protocol solvency, redemption value, or an accepted oracle. Kuru inventory is not prediction collateral and not PRISM backing."
+    },
+    {
+      "file": "research/reports/MATRICES.md",
+      "text": "Either module -> Kuru | secondary only. Not required for redemption"
+    },
+    {
+      "file": "research/prediction-model/market.py",
+      "text": "def liability(self) -> Amount:\n        if self.result is None:\n            return self.collateral_locked"
+    },
+    {
+      "file": "research/contract-kernels/src/prediction/PredictionMarket.sol",
+      "text": "function liability() public view returns (uint256) {\n        if (result == Result.NONE) return collateralLocked;"
+    },
+    {
+      "file": "research/contract-kernels/src/prism/CandidateComponentBacking.sol",
+      "text": "uint256 release = _requiredAt(oldSupply, i) - _requiredAt(newSupply, i);\n            if (release > backingRaw[i]) revert ReleaseExceedsBacking(i, release, backingRaw[i]);"
+    },
+    {
+      "file": "research/prism-model/market_microstructure.py",
+      "text": "Synthetic create/redeem quotes. Not a protocol theorem and not Kuru liquidity."
+    },
+    {
+      "file": "research/prism-model/market_microstructure.py",
+      "text": "\"not_kuru_liquidity\": True"
+    },
+    {
+      "file": "docs/launchpad/KURU.md",
+      "text": "Kuru is the target mature-market venue for Launchpad V2."
+    }
+  ],
+  "router_added": false,
+  "rule": "No research kernel or Python model reads Kuru orderbook liquidity as protocol backing or as redemption value. The backing claim is absent. PRED-KURU-1 stays blocked.",
+  "theorem_pass": false
+}

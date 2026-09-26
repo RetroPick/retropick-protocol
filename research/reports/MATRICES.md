@@ -198,6 +198,7 @@ The six prediction rows above the CREATE rows, and `test_fund_and_redeem_gas`, a
 | Live RetroPick market | BLOCKED | no router bytecode, no accepted router, no fork, no tx |
 | Second primary-source pass | BLOCKED | router, SDK, OrderBook, vault, fees, addresses, Monad Flow. `source-pass-2026-09-26.json` |
 | `calculatePrecisions` examples | MEASURED_LOCAL | Node 22.14.0 and ethers 5.7.1. Not RetroPick policy |
+| Kuru orderbook liquidity as backing or redemption value | absent | No kernel or Python model reads it. PRED-KURU-1 stays blocked. `kuru-backing-claim-2026-09-26.json` |
 
 ## CROSS_MODULE_DEPENDENCY_MATRIX
 

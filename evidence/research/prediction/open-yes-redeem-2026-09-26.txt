@@ -1,0 +1,51 @@
+tool: python3 and forge test
+command: forge test --match-contract OpenYesRedeemTest -vv
+cwd: /workspace/research/contract-kernels
+profile: default
+sha_base: e5cbcab4d9cd7fd9dd57e816fa5f1fcded0ba11d
+split: 4 while OPEN
+lifecycle: no close, no lock, no resolution
+redeem: Solidity redeemYes(1), Python redeem of 1 YES
+inventory: rejection-inventory-2026-09-26.json has no redeem_yes row while OPEN
+classification: existing_rule
+python_accepted: false
+python_error: redeem only while REDEEMABLE
+solidity_accepted: false
+solidity_error: BadState
+payout: none
+before: liability 4, collateral locked 4, YES 4, NO 4, yes_redeemed 0, no_redeemed 0
+after: liability 4, collateral locked 4, YES 4, NO 4, yes_redeemed 0, no_redeemed 0
+adr_added: false
+adr_p15: PROPOSED
+adr_p16: PROPOSED
+adr_p17: PROPOSED
+math1: FAIL
+pred_kuru_1: blocked
+
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 1.25s
+Compiler run successful!
+
+Ran 1 test for test/prediction/OpenYesRedeem.t.sol:OpenYesRedeemTest
+[PASS] test_redeem_one_yes_while_open() (gas: 475643)
+Logs:
+  liability_before: 4
+  collateral_before: 4
+  yes_supply_before: 4
+  no_supply_before: 4
+  yes_redeemed_before: 0
+  no_redeemed_before: 0
+  solidity_accepted: false
+  error: BadState
+  payout: none
+  liability_after: 4
+  collateral_after: 4
+  yes_supply_after: 4
+  no_supply_after: 4
+  yes_redeemed_after: 0
+  no_redeemed_after: 0
+  classification: existing_rule
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 790.28µs (172.64µs CPU time)
+
+Ran 1 test suite in 5.91ms (790.28µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

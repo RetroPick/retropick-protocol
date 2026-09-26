@@ -1,0 +1,14 @@
+tool: python3 3.12.3
+command: python3 -m unittest tests.test_invariant_ids -v
+cwd: /workspace/research/prism-model
+sha: 5161a8eaa42e4c9bc6dcc656617423bc0f384917
+purpose: executable checks for R-I02, the untested R-I11 edges, and R-I12
+test_r_i02_activated_weights_and_matrix_stay_fixed (tests.test_invariant_ids.PrismInvariantIdTests.test_r_i02_activated_weights_and_matrix_stay_fixed) ... ok
+test_r_i11_redeemable_and_archived_do_not_reopen (tests.test_invariant_ids.PrismInvariantIdTests.test_r_i11_redeemable_and_archived_do_not_reopen) ... ok
+test_r_i12_final_resolution_is_committed_once (tests.test_invariant_ids.PrismInvariantIdTests.test_r_i12_final_resolution_is_committed_once) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.000s
+
+OK
+exit_code: 0

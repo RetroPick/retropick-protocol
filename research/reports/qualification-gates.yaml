@@ -48,11 +48,15 @@ prism:
   minimum_cost_replication_scope: declared_rational_basis_enumeration_not_kuru_not_solvency
   storage_slot_isolation: inferred
   R-I08_resolved_not_redeemable: measured
+  R-I02_immutable_replication: measured
+  R-I12_resolution_once: measured
   PLATFORM-INTEGRATION-1: not_met
   module_status: FAIL
 
 cross_module:
   SOURCE-ASSET-INTERFACE-FREEZE: proposed_not_frozen
+  X-I01_through_X-I07: not_yet_validated
+  X-I_blocker: source_interface_not_frozen
   CROSS-MODULE-DIFFERENTIAL-HARNESS: not_built
   MODULE-ADMISSION-FINANCE-1: not_met
   module_status: BLOCKED

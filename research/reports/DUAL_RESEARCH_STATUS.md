@@ -29,7 +29,8 @@ Prediction `Underfunded` and `LiveLiability`: PROVEN_UNDER_ASSUMPTIONS unreachab
 MATH-1F: measured_simulation on declared synthetic books. It is not a solvency result and not Kuru liquidity. Arbitrage occurring is NOT_YET_VALIDATED.  
 Minimum-cost replication: EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN for declared rational matrices of at most 16 states and 8 components. A AND B with columns A, B, and the constant 1 is PRODUCT_NOT_REPLICABLE. This is not Kuru and not a solvency theorem.  
 Storage-slot isolation: INFERRED from the current kernel layouts. Two markets do not share split slots. Two series contracts do not share mint slots. Monad throughput was not measured. ADR-R06 stays PROPOSED.  
-R-I08: measured. `CandidateCumulativeSettlement.redeem` reverts `NotRedeemable` until `makeRedeemable`. The payout formula was not changed.  
+R-I08: the recorded gate `R-I08_resolved_not_redeemable` stays measured. `CandidateCumulativeSettlement.redeem` reverts `NotRedeemable` until `makeRedeemable`. The payout formula was not changed. In the INV-P numbering that test is the R-I09 funding gate. INV-P08 partial resolution already has tests.  
+Invariant coverage: P-I01..P-I10 are executable. P-I05 `cancelDraft` stays not_yet_validated. R-I02 and R-I12 were prose only and now have tests in `test_invariant_ids.py`. R-I10 canonical per-call settlement stays COUNTEREXAMPLE_FOUND. X-I01..X-I07 stay not_yet_validated because the source interface is not frozen. MODULE-ADMISSION-FINANCE-1 stays not met.  
 Benchmarks: `benchmarks_measured: local_single_environment`. One Foundry gas test and five-sample reference timings. Not admission. 16/16 replication solve was NOT_RUN. No percentiles.  
 Static analysis: `measured_with_findings`. A complete Slither IR is `blocked_tool`. `--solc-force-legacy-json` still leaves `_redeem` without IR, and solc 0.8 rejects legacy JSON. S-P16 stays open. Inspection of the redeemed cursors is PROVEN_UNDER_ASSUMPTIONS and did not change storage. This is not PRED-CONTRACT-1 PASS.  
 Local reproducibility: `rerun_pass`. Prediction unit tests 12 OK, PRISM unit tests 85 OK, Foundry 63 passed and 0 failed. Existing interpreter. No fresh virtualenv.  
@@ -60,6 +61,6 @@ The baseline file remains the pre-change record. After it:
 - Human acceptance before any production settlement port. A candidate kernel now exists under `research/contract-kernels/src/prism/`. CONTRACT-1 stays not_met. ADR-R07 still stops a v2 port.
 - Complete Slither IR or another static-analysis pass. `PredictionMarket.sol` branch coverage was remeasured at 94.44% (34/36). `Underfunded` and `LiveLiability` remain uncovered. That is not a pass by itself.
 - Kuru router address and a RetroPick parameter set. The worksheet's book rows are BLOCKED after a second primary-source pass. No fork and no deployment.
-- Cross-module differential harness. The source-asset list is `proposed_not_frozen`, not frozen. X-I01..X-I07 are not tested.
+- Cross-module differential harness. The source-asset list is `proposed_not_frozen`, not frozen. X-I01..X-I07 are NOT_YET_VALIDATED. Blocker: source interface not frozen.
 - Kernel `cancelDraft` for the cancelled-draft branch of P-I05.
 - Echidna, Medusa, Halmos, Mythril, semgrep: not installed. solhint 5.2.0 ran locally and is not a clean-audit substitute. Slither's focused rerun still has incomplete IR.

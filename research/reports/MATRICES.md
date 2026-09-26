@@ -74,13 +74,39 @@ Every row points at evidence from this program. Status words are the program's c
 
 | ID | Python | Foundry | Gap |
 |---|---|---|---|
-| P-I01..P-I10 | `invariant_ids.py` scenarios EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN | `PredictionInvariantIdsTest` 10 passed | P-I05 `cancelDraft` is NOT_YET_VALIDATED in the kernel |
+| P-I01 | `invariant_ids.py` via `test_invariants.py` | `test_P_I01_supplies_match_balances` | executable |
+| P-I02 | `invariant_ids.py` via `test_invariants.py` | `test_P_I02_conservation_through_resolution_pending` and `invariant_preResolutionConservation` | executable. Issuance invariant does not walk redemption |
+| P-I03 | `invariant_ids.py` via `test_invariants.py` | `test_P_I03_split_only_while_open_and_equal` | executable |
+| P-I04 | `invariant_ids.py` via `test_invariants.py` | `test_P_I04_merge_while_locked_releases_equal_collateral` | executable |
+| P-I05 | `invariant_ids.py` via `test_invariants.py`, including `cancel_draft` | `test_P_I05_spec_hash_is_immutable` | kernel `cancelDraft` is NOT_YET_VALIDATED |
+| P-I06 | `invariant_ids.py` via `test_invariants.py` | `test_P_I06_one_result_from_pending_by_resolver` | executable |
+| P-I07 | `invariant_ids.py` via `test_invariants.py` | `test_P_I07_redeem_only_redeemable_balance` | executable |
+| P-I08 | `invariant_ids.py` via `test_invariants.py` | `test_P_I08_collateral_covers_liability` | executable |
+| P-I09 | `invariant_ids.py` via `test_invariants.py` | `test_P_I09_no_admin_mint` | executable |
+| P-I10 | `invariant_ids.py` via `test_invariants.py` | `test_P_I10_archive_only_at_zero_supply` | executable |
 | Foundry issuance conservation | n/a | 256 runs, 128000 calls, 48023 handler reverts, invariant held | split, merge, closeMint, beginResolution. Not redemption |
-| R-I01..R-I12 | existing PRISM oracle for the subset already modeled | none | settlement fairness fails R-style holder payment even though funding holds |
-| R-I08 final supply is not redeemable | candidate has no separate resolve step; constructor supply starts closed | `test_final_supply_is_not_redeemable_until_funded` | `redeem` reverts `NotRedeemable` until `makeRedeemable`. Payout formula unchanged |
+| R-I01 | `test_replication.py` `test_exact_component_is_replicable` and `test_known_and_is_not_replicable` | none | executable. INV-P01 |
+| R-I02 | `test_invariant_ids.py` `test_r_i02_activated_weights_and_matrix_stay_fixed` | none on `PrismSeries` | executable. INV-P02. Previously prose only |
+| R-I03 | `test_model.py` `test_exact_mint_then_redeem` | `CandidateComponentBacking.t.sol` `test_matches_python_fixtures` | executable. INV-P03 |
+| R-I04 | `test_model.py` `test_overmint_rejected` | backing fixtures reject an underbacked mint | executable. INV-P04 |
+| R-I05 | `test_model.py` `test_exact_mint_then_redeem` | requirement-delta redeem in the backing kernel | executable. INV-P05 |
+| R-I06 | `test_model.py` `test_terminal_solvency_all_states` | none | executable. INV-P06 |
+| R-I07 | `test_executable_gaps.py` `test_cross_series_double_allocation_is_rejected` | `test_reservation_matches_fixture` | executable. INV-P07 |
+| R-I08 | `test_partial_resolution.py` `test_component_transform_preserves_remaining_states` | `CandidatePayoffTransform.t.sol` `test_matches_python_fixtures` | executable. INV-P08 |
+| R-I09 | `test_settlement.py` `test_underfunded_cannot_become_redeemable` | `test_final_supply_is_not_redeemable_until_funded` | executable. INV-P09. Gate key `R-I08_resolved_not_redeemable` still names this test and was not renamed |
+| R-I10 | exact model `test_exact_final_redemption`. Canonical per-call `test_per_call_rule_remains_the_counterexample`. Candidate `test_candidate_pays_the_original_case_without_replacing_the_oracle` | candidate differential fixtures | COUNTEREXAMPLE_FOUND on `FixedPointSettlement.redeem`. Candidate asserted. Canonical MATH-1 stays FAIL. INV-P10 |
+| R-I11 | `test_lifecycle.py` `test_no_resurrection`; `test_invariant_ids.py` `test_r_i11_redeemable_and_archived_do_not_reopen` | none | executable. INV-P11. RESOLVED to ACTIVE was already tested. REDEEMABLE and ARCHIVED edges were not |
+| R-I12 | `test_invariant_ids.py` `test_r_i12_final_resolution_is_committed_once` | none | executable. INV-P12. Previously prose only |
 | X-I01..X-I07 | not modeled jointly | not built | BLOCKED |
+| X-I01 | not built | not built | NOT_YET_VALIDATED. source interface not frozen |
+| X-I02 | not built | not built | NOT_YET_VALIDATED. source interface not frozen |
+| X-I03 | not built | not built | NOT_YET_VALIDATED. source interface not frozen |
+| X-I04 | not built | not built | NOT_YET_VALIDATED. source interface not frozen |
+| X-I05 | not built | not built | NOT_YET_VALIDATED. source interface not frozen |
+| X-I06 | not built | not built | NOT_YET_VALIDATED. source interface not frozen |
+| X-I07 | not built | not built | NOT_YET_VALIDATED. source interface not frozen |
 
-R-I01..R-I12 in the task sense are the PRISM backing, admission, lifecycle, and settlement invariants already numbered INV-P01.. in `docs/prism/math/16_INVARIANTS.md`. This program does not renumber them. Cross-module X-invariants are not claimed.
+R-I01..R-I12 are INV-P01..INV-P12 in `docs/prism/math/16_INVARIANTS.md`. This program does not renumber them. The gate key `R-I08_resolved_not_redeemable` remains the name of the funding-refusal test. That statement is INV-P09, so its coverage row is R-I09. No cross-module deposit harness was added.
 
 ## BENCHMARK_MATRIX
 
@@ -169,7 +195,10 @@ The six prediction rows above the CREATE rows, and `test_fund_and_redeem_gas`, a
 | partial_resolution_transform | differential_research_kernel |
 | minimum_cost_replication | exhaustively_verified_within_domain. Not Kuru. Not solvency |
 | storage_slot_isolation | inferred. ADR-R06 stays PROPOSED |
-| R-I08 resolved supply is not redeemable | measured |
+| R-I08 resolved supply is not redeemable | measured. Gate key unchanged. Coverage row is R-I09 / INV-P09 |
+| R-I02 immutable replication | measured. `test_r_i02_activated_weights_and_matrix_stay_fixed` |
+| R-I12 resolution once | measured. `test_r_i12_final_resolution_is_committed_once` |
+| X-I01..X-I07 | not_yet_validated. source interface not frozen |
 | Unreachable `Underfunded` / `LiveLiability` | PROVEN_UNDER_ASSUMPTIONS |
 | benchmarks_measured | local_single_environment. Not admission |
 | static_analysis | measured_with_findings. Slither IR still incomplete. Not PRED-CONTRACT-1 |

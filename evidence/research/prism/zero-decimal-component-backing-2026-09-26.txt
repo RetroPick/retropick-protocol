@@ -1,0 +1,46 @@
+tool: python3 and forge test
+command: forge test --match-contract ZeroDecimalComponentBackingTest -vv
+cwd: /workspace/research/contract-kernels
+profile: default
+sha_base: 73688a910d5a285e470b1df8275cb2372cbe718c
+decimals: 0,0
+weights: 10^18,10^18
+python_constructor_rejected: false
+python_required_supply_1: 1,1
+python_paid: 1,1
+python_backing_before: 1,1
+python_backing_after: 0,0
+python_supply: 1 then 0
+python_required_after: 0,0
+classification: existing_rule
+adr_added: none
+kuru_decimals_18: not_established
+math1: FAIL
+pred_kuru_1: blocked
+
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 1.10s
+Compiler run successful!
+
+Ran 1 test for test/prism/ZeroDecimalComponentBacking.t.sol:ZeroDecimalComponentBackingTest
+[PASS] test_decimals_zero_deposit_required_mint_one_redeem_one() (gas: 771392)
+Logs:
+  constructor_rejected: false
+  required_raw_0: 1
+  required_raw_1: 1
+  paid_0: 1
+  paid_1: 1
+  supply_before: 1
+  supply_after: 0
+  backing_before_0: 1
+  backing_before_1: 1
+  backing_after_0: 0
+  backing_after_1: 0
+  required_after_0: 0
+  required_after_1: 0
+  classification: existing_rule
+  kuru_decimals_18: not_established
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 741.78µs (548.58µs CPU time)
+
+Ran 1 test suite in 5.28ms (741.78µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

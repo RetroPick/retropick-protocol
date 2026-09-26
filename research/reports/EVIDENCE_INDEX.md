@@ -102,6 +102,8 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `evidence/research/prism/fee-on-transfer-settlement-funding-2026-09-26.txt` | Forge default profile, 1 passed, gas 512925 |
 | `evidence/research/prism/rebasing-settlement-funding-2026-09-26.json` | existing_rule. After redeemable, rebaseDown of 1 leaves balance 1. redeem(2) pays 1. paidRaw becomes 1 |
 | `evidence/research/prism/rebasing-settlement-funding-2026-09-26.txt` | Forge default profile, 1 passed, gas 646410 |
+| `evidence/research/prism/deep-rebasing-settlement-funding-2026-09-26.json` | existing_rule. rebaseDown of 2 leaves balance 0 below floor 1. redeem(2) reverts PayoutExceedsBalance. paidRaw stays 0. redeemable stays true |
+| `evidence/research/prism/deep-rebasing-settlement-funding-2026-09-26.txt` | Forge default profile, 1 passed, gas 584736 |
 | `evidence/research/prism/backing-fixtures-2026-09-26.txt` | backing fixture generator log |
 | `evidence/research/prism/unittest-backing-kernel-2026-09-26.txt` | prism-model unittest, 70 tests OK |
 | `research/prism-model/fixtures/backing_kernel.json` | FixedPointSeries and ReservationLedger integers |

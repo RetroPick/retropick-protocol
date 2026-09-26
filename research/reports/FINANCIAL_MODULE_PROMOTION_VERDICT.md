@@ -58,6 +58,8 @@ T-NATIVE-001 says canonical binary split and merge conserve complete-set collate
 
 T-NATIVE-002 says a valid binary terminal payoff satisfies `YES(omega)+NO(omega)=1`. Z3 5.1.0 reports unsat for a winner in {YES, NO} whose unit payoffs do not sum to 1. Resolving YES pays 1 on YES and 0 on NO. Resolving NO pays 0 on YES and 1 on NO. `BinaryCompleteSetMarket.resolve("INVALID")` raises, leaves the market ACTIVE, and assigns no payout. Invalid and void stay unspecified. Classification of the valid-terminal statement: **PROVEN_UNDER_ASSUMPTIONS**. No counterexample. Runtime 0.007686 seconds. Canonical MATH-1 stays FAIL because the per-call settlement floor still fails. Log: `evidence/research/prism/t-native-002-2026-09-26.json`.
 
+T-LC-001 says the canonical PRISM lifecycle has no resurrection into issuance. The oracle is `lifecycle.transition`. Exact enumeration of the seven states checks all 49 ordered pairs. Seven edges are allowed: DRAFT to ACTIVE, ACTIVE to MINT_PAUSED, ACTIVE to RESOLUTION_PENDING, MINT_PAUSED to RESOLUTION_PENDING, RESOLUTION_PENDING to RESOLVED, RESOLVED to REDEEMABLE, and REDEEMABLE to ARCHIVED. The other 42 pairs raise `LifecycleError`. No edge enters ACTIVE except DRAFT to ACTIVE, no edge enters DRAFT, and no non-DRAFT state can reach ACTIVE. RESOLVED and REDEEMABLE stay distinct, and REDEEMABLE does not return to RESOLVED. `cancelDraft` is not a transition. Classification: **PROVEN_UNDER_ASSUMPTIONS**. No counterexample. Runtime 0.000185 seconds. Canonical MATH-1 stays FAIL because the per-call settlement floor still fails. Log: `evidence/research/prism/t-lc-001-2026-09-26.json`.
+
 ## Candidate cumulative settlement
 
 This is not an oracle replacement and it is not MATH-1 PASS.

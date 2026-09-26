@@ -72,6 +72,7 @@ Every row points at evidence from this program. Status words are the program's c
 | T-BS-003 | PROVEN_UNDER_ASSUMPTIONS for every finite component count | SymPy 1.14.0 sum identity. Z3 5.1.0 inductive step unsat. 3 components, 4 states solvent. `t-bs-003-2026-09-26.json`. Not MATH-1 PASS |
 | T-NATIVE-001 | PROVEN_UNDER_ASSUMPTIONS | SymPy 1.14.0 gap identity. Z3 5.1.0 unsat. Split 100 merge 25 leaves 75. `t-native-001-2026-09-26.json`. Not MATH-1 PASS |
 | T-NATIVE-002 | PROVEN_UNDER_ASSUMPTIONS for valid YES and NO | Z3 5.1.0 unsat. Unit payoffs 1+0 and 0+1. Invalid payout unspecified. `t-native-002-2026-09-26.json`. Not MATH-1 PASS |
+| T-LC-001 | PROVEN_UNDER_ASSUMPTIONS | Exact enumeration of `lifecycle.transition`. 7 edges, 42 rejected. No path back to ACTIVE. `t-lc-001-2026-09-26.json`. Not MATH-1 PASS |
 | Market demand hypotheses | NOT_YET_VALIDATED | unchanged |
 
 ## COUNTEREXAMPLE_MATRIX
@@ -203,7 +204,7 @@ The six prediction rows above the CREATE rows, and `test_fund_and_redeem_gas`, a
 |---|---|
 | PRED-CONTRACT-1 | NOT PASS |
 | PRISM MATH-1 | FAIL |
-| MATH-1E | partial_z3_sympy. R-THEOREM-1, R-THEOREM-5, R-THEOREM-6, T-PARTIAL-002, T-FP-001 through T-FP-004, T-BS-001 through T-BS-003, and T-NATIVE-001 through T-NATIVE-002 discharged. Not MATH-1 PASS. Canonical per-call settlement floor still fails |
+| MATH-1E | partial_z3_sympy. R-THEOREM-1, R-THEOREM-5, R-THEOREM-6, T-PARTIAL-002, T-FP-001 through T-FP-004, T-BS-001 through T-BS-003, T-NATIVE-001 through T-NATIVE-002, and T-LC-001 discharged. Not MATH-1 PASS. Canonical per-call settlement floor still fails |
 | MATH-1D candidate cumulative floor | PROVEN_UNDER_ASSUMPTIONS; ready for ADR acceptance; Solidity `differential_research_kernel` |
 | MATH-1B | bounded grids only. Supply-16 compositions and the backing grid are inside the note. Not a universal proof |
 | PRISM CONTRACT-ARCH-1 | proposed |

@@ -1,0 +1,30 @@
+tool: python3
+cwd: /workspace/research/prediction-model
+sha_base: 9054aca28becba1a44be9b9b5dd7437c354068ad
+setup: create_market integer, activate_binary, split alice 4 received 4
+state: OPEN
+after_split: collateral 4, YES 4, NO 4
+classification: recorded_gap
+solidity: PredictionMarket.sol declares none of try_replace_spec, admin_mint, admin_withdraw, pause_redemption
+math1: FAIL
+implementations_changed: false
+
+try_replace_spec
+ before 4 4 4
+ error resolution spec is immutable after activation
+ after 4 4 4
+
+admin_mint
+ before 4 4 4
+ error no admin mint
+ after 4 4 4
+
+admin_withdraw
+ before 4 4 4
+ error no admin withdrawal of collateral
+ after 4 4 4
+
+pause_redemption
+ before 4 4 4
+ error Phase-1 has no redemption pause
+ after 4 4 4

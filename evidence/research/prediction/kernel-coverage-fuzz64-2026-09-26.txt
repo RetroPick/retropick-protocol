@@ -1,0 +1,158 @@
+command: forge coverage --report summary --report lcov --report-file /tmp/cov/kernel.lcov --fuzz-runs 64 --exclude-tests
+working_directory: research/contract-kernels
+foundry: 1.8.3
+date: 2026-09-26
+exit: 0
+fuzz_runs: 64
+invariant_runs: 256
+invariant_depth: 500
+invariant_calls: 128000
+invariant_reverts: 47348
+note: fuzz-runs 64 is the flag on this command. Invariant runs stayed at foundry.toml value 256 because that suite finished in 11.81s. This revert count is this coverage command only. It is not the earlier full-suite figure 48023 and not the isolated prediction-path figure 46694. Optimizer and viaIR were disabled by forge coverage.
+
+PredictionMarket.sol: lines 100.00% (119/119), statements 98.75% (158/160), branches 94.44% (34/36), functions 100.00% (14/14).
+OutcomeToken.sol: lines 100.00% (12/12), branches 100.00% (2/2).
+Uncovered PredictionMarket branches, from lcov BRDA taken 0:
+- line 189, openRedemption, collateralLocked < liability(), error Underfunded. The line executed 79 times on the other side.
+- line 220, archive, liability() != 0, error LiveLiability. The line executed 4 times on the other side.
+Those two revert statements are the two uncovered statements. The current split, merge, and redeem formulas do not reach them. No production behavior was added to force them.
+
+Warning: optimizer settings and `viaIR` have been disabled for accurate coverage reports.
+If you encounter "stack too deep" errors, consider using `--ir-minimum` which enables `viaIR` with minimum optimization resolving most of the errors.
+See more: https://book.getfoundry.sh/guides/best-practices/stack-too-deep
+Compiling 54 files with Solc 0.8.26
+Solc 0.8.26 finished in 1.49s
+Compiler run successful!
+Analysing contracts...
+Running tests...
+
+Ran 1 test for test/prism/CandidateSettlementGas.t.sol:CandidateSettlementGasTest
+[PASS] test_fund_and_redeem_gas() (gas: 655142)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 723.66µs (534.38µs CPU time)
+
+Ran 4 tests for test/prediction/OutcomeTokenGas.t.sol:OutcomeTokenGasTest
+[PASS] test_full_deployment_versus_erc1167() (gas: 3609993)
+[PASS] test_immutable_outcome_token_clone_shares_identity() (gas: 153599)
+[PASS] test_storage_clone_initializer_cannot_replay() (gas: 290719)
+[PASS] test_storage_clone_moves_balances_only_through_its_market() (gas: 571999)
+Suite result: ok. 4 passed; 0 failed; 0 skipped; finished in 2.37ms (2.05ms CPU time)
+
+Ran 14 tests for test/prediction/PredictionBranchCoverage.t.sol:PredictionBranchCoverageTest
+[PASS] test_activate_rejects_non_factory_and_repeat() (gas: 118460)
+[PASS] test_archive_before_redeemable_reverts() (gas: 41404)
+[PASS] test_begin_resolution_access_and_open_state() (gas: 91280)
+[PASS] test_close_mint_access_and_repeat() (gas: 91390)
+[PASS] test_constructor_rejects_zero_collateral() (gas: 11001)
+[PASS] test_constructor_rejects_zero_dust_sink() (gas: 10986)
+[PASS] test_constructor_rejects_zero_resolver() (gas: 11031)
+[PASS] test_draft_rejects_split_and_merge() (gas: 81877)
+[PASS] test_merge_zero_rejected() (gas: 297874)
+[PASS] test_no_win_burns_worthless_yes_and_rejects_paying_side() (gas: 606919)
+[PASS] test_open_redemption_rejects_unresolved_and_repeat() (gas: 483548)
+[PASS] test_resolve_none_rejected() (gas: 102525)
+[PASS] test_user_cannot_burn_outcome() (gas: 78269)
+[PASS] test_zero_redeem_rejected() (gas: 514098)
+Suite result: ok. 14 passed; 0 failed; 0 skipped; finished in 8.91ms (7.93ms CPU time)
+
+Ran 10 tests for test/prediction/PredictionInvariantIds.t.sol:PredictionInvariantIdsTest
+[PASS] test_P_I01_supplies_match_balances() (gas: 310267)
+[PASS] test_P_I02_conservation_through_resolution_pending() (gas: 359067)
+[PASS] test_P_I03_split_only_while_open_and_equal() (gas: 345937)
+[PASS] test_P_I04_merge_while_locked_releases_equal_collateral() (gas: 485244)
+[PASS] test_P_I05_spec_hash_is_immutable() (gas: 396115)
+[PASS] test_P_I06_one_result_from_pending_by_resolver() (gas: 463114)
+[PASS] test_P_I07_redeem_only_redeemable_balance() (gas: 591816)
+[PASS] test_P_I08_collateral_covers_liability() (gas: 581883)
+[PASS] test_P_I09_no_admin_mint() (gas: 66485)
+[PASS] test_P_I10_archive_only_at_zero_supply() (gas: 654577)
+Suite result: ok. 10 passed; 0 failed; 0 skipped; finished in 7.33ms (6.33ms CPU time)
+
+Ran 14 tests for test/prediction/PredictionDifferential.t.sol:PredictionDifferentialTest
+[PASS] test_archive_invalid_reads_fixture() (gas: 995398)
+[PASS] test_begin_resolution_reads_fixture() (gas: 428935)
+[PASS] test_burn_worthless_and_archive_read_fixture() (gas: 1064977)
+[PASS] test_close_mint_reads_fixture() (gas: 400782)
+[PASS] test_invalid_stream_reads_fixture() (gas: 1250061)
+[PASS] test_merge_locked_reads_fixture() (gas: 513913)
+[PASS] test_merge_reads_fixture() (gas: 395614)
+[PASS] test_redeem_no_reads_fixture() (gas: 690429)
+[PASS] test_redeem_yes_reads_fixture() (gas: 716870)
+[PASS] test_rejections_read_fixture() (gas: 5102615)
+[PASS] test_resolve_invalid_reads_fixture() (gas: 540642)
+[PASS] test_resolve_no_reads_fixture() (gas: 520706)
+[PASS] test_resolve_yes_reads_fixture() (gas: 558392)
+[PASS] test_split_reads_fixture() (gas: 331355)
+Suite result: ok. 14 passed; 0 failed; 0 skipped; finished in 21.72ms (20.72ms CPU time)
+
+Ran 4 tests for test/prism/CandidateComponentBacking.t.sol:CandidateComponentBackingDifferentialTest
+[PASS] test_fee_on_transfer_deposit_does_not_credit_backing() (gas: 402643)
+[PASS] test_matches_python_fixtures() (gas: 8744760)
+[PASS] test_redeem_transfers_after_supply_is_burned() (gas: 2446271)
+[PASS] test_reservation_matches_fixture() (gas: 395700)
+Suite result: ok. 4 passed; 0 failed; 0 skipped; finished in 41.30ms (40.87ms CPU time)
+
+Ran 2 tests for test/prism/CandidateCumulativeSettlement.t.sol:CandidateCumulativeSettlementDifferentialTest
+[PASS] test_matches_python_fixtures() (gas: 3160958)
+[PASS] test_underfunded_does_not_open() (gas: 132391)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 10.01ms (10.20ms CPU time)
+
+Ran 9 tests for test/prediction/PredictionMarket.t.sol:PredictionMarketTest
+[PASS] testFuzz_invalid_dust_bound(uint32) (runs: 64, μ: 721378, ~: 723413)
+[PASS] testFuzz_split_merge_conserves(uint96) (runs: 64, μ: 419304, ~: 418611)
+[PASS] test_double_resolve_reverts() (gas: 410514)
+[PASS] test_fee_on_transfer_split_reverts() (gas: 149677)
+[PASS] test_invalid_cumulative_floor_matches_fixture() (gas: 1308500)
+[PASS] test_merge_matches_fixture() (gas: 358093)
+[PASS] test_split_matches_fixture() (gas: 323406)
+[PASS] test_user_cannot_mint_outcome() (gas: 37270)
+[PASS] test_yes_redemption_matches_fixture() (gas: 676344)
+Suite result: ok. 9 passed; 0 failed; 0 skipped; finished in 35.18ms (38.54ms CPU time)
+
+Ran 1 test for test/prediction/PredictionInvariant.t.sol:PredictionInvariantTest
+[PASS] invariant_preResolutionConservation() (runs: 256, calls: 128000, reverts: 47348)
+
+╭-------------------------+-----------------+-------+---------+----------╮
+| Contract                | Selector        | Calls | Reverts | Discards |
++========================================================================+
+| PredictionInvariantTest | beginResolution | 31967 | 0       | 0        |
+|-------------------------+-----------------+-------+---------+----------|
+| PredictionInvariantTest | closeMint       | 32183 | 0       | 0        |
+|-------------------------+-----------------+-------+---------+----------|
+| PredictionInvariantTest | merge           | 31909 | 15673   | 0        |
+|-------------------------+-----------------+-------+---------+----------|
+| PredictionInvariantTest | split           | 31941 | 31675   | 0        |
+╰-------------------------+-----------------+-------+---------+----------╯
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 11.81s (11.81s CPU time)
+
+Ran 9 test suites in 11.81s (11.94s CPU time): 59 tests passed, 0 failed, 0 skipped (59 total tests)
+
+╭--------------------------------------------------------------------------------------+-------------------+------------------+-----------------+-----------------╮
+| File                                                                                 | % Lines           | % Statements     | % Branches      | % Funcs         |
++=================================================================================================================================================================+
+| ../../contracts/lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol           | 85.51% (59/69)    | 85.45% (47/55)   | 50.00% (7/14)   | 88.24% (15/17)  |
+|--------------------------------------------------------------------------------------+-------------------+------------------+-----------------+-----------------|
+| ../../contracts/lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol | 28.57% (24/84)    | 26.32% (20/76)   | 0.00% (0/27)    | 28.57% (4/14)   |
+|--------------------------------------------------------------------------------------+-------------------+------------------+-----------------+-----------------|
+| ../../contracts/lib/openzeppelin-contracts/contracts/utils/ReentrancyGuard.sol       | 84.21% (16/19)    | 83.33% (10/12)   | 0.00% (0/1)     | 87.50% (7/8)    |
+|--------------------------------------------------------------------------------------+-------------------+------------------+-----------------+-----------------|
+| ../../contracts/lib/openzeppelin-contracts/contracts/utils/math/Math.sol             | 5.58% (12/215)    | 6.10% (15/246)   | 3.85% (1/26)    | 11.11% (4/36)   |
+|--------------------------------------------------------------------------------------+-------------------+------------------+-----------------+-----------------|
+| src/prediction/CloneableOutcomeToken.sol                                             | 100.00% (30/30)   | 100.00% (25/25)  | 100.00% (3/3)   | 100.00% (7/7)   |
+|--------------------------------------------------------------------------------------+-------------------+------------------+-----------------+-----------------|
+| src/prediction/ERC1167.sol                                                           | 100.00% (7/7)     | 85.71% (6/7)     | 0.00% (0/1)     | 100.00% (1/1)   |
+|--------------------------------------------------------------------------------------+-------------------+------------------+-----------------+-----------------|
+| src/prediction/MockCollateral.sol                                                    | 100.00% (14/14)   | 100.00% (14/14)  | 100.00% (1/1)   | 100.00% (5/5)   |
+|--------------------------------------------------------------------------------------+-------------------+------------------+-----------------+-----------------|
+| src/prediction/OutcomeToken.sol                                                      | 100.00% (12/12)   | 100.00% (10/10)  | 100.00% (2/2)   | 100.00% (4/4)   |
+|--------------------------------------------------------------------------------------+-------------------+------------------+-----------------+-----------------|
+| src/prediction/PredictionMarket.sol                                                  | 100.00% (119/119) | 98.75% (158/160) | 94.44% (34/36)  | 100.00% (14/14) |
+|--------------------------------------------------------------------------------------+-------------------+------------------+-----------------+-----------------|
+| src/prism/CandidateComponentBacking.sol                                              | 88.89% (64/72)    | 85.19% (92/108)  | 38.46% (5/13)   | 80.00% (8/10)   |
+|--------------------------------------------------------------------------------------+-------------------+------------------+-----------------+-----------------|
+| src/prism/CandidateCumulativeSettlement.sol                                          | 100.00% (47/47)   | 85.71% (54/63)   | 18.18% (2/11)   | 100.00% (5/5)   |
+|--------------------------------------------------------------------------------------+-------------------+------------------+-----------------+-----------------|
+| src/prism/CandidateReservationLedger.sol                                             | 100.00% (16/16)   | 100.00% (14/14)  | 100.00% (2/2)   | 100.00% (6/6)   |
+|--------------------------------------------------------------------------------------+-------------------+------------------+-----------------+-----------------|
+| Total                                                                                | 59.66% (420/704)  | 58.86% (465/790) | 41.61% (57/137) | 62.99% (80/127) |
+╰--------------------------------------------------------------------------------------+-------------------+------------------+-----------------+-----------------╯

@@ -35,6 +35,7 @@ prism:
   MATH-1: fail
   CONTRACT-ARCH-1: proposed
   CONTRACT-1: not_met
+  backing_kernel_solidity: differential_research_kernel
   PLATFORM-INTEGRATION-1: not_met
   module_status: FAIL
 

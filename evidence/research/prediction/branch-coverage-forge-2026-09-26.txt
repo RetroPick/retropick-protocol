@@ -1,0 +1,28 @@
+No files changed, compilation skipped
+
+Ran 14 tests for test/prediction/PredictionBranchCoverage.t.sol:PredictionBranchCoverageTest
+[PASS] test_activate_rejects_non_factory_and_repeat() (gas: 115424)
+[PASS] test_archive_before_redeemable_reverts() (gas: 40722)
+[PASS] test_begin_resolution_access_and_open_state() (gas: 90288)
+[PASS] test_close_mint_access_and_repeat() (gas: 90398)
+[PASS] test_constructor_rejects_zero_collateral() (gas: 9559)
+[PASS] test_constructor_rejects_zero_dust_sink() (gas: 9489)
+[PASS] test_constructor_rejects_zero_resolver() (gas: 9531)
+[PASS] test_draft_rejects_split_and_merge() (gas: 77878)
+[PASS] test_merge_zero_rejected() (gas: 291381)
+[PASS] test_no_win_burns_worthless_yes_and_rejects_paying_side() (gas: 593065)
+[PASS] test_open_redemption_rejects_unresolved_and_repeat() (gas: 475262)
+[PASS] test_resolve_none_rejected() (gas: 101078)
+[PASS] test_user_cannot_burn_outcome() (gas: 74862)
+[PASS] test_zero_redeem_rejected() (gas: 503599)
+Suite result: ok. 14 passed; 0 failed; 0 skipped; finished in 1.41ms (939.84µs CPU time)
+
+Ran 4 tests for test/prism/CandidateComponentBacking.t.sol:CandidateComponentBackingDifferentialTest
+[PASS] test_fee_on_transfer_deposit_does_not_credit_backing() (gas: 388886)
+[PASS] test_matches_python_fixtures() (gas: 8038244)
+[PASS] test_redeem_transfers_after_supply_is_burned() (gas: 1768952)
+[PASS] test_reservation_matches_fixture() (gas: 369335)
+Suite result: ok. 4 passed; 0 failed; 0 skipped; finished in 27.87ms (33.41ms CPU time)
+
+Ran 2 test suites in 28.57ms (29.28ms CPU time): 18 tests passed, 0 failed, 0 skipped (18 total tests)
+EXIT:0

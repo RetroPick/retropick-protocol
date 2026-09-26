@@ -69,7 +69,13 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `evidence/research/baseline/` | baseline unittest, adversarial, scenarios, Doorway Forge summary |
 | `evidence/research/prism/math1-probe-2026-09-26.json` | probe output |
 | `evidence/research/prediction/kernel-forge-2026-09-26.txt` | kernel test log |
-| `evidence/research/prediction/kernel-coverage-2026-09-26.txt` | forge coverage summary |
+| `evidence/research/prediction/kernel-coverage-2026-09-26.txt` | earlier forge coverage summary, branches 30.56% (11/36) |
+| `evidence/research/prediction/kernel-coverage-fuzz64-2026-09-26.txt` | remeasured coverage. PredictionMarket branches 94.44% (34/36). Fuzz runs 64. Invariant runs 256 |
+| `evidence/research/prediction/branch-coverage-forge-2026-09-26.txt` | reject-branch Foundry log, 14 prediction tests passed, combined with the backing suite |
+| `evidence/research/prism/backing-kernel-forge-2026-09-26.txt` | backing-kernel Foundry log, 4 tests passed, same combined run |
+| `evidence/research/prism/backing-fixtures-2026-09-26.txt` | backing fixture generator log |
+| `evidence/research/prism/unittest-backing-kernel-2026-09-26.txt` | prism-model unittest, 70 tests OK |
+| `research/prism-model/fixtures/backing_kernel.json` | FixedPointSeries and ReservationLedger integers |
 | `evidence/research/prediction/outcome-token-gas-2026-09-26.txt` | full ERC-20 versus ERC-1167 CREATE gas |
 | `evidence/research/prism/cumulative-floor-attack-2026-09-26.json` | candidate settlement attack |
 | `evidence/research/prediction/invariant-ids-2026-09-26.txt` | P-I01..P-I10 Python and Forge logs |

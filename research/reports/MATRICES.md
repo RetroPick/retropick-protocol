@@ -31,7 +31,7 @@ Every row points at evidence from this program. Status words are the program's c
 | Global-cursor telescope | PROVEN_UNDER_ASSUMPTIONS for the inductive identity only | SymPy 1.14.0. Not canonical MATH-1 |
 | MATH-1F synthetic quotes | measured_simulation | `market_microstructure.py`. Not solvency. Not Kuru |
 | MATH-1 PASS | FAIL | canonical per-call rule remains |
-| PRISM Solidity | candidate settlement kernel only | `CandidateCumulativeSettlement.sol` matches the Python fixtures. Series is not written. CONTRACT-1 not_met. Not MATH-1 PASS |
+| PRISM Solidity | settlement kernel plus component-backing research kernel | Settlement matches the cumulative fixtures. Backing matches `FixedPointSeries` deposit, mint, and requirement-delta redeem. `backing_kernel_solidity` is `differential_research_kernel`. CONTRACT-1 not_met. Not MATH-1 PASS |
 | PRISM CONTRACT-ARCH-1 | proposed, not pass | `docs/prism/04-architecture/PHASE1_CANDIDATE_SERIES.md` |
 
 ## THEOREM_STATUS_MATRIX
@@ -114,10 +114,10 @@ The six prediction rows above the CREATE rows, and `test_fund_and_redeem_gas`, a
 
 | Tool | Result |
 |---|---|
-| forge test | Foundry 1.8.3; coverage run included fuzz and the 256-run invariant |
-| forge fuzz | 256 runs, two tests |
-| forge invariant | 256 runs, depth 500, 128000 calls, 0 reverts |
-| forge coverage | PredictionMarket lines 89.92% (107/119), branches 30.56% (11/36). Evidence file has the full table |
+| forge test | Foundry 1.8.3; coverage run was 59 tests, exit 0 |
+| forge fuzz | coverage command used 64 runs |
+| forge invariant | coverage command: 256 runs, depth 500, 128000 calls, 47348 reverts |
+| forge coverage | PredictionMarket lines 100.00% (119/119), branches 94.44% (34/36). Fuzz runs 64. Invariant runs 256. `kernel-coverage-fuzz64-2026-09-26.txt` |
 | slither 0.11.6 | exit 255, IR incomplete, detectors listed in `docs/prediction/10_SECURITY.md` |
 | echidna, medusa, halmos, mythril, semgrep, solhint | BLOCKED_TOOL |
 
@@ -151,6 +151,7 @@ The six prediction rows above the CREATE rows, and `test_fund_and_redeem_gas`, a
 | MATH-1D candidate cumulative floor | PROVEN_UNDER_ASSUMPTIONS; ready for ADR acceptance; Solidity `differential_research_kernel` |
 | PRISM CONTRACT-ARCH-1 | proposed |
 | PRISM CONTRACT-1 | not_met |
+| backing_kernel_solidity | differential_research_kernel |
 | MODULE-ADMISSION-FINANCE-1 | not met |
 | Move into `contracts/src/v2` | not done |
 | Mainnet | not authorized |
@@ -168,4 +169,4 @@ The six prediction rows above the CREATE rows, and `test_fund_and_redeem_gas`, a
 | `native_market.py` lifecycle is narrower than canonical | spec drift | recorded, new model does not pretend otherwise |
 | Clone cheaper, identity not independent | Medium | measured; kernel stays on full ERC-20; ADR-P01 PROPOSED |
 | Monad parallel-execution benefit | unmeasured | ADR-R06 is a hypothesis |
-| PredictionMarket branch coverage 30.56% (11/36) | Medium testing gap | Open. `evidence/research/prediction/kernel-coverage-2026-09-26.txt`. Not remeasured |
+| PredictionMarket branch coverage 94.44% (34/36) | Medium testing gap | Open. `Underfunded` and `LiveLiability` true branches taken 0 times. `kernel-coverage-fuzz64-2026-09-26.txt` |

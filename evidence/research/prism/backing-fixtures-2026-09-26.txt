@@ -1,0 +1,15 @@
+wrote /workspace/research/prism-model/fixtures/backing_kernel.json
+cases 11
+prism_cross_check agree
+reservation deposit=100 reserve_a=60 rejected=50 accepted=40 total_reserved=100 available=0
+deposit_only expect=ok supply=0 backing=3,1
+mint_within_backing expect=ok supply=5 backing=3,1
+mint_short expect=reject supply=0 backing=2,1
+mint_before_deposit expect=reject supply=0 backing=0,0
+mint_zero expect=reject supply=0 backing=0,0
+redeem_in_kind_small expect=ok supply=3 backing=2,1 released=1,0
+redeem_above_balance expect=reject supply=5 backing=3,1
+prism_surplus_mint expect=ok supply=1000 backing=700,500
+prism_overmint expect=reject supply=0 backing=599,400
+prism_in_kind_redeem expect=ok supply=750 backing=450,300 released=150,100
+wad_minimum_backing expect=ok supply=666666666666666667 backing=400000000000000001,266667 released=199999999999999999,133333

@@ -192,6 +192,8 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `evidence/research/prediction/compiler-redeem-ir-2026-09-26.json` | forge inspect ir-optimized, exit 0. Output contains `_redeem` and `burn`. compiler_sees_redeem_analyzer_does_not. S-P16 stays open |
 | `evidence/research/prediction/slither-foundry-target-2026-09-26.json` | Foundry-targeted Slither 0.11.6, exit 255. `_redeem` has no IR. blocked_tool. S-P16 stays open |
 | `evidence/research/prediction/slither-foundry-target-2026-09-26.txt` | same run, command log |
+| `evidence/research/prediction/outsider-burn-2026-09-26.json` | existing_rule. After split(4), outsider `OutcomeToken.burn` of 1 reverts `NotMarket`. YES totalSupply stays 4. Holder balance stays 4. Python has no OutcomeToken |
+| `evidence/research/prediction/outsider-burn-2026-09-26.txt` | Forge default profile, 1 passed, gas 322322 |
 | `evidence/research/prediction/compiler-redeem-ir-2026-09-26.txt` | matching IR lines only |
 | `evidence/research/prediction/slither-sp16-2026-09-26.txt` | same run, command log |
 | `evidence/research/prediction/zero-address-initialize-2026-09-26.json` | `initialize(address(0))` stores the zero market. totalSupply stays 0. recorded_finding. Python has no counterpart. ADR-P14 PROPOSED |

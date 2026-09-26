@@ -1,0 +1,51 @@
+tool: python3 and forge test
+command: forge test --match-contract ResolvedYesRedeemTest -vv
+cwd: /workspace/research/contract-kernels
+profile: default
+sha_base: 8563e96719ebbb16e2c52690fb5c27bb9b9270c6
+split: 4
+lifecycle: closeMint, beginResolution, resolve YES_WIN, no openRedemption
+redeem: Solidity redeemYes(1), Python redeem of 1 YES
+intermediate_state: RESOLVED on both sides, not REDEEMABLE
+classification: existing_rule
+python_accepted: false
+python_error: redeem only while REDEEMABLE
+solidity_accepted: false
+solidity_error: BadState
+payout: none
+before: state RESOLVED, liability 4, collateral locked 4
+after: state RESOLVED, liability 4, collateral locked 4
+adr_added: false
+adr_p04: PROPOSED
+adr_p15: PROPOSED
+adr_p16: PROPOSED
+adr_p17: PROPOSED
+math1: FAIL
+pred_kuru_1: blocked
+
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 1.08s
+Compiler run successful!
+
+Ran 1 test for test/prediction/ResolvedYesRedeem.t.sol:ResolvedYesRedeemTest
+[PASS] test_redeem_one_yes_while_resolved() (gas: 634299)
+Logs:
+  state_before: RESOLVED
+  open_redemption_called: false
+  liability_before: 4
+  collateral_before: 4
+  yes_supply_before: 4
+  no_supply_before: 4
+  yes_redeemed_before: 0
+  no_redeemed_before: 0
+  solidity_accepted: false
+  error: BadState
+  payout: none
+  state_after: RESOLVED
+  liability_after: 4
+  collateral_after: 4
+  classification: existing_rule
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 677.98µs (190.93µs CPU time)
+
+Ran 1 test suite in 5.32ms (677.98µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

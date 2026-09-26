@@ -134,6 +134,8 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `evidence/research/prism/precision-boundary-solidity-2026-09-26.txt` | Python precision tests, 2 passed. Forge 1.8.3, solc 0.8.26, optimizer 200, 1 passed, no mismatch |
 | `evidence/research/prism/zero-supply-dust-2026-09-26.json` | Zero-supply settlement residual sits. Sweep policy NOT_YET_VALIDATED. Residual bound PROVEN_UNDER_ASSUMPTIONS. No extraction witness |
 | `evidence/research/prism/zero-supply-dust-2026-09-26.txt` | Python classification, exit 0. Forge 1.8.3, solc 0.8.26, optimizer 200, 4 passed |
+| `evidence/research/prism/candidate-settlement-invariant-2026-09-26.json` | Candidate settlement stateful invariants. 256 runs, depth 128, seeds 20260926 and 20260927, 0 reverts. No counterexample |
+| `evidence/research/prism/candidate-settlement-invariant-2026-09-26.txt` | Forge 1.8.3 warmup 32/16 and recorded 256/128 campaigns, both seeds, exit 0 |
 | `research/prism-model/fixtures/precision_boundary_cumulative.json` | cumulative fixtures for the uint256-fitting cells and the Python per-call regressions |
 | `evidence/research/prediction/invariant-ids-2026-09-26.txt` | P-I01..P-I10 Python and Forge logs |
 | `evidence/research/prism/invariant-coverage-2026-09-26.txt` | R-I02, remaining R-I11 edges, and R-I12. 3 tests, exit 0 |

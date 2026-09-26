@@ -154,7 +154,7 @@ final zero-supply settlement-dust policy (classified in section 11; the residual
 fixed-point partial-resolution transform if required onchain
 Z3/SymPy proof artifacts where useful
 live Kuru LP/MM/fee-domain separation checks
-Foundry differential + stateful invariant suite
+Foundry differential + stateful invariant suite (candidate settlement suite recorded in section 12; kernel stays differential_research_kernel)
 ```
 
 If any of those exposes a counterexample, theorem/assumption status must be downgraded and the economic model revisited.
@@ -249,3 +249,19 @@ The bound is `ceil(n/d) - floor(n/d)` for `n >= 0` and `d > 0`. Z3 5.1.0 reports
 `CandidateCumulativeSettlement` has one `safeTransfer`. It sends the redeem payout when that payout is nonzero. Forge 1.8.3, solc 0.8.26, optimizer 200, via IR off: 4 passed, 0 failed. The empty constructor reverts `ZeroSupply`. The exact-ceil book ends with token balance 1. A further redeem reverts and the balance stays 1.
 
 Sweep policy: `NOT_YET_VALIDATED`. Residual bound: `PROVEN_UNDER_ASSUMPTIONS`. Extraction witness: none. Canonical MATH-1 stays FAIL. The kernel stays `differential_research_kernel`.
+
+## 12. Candidate settlement stateful invariants — 2026-09-26
+
+This section does not mark MATH-1 PASS, does not change the payout, and does not add a sweep. Sweep policy stays `NOT_YET_VALIDATED`.
+
+`CandidateCumulativeSettlementInvariantTest` targets three handlers: `fund` (mint the settlement token into the book), `makeRedeemable`, and `redeem` with quantity bounded by the caller's balance. Known revert paths return before the call. `fail_on_revert` is false. The book is supply 8, holder amounts 3 and 5, payout `10^18-1`, decimals 18.
+
+| Invariant | Check |
+|---|---|
+| `invariant_redeemedSupplyNeverExceedsConstructed` | `redeemedUnits <= initialSupply` |
+| `invariant_eachRedeemPaysCumulativeFloorDelta` | `paidRaw` equals `floor(redeemedUnits * payout / D)` |
+| `invariant_balanceIncreasesOnlyThroughFund` | token balance equals `fundedTotal - paidRaw` |
+| `invariant_fullRedemptionLeftoverMatchesFunding` | after the constructed supply is fully redeemed, the leftover equals funding minus total paid |
+| `invariant_exactCeilLeftoverIsZeroOrOne` | when that funding equals the exact ceil and the supply is fully redeemed, the leftover is 0 or 1 |
+
+A warmup of 32 runs and depth 16 passed on seeds 20260926 and 20260927: 512 calls, 0 reverts. The recorded campaign is 256 runs and depth 128 on the same seeds: 32768 calls, 0 reverts, 0 discards. Forge 1.8.3, solc 0.8.26, optimizer 200, via IR off. Both seeds passed. No counterexample. Evidence: `evidence/research/prism/candidate-settlement-invariant-2026-09-26.json`. The kernel stays `differential_research_kernel`. Canonical MATH-1 stays FAIL.

@@ -267,6 +267,8 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `evidence/research/prediction/python-stub-rejects-2026-09-26.json` | recorded_gap. Open market after split 4. Four Python stubs raise. Collateral, YES, and NO stay 4. Solidity declares none of the four |
 | `evidence/research/prediction/python-stub-rejects-2026-09-26.txt` | same run, command log |
 | `decisions/ADR-P16-python-admin-stubs-raise.md` | PROPOSED. Acceptance not granted. The four stubs stay raises. Solidity does not declare them |
+| `evidence/research/prediction/no-redeem-2026-09-26.json` | existing_rule. Split 4, NO_WIN, redeem 1 NO. Payout 1. Collateral 3, YES 4, NO 3, no_redeemed 1. Python matches. ADR-P15 stays a name proposal |
+| `evidence/research/prediction/no-redeem-2026-09-26.txt` | Forge default profile, 1 passed, gas 590465 |
 | `evidence/research/prediction/kuru-backing-claim-2026-09-26.json` | absent. Kuru orderbook liquidity is not protocol backing or redemption value. PRED-KURU-1 stays blocked |
 | `decisions/ADR-P12-configured-split-maximum.md` | PROPOSED. Acceptance not granted. Neither split was edited |
 | `evidence/research/prediction/resolved-redeem-contradiction-2026-09-26.txt` | `python3 -m unittest tests.test_resolved_redeem_contradiction -v`, 1 test OK, exit 0 |

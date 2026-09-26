@@ -188,6 +188,7 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `evidence/research/prediction/slither-legacy-ast-2026-09-26.txt` | `--solc-force-legacy-json` under Foundry. `_redeem` still has no IR. Exit 255 |
 | `evidence/research/prediction/slither-solc-legacy-2026-09-26.txt` | solc framework rejects legacy JSON on 0.8.26. Exit 1 |
 | `evidence/research/prediction/slither-sp16-2026-09-26.json` | fresh Slither 0.11.6 at 0636686. Exit 255. `_redeem` has no IR. Classification blocked_tool. S-P16 stays open |
+| `evidence/research/prediction/slither-burn-lookup-2026-09-26.json` | `OutcomeToken.burn` calls `_burn`. Market `merge`, `burnWorthless`, and `_redeem` call `yesToken.burn` or `noToken.burn`. Quote does not give `_redeem` IR. S-P16 stays open |
 | `evidence/research/prediction/slither-sp16-2026-09-26.txt` | same run, command log |
 | `evidence/research/prediction/zero-address-initialize-2026-09-26.json` | `initialize(address(0))` stores the zero market. totalSupply stays 0. recorded_finding. Python has no counterpart. ADR-P14 PROPOSED |
 | `evidence/research/prediction/zero-address-initialize-2026-09-26.txt` | Forge default profile, 1 passed, gas 228257 |

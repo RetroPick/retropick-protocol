@@ -1,0 +1,37 @@
+{
+  "assumptions": [
+    "normalized exact quantities",
+    "the market starts with S_Y = S_N = C_locked",
+    "split and merge run only while ACTIVE",
+    "merge quantity is positive and no greater than both supplies",
+    "BinaryCompleteSetMarket is the executable model",
+    "resolution payout is not this statement"
+  ],
+  "canonical_math1": "FAIL",
+  "checker": "sympy_z3_and_binary_complete_set",
+  "classification": "PROVEN_UNDER_ASSUMPTIONS",
+  "counterexample": null,
+  "gap_identity": true,
+  "id": "T-NATIVE-001",
+  "merge_breaks_equality": "unsat",
+  "model_check": {
+    "collateral": "75",
+    "merge": 25,
+    "no": "75",
+    "open_interest": "75",
+    "split": 100,
+    "yes": "75"
+  },
+  "rejected_merge": {
+    "quantity": 76,
+    "rejected": true,
+    "supply": 75,
+    "unchanged": true
+  },
+  "runtime_seconds": 0.023312,
+  "split_breaks_equality": "unsat",
+  "statement": "While the market is active, S_Y = S_N = C_locked, a split of q adds q to all three, and a merge of q subtracts q from all three",
+  "sympy_version": "1.14.0",
+  "written_claim": "canonical binary split/merge conserves complete-set collateral accounting",
+  "z3_version": "5.1.0"
+}

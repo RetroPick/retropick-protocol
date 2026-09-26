@@ -194,6 +194,8 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `decisions/ADR-R10-non-depositor-redeem-pays-the-caller.md` | PROPOSED. Acceptance not granted. Mint and redeem were not edited |
 | `evidence/research/prism/settlement-pays-holder-2026-09-26.json` | settlement_pays_holder. Funder is not the holder. After redeem, funder 0, holder 1, kernel 1. paidRaw 1. Python paid amount matches. ADR-R10 stays PROPOSED |
 | `evidence/research/prism/settlement-pays-holder-2026-09-26.txt` | Forge default profile, 1 passed, gas 392842 |
+| `evidence/research/prism/funder-residual-redeem-2026-09-26.json` | existing_rule. Funder redeem(1) reverts InvalidQuantity(1, 0). Funder 0, holder 1, kernel 1, paidRaw 1. Residual stays in the kernel. Sweep policy stays NOT_YET_VALIDATED |
+| `evidence/research/prism/funder-residual-redeem-2026-09-26.txt` | Forge default profile, 1 passed, gas 395690 |
 | `evidence/research/prediction/slither-2026-09-26.txt` | earlier Slither log, including IR errors |
 | `evidence/research/prediction/slither-focused-2026-09-26.txt` | focused Slither 0.11.6 rerun, exit 255, 14 results |
 | `evidence/research/prediction/slither-legacy-ast-2026-09-26.txt` | `--solc-force-legacy-json` under Foundry. `_redeem` still has no IR. Exit 255 |

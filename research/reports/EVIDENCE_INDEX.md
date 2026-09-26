@@ -263,6 +263,7 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `evidence/research/prediction/rejection-inventory-2026-09-26.txt` | Python 1 test OK. Forge default profile, 1 passed, gas 8197908 |
 | `decisions/ADR-P13-archive-from-draft.md` | PROPOSED. Acceptance not granted. Archive was not edited |
 | `decisions/ADR-P14-zero-address-outcome-initialize.md` | PROPOSED. Acceptance not granted. Initialize was not edited |
+| `decisions/ADR-P15-prediction-redeem-entry-points.md` | PROPOSED. Acceptance not granted. Solidity redeemYes and redeemNo. Python redeem. Spelling pairs cover the other state-changing names. Not PRED-CONTRACT-1 PASS |
 | `evidence/research/prediction/kuru-backing-claim-2026-09-26.json` | absent. Kuru orderbook liquidity is not protocol backing or redemption value. PRED-KURU-1 stays blocked |
 | `decisions/ADR-P12-configured-split-maximum.md` | PROPOSED. Acceptance not granted. Neither split was edited |
 | `evidence/research/prediction/resolved-redeem-contradiction-2026-09-26.txt` | `python3 -m unittest tests.test_resolved_redeem_contradiction -v`, 1 test OK, exit 0 |

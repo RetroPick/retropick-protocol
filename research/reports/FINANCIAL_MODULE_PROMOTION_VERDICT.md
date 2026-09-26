@@ -64,6 +64,18 @@ Assembly `gas()` around CALL, optimizer 200, solc 0.8.26: fund transfer 25535, `
 
 Python fixtures and Foundry assertions agree for split 100, merge to 60, YES payout 25, NO payout 0, and INVALID 1-unit streams on supply 5 leaving residual 1.
 
+`PredictionDifferentialTest` reads the fixture files for split, merge, close mint, begin resolution, resolve YES, resolve NO, resolve INVALID, redeem YES, redeem NO, burn worthless, archive, locked merge, the INVALID stream, and the rejected sequences the kernel can express. 14 tests passed. No integer mismatch, so no new COUNTEREXAMPLE_FOUND. `cancelDraft` is still absent. P-I05_cancel_draft stays not_yet_validated.
+
+## MATH-1F
+
+**measured_simulation.** `research/prism-model/market_microstructure.py` is not a protocol theorem and not Kuru liquidity. On the declared normal book, C(3) = 117/2 and R(3) = 87/2. On the crossed book, C(1) = 5 and R(1) = 8, so R(q) > C(q). An empty book is NOT_YET_VALIDATED. The depth walk of 4 units costs 44. Those price bounds are SUPPORTED_BY_SIMULATION only for the declared levels. h = Gx on the declared weights (3, 4) stays true in every case, and backing still covers those weights. The quotes do not change that accounting. The module does not claim an arbitrage trade will happen. Runtime of one evaluation pass: 0.000203 seconds. Log: `evidence/research/prism/market-microstructure-2026-09-26.json`.
+
+## Candidate telescope check
+
+SymPy 1.14.0 simplifies the inductive step of one global cursor to 0, and a five-part composition cancels the same way. floor(0) = 0. Under those assumptions the sum of global-cursor deltas is floor(supply * payout / D). Classification of that identity: **PROVEN_UNDER_ASSUMPTIONS**. This does not change canonical MATH-1 from FAIL.
+
+A per-holder cursor does not telescope. SymPy did not decide the symbolic gap (`equals` returned undecided). The witness payout `10^18-1` and denominator `10^18` has gap 1. Z3 5.1.0 finds the same inequality satisfiable. The Python candidate pays 1 on the global cursor and 0 on the per-holder cursor. That negative control is COUNTEREXAMPLE_FOUND for the per-holder equality. Runtime 0.269474 seconds. `evidence/research/prism/candidate-telescope-proof-2026-09-26.json`.
+
 ## BENCHMARKS
 
 `research/benchmarks/README.md`. No percentiles. No invented SLOs.

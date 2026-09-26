@@ -15,6 +15,7 @@ Every row points at evidence from this program. Status words are the program's c
 | No admin mint | tested | `test_user_cannot_mint_outcome` |
 | Standard collateral only | tested for fee-on-transfer | `test_fee_on_transfer_split_reverts` |
 | Kuru listing | BLOCKED | worksheet; RetroPick parameters not derived |
+| Kernel operations have Python fixtures and Foundry assertions | measured | `PredictionDifferentialTest`, 14 passed. No integer mismatch |
 | PRED-CONTRACT-1 PASS | not met | `docs/prediction/13_PRED_GATE.md` |
 
 ## PRISM_REQUIREMENT_MATRIX
@@ -27,6 +28,8 @@ Every row points at evidence from this program. Status words are the program's c
 | Component requirement delta round trip | PROVEN by construction; 200 samples, 0 mismatches | `math1_probe.component_round_trip_samples` |
 | Per-call settlement floor | COUNTEREXAMPLE_FOUND | `CX-FP-SETTLEMENT-001` |
 | Cumulative-floor candidate | PROVEN_UNDER_ASSUMPTIONS; domain check EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN | `cumulative_settlement.py`; not an oracle replacement |
+| Global-cursor telescope | PROVEN_UNDER_ASSUMPTIONS for the inductive identity only | SymPy 1.14.0. Not canonical MATH-1 |
+| MATH-1F synthetic quotes | measured_simulation | `market_microstructure.py`. Not solvency. Not Kuru |
 | MATH-1 PASS | FAIL | canonical per-call rule remains |
 | PRISM Solidity | candidate settlement kernel only | `CandidateCumulativeSettlement.sol` matches the Python fixtures. Series is not written. CONTRACT-1 not_met. Not MATH-1 PASS |
 | PRISM CONTRACT-ARCH-1 | proposed, not pass | `docs/prism/04-architecture/PHASE1_CANDIDATE_SERIES.md` |
@@ -47,6 +50,9 @@ Every row points at evidence from this program. Status words are the program's c
 | T-FP-003 funding guard | PROVEN_UNDER_ASSUMPTIONS for funding only | addendum in `docs/prism/math/17_THEOREMS.md` |
 | CX-FP-SETTLEMENT-001 | COUNTEREXAMPLE_FOUND | probe JSON |
 | T-FP-CUM-001 | PROVEN_UNDER_ASSUMPTIONS | global-cursor identity; 378530 states, 2542061 transitions, 2.973316s |
+| Global-cursor telescope, symbolic | PROVEN_UNDER_ASSUMPTIONS | SymPy 1.14.0 inductive cancellation. `candidate-telescope-proof-2026-09-26.json` |
+| Per-holder cursor telescope | COUNTEREXAMPLE_FOUND | witness gap 1. Z3 5.1.0. Not the candidate |
+| MATH-1F | measured_simulation | synthetic books. Not a solvency result |
 | Z3 two-component solvency | PROVEN_UNDER_ASSUMPTIONS | Z3 5.1.0 unsat |
 | Market demand hypotheses | NOT_YET_VALIDATED | unchanged |
 
@@ -162,3 +168,4 @@ The six prediction rows above the CREATE rows, and `test_fund_and_redeem_gas`, a
 | `native_market.py` lifecycle is narrower than canonical | spec drift | recorded, new model does not pretend otherwise |
 | Clone cheaper, identity not independent | Medium | measured; kernel stays on full ERC-20; ADR-P01 PROPOSED |
 | Monad parallel-execution benefit | unmeasured | ADR-R06 is a hypothesis |
+| PredictionMarket branch coverage 30.56% (11/36) | Medium testing gap | Open. `evidence/research/prediction/kernel-coverage-2026-09-26.txt`. Not remeasured |

@@ -23,6 +23,7 @@ MATH-1: FAIL.
 MATH-1D: FAIL.  
 MATH-1D candidate cumulative floor: PROVEN_UNDER_ASSUMPTIONS. Domain check: EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN. Ready for ADR acceptance. Not an oracle pass.  
 MATH-1D candidate Solidity: `differential_research_kernel`. The kernel matches the Python fixtures. It is not MATH-1 PASS and it is not CONTRACT-1.  
+MATH-1F: measured_simulation on declared synthetic books. It is not a solvency result and not Kuru liquidity. Arbitrage occurring is NOT_YET_VALIDATED.  
 MODULE-ADMISSION-FINANCE-1: not met.  
 PRISM CONTRACT-ARCH-1: proposed, contingent on ADR-R03. Not a pass.  
 SOURCE-ASSET-INTERFACE-FREEZE: proposed_not_frozen.  

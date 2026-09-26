@@ -30,7 +30,8 @@ prism:
   MATH-1D_candidate_ready_for_adr_acceptance: true
   MATH-1D_candidate_solidity: differential_research_kernel
   MATH-1E: partial_z3_sympy
-  MATH-1F: not_yet_validated
+  MATH-1F: measured_simulation
+  MATH-1F_scope: synthetic_quotes_not_solvency_not_kuru
   MATH-1: fail
   CONTRACT-ARCH-1: proposed
   CONTRACT-1: not_met

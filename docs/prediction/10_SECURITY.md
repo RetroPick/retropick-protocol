@@ -2,23 +2,24 @@
 
 Threats use the kernel and the reference model as they exist. No mainnet deployment is authorized.
 
-| ID | Severity | Issue | Status |
-|---|---|---|---|
-| S-P1 | Critical | Unbacked mint or admin withdrawal of live collateral | No function. User mint reverts. Not closed by an audit |
-| S-P2 | High | Fee-on-transfer credited in full | Kernel reverts on shortfall. Tested |
-| S-P3 | High | Rebasing collateral | Disqualified. Not supported. A downward rebase is a counterexample to snapshot accounting |
-| S-P4 | High | INVALID half-up insolvency | Rejected by cumulative floor. Tested in model and kernel |
-| S-P5 | High | Resolver pauses redemption | `openRedemption` is permissionless. No pause |
-| S-P6 | Medium | Resolver sets a false result | Accepted trust for Phase 1. Not mitigated by cryptography in this kernel |
-| S-P7 | Medium | Dust sink receives `C mod 2` | Explicit and immutable. Bounded for the qualified INVALID policy |
-| S-P8 | Low | Slither missing-zero-check | Constructor now reverts on zero collateral, resolver, or dust sink |
-| S-P9 | Informational | Slither 0.11.6 failed to build IR for several functions (`Failed to resolved name`, missing inheritance). It reported uninitialized `yesRedeemed` because the failed IR did not see `_redeem` | Tool limitation. Those variables are written in `_redeem`. Not treated as a code defect, and not treated as a clean Slither pass |
-| S-P10 | High | Kuru inventory or a Kuru price treated as prediction collateral | Open. No book was deployed. Redeem does not call Kuru |
-| S-P11 | High | Outcome token deposited into PRISM before the source interface is frozen | Open. The freeze document is `proposed_not_frozen`. No deposit harness |
-| S-P12 | Medium | ERC-1167 clone of `OutcomeToken` sharing immutable market, index, and decimals | Measured. The kernel still deploys two full tokens. Not closed as a future-schema risk |
-| S-P13 | Low | `cancelDraft` is absent, so a draft cannot be archived by that operation | Open as a missing operation. P-I05's hash immutability is tested without it |
-| S-P14 | Informational | Foundry issuance invariant now also calls `closeMint` and `beginResolution` | `forge test` 2026-09-26: 256 runs, 128000 calls, 48023 handler reverts, invariant held. Reverts are allowed by `fail_on_revert = false` |
+| ID | Severity | Issue | Status | Evidence |
+|---|---|---|---|---|
+| S-P1 | Critical | Unbacked mint or admin withdrawal of live collateral | Open. No admin mint function. User mint reverts. Not closed by an audit | `test_user_cannot_mint_outcome`; Python `admin_mint` rejection in `research/prediction-model/adversarial.py`. Audit: NOT_YET_VALIDATED |
+| S-P2 | High | Fee-on-transfer credited in full | Open as a High until an audit. The kernel reverts on shortfall in the tested case | `test_fee_on_transfer_split_reverts` and `prediction_rejections.json` `fee_on_transfer` |
+| S-P3 | High | Rebasing collateral | Open. Disqualified. A downward rebase remains a counterexample to snapshot accounting | Python `rebasing_collateral` rejection. No rebase harness: NOT_YET_VALIDATED |
+| S-P4 | High | INVALID half-up insolvency | Open as a High until an audit. The qualified path uses the cumulative floor | `prediction_invalid_rounding.json`; `docs/prediction/07_ROUNDING.md` |
+| S-P5 | High | Resolver pauses redemption | Open as a High until an audit. `openRedemption` is permissionless and the kernel has no pause | `PredictionMarket.openRedemption`. No pause-bypass proof beyond the missing function |
+| S-P6 | Medium | Resolver sets a false result | Accepted trust for Phase 1. Not mitigated by cryptography in this kernel | `docs/prediction/06_RESOLUTION.md` |
+| S-P7 | Medium | Dust sink receives `C mod 2` | Explicit for the qualified INVALID policy. Not a general dust theorem | `prediction_archive_invalid.json` residual 1 on supply 5 |
+| S-P8 | Low | Slither missing-zero-check | Constructor reverts on zero collateral, resolver, or dust sink. Slither itself did not finish | `evidence/research/prediction/slither-2026-09-26.txt` |
+| S-P9 | Informational | Slither 0.11.6 failed to build IR for several functions | Tool limitation. Not a clean Slither pass | `evidence/research/prediction/slither-2026-09-26.txt` |
+| S-P10 | High | Kuru inventory or a Kuru price treated as prediction collateral | Open. No book was deployed. Redeem does not call Kuru | `research/integration/kuru/PARAMETER_WORKSHEET.md` |
+| S-P11 | High | Outcome token deposited into PRISM before the source interface is frozen | Open. No deposit harness | `docs/prism/04-architecture/SOURCE_ASSET_INTERFACE.md` is `proposed_not_frozen` |
+| S-P12 | Medium | ERC-1167 clone of `OutcomeToken` sharing immutable market, index, and decimals | Measured. The kernel still deploys two full tokens | `evidence/research/prediction/outcome-token-gas-2026-09-26.txt` |
+| S-P13 | Low | `cancelDraft` is absent | Open. P-I05 cancelled-draft branch is NOT_YET_VALIDATED in the kernel | `docs/prediction/09_INVARIANTS.md` |
+| S-P14 | Informational | Foundry issuance invariant calls `closeMint` and `beginResolution` | Held on the recorded run. Reverts are allowed by `fail_on_revert = false` | `evidence/research/prediction/invariant-ids-2026-09-26.txt` cites the full-suite figure 48023 handler reverts |
+| S-P15 | Medium | `PredictionMarket.sol` branch coverage is 30.56% (11/36) | Open testing gap. Not remeasured in this pass | `evidence/research/prediction/kernel-coverage-2026-09-26.txt` |
 
 Echidna, Medusa, Halmos, Mythril, semgrep, and solhint were not installed. Classification: BLOCKED_TOOL.
 
-S-P1 stays open. It is Critical and has not been closed by an audit. S-P3 stays open as a disqualification: rebasing collateral is not supported, and a downward rebase is still a counterexample to snapshot accounting. S-P6 stays an accepted trust assumption. The resolver can still report a false result. That blocks any claim of trustless resolution. S-P10 and S-P11 stay open. PRED-CONTRACT-1 does not PASS. This table is not an admission claim.
+S-P1 stays open. It is Critical and has not been closed by an audit. S-P2, S-P3, S-P4, S-P5, S-P10, and S-P11 stay open. A passing unit test is not an audit close. S-P6 stays an accepted trust assumption. The resolver can still report a false result. That blocks any claim of trustless resolution. S-P15 stays open: branch coverage of `PredictionMarket.sol` is still 30.56% (11/36) from the recorded coverage run. PRED-CONTRACT-1 does not PASS. This table is not an admission claim.

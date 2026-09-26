@@ -150,17 +150,17 @@ Immutable. No initializer.
 
 Severity is the original program scale. Open High and Critical items stay open. This section is not an admission claim and not an audit.
 
-| ID | Severity | Issue | Status |
-|---|---|---|---|
-| S-R1 | Critical | Mint series tokens before backing is reserved | Open. Spec requires deposit-then-mint. No Solidity enforces it yet |
-| S-R2 | Critical | Ship `FixedPointSettlement.redeem` per-call floor (`CX-FP-SETTLEMENT-001`) | Open. Canonical MATH-1D is FAIL. The candidate is not accepted |
-| S-R3 | Critical | Per-holder redemption cursor | Open as a forbidden design. The negative control pays 0 on the original case |
-| S-R4 | High | Sweep residual that still belongs to holders | Open under the canonical rule, where fragmented redemptions leave dust 2. The candidate kernel pays the cumulative delta. On the original fixture the residual is 1. The series dust sink is still not implemented |
-| S-R5 | High | Fee-on-transfer or rebasing component credited at nominal amount | Open. Spec requires a balance-delta check. Not implemented |
-| S-R6 | High | Treating a prediction resolution, a Kuru price, or an indexer row as settlement funding | Open. Those are not backing |
-| S-R7 | Medium | Order of redemptions moves a carry between holders | Recorded on the candidate. Aggregate paid still matches the one-shot floor. Not dust capture |
-| S-R8 | Medium | Donated settlement asset left in the contract | Residual can exceed 1. The 0-or-1 bound is only against exact ceil funding |
-| S-R9 | Low | Adding an upgrade admin later | Out of policy. This spec is immutable |
-| S-R10 | Informational | Kuru `calculatePrecisions` examples are not series parameters | Worksheet rows for a series book are BLOCKED |
+| ID | Severity | Issue | Status | Evidence |
+|---|---|---|---|---|
+| S-R1 | Critical | Mint series tokens before backing is reserved | Open. Spec requires deposit-then-mint. No series Solidity enforces it. NOT_YET_VALIDATED | `docs/prism/04-architecture/PHASE1_CANDIDATE_SERIES.md` |
+| S-R2 | Critical | Ship `FixedPointSettlement.redeem` per-call floor (`CX-FP-SETTLEMENT-001`) | Open. Canonical MATH-1D is FAIL. The candidate is not accepted | `research/prism-model/tests/test_cumulative_settlement.py`; `evidence/research/prism/math1-probe-2026-09-26.json` |
+| S-R3 | Critical | Per-holder redemption cursor | Open as a forbidden design. The negative control pays 0 on the original case and does not telescope | `evidence/research/prism/candidate-telescope-proof-2026-09-26.json` |
+| S-R4 | High | Sweep residual that still belongs to holders | Open. Canonical fragmented redemptions leave dust 2. The candidate kernel's original fixture leaves residual 1. The series dust sink is not implemented | `evidence/research/prism/cumulative-floor-attack-2026-09-26.json` |
+| S-R5 | High | Fee-on-transfer or rebasing component credited at nominal amount | Open. NOT_YET_VALIDATED. No component balance-delta Solidity | This architecture section. No harness |
+| S-R6 | High | Treating a prediction resolution, a Kuru price, or an indexer row as settlement funding | Open. Those are not backing. NOT_YET_VALIDATED as an integration test | `docs/prism/04-architecture/SOURCE_ASSET_INTERFACE.md` |
+| S-R7 | Medium | Order of redemptions moves a carry between holders | Recorded. Aggregate paid still matches the one-shot floor. Not dust capture | Fairness case in `research/prism-model/fixtures/candidate_cumulative_settlement.json` |
+| S-R8 | Medium | Donated settlement asset left in the contract | The 0-or-1 bound is only against exact ceil funding. A donation test is NOT_YET_VALIDATED | Candidate NatSpec in `CandidateCumulativeSettlement.sol` states the ceil-funding precondition |
+| S-R9 | Low | Adding an upgrade admin later | Out of policy. This spec is immutable | This architecture section |
+| S-R10 | Informational | Kuru `calculatePrecisions` examples are not series parameters | Worksheet rows for a series book are BLOCKED | `research/integration/kuru/PARAMETER_WORKSHEET.md` |
 
 No threat above is closed by this document. The candidate settlement kernel does not close any row in this table.

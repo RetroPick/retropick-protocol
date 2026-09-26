@@ -1,0 +1,55 @@
+{
+  "classification": "PROVEN_UNDER_ASSUMPTIONS",
+  "branches": [
+    "Underfunded",
+    "LiveLiability"
+  ],
+  "numerators": {
+    "YES_WIN": [
+      2,
+      0
+    ],
+    "NO_WIN": [
+      0,
+      2
+    ],
+    "INVALID": [
+      1,
+      1
+    ],
+    "denominator": 2
+  },
+  "assumptions": [
+    "Quantities are non-negative integers.",
+    "Split and merge are the only pre-resolution quantity changes, and they keep yesSupply = noSupply = collateralLocked with both redeemed cursors at 0.",
+    "resolve sets exactly one of (2, 0), (0, 2), (1, 1) over denominator 2.",
+    "openRedemption's funding check runs in RESOLVED, before any redeem or worthless burn.",
+    "Redeem preserves each side's supply-plus-redeemed cursor. A worthless burn is allowed only when that side's numerator is 0, and it does not increase the redeemed cursor.",
+    "archive evaluates LiveLiability only after both supplies are 0.",
+    "A fee-on-transfer split reverts, so it does not create unequal supplies. There is no admin mint."
+  ],
+  "argument": "At openRedemption the redeemed cursors are 0 and both supplies equal collateral C. YES liability is C, NO liability is C, and INVALID liability is floor(C/2)+floor(C/2), which is C on even C and C-1 on odd C. SymPy simplifies those even and odd gaps to 0 and 1. At archive, YES liability reduces to the remaining YES supply and NO liability to the remaining NO supply, so both are 0 once the supplies are 0. INVALID cannot burn either side. Its two cursors stay equal to the resolution supply, and SymPy simplifies the four floor(y0/2) terms to 0 when both supplies have been redeemed.",
+  "sympy": {
+    "sympy_version": "1.14.0",
+    "discharged": true,
+    "invalid_open_gap_even": "0",
+    "invalid_open_gap_odd": "1",
+    "invalid_archive_liability": "0",
+    "yes_liability_when_supply_remains": "Ys",
+    "no_liability_when_supply_remains": "Ns",
+    "zero_numerator_contribution": "0"
+  },
+  "domain_check": {
+    "max_unit": 3,
+    "states": 208,
+    "transitions": 5200,
+    "resolved_states": 12,
+    "zero_supply_redeemable": 24,
+    "archived_states": 24,
+    "witness": "",
+    "witness_state": {},
+    "runtime_seconds": 0.085581,
+    "result": "EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN"
+  },
+  "coverage_not_executed": true
+}

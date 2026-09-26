@@ -50,6 +50,8 @@ T-FP-004 says a minimum-backing mint followed by the inverse requirement-delta r
 
 T-BS-001 says an exact-backed mint preserves component backing and margin. For `Q>0`, `S'=S+Q` and `B'=B+Qx`. SymPy 1.14.0 reduces the new margin to the old margin. Z3 5.1.0 reports unsat for a positive mint that starts backed and ends below `S'x`. `PrismSeries.mint_with_exact_backing(1000)` on weights 3/5 and 2/5 ends at backing 600 and 400 with margin 0 and 0. Depositing a surplus of 1 and 0, then minting 5, leaves that margin unchanged. Classification: **PROVEN_UNDER_ASSUMPTIONS**. No counterexample. Runtime 0.022542 seconds. The earlier bounded grid is not this identity. Canonical MATH-1 stays FAIL because the per-call settlement floor still fails. Log: `evidence/research/prism/t-bs-001-2026-09-26.json`.
 
+T-BS-002 says an exact in-kind redemption preserves remaining backing. For `0<Q<=S`, `S'=S-Q` and `B'=B-Qx`. SymPy 1.14.0 reduces the new margin to the old margin. Z3 5.1.0 reports unsat for a redemption that starts backed and ends below `S'x`. Redeeming 250 from an exact supply of 1000 on weights 3/5 and 2/5 releases 150 and 100 and leaves backing 450 and 300, supply 750, and margin 0 and 0. A prior margin of 1 and 0 is unchanged by redeeming 2 from supply 5. Classification: **PROVEN_UNDER_ASSUMPTIONS**. No counterexample. Runtime 0.022627 seconds. Canonical MATH-1 stays FAIL because the per-call settlement floor still fails. Log: `evidence/research/prism/t-bs-002-2026-09-26.json`.
+
 ## Candidate cumulative settlement
 
 This is not an oracle replacement and it is not MATH-1 PASS.

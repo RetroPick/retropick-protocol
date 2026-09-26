@@ -1,0 +1,32 @@
+{
+  "canonical_math_1": "FAIL",
+  "global_cursor": {
+    "assumptions": "one global cursor; paid(R)=floor(R*payout/D); D>0; non-negative integers; paid(0)=0",
+    "classification": "PROVEN_UNDER_ASSUMPTIONS",
+    "five_part_composition_cancels": "True",
+    "floor_of_zero_is_zero": "True",
+    "inductive_step_cancels": "True",
+    "sympy_version": "1.14.0"
+  },
+  "identity": "sum of global-cursor deltas = floor(supply * payout / D)",
+  "per_holder_cursor": {
+    "classification": "COUNTEREXAMPLE_FOUND",
+    "identically_zero": "undecided",
+    "sympy_version": "1.14.0",
+    "witness_gap": "1",
+    "witness_payout": "999999999999999999"
+  },
+  "python_regression": {
+    "global_matches_one_shot": "True",
+    "global_paid": 1,
+    "one_shot": 1,
+    "per_holder_matches_one_shot": "False",
+    "per_holder_paid": 0
+  },
+  "runtime_seconds": 0.269474,
+  "z3_witness": {
+    "classification": "COUNTEREXAMPLE_FOUND",
+    "per_holder_differs_on_original_case": "true",
+    "z3_version": "5.1.0"
+  }
+}

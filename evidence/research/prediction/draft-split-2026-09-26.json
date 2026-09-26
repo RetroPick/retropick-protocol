@@ -1,0 +1,74 @@
+{
+  "canonical_math1": "FAIL",
+  "case": "draft_split",
+  "classification": "existing_rule",
+  "id": "DRAFT-SPLIT",
+  "implementations_changed": false,
+  "kernels_agree": true,
+  "math_1_progress": false,
+  "pred_contract_1": "not_pass",
+  "pred_math_1": "partial",
+  "python": {
+    "after": {
+      "alice_no": "0",
+      "alice_yes": "0",
+      "collateral_locked": "0",
+      "no_supply": "0",
+      "state": "DRAFT",
+      "yes_supply": "0"
+    },
+    "attempted": "1",
+    "before": {
+      "alice_no": "0",
+      "alice_yes": "0",
+      "collateral_locked": "0",
+      "no_supply": "0",
+      "state": "DRAFT",
+      "yes_supply": "0"
+    },
+    "error": "split only while OPEN",
+    "function": "PredictionMarket.split",
+    "module": "research/prediction-model/market.py"
+  },
+  "rule": "split of 1 while DRAFT reverts and collateral, YES supply, and NO supply stay 0",
+  "solidity": {
+    "after": {
+      "alice_collateral": "1",
+      "alice_no": "0",
+      "alice_yes": "0",
+      "collateral_balance": "0",
+      "collateral_locked": "0",
+      "no_supply": "0",
+      "state": "DRAFT",
+      "yes_supply": "0"
+    },
+    "attempted": "1",
+    "before": {
+      "alice_collateral": "1",
+      "alice_no": "0",
+      "alice_yes": "0",
+      "collateral_balance": "0",
+      "collateral_locked": "0",
+      "no_supply": "0",
+      "state": "DRAFT",
+      "yes_supply": "0"
+    },
+    "command": "forge test --match-contract DraftSplitTest -vv",
+    "cwd": "research/contract-kernels",
+    "error": "BadState",
+    "exit_code": 0,
+    "failed": 0,
+    "forge_commit": "cae51ad458f6abb64852b7709eb784352429825d",
+    "forge_version": "1.8.3",
+    "function": "PredictionMarket.split",
+    "module": "research/contract-kernels/src/prediction/PredictionMarket.sol",
+    "optimizer": true,
+    "optimizer_runs": 200,
+    "passed": 1,
+    "profile": "default",
+    "solc": "0.8.26",
+    "test_gas": 177693,
+    "via_ir": false
+  },
+  "theorem_pass": false
+}

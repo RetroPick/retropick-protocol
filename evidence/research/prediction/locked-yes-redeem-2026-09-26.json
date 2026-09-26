@@ -1,0 +1,64 @@
+{
+  "adr_added": false,
+  "adr_p15": "PROPOSED",
+  "adr_p16": "PROPOSED",
+  "adr_p17": "PROPOSED",
+  "after": {
+    "collateral_locked": "4",
+    "liability": "4",
+    "no_redeemed": "0",
+    "no_supply": "4",
+    "yes_redeemed": "0",
+    "yes_supply": "4"
+  },
+  "before": {
+    "collateral_locked": "4",
+    "liability": "4",
+    "no_redeemed": "0",
+    "no_supply": "4",
+    "yes_redeemed": "0",
+    "yes_supply": "4"
+  },
+  "canonical_math1": "FAIL",
+  "case": "redeem_yes_while_locked_after_split",
+  "classification": "existing_rule",
+  "command": "forge test --match-contract LockedYesRedeemTest -vv",
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "gas": 505897,
+  "implementations_changed": false,
+  "inventory_row": {
+    "argument": "1",
+    "file": "evidence/research/prediction/rejection-inventory-2026-09-26.json",
+    "function": "redeem_yes",
+    "index": 23,
+    "note": "The inventory rejects redeem_yes of 1 while LOCKED and leaves collateral, YES, and NO at 4. It does not record liability or the redeemed cursors.",
+    "state": "LOCKED"
+  },
+  "liability_equals_collateral_after": true,
+  "liability_equals_collateral_before": true,
+  "payout": null,
+  "pred_kuru_1": "blocked",
+  "profile": "default",
+  "python": {
+    "accepted": false,
+    "error": "redeem only while REDEEMABLE",
+    "error_type": "PredictionError",
+    "function": "redeem",
+    "payout": null,
+    "side": "YES"
+  },
+  "resolved": false,
+  "s_p16": "open",
+  "sha_base": "e9a38640728672f592094acd728ab2873a929b3b",
+  "solidity": {
+    "accepted": false,
+    "error": "BadState",
+    "function": "redeemYes",
+    "payout": null
+  },
+  "split": "4",
+  "state": "LOCKED",
+  "tests_failed": 0,
+  "tests_passed": 1
+}

@@ -367,6 +367,8 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `evidence/research/prediction/open-yes-resolution-2026-09-26.txt` | Forge default profile, 1 passed, gas 361248 |
 | `evidence/research/prediction/draft-yes-resolution-2026-09-26.json` | existing_rule. Market left in DRAFT, resolve YES_WIN rejects before activation. State stays DRAFT. No result is committed. Liability stays 0. Collateral locked stays 0. Inventory rows[3] does not record liability |
 | `evidence/research/prediction/draft-yes-resolution-2026-09-26.txt` | Forge default profile, 1 passed, gas 122461 |
+| `evidence/research/prediction/draft-spec-presence-2026-09-26.json` | existing_rule. Python spec is set only by activate, which leaves DRAFT for OPEN. Solidity resolutionSpecHash is set by the constructor and the state stays DRAFT. Resolve of YES_WIN on that book rejects. State stays DRAFT. Result stays NONE |
+| `evidence/research/prediction/draft-spec-presence-2026-09-26.txt` | Forge default profile, 1 passed, gas 230152 |
 | `evidence/research/prediction/six-decimal-yes-redeem-2026-09-26.json` | existing_rule. Collateral decimals 6. YES and NO decimals 6. Python stores no decimals and does not force 18. Split 1, YES_WIN, redeemYes 1 pays 1. Liability 1 then 0. Collateral locked 1 then 0. Kuru decimals stay not established |
 | `evidence/research/prediction/six-decimal-yes-redeem-2026-09-26.txt` | Forge default profile, 1 passed, gas 693968. Python payout 1 recorded in the same log |
 | `evidence/research/prediction/six-decimal-invalid-floor-2026-09-26.json` | existing_rule. Collateral decimals 6. Supply 2, parts 1 and 1, INVALID. YES pays 0 then 1. NO pays 0 then 1. Collateral left 0. Matches the recorded cumulative floor. Per-call 0,0 was not paid |

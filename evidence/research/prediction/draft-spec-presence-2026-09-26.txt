@@ -1,0 +1,62 @@
+tool: python3 and forge test
+command: forge test --match-contract DraftSpecPresenceTest -vv
+cwd: /workspace/research/contract-kernels
+profile: default
+sha_base: f94c1efc3a16c75efbf1d3770f4b21b129ee38a5
+classification: existing_rule
+python_spec_setting_call: activate
+python_spec_can_exist_in_draft: false
+python_state_before: DRAFT
+python_spec_before: none
+python_state_after_activate: OPEN
+python_spec_after: draft-spec-presence
+python_resolve_called: false
+solidity_spec_setting_call: constructor
+solidity_spec_can_exist_in_draft: true
+solidity_state_after_constructor: DRAFT
+solidity_hash: 0x64726166742d737065632d70726573656e636500000000000000000000000000
+solidity_resolve_accepted: false
+solidity_error: BadState
+solidity_state_after_resolve: DRAFT
+solidity_result_after_resolve: NONE
+liability: 0
+collateral_locked: 0
+solidity_state_after_activate: OPEN
+activate_sets_hash: false
+adr_added: false
+adr_p04: PROPOSED
+adr_p13: PROPOSED
+adr_p15: PROPOSED
+math1: FAIL
+
+python:
+before DRAFT None None None 0 0
+after OPEN draft-spec-presence draft-spec-presence None 0 0
+
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 1.10s
+Compiler run successful!
+
+Ran 1 test for test/prediction/DraftSpecPresence.t.sol:DraftSpecPresenceTest
+[PASS] test_spec_hash_present_while_draft_then_resolve() (gas: 230152)
+Logs:
+  spec_setting_call: constructor
+  state_after_constructor: DRAFT
+  resolution_spec_hash: 0x64726166742d737065632d70726573656e636500000000000000000000000000
+  result_before: NONE
+  liability_before: 0
+  collateral_before: 0
+  solidity_resolve_accepted: false
+  error: BadState
+  state_after_resolve: DRAFT
+  result_after_resolve: NONE
+  resolution_spec_hash_after_resolve: 0x64726166742d737065632d70726573656e636500000000000000000000000000
+  liability_after: 0
+  collateral_after: 0
+  activate_sets_hash: false
+  state_after_activate: OPEN
+  resolution_spec_hash_after_activate: 0x64726166742d737065632d70726573656e636500000000000000000000000000
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 632.28µs (131.25µs CPU time)
+
+Ran 1 test suite in 5.39ms (632.28µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

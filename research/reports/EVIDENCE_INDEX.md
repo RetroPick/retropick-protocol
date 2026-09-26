@@ -200,6 +200,8 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `evidence/research/prism/two-unit-redeems-2026-09-26.txt` | Forge default profile, 1 passed, gas 431562 |
 | `evidence/research/prism/two-holder-redeems-2026-09-26.json` | cumulative_floor_match. A then B each redeem 1. Payouts 0 then 1. The unit goes to B. Kernel balance ends at 1. paidRaw ends at 1 |
 | `evidence/research/prism/two-holder-redeems-2026-09-26.txt` | Forge default profile, 1 passed, gas 437214 |
+| `evidence/research/prism/over-reserve-2026-09-26.json` | existing_rule. Deposit 100, reserve 60, reserve 50 reverts InsufficientUnreserved. Reserved stays 60. Available stays 40. Python rejects the same integers |
+| `evidence/research/prism/over-reserve-2026-09-26.txt` | Forge default profile, 1 passed, gas 214969 |
 | `evidence/research/prediction/slither-2026-09-26.txt` | earlier Slither log, including IR errors |
 | `evidence/research/prediction/slither-focused-2026-09-26.txt` | focused Slither 0.11.6 rerun, exit 255, 14 results |
 | `evidence/research/prediction/slither-legacy-ast-2026-09-26.txt` | `--solc-force-legacy-json` under Foundry. `_redeem` still has no IR. Exit 255 |

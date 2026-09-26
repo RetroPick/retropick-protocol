@@ -63,6 +63,8 @@ prism:
   CONTRACT-ARCH-1: proposed
   CONTRACT-1: not_met
   backing_kernel_solidity: differential_research_kernel
+  rebasing_component_backing: "COUNTEREXAMPLE_FOUND. After deposit 100 and mint 100, rebaseDown of 1 leaves token balance 99, backingRaw 100, supply 100, requiredRaw 100. The kernel has no rebase function and was not edited. ADR-R08 PROPOSED. Acceptance not granted. MATH-1 stays FAIL. CONTRACT-1 stays not_met. Log evidence/research/prism/rebasing-component-backing-2026-09-26.json."
+  ADR-R08: "PROPOSED. Acceptance not granted. The kernel must not treat backingRaw as equal to the rebasing component token balance. The counterexample stays COUNTEREXAMPLE_FOUND. The kernel must not be edited until acceptance. Evidence evidence/research/prism/rebasing-component-backing-2026-09-26.json."
   partial_resolution_transform: differential_research_kernel
   minimum_cost_replication: exhaustively_verified_within_domain
   minimum_cost_replication_scope: declared_rational_basis_enumeration_not_kuru_not_solvency

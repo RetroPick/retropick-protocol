@@ -94,6 +94,8 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `research/prism-model/fixtures/partial_resolution.json` | payoff-equivalent transform integers |
 | `evidence/research/prediction/branch-coverage-forge-2026-09-26.txt` | reject-branch Foundry log, 14 prediction tests passed, combined with the backing suite |
 | `evidence/research/prism/backing-kernel-forge-2026-09-26.txt` | backing-kernel Foundry log, 4 tests passed, same combined run |
+| `evidence/research/prism/rebasing-component-backing-2026-09-26.json` | COUNTEREXAMPLE_FOUND. Token balance 99, backingRaw 100, requiredRaw 100, supply 100 |
+| `evidence/research/prism/rebasing-component-backing-2026-09-26.txt` | Forge default profile, 1 passed, gas 663233 |
 | `evidence/research/prism/backing-fixtures-2026-09-26.txt` | backing fixture generator log |
 | `evidence/research/prism/unittest-backing-kernel-2026-09-26.txt` | prism-model unittest, 70 tests OK |
 | `research/prism-model/fixtures/backing_kernel.json` | FixedPointSeries and ReservationLedger integers |

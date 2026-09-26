@@ -10,8 +10,8 @@ core registry in docs/prism/math/17_THEOREMS.md:
     R-THEOREM-5  T-BS-004
     R-THEOREM-6  T-ALLOC-001
 
-R-THEOREM-1 and R-THEOREM-5 are checked here. R-THEOREM-6 is T-ALLOC-001
-and is not checked. This module does not change a settlement or backing rule.
+R-THEOREM-1, R-THEOREM-5, and R-THEOREM-6 are checked here. This module
+does not change a settlement, backing, or reservation rule.
 """
 
 from __future__ import annotations
@@ -26,6 +26,7 @@ import z3
 from fixed_point import WAD
 from fixed_point_model import FixedPointSettlement
 from replication import payoff
+from reservation_ledger import ReservationError, ReservationLedger
 
 
 INVENTORY: dict[str, dict[str, str]] = {
@@ -178,6 +179,99 @@ def discharge_r_theorem_5() -> dict[str, Any]:
         "reservation_note": "Reserving the same units for two series is T-ALLOC-001, R-THEOREM-6. Not started.",
         "classification": "PROVEN_UNDER_ASSUMPTIONS" if discharged else "COUNTEREXAMPLE_FOUND",
         "counterexample": None,
+        "canonical_math1": "FAIL",
+        "runtime_seconds": round(elapsed, 6),
+    }
+
+
+def _reservation_violation(name: str, constraint) -> str:
+    balance, reserved, other, quantity = z3.Reals("B R O q")
+    solver = z3.Solver()
+    solver.add(balance >= 0, reserved >= 0, other >= 0, quantity >= 0)
+    solver.add(reserved + other <= balance)
+    solver.add(constraint(balance, reserved, other, quantity))
+    return str(solver.check())
+
+
+def _ledger_view(ledger: ReservationLedger, asset: str) -> tuple[Fraction, Fraction, Fraction, Fraction, Fraction]:
+    return (
+        ledger.balance(asset),
+        ledger.total_reserved(asset),
+        ledger.available(asset),
+        ledger.reserved_for("A", asset),
+        ledger.reserved_for("B", asset),
+    )
+
+
+def discharge_r_theorem_6() -> dict[str, Any]:
+    """T-ALLOC-001. Sum of reservations stays within the physical balance.
+
+    Other series are one nonnegative total, so the check is not limited to two
+    series ids. The ledger itself is not modified.
+    """
+
+    started = time.perf_counter()
+    transitions = {
+        "deposit": lambda balance, reserved, other, quantity: reserved + other > balance + quantity,
+        "reserve": lambda balance, reserved, other, quantity: z3.And(
+            quantity <= balance - reserved - other,
+            reserved + quantity + other > balance,
+        ),
+        "release": lambda balance, reserved, other, quantity: z3.And(
+            quantity <= reserved,
+            reserved - quantity + other > balance,
+        ),
+        "withdraw": lambda balance, reserved, other, quantity: z3.And(
+            quantity <= balance - reserved - other,
+            reserved + other > balance - quantity,
+        ),
+    }
+    negation = {name: _reservation_violation(name, constraint) for name, constraint in transitions.items()}
+
+    fitting = ReservationLedger()
+    fitting.deposit("ASSET", 100)
+    fitting.reserve("A", {"ASSET": 60})
+    fitting.reserve("B", {"ASSET": 25})
+    available_after_fit = fitting.available("ASSET")
+
+    exclusive = ReservationLedger()
+    exclusive.deposit("ASSET", 100)
+    exclusive.reserve("A", {"ASSET": 60})
+    before = _ledger_view(exclusive, "ASSET")
+    rejected = False
+    try:
+        exclusive.reserve("B", {"ASSET": 50})
+    except ReservationError:
+        rejected = True
+    after = _ledger_view(exclusive, "ASSET")
+    elapsed = time.perf_counter() - started
+    discharged = all(status == "unsat" for status in negation.values()) and rejected and before == after
+    discharged = discharged and available_after_fit == Fraction(15)
+    return {
+        "id": "R-THEOREM-6",
+        "canonical_id": "T-ALLOC-001",
+        "written_claim": "sum_s Reserved[s,a] <= PhysicalBalance[a] is preserved by deposit, reserve, release, and withdraw",
+        "checker": "z3_and_reservation_ledger",
+        "z3_version": str(z3.get_version_string()),
+        "negation": negation,
+        "assumptions": [
+            "one asset",
+            "nonnegative balance, series reservation, other-series total, and quantity",
+            "the invariant holds before the transition",
+            "other series are their summed reservation",
+        ],
+        "fitting_reservations": {"first": 60, "second": 25, "balance": 100, "available": str(available_after_fit)},
+        "negative_control": {
+            "balance": 100,
+            "first": 60,
+            "second": 50,
+            "rejected": rejected,
+            "unchanged": before == after,
+            "available_after_reject": str(after[2]),
+        },
+        "double_use_rejected": rejected and before == after,
+        "classification": "PROVEN_UNDER_ASSUMPTIONS" if discharged else "COUNTEREXAMPLE_FOUND",
+        "counterexample": None if discharged else {"negation": negation, "negative_control_rejected": rejected, "unchanged": before == after},
         "canonical_math1": "FAIL",
         "runtime_seconds": round(elapsed, 6),
     }

@@ -210,6 +210,7 @@ The six prediction rows above the CREATE rows, and `test_fund_and_redeem_gas`, a
 | Either module -> Kuru | secondary only. Not required for redemption |
 | Either module -> Launchpad token | forbidden. Launcher token was not reused |
 | SOURCE-ASSET INTERFACE FREEZE | proposed_not_frozen. Comparison is recorded_gap. Interface was not frozen. X-I01..X-I07 not tested. `source-interface-comparison-2026-09-26.json` |
+| `CandidateComponentBacking.deposit` component walk | bounded_by_constructor. componentCount 2. backingRaw 0,0 then 1,1. Index 2 is not readable. `deposit-component-count-2026-09-26.json` |
 
 ## PROMOTION_GATE_MATRIX
 

@@ -240,6 +240,8 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `decisions/ADR-R18-candidate-has-no-replication-check.md` | PROPOSED. Acceptance not granted. Python accepts the exact case and rejects the known case. The candidate has no replication check. Does not supersede ADR-R17. Approximate replication was not opened. Not MATH-1 PASS |
 | `evidence/research/prism/activated-immutability-2026-09-26.json` | existing_rule on both edges. Python weights stay 3/5 and 2/5. Matrix stays [[0,1],[0,0],[1,1],[1,0]]. Backing weights stay fixed and it has no matrix. Transform weights and payoff stay fixed. No new ADR |
 | `evidence/research/prism/activated-immutability-2026-09-26.txt` | Forge default profile, 2 passed, gas 694749 and 291088. Python immutability results recorded in the same log |
+| `evidence/research/prism/six-decimal-component-backing-2026-09-26.json` | existing_rule. Weights 10^18 and 10^18. Decimals 6 and 6. requiredRaw at supply 1 is 1 and 1. Deposit 1 and 1, mint 1, redeem pays 1 and 1. backingRaw 1,1 then 0,0. Python matches |
+| `evidence/research/prism/six-decimal-component-backing-2026-09-26.txt` | Forge default profile, 1 passed, gas 754322. Python required raw and redeem recorded in the same log |
 | `evidence/research/prediction/slither-2026-09-26.txt` | earlier Slither log, including IR errors |
 | `evidence/research/prediction/slither-focused-2026-09-26.txt` | focused Slither 0.11.6 rerun, exit 255, 14 results |
 | `evidence/research/prediction/slither-legacy-ast-2026-09-26.txt` | `--solc-force-legacy-json` under Foundry. `_redeem` still has no IR. Exit 255 |

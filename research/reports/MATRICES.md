@@ -264,6 +264,7 @@ The six prediction rows above the CREATE rows, and `test_fund_and_redeem_gas`, a
 | Second result after YES_WIN | resolution | existing_rule. A later NO_WIN reverts. Numerators stay 2 and 0. Collateral, YES, and NO stay 4. `second-yes-resolution-2026-09-26.json` |
 | Unequal YES and NO merge | accounting | existing_rule. OPEN market. Holder YES 1 and NO 4. `merge(4)` reverts. Collateral, YES, and NO stay 4. `unequal-merge-2026-09-26.json` |
 | Split at the uint256 boundary | accounting | recorded_contradiction, open. ADR-P11 PROPOSED. Acceptance not granted. Solidity `split(uint256 max)` leaves collateral, YES, and NO at `2**256-1`. `split(1)` reverts `Panic(0x11)` and those figures stay put. Python `split(1)` raises the three figures to `2**256`. Split was not edited. `uint256-split-2026-09-26.json` |
+| Split of 2**256 | accounting | existing_rule. After split 10, Python raises `amount exceeds configured maximum` and collateral, YES, and NO stay 10. Solidity cannot encode the argument, so the second split is not called and those figures stay 10. `split-max-2026-09-26.json` |
 | Clone cheaper, identity not independent | Medium | measured; kernel stays on full ERC-20; ADR-P01 PROPOSED |
 | Monad parallel-execution benefit | unmeasured | ADR-R06 is a hypothesis |
 | Two markets or two series sharing split/mint slots | INFERRED absent for these kernels | `docs/prism/04-architecture/STORAGE_ISOLATION.md`. Not a throughput measurement |

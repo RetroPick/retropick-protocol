@@ -30,6 +30,10 @@ Existing oracle re-ran. 55 tests on the baseline commit, 60 after the new probe 
 
 **FAIL.** MATH-1D per-call settlement floor is the blocking counterexample `CX-FP-SETTLEMENT-001` (holders paid 0, sweepable dust 2, one-shot floor would have paid 1). `FixedPointSettlement.redeem` was not edited. Component requirement-delta round trip did not show extraction. Exact-fraction solvency tests did not fail. Market hypotheses stay NOT_YET_VALIDATED.
 
+PR #3 is merged on `origin/main` at `cd457f8` and includes this branch through `dd7bfb5`. Later commits on `cursor/finance-qualification-bbd4` are the follow-on. Main was not merged into this branch.
+
+The strings R-THEOREM-1 through R-THEOREM-6 are not in the canonical docs. They are recorded here as the first six rows of `docs/prism/math/17_THEOREMS.md`: T-REPL-001, T-BS-001, T-BS-002, T-BS-003, T-BS-004, and T-ALLOC-001. R-THEOREM-4 already has a two-component Z3 and SymPy check in `math1_probe.py`. R-THEOREM-2 and R-THEOREM-3 have the bounded mint/redeem grid. R-THEOREM-5 and R-THEOREM-6 are prose plus numeric oracles. The lowest unchecked claim was R-THEOREM-1. SymPy 1.14.0 expands `Gx` minus the state-wise sum to the zero polynomial for every shape with 1..4 states and 1..4 components. `replication.payoff` on the reference weights (3/5, 2/5) returns (2/5, 0, 1, 3/5), matching that product. Classification: **PROVEN_UNDER_ASSUMPTIONS**. No counterexample. Runtime 0.020301 seconds. Non-negativity is not required for the equality. Canonical MATH-1 stays FAIL. Log: `evidence/research/prism/r-theorem-1-2026-09-26.json`.
+
 ## Candidate cumulative settlement
 
 This is not an oracle replacement and it is not MATH-1 PASS.

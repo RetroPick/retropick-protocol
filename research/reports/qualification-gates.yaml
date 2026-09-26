@@ -38,7 +38,7 @@ prism:
   MATH-1D_candidate_domain_check: exhaustively_verified_within_domain
   MATH-1D_candidate_ready_for_adr_acceptance: true
   MATH-1D_candidate_solidity: differential_research_kernel
-  MATH-1E: partial_z3_sympy
+  MATH-1E: "partial_z3_sympy. R-THEOREM-1 (T-REPL-001) SymPy 1.14.0 identity PROVEN_UNDER_ASSUMPTIONS, 0.020301s. R-THEOREM-4 (T-BS-003) stays the existing two-component Z3/SymPy check. R-THEOREM-2, R-THEOREM-3, R-THEOREM-5, and R-THEOREM-6 were not re-checked. Not MATH-1 PASS."
   MATH-1F: measured_simulation
   MATH-1F_scope: synthetic_quotes_not_solvency_not_kuru
   MATH-1: fail

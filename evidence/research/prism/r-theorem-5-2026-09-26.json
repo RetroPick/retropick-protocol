@@ -1,0 +1,26 @@
+{
+  "canonical_id": "T-BS-004",
+  "canonical_math1": "FAIL",
+  "checker": "sympy_and_z3",
+  "classification": "PROVEN_UNDER_ASSUMPTIONS",
+  "counterexample": null,
+  "id": "R-THEOREM-5",
+  "negation": "unsat",
+  "overpayment_can_break_funding": true,
+  "per_call_rule": {
+    "funding_still_holds": true,
+    "paid_raw": 0,
+    "pays_exact_qr": false,
+    "remaining_balance": 2,
+    "remaining_required": 0,
+    "remaining_supply": 0
+  },
+  "reservation_negative_control": "not_run",
+  "reservation_note": "Reserving the same units for two series is T-ALLOC-001, R-THEOREM-6. Not started.",
+  "residual_equals_initial_surplus": true,
+  "runtime_seconds": 0.025699,
+  "statement": "If C >= S*R and the redemption pays Q*R, then C - Q*R >= (S - Q)*R",
+  "sympy_version": "1.14.0",
+  "written_claim": "funded final redemption preserves remaining settlement funding",
+  "z3_version": "5.1.0"
+}

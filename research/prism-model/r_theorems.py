@@ -10,9 +10,8 @@ core registry in docs/prism/math/17_THEOREMS.md:
     R-THEOREM-5  T-BS-004
     R-THEOREM-6  T-ALLOC-001
 
-Only R-THEOREM-1 is checked here. The others are an inventory of artifacts
-already on disk. This module does not re-run those checks and does not change
-a settlement or backing rule.
+R-THEOREM-1 and R-THEOREM-5 are checked here. R-THEOREM-6 is T-ALLOC-001
+and is not checked. This module does not change a settlement or backing rule.
 """
 
 from __future__ import annotations
@@ -22,7 +21,10 @@ from fractions import Fraction
 from typing import Any
 
 import sympy
+import z3
 
+from fixed_point import WAD
+from fixed_point_model import FixedPointSettlement
 from replication import payoff
 
 
@@ -119,4 +121,63 @@ def discharge_r_theorem_1() -> dict[str, Any]:
         "counterexample": None if clean else {"failed_shapes": [list(shape) for shape in failed]},
         "runtime_seconds": round(elapsed, 6),
         "canonical_math1": "FAIL",
+    }
+
+
+def discharge_r_theorem_5() -> dict[str, Any]:
+    """T-BS-004. If C >= S*R and the redemption pays exactly Q*R, then C' >= S'*R.
+
+    The written row is T-BS-004, not T-ALLOC-001. Double use of reserved units
+    is R-THEOREM-6 and is not run here.
+    """
+
+    started = time.perf_counter()
+    balance, supply, payout, quantity = sympy.symbols("C S R Q", real=True, nonnegative=True)
+    remaining_gap = sympy.expand((balance - quantity * payout) - (supply - quantity) * payout)
+    funded_gap = sympy.expand(balance - supply * payout)
+    identity = sympy.simplify(remaining_gap - funded_gap) == 0
+
+    solver = z3.Solver()
+    c, s, r, q = z3.Reals("C S R Q")
+    solver.add(c >= 0, s >= 0, r >= 0, q >= 0, q <= s, c >= s * r)
+    solver.add(c - q * r < (s - q) * r)
+    negation = solver.check()
+
+    overpay = z3.Solver()
+    paid = z3.Real("P")
+    overpay.add(c >= 0, s >= 0, r >= 0, q >= 0, q <= s, c >= s * r, paid > q * r)
+    overpay.add(c - paid < (s - q) * r)
+    overpay_status = overpay.check()
+
+    book = FixedPointSettlement(2, WAD - 1, 18, 2)
+    book.make_redeemable()
+    fragmented = book.redeem(1) + book.redeem(1)
+    per_call = {
+        "paid_raw": fragmented,
+        "remaining_supply": book.supply_units,
+        "remaining_balance": book.balance_raw,
+        "remaining_required": book.required_balance_raw(),
+        "funding_still_holds": book.balance_raw >= book.required_balance_raw(),
+        "pays_exact_qr": fragmented == 1,
+    }
+    elapsed = time.perf_counter() - started
+    discharged = identity and negation == z3.unsat
+    return {
+        "id": "R-THEOREM-5",
+        "canonical_id": "T-BS-004",
+        "written_claim": "funded final redemption preserves remaining settlement funding",
+        "statement": "If C >= S*R and the redemption pays Q*R, then C - Q*R >= (S - Q)*R",
+        "checker": "sympy_and_z3",
+        "sympy_version": sympy.__version__,
+        "z3_version": str(z3.get_version_string()),
+        "residual_equals_initial_surplus": identity,
+        "negation": str(negation),
+        "overpayment_can_break_funding": overpay_status == z3.sat,
+        "per_call_rule": per_call,
+        "reservation_negative_control": "not_run",
+        "reservation_note": "Reserving the same units for two series is T-ALLOC-001, R-THEOREM-6. Not started.",
+        "classification": "PROVEN_UNDER_ASSUMPTIONS" if discharged else "COUNTEREXAMPLE_FOUND",
+        "counterexample": None,
+        "canonical_math1": "FAIL",
+        "runtime_seconds": round(elapsed, 6),
     }

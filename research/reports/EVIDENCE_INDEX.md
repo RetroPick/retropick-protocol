@@ -197,6 +197,8 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `evidence/research/prism/unequal-weight-partial-redeem-2026-09-26.txt` | Forge default profile, 1 passed, gas 861730 |
 | `evidence/research/prism/indivisible-weight-partial-redeem-2026-09-26.json` | existing_rule. Weights 10^18+1, 10^18+1. requiredRaw at supply 2 is 3,3. Deposit 3,3. Mint 2. Redeem 1 pays 1,1. Supply 1. backingRaw 2,2. requiredRaw 2,2. Backing stays at the requirement |
 | `evidence/research/prism/indivisible-weight-partial-redeem-2026-09-26.txt` | Forge default profile, 1 passed, gas 861775 |
+| `evidence/research/prism/indivisible-weight-second-redeem-2026-09-26.json` | existing_rule. Weights 10^18+1, 10^18+1. After the first redeem, the second redeem pays 2,2. Supply 1 then 0. backingRaw 2,2 then 0,0. requiredRaw 2,2 then 0,0. No residual at supply 0 |
+| `evidence/research/prism/indivisible-weight-second-redeem-2026-09-26.txt` | Forge default profile, 1 passed, gas 936014 |
 | `evidence/research/prism/non-depositor-redeem-2026-09-26.json` | redeem_pays_caller. Weights 10^18, 10^18. A deposits 1,1. B mints 1 and redeems 1. Supply 1 then 0. backingRaw 1,1 then 0,0. Component tokens sit with B |
 | `evidence/research/prism/non-depositor-redeem-2026-09-26.txt` | Forge default profile, 1 passed, gas 780289 |
 | `decisions/ADR-R10-non-depositor-redeem-pays-the-caller.md` | PROPOSED. Acceptance not granted. Mint and redeem were not edited |

@@ -1,0 +1,103 @@
+{
+  "adr_added": false,
+  "backing_covers_remaining_supply": true,
+  "backing_raw_after": [
+    "0",
+    "0"
+  ],
+  "backing_raw_before": [
+    "2",
+    "2"
+  ],
+  "call": "CandidateComponentBacking.redeem",
+  "caller": "minter",
+  "canonical_math1": "FAIL",
+  "case": "indivisible_weight_second_redeem",
+  "classification": "existing_rule",
+  "command": "forge test --match-contract IndivisibleWeightSecondRedeemTest -vv",
+  "component_tokens_paid": [
+    "2",
+    "2"
+  ],
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "decimals": [
+    18,
+    18
+  ],
+  "deposit_amounts": [
+    "3",
+    "3"
+  ],
+  "first_redeem_paid": [
+    "1",
+    "1"
+  ],
+  "gas": 936014,
+  "id": "INDIVISIBLE-WEIGHT-SECOND-REDEEM",
+  "implementations_changed": false,
+  "kernel_component_balances_after": [
+    "0",
+    "0"
+  ],
+  "mint_quantity": "2",
+  "pred_kuru_1": "blocked",
+  "profile": "default",
+  "python": {
+    "backing_raw_after": [
+      "0",
+      "0"
+    ],
+    "backing_raw_before": [
+      "2",
+      "2"
+    ],
+    "first_released": [
+      "1",
+      "1"
+    ],
+    "function": "FixedPointSeries.deposit_raw then mint then redeem then redeem",
+    "note": "FixedPointSeries has no account and no series balance. The second released tuple is the component payout. No sweep was called.",
+    "rejected": false,
+    "released": [
+      "2",
+      "2"
+    ],
+    "required_raw_after": [
+      "0",
+      "0"
+    ],
+    "required_raw_before": [
+      "2",
+      "2"
+    ],
+    "residual_at_supply_0": false,
+    "supply_after": "0",
+    "supply_before": "1"
+  },
+  "redeem_edited": false,
+  "redeem_quantity": "1",
+  "required_raw_after": [
+    "0",
+    "0"
+  ],
+  "required_raw_before": [
+    "2",
+    "2"
+  ],
+  "residual_at_supply_0": false,
+  "s_p16": "open",
+  "sha_base": "3dd036f58f4a77995330c3df55322bb76d11c04d",
+  "source_interface": "proposed_not_frozen",
+  "supply_after": "0",
+  "supply_before": "1",
+  "sweep_added": false,
+  "sweep_policy": "NOT_YET_VALIDATED",
+  "tests_failed": 0,
+  "tests_passed": 1,
+  "weights_wad": [
+    "1000000000000000001",
+    "1000000000000000001"
+  ],
+  "x_i01_through_x_i07": "NOT_YET_VALIDATED"
+}

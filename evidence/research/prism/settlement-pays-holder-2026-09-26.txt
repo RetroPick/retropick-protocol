@@ -1,0 +1,40 @@
+tool: forge test
+command: forge test --match-contract SettlementPaysHolderTest -vv
+cwd: /workspace/research/contract-kernels
+profile: default
+FOUNDRY_PROFILE: unset
+sha_base: 2715f6640e8597e325e0d918f92bf03f15e089f6
+call: CandidateCumulativeSettlement.redeem
+book: one holder, supply 2, payout 10^18-1, decimals 18, ceil funding 2
+funder: different account, transfers 2
+series_holder_redeems: 2
+payout: 1
+classification: settlement_pays_holder
+before: funder 0, holder 0, kernel 2, paidRaw 0, redeemable true
+after: funder 0, holder 1, kernel 1, paidRaw 1, redeemable true
+python: CumulativeFloorSettlement has no funder account. balance_raw 2 then 1. paid 1. Matches the kernel payout.
+adr_added: false
+adr_r10: PROPOSED
+redeem_edited: false
+s_p16: open
+
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 1.01s
+Compiler run successful!
+
+Ran 1 test for test/prism/SettlementPaysHolder.t.sol:SettlementPaysHolderTest
+[PASS] test_series_holder_receives_the_settlement_payout() (gas: 392842)
+Logs:
+  classification: settlement_pays_holder
+  funder_before: 0
+  holder_before: 0
+  kernel_before: 2
+  funder_after: 0
+  holder_after: 1
+  kernel_after: 1
+  paid_raw_after: 1
+  redeemable_after: true
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 566.63µs (397.85µs CPU time)
+
+Ran 1 test suite in 5.52ms (566.63µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

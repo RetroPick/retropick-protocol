@@ -1,0 +1,65 @@
+{
+  "adr_added": false,
+  "adr_r10": "PROPOSED",
+  "after_redeem": {
+    "funder_balance": "0",
+    "kernel_balance": "1",
+    "paid_raw": "1",
+    "redeemable": true,
+    "series_holder_balance": "1"
+  },
+  "before_redeem": {
+    "funder_balance": "0",
+    "kernel_balance": "2",
+    "paid_raw": "0",
+    "redeemable": true,
+    "series_holder_balance": "0"
+  },
+  "call": "CandidateCumulativeSettlement.redeem",
+  "canonical_math1": "FAIL",
+  "case": "settlement_funder_is_not_holder",
+  "ceil_funding": "2",
+  "classification": "settlement_pays_holder",
+  "command": "forge test --match-contract SettlementPaysHolderTest -vv",
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "decimals": 18,
+  "funder": "account_funder",
+  "gas": 392842,
+  "id": "SETTLEMENT-PAYS-HOLDER",
+  "implementations_changed": false,
+  "kernel": "research/contract-kernels/src/prism/CandidateCumulativeSettlement.sol",
+  "payout": "1",
+  "payout_wad": "999999999999999999",
+  "pred_contract_1": "not_pass",
+  "pred_kuru_1": "blocked",
+  "pred_math_1": "partial",
+  "profile": "default",
+  "python": {
+    "after": {
+      "balance_raw": "1",
+      "paid": "1",
+      "paid_raw": "1",
+      "redeemable": true,
+      "supply": "0"
+    },
+    "before": {
+      "balance_raw": "2",
+      "paid_raw": "0",
+      "redeemable": true,
+      "supply": "2"
+    },
+    "function": "CumulativeFloorSettlement.make_redeemable then redeem",
+    "note": "CumulativeFloorSettlement names the series holder and one balance_raw pool. It has no funder account and no separate settlement-token balances for the funder, the holder, and the kernel. The paid amount is 1, matching the kernel payout.",
+    "paid_matches_kernel": true
+  },
+  "redeem_edited": false,
+  "redeem_quantity": "2",
+  "s_p16": "open",
+  "series_holder": "account_holder",
+  "sha_base": "2715f6640e8597e325e0d918f92bf03f15e089f6",
+  "supply": "2",
+  "tests_failed": 0,
+  "tests_passed": 1,
+  "x_i01_through_x_i07": "NOT_YET_VALIDATED"
+}

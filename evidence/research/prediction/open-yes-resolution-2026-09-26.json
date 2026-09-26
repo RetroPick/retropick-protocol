@@ -1,0 +1,52 @@
+{
+  "adr_added": false,
+  "adr_p04": "PROPOSED",
+  "adr_p15": "PROPOSED",
+  "after": {
+    "collateral_locked": "4",
+    "committed_result": null,
+    "liability": "4",
+    "state": "OPEN"
+  },
+  "before": {
+    "collateral_locked": "4",
+    "committed_result": null,
+    "liability": "4",
+    "state": "OPEN"
+  },
+  "canonical_math1": "FAIL",
+  "case": "resolve_yes_win_while_open_before_close",
+  "classification": "existing_rule",
+  "command": "forge test --match-contract OpenYesResolutionTest -vv",
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "gas": 361248,
+  "implementations_changed": false,
+  "inventory_row": {
+    "argument": "YES_WIN",
+    "file": "evidence/research/prediction/rejection-inventory-2026-09-26.json",
+    "function": "resolve",
+    "index": 13,
+    "note": "The inventory rejects resolve of YES_WIN while OPEN and leaves collateral at 4. It does not record liability or a committed result field.",
+    "state": "OPEN"
+  },
+  "profile": "default",
+  "python": {
+    "accepted": false,
+    "committed_result": null,
+    "error": "illegal transition OPEN -> RESOLVED",
+    "error_type": "PredictionError",
+    "function": "resolve"
+  },
+  "s_p16": "open",
+  "sha_base": "8fe06641e341751c8df3fb83d402e2dee9c66bf9",
+  "solidity": {
+    "accepted": false,
+    "committed_result": "NONE",
+    "error": "BadState",
+    "function": "resolve"
+  },
+  "split": "4",
+  "tests_failed": 0,
+  "tests_passed": 1
+}

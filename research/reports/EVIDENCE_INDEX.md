@@ -124,6 +124,8 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `evidence/research/prism/t-native-002-2026-09-26.txt` | that test, exit 0 |
 | `evidence/research/prism/t-lc-001-2026-09-26.json` | Exact enumeration of T-LC-001. 7 edges, 42 rejected. No resurrection into ACTIVE. PROVEN_UNDER_ASSUMPTIONS |
 | `evidence/research/prism/t-lc-001-2026-09-26.txt` | that test, exit 0 |
+| `evidence/research/prism/t-lc-002-2026-09-26.json` | Exact enumeration of T-LC-002. One resolve commit from RESOLUTION_PENDING. PROVEN_UNDER_ASSUMPTIONS |
+| `evidence/research/prism/t-lc-002-2026-09-26.txt` | that test, exit 0 |
 | `evidence/research/prediction/invariant-ids-2026-09-26.txt` | P-I01..P-I10 Python and Forge logs |
 | `evidence/research/prism/invariant-coverage-2026-09-26.txt` | R-I02, remaining R-I11 edges, and R-I12. 3 tests, exit 0 |
 | `research/prism-model/tests/test_invariant_ids.py` | those three checks on the existing exact model |

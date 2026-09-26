@@ -1,0 +1,43 @@
+tool: python3 and forge test
+command: forge test --match-contract SecondOpenRedemptionTest -vv
+cwd: /workspace/research/contract-kernels
+profile: default
+sha_base: 37d2749ebabfc125ca58c3ebeff3847268fcfbfc
+split: 4
+result: YES_WIN
+first_open: accepted, state REDEEMABLE
+second_open: Solidity openRedemption, Python open_redemption
+redeem_between_calls: false
+inventory: rejection-inventory-2026-09-26.json rows[54] rejects the second open and does not record liability
+classification: existing_rule
+python_accepted: false
+python_error: illegal transition REDEEMABLE -> REDEEMABLE
+solidity_accepted: false
+solidity_error: BadState
+before: REDEEMABLE, liability 4, collateral locked 4
+after: REDEEMABLE, liability 4, collateral locked 4
+adr_added: false
+adr_p04: PROPOSED
+adr_p15: PROPOSED
+math1: FAIL
+
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 1.09s
+Compiler run successful!
+
+Ran 1 test for test/prediction/SecondOpenRedemption.t.sol:SecondOpenRedemptionTest
+[PASS] test_second_open_redemption_while_redeemable() (gas: 578082)
+Logs:
+  state_before: REDEEMABLE
+  liability_before: 4
+  collateral_before: 4
+  solidity_accepted: false
+  error: BadState
+  state_after: REDEEMABLE
+  liability_after: 4
+  collateral_after: 4
+  classification: existing_rule
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 676.38µs (167.41µs CPU time)
+
+Ran 1 test suite in 5.42ms (676.38µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

@@ -1,0 +1,43 @@
+tool: python3 and forge test
+command: forge test --match-contract OtherComponentPayoutTwoTest -vv
+cwd: /workspace/research/contract-kernels
+profile: default
+sha_base: bedeb118571b30f9ddc939364f65e3b4b828f48a
+payoff: [[0,1],[0,0],[1,1],[1,0]]
+weights: 3/5,2/5
+supply: 1000
+python_function: apply_transform
+python_first: accepted cash_added 400
+python_before_second: backing 600,0 transformed 400 possible_mask 5 resolved_mask 2
+python_second: rejected PartialResolutionError component payout inconsistent with remaining terminal states
+python_after_unchanged: true
+classification: existing_rule
+adr_added: none
+math1: FAIL
+
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 892.27ms
+Compiler run successful!
+
+Ran 1 test for test/prism/OtherComponentPayoutTwo.t.sol:OtherComponentPayoutTwoTest
+[PASS] test_component_zero_payout_two_matches_no_row() (gas: 273141)
+Logs:
+  first_cash_added: 400
+  backing0_before: 600
+  backing1_before: 0
+  transformed_before: 400
+  possible_mask_before: 5
+  resolved_mask_before: 2
+  second_call: rejected
+  second_error: Nonequivalent(0, 2)
+  backing0_after: 600
+  backing1_after: 0
+  transformed_after: 400
+  possible_mask_after: 5
+  resolved_mask_after: 2
+  supply_after: 1000
+  classification: existing_rule
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 478.62µs (326.85µs CPU time)
+
+Ran 1 test suite in 5.34ms (478.62µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

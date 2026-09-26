@@ -185,7 +185,7 @@ The six prediction rows above the CREATE rows, and `test_fund_and_redeem_gas`, a
 | forge invariant | coverage command: 256 runs, depth 500, 128000 calls, 47348 reverts |
 | forge coverage | PredictionMarket lines 100.00% (119/119), branches 94.44% (34/36). Fuzz runs 64. Invariant runs 256. `kernel-coverage-fuzz64-2026-09-26.txt` |
 | slither 0.11.6 complete IR | BLOCKED_TOOL. Fresh Foundry run at 0636686, exit 255, `_redeem` has no IR. `slither-sp16-2026-09-26.json`. Legacy JSON logs remain `slither-legacy-ast-2026-09-26.txt` and `slither-solc-legacy-2026-09-26.txt`. S-P16 stays open |
-| `CloneableOutcomeToken.initialize(address(0))` | recorded_finding. Stores market `address(0)`. `_initialized` becomes true. `totalSupply` stays 0. Python has no counterpart. No payout. `zero-address-initialize-2026-09-26.json` |
+| `CloneableOutcomeToken.initialize(address(0))` | recorded_finding. Stores market `address(0)`. `_initialized` becomes true. `totalSupply` stays 0. Python has no counterpart. No payout. ADR-P14 PROPOSED. Acceptance not granted. `zero-address-initialize-2026-09-26.json` |
 | solhint 5.2.0 | exit 0, 42 warnings, 0 errors. `solhint-2026-09-26.txt`. Style and import-path warnings. Not PRED-CONTRACT-1 |
 | echidna, medusa, halmos, mythril, semgrep | BLOCKED_TOOL |
 

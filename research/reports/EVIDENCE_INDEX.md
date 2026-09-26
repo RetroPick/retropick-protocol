@@ -186,7 +186,7 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `evidence/research/prediction/slither-solc-legacy-2026-09-26.txt` | solc framework rejects legacy JSON on 0.8.26. Exit 1 |
 | `evidence/research/prediction/slither-sp16-2026-09-26.json` | fresh Slither 0.11.6 at 0636686. Exit 255. `_redeem` has no IR. Classification blocked_tool. S-P16 stays open |
 | `evidence/research/prediction/slither-sp16-2026-09-26.txt` | same run, command log |
-| `evidence/research/prediction/zero-address-initialize-2026-09-26.json` | `initialize(address(0))` stores the zero market. totalSupply stays 0. recorded_finding. Python has no counterpart |
+| `evidence/research/prediction/zero-address-initialize-2026-09-26.json` | `initialize(address(0))` stores the zero market. totalSupply stays 0. recorded_finding. Python has no counterpart. ADR-P14 PROPOSED |
 | `evidence/research/prediction/zero-address-initialize-2026-09-26.txt` | Forge default profile, 1 passed, gas 228257 |
 | `evidence/research/prediction/solhint-2026-09-26.txt` | solhint 5.2.0, exit 0, 42 warnings, 0 errors |
 | `evidence/research/repro/repro-local-2026-09-26.txt` | local rerun: 12 and 85 unit tests OK, Foundry 63 passed |
@@ -222,6 +222,7 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `evidence/research/prediction/rejection-inventory-2026-09-26.json` | 72 rows. 71 existing_rule. archive from DRAFT is recorded_contradiction. ADR-P13 PROPOSED |
 | `evidence/research/prediction/rejection-inventory-2026-09-26.txt` | Python 1 test OK. Forge default profile, 1 passed, gas 8197908 |
 | `decisions/ADR-P13-archive-from-draft.md` | PROPOSED. Acceptance not granted. Archive was not edited |
+| `decisions/ADR-P14-zero-address-outcome-initialize.md` | PROPOSED. Acceptance not granted. Initialize was not edited |
 | `evidence/research/prediction/kuru-backing-claim-2026-09-26.json` | absent. Kuru orderbook liquidity is not protocol backing or redemption value. PRED-KURU-1 stays blocked |
 | `decisions/ADR-P12-configured-split-maximum.md` | PROPOSED. Acceptance not granted. Neither split was edited |
 | `evidence/research/prediction/resolved-redeem-contradiction-2026-09-26.txt` | `python3 -m unittest tests.test_resolved_redeem_contradiction -v`, 1 test OK, exit 0 |

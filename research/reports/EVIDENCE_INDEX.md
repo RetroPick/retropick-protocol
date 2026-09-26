@@ -208,6 +208,7 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `evidence/research/prism/same-series-reserve-2026-09-26.txt` | Forge default profile, 1 passed, gas 205460 |
 | `decisions/ADR-R11-python-release-and-withdraw-are-absent-from-the-ledger.md` | PROPOSED. Acceptance not granted. Python declares release and withdraw. CandidateReservationLedger does not. T-ALLOC-001 is not MATH-1 PASS |
 | `decisions/ADR-R12-component-backing-state-changing-names.md` | PROPOSED. Acceptance not granted. Python state-changing names are deposit_raw, mint, mint_with_minimum_backing, redeem, sweep_dust. Solidity names are deposit, mint, redeem. Not CONTRACT-1. Not MATH-1 PASS |
+| `decisions/ADR-R13-settlement-fund-is-only-on-fixed-point-settlement.md` | PROPOSED. Acceptance not granted. fund is only on FixedPointSettlement. Cumulative kernel names are makeRedeemable and redeem. Sweep policy stays NOT_YET_VALIDATED. Not MATH-1 PASS |
 | `evidence/research/prediction/slither-2026-09-26.txt` | earlier Slither log, including IR errors |
 | `evidence/research/prediction/slither-focused-2026-09-26.txt` | focused Slither 0.11.6 rerun, exit 255, 14 results |
 | `evidence/research/prediction/slither-legacy-ast-2026-09-26.txt` | `--solc-force-legacy-json` under Foundry. `_redeem` still has no IR. Exit 255 |

@@ -56,6 +56,8 @@ T-BS-003 says exact nonnegative replication plus component backing implies termi
 
 T-NATIVE-001 says canonical binary split and merge conserve complete-set collateral accounting. The pre-resolution equality is `S_Y=S_N=C_locked`. SymPy 1.14.0 shows both operations leave the YES/NO gap and the YES/collateral gap unchanged. Z3 5.1.0 reports unsat for either operation breaking the equality when it already holds and the merge quantity does not exceed supply. `BinaryCompleteSetMarket` split 100 then merge 25 ends at 75 on all three balances, and open interest is 75. Merge 76 against supply 75 is rejected and the balances stay 75. Classification: **PROVEN_UNDER_ASSUMPTIONS**. No counterexample. Runtime 0.023312 seconds. This does not change the resolution payout and does not introduce a 1/2 invalid payoff. Canonical MATH-1 stays FAIL because the per-call settlement floor still fails. Log: `evidence/research/prism/t-native-001-2026-09-26.json`.
 
+T-NATIVE-002 says a valid binary terminal payoff satisfies `YES(omega)+NO(omega)=1`. Z3 5.1.0 reports unsat for a winner in {YES, NO} whose unit payoffs do not sum to 1. Resolving YES pays 1 on YES and 0 on NO. Resolving NO pays 0 on YES and 1 on NO. `BinaryCompleteSetMarket.resolve("INVALID")` raises, leaves the market ACTIVE, and assigns no payout. Invalid and void stay unspecified. Classification of the valid-terminal statement: **PROVEN_UNDER_ASSUMPTIONS**. No counterexample. Runtime 0.007686 seconds. Canonical MATH-1 stays FAIL because the per-call settlement floor still fails. Log: `evidence/research/prism/t-native-002-2026-09-26.json`.
+
 ## Candidate cumulative settlement
 
 This is not an oracle replacement and it is not MATH-1 PASS.

@@ -98,6 +98,8 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `evidence/research/prism/rebasing-component-backing-2026-09-26.txt` | Forge default profile, 1 passed, gas 663233 |
 | `evidence/research/prism/fee-on-transfer-component-backing-2026-09-26.json` | existing_rule. Shortfall on a 9-of-10 deposit. Token balance, backingRaw, requiredRaw, and supply stay 0 |
 | `evidence/research/prism/fee-on-transfer-component-backing-2026-09-26.txt` | Forge default profile, 1 passed, gas 575199 |
+| `evidence/research/prism/duplicate-component-backing-2026-09-26.json` | existing_rule. Same token in two slots. backingRaw 10 and 10. Token balance 20. mint(11) reverts InsufficientBacking |
+| `evidence/research/prism/duplicate-component-backing-2026-09-26.txt` | Forge default profile, 1 passed, gas 758840 |
 | `evidence/research/prism/fee-on-transfer-settlement-funding-2026-09-26.json` | existing_rule. Underfunded. Transfer of 2 delivers 1. Token balance 1. No payout |
 | `evidence/research/prism/fee-on-transfer-settlement-funding-2026-09-26.txt` | Forge default profile, 1 passed, gas 512925 |
 | `evidence/research/prism/rebasing-settlement-funding-2026-09-26.json` | existing_rule. After redeemable, rebaseDown of 1 leaves balance 1. redeem(2) pays 1. paidRaw becomes 1 |

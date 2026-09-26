@@ -1,0 +1,69 @@
+{
+  "acceptance_granted": false,
+  "adr_added": false,
+  "canonical_math1": "FAIL",
+  "case": "same ERC-20 passed twice as two components",
+  "classification": "existing_rule",
+  "constructor_reverted": false,
+  "contract_1": "not_met",
+  "id": "DUPLICATE-COMPONENT-BACKING",
+  "implementations_changed": false,
+  "kernel": "research/contract-kernels/src/prism/CandidateComponentBacking.sol",
+  "math_1_progress": false,
+  "rule": "each slot is credited only its own transfer delta, so the two backing figures sum to the one token balance",
+  "solidity": {
+    "after_deposit": {
+      "backing_raw_0": "10",
+      "backing_raw_1": "10",
+      "required_raw_10": [
+        "10",
+        "10"
+      ],
+      "required_raw_11": [
+        "11",
+        "11"
+      ],
+      "supply": "0",
+      "token_balance": "20"
+    },
+    "after_mint_10": {
+      "backing_raw_0": "10",
+      "backing_raw_1": "10",
+      "supply": "10",
+      "token_balance": "20"
+    },
+    "command": "forge test --match-contract DuplicateComponentBackingTest -vv",
+    "cwd": "research/contract-kernels",
+    "decimals": [
+      18,
+      18
+    ],
+    "deposit": [
+      "10",
+      "10"
+    ],
+    "exit_code": 0,
+    "failed": 0,
+    "forge_commit": "cae51ad458f6abb64852b7709eb784352429825d",
+    "forge_version": "1.8.3",
+    "mint_11_error": "InsufficientBacking",
+    "mint_11_selector": {
+      "backing": "10",
+      "index": "0",
+      "required": "11"
+    },
+    "optimizer": true,
+    "optimizer_runs": 200,
+    "passed": 1,
+    "profile": "default",
+    "same_token": true,
+    "solc": "0.8.26",
+    "test_gas": 758840,
+    "via_ir": false,
+    "weights_wad": [
+      "1000000000000000000",
+      "1000000000000000000"
+    ]
+  },
+  "theorem_pass": false
+}

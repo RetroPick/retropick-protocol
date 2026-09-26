@@ -1,0 +1,40 @@
+[PASS] test_e2e_monadToSolana_fullLifecycle() (gas: 621290)
+[PASS] test_e2e_pauseAndResume() (gas: 687688)
+[PASS] test_e2e_solanaToMonad_fullLifecycle() (gas: 620747)
+Suite result: ok. 4 passed; 0 failed; 0 skipped; finished in 4.85ms (861.54µs CPU time)
+
+Ran 5 tests for test/fuzz/RetroPickDoorwayFuzz.t.sol:RetroPickDoorwayFuzzTest
+[PASS] testFuzz_feeMathConsistent(uint256,uint16) (runs: 256, μ: 60269, ~: 60810)
+[PASS] testFuzz_migrateToSolanaAccounting(uint256,uint16) (runs: 256, μ: 418624, ~: 427730)
+[PASS] testFuzz_migrationIdsUniqueAcrossNonce(uint256) (runs: 256, μ: 580266, ~: 589446)
+[PASS] testFuzz_requestFromSolanaUniquePerSourceTx(bytes32,bytes32,uint256) (runs: 256, μ: 692597, ~: 700189)
+[PASS] testFuzz_setFeeRejectsAboveMax(uint256) (runs: 256, μ: 41079, ~: 41054)
+Suite result: ok. 5 passed; 0 failed; 0 skipped; finished in 32.54ms (81.45ms CPU time)
+
+Ran 1 test for test/invariant/RetroPickDoorwayInvariant.t.sol:RetroPickDoorwayInvariantTest
+[PASS]
+RetroPickDoorwayInvariantTest invariants:
+[PASS] invariant_feeNeverExceedsNet
+[PASS] invariant_migrationStateWellFormed
+[PASS] invariant_monadAccountingConserved
+[PASS] invariant_sourceTxNeverReprocessed
+ RetroPickDoorwayInvariantTest invariants (runs: 64, calls: 4096, reverts: 0)
+
+╭----------------+-------------------+-------+---------+----------╮
+| Contract       | Selector          | Calls | Reverts | Discards |
++=================================================================+
+| DoorwayHandler | attest            | 808   | 0       | 0        |
+|----------------+-------------------+-------+---------+----------|
+| DoorwayHandler | cancel            | 829   | 0       | 0        |
+|----------------+-------------------+-------+---------+----------|
+| DoorwayHandler | execute           | 825   | 0       | 0        |
+|----------------+-------------------+-------+---------+----------|
+| DoorwayHandler | migrateToSolana   | 839   | 0       | 0        |
+|----------------+-------------------+-------+---------+----------|
+| DoorwayHandler | requestFromSolana | 795   | 0       | 0        |
+╰----------------+-------------------+-------+---------+----------╯
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 2.42s (2.41s CPU time)
+
+Ran 5 test suites in 2.42s (2.46s CPU time): 45 tests passed, 0 failed, 0 skipped (45 total tests)
+EXIT:0

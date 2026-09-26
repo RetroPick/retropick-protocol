@@ -1,0 +1,18 @@
+{
+  "fixed_point": {
+    "mint_ops": 2961,
+    "redeem_ops": 2039,
+    "seed": 20260917,
+    "steps": 5000,
+    "terminal_checks": 20000
+  },
+  "reservation": {
+    "balance": 10000,
+    "rejected_overallocations": 4,
+    "release_ops": 2196,
+    "reserve_ops": 2800,
+    "seed": 20260917,
+    "steps": 5000,
+    "total_reserved": 9857
+  }
+}

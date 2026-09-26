@@ -1,0 +1,35 @@
+=== PRISM exact-backed accounting ===
+terminal payoff vector: ['2/5', '0', '1', '3/5']
+expected worlds: [0.4, 0, 1.0, 0.6]
+supply: 1000
+backing: ['600', '400']
+terminal solvency:
+  world=0 backing= 400 liability= 400 solvent= True
+  world=1 backing= 0 liability= 0 solvent= True
+  world=2 backing= 1000 liability= 1000 solvent= True
+  world=3 backing= 600 liability= 600 solvent= True
+redeem 100 -> backing released: ['60', '40']
+remaining supply: 900
+remaining backing: ['540', '360']
+resolved world 2 final payout: 1
+settlement required: 900
+final paid: 900
+state: ARCHIVED
+
+=== Non-replicable AND counterexample ===
+AND replication: None
+expected: None
+
+=== Native complete-set accounting ===
+100 collateral -> 100 YES + 100 NO
+open interest: 100 (not 200)
+split+sell profit at bids 0.55/0.50 with 0.01 cost: 1/25
+buy+merge profit at asks 0.45/0.50 with 0.01 cost: 1/25
+
+=== PRISM market-value identities ===
+create cost: 53/100
+redeem value: 49/100
+reference interval before risk terms: 49/100 to 53/100
+partial resolution NAV (0.6*1 + 0.4*0.30): 18/25
+resolved 0.60 PRISM against MON=$2: 3/10 MON
+resolved 0.60 PRISM against MON=$1: 3/5 MON

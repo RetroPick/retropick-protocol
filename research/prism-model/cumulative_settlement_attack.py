@@ -492,6 +492,129 @@ def _view(book: CumulativeFloorSettlement) -> tuple[Any, ...]:
     )
 
 
+COMPOSITION_SUPPLY16 = 16
+
+
+def _primary_payouts(decimals: int) -> tuple[int, ...]:
+    denominator = WAD * decimal_factor(decimals)
+    seen: list[int] = []
+    for payout in PAYOUTS + (denominator - 1, denominator, denominator // 3, denominator + 1):
+        if payout not in seen:
+            seen.append(payout)
+    return tuple(seen)
+
+
+def _chunks_for(parts: tuple[int, ...], labeling: str) -> list[tuple[str, int]]:
+    if labeling == "all-A":
+        return [("A", part) for part in parts]
+    if labeling == "alternating":
+        return [("A" if index % 2 == 0 else "B", part) for index, part in enumerate(parts)]
+    raise FixedPointModelError(f"unknown labeling {labeling}")
+
+
+def run_supply16_compositions() -> dict[str, Any]:
+    """Compositions through supply 16 on 18 decimals. Does not change the payout rule.
+
+    The recorded attack stopped at composition supply 12. This walk is only that
+    axis, with two holders: every part on A, and parts alternating A/B.
+    """
+
+    started = time.perf_counter()
+    failures: list[dict[str, Any]] = []
+    states = 0
+    transitions = 0
+    decimals = PRIMARY_DECIMALS
+    payouts = _primary_payouts(decimals)
+    fairness_payout = (WAD // 2) + 1
+
+    def _fail(kind: str, detail: str, **fields: Any) -> None:
+        failures.append({"kind": kind, "detail": detail, **fields})
+
+    for payout in payouts:
+        for supply in range(0, COMPOSITION_SUPPLY16 + 1):
+            states += 1
+            if supply == 0:
+                book = CumulativeFloorSettlement(0, payout, decimals, 0, {})
+                book.make_redeemable()
+                transitions += 1
+                if book.paid_raw != 0 or book.balance_raw != 0:
+                    _fail("zero-supply", "zero supply paid or retained balance", supply=0, payout=payout, parts=[])
+                continue
+            for parts in _compositions(supply):
+                for labeling in ("all-A", "alternating"):
+                    chunks = _chunks_for(parts, labeling)
+                    states += 1
+                    detail = _check_aggregate(supply, payout, decimals, chunks)
+                    transitions += len(chunks)
+                    if detail:
+                        _fail(
+                            "composition",
+                            detail,
+                            supply=supply,
+                            payout=payout,
+                            parts=list(parts),
+                            labeling=labeling,
+                        )
+
+    original_rows = {}
+    for order in (("A", "B"), ("B", "A")):
+        chunks = [(order[0], 1), (order[1], 1)]
+        states += 1
+        detail = _check_aggregate(2, WAD - 1, decimals, chunks)
+        transitions += len(chunks)
+        book = _settle(2, WAD - 1, decimals, chunks)
+        original_rows["".join(order)] = {"paid": book.paid_raw, "residual": book.balance_raw, "receipts": dict(book.receipts)}
+        if detail:
+            _fail("original-case", detail, supply=2, payout=WAD - 1, parts=[1, 1], order="".join(order))
+
+    fairness_chunks = [("A", 1), ("B", 1), ("A", 1)]
+    states += 1
+    fairness_detail = _check_aggregate(3, fairness_payout, decimals, fairness_chunks)
+    transitions += len(fairness_chunks)
+    fairness_book = _settle(3, fairness_payout, decimals, fairness_chunks)
+    fairness = {
+        "payout_wad": fairness_payout,
+        "paid": fairness_book.paid_raw,
+        "one_shot": one_shot_floor(3, fairness_payout, decimals),
+        "residual": fairness_book.balance_raw,
+        "receipts": dict(fairness_book.receipts),
+    }
+    if fairness_detail:
+        _fail("fairness-case", fairness_detail, supply=3, payout=fairness_payout, parts=[1, 1, 1])
+    if fairness["paid"] > fairness["one_shot"]:
+        _fail("fairness-overpay", "partition paid more than the one-shot floor", supply=3, payout=fairness_payout, parts=[1, 1, 1])
+
+    minimal = None
+    if failures:
+        minimal = min(failures, key=lambda row: (row.get("supply", 0), row.get("payout", 0), len(row.get("parts", [])), tuple(row.get("parts", [])), row["kind"]))
+    elapsed = time.perf_counter() - started
+    clean = not failures
+    return {
+        "axis": "compositions",
+        "previous_composition_supply_max": COMPOSITION_MAX,
+        "composition_supply_max": COMPOSITION_SUPPLY16,
+        "decimals": decimals,
+        "holders": ["A", "B"],
+        "labelings": ["all-A", "alternating"],
+        "payouts": [str(payout) for payout in payouts],
+        "states": states,
+        "transitions": transitions,
+        "runtime_seconds": round(elapsed, 6),
+        "failures": failures[:8],
+        "failure_count": len(failures),
+        "minimal_counterexample": minimal,
+        "domain_check": "EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN" if clean else "COUNTEREXAMPLE_FOUND",
+        "canonical_math1": "FAIL",
+        "original_case": original_rows,
+        "fairness_case": fairness,
+        "asserts": [
+            "total paid equals floor(supply * payout / D)",
+            "ceil-funded residual is 0 or 1",
+            "no partition pays more than the one-shot floor",
+        ],
+    }
+
+
 def main() -> None:
     report = run_attack()
     print(json.dumps(report, indent=2, sort_keys=True))

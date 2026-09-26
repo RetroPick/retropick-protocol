@@ -150,7 +150,7 @@ Remaining pre-production work is primarily **implementation equivalence and scop
 machine-readable Python -> Solidity fixtures
 6/8/18 decimal CI matrix
 uint256/configured maximum-bound tests
-final zero-supply settlement-dust policy
+final zero-supply settlement-dust policy (classified in section 11; the residual sits; no sweep was added)
 fixed-point partial-resolution transform if required onchain
 Z3/SymPy proof artifacts where useful
 live Kuru LP/MM/fee-domain separation checks
@@ -224,8 +224,28 @@ This section does not mark MATH-1 PASS and does not change either payout formula
 
 Configured domain, not a uint256 enumeration. Decimals are 6, 8, and 18. Supplies are 0, 1, 2, 2^8, 2^16, 2^32, and 2^64. Payouts are 0, 1, D/2, D-1, D, D+1, 2^128, and 2^256-1, where D = 10^18 * 10^(18-decimals). The matrix has 168 cells. Runtime 0.001788s. Evidence: `evidence/research/prism/precision-boundary-6-8-18-2026-09-26.json`.
 
-Zero supply rejects a one-unit redemption. Exact ceil funding of that empty book sweeps dust 0. Supply 1 redeems the one-shot floor and leaves dust 0 or 1.
+Zero supply rejects a one-unit redemption. Exact ceil funding of that empty book leaves balance 0. No sweep runs. Supply 1 redeems the one-shot floor and leaves dust 0 or 1.
 
 `CX-FP-SETTLEMENT-001` reproduces at decimals 6, 8, and 18. Supply 2 and payout D-1: two 1-unit per-call redemptions pay 0, the one-shot floor is 1, required funding is 2, and sweepable dust is 2. The same per-call underpayment appears on 48 cells. The smallest cell in this domain is supply 2, decimals 18, payout D/2 = 5*10^17, which pays 0 against one-shot 1. That is the same defect, not a new economic rule. The candidate cumulative floor matches the one-shot floor on every cell, and the ceil residual stays in {0, 1}.
 
 Classification of this matrix: `EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN`. Canonical MATH-1 stays FAIL.
+
+## 11. Zero-supply settlement dust — 2026-09-26
+
+This section records the existing residual. It does not mark MATH-1 PASS and it does not add a sweep.
+
+The bound is `ceil(n/d) - floor(n/d)` for `n >= 0` and `d > 0`. Z3 5.1.0 reports unsat for a gap outside {0, 1}. Under exact ceil funding the cumulative candidate pays the one-shot floor and leaves that gap in the book. Runtime 0.018452s. Evidence: `evidence/research/prism/zero-supply-dust-2026-09-26.json`.
+
+| Case | Existing behavior | Residual |
+|---|---|---|
+| Constructed at supply 0 | Python `CumulativeFloorSettlement` and `FixedPointSettlement` accept supply 0. All 24 precision-boundary zero-supply cells fund at ceil 0, reject a one-unit redemption, and leave balance 0. `sweepable_dust()` reads 0 and leaves the balance in place. The Solidity constructor reverts `ZeroSupply`. | 0, unwithdrawn |
+| Supply reaches 0 after full redemption | Supply 2, payout `10^18-1`, decimals 18, exact ceil funding 2. Cumulative redemptions pay 0 then 1. Supply is 0 and `balance_raw` is 1. A later `make_redeemable` and `redeem(1)` leave that 1 in place. Payout 0 leaves 0. Funding 5, three above the ceil, leaves 4. That 4 is surplus outside the exact-ceil bound, and it also stays. The canonical per-call book still pays 0 and 0, and `sweepable_dust()` reads 2 without moving it. That read remains `CX-FP-SETTLEMENT-001`. | 0 or 1 at exact ceil funding; it sits |
+| One-unit redemption at supply 0 | Python cumulative `redeem` raises `unknown holder` on an empty book and `invalid candidate redemption quantity` after depletion. Canonical `redeem(1)` raises `invalid settlement redemption quantity`. Solidity `redeem(1)` after depletion reverts `InvalidQuantity`. The balance stays. | unchanged |
+
+`PrismSeries.archive` changes state and leaves `settlement_balance` where it is. A zero-supply exact series rejects `redeem_final(1)`. Redeeming supply 2 against payout 1 from balance 5 pays 2, and archive leaves 3.
+
+`FixedPointSeries.sweep_dust` zeros component `backing_raw`. On supply 0 and backing 2 it returns 2 and leaves backing 0. That movement is component backing, not the settlement residual.
+
+`CandidateCumulativeSettlement` has one `safeTransfer`. It sends the redeem payout when that payout is nonzero. Forge 1.8.3, solc 0.8.26, optimizer 200, via IR off: 4 passed, 0 failed. The empty constructor reverts `ZeroSupply`. The exact-ceil book ends with token balance 1. A further redeem reverts and the balance stays 1.
+
+Sweep policy: `NOT_YET_VALIDATED`. Residual bound: `PROVEN_UNDER_ASSUMPTIONS`. Extraction witness: none. Canonical MATH-1 stays FAIL. The kernel stays `differential_research_kernel`.

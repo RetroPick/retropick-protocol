@@ -76,6 +76,7 @@ Every row points at evidence from this program. Status words are the program's c
 | T-LC-002 | PROVEN_UNDER_ASSUMPTIONS | Exact enumeration of `PrismSeries.resolve`. One commit from RESOLUTION_PENDING. Second call unchanged. `t-lc-002-2026-09-26.json`. Not MATH-1 PASS |
 | T-PARTIAL-001 | PROVEN_UNDER_ASSUMPTIONS | SymPy 1.14.0 on 30 partitions. Z3 5.1.0 unsat. Basket 3/5 and 2/5 returns 18/25. `t-partial-001-2026-09-26.json`. Not MATH-1 PASS |
 | Precision boundary 6/8/18 | EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN | 168 cells. Solidity matches 129 fitting cumulative cells. 15 overflow products and 24 zero-supply cells excluded. Per-call rule is not in Solidity. Forge 1.8.3, solc 0.8.26, optimizer 200, 1 passed. `precision-boundary-solidity-2026-09-26.json`. Not MATH-1 PASS |
+| Zero-supply settlement dust | residual bound PROVEN_UNDER_ASSUMPTIONS; sweep policy NOT_YET_VALIDATED | Exact ceil funding leaves 0 or 1, and that residual sits. 24 Python zero-supply cells leave balance 0. Solidity `ZeroSupply` still reverts. No extraction witness. Forge 1.8.3, 4 passed. `zero-supply-dust-2026-09-26.json`. Not MATH-1 PASS |
 | Market demand hypotheses | NOT_YET_VALIDATED | unchanged |
 
 ## COUNTEREXAMPLE_MATRIX
@@ -207,7 +208,7 @@ The six prediction rows above the CREATE rows, and `test_fund_and_redeem_gas`, a
 |---|---|
 | PRED-CONTRACT-1 | NOT PASS |
 | PRISM MATH-1 | FAIL |
-| MATH-1E | partial_z3_sympy. R-THEOREM-1, R-THEOREM-5, R-THEOREM-6, T-PARTIAL-002, T-FP-001 through T-FP-004, T-BS-001 through T-BS-003, T-NATIVE-001 through T-NATIVE-002, T-LC-001, T-LC-002, and T-PARTIAL-001 discharged. Precision boundary 6/8/18 matches the Solidity candidate on 129 uint256-fitting cumulative cells. Not MATH-1 PASS. Canonical per-call settlement floor still fails |
+| MATH-1E | partial_z3_sympy. R-THEOREM-1, R-THEOREM-5, R-THEOREM-6, T-PARTIAL-002, T-FP-001 through T-FP-004, T-BS-001 through T-BS-003, T-NATIVE-001 through T-NATIVE-002, T-LC-001, T-LC-002, and T-PARTIAL-001 discharged. Precision boundary 6/8/18 matches the Solidity candidate on 129 uint256-fitting cumulative cells. Zero-supply settlement dust sits; sweep policy NOT_YET_VALIDATED. Not MATH-1 PASS. Canonical per-call settlement floor still fails |
 | MATH-1D candidate cumulative floor | PROVEN_UNDER_ASSUMPTIONS; ready for ADR acceptance; Solidity `differential_research_kernel` |
 | MATH-1B | bounded grids only. Supply-16 compositions and the backing grid are inside the note. Not a universal proof |
 | PRISM CONTRACT-ARCH-1 | proposed |

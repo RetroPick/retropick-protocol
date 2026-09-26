@@ -27,7 +27,7 @@ Ordered compositions of outstanding supply 0 through 16. Holders are A and B. La
 | per-call `per_call_floor_half` | COUNTEREXAMPLE_FOUND. Smallest witness in the domain: supply 2, parts `(1, 1)`, one-shot 1, per-call pays 0. 128512 labeled compositions underpay. `fragmentation_gap(5)` remains 2 |
 | `naive_half_up` on both sides | COUNTEREXAMPLE_FOUND. `half_up_both_sides(1) == 2` |
 
-`PredictionMarket._redeem` with INVALID numerators `(1, 1)` and denominator 2 is that cumulative floor. The Foundry replay of the same compositions matched it: 131087 states, 2097154 transitions, 0 mismatches, 79.76s, gas 370972939410. Supply 2 pays 0 then 1 on each side. The per-call sequence 0 then 0 is the Python counterexample. PRED-MATH-1 stays partial. The kernel stays a research candidate. Log: `evidence/research/prediction/invalid-floor-compositions-2026-09-26.json`.
+`PredictionMarket._redeem` with INVALID numerators `(1, 1)` and denominator 2 is that cumulative floor. The Foundry replay of the same compositions matched it: 131087 states, 2097154 transitions, 0 mismatches, 79.76s, gas 370972939410. `block_gas_limit` 600000000000 is Foundry profile `invalid_floor_compositions` only. The default profile does not set it. A re-run on that profile passed 2 tests and 0 failed with the same counts in 79.63s. Supply 2 pays 0 then 1 on each side. The per-call sequence 0 then 0 is the Python counterexample. PRED-MATH-1 stays partial. The kernel stays a research candidate. Log: `evidence/research/prediction/invalid-floor-compositions-2026-09-26.json`.
 
 ## Decimals
 

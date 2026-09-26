@@ -15,7 +15,7 @@ prediction:
   PRED-SPEC-1: proposed
   PRED-MODEL-1: measured
   PRED-MATH-1: partial
-  invalid_floor_compositions: "cumulative floor EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN on ordered compositions of supply 0..16, holders A and B, labelings all-A and alternating, both cursors. 131087 states, 2097154 transitions, 131070 labeled compositions, 0.410255s. Per-call COUNTEREXAMPLE_FOUND. Smallest witness supply 2 parts (1, 1), one-shot 1, per-call 0. Half-up COUNTEREXAMPLE_FOUND, half_up_both_sides(1) == 2. Solidity PredictionMarket._redeem matches the cumulative floor on the same domain: 0 mismatches, 79.76s, gas 370972939410. PRED-MATH-1 stays partial. Research candidate."
+  invalid_floor_compositions: "cumulative floor EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN on ordered compositions of supply 0..16, holders A and B, labelings all-A and alternating, both cursors. 131087 states, 2097154 transitions, 131070 labeled compositions, 0.410255s. Per-call COUNTEREXAMPLE_FOUND. Smallest witness supply 2 parts (1, 1), one-shot 1, per-call 0. Half-up COUNTEREXAMPLE_FOUND, half_up_both_sides(1) == 2. Solidity PredictionMarket._redeem matches the cumulative floor on the same domain: 0 mismatches, 79.76s, gas 370972939410. block_gas_limit 600000000000 is Foundry profile invalid_floor_compositions only. The default profile does not set it. Isolated re-run passed 2 tests, 0 failed, same counts, 79.63s. PRED-MATH-1 stays partial. Research candidate."
   PRED-CONTRACT-ARCH-1: proposed
   PRED-CONTRACT-1: not_pass
   forge_coverage: measured

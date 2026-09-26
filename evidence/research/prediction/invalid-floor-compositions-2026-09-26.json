@@ -56,11 +56,27 @@
   "runtime_seconds": 0.410255,
   "solidity_execution": {
     "block_gas_limit": 600000000000,
-    "command": "forge test --match-contract PredictionInvalidFloorCompositionsTest -vv",
+    "block_gas_limit_scope": "profile invalid_floor_compositions only",
+    "command": "FOUNDRY_PROFILE=invalid_floor_compositions forge test --match-contract PredictionInvalidFloorCompositionsTest -vv",
     "contract": "PredictionMarket",
+    "default_profile_check": {
+      "block_gas_limit": null,
+      "command": "forge test --match-contract PredictionOperationGasTest --match-test test_prediction_operation_gas -vv",
+      "contract": "PredictionOperationGasTest",
+      "forge": "1.8.3",
+      "forge_commit": "cae51ad458f6abb64852b7709eb784352429825d",
+      "foundry_profile_env": "unset",
+      "gas": 6578687,
+      "profile": "default",
+      "test": "test_prediction_operation_gas",
+      "tests_failed": 0,
+      "tests_passed": 1
+    },
+    "default_profile_sets_block_gas_limit": false,
     "denominator": 2,
     "forge": "1.8.3",
     "forge_commit": "cae51ad458f6abb64852b7709eb784352429825d",
+    "foundry_profile": "invalid_floor_compositions",
     "function": "_redeem",
     "gas": 370972939410,
     "holders": [
@@ -86,6 +102,19 @@
       0,
       0
     ],
+    "profile_rerun": {
+      "forge": "1.8.3",
+      "forge_commit": "cae51ad458f6abb64852b7709eb784352429825d",
+      "gas": 370972939410,
+      "mismatches": 0,
+      "per_call_gap_rows": 128512,
+      "runtime_seconds": 79.63,
+      "states": 131087,
+      "suite_seconds": 80.13,
+      "tests_failed": 0,
+      "tests_passed": 2,
+      "transitions": 2097154
+    },
     "residual_on_supply_2": 0,
     "runtime_seconds": 79.76,
     "smallest_witness_no_payouts": [

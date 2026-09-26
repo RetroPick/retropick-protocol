@@ -30,6 +30,8 @@ solc: 0.8.26
 optimizer: true
 optimizer_runs: 200
 via_ir: false
+profile: default
+note: this run set block_gas_limit on the default profile. That placement was replaced by profile invalid_floor_compositions.
 block_gas_limit: 600000000000
 cwd: /workspace/research/contract-kernels
 sha: 5f51b86200fa5260eb8285e04187947b5350b169
@@ -52,3 +54,37 @@ per_call_would_pay: 0 then 0
 implements_cumulative_floor: true
 implements_per_call_floor: false
 matched: true
+
+profile isolation
+sha: 2ec722d60af329629409300db34136b569f0f440
+forge: 1.8.3 (cae51ad458f6abb64852b7709eb784352429825d)
+solc: 0.8.26
+optimizer: true
+optimizer_runs: 200
+via_ir: false
+cwd: /workspace/research/contract-kernels
+
+composition profile: invalid_floor_compositions
+block_gas_limit: 600000000000
+scope: PredictionInvalidFloorCompositionsTest only. The default profile does not set this limit.
+command: FOUNDRY_PROFILE=invalid_floor_compositions forge test --match-contract PredictionInvalidFloorCompositionsTest -vv
+exit_code: 0
+[PASS] test_invalidCompositionsMatchCumulativeFloor() (gas: 370972939410)
+supply_max 16
+states 131087
+transitions 2097154
+per_call_gap_rows 128512
+mismatches 0
+[PASS] test_supplyTwoPartsPayCumulativeFloor() (gas: 851776)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 79.63s (79.63s CPU time)
+Ran 1 test suite in 80.13s (79.63s CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)
+
+default profile gas test
+FOUNDRY_PROFILE: unset
+profile: default
+block_gas_limit: unset
+command: forge test --match-contract PredictionOperationGasTest --match-test test_prediction_operation_gas -vv
+exit_code: 0
+[PASS] test_prediction_operation_gas() (gas: 6578687)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 913.53µs (740.08µs CPU time)
+Ran 1 test suite in 5.55ms (913.53µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

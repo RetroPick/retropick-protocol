@@ -9,7 +9,9 @@ import {PredictionMarket} from "../../src/prediction/PredictionMarket.sol";
 
 /// @notice Replays ordered compositions through the existing INVALID redeem path.
 /// @dev The path is PredictionMarket._redeem with numerators (1, 1). This test does not change that payout.
-///      The walk is one transaction. foundry.toml sets block_gas_limit above the default 2^30 cap.
+///      The walk is one transaction of about 3.71e11 gas.
+///      Run it with FOUNDRY_PROFILE=invalid_floor_compositions, which sets block_gas_limit.
+///      The default profile does not set that limit.
 contract PredictionInvalidFloorCompositionsTest is Test {
     uint256 internal constant SUPPLY_MAX = 16;
 

@@ -71,6 +71,12 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `evidence/research/prediction/kernel-forge-2026-09-26.txt` | kernel test log |
 | `evidence/research/prediction/kernel-coverage-2026-09-26.txt` | earlier forge coverage summary, branches 30.56% (11/36) |
 | `evidence/research/prediction/kernel-coverage-fuzz64-2026-09-26.txt` | remeasured coverage. PredictionMarket branches 94.44% (34/36). Fuzz runs 64. Invariant runs 256 |
+| `evidence/research/prediction/unreachable-branches-2026-09-26.json` | Underfunded and LiveLiability classified PROVEN_UNDER_ASSUMPTIONS. Coverage not re-run |
+| `evidence/research/prediction/unreachable-branches-2026-09-26.txt` | prediction unit test for that classification |
+| `evidence/research/prism/unittest-partial-resolution-2026-09-26.txt` | prism-model unittest after the transform tests |
+| `evidence/research/prism/partial-resolution-forge-2026-09-26.txt` | payoff-transform Foundry log |
+| `evidence/research/prism/partial-resolution-fixtures-2026-09-26.txt` | transform fixture generator log |
+| `research/prism-model/fixtures/partial_resolution.json` | payoff-equivalent transform integers |
 | `evidence/research/prediction/branch-coverage-forge-2026-09-26.txt` | reject-branch Foundry log, 14 prediction tests passed, combined with the backing suite |
 | `evidence/research/prism/backing-kernel-forge-2026-09-26.txt` | backing-kernel Foundry log, 4 tests passed, same combined run |
 | `evidence/research/prism/backing-fixtures-2026-09-26.txt` | backing fixture generator log |

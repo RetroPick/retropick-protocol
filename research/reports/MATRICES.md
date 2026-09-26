@@ -16,6 +16,7 @@ Every row points at evidence from this program. Status words are the program's c
 | Standard collateral only | tested for fee-on-transfer | `test_fee_on_transfer_split_reverts` |
 | Kuru listing | BLOCKED | worksheet; RetroPick parameters not derived |
 | Kernel operations have Python fixtures and Foundry assertions | measured | `PredictionDifferentialTest`, 14 passed. No integer mismatch |
+| `Underfunded` and `LiveLiability` reachable | PROVEN_UNDER_ASSUMPTIONS unreachable | `unreachable-branches-2026-09-26.json`. Branch coverage stays 94.44% (34/36) |
 | PRED-CONTRACT-1 PASS | not met | `docs/prediction/13_PRED_GATE.md` |
 
 ## PRISM_REQUIREMENT_MATRIX
@@ -31,7 +32,8 @@ Every row points at evidence from this program. Status words are the program's c
 | Global-cursor telescope | PROVEN_UNDER_ASSUMPTIONS for the inductive identity only | SymPy 1.14.0. Not canonical MATH-1 |
 | MATH-1F synthetic quotes | measured_simulation | `market_microstructure.py`. Not solvency. Not Kuru |
 | MATH-1 PASS | FAIL | canonical per-call rule remains |
-| PRISM Solidity | settlement kernel plus component-backing research kernel | Settlement matches the cumulative fixtures. Backing matches `FixedPointSeries` deposit, mint, and requirement-delta redeem. `backing_kernel_solidity` is `differential_research_kernel`. CONTRACT-1 not_met. Not MATH-1 PASS |
+| PRISM Solidity | settlement, component backing, and a payoff-transform candidate | Settlement and backing kernels are unchanged. `partial_resolution_transform` is `differential_research_kernel`. CONTRACT-1 not_met. Not MATH-1 PASS |
+| Payoff-equivalent partial transform | differential_research_kernel | `partial_resolution.py` and `CandidatePayoffTransform.sol`. Wrong component, non-equivalent payoff, and reorder are tested. Not wired to prediction tokens |
 | PRISM CONTRACT-ARCH-1 | proposed, not pass | `docs/prism/04-architecture/PHASE1_CANDIDATE_SERIES.md` |
 
 ## THEOREM_STATUS_MATRIX
@@ -152,6 +154,8 @@ The six prediction rows above the CREATE rows, and `test_fund_and_redeem_gas`, a
 | PRISM CONTRACT-ARCH-1 | proposed |
 | PRISM CONTRACT-1 | not_met |
 | backing_kernel_solidity | differential_research_kernel |
+| partial_resolution_transform | differential_research_kernel |
+| Unreachable `Underfunded` / `LiveLiability` | PROVEN_UNDER_ASSUMPTIONS |
 | MODULE-ADMISSION-FINANCE-1 | not met |
 | Move into `contracts/src/v2` | not done |
 | Mainnet | not authorized |
@@ -169,4 +173,4 @@ The six prediction rows above the CREATE rows, and `test_fund_and_redeem_gas`, a
 | `native_market.py` lifecycle is narrower than canonical | spec drift | recorded, new model does not pretend otherwise |
 | Clone cheaper, identity not independent | Medium | measured; kernel stays on full ERC-20; ADR-P01 PROPOSED |
 | Monad parallel-execution benefit | unmeasured | ADR-R06 is a hypothesis |
-| PredictionMarket branch coverage 94.44% (34/36) | Medium testing gap | Open. `Underfunded` and `LiveLiability` true branches taken 0 times. `kernel-coverage-fuzz64-2026-09-26.txt` |
+| PredictionMarket branch coverage 94.44% (34/36) | Medium testing gap | Open. The two unexecuted branches are PROVEN_UNDER_ASSUMPTIONS unreachable. Coverage was not re-run and is not 100%. `unreachable-branches-2026-09-26.json` |

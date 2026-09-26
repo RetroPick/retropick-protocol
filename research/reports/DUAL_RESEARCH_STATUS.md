@@ -24,6 +24,8 @@ MATH-1D: FAIL.
 MATH-1D candidate cumulative floor: PROVEN_UNDER_ASSUMPTIONS. Domain check: EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN. Ready for ADR acceptance. Not an oracle pass.  
 MATH-1D candidate Solidity: `differential_research_kernel`. The kernel matches the Python fixtures. It is not MATH-1 PASS and it is not CONTRACT-1.  
 Component backing Solidity: `differential_research_kernel`. `CandidateComponentBacking` matches `FixedPointSeries` deposit, mint, and requirement-delta redeem. `CandidateReservationLedger` matches the duplicate-source rejection. This is not settlement, not MATH-1 PASS, and not CONTRACT-1.  
+Partial-resolution transform: `differential_research_kernel`. `CandidatePayoffTransform` matches the Python integers for a payoff-equivalent component conversion. Wrong component, non-equivalent payoff, and reorder were tested. It is not wired to prediction tokens. MATH-1 and CONTRACT-1 stay unmet.  
+Prediction `Underfunded` and `LiveLiability`: PROVEN_UNDER_ASSUMPTIONS unreachable for numerators (2, 0), (0, 2), and (1, 1). Branch coverage stays 94.44% (34/36). That is not 100% coverage and not PRED-CONTRACT-1 PASS.  
 MATH-1F: measured_simulation on declared synthetic books. It is not a solvency result and not Kuru liquidity. Arbitrage occurring is NOT_YET_VALIDATED.  
 MODULE-ADMISSION-FINANCE-1: not met.  
 PRISM CONTRACT-ARCH-1: proposed, contingent on ADR-R03. Not a pass.  

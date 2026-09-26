@@ -16,6 +16,7 @@ prediction:
   outcome_token_deployment_gas: measured
   PRED-KURU-1: blocked
   P-I05_cancel_draft: not_yet_validated
+  unreachable_funding_branches: proven_under_assumptions
   PLATFORM-INTEGRATION-1: not_met
   module_status: CONTRACT_CANDIDATE
 
@@ -36,6 +37,7 @@ prism:
   CONTRACT-ARCH-1: proposed
   CONTRACT-1: not_met
   backing_kernel_solidity: differential_research_kernel
+  partial_resolution_transform: differential_research_kernel
   PLATFORM-INTEGRATION-1: not_met
   module_status: FAIL
 

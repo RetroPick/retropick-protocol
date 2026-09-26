@@ -1,0 +1,35 @@
+{
+  "assumptions": [
+    "R and U partition the component indices",
+    "weights, resolved payouts, and supplied marks are nonnegative",
+    "marks are inputs under A-M04 and are not exchange prices",
+    "partial_resolution_nav is the executable oracle and is not modified"
+  ],
+  "canonical_math1": "FAIL",
+  "checker": "sympy_z3_and_partial_resolution_nav",
+  "classification": "PROVEN_UNDER_ASSUMPTIONS",
+  "counterexample": null,
+  "documented_basket": {
+    "expected": "18/25",
+    "nav": "18/25",
+    "weights": "3/5,2/5"
+  },
+  "failed_shapes": [],
+  "id": "T-PARTIAL-001",
+  "identity_negation": "unsat",
+  "linearity_negation": "unsat",
+  "negative_mark": "rejected_outside_nonnegative_domain",
+  "non_partition": {
+    "gap_rejected": true,
+    "overlap_rejected": true
+  },
+  "oracle": "partial_resolution_nav",
+  "oracle_mismatches": [],
+  "oracle_partitions": 30,
+  "runtime_seconds": 0.057204,
+  "shapes_checked": 30,
+  "statement": "For a partition of the components into resolved and unresolved sets, NAV equals the sum of weight times resolved payout plus weight times supplied mark, and that value is linear in the weights",
+  "sympy_version": "1.14.0",
+  "written_claim": "partial-resolution NAV decomposes linearly by resolved/unresolved sets",
+  "z3_version": "5.1.0"
+}

@@ -1,0 +1,11 @@
+tool: python3 3.12.3
+command: python3 -m unittest tests.test_t_partial_001 -v
+cwd: /workspace/research/prism-model
+sha: 90bf3d6de1f3b92e5de841fcb871cebbd3e1462c
+test_nav_decomposes_by_resolved_and_unresolved_sets (tests.test_t_partial_001.TPartial001Tests.test_nav_decomposes_by_resolved_and_unresolved_sets) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.058s
+
+OK
+exit_code: 0

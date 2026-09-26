@@ -1,0 +1,43 @@
+schema_version: 1
+recorded_at: 2026-09-26
+branch: cursor/finance-qualification-bbd4
+human_acceptance: not_granted
+mainnet_authorized: false
+promotion_into_contracts_src_v2: false
+
+prediction:
+  PRED-RESEARCH: recorded
+  PRED-SPEC-1: proposed
+  PRED-MODEL-1: measured
+  PRED-MATH-1: partial
+  PRED-CONTRACT-ARCH-1: proposed
+  PRED-CONTRACT-1: not_pass
+  PRED-KURU-1: blocked
+  PLATFORM-INTEGRATION-1: not_met
+  module_status: CONTRACT_CANDIDATE
+
+prism:
+  RESEARCH: reproduced
+  MATH-1A: measured_exact_model
+  MATH-1B: bounded_grids_only
+  MATH-1C: stress_reproduced
+  MATH-1D: fail
+  MATH-1E: partial_z3_sympy
+  MATH-1F: not_yet_validated
+  MATH-1: fail
+  CONTRACT-ARCH-1: not_met
+  CONTRACT-1: not_met
+  PLATFORM-INTEGRATION-1: not_met
+  module_status: FAIL
+
+cross_module:
+  SOURCE-ASSET-INTERFACE-FREEZE: not_frozen
+  CROSS-MODULE-DIFFERENTIAL-HARNESS: not_built
+  MODULE-ADMISSION-FINANCE-1: not_met
+  module_status: BLOCKED
+
+module_admission_finance_1:
+  meaning: ready_to_request_promotion_into_v2_source_tree
+  met: false
+  mainnet_ready: false
+  legally_approved: false

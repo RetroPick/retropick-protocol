@@ -24,3 +24,10 @@ Status: `PROPOSED`, `ACCEPTED`, `SUPERSEDED`, `REJECTED`.
 - `ADR-021-kuru-market-parameter-policy.md`
 
 PROPOSED means agents must not treat the choice as binding implementation authority. Accept or supersede explicitly.
+
+## Proposed Prediction / PRISM research decisions (2026-09-26)
+
+These files are proposals from the research-to-contract program. They do not supersede ADR-001 through ADR-007.
+
+- `ADR-P01` through `ADR-P07`: prediction token, decimals, custody, lifecycle, INVALID rounding, collateral, resolution hash.
+- `ADR-R01` through `ADR-R07`: replication confirmation, component rounding, settlement-floor failure, ERC-20 backing boundary, series token shape, isolation, Solidity stop.

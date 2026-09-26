@@ -357,6 +357,8 @@ Recorded result: Foundry 1.8.3. The coverage run kept invariant runs 256, depth 
 | `evidence/research/prediction/resolved-yes-redeem-2026-09-26.txt` | Forge default profile, 1 passed, gas 634299 |
 | `evidence/research/prediction/open-redemption-yes-redeem-2026-09-26.json` | existing_rule. Split 4, YES_WIN, RESOLVED then open_redemption / openRedemption to REDEEMABLE. Liability and collateral stay 4. redeem of 1 YES pays 1. Liability and collateral become 3 |
 | `evidence/research/prediction/open-redemption-yes-redeem-2026-09-26.txt` | Forge default profile, 1 passed, gas 739782 |
+| `evidence/research/prediction/locked-open-redemption-2026-09-26.json` | existing_rule. Split 4, close to LOCKED, open redemption rejects. No resolve. State stays LOCKED. Liability stays 4. Collateral locked stays 4. Inventory rows[22] does not record liability |
+| `evidence/research/prediction/locked-open-redemption-2026-09-26.txt` | Forge default profile, 1 passed, gas 385444 |
 | `evidence/research/prediction/six-decimal-yes-redeem-2026-09-26.json` | existing_rule. Collateral decimals 6. YES and NO decimals 6. Python stores no decimals and does not force 18. Split 1, YES_WIN, redeemYes 1 pays 1. Liability 1 then 0. Collateral locked 1 then 0. Kuru decimals stay not established |
 | `evidence/research/prediction/six-decimal-yes-redeem-2026-09-26.txt` | Forge default profile, 1 passed, gas 693968. Python payout 1 recorded in the same log |
 | `evidence/research/prediction/six-decimal-invalid-floor-2026-09-26.json` | existing_rule. Collateral decimals 6. Supply 2, parts 1 and 1, INVALID. YES pays 0 then 1. NO pays 0 then 1. Collateral left 0. Matches the recorded cumulative floor. Per-call 0,0 was not paid |

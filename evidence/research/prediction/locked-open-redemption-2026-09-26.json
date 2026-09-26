@@ -1,0 +1,48 @@
+{
+  "adr_added": false,
+  "adr_p04": "PROPOSED",
+  "adr_p15": "PROPOSED",
+  "after": {
+    "collateral_locked": "4",
+    "liability": "4",
+    "state": "LOCKED"
+  },
+  "before": {
+    "collateral_locked": "4",
+    "liability": "4",
+    "state": "LOCKED"
+  },
+  "canonical_math1": "FAIL",
+  "case": "open_redemption_while_locked_before_resolve",
+  "classification": "existing_rule",
+  "command": "forge test --match-contract LockedOpenRedemptionTest -vv",
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "gas": 385444,
+  "implementations_changed": false,
+  "inventory_row": {
+    "file": "evidence/research/prediction/rejection-inventory-2026-09-26.json",
+    "function": "open_redemption",
+    "index": 22,
+    "note": "The inventory rejects open_redemption while LOCKED and leaves collateral at 4. It does not record liability.",
+    "state": "LOCKED"
+  },
+  "profile": "default",
+  "python": {
+    "accepted": false,
+    "error": "illegal transition LOCKED -> REDEEMABLE",
+    "error_type": "PredictionError",
+    "function": "open_redemption"
+  },
+  "resolved": false,
+  "s_p16": "open",
+  "sha_base": "94bc8a9932a5f51737b16d0fe447696030dd0536",
+  "solidity": {
+    "accepted": false,
+    "error": "BadState",
+    "function": "openRedemption"
+  },
+  "split": "4",
+  "tests_failed": 0,
+  "tests_passed": 1
+}

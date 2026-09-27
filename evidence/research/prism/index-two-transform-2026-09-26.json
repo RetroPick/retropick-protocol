@@ -1,0 +1,54 @@
+{
+  "adr_added": false,
+  "backing_after": ["600", "400"],
+  "canonical_math1": "FAIL",
+  "case": "fresh_fixture_index_2_payout_1",
+  "classification": "existing_rule",
+  "command": "forge test --match-contract OutOfRangeComponentTransformTest -vv",
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "gas": 153508,
+  "implementations_changed": false,
+  "index": 2,
+  "payoff": [[0, 1], [0, 0], [1, 1], [1, 0]],
+  "payout": "1",
+  "possible_mask_after": 15,
+  "profile": "default",
+  "python": {
+    "after": {
+      "backing": ["600", "400"],
+      "possible_mask": 15,
+      "possible_states": [0, 1, 2, 3],
+      "resolved_mask": 0,
+      "supply": 1000,
+      "transformed_settlement": "0"
+    },
+    "error": "invalid component index",
+    "error_type": "PartialResolutionError",
+    "function": "apply_transform",
+    "result": "rejected",
+    "state_unchanged": true
+  },
+  "resolved_mask_after": 0,
+  "s_p16": "open",
+  "sha_base": "6f0e95448a2c4379ac94636f1feed6a6898bc3e9",
+  "solidity": {
+    "after": {
+      "backing": ["600", "400"],
+      "possible_mask": 15,
+      "resolved_mask": 0,
+      "supply": 1000,
+      "transformed": "0"
+    },
+    "error": "BadComponent(2)",
+    "function": "transformComponent",
+    "result": "rejected",
+    "state_unchanged": true
+  },
+  "supply": 1000,
+  "sweep_added": false,
+  "tests_failed": 0,
+  "tests_passed": 1,
+  "transformed_after": "0",
+  "weights": ["3/5", "2/5"]
+}

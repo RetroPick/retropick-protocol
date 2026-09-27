@@ -1,0 +1,64 @@
+{
+  "adr_added": false,
+  "adr_r03_covers_canonical_counterexample": true,
+  "adr_r10": "PROPOSED",
+  "after_first": {
+    "holder_series_balance": "1",
+    "holder_settlement_balance": "0",
+    "kernel_balance": "2",
+    "paid_raw": "0",
+    "payout": "0"
+  },
+  "after_second": {
+    "holder_series_balance": "0",
+    "holder_settlement_balance": "1",
+    "kernel_balance": "1",
+    "paid_raw": "1",
+    "payout": "1"
+  },
+  "call": "CandidateCumulativeSettlement.redeem",
+  "canonical_math1": "FAIL",
+  "canonical_per_call": {
+    "first_payout": "0",
+    "function": "FixedPointSettlement.redeem",
+    "note": "The canonical per-call floor pays 0 then 0. MATH-1 stays FAIL because of that existing counterexample. ADR-R03 already records it.",
+    "second_payout": "0"
+  },
+  "case": "two_unit_redeems",
+  "ceil_funding": "2",
+  "classification": "cumulative_floor_match",
+  "command": "forge test --match-contract TwoUnitRedeemsTest -vv",
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "decimals": 18,
+  "gas": 431562,
+  "id": "TWO-UNIT-REDEEMS",
+  "implementations_changed": false,
+  "kernel": "research/contract-kernels/src/prism/CandidateCumulativeSettlement.sol",
+  "kernel_payouts": [
+    "0",
+    "1"
+  ],
+  "payout_wad": "999999999999999999",
+  "pred_contract_1": "not_pass",
+  "pred_kuru_1": "blocked",
+  "pred_math_1": "partial",
+  "profile": "default",
+  "python_cumulative": {
+    "first_payout": "0",
+    "function": "CumulativeFloorSettlement.redeem",
+    "kernel_balance_after_first": "2",
+    "kernel_balance_after_second": "1",
+    "paid_raw_after_first": "0",
+    "paid_raw_after_second": "1",
+    "second_payout": "1"
+  },
+  "redeem_edited": false,
+  "s_p16": "open",
+  "sha_base": "99567c4d292f375f2bb5c3236e3cc90ac71daef2",
+  "supply": "2",
+  "sweep_added": false,
+  "sweep_policy": "NOT_YET_VALIDATED",
+  "tests_failed": 0,
+  "tests_passed": 1
+}

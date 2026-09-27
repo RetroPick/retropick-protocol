@@ -1,0 +1,65 @@
+{
+  "assumptions": [
+    "finite component count",
+    "exact arithmetic",
+    "B_i >= S*x_i for every component",
+    "g_i(omega) >= 0 for every component and terminal state",
+    "h(omega) is the state-wise sum of x_i*g_i(omega)",
+    "the two-component probe is not re-run and is not this general sum"
+  ],
+  "canonical_math1": "FAIL",
+  "checker": "sympy_z3_and_prism_series",
+  "classification": "PROVEN_UNDER_ASSUMPTIONS",
+  "component_counts": "every finite n >= 1",
+  "counterexample": null,
+  "gap_is_margin_dot_payoff": true,
+  "id": "T-BS-003",
+  "inductive_step": "unsat",
+  "model_check": {
+    "all_solvent": true,
+    "components": 3,
+    "rows": [
+      {
+        "backing_value": "2",
+        "liability": "2",
+        "solvent": true,
+        "state": 0
+      },
+      {
+        "backing_value": "2",
+        "liability": "2",
+        "solvent": true,
+        "state": 1
+      },
+      {
+        "backing_value": "3",
+        "liability": "3",
+        "solvent": true,
+        "state": 2
+      },
+      {
+        "backing_value": "1",
+        "liability": "1",
+        "solvent": true,
+        "state": 3
+      }
+    ],
+    "states": 4,
+    "supply": "4"
+  },
+  "negative_payoff_outside_assumption": {
+    "backing": 2,
+    "backing_value": -2,
+    "breaks_inequality": true,
+    "liability": -1,
+    "payoff": -1,
+    "supply": 1,
+    "weight": 1
+  },
+  "prior_probe": "math1_probe.z3_reports two components and one state only",
+  "runtime_seconds": 0.106505,
+  "statement": "If B_i >= S*x_i and g_i(omega) >= 0, then sum_i B_i*g_i(omega) >= S*sum_i x_i*g_i(omega) for every finite component count and every terminal state",
+  "sympy_version": "1.14.0",
+  "written_claim": "exact non-negative replication plus component backing implies terminal solvency",
+  "z3_version": "5.1.0"
+}

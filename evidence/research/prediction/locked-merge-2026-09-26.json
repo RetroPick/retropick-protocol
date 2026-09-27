@@ -1,0 +1,75 @@
+{
+  "adr_added": false,
+  "adr_p15": "PROPOSED",
+  "adr_p16": "PROPOSED",
+  "adr_p17": "PROPOSED",
+  "after": {
+    "collateral_locked": "3",
+    "liability": "3",
+    "no_supply": "3",
+    "yes_supply": "3"
+  },
+  "before": {
+    "collateral_locked": "4",
+    "liability": "4",
+    "no_supply": "4",
+    "yes_supply": "4"
+  },
+  "canonical_math1": "FAIL",
+  "case": "merge_while_locked_after_split",
+  "classification": "existing_rule",
+  "collateral_returned": "1",
+  "command": "forge test --match-contract LockedMergeTest -vv",
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "gas": 540379,
+  "implementations_changed": false,
+  "inventory_row": {
+    "argument": "0",
+    "file": "evidence/research/prediction/rejection-inventory-2026-09-26.json",
+    "function": "merge",
+    "index": 19,
+    "note": "The inventory rejects merge of 0 while LOCKED after a split of 4. It does not call merge of 1 and does not record liability or outside collateral.",
+    "state": "LOCKED"
+  },
+  "liability_equals_collateral_after": true,
+  "liability_equals_collateral_before": true,
+  "profile": "default",
+  "python": {
+    "accepted": true,
+    "after": {
+      "collateral_locked": "3",
+      "liability": "3",
+      "no_supply": "3",
+      "outside_collateral": "not_stored",
+      "yes_supply": "3"
+    },
+    "before": {
+      "collateral_locked": "4",
+      "liability": "4",
+      "no_supply": "4",
+      "outside_collateral": "not_stored",
+      "yes_supply": "4"
+    },
+    "collateral_returned": "1",
+    "function": "merge"
+  },
+  "resolved": false,
+  "s_p16": "open",
+  "sha_base": "307fbdaf157507d29e59514b0e313c9452c68f7d",
+  "solidity": {
+    "accepted": true,
+    "after": {
+      "outside_collateral": "999997"
+    },
+    "before": {
+      "outside_collateral": "999996"
+    },
+    "collateral_returned": "1",
+    "function": "merge"
+  },
+  "split": "4",
+  "state": "LOCKED",
+  "tests_failed": 0,
+  "tests_passed": 1
+}

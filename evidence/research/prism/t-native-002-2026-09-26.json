@@ -1,0 +1,34 @@
+{
+  "assumptions": [
+    "a valid terminal winner is YES or NO",
+    "the winning side pays one normalized unit and the losing side pays zero",
+    "invalid and void payoffs are not part of this statement",
+    "BinaryCompleteSetMarket is the executable model and is not modified"
+  ],
+  "canonical_math1": "FAIL",
+  "checker": "z3_and_binary_complete_set",
+  "classification": "PROVEN_UNDER_ASSUMPTIONS",
+  "counterexample": null,
+  "id": "T-NATIVE-002",
+  "invalid_void": {
+    "payout": "unspecified",
+    "resolve_rejected": true,
+    "state": "ACTIVE",
+    "winner": null
+  },
+  "no_wins": {
+    "no": 1,
+    "sum": 1,
+    "yes": 0
+  },
+  "runtime_seconds": 0.007686,
+  "statement": "On a valid YES or NO resolution, the unit YES payoff plus the unit NO payoff is 1",
+  "valid_sum_negation": "unsat",
+  "written_claim": "valid binary terminal payoff satisfies YES(omega)+NO(omega)=1",
+  "yes_wins": {
+    "no": 0,
+    "sum": 1,
+    "yes": 1
+  },
+  "z3_version": "5.1.0"
+}

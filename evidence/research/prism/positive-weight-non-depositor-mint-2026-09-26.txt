@@ -1,0 +1,46 @@
+tool: forge test
+command: forge test --match-contract PositiveWeightNonDepositorMintTest -vv
+cwd: /workspace/research/contract-kernels
+profile: default
+FOUNDRY_PROFILE: unset
+sha_base: 1d73533d8ef1480ffff19addb4af2e77b4c85c60
+call: CandidateComponentBacking.mint
+caller: account B
+depositor: account A
+weights_wad: 10^18, 10^18
+decimals: 18,18
+deposit: 1,1
+mint_quantity: 1
+classification: permissionless_mint
+supply_before: 0
+supply_after: 1
+backing_raw_before: 1,1
+backing_raw_after: 1,1
+required_raw_at_supply_1: 1,1
+bob_series_before: 0
+bob_series_after: 1
+bob_received_series_tokens: true
+python: FixedPointSeries.deposit_raw((1, 1)) then mint(1). Supply 1, backing 1,1, required at supply 1 is 1,1. No account field.
+adr_added: false
+mint_edited: false
+s_p16: open
+
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 1.17s
+Compiler run successful!
+
+Ran 1 test for test/prism/PositiveWeightNonDepositorMint.t.sol:PositiveWeightNonDepositorMintTest
+[PASS] test_non_depositor_mints_one_against_wad_weights() (gas: 633405)
+Logs:
+  classification: permissionless_mint
+  supply_before: 0
+  supply_after: 1
+  backing_raw_before: 1,1
+  backing_raw_after: 1,1
+  required_raw_at_supply_1: 1,1
+  bob_series_before: 0
+  bob_received_series: true
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 631.32µs (476.16µs CPU time)
+
+Ran 1 test suite in 5.71ms (631.32µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

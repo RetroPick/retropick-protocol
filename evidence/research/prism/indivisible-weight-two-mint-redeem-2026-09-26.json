@@ -1,0 +1,123 @@
+{
+  "adr_added": false,
+  "adr_r10": "PROPOSED",
+  "adr_r14": "PROPOSED",
+  "after_a": {
+    "backing_raw": [
+      "2",
+      "2"
+    ],
+    "covers_requirement": true,
+    "paid": [
+      "1",
+      "1"
+    ],
+    "payee": "account_A",
+    "required_raw": [
+      "2",
+      "2"
+    ],
+    "supply": "1"
+  },
+  "after_b": {
+    "backing_raw": [
+      "0",
+      "0"
+    ],
+    "covers_requirement": true,
+    "paid": [
+      "2",
+      "2"
+    ],
+    "payee": "account_B",
+    "required_raw": [
+      "0",
+      "0"
+    ],
+    "supply": "0"
+  },
+  "after_mints": {
+    "backing_raw": [
+      "3",
+      "3"
+    ],
+    "required_raw": [
+      "3",
+      "3"
+    ],
+    "series_balance_a": "1",
+    "series_balance_b": "1",
+    "supply": "2"
+  },
+  "call": "CandidateComponentBacking.redeem",
+  "canonical_math1": "FAIL",
+  "case": "indivisible_weight_two_mint_redeem",
+  "classification": "existing_rule",
+  "command": "forge test --match-contract IndivisibleWeightTwoMintRedeemTest -vv",
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "decimals": [
+    18,
+    18
+  ],
+  "deposit_amounts": [
+    "3",
+    "3"
+  ],
+  "depositor": "account_A",
+  "gas": 1217077,
+  "id": "INDIVISIBLE-WEIGHT-TWO-MINT-REDEEM",
+  "implementations_changed": false,
+  "larger_tuple_holder": "account_B",
+  "mint_order": [
+    "account_A mints 1",
+    "account_B mints 1"
+  ],
+  "note": "Separate mints create the two balances. No transfer was added. B redeems second and receives the larger tuple. That larger payout is not a new ADR. ADR-R10 and ADR-R14 stay PROPOSED.",
+  "pred_kuru_1": "blocked",
+  "profile": "default",
+  "python": {
+    "backing_raw_after_second": [
+      "0",
+      "0"
+    ],
+    "function": "FixedPointSeries.deposit_raw then mint(2) then redeem(1) then redeem(1)",
+    "note": "FixedPointSeries has no accounts. The released tuples are not assigned to holders. The supply steps match the Solidity redeems.",
+    "released_in_order": [
+      [
+        "1",
+        "1"
+      ],
+      [
+        "2",
+        "2"
+      ]
+    ],
+    "required_raw_after_first": [
+      "2",
+      "2"
+    ],
+    "required_raw_after_second": [
+      "0",
+      "0"
+    ],
+    "supply_after_second": "0"
+  },
+  "redeem_edited": false,
+  "redeem_order": [
+    "account_A redeems 1",
+    "account_B redeems 1"
+  ],
+  "s_p16": "open",
+  "sha_base": "26e34abd3dbf299b4ffae68357204f540d991a86",
+  "source_interface": "proposed_not_frozen",
+  "sweep_added": false,
+  "sweep_policy": "NOT_YET_VALIDATED",
+  "tests_failed": 0,
+  "tests_passed": 1,
+  "weights_wad": [
+    "1000000000000000001",
+    "1000000000000000001"
+  ],
+  "x_i01_through_x_i07": "NOT_YET_VALIDATED"
+}

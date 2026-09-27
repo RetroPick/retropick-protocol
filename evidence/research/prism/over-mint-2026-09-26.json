@@ -1,0 +1,79 @@
+{
+  "adr_added": false,
+  "backing_raw_after": [
+    "1",
+    "1"
+  ],
+  "backing_raw_before": [
+    "1",
+    "1"
+  ],
+  "bob_received_series_tokens": false,
+  "bob_series_balance_after": "0",
+  "bob_series_balance_before": "0",
+  "call": "CandidateComponentBacking.mint",
+  "caller": "account_B",
+  "canonical_math1": "FAIL",
+  "case": "over_mint_two",
+  "classification": "existing_rule",
+  "command": "forge test --match-contract OverMintTest -vv",
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "decimals": [
+    18,
+    18
+  ],
+  "deposit_amounts": [
+    "1",
+    "1"
+  ],
+  "depositor": "account_A",
+  "error": "InsufficientBacking(0, 1, 2)",
+  "gas": 549077,
+  "id": "OVER-MINT-TWO",
+  "implementations_changed": false,
+  "mint_edited": false,
+  "mint_quantity": "2",
+  "pred_contract_1": "not_pass",
+  "pred_kuru_1": "blocked",
+  "pred_math_1": "partial",
+  "profile": "default",
+  "python": {
+    "backing_raw_after": [
+      "1",
+      "1"
+    ],
+    "backing_raw_before_mint": [
+      "1",
+      "1"
+    ],
+    "error": "insufficient fixed-point backing for mint",
+    "function": "FixedPointSeries.deposit_raw then FixedPointSeries.mint",
+    "rejected": true,
+    "required_raw_at_supply_2": [
+      "2",
+      "2"
+    ],
+    "supply_after": "0",
+    "supply_before_mint": "0"
+  },
+  "required_raw_at_supply_2_after": [
+    "2",
+    "2"
+  ],
+  "required_raw_at_supply_2_before": [
+    "2",
+    "2"
+  ],
+  "s_p16": "open",
+  "sha_base": "8552d04b8ac2360cd7f027de46b248743fecc0f9",
+  "supply_after": "0",
+  "supply_before": "0",
+  "tests_failed": 0,
+  "tests_passed": 1,
+  "weights_wad": [
+    "1000000000000000000",
+    "1000000000000000000"
+  ],
+  "x_i01_through_x_i07": "NOT_YET_VALIDATED"
+}

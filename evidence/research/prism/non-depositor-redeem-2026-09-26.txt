@@ -1,0 +1,44 @@
+tool: forge test
+command: forge test --match-contract NonDepositorRedeemTest -vv
+cwd: /workspace/research/contract-kernels
+profile: default
+FOUNDRY_PROFILE: unset
+sha_base: 706457fca2c9f829ea5fad1fd17cda8e795a7668
+call: CandidateComponentBacking.redeem
+caller: account B
+depositor: account A
+weights_wad: 10^18, 10^18
+decimals: 18,18
+deposit: 1,1
+mint_quantity: 1
+redeem_quantity: 1
+classification: redeem_pays_caller
+before_redeem: supply 1, backingRaw 1,1, requiredRaw 1,1, A components 0,0, B components 0,0, B series 1
+after_redeem: supply 0, backingRaw 0,0, requiredRaw 0,0, A components 0,0, B components 1,1, B series 0
+component_tokens_after_redeem: account B
+python: FixedPointSeries deposit_raw((1,1)), mint(1), redeem(1). Before: supply 1, backing 1,1. After: supply 0, backing 0,0, released 1,1. No accounts.
+adr_added: false
+redeem_edited: false
+s_p16: open
+
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 1.13s
+Compiler run successful!
+
+Ran 1 test for test/prism/NonDepositorRedeem.t.sol:NonDepositorRedeemTest
+[PASS] test_non_depositor_redeem_sends_components_to_caller() (gas: 780289)
+Logs:
+  classification: redeem_pays_caller
+  supply_before_redeem: 1
+  supply_after_redeem: 0
+  backing_raw_before_redeem: 1,1
+  backing_raw_after_redeem: 0,0
+  required_raw_before_redeem: 1,1
+  required_raw_after_redeem: 0,0
+  alice_components_after: 0,0
+  bob_components_after: 1,1
+  bob_series_after: 0
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 788.56µs (611.17µs CPU time)
+
+Ran 1 test suite in 5.76ms (788.56µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

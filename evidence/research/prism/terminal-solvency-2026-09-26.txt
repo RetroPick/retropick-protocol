@@ -1,0 +1,50 @@
+tool: python3 and forge test
+command: forge test --match-contract TerminalSolvencyAbsenceTest -vv
+cwd: /workspace/research/contract-kernels
+profile: default
+sha_base: 3112fe402ec4e5a9ba8d19ba2c92da8c059a94d3
+python: PrismSeries payoff rows [[0,1],[0,0],[1,1],[1,0]], weights 3/5 and 2/5
+python_setup: activate, mint_with_exact_backing(1000), terminal_solvency
+python_supply: 1000
+python_backing: 600, 400
+python_required_backing: 600, 400
+python_payoff: 2/5, 0, 1, 3/5
+python_rows: state 0 backing 400 liability 400; state 1 0 and 0; state 2 1000 and 1000; state 3 600 and 600
+python_all_pass: true
+candidate_terminal_states: absent
+candidate_terminal_step: not_executed
+candidate_backing_check: requiredRaw per component
+candidate_settlement_check: ceilFunding and redeemable bool
+classification: recorded_gap
+foundry_r_i06: not_executable
+adr_added: ADR-R17 PROPOSED
+adr_r15_and_adr_r16: not this solvency statement
+math1: FAIL
+source_interface: proposed_not_frozen
+
+supply 1000
+backing ['600', '400']
+required ['600', '400']
+component_backed True
+payoff ['2/5', '0', '1', '3/5']
+row 0 400 400 True
+row 1 0 0 True
+row 2 1000 1000 True
+row 3 600 600 True
+all_pass True
+
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 840.25ms
+Compiler run successful!
+
+Ran 1 test for test/prism/TerminalSolvencyAbsence.t.sol:TerminalSolvencyAbsenceTest
+[PASS] test_candidate_has_no_terminal_states() (gas: 7605)
+Logs:
+  terminal_states: absent
+  backing_checks: requiredRaw per component
+  settlement_checks: ceilFunding and redeemable bool
+  terminal_solvency_call: not_executed
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 146.02µs (27.77µs CPU time)
+
+Ran 1 test suite in 5.57ms (146.02µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

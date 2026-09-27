@@ -1,0 +1,93 @@
+{
+  "canonical_math1": "FAIL",
+  "cells": 168,
+  "classification": "EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN",
+  "domain": {
+    "decimals": [
+      6,
+      8,
+      18
+    ],
+    "denominator": "D = 10^18 * 10^(18-decimals)",
+    "full_uint256_enumeration": false,
+    "payouts": "0, 1, D/2, D-1, D, D+1, 2^128, 2^256-1",
+    "supplies": [
+      "0",
+      "1",
+      "2",
+      "256",
+      "65536",
+      "4294967296",
+      "18446744073709551616"
+    ],
+    "uint256_max": "115792089237316195423570985008687907853269984665640564039457584007913129639935"
+  },
+  "guard_rejections": 0,
+  "id": "PRECISION-BOUNDARY-6-8-18",
+  "minimized_same_defect": {
+    "decimals": 18,
+    "one_shot": 1,
+    "paid": 0,
+    "payout_wad": "500000000000000000",
+    "supply": 2
+  },
+  "new_counterexamples": [],
+  "one_unit_cells": 24,
+  "reproduced_counterexample": [
+    {
+      "decimals": 6,
+      "denominator": "1000000000000000000000000000000",
+      "fragmented_paid_raw": 0,
+      "id": "CX-FP-SETTLEMENT-001",
+      "new_rule": false,
+      "one_shot_floor_raw": 1,
+      "payout_wad": "999999999999999999999999999999",
+      "per_call_receipts": [
+        0,
+        0
+      ],
+      "required_raw": 2,
+      "same_defect": true,
+      "supply": 2,
+      "sweepable_dust_raw": 2
+    },
+    {
+      "decimals": 8,
+      "denominator": "10000000000000000000000000000",
+      "fragmented_paid_raw": 0,
+      "id": "CX-FP-SETTLEMENT-001",
+      "new_rule": false,
+      "one_shot_floor_raw": 1,
+      "payout_wad": "9999999999999999999999999999",
+      "per_call_receipts": [
+        0,
+        0
+      ],
+      "required_raw": 2,
+      "same_defect": true,
+      "supply": 2,
+      "sweepable_dust_raw": 2
+    },
+    {
+      "decimals": 18,
+      "denominator": "1000000000000000000",
+      "fragmented_paid_raw": 0,
+      "id": "CX-FP-SETTLEMENT-001",
+      "new_rule": false,
+      "one_shot_floor_raw": 1,
+      "payout_wad": "999999999999999999",
+      "per_call_receipts": [
+        0,
+        0
+      ],
+      "required_raw": 2,
+      "same_defect": true,
+      "supply": 2,
+      "sweepable_dust_raw": 2
+    }
+  ],
+  "runtime_seconds": 0.001788,
+  "same_defect_cells": 48,
+  "written_scope": "6/8/18 decimal matrix and configured large bounds for both settlement rules",
+  "zero_supply_cells": 24
+}

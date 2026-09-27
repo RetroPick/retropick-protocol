@@ -1,0 +1,174 @@
+{
+  "cx_fp_settlement_001": [
+    {
+      "decimals": 6,
+      "fragmented_paid_raw": "0",
+      "id": "CX-FP-SETTLEMENT-001",
+      "one_shot_floor_raw": "1",
+      "payout_wad": "999999999999999999999999999999",
+      "per_call_receipts": [
+        "0",
+        "0"
+      ],
+      "required_raw": "2",
+      "same_defect": true,
+      "solidity_implements_per_call_rule": false,
+      "supply": "2",
+      "sweepable_dust_raw": "2"
+    },
+    {
+      "decimals": 8,
+      "fragmented_paid_raw": "0",
+      "id": "CX-FP-SETTLEMENT-001",
+      "one_shot_floor_raw": "1",
+      "payout_wad": "9999999999999999999999999999",
+      "per_call_receipts": [
+        "0",
+        "0"
+      ],
+      "required_raw": "2",
+      "same_defect": true,
+      "solidity_implements_per_call_rule": false,
+      "supply": "2",
+      "sweepable_dust_raw": "2"
+    },
+    {
+      "decimals": 18,
+      "fragmented_paid_raw": "0",
+      "id": "CX-FP-SETTLEMENT-001",
+      "one_shot_floor_raw": "1",
+      "payout_wad": "999999999999999999",
+      "per_call_receipts": [
+        "0",
+        "0"
+      ],
+      "required_raw": "2",
+      "same_defect": true,
+      "solidity_implements_per_call_rule": false,
+      "supply": "2",
+      "sweepable_dust_raw": "2"
+    }
+  ],
+  "excluded_overflow": [
+    {
+      "decimals": 6,
+      "payout_wad": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "reason": "supply * payout_wad does not fit in uint256",
+      "supply": "2"
+    },
+    {
+      "decimals": 6,
+      "payout_wad": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "reason": "supply * payout_wad does not fit in uint256",
+      "supply": "256"
+    },
+    {
+      "decimals": 6,
+      "payout_wad": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "reason": "supply * payout_wad does not fit in uint256",
+      "supply": "65536"
+    },
+    {
+      "decimals": 6,
+      "payout_wad": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "reason": "supply * payout_wad does not fit in uint256",
+      "supply": "4294967296"
+    },
+    {
+      "decimals": 6,
+      "payout_wad": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "reason": "supply * payout_wad does not fit in uint256",
+      "supply": "18446744073709551616"
+    },
+    {
+      "decimals": 8,
+      "payout_wad": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "reason": "supply * payout_wad does not fit in uint256",
+      "supply": "2"
+    },
+    {
+      "decimals": 8,
+      "payout_wad": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "reason": "supply * payout_wad does not fit in uint256",
+      "supply": "256"
+    },
+    {
+      "decimals": 8,
+      "payout_wad": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "reason": "supply * payout_wad does not fit in uint256",
+      "supply": "65536"
+    },
+    {
+      "decimals": 8,
+      "payout_wad": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "reason": "supply * payout_wad does not fit in uint256",
+      "supply": "4294967296"
+    },
+    {
+      "decimals": 8,
+      "payout_wad": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "reason": "supply * payout_wad does not fit in uint256",
+      "supply": "18446744073709551616"
+    },
+    {
+      "decimals": 18,
+      "payout_wad": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "reason": "supply * payout_wad does not fit in uint256",
+      "supply": "2"
+    },
+    {
+      "decimals": 18,
+      "payout_wad": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "reason": "supply * payout_wad does not fit in uint256",
+      "supply": "256"
+    },
+    {
+      "decimals": 18,
+      "payout_wad": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "reason": "supply * payout_wad does not fit in uint256",
+      "supply": "65536"
+    },
+    {
+      "decimals": 18,
+      "payout_wad": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "reason": "supply * payout_wad does not fit in uint256",
+      "supply": "4294967296"
+    },
+    {
+      "decimals": 18,
+      "payout_wad": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "reason": "supply * payout_wad does not fit in uint256",
+      "supply": "18446744073709551616"
+    }
+  ],
+  "excluded_overflow_count": 15,
+  "excluded_zero_supply_count": 24,
+  "forge": {
+    "command": "forge test --match-contract CandidatePrecisionBoundaryDifferentialTest -vv",
+    "cwd": "research/contract-kernels",
+    "exit_code": 0,
+    "failed": 0,
+    "forge_commit": "cae51ad458f6abb64852b7709eb784352429825d",
+    "forge_version": "1.8.3",
+    "mismatch": false,
+    "optimizer": true,
+    "optimizer_runs": 200,
+    "passed": 1,
+    "skipped": 0,
+    "solc_version": "0.8.26",
+    "via_ir": false
+  },
+  "id": "PRECISION-BOUNDARY-SOLIDITY",
+  "kernel_status": "differential_research_kernel",
+  "math_1": "FAIL",
+  "per_call_regression_count": 48,
+  "per_call_rule_in_solidity": false,
+  "python_precision_boundary_rechecked": {
+    "command": "python3 -m unittest tests.test_precision_boundary tests.test_precision_boundary_fixtures -v",
+    "cwd": "research/prism-model",
+    "exit_code": 0,
+    "failed": 0,
+    "passed": 2
+  },
+  "solidity_case_count": 129
+}

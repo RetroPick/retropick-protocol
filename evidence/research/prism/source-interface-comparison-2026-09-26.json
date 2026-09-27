@@ -1,0 +1,156 @@
+{
+  "adr_added": false,
+  "canonical_math1": "FAIL",
+  "classification": "recorded_gap",
+  "covered_by_existing_proposed_adrs": [
+    "ADR-P01",
+    "ADR-P02",
+    "ADR-P07",
+    "ADR-R04"
+  ],
+  "date": "2026-09-26",
+  "id": "SOURCE-INTERFACE-COMPARISON",
+  "implementations_changed": false,
+  "interface": "docs/prism/04-architecture/SOURCE_ASSET_INTERFACE.md",
+  "interface_frozen": false,
+  "interface_status": "proposed_not_frozen",
+  "missing_on_prediction_model": [
+    "yesToken",
+    "noToken",
+    "market",
+    "outcomeIndex",
+    "decimals",
+    "collateralDecimals",
+    "resolutionSpecHash",
+    "collateral",
+    "transfer"
+  ],
+  "non_calls": [
+    {
+      "name": "rebasing",
+      "note": "Documented as disqualified. Not a required call. ADR-P06 and ADR-P09 stay PROPOSED."
+    }
+  ],
+  "pred_kuru_1": "blocked",
+  "rows": [
+    {
+      "argument_count_documented": 0,
+      "classification": "recorded_gap",
+      "documented_state_guard": "none",
+      "name": "yesToken",
+      "note": "Token identity is the YES OutcomeToken address created by the market constructor.",
+      "prediction_market_sol": true,
+      "prediction_model": false,
+      "solidity_argument_count": 0,
+      "solidity_state_guard": "none",
+      "where_documented": "PredictionMarket"
+    },
+    {
+      "argument_count_documented": 0,
+      "classification": "recorded_gap",
+      "documented_state_guard": "none",
+      "name": "noToken",
+      "note": "Token identity is the NO OutcomeToken address created by the market constructor.",
+      "prediction_market_sol": true,
+      "prediction_model": false,
+      "solidity_argument_count": 0,
+      "solidity_state_guard": "none",
+      "where_documented": "PredictionMarket"
+    },
+    {
+      "argument_count_documented": 0,
+      "classification": "recorded_gap",
+      "documented_state_guard": "none",
+      "name": "market",
+      "note": "Documented on the outcome token. OutcomeToken.market is immutable. PredictionMarket.sol has no market function.",
+      "outcome_token_sol": true,
+      "prediction_market_sol": false,
+      "prediction_model": false,
+      "solidity_argument_count": 0,
+      "solidity_state_guard": "none",
+      "where_documented": "OutcomeToken"
+    },
+    {
+      "argument_count_documented": 0,
+      "classification": "recorded_gap",
+      "documented_state_guard": "none",
+      "name": "outcomeIndex",
+      "note": "Documented as immutable 0 for YES and 1 for NO. OutcomeToken constructor arguments are 0 and 1. PredictionMarket.sol has no outcomeIndex function.",
+      "outcome_token_sol": true,
+      "prediction_market_sol": false,
+      "prediction_model": false,
+      "solidity_argument_count": 0,
+      "solidity_state_guard": "none",
+      "where_documented": "OutcomeToken"
+    },
+    {
+      "argument_count_documented": 0,
+      "classification": "recorded_gap",
+      "documented_state_guard": "none",
+      "name": "decimals",
+      "note": "OutcomeToken.decimals copies the collateral decimals stored at construction. PredictionMarket.sol has no decimals function.",
+      "outcome_token_sol": true,
+      "prediction_market_sol": false,
+      "prediction_model": false,
+      "solidity_argument_count": 0,
+      "solidity_state_guard": "none",
+      "where_documented": "OutcomeToken"
+    },
+    {
+      "argument_count_documented": 0,
+      "classification": "recorded_gap",
+      "documented_state_guard": "none",
+      "name": "collateralDecimals",
+      "note": "PredictionMarket.collateralDecimals is immutable and set from collateral.decimals() in the constructor.",
+      "prediction_market_sol": true,
+      "prediction_model": false,
+      "solidity_argument_count": 0,
+      "solidity_state_guard": "none",
+      "where_documented": "PredictionMarket"
+    },
+    {
+      "argument_count_documented": 0,
+      "classification": "recorded_gap",
+      "documented_state_guard": "none",
+      "existing_adr": "ADR-P07",
+      "name": "resolutionSpecHash",
+      "note": "PredictionMarket.resolutionSpecHash is immutable and set in the constructor. Python has no resolutionSpecHash function. The attribute spec_hash_frozen is set in activate. ADR-P07 already proposes freezing the hash at activation.",
+      "prediction_market_sol": true,
+      "prediction_model": false,
+      "python_attribute": "spec_hash_frozen",
+      "python_binding": "activate",
+      "solidity_argument_count": 0,
+      "solidity_binding": "constructor",
+      "solidity_state_guard": "none",
+      "where_documented": "PredictionMarket"
+    },
+    {
+      "argument_count_documented": 0,
+      "classification": "recorded_gap",
+      "documented_state_guard": "none",
+      "name": "collateral",
+      "note": "PredictionMarket.collateral is an immutable getter. Python stores collateral as a constructor attribute and has no collateral function.",
+      "prediction_market_sol": true,
+      "prediction_model": false,
+      "python_attribute": "collateral",
+      "solidity_argument_count": 0,
+      "solidity_state_guard": "none",
+      "where_documented": "PredictionMarket"
+    },
+    {
+      "argument_count_documented": 2,
+      "classification": "recorded_gap",
+      "documented_state_guard": "none",
+      "name": "transfer",
+      "note": "ERC-20 transfer(address,uint256) is inherited by OutcomeToken. PredictionMarket.sol has no transfer function. Python has no transfer function.",
+      "outcome_token_sol": true,
+      "prediction_market_sol": false,
+      "prediction_model": false,
+      "solidity_argument_count": 2,
+      "solidity_state_guard": "none",
+      "where_documented": "OutcomeToken"
+    }
+  ],
+  "s_p16": "open",
+  "x_i01_through_x_i07": "NOT_YET_VALIDATED"
+}

@@ -1,0 +1,30 @@
+tool: forge test
+command: forge test --match-contract ZeroAddressInitializeTest -vv
+cwd: /workspace/research/contract-kernels
+profile: default
+FOUNDRY_PROFILE: unset
+sha_base: 76b73f3bbbdd8adc6e101e69a1b130f76e5345d7
+classification: recorded_finding
+zero_address_stored: true
+error: none
+python_counterpart: none
+adr_added: false
+s_p16: open
+
+Compiling 47 files with Solc 0.8.26
+Solc 0.8.26 finished in 1.67s
+Compiler run successful!
+
+Ran 1 test for test/prediction/ZeroAddressInitialize.t.sol:ZeroAddressInitializeTest
+[PASS] test_initialize_stores_the_zero_market() (gas: 228257)
+Logs:
+  classification: recorded_finding
+  market_after: 0x0000000000000000000000000000000000000000
+  initialized_after: 1
+  outcome_index_after: 1
+  decimals_after: 18
+  total_supply_after: 0
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 537.69µs (323.43µs CPU time)
+
+Ran 1 test suite in 6.55ms (537.69µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

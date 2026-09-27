@@ -1,0 +1,112 @@
+{
+  "adr_added": false,
+  "after_redeem": {
+    "alice_component_balances": [
+      "0",
+      "0"
+    ],
+    "backing_raw": [
+      "0",
+      "0"
+    ],
+    "bob_component_balances": [
+      "1",
+      "1"
+    ],
+    "bob_series_balance": "0",
+    "required_raw_at_current_supply": [
+      "0",
+      "0"
+    ],
+    "supply": "0"
+  },
+  "before_redeem": {
+    "alice_component_balances": [
+      "0",
+      "0"
+    ],
+    "backing_raw": [
+      "1",
+      "1"
+    ],
+    "bob_component_balances": [
+      "0",
+      "0"
+    ],
+    "bob_series_balance": "1",
+    "required_raw_at_current_supply": [
+      "1",
+      "1"
+    ],
+    "supply": "1"
+  },
+  "call": "CandidateComponentBacking.redeem",
+  "caller": "account_B",
+  "canonical_math1": "FAIL",
+  "case": "non_depositor_redeem",
+  "classification": "redeem_pays_caller",
+  "command": "forge test --match-contract NonDepositorRedeemTest -vv",
+  "component_tokens_after_redeem": "account_B",
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "decimals": [
+    18,
+    18
+  ],
+  "deposit_amounts": [
+    "1",
+    "1"
+  ],
+  "depositor": "account_A",
+  "gas": 780289,
+  "id": "NON-DEPOSITOR-REDEEM",
+  "implementations_changed": false,
+  "mint_quantity": "1",
+  "pred_contract_1": "not_pass",
+  "pred_kuru_1": "blocked",
+  "pred_math_1": "partial",
+  "profile": "default",
+  "python": {
+    "after_redeem": {
+      "backing_raw": [
+        "0",
+        "0"
+      ],
+      "released": [
+        "1",
+        "1"
+      ],
+      "required_raw": [
+        "0",
+        "0"
+      ],
+      "supply": "0"
+    },
+    "before_redeem": {
+      "backing_raw": [
+        "1",
+        "1"
+      ],
+      "required_raw": [
+        "1",
+        "1"
+      ],
+      "supply": "1"
+    },
+    "function": "FixedPointSeries.deposit_raw then mint then redeem",
+    "holder_balances": false,
+    "note": "FixedPointSeries has no accounts. It does not say whether the released units sit with A or B. Supply and backingRaw match Solidity.",
+    "rejected": false
+  },
+  "redeem_edited": false,
+  "redeem_quantity": "1",
+  "s_p16": "open",
+  "sha_base": "706457fca2c9f829ea5fad1fd17cda8e795a7668",
+  "tests_failed": 0,
+  "tests_passed": 1,
+  "weights_wad": [
+    "1000000000000000000",
+    "1000000000000000000"
+  ],
+  "x_i01_through_x_i07": "NOT_YET_VALIDATED"
+}

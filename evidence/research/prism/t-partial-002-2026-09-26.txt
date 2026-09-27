@@ -1,0 +1,11 @@
+tool: python3 3.12.3
+command: python3 -m unittest tests.test_t_partial_002 -v
+cwd: /workspace/research/prism-model
+sha: fa877829b500cc51d7169b322082759726a6a69d
+test_transform_preserves_backing_on_remaining_states (tests.test_t_partial_002.TPartial002Tests.test_transform_preserves_backing_on_remaining_states) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.029s
+
+OK
+exit_code: 0

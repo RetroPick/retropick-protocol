@@ -1,0 +1,11 @@
+tool: python3 3.12.3
+command: python3 -m unittest tests.test_t_lc_002 -v
+cwd: /workspace/research/prism-model
+sha: d827b1069f3560bfc6a1c23d5b3997e916601479
+test_final_resolution_commits_once (tests.test_t_lc_002.TLc002Tests.test_final_resolution_commits_once) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK
+exit_code: 0

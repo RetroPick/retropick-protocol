@@ -1,0 +1,45 @@
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.26;
+
+import {Test} from "forge-std/Test.sol";
+
+import {CandidateReservationLedger} from "../../src/prism/CandidateReservationLedger.sol";
+
+/// @notice Reserve 60, then reserve 50, against a deposited balance of 100.
+/// @dev Reserve is not edited. No release and no withdraw.
+contract OverReserveTest is Test {
+    bytes32 internal constant ASSET = bytes32(uint256(1));
+    bytes32 internal constant SERIES_A = bytes32(uint256(1));
+    bytes32 internal constant SERIES_B = bytes32(uint256(2));
+
+    function test_second_reserve_of_50_reverts() public {
+        CandidateReservationLedger ledger = new CandidateReservationLedger();
+        ledger.deposit(ASSET, 100);
+        ledger.reserve(SERIES_A, ASSET, 60);
+
+        assertEq(ledger.balance(ASSET), 100);
+        assertEq(ledger.totalReserved(ASSET), 60);
+        assertEq(ledger.available(ASSET), 40);
+        assertEq(ledger.reservedFor(SERIES_A, ASSET), 60);
+        assertEq(ledger.reservedFor(SERIES_B, ASSET), 0);
+
+        vm.expectRevert(
+            abi.encodeWithSelector(CandidateReservationLedger.InsufficientUnreserved.selector, ASSET, 50, 40)
+        );
+        ledger.reserve(SERIES_B, ASSET, 50);
+
+        assertEq(ledger.balance(ASSET), 100);
+        assertEq(ledger.totalReserved(ASSET), 60);
+        assertEq(ledger.available(ASSET), 40);
+        assertEq(ledger.reservedFor(SERIES_A, ASSET), 60);
+        assertEq(ledger.reservedFor(SERIES_B, ASSET), 0);
+
+        emit log_string("classification: existing_rule");
+        emit log_string("error: InsufficientUnreserved(asset, 50, 40)");
+        emit log_string("balance_after: 100");
+        emit log_string("reserved_after: 60");
+        emit log_string("available_after: 40");
+        emit log_string("series_a_after: 60");
+        emit log_string("series_b_after: 0");
+    }
+}

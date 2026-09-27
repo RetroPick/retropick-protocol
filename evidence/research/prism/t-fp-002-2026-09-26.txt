@@ -1,0 +1,11 @@
+tool: python3 3.12.3
+command: python3 -m unittest tests.test_t_fp_002 -v
+cwd: /workspace/research/prism-model
+sha: 5487d27d34e2b804ae52231eda83dd59f8c09f4b
+test_requirement_delta_keeps_remaining_supply_backed (tests.test_t_fp_002.TFp002Tests.test_requirement_delta_keeps_remaining_supply_backed) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.022s
+
+OK
+exit_code: 0

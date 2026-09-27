@@ -1,0 +1,55 @@
+{
+  "adr_added": false,
+  "adr_p04": "PROPOSED",
+  "adr_p15": "PROPOSED",
+  "adr_p16": "PROPOSED",
+  "adr_p17": "PROPOSED",
+  "after": {
+    "collateral_locked": "4",
+    "liability": "4",
+    "state": "RESOLVED"
+  },
+  "before": {
+    "collateral_locked": "4",
+    "liability": "4",
+    "state": "RESOLVED"
+  },
+  "canonical_math1": "FAIL",
+  "case": "redeem_yes_after_yes_win_before_open_redemption",
+  "classification": "existing_rule",
+  "command": "forge test --match-contract ResolvedYesRedeemTest -vv",
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "gas": 634299,
+  "implementations_changed": false,
+  "intermediate_non_redeemable_resolved": {
+    "python": true,
+    "solidity": true
+  },
+  "note": "resolve commits YES_WIN and stops in RESOLVED on both sides. open_redemption and openRedemption were not called. resolved-redeem-contradiction-2026-09-26.json compares native_market.py, which pays in RESOLVED, with Python. It does not record this Solidity redeem.",
+  "open_redemption_called": false,
+  "payout": null,
+  "pred_kuru_1": "blocked",
+  "profile": "default",
+  "python": {
+    "accepted": false,
+    "error": "redeem only while REDEEMABLE",
+    "error_type": "PredictionError",
+    "function": "redeem",
+    "payout": null,
+    "state_after_resolve": "RESOLVED"
+  },
+  "resolved_result": "YES_WIN",
+  "s_p16": "open",
+  "sha_base": "8563e96719ebbb16e2c52690fb5c27bb9b9270c6",
+  "solidity": {
+    "accepted": false,
+    "error": "BadState",
+    "function": "redeemYes",
+    "payout": null,
+    "state_after_resolve": "RESOLVED"
+  },
+  "split": "4",
+  "tests_failed": 0,
+  "tests_passed": 1
+}

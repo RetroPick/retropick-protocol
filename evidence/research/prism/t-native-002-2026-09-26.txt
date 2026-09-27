@@ -1,0 +1,11 @@
+tool: python3 3.12.3
+command: python3 -m unittest tests.test_t_native_002 -v
+cwd: /workspace/research/prism-model
+sha: f546520ba5ae533410e07d563eb7443713765d7c
+test_valid_binary_payoff_sums_to_one (tests.test_t_native_002.TNative002Tests.test_valid_binary_payoff_sums_to_one) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.008s
+
+OK
+exit_code: 0

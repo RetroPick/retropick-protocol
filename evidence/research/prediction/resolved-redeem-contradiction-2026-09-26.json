@@ -1,0 +1,48 @@
+{
+  "canonical_math1": "FAIL",
+  "classification": "recorded_contradiction",
+  "contradiction_open": true,
+  "functions_changed": false,
+  "id": "CONTRADICTION-2-RESOLVED-REDEEM",
+  "math_1_progress": false,
+  "native_market": {
+    "collateral_after": "3",
+    "collateral_before": "4",
+    "function": "BinaryCompleteSetMarket.redeem",
+    "module": "research/prism-model/native_market.py",
+    "no_supply_after": "4",
+    "outcome": "YES",
+    "payout": "1",
+    "quantity": "1",
+    "redeemable_state_present": false,
+    "state_after": "RESOLVED",
+    "state_at_redeem": "RESOLVED",
+    "states": [
+      "ACTIVE",
+      "RESOLVED",
+      "ARCHIVED"
+    ],
+    "yes_supply_after": "3"
+  },
+  "pred_contract_1": "not_pass",
+  "pred_math_1": "partial",
+  "prediction_market": {
+    "collateral_after": "4",
+    "collateral_before": "4",
+    "error": "redeem only while REDEEMABLE",
+    "function": "PredictionMarket.redeem",
+    "module": "research/prediction-model/market.py",
+    "no_supply_after": "4",
+    "outcome": "YES",
+    "quantity": "1",
+    "redeem_allowed_in_redeemable": true,
+    "redeem_allowed_in_resolved": false,
+    "rejected": true,
+    "state_after": "RESOLVED",
+    "state_at_redeem": "RESOLVED",
+    "yes_redeemed_after": "0",
+    "yes_supply_after": "4",
+    "yes_supply_before": "4"
+  },
+  "theorem_pass": false
+}

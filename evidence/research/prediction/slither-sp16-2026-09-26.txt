@@ -1,0 +1,119 @@
+tool: slither
+version: 0.11.6
+command: slither . --exclude-dependencies --filter-paths openzeppelin-contracts
+cwd: /workspace/research/contract-kernels
+sha: 06366860d21402767b91578204afc1d9a1596893
+date: 2026-09-26
+exit_code: 255
+redeem_has_ir: false
+classification: blocked_tool
+s_p16: open
+adr_added: false
+kernel_changed: false
+note: Foundry compact AST still cannot resolve OpenZeppelin names, so mint and burn are absent and _redeem has no IR. Detector text is not a new executable balance disagreement. This is not PRED-CONTRACT-1 PASS. The recorded --solc-force-legacy-json failures were not repeated.
+
+'forge clean' running (wd: /workspace/research/contract-kernels)
+'forge config --json' running
+'forge build --build-info --deny never --skip ./test/** ./script/** --force' running (wd: /workspace/research/contract-kernels)
+ERROR:Slither:Failed to resolved name for reference id 618 in /workspace/contracts/lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol.
+ERROR:Slither:Failed to resolved name for reference id 592 in /workspace/contracts/lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol.
+ERROR:Slither:Failed to resolved name for reference id 8827 in /workspace/contracts/lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol.
+ERROR:Slither:Failed to resolved name for reference id 8702 in /workspace/contracts/lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol.
+ERROR:Slither:Failed to resolved name for reference id 618 in /workspace/contracts/lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol.
+ERROR:Slither:Failed to resolved name for reference id 8909 in /workspace/contracts/lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol.
+ERROR:Slither:Failed to resolved name for reference id 592 in /workspace/contracts/lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol.
+ERROR:Slither:Failed to resolved name for reference id 9037 in /workspace/contracts/lib/openzeppelin-contracts/contracts/utils/ReentrancyGuard.sol.
+ERROR:Slither:Failed to resolved name for reference id 9089 in /workspace/contracts/lib/openzeppelin-contracts/contracts/utils/math/Math.sol.
+ERROR:Slither:Failed to resolved name for reference id 10854 in /workspace/contracts/lib/openzeppelin-contracts/contracts/utils/math/Math.sol.
+ERROR:Slither:Failed to resolved name for reference id 618 in /workspace/research/contract-kernels/src/prediction/MockCollateral.sol.
+ERROR:Slither:Failed to resolved name for reference id 592 in /workspace/research/contract-kernels/src/prediction/MockCollateral.sol.
+ERROR:Slither:Failed to resolved name for reference id 8827 in /workspace/research/contract-kernels/src/prediction/MockCollateral.sol.
+ERROR:Slither:Failed to resolved name for reference id 8702 in /workspace/research/contract-kernels/src/prediction/MockCollateral.sol.
+ERROR:Slither:Failed to resolved name for reference id 618 in /workspace/research/contract-kernels/src/prediction/OutcomeToken.sol.
+ERROR:Slither:Failed to resolved name for reference id 592 in /workspace/research/contract-kernels/src/prediction/OutcomeToken.sol.
+ERROR:Slither:Failed to resolved name for reference id 8827 in /workspace/research/contract-kernels/src/prediction/OutcomeToken.sol.
+ERROR:Slither:Failed to resolved name for reference id 8702 in /workspace/research/contract-kernels/src/prediction/OutcomeToken.sol.
+ERROR:Slither:Failed to resolved name for reference id 8909 in /workspace/research/contract-kernels/src/prediction/PredictionMarket.sol.
+ERROR:Slither:Failed to resolved name for reference id 9037 in /workspace/research/contract-kernels/src/prediction/PredictionMarket.sol.
+ERROR:Slither:Failed to resolved name for reference id 592 in /workspace/research/contract-kernels/src/prediction/PredictionMarket.sol.
+ERROR:Slither:Failed to resolved name for reference id 618 in /workspace/research/contract-kernels/src/prediction/PredictionMarket.sol.
+ERROR:Slither:Failed to resolved name for reference id 8827 in /workspace/research/contract-kernels/src/prediction/PredictionMarket.sol.
+ERROR:Slither:Failed to resolved name for reference id 8702 in /workspace/research/contract-kernels/src/prediction/PredictionMarket.sol.
+ERROR:Slither:Failed to resolved name for reference id 9089 in /workspace/research/contract-kernels/src/prism/CandidateComponentBacking.sol.
+ERROR:Slither:Failed to resolved name for reference id 10854 in /workspace/research/contract-kernels/src/prism/CandidateComponentBacking.sol.
+ERROR:Slither:Failed to resolved name for reference id 618 in /workspace/research/contract-kernels/src/prism/CandidateComponentBacking.sol.
+ERROR:Slither:Failed to resolved name for reference id 8909 in /workspace/research/contract-kernels/src/prism/CandidateComponentBacking.sol.
+ERROR:Slither:Failed to resolved name for reference id 9037 in /workspace/research/contract-kernels/src/prism/CandidateComponentBacking.sol.
+ERROR:Slither:Failed to resolved name for reference id 592 in /workspace/research/contract-kernels/src/prism/CandidateComponentBacking.sol.
+ERROR:Slither:Failed to resolved name for reference id 9089 in /workspace/research/contract-kernels/src/prism/CandidateCumulativeSettlement.sol.
+ERROR:Slither:Failed to resolved name for reference id 10854 in /workspace/research/contract-kernels/src/prism/CandidateCumulativeSettlement.sol.
+ERROR:Slither:Failed to resolved name for reference id 618 in /workspace/research/contract-kernels/src/prism/CandidateCumulativeSettlement.sol.
+ERROR:Slither:Failed to resolved name for reference id 8909 in /workspace/research/contract-kernels/src/prism/CandidateCumulativeSettlement.sol.
+ERROR:Slither:Failed to resolved name for reference id 9037 in /workspace/research/contract-kernels/src/prism/CandidateCumulativeSettlement.sol.
+ERROR:Slither:Failed to resolved name for reference id 592 in /workspace/research/contract-kernels/src/prism/CandidateCumulativeSettlement.sol.
+ERROR:ContractSolcParsing:Missing inheritance MockCollateral (8dde537a8715d591)
+Missing inheritance ID: 8827
+Inheritance found:
+	 - ERC20 (ID 514)
+
+ERROR:ContractSolcParsing:Missing inheritance OutcomeToken (8dde537a8715d591)
+Missing inheritance ID: 8827
+Inheritance found:
+	 - ERC20 (ID 514)
+
+ERROR:ContractSolcParsing:Missing params '_msgSender()' src/prediction/MockCollateral.sol#7-35 (1 - 2)
+ERROR:ContractSolcParsing:Missing params '_msgSender()' src/prediction/OutcomeToken.sol#9-37 (1 - 2)
+ERROR:ConvertToIR:Function not found mint
+ERROR:ContractSolcParsing:Impossible to generate IR for PredictionMarket.split (src/prediction/PredictionMarket.sol#140-153):
+ 'NoneType' object has no attribute 'type'
+ERROR:ConvertToIR:Function not found burn
+ERROR:ContractSolcParsing:Impossible to generate IR for PredictionMarket.merge (src/prediction/PredictionMarket.sol#155-165):
+ 'NoneType' object has no attribute 'type'
+ERROR:ConvertToIR:Function not found burn
+ERROR:ContractSolcParsing:Impossible to generate IR for PredictionMarket.burnWorthless (src/prediction/PredictionMarket.sol#219-232):
+ 'NoneType' object has no attribute 'type'
+ERROR:ConvertToIR:Function not found burn
+ERROR:ContractSolcParsing:Impossible to generate IR for PredictionMarket._redeem (src/prediction/PredictionMarket.sol#245-263):
+ 'NoneType' object has no attribute 'type'
+INFO:Detectors:
+Detector: uninitialized-state
+PredictionMarket.yesRedeemed (src/prediction/PredictionMarket.sol#60) is never initialized. It is used in:
+	- PredictionMarket.liability() (src/prediction/PredictionMarket.sol#131-138)
+PredictionMarket.noRedeemed (src/prediction/PredictionMarket.sol#61) is never initialized. It is used in:
+	- PredictionMarket.liability() (src/prediction/PredictionMarket.sol#131-138)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#uninitialized-state-variables
+INFO:Detectors:
+Detector: uninitialized-local
+CandidatePayoffTransform.payoffEquivalent(uint256[],uint256,uint256[],uint256,uint256).any (src/prism/CandidatePayoffTransform.sol#77) is a local variable never initialized
+CandidatePayoffTransform.transformComponent(uint256,uint256).newMask (src/prism/CandidatePayoffTransform.sol#97) is a local variable never initialized
+CandidateCumulativeSettlement.constructor(address,uint256,uint8,address[],uint256[]).supply (src/prism/CandidateCumulativeSettlement.sol#66) is a local variable never initialized
+CandidatePayoffTransform.transformComponent(uint256,uint256).any (src/prism/CandidatePayoffTransform.sol#98) is a local variable never initialized
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#uninitialized-local-variables
+INFO:Detectors:
+Detector: missing-zero-check
+CloneableOutcomeToken.initialize(address,uint8,string,string,uint8).market_ (src/prediction/CloneableOutcomeToken.sol#22) lacks a zero-check on :
+		- market = market_ (src/prediction/CloneableOutcomeToken.sol#30)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#missing-zero-address-validation
+INFO:Detectors:
+Detector: calls-loop
+CandidateComponentBacking.deposit(uint256[]) (src/prism/CandidateComponentBacking.sol#92-106) has external calls inside a loop: beforeBalance = _tokens[i].balanceOf(address(this)) (src/prism/CandidateComponentBacking.sol#98)
+CandidateComponentBacking.deposit(uint256[]) (src/prism/CandidateComponentBacking.sol#92-106) has external calls inside a loop: received = _tokens[i].balanceOf(address(this)) - beforeBalance (src/prism/CandidateComponentBacking.sol#100)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation/#calls-inside-a-loop
+INFO:Detectors:
+Detector: assembly
+ERC1167.clone(address) (src/prediction/ERC1167.sol#8-17) uses assembly
+	- INLINE ASM (src/prediction/ERC1167.sol#9-15)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#assembly-usage
+INFO:Detectors:
+Detector: too-many-digits
+ERC1167.clone(address) (src/prediction/ERC1167.sol#8-17) uses literals with too many digits:
+	- mstore(uint256,uint256)(ptr_clone_asm_0,0x3d602d80600a3d3981f3363d3d373d3d3d363d73000000000000000000000000) (src/prediction/ERC1167.sol#11)
+ERC1167.clone(address) (src/prediction/ERC1167.sol#8-17) uses literals with too many digits:
+	- mstore(uint256,uint256)(ptr_clone_asm_0 + 0x28,0x5af43d82803e903d91602b57fd5bf30000000000000000000000000000000000) (src/prediction/ERC1167.sol#13)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#too-many-digits
+INFO:Detectors:
+Detector: constable-states
+PredictionMarket.noRedeemed (src/prediction/PredictionMarket.sol#61) should be constant 
+PredictionMarket.yesRedeemed (src/prediction/PredictionMarket.sol#60) should be constant 
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#state-variables-that-could-be-declared-constant
+INFO:Slither:. analyzed (24 contracts with 102 detectors), 14 result(s) found

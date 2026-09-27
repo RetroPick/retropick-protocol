@@ -1,0 +1,71 @@
+{
+  "adr_added": false,
+  "canonical_math1": "FAIL",
+  "case": "after_component_1_payout_1_transform_component_0_payout_1",
+  "classification": "existing_rule",
+  "command": "forge test --match-contract OtherComponentTransformTest -vv",
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "first_call": {
+    "cash_added": "400",
+    "index": 1,
+    "payout": "1",
+    "result": "accepted"
+  },
+  "gas": 287803,
+  "implementations_changed": false,
+  "payoff": [[0, 1], [0, 0], [1, 1], [1, 0]],
+  "pred_kuru_1": "blocked",
+  "profile": "default",
+  "python": {
+    "after": {
+      "backing": ["0", "0"],
+      "cash_added": "600",
+      "possible_mask": 4,
+      "possible_states": [2],
+      "resolved_components": {"0": "1", "1": "1"},
+      "resolved_mask": 3,
+      "supply": 1000,
+      "transformed_settlement": "1000"
+    },
+    "before": {
+      "backing": ["600", "0"],
+      "possible_mask": 5,
+      "resolved_mask": 2,
+      "supply": 1000,
+      "transformed_settlement": "400"
+    },
+    "function": "apply_transform",
+    "second_call": "accepted",
+    "terminal_solvency": [
+      {"backing_value": "1000", "covered": true, "liability": "1000", "state": 2}
+    ]
+  },
+  "s_p16": "open",
+  "sha_base": "7edda939d481a6a83b43ed711e59996bd0f3fc35",
+  "solidity": {
+    "after": {
+      "backing": ["0", "0"],
+      "cash_added": "600",
+      "possible_mask": 4,
+      "resolved_mask": 3,
+      "supply": 1000,
+      "transformed": "1000"
+    },
+    "before": {
+      "backing": ["600", "0"],
+      "possible_mask": 5,
+      "resolved_mask": 2,
+      "supply": 1000,
+      "transformed": "400"
+    },
+    "function": "transformComponent",
+    "second_call": "accepted"
+  },
+  "supply": 1000,
+  "sweep_added": false,
+  "sweep_policy": "NOT_YET_VALIDATED",
+  "tests_failed": 0,
+  "tests_passed": 1,
+  "weights": ["3/5", "2/5"]
+}

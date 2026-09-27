@@ -1,0 +1,24 @@
+python_command: python3 -m unittest tests.test_uint256_split -v
+python_cwd: research/prediction-model
+python: Python 3.12.3
+python_exit_code: 0
+test_split_at_uint256_boundary (tests.test_uint256_split.Uint256SplitTests.test_split_at_uint256_boundary) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+
+forge_command: forge test --match-contract Uint256SplitTest -vv
+forge_cwd: research/contract-kernels
+forge: forge Version: 1.8.3
+forge_commit: cae51ad458f6abb64852b7709eb784352429825d
+solc: 0.8.26
+profile: default
+FOUNDRY_PROFILE: unset
+forge_exit_code: 0
+Ran 1 test for test/prediction/Uint256Split.t.sol:Uint256SplitTest
+[PASS] test_max_split_then_one_does_not_wrap_supply() (gas: 711665)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 965.85µs (374.68µs CPU time)
+
+Ran 1 test suite in 5.52ms (965.85µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

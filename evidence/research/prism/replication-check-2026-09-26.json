@@ -1,0 +1,47 @@
+{
+  "adr_added": "ADR-R18",
+  "adr_r01": "PROPOSED confirmation. Exact non-negative replication still stands. Approximate replication was not opened.",
+  "adr_r17": "PROPOSED",
+  "canonical_math1": "FAIL",
+  "candidate": {
+    "approximate_replication": "not_added",
+    "note": "CandidateComponentBacking, CandidateCumulativeSettlement, CandidateReservationLedger, and CandidatePayoffTransform do not solve h = Gx with x >= 0. payoffOf reads a stored entry and was not called.",
+    "replication_check": "absent"
+  },
+  "case": "replication_check",
+  "classification": "recorded_gap",
+  "command": "forge test --match-contract ReplicationAbsenceTest -vv",
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "foundry_r_i01": "not_executable",
+  "gas": 7328,
+  "id": "REPLICATION-CHECK",
+  "implementations_changed": false,
+  "invariant": "INV-P01",
+  "matrix": [
+    [0, 0],
+    [0, 1],
+    [1, 0],
+    [1, 1]
+  ],
+  "pred_kuru_1": "blocked",
+  "profile": "default",
+  "python": {
+    "exact": {
+      "replicable": true,
+      "target": ["0", "1", "0", "1"],
+      "x": ["0", "1"]
+    },
+    "function": "find_exact_nonnegative_replication and is_exactly_replicable",
+    "non_replicable": {
+      "replicable": false,
+      "target": ["0", "0", "0", "1"],
+      "x": null
+    }
+  },
+  "s_p16": "open",
+  "sha_base": "761067fb570e9205d6ba1aa7ad559d925ebe39a8",
+  "source_interface": "proposed_not_frozen",
+  "tests_failed": 0,
+  "tests_passed": 1
+}

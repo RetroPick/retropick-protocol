@@ -1,0 +1,13 @@
+forge_command: forge test --match-contract RebasingComponentBackingTest -vv
+forge_cwd: research/contract-kernels
+forge: forge Version: 1.8.3
+forge_commit: cae51ad458f6abb64852b7709eb784352429825d
+solc: 0.8.26
+profile: default
+FOUNDRY_PROFILE: unset
+forge_exit_code: 0
+Ran 1 test for test/prism/RebasingComponentBacking.t.sol:RebasingComponentBackingTest
+[PASS] test_rebase_drops_balance_below_recorded_backing() (gas: 663233)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 510.80µs (357.24µs CPU time)
+
+Ran 1 test suite in 5.74ms (510.80µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

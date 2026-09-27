@@ -1,0 +1,55 @@
+{
+  "adr_added": false,
+  "burn_function": {
+    "file": "research/contract-kernels/src/prediction/OutcomeToken.sol",
+    "name": "burn",
+    "quote": "function burn(address from, uint256 amount) external {\n        if (msg.sender != market) revert NotMarket();\n        _burn(from, amount);\n    }"
+  },
+  "burn_function_exists_in_prediction_kernel": true,
+  "canonical_math1": "FAIL",
+  "classification": "blocked_tool",
+  "cloneable_outcome_token_also_declares_burn": true,
+  "cloneable_outcome_token_called_by_prediction_market": false,
+  "date": "2026-09-26",
+  "gives_redeem_ir": false,
+  "id": "SLITHER-BURN-LOOKUP",
+  "implementations_changed": false,
+  "prediction_market_declares_function_named_burn": false,
+  "prediction_market_token": "research/contract-kernels/src/prediction/OutcomeToken.sol",
+  "s_p16": "open",
+  "sites": [
+    {
+      "calls_burn": false,
+      "file": "research/contract-kernels/src/prediction/PredictionMarket.sol",
+      "function": "split",
+      "quote": "yesToken.mint(msg.sender, amount);\n        noToken.mint(msg.sender, amount);"
+    },
+    {
+      "calls_burn": true,
+      "file": "research/contract-kernels/src/prediction/PredictionMarket.sol",
+      "function": "merge",
+      "quote": "yesToken.burn(msg.sender, amount);\n        noToken.burn(msg.sender, amount);"
+    },
+    {
+      "calls_burn": true,
+      "file": "research/contract-kernels/src/prediction/PredictionMarket.sol",
+      "function": "burnWorthless",
+      "quote": "if (yesSide) {\n            yesToken.burn(msg.sender, amount);\n            yesSupply -= amount;\n        } else {\n            noToken.burn(msg.sender, amount);\n            noSupply -= amount;\n        }"
+    },
+    {
+      "calls_burn": true,
+      "file": "research/contract-kernels/src/prediction/PredictionMarket.sol",
+      "function": "_redeem",
+      "quote": "if (yesSide) {\n            yesToken.burn(account, amount);\n            yesSupply -= amount;\n            yesRedeemed += amount;\n        } else {\n            noToken.burn(account, amount);\n            noSupply -= amount;\n            noRedeemed += amount;\n        }"
+    },
+    {
+      "calls_burn": true,
+      "file": "research/contract-kernels/src/prediction/OutcomeToken.sol",
+      "function": "burn",
+      "quote": "_burn(from, amount);"
+    }
+  ],
+  "slither_rerun": false,
+  "source_note": "The quote does not give PredictionMarket._redeem IR and does not close S-P16.",
+  "underscore_burn_declared_in_kernel": false
+}

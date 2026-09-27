@@ -1,0 +1,58 @@
+{
+  "adr_added": false,
+  "canonical_math1": "FAIL",
+  "case": "unredeemed_cursors_and_liability",
+  "classification": "existing_rule",
+  "id": "UNREDEEMED-LIABILITY",
+  "implementations_changed": false,
+  "kernels_agree": true,
+  "pred_contract_1": "not_pass",
+  "pred_kuru_1": "blocked",
+  "pred_math_1": "partial",
+  "python": {
+    "after_redeem_yes_1": {
+      "collateral_locked": "3",
+      "liability": "3",
+      "no_redeemed": "0",
+      "yes_redeemed": "1"
+    },
+    "before_redeem": {
+      "collateral_locked": "4",
+      "liability": "4",
+      "no_redeemed": "0",
+      "yes_redeemed": "0"
+    },
+    "function": "PredictionMarket.redeem",
+    "module": "research/prediction-model/market.py",
+    "payout": "1",
+    "split_amount": "4"
+  },
+  "s_p16": "open",
+  "solidity": {
+    "after_redeem_yes_1": {
+      "collateral_locked": "3",
+      "liability": "3",
+      "no_redeemed": "0",
+      "yes_redeemed": "1"
+    },
+    "before_redeem": {
+      "collateral_locked": "4",
+      "liability": "4",
+      "no_redeemed": "0",
+      "yes_redeemed": "0"
+    },
+    "command": "forge test --match-contract UnredeemedLiabilityTest -vv",
+    "cwd": "research/contract-kernels",
+    "exit_code": 0,
+    "failed": 0,
+    "function": "PredictionMarket.redeemYes",
+    "gas": 660397,
+    "module": "research/contract-kernels/src/prediction/PredictionMarket.sol",
+    "passed": 1,
+    "payout": "1",
+    "profile": "default",
+    "result": "YES_WIN",
+    "split_amount": "4"
+  },
+  "x_i01_through_x_i07": "NOT_YET_VALIDATED"
+}

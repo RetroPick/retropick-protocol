@@ -1,0 +1,59 @@
+{
+  "acceptance_granted": false,
+  "adr_added": false,
+  "canonical_math1": "FAIL",
+  "case": "one component weight is zero",
+  "classification": "existing_rule",
+  "constructor_accepts_zero_weight": true,
+  "constructor_reverted": false,
+  "contract_1": "not_met",
+  "id": "ZERO-WEIGHT-COMPONENT-BACKING",
+  "implementations_changed": false,
+  "kernel": "research/contract-kernels/src/prism/CandidateComponentBacking.sol",
+  "math_1_progress": false,
+  "rule": "a zero weight requires 0 and the positive-weight slot stays backed",
+  "solidity": {
+    "after_mint": {
+      "backing_raw": [
+        "0",
+        "4"
+      ],
+      "required_raw": [
+        "0",
+        "4"
+      ],
+      "supply": "4",
+      "token_balance": [
+        "0",
+        "4"
+      ]
+    },
+    "command": "forge test --match-contract ZeroWeightComponentBackingTest -vv",
+    "cwd": "research/contract-kernels",
+    "decimals": [
+      18,
+      18
+    ],
+    "deposit": [
+      "0",
+      "4"
+    ],
+    "exit_code": 0,
+    "failed": 0,
+    "forge_commit": "cae51ad458f6abb64852b7709eb784352429825d",
+    "forge_version": "1.8.3",
+    "mint": "4",
+    "optimizer": true,
+    "optimizer_runs": 200,
+    "passed": 1,
+    "profile": "default",
+    "solc": "0.8.26",
+    "test_gas": 911911,
+    "via_ir": false,
+    "weights_wad": [
+      "0",
+      "1000000000000000000"
+    ]
+  },
+  "theorem_pass": false
+}

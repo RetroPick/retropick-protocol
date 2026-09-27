@@ -1,0 +1,41 @@
+{
+  "adr_added": false,
+  "call": "OutcomeToken.burn",
+  "canonical_math1": "FAIL",
+  "case": "outsider_burn_yes",
+  "classification": "existing_rule",
+  "command": "forge test --match-contract OutsiderBurnTest -vv",
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "error": "NotMarket",
+  "gas": 322322,
+  "id": "OUTSIDER-BURN",
+  "implementations_changed": false,
+  "pred_contract_1": "not_pass",
+  "pred_kuru_1": "blocked",
+  "pred_math_1": "partial",
+  "profile": "default",
+  "python_counterpart": false,
+  "python_note": "research/prediction-model has no OutcomeToken. burn_worthless is a market function, not a token burn.",
+  "s_p16": "open",
+  "sha_base": "066678159ac6d97fd82e769a9c2c9dd7d2a2c63a",
+  "solidity": {
+    "after": {
+      "holder_balance": "4",
+      "total_supply": "4"
+    },
+    "amount": "1",
+    "before": {
+      "holder_balance": "4",
+      "total_supply": "4"
+    },
+    "caller": "outsider",
+    "contract": "research/contract-kernels/src/prediction/OutcomeToken.sol",
+    "holder": "alice",
+    "split_amount": "4",
+    "token": "yes"
+  },
+  "tests_failed": 0,
+  "tests_passed": 1,
+  "token_edited": false
+}

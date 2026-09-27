@@ -1,0 +1,69 @@
+{
+  "adr_added": false,
+  "canonical_math1": "FAIL",
+  "case": "invalid_supply_2_parts_1_1_decimals_6",
+  "classification": "existing_rule",
+  "collateral_left": "0",
+  "command": "forge test --match-contract SixDecimalInvalidFloorTest -vv",
+  "composition": {
+    "holders": ["alice", "bob"],
+    "parts": [1, 1],
+    "source": "test_supplyTwoPartsPayCumulativeFloor",
+    "supply": 2
+  },
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "gas": 1183071,
+  "implementations_changed": false,
+  "kuru_decimals_must_be_18": "not_established",
+  "no_payouts": ["0", "1"],
+  "per_call_floor": {
+    "classification": "COUNTEREXAMPLE_FOUND",
+    "name": "per_call_floor",
+    "paid_here": false,
+    "would_pay": ["0", "0"]
+  },
+  "pred_kuru_1": "blocked",
+  "pred_math_1": "partial",
+  "profile": "default",
+  "python": {
+    "collateral_decimals": "not_stored",
+    "collateral_left": "0",
+    "function": "PredictionMarket.redeem under INVALID",
+    "no_payouts": ["0", "1"],
+    "outcome_decimals": "not_stored",
+    "redeems": [
+      {"after_collateral_locked": "2", "after_liability": "2", "before_collateral_locked": "2", "before_liability": "2", "payout": "0", "side": "YES"},
+      {"after_collateral_locked": "1", "after_liability": "1", "before_collateral_locked": "2", "before_liability": "2", "payout": "1", "side": "YES"},
+      {"after_collateral_locked": "1", "after_liability": "1", "before_collateral_locked": "1", "before_liability": "1", "payout": "0", "side": "NO"},
+      {"after_collateral_locked": "0", "after_liability": "0", "before_collateral_locked": "1", "before_liability": "1", "payout": "1", "side": "NO"}
+    ],
+    "yes_payouts": ["0", "1"]
+  },
+  "recorded_cumulative_floor": {
+    "collateral_left": "0",
+    "no_payouts": ["0", "1"],
+    "source": "evidence/research/prediction/invalid-floor-compositions-2026-09-26.json",
+    "yes_payouts": ["0", "1"]
+  },
+  "result": "INVALID",
+  "s_p16": "open",
+  "sha_base": "3d17595944abe8b0d7a3bcc280cb330219cd3db3",
+  "solidity": {
+    "collateral_decimals": 6,
+    "collateral_left": "0",
+    "no_decimals": 6,
+    "no_payouts": ["0", "1"],
+    "outcome_decimals": 6,
+    "redeems": [
+      {"after_collateral_locked": "2", "after_liability": "2", "before_collateral_locked": "2", "before_liability": "2", "payout": "0", "side": "YES"},
+      {"after_collateral_locked": "1", "after_liability": "1", "before_collateral_locked": "2", "before_liability": "2", "payout": "1", "side": "YES"},
+      {"after_collateral_locked": "1", "after_liability": "1", "before_collateral_locked": "1", "before_liability": "1", "payout": "0", "side": "NO"},
+      {"after_collateral_locked": "0", "after_liability": "0", "before_collateral_locked": "1", "before_liability": "1", "payout": "1", "side": "NO"}
+    ],
+    "yes_decimals": 6,
+    "yes_payouts": ["0", "1"]
+  },
+  "tests_failed": 0,
+  "tests_passed": 1
+}

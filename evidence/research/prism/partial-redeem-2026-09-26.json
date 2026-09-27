@@ -1,0 +1,101 @@
+{
+  "adr_added": false,
+  "backing_covers_remaining_supply": true,
+  "backing_raw_after": [
+    "1",
+    "1"
+  ],
+  "backing_raw_before": [
+    "2",
+    "2"
+  ],
+  "call": "CandidateComponentBacking.redeem",
+  "caller": "minter",
+  "caller_component_balances_after": [
+    "1",
+    "1"
+  ],
+  "caller_component_balances_before": [
+    "0",
+    "0"
+  ],
+  "canonical_math1": "FAIL",
+  "case": "partial_redeem_one_of_two",
+  "classification": "existing_rule",
+  "command": "forge test --match-contract PartialRedeemTest -vv",
+  "component_tokens_paid": [
+    "1",
+    "1"
+  ],
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "decimals": [
+    18,
+    18
+  ],
+  "deposit_amounts": [
+    "2",
+    "2"
+  ],
+  "gas": 802321,
+  "id": "PARTIAL-REDEEM-ONE-OF-TWO",
+  "implementations_changed": false,
+  "mint_quantity": "2",
+  "pred_kuru_1": "blocked",
+  "profile": "default",
+  "python": {
+    "backing_raw_after": [
+      "1",
+      "1"
+    ],
+    "backing_raw_before": [
+      "2",
+      "2"
+    ],
+    "component_balances": "not_stored",
+    "function": "FixedPointSeries.deposit_raw then mint then redeem",
+    "note": "FixedPointSeries has no account and no series balance. The released tuple is the component payout.",
+    "rejected": false,
+    "released": [
+      "1",
+      "1"
+    ],
+    "required_raw_after": [
+      "1",
+      "1"
+    ],
+    "required_raw_before": [
+      "2",
+      "2"
+    ],
+    "series_balance": "not_stored",
+    "supply_after": "1",
+    "supply_before": "2"
+  },
+  "redeem_edited": false,
+  "redeem_quantity": "1",
+  "required_raw_after": [
+    "1",
+    "1"
+  ],
+  "required_raw_before": [
+    "2",
+    "2"
+  ],
+  "s_p16": "open",
+  "series_balance_after": "1",
+  "series_balance_before": "2",
+  "sha_base": "fa9b9306b07a2dd71ffb625e251954c0f6ee4e5c",
+  "source_interface": "proposed_not_frozen",
+  "supply_after": "1",
+  "supply_before": "2",
+  "sweep_added": false,
+  "sweep_policy": "NOT_YET_VALIDATED",
+  "tests_failed": 0,
+  "tests_passed": 1,
+  "weights_wad": [
+    "1000000000000000000",
+    "1000000000000000000"
+  ],
+  "x_i01_through_x_i07": "NOT_YET_VALIDATED"
+}

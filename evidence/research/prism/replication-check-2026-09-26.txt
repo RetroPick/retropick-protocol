@@ -1,0 +1,43 @@
+tool: python3 and forge test
+command: forge test --match-contract ReplicationAbsenceTest -vv
+cwd: /workspace/research/contract-kernels
+profile: default
+sha_base: 761067fb570e9205d6ba1aa7ad559d925ebe39a8
+python_matrix: [[0,0],[0,1],[1,0],[1,1]]
+python_exact_target: [0,1,0,1]
+python_exact_x: (0, 1)
+python_exact_replicable: true
+python_non_replicable_target: [0,0,0,1]
+python_non_replicable_x: none
+python_non_replicable: false
+candidate_replication_check: absent
+candidate_cases: not_executed
+approximate_replication: not_added
+classification: recorded_gap
+foundry_r_i01: not_executable
+adr_added: ADR-R18 PROPOSED
+adr_r17: not this replication gap
+adr_r01: exact non-negative replication still stands
+math1: FAIL
+source_interface: proposed_not_frozen
+
+exact_x ('0', '1')
+exact_replicable True
+bad_x None
+bad_replicable False
+
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 794.28ms
+Compiler run successful!
+
+Ran 1 test for test/prism/ReplicationAbsence.t.sol:ReplicationAbsenceTest
+[PASS] test_candidate_has_no_replication_check() (gas: 7328)
+Logs:
+  replication_check: absent
+  exact_case: not_executed
+  non_replicable_case: not_executed
+  approximate_replication: not_added
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 155.37µs (28.30µs CPU time)
+
+Ran 1 test suite in 5.49ms (155.37µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

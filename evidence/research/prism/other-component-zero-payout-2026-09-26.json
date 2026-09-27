@@ -1,0 +1,71 @@
+{
+  "adr_added": false,
+  "canonical_math1": "FAIL",
+  "case": "after_component_1_payout_1_transform_component_0_payout_0",
+  "classification": "existing_rule",
+  "command": "forge test --match-contract OtherComponentZeroPayoutTest -vv",
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "first_call": {
+    "cash_added": "400",
+    "index": 1,
+    "payout": "1",
+    "result": "accepted"
+  },
+  "gas": 285059,
+  "implementations_changed": false,
+  "payoff": [[0, 1], [0, 0], [1, 1], [1, 0]],
+  "profile": "default",
+  "python": {
+    "after": {
+      "backing": ["0", "0"],
+      "cash_added": "0",
+      "possible_mask": 1,
+      "possible_states": [0],
+      "resolved_components": {"0": "0", "1": "1"},
+      "resolved_mask": 3,
+      "supply": 1000,
+      "transformed_settlement": "400"
+    },
+    "before": {
+      "backing": ["600", "0"],
+      "possible_mask": 5,
+      "resolved_mask": 2,
+      "supply": 1000,
+      "transformed_settlement": "400"
+    },
+    "function": "apply_transform",
+    "second_call": "accepted",
+    "terminal_solvency": [
+      {"backing_value": "400", "covered": true, "liability": "400", "state": 0}
+    ],
+    "terminal_solvency_scope": "python_only"
+  },
+  "s_p16": "open",
+  "sha_base": "8a3f1efa3f7aea75dd095e48db223811fffcb4cc",
+  "solidity": {
+    "after": {
+      "backing": ["0", "0"],
+      "cash_added": "0",
+      "possible_mask": 1,
+      "resolved_mask": 3,
+      "supply": 1000,
+      "transformed": "400"
+    },
+    "before": {
+      "backing": ["600", "0"],
+      "possible_mask": 5,
+      "resolved_mask": 2,
+      "supply": 1000,
+      "transformed": "400"
+    },
+    "function": "transformComponent",
+    "second_call": "accepted",
+    "terminal_solvency": "not_a_candidate_result"
+  },
+  "supply": 1000,
+  "sweep_added": false,
+  "tests_failed": 0,
+  "tests_passed": 1,
+  "weights": ["3/5", "2/5"]
+}

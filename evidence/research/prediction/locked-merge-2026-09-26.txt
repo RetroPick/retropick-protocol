@@ -1,0 +1,47 @@
+tool: forge test
+command: forge test --match-contract LockedMergeTest -vv
+cwd: /workspace/research/contract-kernels
+profile: default
+sha_base: 307fbdaf157507d29e59514b0e313c9452c68f7d
+split: 4 while OPEN
+lifecycle: closeMint / close_mint, no resolution
+merge: Solidity merge(1), Python merge of 1
+inventory: rejection-inventory-2026-09-26.json rows[19] is merge of 0 while LOCKED, not merge of 1
+classification: existing_rule
+python_accepted: true
+solidity_accepted: true
+collateral_returned: 1
+python_outside_collateral: not_stored
+solidity_outside_collateral: 999996 then 999997
+before: liability 4, collateral locked 4, YES 4, NO 4
+after: liability 3, collateral locked 3, YES 3, NO 3
+adr_added: false
+adr_p15: PROPOSED
+adr_p16: PROPOSED
+adr_p17: PROPOSED
+math1: FAIL
+
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 1.13s
+Compiler run successful!
+
+Ran 1 test for test/prediction/LockedMerge.t.sol:LockedMergeTest
+[PASS] test_merge_one_while_locked() (gas: 540379)
+Logs:
+  classification: existing_rule
+  solidity_accepted: true
+  collateral_returned: 1
+  alice_collateral_before: 999996
+  alice_collateral_after: 999997
+  liability_before: 4
+  collateral_before: 4
+  liability_after: 3
+  collateral_after: 3
+  yes_supply_before: 4
+  no_supply_before: 4
+  yes_supply_after: 3
+  no_supply_after: 3
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 647.26µs (149.35µs CPU time)
+
+Ran 1 test suite in 9.07ms (647.26µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

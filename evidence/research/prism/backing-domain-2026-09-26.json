@@ -1,0 +1,23 @@
+{
+  "accepted": 1044,
+  "components": 2,
+  "domain_check": "EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN",
+  "failure_count": 0,
+  "failures": [],
+  "invariant": "B_i >= S * x_i after an accepted transition; a rejected transition leaves supply and backing unchanged",
+  "minimal_counterexample": null,
+  "model": "PrismSeries",
+  "quantity_domain": "every pair of supply and quantity in 0..8, for mint, mint_with_exact_backing, and redeem_in_kind",
+  "quantity_max": 8,
+  "rejected": 1143,
+  "runtime_seconds": 0.054409,
+  "states": 81,
+  "supply_max": 8,
+  "transitions": 2187,
+  "weight_note": "{0, 1, 2}/2. PrismSeries accepts these Fractions. Wad scaling was not required.",
+  "weights": [
+    "0",
+    "1/2",
+    "1"
+  ]
+}

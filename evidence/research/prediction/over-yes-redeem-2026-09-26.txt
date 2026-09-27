@@ -1,0 +1,46 @@
+tool: forge test
+command: forge test --match-contract OverYesRedeemTest -vv
+cwd: /workspace/research/contract-kernels
+profile: default
+sha_base: 058eb6525f957b5208ba0dcc91394b0bdbb48dfd
+split: 4
+result: YES_WIN
+redeem: Solidity redeemYes(5) from the splitter, Python redeem YES 5 from the same account
+holder_yes: 4
+classification: existing_rule
+python_rejected: true
+python_error: redeem exceeds balance
+solidity_rejected: true
+solidity_error: ERC20InsufficientBalance
+payout: none
+before: liability 4, collateral locked 4, YES 4, NO 4, yes_redeemed 0, no_redeemed 0
+after: liability 4, collateral locked 4, YES 4, NO 4, yes_redeemed 0, no_redeemed 0
+adr_added: false
+adr_p15: PROPOSED
+adr_p16: PROPOSED
+adr_p17: PROPOSED
+math1: FAIL
+
+Compiling 2 files with Solc 0.8.26
+Solc 0.8.26 finished in 1.17s
+Compiler run successful!
+
+Ran 1 test for test/prediction/OverYesRedeem.t.sol:OverYesRedeemTest
+[PASS] test_redeem_five_yes_after_yes_win_reverts() (gas: 717668)
+Logs:
+  classification: existing_rule
+  solidity_rejected: true
+  solidity_error: ERC20InsufficientBalance
+  payout: none
+  liability_before: 4
+  collateral_before: 4
+  liability_after: 4
+  collateral_after: 4
+  yes_supply_after: 4
+  no_supply_after: 4
+  yes_redeemed_after: 0
+  no_redeemed_after: 0
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 753.68µs (211.72µs CPU time)
+
+Ran 1 test suite in 5.80ms (753.68µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

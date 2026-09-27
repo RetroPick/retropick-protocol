@@ -1,0 +1,45 @@
+tool: forge 1.8.3 (cae51ad458f6abb64852b7709eb784352429825d)
+solc: 0.8.26
+optimizer: true
+optimizer_runs: 200
+via_ir: false
+fail_on_revert: false
+cwd: /workspace/research/contract-kernels
+sha: e28e60c7a9cad6f4157cc3b249585cc012c3f893
+command: forge test --match-contract CandidatePayoffTransformInvariantTest -vv --fuzz-seed SEED
+
+warmup config: runs 32, depth 16
+seed 20260926:
+invariant_matchingPayoffValuesUnchanged pass
+invariant_rejectedTransformLeavesStateUnchanged pass
+invariant_resolvedComponentStaysResolved pass
+invariant_successfulTransformIsPayoffEquivalent pass
+invariant_supplyUnchanged pass
+runs 32, calls 512, reverts 0, discards 0
+transformComponent 512
+finished in 42.32ms
+exit_code: 0
+
+seed 20260927:
+same five invariants pass
+runs 32, calls 512, reverts 0, discards 0
+transformComponent 512
+finished in 42.90ms
+exit_code: 0
+
+recorded config: runs 256, depth 128
+seed 20260926:
+same five invariants pass
+runs 256, calls 32768, reverts 0, discards 0
+transformComponent 32768
+finished in 1.93s
+exit_code: 0
+
+seed 20260927:
+same five invariants pass
+runs 256, calls 32768, reverts 0, discards 0
+transformComponent 32768
+finished in 1.93s
+exit_code: 0
+
+counterexample: none

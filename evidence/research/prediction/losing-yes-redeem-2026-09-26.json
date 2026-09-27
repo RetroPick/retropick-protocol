@@ -1,0 +1,58 @@
+{
+  "adr_added": false,
+  "adr_p15": "PROPOSED",
+  "adr_p15_note": "ADR-P15 stays a name proposal. This witness is not a payout disagreement.",
+  "adr_p16": "PROPOSED",
+  "after": {
+    "collateral_locked": "4",
+    "no_redeemed": "0",
+    "no_supply": "4",
+    "yes_redeemed": "1",
+    "yes_supply": "3"
+  },
+  "before": {
+    "collateral_locked": "4",
+    "no_redeemed": "0",
+    "no_supply": "4",
+    "yes_redeemed": "0",
+    "yes_supply": "4"
+  },
+  "burn_worthless_called": false,
+  "canonical_math1": "FAIL",
+  "case": "no_win_redeem_one_yes",
+  "classification": "existing_rule",
+  "command": "forge test --match-contract LosingYesRedeemTest -vv",
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "error": null,
+  "gas": 586104,
+  "implementations_changed": false,
+  "payout": "0",
+  "profile": "default",
+  "python": {
+    "after": {
+      "collateral_locked": "4",
+      "no_redeemed": "0",
+      "no_supply": "4",
+      "yes_redeemed": "1",
+      "yes_supply": "3"
+    },
+    "before": {
+      "collateral_locked": "4",
+      "no_redeemed": "0",
+      "no_supply": "4",
+      "yes_redeemed": "0",
+      "yes_supply": "4"
+    },
+    "error": null,
+    "function": "redeem of the YES side",
+    "payout": "0"
+  },
+  "result": "NO_WIN",
+  "s_p16": "open",
+  "sha_base": "77026bc08f80a8a7be982a60c94218de787d7e85",
+  "solidity_function": "redeemYes",
+  "split": "4",
+  "tests_failed": 0,
+  "tests_passed": 1
+}

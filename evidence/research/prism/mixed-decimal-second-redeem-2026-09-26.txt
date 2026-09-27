@@ -1,0 +1,54 @@
+tool: python3 and forge test
+command: forge test --match-contract MixedDecimalSecondRedeemTest -vv
+cwd: /workspace/research/contract-kernels
+profile: default
+sha_base: ce2fd2da8d054af802800efefa8774a04d17e9bf
+decimals: 6,18
+weights: 10^30+1,10^30+1
+python_required_supply_2: 3,2000000000001
+python_first_paid: 1,1000000000000
+python_second_paid: 2,1000000000001
+python_before: supply 1, backing 2,1000000000001, required 2,1000000000001
+python_after: supply 0, backing 0,0, required 0,0
+python_residual_at_supply_0: false
+classification: existing_rule
+adr_added: none
+kuru_decimals_18: not_established
+math1: FAIL
+pred_kuru_1: blocked
+sweep_policy: NOT_YET_VALIDATED
+
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 1.12s
+Compiler run successful!
+
+Ran 1 test for test/prism/MixedDecimalSecondRedeem.t.sol:MixedDecimalSecondRedeemTest
+[PASS] test_mixed_decimals_second_redeem() (gas: 938701)
+Logs:
+  constructor_rejected: false
+  required_supply_2_0: 3
+  required_supply_2_1: 2000000000001
+  supply_before: 1
+  backing_before_0: 2
+  backing_before_1: 1000000000001
+  required_before_0: 2
+  required_before_1: 1000000000001
+  first_paid_0: 1
+  first_paid_1: 1000000000000
+  second_paid_0: 2
+  second_paid_1: 1000000000001
+  supply_after: 0
+  backing_after_0: 0
+  backing_after_1: 0
+  required_after_0: 0
+  required_after_1: 0
+  kernel_balance_0: 0
+  kernel_balance_1: 0
+  series_balance: 0
+  classification: existing_rule
+  kuru_decimals_18: not_established
+  sweep_policy: NOT_YET_VALIDATED
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 807.14µs (622.92µs CPU time)
+
+Ran 1 test suite in 5.46ms (807.14µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

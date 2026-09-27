@@ -1,0 +1,12 @@
+tool: python3 3.12.3
+command: python3 -m unittest tests.test_extended_domains -v
+cwd: /workspace/research/prism-model
+sha: dd7bfb5dc99dd72486649a4cbbcb26f172a1a34f
+test_backing_grid_preserves_component_backing (tests.test_extended_domains.ExtendedDomainTests.test_backing_grid_preserves_component_backing) ... ok
+test_supply16_compositions_stay_within_the_one_shot_floor (tests.test_extended_domains.ExtendedDomainTests.test_supply16_compositions_stay_within_the_one_shot_floor) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 8.081s
+
+OK
+exit_code: 0

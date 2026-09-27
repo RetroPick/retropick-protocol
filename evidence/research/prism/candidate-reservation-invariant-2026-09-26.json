@@ -1,0 +1,41 @@
+{
+  "call_counts": {
+    "20260926": {
+      "deposit": 16190,
+      "reserve": 16578
+    },
+    "20260927": {
+      "deposit": 16365,
+      "reserve": 16403
+    }
+  },
+  "calls": 32768,
+  "canonical_math1": "FAIL",
+  "counterexample": null,
+  "depth": 128,
+  "fail_on_revert": false,
+  "forge_commit": "cae51ad458f6abb64852b7709eb784352429825d",
+  "forge_version": "1.8.3",
+  "handlers": ["deposit", "reserve"],
+  "id": "CANDIDATE-RESERVATION-INVARIANT",
+  "invariants": ["invariant_reservationsWithinBalance"],
+  "kernel_status": "differential_research_kernel",
+  "optimizer": true,
+  "optimizer_runs": 200,
+  "rejected_reserve": "try/catch leaves balance, totalReserved, and reservedFor unchanged",
+  "rejected_withdraw": "CandidateReservationLedger has no withdraw or release; neither function was added",
+  "result": "pass",
+  "reverts": 0,
+  "runs": 256,
+  "seeds": [20260926, 20260927],
+  "solc": "0.8.26",
+  "via_ir": false,
+  "warmup": {
+    "calls": 512,
+    "depth": 16,
+    "result": "pass",
+    "reverts": 0,
+    "runs": 32,
+    "seeds": [20260926, 20260927]
+  }
+}

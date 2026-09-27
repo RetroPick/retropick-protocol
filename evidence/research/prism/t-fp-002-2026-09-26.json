@@ -1,0 +1,58 @@
+{
+  "assumptions": [
+    "0 <= Q <= S",
+    "nonnegative weight and raw backing",
+    "positive denominator WAD * decimal factor",
+    "Req is mul_div_ceil(supply, weight, denominator)",
+    "backing before redemption is at least Req(S)",
+    "the oracle is FixedPointSeries.redeem, not FixedPointSettlement.redeem"
+  ],
+  "canonical_math1": "FAIL",
+  "checker": "sympy_z3_and_fixed_point_series",
+  "classification": "PROVEN_UNDER_ASSUMPTIONS",
+  "counterexample": null,
+  "id": "T-FP-002",
+  "margin_identity": true,
+  "model_check": {
+    "backing_after": [
+      2,
+      2
+    ],
+    "backing_before": [
+      3,
+      3
+    ],
+    "decimals": [
+      18,
+      18
+    ],
+    "margin_unchanged": true,
+    "redeemed": 2,
+    "released": [
+      1,
+      1
+    ],
+    "requirement_after": [
+      2,
+      2
+    ],
+    "requirement_before": [
+      3,
+      3
+    ],
+    "still_backed": true,
+    "supply_after": 3,
+    "supply_before": 5,
+    "weights": [
+      500000000000000000,
+      500000000000000000
+    ]
+  },
+  "remaining_shortfall": "unsat",
+  "runtime_seconds": 0.022174,
+  "settlement_redemption": "not_this_statement",
+  "statement": "Release_i=Req_i(S)-Req_i(S-Q). If B_i>=Req_i(S), then B_i'>=Req_i(S-Q)",
+  "sympy_version": "1.14.0",
+  "written_claim": "requirement-delta redemption cannot leave remaining supply below the conservative raw requirement",
+  "z3_version": "5.1.0"
+}

@@ -1,0 +1,76 @@
+{
+  "adr_added": false,
+  "backing_raw_after": [
+    "1",
+    "1"
+  ],
+  "backing_raw_before": [
+    "0",
+    "0"
+  ],
+  "canonical_math1": "FAIL",
+  "case": "deposit_walks_constructor_component_count",
+  "classification": "bounded_by_constructor",
+  "command": "forge test --match-contract DepositComponentCountTest -vv",
+  "component_count": 2,
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "decimals": [
+    18,
+    18
+  ],
+  "deposit_amounts": [
+    "1",
+    "1"
+  ],
+  "deposit_edited": false,
+  "forge": "1.8.3",
+  "gas": 556488,
+  "id": "DEPOSIT-COMPONENT-COUNT",
+  "implementations_changed": false,
+  "index_outside_count_readable_after": false,
+  "pred_kuru_1": "blocked",
+  "profile": "default",
+  "python": {
+    "backing_raw_after": [
+      "1",
+      "1"
+    ],
+    "backing_raw_before": [
+      "0",
+      "0"
+    ],
+    "component_count": 2,
+    "function": "FixedPointSeries.deposit_raw",
+    "rejected": false,
+    "token_balance_field": false
+  },
+  "s_p16": "open",
+  "solc": "0.8.26",
+  "solidity": {
+    "holder_balance_after": [
+      "0",
+      "0"
+    ],
+    "holder_balance_before": [
+      "1",
+      "1"
+    ],
+    "kernel_balance_after": [
+      "1",
+      "1"
+    ],
+    "kernel_balance_before": [
+      "0",
+      "0"
+    ]
+  },
+  "tests_failed": 0,
+  "tests_passed": 1,
+  "third_component_added": false,
+  "weights_wad": [
+    "0",
+    "0"
+  ],
+  "x_i01_through_x_i07": "NOT_YET_VALIDATED"
+}

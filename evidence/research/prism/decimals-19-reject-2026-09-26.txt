@@ -1,0 +1,33 @@
+tool: python3 and forge test
+command: forge test --match-contract DecimalsNineteenRejectTest -vv
+cwd: /workspace/research/contract-kernels
+profile: default
+sha_base: 1975579b2de6aa09b2c0f3719775ab33c2770ffc
+weights: 1000000000000000000,1000000000000000000
+decimals: 19,19
+python_accepted: false
+python_error: FixedPointModelError: Phase-1 normalized component decimals must be 0..18
+python_stored_decimals: none
+solidity_accepted: false
+solidity_error: DecimalsOutOfRange(19)
+solidity_stored_decimals: none
+mint: not_executed
+classification: existing_rule
+adr_added: none
+revert_strings_differ: true
+kuru_decimals_18: not_established
+math1: FAIL
+pred_kuru_1: blocked
+
+No files changed, compilation skipped
+
+Ran 1 test for test/prism/DecimalsNineteenReject.t.sol:DecimalsNineteenRejectTest
+[PASS] test_constructor_rejects_decimals_19() (gas: 12736)
+Logs:
+  attempt: decimals 19 and 19
+  weights: 1000000000000000000,1000000000000000000
+  mint: not_executed
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 400.74µs (249.23µs CPU time)
+
+Ran 1 test suite in 5.36ms (400.74µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

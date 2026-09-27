@@ -103,11 +103,21 @@ def run_invariant_ids() -> dict[str, dict[str, str]]:
     draft = create_market(integer=True, collateral="COLL", dust_sink="SINK")
     draft.cancel_draft()
     check_p_i05(draft)
+    cancelled_clean = (
+        draft.state.value == "ARCHIVED"
+        and draft.cancel_reason == "CANCELLED_BEFORE_ACTIVATION"
+        and draft.spec is None
+        and draft.collateral_locked == 0
+    )
     rows["P-I05"] = {
-        "classification": "EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN" if replace and spec_before == frozen.spec_hash_frozen else "FAIL",
+        "classification": "EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN"
+        if replace and spec_before == frozen.spec_hash_frozen and cancelled_clean
+        else "FAIL",
         "scope": "activated hash stays spec-hash; cancelled draft has no spec",
-        "kernel_cancel_draft": "NOT_YET_VALIDATED",
-        "kernel_missing_operation": "cancelDraft",
+        "kernel_cancel_draft": "measured",
+        "kernel_operation": "cancelDraft",
+        "cancelled_draft_reason": draft.cancel_reason,
+        "cancelled_draft_collateral": str(draft.collateral_locked),
     }
 
     pending = _open()

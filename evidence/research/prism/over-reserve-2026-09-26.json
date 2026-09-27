@@ -1,0 +1,53 @@
+{
+  "adr_added": false,
+  "adr_r10": "PROPOSED",
+  "after": {
+    "available": "40",
+    "balance": "100",
+    "series_a": "60",
+    "series_b": "0",
+    "total_reserved": "60"
+  },
+  "before_second_reserve": {
+    "available": "40",
+    "balance": "100",
+    "series_a": "60",
+    "series_b": "0",
+    "total_reserved": "60"
+  },
+  "canonical_math1": "FAIL",
+  "case": "over_reserve_60_then_50",
+  "classification": "existing_rule",
+  "command": "forge test --match-contract OverReserveTest -vv",
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "deposit": "100",
+  "error": "InsufficientUnreserved(asset, 50, 40)",
+  "first_reserve": "60",
+  "gas": 214969,
+  "id": "OVER-RESERVE",
+  "implementations_changed": false,
+  "kernel": "research/contract-kernels/src/prism/CandidateReservationLedger.sol",
+  "pred_kuru_1": "blocked",
+  "profile": "default",
+  "python": {
+    "after": {
+      "available": "40",
+      "balance": "100",
+      "series_a": "60",
+      "series_b": "0",
+      "total_reserved": "60"
+    },
+    "error": "insufficient unreserved balance for ASSET: requested=50, available=40",
+    "function": "ReservationLedger.deposit then reserve",
+    "rejected": true
+  },
+  "release_added": false,
+  "reserve_edited": false,
+  "s_p16": "open",
+  "second_reserve": "50",
+  "sha_base": "cd0fc79d7434750fab102e1a5d700b746c66281f",
+  "tests_failed": 0,
+  "tests_passed": 1,
+  "withdraw_added": false
+}

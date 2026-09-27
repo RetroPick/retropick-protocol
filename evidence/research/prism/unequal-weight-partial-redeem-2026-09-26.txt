@@ -1,0 +1,62 @@
+tool: forge test
+command: forge test --match-contract UnequalWeightPartialRedeemTest -vv
+cwd: /workspace/research/contract-kernels
+profile: default
+sha_base: e5c8c91d8b8b46d4463ad81b15496ea0bcd61cc6
+weights: 10^18, 3*10^18
+decimals: 18, 18
+constructor_rejected: false on Solidity and Python
+required_raw_for_supply_2: 2, 6 on both sides
+deposit: exactly that requirement, 2, 6
+mint: 2 by the depositor
+redeem: Solidity redeem(1) by the minter, Python FixedPointSeries.redeem(1)
+classification: existing_rule
+component_tokens_paid: 1,3
+python_released: 1,3
+supply: 2 before, 1 after
+backing_raw: 2,6 before, 1,3 after
+required_raw: 2,6 before, 1,3 after
+backing_covers_remaining_supply: true
+adr_added: false
+math1: FAIL
+sweep_policy: NOT_YET_VALIDATED
+source_interface: proposed_not_frozen
+
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 1.16s
+Compiler run successful!
+
+Ran 1 test for test/prism/UnequalWeightPartialRedeem.t.sol:UnequalWeightPartialRedeemTest
+[PASS] test_minter_redeems_one_of_two_at_unequal_weights() (gas: 861730)
+Logs:
+  constructor_rejected: 0
+  deposit_required_0: 2
+  deposit_required_1: 6
+  before
+  supply: 2
+  backing0: 2
+  backing1: 6
+  required0: 2
+  required1: 6
+  series: 2
+  component0: 0
+  component1: 0
+  covers0: 1
+  covers1: 1
+  paid_0: 1
+  paid_1: 3
+  after
+  supply: 1
+  backing0: 1
+  backing1: 3
+  required0: 1
+  required1: 3
+  series: 1
+  component0: 1
+  component1: 3
+  covers0: 1
+  covers1: 1
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 758.73µs (579.87µs CPU time)
+
+Ran 1 test suite in 5.58ms (758.73µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

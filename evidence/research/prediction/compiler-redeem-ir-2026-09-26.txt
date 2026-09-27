@@ -1,0 +1,68 @@
+tool: forge inspect
+command: forge inspect PredictionMarket ir-optimized
+cwd: /workspace/research/contract-kernels
+profile: default
+FOUNDRY_PROFILE: unset
+forge: 1.8.3
+forge_commit: cae51ad458f6abb64852b7709eb784352429825d
+exit_code: 0
+stdout_bytes: 195244
+stdout_lines: 2457
+contains_redeem: true
+contains_burn: true
+classification: compiler_sees_redeem_analyzer_does_not
+s_p16: open
+note: matching lines only. The full IR is not stored. This is not PRED-CONTRACT-1 PASS.
+
+442:                        /// @src 24:5971:6004  "yesToken.burn(msg.sender, amount)"
+448:                        /// @src 24:5971:6004  "yesToken.burn(msg.sender, amount)"
+450:                        /// @src 24:5971:6004  "yesToken.burn(msg.sender, amount)"
+452:                        /// @src 24:5971:6004  "yesToken.burn(msg.sender, amount)"
+453:                        let _9 := call(gas(), _7, /** @src 24:907:10036  "contract PredictionMarket is ReentrancyGuard {..." */ 0, /** @src 24:5971:6004  "yesToken.burn(msg.sender, amount)" */ _8, sub(abi_encode_address_uint256(add(_8, /** @src 24:907:10036  "contract PredictionMarket is ReentrancyGuard {..." */ 4), /** @src 24:5985:5995  "msg.sender" */ caller(), /** @src 24:5971:6004  "yesToken.burn(msg.sender, amount)" */ value_3), _8), _8, /** @src 24:907:10036  "contract PredictionMarket is ReentrancyGuard {..." */ 0)
+454:                        /// @src 24:5971:6004  "yesToken.burn(msg.sender, amount)"
+462:                        /// @src 24:5971:6004  "yesToken.burn(msg.sender, amount)"
+469:                        /// @src 24:6014:6046  "noToken.burn(msg.sender, amount)"
+475:                        /// @src 24:6014:6046  "noToken.burn(msg.sender, amount)"
+477:                        /// @src 24:6014:6046  "noToken.burn(msg.sender, amount)"
+479:                        /// @src 24:6014:6046  "noToken.burn(msg.sender, amount)"
+480:                        let _12 := call(gas(), _10, /** @src 24:907:10036  "contract PredictionMarket is ReentrancyGuard {..." */ _2, /** @src 24:6014:6046  "noToken.burn(msg.sender, amount)" */ _11, sub(abi_encode_address_uint256(add(_11, /** @src 24:907:10036  "contract PredictionMarket is ReentrancyGuard {..." */ 4), /** @src 24:5985:5995  "msg.sender" */ caller(), /** @src 24:6014:6046  "noToken.burn(msg.sender, amount)" */ value_3), _11), _11, /** @src 24:907:10036  "contract PredictionMarket is ReentrancyGuard {..." */ _2)
+481:                        /// @src 24:6014:6046  "noToken.burn(msg.sender, amount)"
+489:                        /// @src 24:6014:6046  "noToken.burn(msg.sender, amount)"
+534:                        /// @src 24:7898:7931  "_redeem(msg.sender, true, amount)"
+576:                        /// @src 24:9625:9655  "yesToken.burn(account, amount)"
+582:                        /// @src 24:9625:9655  "yesToken.burn(account, amount)"
+584:                        /// @src 24:9625:9655  "yesToken.burn(account, amount)"
+586:                        /// @src 24:9625:9655  "yesToken.burn(account, amount)"
+587:                        let _17 := call(gas(), _15, /** @src 24:9250:9255  "state" */ _2, /** @src 24:9625:9655  "yesToken.burn(account, amount)" */ _16, sub(abi_encode_address_uint256(add(_16, /** @src 24:907:10036  "contract PredictionMarket is ReentrancyGuard {..." */ 4), /** @src 24:7906:7916  "msg.sender" */ caller(), /** @src 24:9625:9655  "yesToken.burn(account, amount)" */ value_5), _16), _16, /** @src 24:9250:9255  "state" */ _2)
+588:                        /// @src 24:9625:9655  "yesToken.burn(account, amount)"
+596:                        /// @src 24:9625:9655  "yesToken.burn(account, amount)"
+869:                            /// @src 24:8521:8553  "noToken.burn(msg.sender, amount)"
+875:                            /// @src 24:8521:8553  "noToken.burn(msg.sender, amount)"
+877:                            /// @src 24:8521:8553  "noToken.burn(msg.sender, amount)"
+879:                            /// @src 24:8521:8553  "noToken.burn(msg.sender, amount)"
+880:                            let _27 := call(gas(), _25, /** @src 24:907:10036  "contract PredictionMarket is ReentrancyGuard {..." */ _2, /** @src 24:8521:8553  "noToken.burn(msg.sender, amount)" */ _26, sub(abi_encode_address_uint256(add(_26, /** @src 24:907:10036  "contract PredictionMarket is ReentrancyGuard {..." */ 4), /** @src 24:8534:8544  "msg.sender" */ caller(), /** @src 24:8521:8553  "noToken.burn(msg.sender, amount)" */ value_13), _26), _26, /** @src 24:907:10036  "contract PredictionMarket is ReentrancyGuard {..." */ _2)
+881:                            /// @src 24:8521:8553  "noToken.burn(msg.sender, amount)"
+889:                            /// @src 24:8521:8553  "noToken.burn(msg.sender, amount)"
+901:                            /// @src 24:8424:8457  "yesToken.burn(msg.sender, amount)"
+907:                            /// @src 24:8424:8457  "yesToken.burn(msg.sender, amount)"
+909:                            /// @src 24:8424:8457  "yesToken.burn(msg.sender, amount)"
+911:                            /// @src 24:8424:8457  "yesToken.burn(msg.sender, amount)"
+912:                            let _30 := call(gas(), _28, /** @src 24:907:10036  "contract PredictionMarket is ReentrancyGuard {..." */ _2, /** @src 24:8424:8457  "yesToken.burn(msg.sender, amount)" */ _29, sub(abi_encode_address_uint256(add(_29, /** @src 24:907:10036  "contract PredictionMarket is ReentrancyGuard {..." */ 4), /** @src 24:8438:8448  "msg.sender" */ caller(), /** @src 24:8424:8457  "yesToken.burn(msg.sender, amount)" */ value_13), _29), _29, /** @src 24:907:10036  "contract PredictionMarket is ReentrancyGuard {..." */ _2)
+913:                            /// @src 24:8424:8457  "yesToken.burn(msg.sender, amount)"
+921:                            /// @src 24:8424:8457  "yesToken.burn(msg.sender, amount)"
+1141:                        /// @src 24:8044:8078  "_redeem(msg.sender, false, amount)"
+1143:                        /// @ast-id 2864 @src 24:9138:10034  "function _redeem(address account, bool yesSide, uint256 amount) internal returns (uint256 payout) {..."
+1194:                            /// @src 24:9754:9783  "noToken.burn(account, amount)"
+1200:                            /// @src 24:9754:9783  "noToken.burn(account, amount)"
+1202:                            /// @src 24:9754:9783  "noToken.burn(account, amount)"
+1204:                            /// @src 24:9754:9783  "noToken.burn(account, amount)"
+1205:                            let _40 := call(gas(), _38, /** @src 24:9598:9860  "if (yesSide) {..." */ 0, /** @src 24:9754:9783  "noToken.burn(account, amount)" */ _39, sub(abi_encode_address_uint256(add(_39, /** @src 24:907:10036  "contract PredictionMarket is ReentrancyGuard {..." */ 4), /** @src 24:8052:8062  "msg.sender" */ caller(), /** @src 24:9754:9783  "noToken.burn(account, amount)" */ value_19), _39), _39, /** @src 24:9598:9860  "if (yesSide) {..." */ 0)
+1206:                            /// @src 24:9754:9783  "noToken.burn(account, amount)"
+1214:                            /// @src 24:9754:9783  "noToken.burn(account, amount)"
+1230:                            /// @src 24:9625:9655  "yesToken.burn(account, amount)"
+1236:                            /// @src 24:9625:9655  "yesToken.burn(account, amount)"
+1238:                            /// @src 24:9625:9655  "yesToken.burn(account, amount)"
+1240:                            /// @src 24:9625:9655  "yesToken.burn(account, amount)"
+1241:                            let _43 := call(gas(), _41, /** @src 24:9250:9255  "state" */ _2, /** @src 24:9625:9655  "yesToken.burn(account, amount)" */ _42, sub(abi_encode_address_uint256(add(_42, /** @src 24:907:10036  "contract PredictionMarket is ReentrancyGuard {..." */ 4), /** @src 24:8052:8062  "msg.sender" */ caller(), /** @src 24:9625:9655  "yesToken.burn(account, amount)" */ value_19), _42), _42, /** @src 24:9250:9255  "state" */ _2)
+1242:                            /// @src 24:9625:9655  "yesToken.burn(account, amount)"
+1250:                            /// @src 24:9625:9655  "yesToken.burn(account, amount)"

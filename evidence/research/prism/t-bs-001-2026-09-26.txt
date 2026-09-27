@@ -1,0 +1,11 @@
+tool: python3 3.12.3
+command: python3 -m unittest tests.test_t_bs_001 -v
+cwd: /workspace/research/prism-model
+sha: c1f7bb0879e9e399e217dc7446ae4030135c6d03
+test_exact_backed_mint_preserves_margin (tests.test_t_bs_001.TBs001Tests.test_exact_backed_mint_preserves_margin) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.023s
+
+OK
+exit_code: 0

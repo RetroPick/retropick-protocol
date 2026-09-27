@@ -1,0 +1,74 @@
+{
+  "adr_added": false,
+  "canonical_math1": "FAIL",
+  "case": "second_transform_of_component_1_payout_1",
+  "classification": "existing_rule",
+  "command": "forge test --match-contract SecondComponentTransformTest -vv",
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "first_call": {
+    "cash_added": "400",
+    "function_python": "apply_transform",
+    "function_solidity": "transformComponent",
+    "index": 1,
+    "payout": "1",
+    "result": "accepted"
+  },
+  "gas": 264052,
+  "implementations_changed": false,
+  "kuru_decimals_must_be_18": "not_established",
+  "payoff": [[0, 1], [0, 0], [1, 1], [1, 0]],
+  "pred_kuru_1": "blocked",
+  "profile": "default",
+  "python": {
+    "after_first": {
+      "backing": ["600", "0"],
+      "possible_mask": 5,
+      "possible_states": [0, 2],
+      "resolved_components": {"1": "1"},
+      "resolved_mask": 2,
+      "supply": 1000,
+      "transformed_settlement": "400"
+    },
+    "after_second": {
+      "backing": ["600", "0"],
+      "possible_mask": 5,
+      "possible_states": [0, 2],
+      "resolved_components": {"1": "1"},
+      "resolved_mask": 2,
+      "supply": 1000,
+      "transformed_settlement": "400"
+    },
+    "error": "component already resolved",
+    "error_type": "PartialResolutionError",
+    "second_call": "rejected",
+    "state_unchanged": true
+  },
+  "s_p16": "open",
+  "sha_base": "829934ada48ab054797e43d2b507b4e5828a6d77",
+  "solidity": {
+    "after_first": {
+      "backing": ["600", "0"],
+      "possible_mask": 5,
+      "resolved_mask": 2,
+      "supply": 1000,
+      "transformed": "400"
+    },
+    "after_second": {
+      "backing": ["600", "0"],
+      "possible_mask": 5,
+      "resolved_mask": 2,
+      "supply": 1000,
+      "transformed": "400"
+    },
+    "error": "AlreadyResolved(1)",
+    "second_call": "rejected",
+    "state_unchanged": true
+  },
+  "supply": 1000,
+  "sweep_added": false,
+  "sweep_policy": "NOT_YET_VALIDATED",
+  "tests_failed": 0,
+  "tests_passed": 1,
+  "weights": ["3/5", "2/5"]
+}

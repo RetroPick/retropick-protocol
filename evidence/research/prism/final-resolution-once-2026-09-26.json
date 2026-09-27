@@ -1,0 +1,60 @@
+{
+  "adr_added": false,
+  "adr_r15": "PROPOSED",
+  "canonical_math1": "FAIL",
+  "candidate": {
+    "backing_state_changing": [
+      "deposit",
+      "mint",
+      "redeem"
+    ],
+    "final_resolution_commit": "absent",
+    "note": "CandidatePayoffTransform.transformComponent replaces one component when the remaining states stay equivalent. It is not resolve() and it was not called as a second final commit.",
+    "payoff_transform_state_changing": [
+      "transformComponent"
+    ],
+    "second_commit": "not_executed",
+    "settlement_state_changing": [
+      "makeRedeemable",
+      "redeem"
+    ]
+  },
+  "case": "final_resolution_once",
+  "classification": "recorded_gap",
+  "command": "forge test --match-contract FinalResolutionAbsenceTest -vv",
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "foundry_r_i12": "not_executable",
+  "gas": 11168,
+  "id": "FINAL-RESOLUTION-ONCE",
+  "implementations_changed": false,
+  "invariant": "INV-P12",
+  "pred_kuru_1": "blocked",
+  "profile": "default",
+  "python": {
+    "after_first": {
+      "final_payout": "1",
+      "state": "RESOLVED"
+    },
+    "after_second": {
+      "final_payout": "1",
+      "state": "RESOLVED"
+    },
+    "before_first": {
+      "final_payout": null,
+      "state": "RESOLUTION_PENDING"
+    },
+    "error": "series must be RESOLUTION_PENDING",
+    "first_call": "PrismSeries.resolve(2)",
+    "function": "PrismSeries.resolve",
+    "rejected": true,
+    "second_call": "PrismSeries.resolve(0)",
+    "setup": "activate, mint_with_exact_backing(1000), start_resolution, resolve(2), resolve(0)"
+  },
+  "s_p16": "open",
+  "sha_base": "018b1c14c975ffef0e34494a1d96e7fdef830cbd",
+  "source_interface": "proposed_not_frozen",
+  "tests_failed": 0,
+  "tests_passed": 1,
+  "x_i01_through_x_i07": "NOT_YET_VALIDATED"
+}

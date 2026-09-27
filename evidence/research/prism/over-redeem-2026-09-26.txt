@@ -1,0 +1,43 @@
+tool: forge test
+command: forge test --match-contract OverRedeemTest -vv
+cwd: /workspace/research/contract-kernels
+profile: default
+sha_base: 5060754870527a37cf173b5de9aa99d26f9087b5
+weights: 10^18, 10^18
+decimals: 18, 18
+deposit: 1, 1
+mint: 1 by the depositor
+redeem: Solidity redeem(2) by the minter, Python FixedPointSeries.redeem(2)
+classification: existing_rule
+solidity_rejected: true
+solidity_error: InvalidQuantity(2, 1)
+python_rejected: true
+python_error: invalid redemption quantity
+python_series_balance: not_stored
+supply: 1 before and after
+backing_raw: 1,1 before and after
+required_raw_at_supply_1: 1,1
+series_balance: 1 before and after
+adr_added: false
+math1: FAIL
+sweep_policy: NOT_YET_VALIDATED
+
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 1.11s
+Compiler run successful!
+
+Ran 1 test for test/prism/OverRedeem.t.sol:OverRedeemTest
+[PASS] test_minter_redeem_of_two_reverts() (gas: 637423)
+Logs:
+  classification: existing_rule
+  solidity_rejected: true
+  error: InvalidQuantity(2, 1)
+  supply_after: 1
+  backing_raw_after: 1,1
+  required_raw_at_supply_1: 1,1
+  series_balance_before: 1
+  series_balance_after: 1
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 650.26µs (497.13µs CPU time)
+
+Ran 1 test suite in 5.57ms (650.26µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

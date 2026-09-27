@@ -1,0 +1,68 @@
+{
+  "id": "PREDICTION-ISSUANCE-INVARIANT",
+  "contract": "PredictionInvariantTest",
+  "invariant": "invariant_preResolutionConservation",
+  "handlers": [
+    "split",
+    "merge",
+    "closeMint",
+    "beginResolution"
+  ],
+  "handler_calls_cancelDraft": false,
+  "forge": "1.8.3",
+  "forge_commit": "cae51ad458f6abb64852b7709eb784352429825d",
+  "solc": "0.8.26",
+  "optimizer": true,
+  "optimizer_runs": 200,
+  "via_ir": false,
+  "profile": "default",
+  "foundry_profile_env": "unset",
+  "fail_on_revert": false,
+  "runs": 256,
+  "depth": 500,
+  "calls": 128000,
+  "discards": 0,
+  "pred_contract_1": "not_pass",
+  "seeds": [
+    {
+      "seed": 20260926,
+      "result": "pass",
+      "tests_passed": 1,
+      "tests_failed": 0,
+      "reverts": 47971,
+      "runtime_seconds": 5.27,
+      "calls_by_handler": {
+        "beginResolution": 31817,
+        "closeMint": 31953,
+        "merge": 32138,
+        "split": 32092
+      },
+      "reverts_by_handler": {
+        "beginResolution": 0,
+        "closeMint": 0,
+        "merge": 16138,
+        "split": 31833
+      }
+    },
+    {
+      "seed": 20260927,
+      "result": "pass",
+      "tests_passed": 1,
+      "tests_failed": 0,
+      "reverts": 46395,
+      "runtime_seconds": 5.28,
+      "calls_by_handler": {
+        "beginResolution": 31882,
+        "closeMint": 31989,
+        "merge": 32319,
+        "split": 31810
+      },
+      "reverts_by_handler": {
+        "beginResolution": 0,
+        "closeMint": 0,
+        "merge": 14817,
+        "split": 31578
+      }
+    }
+  ]
+}

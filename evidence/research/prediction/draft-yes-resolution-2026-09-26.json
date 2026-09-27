@@ -1,0 +1,52 @@
+{
+  "adr_added": false,
+  "adr_p04": "PROPOSED",
+  "adr_p13": "PROPOSED",
+  "adr_p15": "PROPOSED",
+  "after": {
+    "collateral_locked": "0",
+    "committed_result": null,
+    "liability": "0",
+    "state": "DRAFT"
+  },
+  "before": {
+    "collateral_locked": "0",
+    "committed_result": null,
+    "liability": "0",
+    "state": "DRAFT"
+  },
+  "canonical_math1": "FAIL",
+  "case": "resolve_yes_win_while_draft_before_activation",
+  "classification": "existing_rule",
+  "command": "forge test --match-contract DraftYesResolutionTest -vv",
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "gas": 122461,
+  "implementations_changed": false,
+  "inventory_row": {
+    "argument": "YES_WIN",
+    "file": "evidence/research/prediction/rejection-inventory-2026-09-26.json",
+    "function": "resolve",
+    "index": 3,
+    "note": "The inventory rejects resolve of YES_WIN while DRAFT and leaves collateral at 0. It does not record liability or a committed result field.",
+    "state": "DRAFT"
+  },
+  "profile": "default",
+  "python": {
+    "accepted": false,
+    "committed_result": null,
+    "error": "market has no resolution spec",
+    "error_type": "PredictionError",
+    "function": "resolve"
+  },
+  "s_p16": "open",
+  "sha_base": "05f4d526283140bb238d43139ab4ffd23312190f",
+  "solidity": {
+    "accepted": false,
+    "committed_result": "NONE",
+    "error": "BadState",
+    "function": "resolve"
+  },
+  "tests_failed": 0,
+  "tests_passed": 1
+}

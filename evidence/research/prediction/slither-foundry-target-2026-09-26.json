@@ -1,0 +1,26 @@
+{
+  "canonical_math1": "FAIL",
+  "classification": "blocked_tool",
+  "command": "slither src/prediction/PredictionMarket.sol --foundry-compile-all --exclude-dependencies --filter-paths openzeppelin-contracts",
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "error": "Impossible to generate IR for PredictionMarket._redeem (src/prediction/PredictionMarket.sol#245-263): 'NoneType' object has no attribute 'type'",
+  "error_line": "ERROR:ConvertToIR:Function not found burn",
+  "exit_code": 255,
+  "foundry_profile": "default",
+  "functions_without_ir": [
+    "PredictionMarket.split",
+    "PredictionMarket.merge",
+    "PredictionMarket.burnWorthless",
+    "PredictionMarket._redeem"
+  ],
+  "id": "SLITHER-FOUNDRY-TARGET",
+  "kernel_changed": false,
+  "pred_contract_1": "not_pass",
+  "pred_kuru_1": "blocked",
+  "project_wide_run": "evidence/research/prediction/slither-sp16-2026-09-26.json",
+  "project_wide_run_remains": "blocked_tool",
+  "redeem_has_ir": false,
+  "s_p16": "open",
+  "version": "0.11.6"
+}

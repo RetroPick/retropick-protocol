@@ -1,0 +1,11 @@
+tool: python3 3.12.3
+command: python3 -m unittest tests.test_t_fp_004 -v
+cwd: /workspace/research/prism-model
+sha: 838e75ec79cff535d9cefb2039a8583dcb73f9f9
+test_minimum_mint_redeem_cycle_extracts_nothing (tests.test_t_fp_004.TFp004Tests.test_minimum_mint_redeem_cycle_extracts_nothing) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.035s
+
+OK
+exit_code: 0

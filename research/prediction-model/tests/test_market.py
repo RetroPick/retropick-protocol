@@ -69,9 +69,59 @@ class LifecycleTests(unittest.TestCase):
 
     def test_cancel_draft(self):
         market = create_market(integer=True, collateral="COLL", dust_sink="SINK")
+        collateral_before = market.collateral_locked
         market.cancel_draft()
         check_market(market)
+        self.assertEqual(collateral_before, 0)
+        self.assertEqual(market.collateral_locked, 0)
+        self.assertEqual(market.cancel_reason, "CANCELLED_BEFORE_ACTIVATION")
+        self.assertIsNone(market.spec)
         self.assertEqual(market.state, MarketState.ARCHIVED)
+        with self.assertRaises(PredictionError):
+            activate_binary(market, market_id="m", resolver="resolver", spec_hash="h")
+        with self.assertRaises(PredictionError):
+            market.split("alice", 1, 1)
+        with self.assertRaises(PredictionError):
+            market.merge("alice", 1)
+        with self.assertRaises(PredictionError):
+            market.resolve("resolver", ResolutionResult.YES_WIN)
+        with self.assertRaises(PredictionError):
+            market.redeem("alice", Outcome.YES, 1)
+        self.assertEqual(market.collateral_locked, 0)
+        self.assertEqual(market.state, MarketState.ARCHIVED)
+
+    def test_cancel_draft_rejects_open_and_redeemable(self):
+        open_market = create_market(integer=True, collateral="COLL", dust_sink="SINK")
+        activate_binary(open_market, market_id="m", resolver="resolver", spec_hash="h")
+        open_market.split("alice", 4, 4)
+        with self.assertRaises(PredictionError):
+            open_market.cancel_draft()
+        self.assertEqual(open_market.state, MarketState.OPEN)
+        self.assertEqual(open_market.collateral_locked, 4)
+        self.assertIsNone(open_market.cancel_reason)
+
+        redeemable = create_market(integer=True, collateral="COLL", dust_sink="SINK")
+        activate_binary(redeemable, market_id="m2", resolver="resolver", spec_hash="h")
+        redeemable.split("alice", 2, 2)
+        redeemable.close_mint()
+        redeemable.begin_resolution()
+        redeemable.resolve("resolver", ResolutionResult.YES_WIN)
+        redeemable.open_redemption()
+        self.assertEqual(redeemable.state, MarketState.REDEEMABLE)
+        with self.assertRaises(PredictionError):
+            redeemable.cancel_draft()
+        self.assertEqual(redeemable.state, MarketState.REDEEMABLE)
+        self.assertEqual(redeemable.collateral_locked, 2)
+        self.assertIsNone(redeemable.cancel_reason)
+
+    def test_cancel_draft_does_not_move_locked_collateral(self):
+        market = create_market(integer=True, collateral="COLL", dust_sink="SINK")
+        market.collateral_locked = 1
+        with self.assertRaises(PredictionError):
+            market.cancel_draft()
+        self.assertEqual(market.state, MarketState.DRAFT)
+        self.assertEqual(market.collateral_locked, 1)
+        self.assertIsNone(market.cancel_reason)
 
     def test_merge_allowed_while_locked(self):
         market = create_market(integer=True, collateral="COLL", dust_sink="SINK")

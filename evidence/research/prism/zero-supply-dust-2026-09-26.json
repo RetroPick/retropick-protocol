@@ -1,0 +1,206 @@
+{
+  "assumptions": [
+    "nonnegative integer supply and payout",
+    "positive settlement denominator",
+    "exact ceil funding for the 0-or-1 residual bound",
+    "funding above the ceil is surplus and is outside that bound",
+    "FixedPointSeries.sweep_dust moves component backing, not settlement balance",
+    "the candidate constructor still reverts ZeroSupply"
+  ],
+  "canonical_math1": "FAIL",
+  "canonical_settlement_public_methods": [
+    "fund",
+    "make_redeemable",
+    "redeem",
+    "required_balance_raw",
+    "sweepable_dust"
+  ],
+  "cases": {
+    "constructed_at_supply_0": {
+      "all_cells_match": true,
+      "cell_count": 24,
+      "label": "constructed_at_supply_0",
+      "python_canonical_settlement": "object accepted; redeem(1) rejected; sweepable_dust() reads 0 and does not move the balance",
+      "python_cumulative": "object accepted; exact ceil funding is 0; one-unit redemption rejected; balance stays 0",
+      "residual": 0,
+      "sample": {
+        "canonical_balance": 0,
+        "canonical_dust_read": 0,
+        "canonical_rejected": true,
+        "ceil_funding": 0,
+        "cumulative_balance": 0,
+        "cumulative_paid": 0,
+        "cumulative_rejected": true,
+        "cumulative_supply": 0,
+        "decimals": 6,
+        "dust_read_left_balance": true,
+        "payout_wad": 0
+      },
+      "solidity_candidate": "constructor reverts ZeroSupply; the object is not created"
+    },
+    "one_unit_redemption_at_supply_0": {
+      "after_depletion": {
+        "balance_after": 1,
+        "balance_before": 1,
+        "make_redeemable_error": "",
+        "paid_after": 1,
+        "paid_before": 1,
+        "redeem_errors": {
+          "A": "invalid candidate redemption quantity",
+          "B": "invalid candidate redemption quantity",
+          "stranger": "unknown holder"
+        },
+        "state_unchanged": true,
+        "supply_after": 0,
+        "supply_before": 0,
+        "withdrew": false
+      },
+      "canonical_balance": 0,
+      "canonical_dust_read": 0,
+      "canonical_error": "invalid settlement redemption quantity",
+      "constructed": {
+        "balance_after": 0,
+        "balance_before": 0,
+        "make_redeemable_error": "",
+        "paid_after": 0,
+        "paid_before": 0,
+        "redeem_errors": {
+          "A": "unknown holder",
+          "stranger": "unknown holder"
+        },
+        "state_unchanged": true,
+        "supply_after": 0,
+        "supply_before": 0,
+        "withdrew": false
+      },
+      "label": "one_unit_redemption_at_supply_0",
+      "rejected_and_unchanged": true
+    },
+    "supply_reaches_0_after_full_redemption": {
+      "candidate_residual_one": {
+        "decimals": 18,
+        "first_payout": 0,
+        "funded": 2,
+        "gap": 1,
+        "one_shot_floor": 1,
+        "paid_raw": 1,
+        "payout_wad": 999999999999999999,
+        "post_zero": {
+          "balance_after": 1,
+          "balance_before": 1,
+          "make_redeemable_error": "",
+          "paid_after": 1,
+          "paid_before": 1,
+          "redeem_errors": {
+            "A": "invalid candidate redemption quantity",
+            "B": "invalid candidate redemption quantity",
+            "stranger": "unknown holder"
+          },
+          "state_unchanged": true,
+          "supply_after": 0,
+          "supply_before": 0,
+          "withdrew": false
+        },
+        "residual": 1,
+        "second_payout": 1,
+        "supply": 2
+      },
+      "candidate_residual_zero": {
+        "first_payout": 0,
+        "funded": 0,
+        "payout_wad": 0,
+        "post_zero": {
+          "balance_after": 0,
+          "balance_before": 0,
+          "make_redeemable_error": "",
+          "paid_after": 0,
+          "paid_before": 0,
+          "redeem_errors": {
+            "A": "invalid candidate redemption quantity",
+            "B": "invalid candidate redemption quantity",
+            "stranger": "unknown holder"
+          },
+          "state_unchanged": true,
+          "supply_after": 0,
+          "supply_before": 0,
+          "withdrew": false
+        },
+        "residual": 0,
+        "second_payout": 0
+      },
+      "canonical_per_call_read": {
+        "balance_after_read": 2,
+        "first_payout": 0,
+        "note": "CX-FP-SETTLEMENT-001 sitting balance. sweepable_dust reads it and does not transfer it",
+        "read_moved_balance": false,
+        "second_payout": 0,
+        "sweepable_dust_read": 2
+      },
+      "exact_ceil_observed": true,
+      "label": "supply_reaches_0_after_full_redemption",
+      "surplus_above_ceil": {
+        "assumption": "outside exact ceil funding",
+        "funded": 5,
+        "paid_raw": 1,
+        "residual": 4,
+        "withdrawn": false
+      }
+    }
+  },
+  "ceil_floor_gap": "unsat",
+  "checker": "z3_and_existing_settlement_functions",
+  "component_backing_sweep": {
+    "backing_after": [
+      0
+    ],
+    "class": "FixedPointSeries",
+    "method": "sweep_dust",
+    "returned": [
+      2
+    ],
+    "scope": "component backing_raw, not a settlement-token balance"
+  },
+  "cumulative_public_methods": [
+    "make_redeemable",
+    "redeem"
+  ],
+  "cx_fp_settlement_001": "COUNTEREXAMPLE_FOUND",
+  "exact_rational_series": {
+    "archive_moved_settlement_balance": false,
+    "constructed_balance_after_archive": "0",
+    "constructed_balance_before_archive": "0",
+    "constructed_redeem_error": "invalid final redemption quantity",
+    "constructed_state": "ARCHIVED",
+    "constructed_supply": 0,
+    "full_redemption_balance_after_archive": "3",
+    "full_redemption_balance_before_archive": "3",
+    "full_redemption_error": "invalid final redemption quantity",
+    "full_redemption_paid": "2"
+  },
+  "extraction_witness": null,
+  "id": "ZERO-SUPPLY-DUST",
+  "kernel_status": "differential_research_kernel",
+  "residual_bound": "PROVEN_UNDER_ASSUMPTIONS",
+  "residual_bound_statement": "Under exact ceil funding, ceil(supply*payout/D) - floor(supply*payout/D) is 0 or 1, and that gap is what remains after the cumulative floor is paid.",
+  "runtime_seconds": 0.018452,
+  "solidity": {
+    "functions": [
+      "ceilFunding",
+      "oneShotFloor",
+      "makeRedeemable",
+      "redeem"
+    ],
+    "redeem_transfers_only_nonzero_payout": true,
+    "reverts_zero_supply": true,
+    "safe_transfer_count": 1,
+    "safe_transfer_lines": [
+      "settlementToken.safeTransfer(msg.sender, payout);"
+    ],
+    "sweep_function": false
+  },
+  "statement": "Classify the existing zero-supply settlement residual. Do not add a sweep.",
+  "sweep_policy": "NOT_YET_VALIDATED",
+  "sweep_policy_statement": "No settlement function withdraws the residual. It sits in balance_raw or in the settlement-token balance.",
+  "z3_version": "5.1.0",
+  "zero_supply_python_cells": 24
+}

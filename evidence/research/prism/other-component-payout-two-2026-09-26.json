@@ -1,0 +1,69 @@
+{
+  "adr_added": false,
+  "canonical_math1": "FAIL",
+  "case": "after_component_1_payout_1_transform_component_0_payout_2",
+  "classification": "existing_rule",
+  "command": "forge test --match-contract OtherComponentPayoutTwoTest -vv",
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "first_call": {
+    "cash_added": "400",
+    "index": 1,
+    "payout": "1",
+    "result": "accepted"
+  },
+  "gas": 273141,
+  "implementations_changed": false,
+  "payoff": [[0, 1], [0, 0], [1, 1], [1, 0]],
+  "profile": "default",
+  "python": {
+    "after": {
+      "backing": ["600", "0"],
+      "possible_mask": 5,
+      "possible_states": [0, 2],
+      "resolved_components": {"1": "1"},
+      "resolved_mask": 2,
+      "supply": 1000,
+      "transformed_settlement": "400"
+    },
+    "before": {
+      "backing": ["600", "0"],
+      "possible_mask": 5,
+      "resolved_mask": 2,
+      "supply": 1000,
+      "transformed_settlement": "400"
+    },
+    "error": "component payout inconsistent with remaining terminal states",
+    "error_type": "PartialResolutionError",
+    "function": "apply_transform",
+    "second_call": "rejected",
+    "state_unchanged": true
+  },
+  "s_p16": "open",
+  "sha_base": "bedeb118571b30f9ddc939364f65e3b4b828f48a",
+  "solidity": {
+    "after": {
+      "backing": ["600", "0"],
+      "possible_mask": 5,
+      "resolved_mask": 2,
+      "supply": 1000,
+      "transformed": "400"
+    },
+    "before": {
+      "backing": ["600", "0"],
+      "possible_mask": 5,
+      "resolved_mask": 2,
+      "supply": 1000,
+      "transformed": "400"
+    },
+    "error": "Nonequivalent(0, 2)",
+    "function": "transformComponent",
+    "second_call": "rejected",
+    "state_unchanged": true
+  },
+  "supply": 1000,
+  "sweep_added": false,
+  "tests_failed": 0,
+  "tests_passed": 1,
+  "weights": ["3/5", "2/5"]
+}

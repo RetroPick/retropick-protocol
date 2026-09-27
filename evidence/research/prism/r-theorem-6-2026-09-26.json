@@ -1,0 +1,38 @@
+{
+  "assumptions": [
+    "one asset",
+    "nonnegative balance, series reservation, other-series total, and quantity",
+    "the invariant holds before the transition",
+    "other series are their summed reservation"
+  ],
+  "canonical_id": "T-ALLOC-001",
+  "canonical_math1": "FAIL",
+  "checker": "z3_and_reservation_ledger",
+  "classification": "PROVEN_UNDER_ASSUMPTIONS",
+  "counterexample": null,
+  "double_use_rejected": true,
+  "fitting_reservations": {
+    "available": "15",
+    "balance": 100,
+    "first": 60,
+    "second": 25
+  },
+  "id": "R-THEOREM-6",
+  "negation": {
+    "deposit": "unsat",
+    "release": "unsat",
+    "reserve": "unsat",
+    "withdraw": "unsat"
+  },
+  "negative_control": {
+    "available_after_reject": "40",
+    "balance": 100,
+    "first": 60,
+    "rejected": true,
+    "second": 50,
+    "unchanged": true
+  },
+  "runtime_seconds": 0.009577,
+  "written_claim": "sum_s Reserved[s,a] <= PhysicalBalance[a] is preserved by deposit, reserve, release, and withdraw",
+  "z3_version": "5.1.0"
+}

@@ -1,0 +1,59 @@
+{
+  "adr_added": null,
+  "adr_r17": "PROPOSED. Already records that CandidateComponentBacking and CandidateCumulativeSettlement have no payoff matrix. This witness does not restate that as a new absence and does not edit ADR-R17.",
+  "adr_r18": "PROPOSED. The missing replication check. Not this immutability edge.",
+  "canonical_math1": "FAIL",
+  "candidate": {
+    "backing": {
+      "calls": ["deposit", "mint", "redeem"],
+      "payoff_matrix": "absent",
+      "setter": "absent",
+      "weights_after": ["600000000000000000", "400000000000000000"],
+      "weights_before": ["600000000000000000", "400000000000000000"]
+    },
+    "note": "No setter was added. CandidatePayoffTransform stores the same payoff rows and leaves them unchanged through transformComponent. CandidateComponentBacking has no payoff matrix. That absence is already stated by ADR-R17.",
+    "transform": {
+      "call": "transformComponent(1, 1)",
+      "cash_added": "360",
+      "payoff_after": ["0", "1", "0", "0", "1", "1", "1", "0"],
+      "payoff_before": ["0", "1", "0", "0", "1", "1", "1", "0"],
+      "setter": "absent",
+      "weights_after": ["600000000000000000", "400000000000000000"],
+      "weights_before": ["600000000000000000", "400000000000000000"]
+    }
+  },
+  "case": "activated_immutability",
+  "classification": {
+    "matrix_edge": "existing_rule",
+    "weight_edge": "existing_rule"
+  },
+  "command": "forge test --match-contract ActivatedImmutabilityTest -vv",
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "foundry_matrix_edge_on_backing": "not_executable",
+  "gas": {
+    "test_backing_weights_stay_fixed": 694749,
+    "test_transform_weights_and_payoff_stay_fixed": 291088
+  },
+  "id": "ACTIVATED-IMMUTABILITY",
+  "implementations_changed": false,
+  "invariant": "INV-P02",
+  "matrix_edge_on_transform": "existing_rule",
+  "pred_kuru_1": "blocked",
+  "profile": "default",
+  "python": {
+    "function": "PrismSeries sequence in test_r_i02_activated_weights_and_matrix_stay_fixed",
+    "matrix_after": [["0", "1"], ["0", "0"], ["1", "1"], ["1", "0"]],
+    "matrix_before": [["0", "1"], ["0", "0"], ["1", "1"], ["1", "0"]],
+    "matrix_item_assignment": "AttributeError: 'tuple' object has no attribute '__setitem__'",
+    "sequence": ["activate", "mint_with_exact_backing(1000)", "redeem_in_kind(100)", "resolve_component(1, 1)", "start_resolution", "resolve(2)"],
+    "weight_item_assignment": "AttributeError: 'tuple' object has no attribute '__setitem__'",
+    "weights_after": ["3/5", "2/5"],
+    "weights_before": ["3/5", "2/5"]
+  },
+  "s_p16": "open",
+  "sha_base": "b60581d0e4c366f515b1fc6e690f01f6744dfb15",
+  "source_interface": "proposed_not_frozen",
+  "tests_failed": 0,
+  "tests_passed": 2
+}

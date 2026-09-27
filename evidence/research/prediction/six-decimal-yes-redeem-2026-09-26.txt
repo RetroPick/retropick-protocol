@@ -1,0 +1,42 @@
+tool: python3 and forge test
+command: forge test --match-contract SixDecimalYesRedeemTest -vv
+cwd: /workspace/research/contract-kernels
+profile: default
+sha_base: b04dca3fdde580a8c36ef85126365f58575dad18
+python_collateral_decimals: not_stored
+python_outcome_decimals: not_stored
+python_rejected_decimals_6: false
+python_payout: 1
+python_liability_before: 1
+python_collateral_before: 1
+python_liability_after: 0
+python_collateral_after: 0
+solidity_collateral_decimals: 6
+solidity_yes_decimals: 6
+solidity_no_decimals: 6
+solidity_payout: 1
+classification: existing_rule
+adr_added: none
+kuru_decimals_18: not_established
+math1: FAIL
+pred_kuru_1: blocked
+
+No files changed, compilation skipped
+
+Ran 1 test for test/prediction/SixDecimalYesRedeem.t.sol:SixDecimalYesRedeemTest
+[PASS] test_split_one_yes_win_redeem_one() (gas: 693968)
+Logs:
+  classification: existing_rule
+  collateral_decimals: 6
+  yes_decimals: 6
+  no_decimals: 6
+  payout: 1
+  liability_before: 1
+  collateral_before: 1
+  liability_after: 0
+  collateral_after: 0
+  kuru_decimals_18: not_established
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 727.99µs (192.58µs CPU time)
+
+Ran 1 test suite in 5.44ms (727.99µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

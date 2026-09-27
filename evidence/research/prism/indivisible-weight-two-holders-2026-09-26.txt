@@ -1,0 +1,53 @@
+tool: forge test
+command: forge test --match-contract IndivisibleWeightTwoHoldersTest -vv
+cwd: /workspace/research/contract-kernels
+profile: default
+sha_base: 58e58781bbb47d8477b8b7c4defccf5d38a2057b
+weights: 10^18+1, 10^18+1
+decimals: 18, 18
+deposit: 3, 3 by A
+mint: 2 by A
+series_transfer: absent
+transfer_call: transfer(address,uint256) returns false, empty data
+series_balance: A 2 before and after, B 0 before and after
+two_holder_redeems: not_executed
+paid_to_a: not_paid
+paid_to_b: not_paid
+supply_after_failed_transfer: 2
+backing_raw_after_failed_transfer: 3,3
+required_raw_after_failed_transfer: 3,3
+python_has_transfer: false
+python_released_in_order: 1,1 then 2,2
+python_supply_after_second: 0
+python_backing_raw_after_second: 0,0
+python_required_raw_after_second: 0,0
+classification: recorded_gap
+adr_added: false
+math1: FAIL
+sweep_policy: NOT_YET_VALIDATED
+source_interface: proposed_not_frozen
+
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 1.13s
+Compiler run successful!
+
+Ran 1 test for test/prism/IndivisibleWeightTwoHolders.t.sol:IndivisibleWeightTwoHoldersTest
+[PASS] test_series_balance_has_no_transfer() (gas: 608568)
+Logs:
+  transfer_declared: 0
+  transfer_ok: 0
+  transfer_return_len: 0
+  series_a_before: 2
+  series_b_before: 0
+  series_a_after: 2
+  series_b_after: 0
+  supply: 2
+  backing0: 3
+  backing1: 3
+  required0: 3
+  required1: 3
+  two_holder_redeems: not_executed
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 638.00µs (463.81µs CPU time)
+
+Ran 1 test suite in 5.80ms (638.00µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

@@ -1,0 +1,41 @@
+{
+  "adr_added": false,
+  "call": "OutcomeToken.mint",
+  "canonical_math1": "FAIL",
+  "case": "outsider_mint_yes",
+  "classification": "existing_rule",
+  "command": "forge test --match-contract OutsiderMintTest -vv",
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "error": "NotMarket",
+  "gas": 322367,
+  "id": "OUTSIDER-MINT",
+  "implementations_changed": false,
+  "pred_contract_1": "not_pass",
+  "pred_kuru_1": "blocked",
+  "pred_math_1": "partial",
+  "profile": "default",
+  "python_counterpart": false,
+  "python_note": "research/prediction-model has no OutcomeToken.",
+  "s_p16": "open",
+  "sha_base": "a4a52f622a7702e77dd1dcc3effa7463b5a5682c",
+  "solidity": {
+    "after": {
+      "holder_balance": "4",
+      "total_supply": "4"
+    },
+    "amount": "1",
+    "before": {
+      "holder_balance": "4",
+      "total_supply": "4"
+    },
+    "caller": "outsider",
+    "contract": "research/contract-kernels/src/prediction/OutcomeToken.sol",
+    "holder": "alice",
+    "split_amount": "4",
+    "token": "yes"
+  },
+  "tests_failed": 0,
+  "tests_passed": 1,
+  "token_edited": false
+}

@@ -1,0 +1,35 @@
+tool: forge test
+command: forge test --match-contract NoRedeemTest -vv
+cwd: /workspace/research/contract-kernels
+profile: default
+sha_base: 84d4bbc16caf7b37f9b624a7d3d2a94ed760fb3f
+split: 4
+result: NO_WIN
+redeem: Solidity redeemNo(1), Python redeem NO 1
+classification: existing_rule
+payout: 1
+before: collateral 4, YES 4, NO 4, no_redeemed 0
+after: collateral 3, YES 4, NO 3, no_redeemed 1
+python: payout 1, collateral 3, YES 4, NO 3, no_redeemed 1
+adr_added: false
+adr_p15: PROPOSED name proposal, not a payout disagreement
+adr_p16: PROPOSED
+math1: FAIL
+
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 1.04s
+Compiler run successful!
+
+Ran 1 test for test/prediction/NoRedeem.t.sol:NoRedeemTest
+[PASS] test_redeem_one_no_after_no_win() (gas: 590465)
+Logs:
+  classification: existing_rule
+  payout: 1
+  collateral_after: 3
+  yes_supply_after: 4
+  no_supply_after: 3
+  no_redeemed_after: 1
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 642.58µs (146.89µs CPU time)
+
+Ran 1 test suite in 5.42ms (642.58µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

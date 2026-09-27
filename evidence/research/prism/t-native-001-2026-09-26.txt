@@ -1,0 +1,11 @@
+tool: python3 3.12.3
+command: python3 -m unittest tests.test_t_native_001 -v
+cwd: /workspace/research/prism-model
+sha: 5f12e60d8c6a5b9e02c6f029c7416b403102d6b6
+test_split_merge_conserves_complete_set (tests.test_t_native_001.TNative001Tests.test_split_merge_conserves_complete_set) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.024s
+
+OK
+exit_code: 0

@@ -1,0 +1,23 @@
+python_command: python3 -m unittest tests.test_live_collateral_withdrawal -v
+python_cwd: research/prediction-model
+python: Python 3.12.3
+python_exit_code: 0
+test_admin_withdraw_leaves_supply_and_collateral (tests.test_live_collateral_withdrawal.LiveCollateralWithdrawalTests.test_admin_withdraw_leaves_supply_and_collateral) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+
+forge_command: forge test --match-contract LiveCollateralWithdrawalTest -vv
+forge_cwd: research/contract-kernels
+forge: forge Version: 1.8.3
+forge_commit: cae51ad458f6abb64852b7709eb784352429825d
+solc: 0.8.26
+profile: default
+forge_exit_code: 0
+Ran 1 test for test/prediction/LiveCollateralWithdrawal.t.sol:LiveCollateralWithdrawalTest
+[PASS] test_no_withdrawal_while_supply_is_outstanding() (gas: 1694955)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 1.15ms (580.61µs CPU time)
+
+Ran 1 test suite in 5.72ms (1.15ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

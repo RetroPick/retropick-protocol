@@ -1,0 +1,51 @@
+{
+  "adr_added": false,
+  "adr_p15": "PROPOSED",
+  "adr_p15_note": "ADR-P15 stays a name proposal for redeemYes, redeemNo, and Python redeem. This witness is not a payout disagreement.",
+  "adr_p16": "PROPOSED",
+  "after": {
+    "collateral_locked": "3",
+    "no_redeemed": "1",
+    "no_supply": "3",
+    "yes_supply": "4"
+  },
+  "before": {
+    "collateral_locked": "4",
+    "no_redeemed": "0",
+    "no_supply": "4",
+    "yes_supply": "4"
+  },
+  "canonical_math1": "FAIL",
+  "case": "no_win_redeem_one_no",
+  "classification": "existing_rule",
+  "command": "forge test --match-contract NoRedeemTest -vv",
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "gas": 590465,
+  "implementations_changed": false,
+  "payout": "1",
+  "profile": "default",
+  "python": {
+    "after": {
+      "collateral_locked": "3",
+      "no_redeemed": "1",
+      "no_supply": "3",
+      "yes_supply": "4"
+    },
+    "before": {
+      "collateral_locked": "4",
+      "no_redeemed": "0",
+      "no_supply": "4",
+      "yes_supply": "4"
+    },
+    "function": "redeem of the NO side",
+    "payout": "1"
+  },
+  "result": "NO_WIN",
+  "s_p16": "open",
+  "sha_base": "84d4bbc16caf7b37f9b624a7d3d2a94ed760fb3f",
+  "solidity_function": "redeemNo",
+  "split": "4",
+  "tests_failed": 0,
+  "tests_passed": 1
+}

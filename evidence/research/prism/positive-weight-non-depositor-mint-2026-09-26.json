@@ -1,0 +1,80 @@
+{
+  "adr_added": false,
+  "backing_raw_after": [
+    "1",
+    "1"
+  ],
+  "backing_raw_before": [
+    "1",
+    "1"
+  ],
+  "bob_received_series_tokens": true,
+  "bob_series_balance_after": "1",
+  "bob_series_balance_before": "0",
+  "call": "CandidateComponentBacking.mint",
+  "caller": "account_B",
+  "canonical_math1": "FAIL",
+  "case": "positive_weight_non_depositor_mint",
+  "classification": "permissionless_mint",
+  "command": "forge test --match-contract PositiveWeightNonDepositorMintTest -vv",
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "decimals": [
+    18,
+    18
+  ],
+  "deposit_amounts": [
+    "1",
+    "1"
+  ],
+  "depositor": "account_A",
+  "gas": 633405,
+  "id": "POSITIVE-WEIGHT-NON-DEPOSITOR-MINT",
+  "implementations_changed": false,
+  "mint_edited": false,
+  "mint_quantity": "1",
+  "pred_contract_1": "not_pass",
+  "pred_kuru_1": "blocked",
+  "pred_math_1": "partial",
+  "profile": "default",
+  "python": {
+    "backing_raw_after": [
+      "1",
+      "1"
+    ],
+    "backing_raw_before_mint": [
+      "1",
+      "1"
+    ],
+    "function": "FixedPointSeries.deposit_raw then FixedPointSeries.mint",
+    "holder_balances": false,
+    "note": "FixedPointSeries has no account. It does not assign the series token to B. Supply, backingRaw, and requiredRaw at supply 1 match Solidity.",
+    "rejected": false,
+    "required_raw_at_supply_1": [
+      "1",
+      "1"
+    ],
+    "supply_after": "1",
+    "supply_before_mint": "0"
+  },
+  "required_raw_at_supply_1_after": [
+    "1",
+    "1"
+  ],
+  "required_raw_at_supply_1_before": [
+    "1",
+    "1"
+  ],
+  "s_p16": "open",
+  "sha_base": "1d73533d8ef1480ffff19addb4af2e77b4c85c60",
+  "supply_after": "1",
+  "supply_before": "0",
+  "tests_failed": 0,
+  "tests_passed": 1,
+  "weights_wad": [
+    "1000000000000000000",
+    "1000000000000000000"
+  ],
+  "x_i01_through_x_i07": "NOT_YET_VALIDATED",
+  "zero_weight_case_repeated": false
+}

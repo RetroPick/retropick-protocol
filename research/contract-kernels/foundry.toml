@@ -12,6 +12,11 @@ fs_permissions = [
     { access = "read", path = "../prism-model/fixtures" },
 ]
 
+# PredictionInvalidFloorCompositionsTest only. The walk is one transaction of about 3.71e11 gas.
+# Select with FOUNDRY_PROFILE=invalid_floor_compositions. The default profile does not set this limit.
+[profile.invalid_floor_compositions]
+block_gas_limit = 600000000000
+
 [invariant]
 runs = 256
 depth = 500

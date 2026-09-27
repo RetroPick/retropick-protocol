@@ -1,0 +1,81 @@
+{
+  "adr_added": false,
+  "adr_r10": "PROPOSED",
+  "backing_raw_after_failed_transfer": [
+    "3",
+    "3"
+  ],
+  "call": "CandidateComponentBacking.transfer",
+  "canonical_math1": "FAIL",
+  "case": "indivisible_weight_two_holders",
+  "classification": "recorded_gap",
+  "command": "forge test --match-contract IndivisibleWeightTwoHoldersTest -vv",
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "decimals": [
+    18,
+    18
+  ],
+  "deposit_amounts": [
+    "3",
+    "3"
+  ],
+  "gas": 608568,
+  "id": "INDIVISIBLE-WEIGHT-TWO-HOLDERS",
+  "implementations_changed": false,
+  "mint_quantity": "2",
+  "minter": "account_A",
+  "note": "CandidateComponentBacking stores series units in balanceOf and does not declare transfer. The two-holder redeems were not executed. Python has no accounts, so its released tuples are not paid to A or B.",
+  "paid_to_a": "not_paid",
+  "paid_to_b": "not_paid",
+  "pred_kuru_1": "blocked",
+  "profile": "default",
+  "python": {
+    "function": "FixedPointSeries.deposit_raw then mint then redeem then redeem",
+    "has_transfer": false,
+    "note": "FixedPointSeries has no accounts. These released tuples are successive redeems of the same book, not payments to A and B.",
+    "released_in_order": [
+      [
+        "1",
+        "1"
+      ],
+      [
+        "2",
+        "2"
+      ]
+    ],
+    "required_raw_after_second": [
+      "0",
+      "0"
+    ],
+    "backing_raw_after_second": [
+      "0",
+      "0"
+    ],
+    "supply_after_second": "0"
+  },
+  "required_raw_after_failed_transfer": [
+    "3",
+    "3"
+  ],
+  "s_p16": "open",
+  "series_balance_a_after": "2",
+  "series_balance_b_after": "0",
+  "series_transfer": "absent",
+  "sha_base": "58e58781bbb47d8477b8b7c4defccf5d38a2057b",
+  "source_interface": "proposed_not_frozen",
+  "supply_after_failed_transfer": "2",
+  "sweep_added": false,
+  "sweep_policy": "NOT_YET_VALIDATED",
+  "tests_failed": 0,
+  "tests_passed": 1,
+  "transfer_call": "transfer(address,uint256)",
+  "transfer_ok": false,
+  "transfer_return_len": 0,
+  "two_holder_redeems": "not_executed",
+  "weights_wad": [
+    "1000000000000000001",
+    "1000000000000000001"
+  ],
+  "x_i01_through_x_i07": "NOT_YET_VALIDATED"
+}

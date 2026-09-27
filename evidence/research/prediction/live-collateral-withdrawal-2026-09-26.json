@@ -1,0 +1,81 @@
+{
+  "canonical_math1": "FAIL",
+  "case": "privileged caller withdraws collateral while supply is outstanding",
+  "classification": "existing_rule",
+  "id": "LIVE-COLLATERAL-WITHDRAWAL",
+  "implementations_changed": false,
+  "math_1_progress": false,
+  "pred_contract_1": "not_pass",
+  "pred_math_1": "partial",
+  "python": {
+    "collateral_locked": "4",
+    "error": "no admin withdrawal of collateral",
+    "function": "admin_withdraw",
+    "no_supply": "4",
+    "yes_supply": "4"
+  },
+  "rule": "merge and redeem burn before transfer; archive and cancelDraft do not pay live supply; no withdraw function",
+  "solidity": {
+    "after_holder_merge": {
+      "burned_before_transfer": true,
+      "collateral_balance": "3",
+      "collateral_locked": "3",
+      "no_supply": "3",
+      "yes_supply": "3"
+    },
+    "after_holder_redeem_yes": {
+      "burned_before_transfer": true,
+      "collateral_balance": "2",
+      "collateral_locked": "2",
+      "no_supply": "3",
+      "payout": "1",
+      "yes_supply": "2"
+    },
+    "after_rejected_archive_and_redeem": {
+      "collateral_balance": "3",
+      "collateral_locked": "3",
+      "no_supply": "3",
+      "yes_supply": "3"
+    },
+    "after_rejected_calls": {
+      "collateral_balance": "4",
+      "collateral_locked": "4",
+      "no_supply": "4",
+      "yes_supply": "4"
+    },
+    "after_split": {
+      "collateral_balance": "4",
+      "collateral_locked": "4",
+      "no_supply": "4",
+      "yes_supply": "4"
+    },
+    "callers": [
+      "factory",
+      "resolver",
+      "arbitrary"
+    ],
+    "command": "forge test --match-contract LiveCollateralWithdrawalTest -vv",
+    "cwd": "research/contract-kernels",
+    "exit_code": 0,
+    "failed": 0,
+    "forge_commit": "cae51ad458f6abb64852b7709eb784352429825d",
+    "forge_version": "1.8.3",
+    "functions": [
+      "cancelDraft",
+      "archive",
+      "redeemYes",
+      "redeemNo",
+      "merge"
+    ],
+    "insolvent_withdrawal": false,
+    "optimizer": true,
+    "optimizer_runs": 200,
+    "passed": 1,
+    "profile": "default",
+    "solc": "0.8.26",
+    "test_gas": 1694955,
+    "via_ir": false,
+    "withdraw_function": false
+  },
+  "theorem_pass": false
+}

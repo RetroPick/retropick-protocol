@@ -1,0 +1,51 @@
+{
+  "adr_added": false,
+  "adr_r10": "PROPOSED",
+  "after": {
+    "available": "0",
+    "balance": "100",
+    "series_a": "100",
+    "total_reserved": "100"
+  },
+  "before_second_reserve": {
+    "available": "40",
+    "balance": "100",
+    "series_a": "60",
+    "total_reserved": "60"
+  },
+  "canonical_math1": "FAIL",
+  "case": "same_series_reserve_60_then_40",
+  "classification": "existing_rule",
+  "command": "forge test --match-contract SameSeriesReserveTest -vv",
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "deposit": "100",
+  "error": null,
+  "first_reserve": "60",
+  "gas": 205460,
+  "id": "SAME-SERIES-RESERVE",
+  "implementations_changed": false,
+  "kernel": "research/contract-kernels/src/prism/CandidateReservationLedger.sol",
+  "pred_kuru_1": "blocked",
+  "profile": "default",
+  "python": {
+    "after": {
+      "available": "0",
+      "balance": "100",
+      "series_a": "100",
+      "total_reserved": "100"
+    },
+    "error": null,
+    "function": "ReservationLedger.deposit then reserve",
+    "rejected": false
+  },
+  "release_added": false,
+  "reserve_edited": false,
+  "s_p16": "open",
+  "second_reserve": "40",
+  "series": "A",
+  "sha_base": "1c33e75004253964532dcec2d3333732e3316044",
+  "tests_failed": 0,
+  "tests_passed": 1,
+  "withdraw_added": false
+}

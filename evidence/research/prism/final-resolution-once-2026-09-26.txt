@@ -1,0 +1,50 @@
+tool: python3 and forge test
+command: forge test --match-contract FinalResolutionAbsenceTest -vv
+cwd: /workspace/research/contract-kernels
+profile: default
+sha_base: 018b1c14c975ffef0e34494a1d96e7fdef830cbd
+python: PrismSeries.activate, mint_with_exact_backing(1000), start_resolution, resolve(2), resolve(0)
+python_before_first: RESOLUTION_PENDING, final_payout null
+python_after_first: RESOLVED, final_payout 1
+python_second: resolve(0) raises series must be RESOLUTION_PENDING
+python_after_second: RESOLVED, final_payout 1
+candidate_final_resolution_commit: absent
+candidate_second_commit: not_executed
+settlement_state_changing: makeRedeemable, redeem
+backing_state_changing: deposit, mint, redeem
+payoff_transform: transformComponent is not a final-resolution commit and was not called
+classification: recorded_gap
+foundry_r_i12: not_executable
+adr_added: false
+adr_r15: PROPOSED, does not cover this gap
+math1: FAIL
+source_interface: proposed_not_frozen
+x_i01_through_x_i07: NOT_YET_VALIDATED
+
+before_resolve_state RESOLUTION_PENDING
+before_resolve_payout None
+after_first_state RESOLVED
+after_first_payout 1
+second_rejected True
+second_error series must be RESOLUTION_PENDING
+after_second_state RESOLVED
+after_second_payout 1
+unchanged True
+
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 833.32ms
+Compiler run successful!
+
+Ran 1 test for test/prism/FinalResolutionAbsence.t.sol:FinalResolutionAbsenceTest
+[PASS] test_candidate_has_no_final_resolution_commit() (gas: 11168)
+Logs:
+  final_resolution_commit: absent
+  settlement_state_changing: makeRedeemable, redeem
+  backing_state_changing: deposit, mint, redeem
+  payoff_transform_state_changing: transformComponent
+  transform_is_final_resolution: false
+  second_commit: not_executed
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 198.04µs (26.43µs CPU time)
+
+Ran 1 test suite in 5.55ms (198.04µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

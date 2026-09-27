@@ -1,0 +1,11 @@
+tool: python3 3.12.3
+command: python3 -m unittest tests.test_r_theorem_5 -v
+cwd: /workspace/research/prism-model
+sha: adcd246df39060224c428d6138df6b7d0865859e
+test_funded_redemption_preserves_remaining_funding (tests.test_r_theorem_5.RTheorem5Tests.test_funded_redemption_preserves_remaining_funding) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.027s
+
+OK
+exit_code: 0

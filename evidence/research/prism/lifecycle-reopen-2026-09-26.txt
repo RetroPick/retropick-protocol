@@ -1,0 +1,48 @@
+tool: python3 and forge test
+command: forge test --match-contract LifecycleReopenAbsenceTest -vv
+cwd: /workspace/research/contract-kernels
+profile: default
+sha_base: fbf4cb4448f75e0e5c01df82a779c6eff39c6012
+python: research/prism-model/lifecycle.py transition
+python_redeemable: REDEEMABLE -> ACTIVE rejected, state stays REDEEMABLE
+python_archived: ARCHIVED -> DRAFT, ACTIVE, MINT_PAUSED, RESOLUTION_PENDING, RESOLVED, REDEEMABLE each rejected, state stays ARCHIVED
+candidate: CandidateCumulativeSettlement.redeemable is a bool
+closest_call: makeRedeemable sets the bool from false to true
+reopen_function: absent
+archived_state: absent
+series_state_enum: absent
+redeemable_bool_after_open: true
+classification_redeemable: recorded_gap
+classification_archived: recorded_gap
+foundry_r_i11: not_executable
+adr_added: false
+math1: FAIL
+sweep_policy: NOT_YET_VALIDATED
+source_interface: proposed_not_frozen
+x_i01_through_x_i07: NOT_YET_VALIDATED
+
+REDEEMABLE {'before': 'REDEEMABLE', 'target': 'ACTIVE', 'rejected': True, 'after': 'REDEEMABLE', 'error': 'illegal transition: REDEEMABLE -> ACTIVE'}
+ARCHIVED {'before': 'ARCHIVED', 'target': 'DRAFT', 'rejected': True, 'after': 'ARCHIVED', 'error': 'illegal transition: ARCHIVED -> DRAFT'}
+ARCHIVED {'before': 'ARCHIVED', 'target': 'ACTIVE', 'rejected': True, 'after': 'ARCHIVED', 'error': 'illegal transition: ARCHIVED -> ACTIVE'}
+ARCHIVED {'before': 'ARCHIVED', 'target': 'MINT_PAUSED', 'rejected': True, 'after': 'ARCHIVED', 'error': 'illegal transition: ARCHIVED -> MINT_PAUSED'}
+ARCHIVED {'before': 'ARCHIVED', 'target': 'RESOLUTION_PENDING', 'rejected': True, 'after': 'ARCHIVED', 'error': 'illegal transition: ARCHIVED -> RESOLUTION_PENDING'}
+ARCHIVED {'before': 'ARCHIVED', 'target': 'RESOLVED', 'rejected': True, 'after': 'ARCHIVED', 'error': 'illegal transition: ARCHIVED -> RESOLVED'}
+ARCHIVED {'before': 'ARCHIVED', 'target': 'REDEEMABLE', 'rejected': True, 'after': 'ARCHIVED', 'error': 'illegal transition: ARCHIVED -> REDEEMABLE'}
+
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 1.21s
+Compiler run successful!
+
+Ran 1 test for test/prism/LifecycleReopenAbsence.t.sol:LifecycleReopenAbsenceTest
+[PASS] test_candidate_has_no_reopen() (gas: 215895)
+Logs:
+  redeemable_before_open: 0
+  redeemable_after_open: 1
+  series_state_enum: 0
+  archived_state: 0
+  reopen_function: 0
+  redeemable_after_absent_reopen: 1
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 479.71µs (319.18µs CPU time)
+
+Ran 1 test suite in 5.52ms (479.71µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

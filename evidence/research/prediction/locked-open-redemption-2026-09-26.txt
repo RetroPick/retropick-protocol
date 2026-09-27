@@ -1,0 +1,42 @@
+tool: python3 and forge test
+command: forge test --match-contract LockedOpenRedemptionTest -vv
+cwd: /workspace/research/contract-kernels
+profile: default
+sha_base: 94bc8a9932a5f51737b16d0fe447696030dd0536
+split: 4 while OPEN
+lifecycle: closeMint / close_mint, no resolve
+python_function: open_redemption
+solidity_function: openRedemption
+inventory: rejection-inventory-2026-09-26.json rows[22] rejects open_redemption while LOCKED and does not record liability
+classification: existing_rule
+python_accepted: false
+python_error: illegal transition LOCKED -> REDEEMABLE
+solidity_accepted: false
+solidity_error: BadState
+before: LOCKED, liability 4, collateral locked 4
+after: LOCKED, liability 4, collateral locked 4
+adr_added: false
+adr_p04: PROPOSED
+adr_p15: PROPOSED
+math1: FAIL
+
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 1.12s
+Compiler run successful!
+
+Ran 1 test for test/prediction/LockedOpenRedemption.t.sol:LockedOpenRedemptionTest
+[PASS] test_open_redemption_while_locked() (gas: 385444)
+Logs:
+  state_before: LOCKED
+  liability_before: 4
+  collateral_before: 4
+  solidity_accepted: false
+  error: BadState
+  state_after: LOCKED
+  liability_after: 4
+  collateral_after: 4
+  classification: existing_rule
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 684.78µs (126.88µs CPU time)
+
+Ran 1 test suite in 5.78ms (684.78µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

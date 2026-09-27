@@ -1,0 +1,37 @@
+tool: forge test
+command: forge test --match-contract LosingYesLiabilityTest -vv
+cwd: /workspace/research/contract-kernels
+profile: default
+sha_base: ba9252c2b14201587a4666c4cdeb0774f8cffdc0
+split: 4
+result: NO_WIN
+redeem: Solidity redeemYes(1), Python redeem YES 1
+payout: 0
+classification: existing_rule
+before: liability 4, collateral 4, yes_redeemed 0, no_redeemed 0
+after: liability 4, collateral 4, yes_redeemed 1, no_redeemed 0
+python: liability 4 then 4, collateral 4 then 4, same cursors
+adr_added: false
+adr_p15: PROPOSED
+adr_p16: PROPOSED
+math1: FAIL
+liability_edited: false
+
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 1.06s
+Compiler run successful!
+
+Ran 1 test for test/prediction/LosingYesLiability.t.sol:LosingYesLiabilityTest
+[PASS] test_liability_around_zero_payout_yes_redeem() (gas: 628527)
+Logs:
+  classification: existing_rule
+  liability_before: 4
+  collateral_before: 4
+  liability_after: 4
+  collateral_after: 4
+  yes_redeemed_after: 1
+  no_redeemed_after: 0
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 751.12µs (168.45µs CPU time)
+
+Ran 1 test suite in 5.40ms (751.12µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

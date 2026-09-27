@@ -1,0 +1,59 @@
+{
+  "adr_added": false,
+  "canonical_math1": "FAIL",
+  "case": "cloneable_outcome_token_initialize_zero_market",
+  "classification": "recorded_finding",
+  "command": "forge test --match-contract ZeroAddressInitializeTest -vv",
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "error": null,
+  "forge": "1.8.3",
+  "gas": 228257,
+  "id": "ZERO-ADDRESS-INITIALIZE",
+  "implementations_changed": false,
+  "initializer_edited": false,
+  "later_split_or_redeem": false,
+  "pred_contract_1": "not_pass",
+  "pred_kuru_1": "blocked",
+  "pred_math_1": "partial",
+  "profile": "default",
+  "python_counterpart": false,
+  "python_note": "research/prediction-model has no initialize and no CloneableOutcomeToken.",
+  "s_p16": "open",
+  "sha_base": "76b73f3bbbdd8adc6e101e69a1b130f76e5345d7",
+  "solc": "0.8.26",
+  "solidity": {
+    "after": {
+      "decimals": 18,
+      "initialized": true,
+      "market": "0x0000000000000000000000000000000000000000",
+      "name": "No",
+      "outcome_index": 1,
+      "symbol": "NO",
+      "total_supply": "0"
+    },
+    "before": {
+      "decimals": 0,
+      "initialized": false,
+      "market": "0x0000000000000000000000000000000000000000",
+      "name": "",
+      "outcome_index": 0,
+      "symbol": "",
+      "total_supply": "0"
+    },
+    "call": "CloneableOutcomeToken.initialize(address(0), 1, \"No\", \"NO\", 18)",
+    "contract": "research/contract-kernels/src/prediction/CloneableOutcomeToken.sol",
+    "fields_written": [
+      "_initialized",
+      "market",
+      "outcomeIndex",
+      "name",
+      "symbol",
+      "_decimals"
+    ],
+    "supply_fields_written": [],
+    "zero_address_stored": true
+  },
+  "tests_failed": 0,
+  "tests_passed": 1
+}

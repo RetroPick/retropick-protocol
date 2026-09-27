@@ -1,0 +1,11 @@
+tool: python3 3.12.3
+command: python3 -m unittest tests.test_r_theorem_6 -v
+cwd: /workspace/research/prism-model
+sha: 227edcbc0d4061609f406dc1f302fb8d7e2e7b7c
+test_reservations_cannot_double_use_physical_balance (tests.test_r_theorem_6.RTheorem6Tests.test_reservations_cannot_double_use_physical_balance) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.010s
+
+OK
+exit_code: 0

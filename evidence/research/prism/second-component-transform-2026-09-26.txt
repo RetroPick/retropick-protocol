@@ -1,0 +1,48 @@
+tool: python3 and forge test
+command: forge test --match-contract SecondComponentTransformTest -vv
+cwd: /workspace/research/contract-kernels
+profile: default
+sha_base: 829934ada48ab054797e43d2b507b4e5828a6d77
+payoff: [[0,1],[0,0],[1,1],[1,0]]
+weights: 3/5,2/5
+supply: 1000
+backing_initial: 600,400
+python_function: apply_transform
+python_first: accepted cash_added 400
+python_after_first: supply 1000 backing 600,0 transformed 400 possible_states 0,2 resolved {1: 1} possible_mask 5 resolved_mask 2
+python_second: rejected PartialResolutionError component already resolved
+python_after_second_unchanged: true
+classification: existing_rule
+adr_added: none
+math1: FAIL
+pred_kuru_1: blocked
+sweep_policy: NOT_YET_VALIDATED
+kuru_decimals_18: not_established
+
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 1.04s
+Compiler run successful!
+
+Ran 1 test for test/prism/SecondComponentTransform.t.sol:SecondComponentTransformTest
+[PASS] test_second_transform_of_the_same_component() (gas: 264052)
+Logs:
+  first_cash_added: 400
+  supply_after_first: 1000
+  backing0_after_first: 600
+  backing1_after_first: 0
+  transformed_after_first: 400
+  possible_mask_after_first: 5
+  resolved_mask_after_first: 2
+  second_call: rejected
+  second_error: AlreadyResolved(1)
+  supply_after_second: 1000
+  backing0_after_second: 600
+  backing1_after_second: 0
+  transformed_after_second: 400
+  possible_mask_after_second: 5
+  resolved_mask_after_second: 2
+  classification: existing_rule
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 580.98µs (355.35µs CPU time)
+
+Ran 1 test suite in 5.58ms (580.98µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

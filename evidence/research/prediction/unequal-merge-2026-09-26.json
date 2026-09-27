@@ -1,0 +1,112 @@
+{
+  "canonical_math1": "FAIL",
+  "case": "merge of unequal YES and NO amounts before resolution",
+  "classification": "existing_rule",
+  "id": "UNEQUAL-MERGE",
+  "implementations_changed": false,
+  "kernels_agree": true,
+  "math_1_progress": false,
+  "pred_contract_1": "not_pass",
+  "pred_math_1": "partial",
+  "python": {
+    "after": {
+      "alice": {
+        "no": "4",
+        "yes": "1"
+      },
+      "bob": {
+        "no": "0",
+        "yes": "3"
+      },
+      "collateral_locked": "4",
+      "no_supply": "4",
+      "state": "OPEN",
+      "yes_supply": "4"
+    },
+    "attempted": "4",
+    "before": {
+      "alice": {
+        "no": "4",
+        "yes": "1"
+      },
+      "bob": {
+        "no": "0",
+        "yes": "3"
+      },
+      "collateral_locked": "4",
+      "no_supply": "4",
+      "state": "OPEN",
+      "yes_supply": "4"
+    },
+    "error": "merge requires equal YES and NO balances",
+    "function": "PredictionMarket.merge",
+    "module": "research/prediction-model/market.py",
+    "moved_yes": "3",
+    "open_before_resolution": true,
+    "quantity": "4",
+    "released": false,
+    "returned": false,
+    "setup": "the reference model has no outcome transfer; the witness moves 3 YES from alice to bob on the balance books"
+  },
+  "rule": "merge of the larger side reverts and collateral, YES supply, and NO supply stay unchanged",
+  "solidity": {
+    "after": {
+      "alice": {
+        "no": "4",
+        "yes": "1"
+      },
+      "bob": {
+        "no": "0",
+        "yes": "3"
+      },
+      "collateral_balance": "4",
+      "collateral_locked": "4",
+      "no_supply": "4",
+      "state": "OPEN",
+      "yes_supply": "4"
+    },
+    "attempted": "4",
+    "before": {
+      "alice": {
+        "no": "4",
+        "yes": "1"
+      },
+      "bob": {
+        "no": "0",
+        "yes": "3"
+      },
+      "collateral_balance": "4",
+      "collateral_locked": "4",
+      "no_supply": "4",
+      "state": "OPEN",
+      "yes_supply": "4"
+    },
+    "changed": false,
+    "command": "forge test --match-contract UnequalMergeTest -vv",
+    "cwd": "research/contract-kernels",
+    "error": "ERC20InsufficientBalance",
+    "error_args": {
+      "account": "alice",
+      "balance": "1",
+      "needed": "4"
+    },
+    "exit_code": 0,
+    "failed": 0,
+    "forge_commit": "cae51ad458f6abb64852b7709eb784352429825d",
+    "forge_version": "1.8.3",
+    "function": "PredictionMarket.merge",
+    "module": "research/contract-kernels/src/prediction/PredictionMarket.sol",
+    "moved_yes": "3",
+    "open_before_resolution": true,
+    "optimizer": true,
+    "optimizer_runs": 200,
+    "passed": 1,
+    "profile": "default",
+    "quantity": "4",
+    "released": false,
+    "solc": "0.8.26",
+    "test_gas": 661526,
+    "via_ir": false
+  },
+  "theorem_pass": false
+}

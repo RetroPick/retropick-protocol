@@ -1,0 +1,82 @@
+tool: forge test
+command: forge test --match-contract IndivisibleWeightReverseRedeemTest -vv
+cwd: /workspace/research/contract-kernels
+profile: default
+sha_base: 30b2adf9246ee1f27f5abc4c0899930ecd348e23
+weights: 10^18+1, 10^18+1
+decimals: 18, 18
+deposit: 3, 3 by A
+mint: A mints 1, then B mints 1
+redeem: B redeems 1, then A redeems 1
+classification: existing_rule
+paid_to_b: 1,1
+paid_to_a: 2,2
+larger_tuple_follows: later redeem, which is A, not the later mint, which is B
+python_released_in_order: 1,1 then 2,2
+python_accounts: none
+after_b: supply 1, backing 2,2, required 2,2, covers
+after_a: supply 0, backing 0,0, required 0,0, covers
+adr_added: false
+math1: FAIL
+sweep_policy: NOT_YET_VALIDATED
+source_interface: proposed_not_frozen
+
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 1.33s
+Compiler run successful!
+
+Ran 1 test for test/prism/IndivisibleWeightReverseRedeem.t.sol:IndivisibleWeightReverseRedeemTest
+[PASS] test_b_redeems_before_a() (gas: 1217011)
+Logs:
+  after_mints
+  supply: 2
+  backing0: 3
+  backing1: 3
+  required0: 3
+  required1: 3
+  series_a: 1
+  series_b: 1
+  comp_a0: 0
+  comp_a1: 0
+  comp_b0: 0
+  comp_b1: 0
+  covers0: 1
+  covers1: 1
+  paid_b
+  paid0: 1
+  paid1: 1
+  after_b
+  supply: 1
+  backing0: 2
+  backing1: 2
+  required0: 2
+  required1: 2
+  series_a: 1
+  series_b: 0
+  comp_a0: 0
+  comp_a1: 0
+  comp_b0: 1
+  comp_b1: 1
+  covers0: 1
+  covers1: 1
+  paid_a
+  paid0: 2
+  paid1: 2
+  after_a
+  supply: 0
+  backing0: 0
+  backing1: 0
+  required0: 0
+  required1: 0
+  series_a: 0
+  series_b: 0
+  comp_a0: 2
+  comp_a1: 2
+  comp_b0: 1
+  comp_b1: 1
+  covers0: 1
+  covers1: 1
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 955.49µs (772.28µs CPU time)
+
+Ran 1 test suite in 6.40ms (955.49µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

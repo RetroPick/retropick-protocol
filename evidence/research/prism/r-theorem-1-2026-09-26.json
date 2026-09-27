@@ -1,0 +1,137 @@
+{
+  "check": {
+    "assumptions": [
+      "finite rectangular payoff matrix",
+      "finite replication vector",
+      "exact rational or symbolic arithmetic",
+      "h(omega) is the state-wise sum of x_i g_i(omega)"
+    ],
+    "canonical_id": "T-REPL-001",
+    "canonical_math1": "FAIL",
+    "checker": "sympy",
+    "classification": "PROVEN_UNDER_ASSUMPTIONS",
+    "counterexample": null,
+    "failed_shapes": [],
+    "id": "R-THEOREM-1",
+    "nonnegativity_required_for_equality": false,
+    "oracle_matches_matrix_product": true,
+    "oracle_payoff": [
+      "2/5",
+      "0",
+      "1",
+      "3/5"
+    ],
+    "runtime_seconds": 0.020301,
+    "shapes": [
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ],
+      [
+        2,
+        1
+      ],
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        3
+      ],
+      [
+        2,
+        4
+      ],
+      [
+        3,
+        1
+      ],
+      [
+        3,
+        2
+      ],
+      [
+        3,
+        3
+      ],
+      [
+        3,
+        4
+      ],
+      [
+        4,
+        1
+      ],
+      [
+        4,
+        2
+      ],
+      [
+        4,
+        3
+      ],
+      [
+        4,
+        4
+      ]
+    ],
+    "sympy_version": "1.14.0"
+  },
+  "inventory": {
+    "R-THEOREM-1": {
+      "before": "prose",
+      "canonical_id": "T-REPL-001",
+      "claim": "admitted basket payoff is exactly h=Gx",
+      "prior_checker": "none",
+      "prior_note": "definitions in docs/prism/math/01_DEFINITIONS.md and numeric examples in research/prism-model/tests/test_replication.py"
+    },
+    "R-THEOREM-2": {
+      "before": "prose_plus_bounded_grid",
+      "canonical_id": "T-BS-001",
+      "claim": "exact-backed mint preserves component backing and margin",
+      "prior_checker": "research/prism-model/bounded_verification.py",
+      "prior_note": "verify_mint_redeem_grid is a finite grid. The universal write-up is prose in docs/prism/math/05_BACKING_SOLVENCY.md"
+    },
+    "R-THEOREM-3": {
+      "before": "prose_plus_bounded_grid",
+      "canonical_id": "T-BS-002",
+      "claim": "exact in-kind redemption preserves remaining backing",
+      "prior_checker": "research/prism-model/bounded_verification.py",
+      "prior_note": "same finite grid. Universal write-up is prose in docs/prism/math/05_BACKING_SOLVENCY.md"
+    },
+    "R-THEOREM-4": {
+      "before": "PARTIALLY_PROVEN",
+      "canonical_id": "T-BS-003",
+      "claim": "component backing implies terminal solvency",
+      "prior_checker": "research/prism-model/math1_probe.py",
+      "prior_note": "z3_reports and sympy_identity discharge two components and one state. The general sum is still the prose write-up"
+    },
+    "R-THEOREM-5": {
+      "before": "prose",
+      "canonical_id": "T-BS-004",
+      "claim": "funded final redemption preserves remaining settlement funding in exact arithmetic",
+      "prior_checker": "none",
+      "prior_note": "prose in docs/prism/math/05_BACKING_SOLVENCY.md. Numeric oracle in research/prism-model/tests/test_settlement.py. The per-call floor counterexample is a different rule"
+    },
+    "R-THEOREM-6": {
+      "before": "prose",
+      "canonical_id": "T-ALLOC-001",
+      "claim": "global reservation sum stays within the physical balance",
+      "prior_checker": "none",
+      "prior_note": "prose in docs/prism/math/05_BACKING_SOLVENCY.md section 6. Examples in research/prism-model/tests/test_executable_gaps.py"
+    }
+  }
+}

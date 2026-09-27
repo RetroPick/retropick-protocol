@@ -1,0 +1,97 @@
+{
+  "canonical_math1": "FAIL",
+  "case": "same holder redeems the same winning YES balance twice",
+  "classification": "existing_rule",
+  "distinct_from": "over_redeem of 10 after a partial redeem of 4",
+  "id": "DOUBLE-YES-REDEEM",
+  "implementations_changed": false,
+  "kernels_agree": true,
+  "math_1_progress": false,
+  "pred_contract_1": "not_pass",
+  "pred_math_1": "partial",
+  "python": {
+    "after_first": {
+      "collateral_locked": "0",
+      "holder_no": "4",
+      "holder_yes": "0",
+      "no_supply": "4",
+      "yes_redeemed": "4",
+      "yes_supply": "0"
+    },
+    "after_second": {
+      "collateral_locked": "0",
+      "holder_no": "4",
+      "holder_yes": "0",
+      "no_supply": "4",
+      "yes_redeemed": "4",
+      "yes_supply": "0"
+    },
+    "before_first": {
+      "collateral_locked": "4",
+      "holder_no": "4",
+      "holder_yes": "4",
+      "no_supply": "4",
+      "yes_redeemed": "0",
+      "yes_supply": "4"
+    },
+    "error": "redeem exceeds balance",
+    "first_payout": "4",
+    "function": "PredictionMarket.redeem",
+    "module": "research/prediction-model/market.py",
+    "quantity": "4",
+    "result": "YES_WIN",
+    "second_paid": false,
+    "state": "REDEEMABLE"
+  },
+  "rule": "the second call of the same YES quantity reverts and collateral does not fall twice",
+  "solidity": {
+    "after_first": {
+      "collateral_balance": "0",
+      "collateral_locked": "0",
+      "holder_collateral_delta": "4",
+      "holder_no": "4",
+      "holder_yes": "0",
+      "no_supply": "4",
+      "payout": "4",
+      "yes_supply": "0"
+    },
+    "after_second": {
+      "collateral_balance": "0",
+      "collateral_locked": "0",
+      "holder_no": "4",
+      "holder_yes": "0",
+      "no_supply": "4",
+      "paid": false,
+      "yes_redeemed": "4",
+      "yes_supply": "0"
+    },
+    "before_first": {
+      "collateral_balance": "4",
+      "collateral_locked": "4",
+      "holder_no": "4",
+      "holder_yes": "4",
+      "no_supply": "4",
+      "yes_supply": "4"
+    },
+    "command": "forge test --match-contract DoubleYesRedeemTest -vv",
+    "cwd": "research/contract-kernels",
+    "error": "ERC20InsufficientBalance",
+    "exit_code": 0,
+    "failed": 0,
+    "forge_commit": "cae51ad458f6abb64852b7709eb784352429825d",
+    "forge_version": "1.8.3",
+    "function": "PredictionMarket.redeemYes",
+    "module": "research/contract-kernels/src/prediction/PredictionMarket.sol",
+    "optimizer": true,
+    "optimizer_runs": 200,
+    "passed": 1,
+    "profile": "default",
+    "quantity": "4",
+    "result": "YES_WIN",
+    "second_call": "redeemYes(4)",
+    "solc": "0.8.26",
+    "test_gas": 890687,
+    "via_ir": false
+  },
+  "theorem_pass": false
+}

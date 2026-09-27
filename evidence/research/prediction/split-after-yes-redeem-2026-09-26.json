@@ -1,0 +1,79 @@
+{
+  "adr_added": false,
+  "adr_p15": "PROPOSED",
+  "adr_p16": "PROPOSED",
+  "adr_p17": "PROPOSED",
+  "after": {
+    "collateral_locked": "3",
+    "liability": "3",
+    "no_redeemed": "0",
+    "no_supply": "4",
+    "yes_redeemed": "1",
+    "yes_supply": "3"
+  },
+  "before": {
+    "collateral_locked": "3",
+    "liability": "3",
+    "no_redeemed": "0",
+    "no_supply": "4",
+    "yes_redeemed": "1",
+    "yes_supply": "3"
+  },
+  "canonical_math1": "FAIL",
+  "case": "split_after_partial_yes_redeem",
+  "classification": "existing_rule",
+  "collateral_pulled": "0",
+  "command": "forge test --match-contract SplitAfterYesRedeemTest -vv",
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "gas": 800846,
+  "implementations_changed": false,
+  "inventory_row": {
+    "argument": "1",
+    "file": "evidence/research/prediction/rejection-inventory-2026-09-26.json",
+    "function": "split",
+    "index": 49,
+    "note": "The inventory rejects split(1) while REDEEMABLE and leaves collateral, YES, and NO at 4. It does not redeem first and does not record liability or redeemed cursors.",
+    "state": "REDEEMABLE"
+  },
+  "liability_equals_collateral_after": true,
+  "liability_equals_collateral_before": true,
+  "profile": "default",
+  "python": {
+    "after": {
+      "collateral_locked": "3",
+      "liability": "3",
+      "no_redeemed": "0",
+      "no_supply": "4",
+      "yes_redeemed": "1",
+      "yes_supply": "3"
+    },
+    "before": {
+      "collateral_locked": "3",
+      "liability": "3",
+      "no_redeemed": "0",
+      "no_supply": "4",
+      "yes_redeemed": "1",
+      "yes_supply": "3"
+    },
+    "collateral_pulled": "0",
+    "error": "split only while OPEN",
+    "function": "split",
+    "rejected": true
+  },
+  "redeem_before_split": "1",
+  "redeem_payout": "1",
+  "result": "YES_WIN",
+  "s_p16": "open",
+  "sha_base": "202cbece9e0acb8a540a23725d001cf3a4fa611f",
+  "solidity": {
+    "alice_collateral_outside": "999997",
+    "error": "BadState",
+    "function": "split",
+    "rejected": true
+  },
+  "split": "4",
+  "state_unchanged_by_second_split": true,
+  "tests_failed": 0,
+  "tests_passed": 1
+}

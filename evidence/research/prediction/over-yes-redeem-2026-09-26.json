@@ -1,0 +1,67 @@
+{
+  "adr_added": false,
+  "adr_p15": "PROPOSED",
+  "adr_p16": "PROPOSED",
+  "adr_p17": "PROPOSED",
+  "after": {
+    "collateral_locked": "4",
+    "liability": "4",
+    "no_redeemed": "0",
+    "no_supply": "4",
+    "yes_redeemed": "0",
+    "yes_supply": "4"
+  },
+  "before": {
+    "collateral_locked": "4",
+    "liability": "4",
+    "no_redeemed": "0",
+    "no_supply": "4",
+    "yes_redeemed": "0",
+    "yes_supply": "4"
+  },
+  "canonical_math1": "FAIL",
+  "case": "yes_win_redeem_five_yes",
+  "classification": "existing_rule",
+  "command": "forge test --match-contract OverYesRedeemTest -vv",
+  "cwd": "research/contract-kernels",
+  "date": "2026-09-26",
+  "gas": 717668,
+  "implementations_changed": false,
+  "liability_equals_collateral_after": true,
+  "payout": "none",
+  "profile": "default",
+  "python": {
+    "after": {
+      "collateral_locked": "4",
+      "liability": "4",
+      "no_redeemed": "0",
+      "no_supply": "4",
+      "yes_redeemed": "0",
+      "yes_supply": "4"
+    },
+    "before": {
+      "collateral_locked": "4",
+      "liability": "4",
+      "no_redeemed": "0",
+      "no_supply": "4",
+      "yes_redeemed": "0",
+      "yes_supply": "4"
+    },
+    "error": "redeem exceeds balance",
+    "function": "redeem of the YES side",
+    "payout": "none",
+    "rejected": true
+  },
+  "result": "YES_WIN",
+  "s_p16": "open",
+  "sha_base": "058eb6525f957b5208ba0dcc91394b0bdbb48dfd",
+  "solidity": {
+    "error": "ERC20InsufficientBalance",
+    "rejected": true
+  },
+  "solidity_function": "redeemYes",
+  "split": "4",
+  "state_unchanged": true,
+  "tests_failed": 0,
+  "tests_passed": 1
+}

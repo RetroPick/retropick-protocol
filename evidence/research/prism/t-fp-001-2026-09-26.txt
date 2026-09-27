@@ -1,0 +1,11 @@
+tool: python3 3.12.3
+command: python3 -m unittest tests.test_t_fp_001 -v
+cwd: /workspace/research/prism-model
+sha: 42124f8e6017972e8428a17c7a652f4395872457
+test_ceil_requirement_prevents_mint_underreservation (tests.test_t_fp_001.TFp001Tests.test_ceil_requirement_prevents_mint_underreservation) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.014s
+
+OK
+exit_code: 0

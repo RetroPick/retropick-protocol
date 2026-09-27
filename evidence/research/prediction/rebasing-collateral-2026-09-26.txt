@@ -1,0 +1,23 @@
+python_command: python3 -m unittest tests.test_rebasing_collateral -v
+python_cwd: research/prediction-model
+python: Python 3.12.3
+python_exit_code: 0
+test_rebasing_class_is_rejected_at_construction (tests.test_rebasing_collateral.RebasingCollateralTests.test_rebasing_class_is_rejected_at_construction) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+
+forge_command: forge test --match-contract RebasingCollateralTest -vv
+forge_cwd: research/contract-kernels
+forge: forge Version: 1.8.3
+forge_commit: cae51ad458f6abb64852b7709eb784352429825d
+solc: 0.8.26
+profile: default
+forge_exit_code: 0
+Ran 1 test for test/prediction/RebasingCollateral.t.sol:RebasingCollateralTest
+[PASS] test_rebase_drops_balance_below_reported_liability() (gas: 787902)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 601.80µs (425.84µs CPU time)
+
+Ran 1 test suite in 5.59ms (601.80µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

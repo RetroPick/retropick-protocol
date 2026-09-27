@@ -1,0 +1,50 @@
+tool: python3 and forge test
+command: forge test --match-contract SixDecimalIndivisibleWeightTest -vv
+cwd: /workspace/research/contract-kernels
+profile: default
+sha_base: d8a402112c3f3fdc9dc9cd5be585ac88019ffa96
+decimals: 6,6
+weights: 10^30+1,10^30+1
+python_constructor_rejected: false
+python_required_supply_2: 3,3
+python_required_supply_1: 2,2
+python_paid: 1,1
+python_backing_after: 2,2
+python_required_after: 2,2
+python_supply_after: 1
+classification: existing_rule
+adr_added: none
+kuru_decimals_18: not_established
+math1: FAIL
+pred_kuru_1: blocked
+
+No files changed, compilation skipped
+
+Ran 1 test for test/prism/SixDecimalIndivisibleWeight.t.sol:SixDecimalIndivisibleWeightTest
+[PASS] test_ceiling_when_weight_does_not_divide_the_scale() (gas: 884613)
+Logs:
+  constructor_rejected: false
+  required_supply_2_0: 3
+  required_supply_2_1: 3
+  required_supply_1_0: 2
+  required_supply_1_1: 2
+  before
+  supply: 2
+  backing0: 3
+  backing1: 3
+  required0: 3
+  required1: 3
+  paid_0: 1
+  paid_1: 1
+  after
+  supply: 1
+  backing0: 2
+  backing1: 2
+  required0: 2
+  required1: 2
+  classification: existing_rule
+  kuru_decimals_18: not_established
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 776.99µs (590.56µs CPU time)
+
+Ran 1 test suite in 5.17ms (776.99µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

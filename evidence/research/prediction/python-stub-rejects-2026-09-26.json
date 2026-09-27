@@ -1,0 +1,56 @@
+{
+  "adr_added": true,
+  "adr_p15": "PROPOSED",
+  "calls": [
+    {
+      "after": {"collateral_locked": "4", "no_supply": "4", "yes_supply": "4"},
+      "before": {"collateral_locked": "4", "no_supply": "4", "yes_supply": "4"},
+      "error": "resolution spec is immutable after activation",
+      "function": "try_replace_spec",
+      "unchanged": true
+    },
+    {
+      "after": {"collateral_locked": "4", "no_supply": "4", "yes_supply": "4"},
+      "before": {"collateral_locked": "4", "no_supply": "4", "yes_supply": "4"},
+      "error": "no admin mint",
+      "function": "admin_mint",
+      "unchanged": true
+    },
+    {
+      "after": {"collateral_locked": "4", "no_supply": "4", "yes_supply": "4"},
+      "before": {"collateral_locked": "4", "no_supply": "4", "yes_supply": "4"},
+      "error": "no admin withdrawal of collateral",
+      "function": "admin_withdraw",
+      "unchanged": true
+    },
+    {
+      "after": {"collateral_locked": "4", "no_supply": "4", "yes_supply": "4"},
+      "before": {"collateral_locked": "4", "no_supply": "4", "yes_supply": "4"},
+      "error": "Phase-1 has no redemption pause",
+      "function": "pause_redemption",
+      "unchanged": true
+    }
+  ],
+  "canonical_math1": "FAIL",
+  "case": "python_stubs_on_open_market",
+  "classification": "recorded_gap",
+  "date": "2026-09-26",
+  "implementations_changed": false,
+  "market": {
+    "collateral": "COLL",
+    "dust_sink": "SINK",
+    "integer": true,
+    "split": "4",
+    "state": "OPEN"
+  },
+  "pred_contract_1": "not_pass",
+  "s_p16": "open",
+  "sha_base": "9054aca28becba1a44be9b9b5dd7437c354068ad",
+  "solidity": {
+    "declares_admin_mint": false,
+    "declares_admin_withdraw": false,
+    "declares_pause_redemption": false,
+    "declares_try_replace_spec": false,
+    "file": "research/contract-kernels/src/prediction/PredictionMarket.sol"
+  }
+}

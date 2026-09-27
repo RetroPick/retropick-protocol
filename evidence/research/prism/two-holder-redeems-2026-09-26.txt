@@ -1,0 +1,44 @@
+tool: forge test
+command: forge test --match-contract TwoHolderRedeemsTest -vv
+cwd: /workspace/research/contract-kernels
+profile: default
+FOUNDRY_PROFILE: unset
+sha_base: 69389c57132285d77f565224249c3866b1c706fd
+book: holders A and B each hold 1, supply 2, payout 10^18-1, decimals 18, ceil funding 2
+order: A redeem(1), then B redeem(1)
+classification: cumulative_floor_match
+payout_a: 0
+payout_b: 1
+after_a: alice 0, bob 0, kernel 2, paidRaw 0
+after_b: alice 0, bob 1, kernel 1, paidRaw 1
+unit_goes_to_later_redeem: true
+python: CumulativeFloorSettlement pays 0 then 1. Receipts A 0, B 1. balance_raw ends at 1. paid_raw ends at 1.
+adr_added: false
+adr_r10: PROPOSED
+math1: FAIL
+sweep_policy: NOT_YET_VALIDATED
+redeem_edited: false
+
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 1.04s
+Compiler run successful!
+
+Ran 1 test for test/prism/TwoHolderRedeems.t.sol:TwoHolderRedeemsTest
+[PASS] test_later_holder_receives_the_unit() (gas: 437214)
+Logs:
+  classification: cumulative_floor_match
+  payout_a: 0
+  payout_b: 1
+  alice_after_first: 0
+  bob_after_first: 0
+  kernel_after_first: 2
+  paid_raw_after_first: 0
+  alice_after_second: 0
+  bob_after_second: 1
+  kernel_after_second: 1
+  paid_raw_after_second: 1
+  unit_goes_to_later_redeem: true
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 629.13µs (466.29µs CPU time)
+
+Ran 1 test suite in 6.34ms (629.13µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

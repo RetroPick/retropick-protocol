@@ -1,5 +1,5 @@
 'use client';
-import Link from 'next/link';
+import Link from '@/components/product/safe-link';
 import Image from 'next/image';
 import {useState} from 'react';
 import {ArrowLeft,ArrowRight,Check,ShieldCheck,Upload,CheckCircle2} from 'lucide-react';

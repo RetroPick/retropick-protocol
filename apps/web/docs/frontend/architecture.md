@@ -16,6 +16,7 @@ Goal: PRODUCT-1 frontend prototype. Execution gate: mocks only; MATH-1 / CONTRAC
 | `features/portfolio/` | Positions, cash, reserved orders, cancellation, funded redemption |
 | `lib/domain/` | Typed fixtures, lifecycle vocabulary, bounded arithmetic helpers |
 | `lib/liquidity/` | Venue-independent source/quote/adapter contracts and registry |
+| `features/launchpad/` | Umbrella discovery, launch-type selection, normal-token flow and token terminal |
 
 URL parameters own discovery filters. Component state owns transient forms. DemoProvider owns session cash/positions/orders/history. Browser storage owns watchlists and drafts; it is never financial authority. Server and client share deterministic fixtures. There is no backend, wallet SDK, indexer or RPC dependency.
 
@@ -32,6 +33,54 @@ URL parameters own discovery filters. Component state owns transient forms. Demo
 | Creation | Local draft | Admitted deployment flow and actual receipt |
 
 No fabricated contract addresses, transaction hashes, evidence hashes or live deployment claims. A configured live mode is rejected until adapters exist.
+
+## Unified launch instruments
+
+The original read path was `EventMarket`/token fixtures → separate summaries →
+React URL filters → split token and prediction lists → two tables → specialized
+detail routes → local demo ticket. Prediction was normalized for discovery but
+split out again at render time. There is now one product read path:
+
+`token fixtures + EventMarket fixtures + PRISM fixture → family adapters →
+createInstrumentRepository → useLaunchInstruments(URL filter) → Token Feed /
+featured cards / navbar search → getInstrumentRoute → existing detail routes`.
+
+`lib/domain/instruments.ts` defines `LaunchInstrument`. Kind (`token`,
+`prediction`, `prism`), reference class (`crypto`, `stock`, `event`, `macro`,
+`other`), contract family, chain and collateral/quote pair are independent.
+Normal token, prediction and PRISM entries can share a table without claiming
+they share a contract, asset representation or settlement lifecycle. Unavailable
+metrics are `null`; the table displays `—` and never substitutes open interest
+or collateral for market cap. A crypto-referenced prediction qualifies for the
+Crypto tab while remaining a prediction; its topic remains available only in
+the Prediction topic selector. USDC collateral alone does not make every
+prediction a crypto reference.
+
+`lib/domain/launchpad-adapters.ts` owns normalization, route selection and
+capabilities by contract family. The token source retains curve, lifecycle,
+pair and intended Kuru venue. The prediction source retains YES/NO, resolution,
+collateral and outcome price change. Its `market-engine-v1` reference does not
+assert a deployed MarketEngine, template ID, epoch ID or ERC-20 outcome token.
+The PRISM adapter carries component units, collateral and optional state pool,
+claim, payoff, encoder, expiry and claim token identifiers. The fixture only
+provides the fields shown in the existing PRISM preview. `prism-state-pool`
+is a typed prospective family, not a deployed contract.
+
+`lib/domain/contract-registry.ts` keys reviewed addresses and ABIs by chain ID
+and family. It currently contains no verified deployments. Monad-selected
+instruments cannot resolve Base Sepolia addresses. The checked-out frontend has
+no indexed MarketEngine API, verified MarketEngine ABI/deployment, PRISM ABI or
+PRISM deployment, nor a live wallet transaction path. Trades and claims remain
+unavailable; local demo tickets keep their existing behavior. An integration
+must bring chain-specific reviewed artifacts and indexed projections before
+capabilities can be enabled. The UI must not silently poll RPC in place of an
+indexer.
+
+`/markets` and `/create` remain prediction-specific compatibility routes.
+`/launchpad` is the product entry point. `/launchpad/create` keeps the existing
+launch-kind selector and specialized wizards. The PRISM promotional card keeps
+its existing layout but resolves to the same `pfedbtc` instrument ID that appears
+in the single Explore table and navbar search.
 
 ## Liquidity extensibility
 `LiquiditySource`, `Quote`, and `VenueAdapter` separate product from venue execution. Kuru is the only demo quote provider. Uniswap v4 is planned for native assets, with no pools or router configured. Polymarket is planned related-market discovery only: different contracts, chain, custody and resolution semantics; matching titles never imply fungibility. No aggregation, cross-chain custody, bridging, best-route claim or synthetic combined liquidity is implemented. `prepareTrade` rejects live execution.

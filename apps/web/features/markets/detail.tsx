@@ -1,5 +1,5 @@
 'use client';
-import Link from 'next/link';
+import Link from '@/components/product/safe-link';
 import {useSearchParams} from 'next/navigation';
 import {useState} from 'react';
 import {ArrowLeft,ShieldCheck,ArrowUpRight,Clock} from 'lucide-react';

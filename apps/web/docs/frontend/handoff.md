@@ -16,7 +16,7 @@ pnpm test:web
 pnpm build:web
 ```
 
-The application packages its own bounded math tests in `apps/web/tests/domain.test.mjs`. They cover canonical pFEDBTC payoff/backing, malformed normalized baskets, invalid supply, `RESOLVED` versus `REDEEMABLE`, settlement coverage, and amount validation. Browser QA covers discovery, separate YES/NO routing, demo buy/sell ledger updates, funded redemption review, negative-basket rejection, and embedded-width layout checks at 390, 768, 1024, 1440 and 1920 px.
+The application packages bounded math tests in `apps/web/tests/domain.test.mjs` and instrument normalization, taxonomy, registry, dispatch and duplicate-prevention tests in `apps/web/tests/launchpad-taxonomy.test.mjs`. Browser QA should cover the single mixed Token Feed, URL filters, separate YES/NO detail routing and the existing responsive table overflow.
 
 ## Boundaries that may not change
 
@@ -34,3 +34,19 @@ Before replacing mock mode, a reviewed integration must provide admitted deploym
 ## Residual risks
 
 The browser session is a presentation ledger only. It is reset on reload, uses illustrative pricing and cannot serve as financial accounting, a proof, an oracle, a wallet integration or a settlement system. The local normalized basket builder is intentionally not a general nonlinear payoff solver.
+
+## Launchpad extension
+
+The main product route is now `/launchpad?type=all|prediction|crypto|stocks`.
+It is a typed presentation extension, not a protocol deployment. Prediction,
+normal token and illustrative PRISM entries normalize to `LaunchInstrument` and
+share one Token Feed. Instrument kind is separate from reference class, pair,
+chain and contract family. A BTC-referenced prediction can appear under Crypto
+and Prediction while remaining one prediction instrument with the same ID.
+Prediction topic, such as `Crypto`, is used only in the topic selector; USDC
+collateral does not turn every prediction into a crypto reference.
+
+Stock-paired items are normal token-launch fixtures. Their quote assets,
+market data and lifecycle are all `DEMO`; a stock-paired token never represents
+equity in the named company. `GRADUATED · Kuru` means a target lifecycle in the
+demo, not an available Kuru execution route.

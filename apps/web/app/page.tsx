@@ -1,2 +1,5 @@
-import Discovery from '@/features/markets/discovery';
-export default function Home(){return <Discovery/>;}
+import { redirect } from 'next/navigation';
+
+export default function Home(){
+  redirect('/launchpad');
+}

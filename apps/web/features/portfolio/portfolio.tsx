@@ -1,5 +1,5 @@
 'use client';
-import Link from 'next/link';
+import Link from '@/components/product/safe-link';
 import {useState} from 'react';
 import {Wallet,ArrowUpRight,CheckCircle2} from 'lucide-react';
 import {toast} from 'sonner';

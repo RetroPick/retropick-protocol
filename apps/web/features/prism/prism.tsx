@@ -1,5 +1,5 @@
 'use client';
-import Link from 'next/link';
+import Link from '@/components/product/safe-link';
 import {useState} from 'react';
 import {Layers,ArrowRight,ArrowLeft,Plus,ShieldCheck,CheckCircle2} from 'lucide-react';
 import {Table,TableBody,TableCell,TableHead,TableHeader,TableRow} from '@/components/ui/table';

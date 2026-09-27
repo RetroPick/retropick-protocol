@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "deliver",
+  "type": "sequence",
+  "input": "/home/ubuntu/project/retropick/retropick-protocol/docs/architecture/contracts/v1/03-launch-trade-graduation-sequence.json",
+  "output": "/home/ubuntu/project/retropick/retropick-protocol/docs/architecture/contracts/v1/03-launch-trade-graduation-sequence.html",
+  "specification": {
+    "sha256": "215652f94dc11cf361e6448ffcaaa145c6e9c77875c8abf72b699fa14c173aa0",
+    "bytes": 1476
+  },
+  "artifact": {
+    "sha256": "33373541e3e23ba40a3fb56807a76fe034fa67c93c2820cae8d3c8f6410248d9",
+    "bytes": 802956
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "compare",
+  "type": "architecture",
+  "comparatorVersion": 1,
+  "canonicalVersion": 1,
+  "completeness": "complete",
+  "proofLevel": "authored",
+  "base": {
+    "title": "RetroPick Launchpad: normalized V1",
+    "rawSha256": "d2ca0a783287271715ab04793567bee1ea0055b2a7bd9776e87ae4e07931bab4",
+    "semanticSha256": "4eafd95f004648c26c8e19db3f2c488318f953557d3ced6b76928ca89f0f9b59",
+    "bytes": 1067
+  },
+  "head": {
+    "title": "RetroPick Launchpad: normalized V2",
+    "rawSha256": "06482966f31b96c770fbec65360903e8c6fb204cf5a699ac34f52d8f9ae56706",
+    "semanticSha256": "c25be32b78c53bb09a445115253196a9a600d4f11059ae03d8e7dbfdcc89578f",
+    "bytes": 1067
+  },
+  "summary": {
+    "components": {
+      "added": 0,
+      "changed": 0,
+      "evidenceChanged": 0,
+      "removed": 0,
+      "moved": 0
+    },
+    "connections": {
+      "added": 0,
+      "changed": 0,
+      "removed": 0,
+      "rerouted": 0
+    },
+    "boundaries": {
+      "added": 0,
+      "changed": 0,
+      "removed": 0,
+      "geometryChanged": 0
+    },
+    "presentationChanged": true,
+    "provenanceChanged": false
+  },
+  "changes": {
+    "components": [],
+    "connections": [],
+    "boundaries": []
+  },
+  "identity": {
+    "components": "components[].id",
+    "connections": "connections[].id (required)",
+    "boundaries": "boundaries[].kind + boundaries[].label (derived)"
+  },
+  "view": {
+    "visualPreset": "classic"
+  },
+  "limitations": [
+    "Authored Architecture IR only; no runtime impact, causality, risk, or mergeability is inferred.",
+    "Boundary identity is conservatively derived from kind + label."
+  ],
+  "artifact": {
+    "sha256": "29143fa89f02ffe9f627db7e587e97b30ca06011201ab189b478a3925f06825c",
+    "bytes": 2161036
+  },
+  "validation": {
+    "checksPassed": 28,
+    "checkCount": 28,
+    "baseComposition": "pass",
+    "headComposition": "pass"
+  }
+}

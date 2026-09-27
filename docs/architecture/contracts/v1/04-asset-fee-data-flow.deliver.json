@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "deliver",
+  "type": "dataflow",
+  "input": "/home/ubuntu/project/retropick/retropick-protocol/docs/architecture/contracts/v1/04-asset-fee-data-flow.json",
+  "output": "/home/ubuntu/project/retropick/retropick-protocol/docs/architecture/contracts/v1/04-asset-fee-data-flow.html",
+  "specification": {
+    "sha256": "4079a1a8573920fb3b15397e1ff03c33d7e684951d44faed2cf275c637ac82c9",
+    "bytes": 1313
+  },
+  "artifact": {
+    "sha256": "748b4016f4c1b46cbe98e71b585e6e8fc9916dfb227c3d47ff3965a23affaa04",
+    "bytes": 799037
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  }
+}

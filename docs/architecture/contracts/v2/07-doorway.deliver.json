@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "deliver",
+  "type": "architecture",
+  "input": "/home/ubuntu/project/retropick/retropick-protocol/docs/architecture/contracts/v2/07-doorway.json",
+  "output": "/home/ubuntu/project/retropick/retropick-protocol/docs/architecture/contracts/v2/07-doorway.html",
+  "specification": {
+    "sha256": "c89007d916dc8d3d9672d4620051587a8afbf0bef76aa096cf7bb04feb17f636",
+    "bytes": 1759
+  },
+  "artifact": {
+    "sha256": "b97516d0975e5317b6d0502719865ab66496a20ebbd6e22b7d4591c01975ee6f",
+    "bytes": 800183
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  },
+  "evidence": {
+    "verified": true,
+    "repository": "https://github.com/RetroPick/retropick-protocol",
+    "revision": "d8971ffee042314def2dfd48a413737e3d84ac22",
+    "references": 1
+  }
+}

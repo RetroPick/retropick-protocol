@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "deliver",
+  "type": "workflow",
+  "input": "/home/ubuntu/project/retropick/retropick-protocol/docs/architecture/contracts/v2/02-end-to-end-workflow.json",
+  "output": "/home/ubuntu/project/retropick/retropick-protocol/docs/architecture/contracts/v2/02-end-to-end-workflow.html",
+  "specification": {
+    "sha256": "ce4e34b95eaf89edb6b0ba9766bf660e8ce97561e47d9dbda41b90958700eb83",
+    "bytes": 1013
+  },
+  "artifact": {
+    "sha256": "bd2daa1597dea2df204fdd98977efffc1624efe826a7cd73b351bcf3ca90baa0",
+    "bytes": 798040
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  }
+}

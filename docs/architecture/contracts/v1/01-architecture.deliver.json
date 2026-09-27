@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "deliver",
+  "type": "architecture",
+  "input": "/home/ubuntu/project/retropick/retropick-protocol/docs/architecture/contracts/v1/01-architecture.json",
+  "output": "/home/ubuntu/project/retropick/retropick-protocol/docs/architecture/contracts/v1/01-architecture.html",
+  "specification": {
+    "sha256": "dc54874fab667c26a71926ea028e3bc6a2e693a7b2dec53fcbe19000a60c31aa",
+    "bytes": 2704
+  },
+  "artifact": {
+    "sha256": "faff61f66faae40bb49e52208a5d4f0386f52e051797884fe7740c321acf6e0d",
+    "bytes": 803533
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  },
+  "evidence": {
+    "verified": true,
+    "repository": "https://github.com/RetroPick/retropick-protocol",
+    "revision": "d8971ffee042314def2dfd48a413737e3d84ac22",
+    "references": 5
+  }
+}

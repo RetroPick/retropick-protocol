@@ -19,6 +19,7 @@ Every row points at evidence from this program. Status words are the program's c
 | `Underfunded` and `LiveLiability` reachable | PROVEN_UNDER_ASSUMPTIONS unreachable | `unreachable-branches-2026-09-26.json`. Branch coverage stays 94.44% (34/36) |
 | Winning-result uint256 boundary | COUNTEREXAMPLE_FOUND for liveness at `2^255` | `winner-liability-overflow-2026-09-28.json`, ADR-P19. A fully backed split reaches RESOLVED; `liability()` and `openRedemption()` panic. Python opens. `2^255-1` opens. `_redeem` also has a doubling expression to repair. Not PRED-CONTRACT-1 PASS |
 | INVALID holder-independent entitlement | COUNTEREXAMPLE_FOUND; aggregate conservation unchanged | `invalid-holder-allocation-2026-09-28.json`. Two holders each fund 10 complete sets; alternating one-unit redemptions on both sides pay 0 and 20. Isolated half value is 10 each. ADR-P05 recommendation REVISE; not PRED-MATH-1 PASS |
+| Callback-capable collateral also acting as resolver | COUNTEREXAMPLE_FOUND for lifecycle ordering under an unqualified asset | `callback-resolver-lifecycle-2026-09-28.json`. `split`'s token call advances OPEN to RESOLVED, then outer split credits issuance. `collateralAtResolution` 0 but post-split supplies 1/1. The measured path is backed and later redeems; no insolvency claim. `COLLATERAL_ADMISSION_PACKET.md`; not PRED-CONTRACT-1 PASS |
 | PRED-CONTRACT-1 PASS | not met | `docs/prediction/13_PRED_GATE.md` |
 
 ## PRISM_REQUIREMENT_MATRIX

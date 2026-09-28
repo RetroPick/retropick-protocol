@@ -38,3 +38,7 @@ High for the shortfall counterexample.
 ## What would falsify this
 
 A specification and differential test for a named exotic token that preserves P-I08 under its actual transfer semantics.
+
+## 2026-09-28 qualification addendum
+
+`research/reports/COLLATERAL_ADMISSION_PACKET.md` classifies the required asset behaviors and keeps this ADR PROPOSED. `CX-PRED-CALLBACK-RESOLVER-001` is a negative control beyond the existing nested-split callback: a callback-capable collateral token configured as resolver advances OPEN to RESOLVED during `transferFrom`, after which the outer split mints YES and NO in RESOLVED. The one-unit witness remains physically backed; it falsifies lifecycle ordering, not aggregate collateral coverage. A token allowlist alone is not proof against future token upgrades or external balance loss. The admission and defense-in-depth rule needs explicit acceptance before editing the kernel.

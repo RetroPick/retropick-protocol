@@ -1,0 +1,35 @@
+{
+  "id": "CX-PRED-CALLBACK-RESOLVER-001",
+  "date": "2026-09-28",
+  "classification": "COUNTEREXAMPLE_FOUND",
+  "scope": "unqualified callback-capable collateral deliberately configured as its own resolver",
+  "setup": {
+    "collateral": "CallbackResolverCollateral extends MockCollateral; transferFrom invokes closeMint, beginResolution, resolve after transferring",
+    "resolver": "the collateral token address",
+    "state_before_split": "OPEN",
+    "holder_split_amount": 1
+  },
+  "callback_transition": "OPEN -> LOCKED -> RESOLUTION_PENDING -> RESOLVED while the outer split is suspended in transferFrom",
+  "post_split": {
+    "state": "RESOLVED",
+    "result": "YES_WIN",
+    "collateralAtResolution": 0,
+    "collateralLocked": 1,
+    "yesSupply": 1,
+    "noSupply": 1,
+    "physicalCollateral": 1,
+    "holderYes": 1
+  },
+  "later_open_redemption": "accepted",
+  "later_yes_redeem_one": "pays 1",
+  "invariant_violated": "result commits before the split's issuance; resolution does not terminate an in-flight split",
+  "aggregate_solvency_in_this_witness": "collateral balance equals liability; no unbacked payout shown",
+  "root_cause": "split is nonReentrant but closeMint, beginResolution, and resolve are not, and split does not recheck OPEN after the token external call",
+  "forge_version": "1.8.3",
+  "solc_version": "0.8.26",
+  "optimizer_runs": 200,
+  "viaIR": false,
+  "focused_test": "research/contract-kernels/test/prediction/CallbackResolverLifecycle.t.sol: 1 passed, 0 failed",
+  "test_gas_whole_test": 4117860,
+  "qualification": "negative control for rejected callback collateral; no production or kernel repair authorized"
+}

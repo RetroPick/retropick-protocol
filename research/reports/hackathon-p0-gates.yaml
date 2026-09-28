@@ -230,5 +230,5 @@ gate_transition_history:
       - research/contract-kernels/src/hackathon/PredictionMarketP0.sol
       - research/contract-kernels/test/hackathon/PredictionP0.t.sol
       - evidence/hackathon-p0/prediction/prediction-p0-kernel-2026-09-28.json
-    sha: 92b76cd0d4a5ac6108584c28da9832a0d03cf36d
+    sha: 2d0902ecbbc58d8798d2f911459c85a18fd63bad
     remaining_blocker: PRED-H2, PRED-H7, and PRED-H8 remain open; this does not make HACKATHON-P0-CONTRACT-READY pass.

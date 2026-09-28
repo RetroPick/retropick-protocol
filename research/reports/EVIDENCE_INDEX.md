@@ -6,6 +6,8 @@
 - `evidence/research/prism/holder-fairness-2026-09-28.json`: `CX-FP-CUM-HOLDER-001`, formal alternating-family check, 6/8/18 Python witnesses, Solidity fixture replay, current aggregate invariant seed, and reentrancy replay. It does not replace the 2026-09-26 evidence.
 - `research/reports/ADR_R03_ACCEPTANCE_PACKET.md`: decision-ready distinction between aggregate settlement and holder-level allocation. ADR-R03 remains PROPOSED with REVISE recommendation.
 - `research/reports/SETTLEMENT_RESIDUAL_DECISION_PACKET.md`: options and recommendation for the exact-ceil 0/1 raw residual, with direct donations and overfunding kept separate. Policy remains NOT_YET_VALIDATED.
+- `evidence/research/repro/codex-clean-repro-2026-09-28.md`: independent default and named-research profile runs from fresh local clones and virtual environments; 23 rewritten historical JSON artifacts stayed inside the temporary clones.
+- `evidence/research/prediction/winner-liability-overflow-2026-09-28.json`: `CX-PRED-WINNER-OVERFLOW-001`, the fully backed `2^255` winner liveness boundary. Three focused Solidity regressions and a Python comparison; ADR-P19 stays PROPOSED.
 
 The 2026-09-26 command inventory below is historical. The new research environment uses an isolated temporary Python virtual environment with SymPy 1.14.0, mpmath 1.3.0, and z3-solver 5.1.0; the system interpreter still lacks the formal packages.
 

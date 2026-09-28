@@ -17,6 +17,7 @@ Every row points at evidence from this program. Status words are the program's c
 | Kuru listing | BLOCKED | worksheet; RetroPick parameters not derived |
 | Kernel operations have Python fixtures and Foundry assertions | measured | `PredictionDifferentialTest`, 14 passed. No integer mismatch |
 | `Underfunded` and `LiveLiability` reachable | PROVEN_UNDER_ASSUMPTIONS unreachable | `unreachable-branches-2026-09-26.json`. Branch coverage stays 94.44% (34/36) |
+| Winning-result uint256 boundary | COUNTEREXAMPLE_FOUND for liveness at `2^255` | `winner-liability-overflow-2026-09-28.json`, ADR-P19. A fully backed split reaches RESOLVED; `liability()` and `openRedemption()` panic. Python opens. `2^255-1` opens. `_redeem` also has a doubling expression to repair. Not PRED-CONTRACT-1 PASS |
 | PRED-CONTRACT-1 PASS | not met | `docs/prediction/13_PRED_GATE.md` |
 
 ## PRISM_REQUIREMENT_MATRIX

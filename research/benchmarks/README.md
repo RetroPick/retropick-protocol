@@ -77,6 +77,10 @@ Candidate telescope check, five samples: min 0.011266s, median 0.011724s, max 0.
 
 ## Local reproducibility
 
+For a committed branch, `bash research/benchmarks/scripts/repro_clean.sh default` creates a fresh local clone in a unique `/tmp/retropick-finance-repro.*` directory, initializes submodules, creates a fresh Python virtual environment from `research/requirements-formal.txt`, then runs both Python suites and the research-kernel Foundry build/tests. It prints the artifact directory and leaves the temporary checkout/logs for inspection. The original checkout must be clean and is not used for test output. Install the base Foundry/Node/submodule toolchain with the existing `bash .cursor/install.sh` where needed; no Codex-specific bootstrap is required.
+
+`bash research/benchmarks/scripts/repro_clean.sh research` adds named candidate attacks, formal telescope checks, the existing exhaustive profile, fixture generators, a five-sample reference benchmark, and the long Prediction composition Foundry profile. The default profile stays bounded. Generated fixture/evidence rewrites occur only in the temporary clone, where `git status` lists them. An individual failing command is retained in its own log and causes a nonzero exit. Security-tool commands and their tool-version/limitation matrix remain separately recorded under the owning gate; a clean test run is not a security pass.
+
 `research/benchmarks/scripts/repro_local.sh` prints the git SHA and runs prediction-model unit tests, prism-model unit tests, and `forge test`. It does not run coverage. The recorded run is `82ec6c3b0fe3c5bc58cc898cf387c5dfe4950dac`: 12 prediction tests OK, 85 PRISM tests OK, 63 Foundry tests passed and 0 failed. Log: `evidence/research/repro/repro-local-2026-09-26.txt`.
 
 This is not a clean checkout of the whole monorepo and not a fresh virtualenv. The script used the existing Python 3.12.3 interpreter and the existing Foundry 1.8.3 install. The prediction exhaustive test rewrote `exhaustive_summary.json` runtime from 0.086862 to 0.084698. That committed file was restored.

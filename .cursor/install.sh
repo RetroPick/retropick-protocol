@@ -5,8 +5,9 @@
 # three development lanes in this monorepo:
 #   1. Node/TypeScript workspace (apps/web + packages) via pnpm.
 #   2. Solidity contracts (Foundry toolchain + git submodules).
-#   3. Python PRISM reference model runs on the base image's Python 3 stdlib
-#      (no extra dependencies required).
+#   3. Core Python PRISM reference model runs on Python 3 stdlib. Formal
+#      research probes use the pinned isolated environment described in
+#      research/requirements-formal.txt and research/benchmarks/README.md.
 set -euo pipefail
 
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"

@@ -7,6 +7,7 @@ A 16-component matrix is outside the minimum-cost solver domain and is not run.
 from __future__ import annotations
 
 import json
+import subprocess
 import sys
 import time
 from pathlib import Path
@@ -113,7 +114,9 @@ def main() -> dict[str, object]:
     exhaustive = _repeat(lambda: explore(max_unit=3))
     telescope = _repeat(telescope_run)
     return {
-        "kernel_sha": "c0af8e584137fa35ef4d71b4d8a46d260798deb4",
+        "kernel_sha": subprocess.run(
+            ["git", "rev-parse", "HEAD"], cwd=ROOT.parent, check=True, capture_output=True, text=True
+        ).stdout.strip(),
         "not_live_markets": True,
         "not_an_slo": True,
         "replication_solve": replication,

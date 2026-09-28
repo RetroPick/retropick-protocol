@@ -17,6 +17,8 @@ Supply 2, payout `10^18-1`, 18 decimals: required 2, one-shot floor 1, two 1-uni
 
 The candidate bound is PROVEN_UNDER_ASSUMPTIONS: any partition sums to `floor(supply * payout / D)`, and exact ceil funding leaves a residual of 0 or 1. The Python search is EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN: 378530 states, 2542061 transitions, 2.973316 seconds, no new counterexample. Evidence: `evidence/research/prism/cumulative-floor-attack-2026-09-26.json`.
 
+The later holder-allocation probe `CX-FP-CUM-HOLDER-001` found a separate counterexample: with payout `WAD/2+1`, alternating 1-unit redemptions by two holders owning 1000 units each pay A 0 and B 1000, while each isolated floor is 500. Aggregate payout and the 0/1 exact-ceil residual remain correct. This scales to decimals 6, 8, and 18 by redeeming one decimal-factor-sized chunk per call; Z3 checks the family for `1 <= n <= WAD/4`. See `research/reports/ADR_R03_ACCEPTANCE_PACKET.md` and `evidence/research/prism/holder-fairness-2026-09-28.json`.
+
 ## Benchmark
 
 The counterexample is a single exact state, not a timing benchmark.
@@ -31,7 +33,7 @@ Changing the oracle without an accepted ADR would hide the counterexample. Leavi
 
 ## Recommendation
 
-The cumulative candidate is ready for acceptance or rejection. Accepting it would not, by itself, authorize settlement Solidity. Canonical MATH-1 stays FAIL until a human accepts the repair.
+**REVISE the proposed economic semantics before acceptance.** The global cursor solves aggregate underpayment but does not establish a holder-level entitlement under fragmented, interleaved redemption. Human authority must choose an explicit aggregate-only promise with order-dependent carry, or a revised holder-allocation mechanism. Accepting either rule would not, by itself, authorize production settlement Solidity. Canonical MATH-1 stays FAIL.
 
 ## Confidence
 

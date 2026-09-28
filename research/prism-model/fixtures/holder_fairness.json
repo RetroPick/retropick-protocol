@@ -1,0 +1,60 @@
+{
+  "schema": "candidate_holder_fairness_v1",
+  "source": "research/prism-model/holder_fairness_attack.py",
+  "candidate": "global cumulative redeemed cursor",
+  "classification": "COUNTEREXAMPLE_FOUND",
+  "falsified_claim": "each holder receives at least floor(holder units * payout_wad / D) under arbitrary fragmentation and ordering",
+  "cases": [
+    {
+      "decimals": 6,
+      "pairs": 10,
+      "chunk_units": "1000000000000",
+      "initial_units_per_holder": "10000000000000",
+      "supply_units": "20000000000000",
+      "payout_wad": "500000000000000001",
+      "exact_ceil_funding_raw": "11",
+      "aggregate_paid_raw": "10",
+      "aggregate_one_shot_floor_raw": "10",
+      "holder_a_paid_raw": "0",
+      "holder_b_paid_raw": "10",
+      "isolated_holder_floor_raw": "5",
+      "holder_a_shortfall_raw": "5",
+      "holder_b_surplus_over_isolated_floor_raw": "5",
+      "residual_raw": "1"
+    },
+    {
+      "decimals": 8,
+      "pairs": 10,
+      "chunk_units": "10000000000",
+      "initial_units_per_holder": "100000000000",
+      "supply_units": "200000000000",
+      "payout_wad": "500000000000000001",
+      "exact_ceil_funding_raw": "11",
+      "aggregate_paid_raw": "10",
+      "aggregate_one_shot_floor_raw": "10",
+      "holder_a_paid_raw": "0",
+      "holder_b_paid_raw": "10",
+      "isolated_holder_floor_raw": "5",
+      "holder_a_shortfall_raw": "5",
+      "holder_b_surplus_over_isolated_floor_raw": "5",
+      "residual_raw": "1"
+    },
+    {
+      "decimals": 18,
+      "pairs": 10,
+      "chunk_units": "1",
+      "initial_units_per_holder": "10",
+      "supply_units": "20",
+      "payout_wad": "500000000000000001",
+      "exact_ceil_funding_raw": "11",
+      "aggregate_paid_raw": "10",
+      "aggregate_one_shot_floor_raw": "10",
+      "holder_a_paid_raw": "0",
+      "holder_b_paid_raw": "10",
+      "isolated_holder_floor_raw": "5",
+      "holder_a_shortfall_raw": "5",
+      "holder_b_surplus_over_isolated_floor_raw": "5",
+      "residual_raw": "1"
+    }
+  ]
+}

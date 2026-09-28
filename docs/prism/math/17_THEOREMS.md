@@ -218,6 +218,8 @@ Source: `research/prism-model/cumulative_settlement.py`, `cumulative_settlement_
 
 A holder who splits can miss a carry that another holder receives. That moves value between holders. It does not increase dust above the ceil-floor residual. The candidate has no mint function. No settlement Solidity was added.
 
+The 2026-09-28 holder-allocation probe strengthens this observation: `CX-FP-CUM-HOLDER-001` is `COUNTEREXAMPLE_FOUND` for the claim that each holder receives its isolated floor under arbitrary interleaved redemptions. Two holders with 1000 equal chunks can receive 0 and 1000 raw units, despite isolated floors of 500 each. The Z3-checked family covers `1 <= n <= WAD/4` and scales each chunk for decimals 0..18; Python executes 6/8/18-decimal cases and Solidity replays the ten-pair fixtures. Aggregate `T-FP-CUM-001` remains `PROVEN_UNDER_ASSUMPTIONS`. Evidence: `evidence/research/prism/holder-fairness-2026-09-28.json`. ADR-R03 remains PROPOSED with a REVISE recommendation. Canonical MATH-1 remains FAIL.
+
 ## 10. Precision boundary — 2026-09-26
 
 This section does not mark MATH-1 PASS and does not change either payout formula.

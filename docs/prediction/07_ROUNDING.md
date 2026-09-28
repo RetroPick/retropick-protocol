@@ -34,3 +34,7 @@ Ordered compositions of outstanding supply 0 through 16. Holders are A and B. La
 `compare_scales(48)` checked collateral-native cumulative half against a convert-back from scales `10^6`, `10^12`, and `10^18`. Mismatches: 0. Classification: EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN for that grid. Matching decimals is still the recommendation because the 1:1 winner path should be an integer identity with one rounding boundary, not because the grid found a solvent mismatch. ADR-P02.
 
 Phase 1 should approve one collateral and copy its decimals onto the outcome tokens. The kernel does that.
+
+## Holder-allocation qualification (2026-09-28)
+
+The cumulative rule conserves **aggregate** INVALID payout, but it does not ensure that two holders with identical YES/NO balances receive identical payout. In `CX-PRED-INVALID-HOLDER-001`, Alice and Bob each split 10 units and retain their 10 YES and 10 NO tokens. Alternating Alice-first, Bob-second one-unit redemption on both sides pays Alice 0 and Bob 20. The isolated half value of each holder's 20 outcome units is 10. Both Python and Solidity reproduce this result; collateral and liability end at zero. This is a holder-entitlement counterexample, not an aggregate-solvency counterexample. The previous composition walk checked aggregate payments and therefore did not clear holder fairness. ADR-P05 remains PROPOSED with a REVISE recommendation. No payout formula is changed.

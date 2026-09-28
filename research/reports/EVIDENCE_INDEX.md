@@ -8,6 +8,7 @@
 - `research/reports/SETTLEMENT_RESIDUAL_DECISION_PACKET.md`: options and recommendation for the exact-ceil 0/1 raw residual, with direct donations and overfunding kept separate. Policy remains NOT_YET_VALIDATED.
 - `evidence/research/repro/codex-clean-repro-2026-09-28.md`: independent default and named-research profile runs from fresh local clones and virtual environments; 23 rewritten historical JSON artifacts stayed inside the temporary clones.
 - `evidence/research/prediction/winner-liability-overflow-2026-09-28.json`: `CX-PRED-WINNER-OVERFLOW-001`, the fully backed `2^255` winner liveness boundary. Three focused Solidity regressions and a Python comparison; ADR-P19 stays PROPOSED.
+- `evidence/research/prediction/invalid-holder-allocation-2026-09-28.json`: `CX-PRED-INVALID-HOLDER-001`, identical funded holders receiving 0/20 under alternating one-unit INVALID redemptions. Python and Solidity agree; aggregate conservation still holds; ADR-P05 recommendation is REVISE.
 
 The 2026-09-26 command inventory below is historical. The new research environment uses an isolated temporary Python virtual environment with SymPy 1.14.0, mpmath 1.3.0, and z3-solver 5.1.0; the system interpreter still lacks the formal packages.
 

@@ -1,0 +1,40 @@
+{
+  "id": "CX-PRED-INVALID-HOLDER-001",
+  "date": "2026-09-28",
+  "classification": "COUNTEREXAMPLE_FOUND",
+  "scope": "holder-independent INVALID half-value, not aggregate conservation",
+  "input": {
+    "collateral_decimals": 6,
+    "holders": ["alice", "bob"],
+    "each_holder_split": 10,
+    "each_holder_initial_yes": 10,
+    "each_holder_initial_no": 10,
+    "result": "INVALID",
+    "redemption_order_per_side": "alice(1), bob(1), repeated 10 times",
+    "sides": ["YES", "NO"]
+  },
+  "expected_isolated_half_floor_per_holder": 10,
+  "observed_holder_payment": {"alice": 0, "bob": 20},
+  "observed_aggregate_payment": 20,
+  "post_state": {
+    "yesSupply": 0,
+    "noSupply": 0,
+    "liability": 0,
+    "collateralLocked": 0,
+    "physical_collateral_balance": 0,
+    "residual": 0
+  },
+  "proof_family": "For n alternating pairs per side, each first redemption sees an even cursor and pays 0; each second sees an odd cursor and pays 1. With both sides, first holder receives 0 and second holder 2n, although both began with n complete sets and isolated half value n.",
+  "python": "research/prediction-model/tests/test_invalid_holder_allocation.py: 1 passed",
+  "solidity": {
+    "test": "research/contract-kernels/test/prediction/InvalidHolderAllocation.t.sol",
+    "focused_result": "1 passed, 0 failed",
+    "gas_for_whole_test": 3710928,
+    "forge_version": "1.8.3",
+    "solc_version": "0.8.26",
+    "optimizer_runs": 200,
+    "viaIR": false
+  },
+  "decision": "ADR-P05 remains PROPOSED; recommendation REVISE",
+  "gate_effect": "PRED-MATH-1 remains partial; PRED-CONTRACT-1 remains NOT PASS"
+}

@@ -2,6 +2,7 @@
 
 **Status:** PROPOSED  
 **Contingent on:** human acceptance of ADR-R03. That acceptance is not granted.  
+**2026-09-28 qualification:** `CX-FP-CUM-HOLDER-001` shows that the global cursor can allocate 0/10 between two otherwise equal holders while conserving the aggregate. ADR-R03 recommendation is REVISE, not ACCEPT. The 0/1 exact-funding residual policy and deposit/mint ownership are also unaccepted. The function/storage tables below remain a research hypothesis, not frozen production semantics.
 **Solidity:** a candidate settlement kernel is in `research/contract-kernels/src/prism/CandidateCumulativeSettlement.sol`. It implements only the global-cursor redeem from `cumulative_settlement.py`. It is not this series, not MATH-1 PASS, and not a v2 promotion. The series token, mint path, and component vault are still not written. `contracts/src/v2/` is unchanged. ADR-R07 still stops a settlement port.  
 **Math:** this file does not restate canonical theorems. Settlement rounding is the candidate in `research/prism-model/cumulative_settlement.py`. Canonical `FixedPointSettlement.redeem` stays the failing per-call rule.
 

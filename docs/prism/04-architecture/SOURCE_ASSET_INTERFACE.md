@@ -4,6 +4,8 @@
 **Gate:** `SOURCE-ASSET-INTERFACE-FREEZE` = `proposed_not_frozen`  
 **What this is not:** a cross-module deposit harness. X-I01 through X-I07 are not tested. PRISM does not call this interface.
 
+**2026-09-28 qualification:** `research/reports/PRISM_ADMISSION_SOURCE_INTERFACE_PACKET.md` proposes the missing certificate/registry and executable X-I01..X-I07 boundary. Prediction INVALID holder allocation (ADR-P05) and winner uint256 liveness (ADR-P19) remain unresolved; the payoff/settlement version of a Prediction source cannot be frozen from the ERC-20 address alone. This does not change this file's PROPOSED_NOT_FROZEN status.
+
 The prediction kernel can expose the following today. Anything else is out of the freeze.
 
 | Field | Where | Rule |

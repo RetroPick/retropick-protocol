@@ -18,6 +18,14 @@ Schema A is the implemented token shape. `PredictionMarket` still deploys two fu
 
 `src/prism/CandidateCumulativeSettlement.sol` is a research kernel of the cumulative-floor candidate in `research/prism-model/cumulative_settlement.py`. It is labeled candidate. It is not MATH-1 PASS and it is not a v2 promotion. Canonical `FixedPointSettlement.redeem` is not in this harness and was not replaced. The full series in `docs/prism/04-architecture/PHASE1_CANDIDATE_SERIES.md` is still a proposal. ADR-R07 still stops a production settlement port.
 
+## Hackathon P0
+
+`src/hackathon/PredictionMarketP0.sol` and `PredictionFactoryP0.sol` are
+Hackathon P0 research kernels. They intentionally remove Prediction INVALID,
+arbitrary payout numerators, arbitrary collateral construction, and unbounded
+winner arithmetic. They are not production contracts and do not change
+`PRED-CONTRACT-1`.
+
 ## Run
 
 ```bash

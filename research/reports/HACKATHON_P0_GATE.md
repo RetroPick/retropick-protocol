@@ -43,14 +43,23 @@ Frozen semantic draft: `research/hackathon-p0/PREDICTION_P0_SPEC.md`.
 
 Current status: NOT READY.
 
-- Binary YES/NO only: specified, not implemented.
+- Binary YES/NO only: Solidity research kernel subset PASS locally.
 - Fixed qualified collateral: specified, not implemented.
-- Complete-set issuance: specified, not implemented.
-- Exact winner redemption: specified, not implemented.
-- Callback/lifecycle defense: specified, not implemented.
-- Bounded arithmetic: specified as `type(uint128).max`, not implemented.
+- Complete-set issuance: Solidity research kernel subset PASS locally.
+- Exact winner redemption: Solidity research kernel subset PASS locally,
+  including the `MAX_OUTCOME_SUPPLY` boundary.
+- Callback/lifecycle defense: Solidity research kernel subset PASS locally for
+  collateral/resolver overlap and callback-during-split regression.
+- Bounded arithmetic: specified as `type(uint128).max` and locally tested.
 - Differential result: NOT_RUN.
 - Invariant result: NOT_RUN.
+
+Evidence:
+
+- `research/contract-kernels/src/hackathon/PredictionMarketP0.sol`
+- `research/contract-kernels/src/hackathon/PredictionFactoryP0.sol`
+- `research/contract-kernels/test/hackathon/PredictionP0.t.sol`
+- `evidence/hackathon-p0/prediction/prediction-p0-kernel-2026-09-28.json`
 
 ## PRISM P0
 

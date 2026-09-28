@@ -32,35 +32,56 @@ hackathon_p0:
 
   prediction:
     PRED-H1-BINARY-SEMANTICS:
-      status: NOT_RUN
+      status: PASS
+      label: MEASURED_LOCAL
       evidence:
         - research/hackathon-p0/PREDICTION_P0_SPEC.md
-      remaining_blocker: Prediction P0 model and Solidity research kernel not implemented.
+        - research/contract-kernels/src/hackathon/PredictionMarketP0.sol
+        - research/contract-kernels/test/hackathon/PredictionP0.t.sol
+        - evidence/hackathon-p0/prediction/prediction-p0-kernel-2026-09-28.json
+      remaining_blocker: Python semantic oracle and differential fixture still required for PRED-H7.
     PRED-H2-COLLATERAL:
       status: NOT_RUN
       evidence:
         - research/hackathon-p0/PREDICTION_P0_SPEC.md
       remaining_blocker: Fixed collateral allowlist and physical-balance tests not implemented.
     PRED-H3-COMPLETE-SET:
-      status: NOT_RUN
+      status: PASS
+      label: MEASURED_LOCAL
       evidence:
         - research/hackathon-p0/PREDICTION_P0_SPEC.md
-      remaining_blocker: Complete-set issuance kernel and tests not implemented.
+        - research/contract-kernels/src/hackathon/PredictionMarketP0.sol
+        - research/contract-kernels/test/hackathon/PredictionP0.t.sol
+        - evidence/hackathon-p0/prediction/prediction-p0-kernel-2026-09-28.json
+      remaining_blocker: Stateful complete-set conservation campaign still required for PRED-H8.
     PRED-H4-WINNER-REDEMPTION:
-      status: NOT_RUN
+      status: PASS
+      label: MEASURED_LOCAL
       evidence:
         - research/hackathon-p0/PREDICTION_P0_SPEC.md
-      remaining_blocker: Exact winner redemption kernel and boundary tests not implemented.
+        - research/contract-kernels/src/hackathon/PredictionMarketP0.sol
+        - research/contract-kernels/test/hackathon/PredictionP0.t.sol
+        - evidence/hackathon-p0/prediction/prediction-p0-kernel-2026-09-28.json
+      remaining_blocker: Python differential fixture still required for PRED-H7.
     PRED-H5-LIFECYCLE-ATOMICITY:
-      status: NOT_RUN
+      status: PASS
+      label: MEASURED_LOCAL
       evidence:
         - research/hackathon-p0/PREDICTION_P0_SPEC.md
-      remaining_blocker: Callback regression against P0 not implemented.
+        - research/contract-kernels/src/hackathon/PredictionFactoryP0.sol
+        - research/contract-kernels/src/hackathon/PredictionMarketP0.sol
+        - research/contract-kernels/test/hackathon/PredictionP0.t.sol
+        - evidence/hackathon-p0/prediction/prediction-p0-kernel-2026-09-28.json
+      remaining_blocker: Stateful lifecycle campaign still required for PRED-H8.
     PRED-H6-BOUNDED-ARITHMETIC:
-      status: NOT_RUN
+      status: PASS
+      label: MEASURED_LOCAL
       evidence:
         - research/hackathon-p0/PREDICTION_P0_SPEC.md
-      remaining_blocker: MAX_OUTCOME_SUPPLY tests not implemented.
+        - research/contract-kernels/src/hackathon/PredictionMarketP0.sol
+        - research/contract-kernels/test/hackathon/PredictionP0.t.sol
+        - evidence/hackathon-p0/prediction/prediction-p0-kernel-2026-09-28.json
+      remaining_blocker: Python boundary oracle still required for PRED-H7.
     PRED-H7-DIFFERENTIAL:
       status: NOT_RUN
       evidence:
@@ -200,3 +221,14 @@ gate_transition_history:
       - evidence/hackathon-p0/repro/baseline-2026-09-28.md
     sha: e354db0a96eca6b56b950d87bf81ad87fa4278fd
     remaining_blocker: Build and verify P0 executable models, kernels, cross-module harness, reproducibility, and live Kuru evidence.
+  - gate: hackathon_p0.prediction.solidity_kernel_subset
+    previous_state: NOT_RUN
+    new_state: PASS
+    reason: Prediction P0 research kernel excludes INVALID, enforces an explicit uint128 supply cap, uses exact winner liability/redemption, and rejects the callback lifecycle witness without issuance.
+    evidence:
+      - research/contract-kernels/src/hackathon/PredictionFactoryP0.sol
+      - research/contract-kernels/src/hackathon/PredictionMarketP0.sol
+      - research/contract-kernels/test/hackathon/PredictionP0.t.sol
+      - evidence/hackathon-p0/prediction/prediction-p0-kernel-2026-09-28.json
+    sha: 92b76cd0d4a5ac6108584c28da9832a0d03cf36d
+    remaining_blocker: PRED-H2, PRED-H7, and PRED-H8 remain open; this does not make HACKATHON-P0-CONTRACT-READY pass.

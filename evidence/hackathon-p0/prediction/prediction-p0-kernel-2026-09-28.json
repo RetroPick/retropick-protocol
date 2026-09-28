@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-09-28",
+  "profile": "HACKATHON-P0",
+  "branch": "codex/hackathon-p0-qualification",
+  "base_sha": "e354db0a96eca6b56b950d87bf81ad87fa4278fd",
+  "artifact": "Prediction P0 Solidity research kernel",
+  "classification": "MEASURED_LOCAL",
+  "command": "cd research/contract-kernels && forge test --match-path test/hackathon/PredictionP0.t.sol -vv",
+  "tool_versions": {
+    "forge": "1.8.3",
+    "solc": "0.8.26"
+  },
+  "result": {
+    "suites": 1,
+    "tests_passed": 10,
+    "tests_failed": 0,
+    "tests_skipped": 0
+  },
+  "covered_gates": [
+    "PRED-H1-BINARY-SEMANTICS",
+    "PRED-H3-COMPLETE-SET",
+    "PRED-H4-WINNER-REDEMPTION",
+    "PRED-H5-LIFECYCLE-ATOMICITY",
+    "PRED-H6-BOUNDED-ARITHMETIC"
+  ],
+  "witnesses": {
+    "binary_domain": "PredictionMarketP0.Result has NONE, YES_WIN, NO_WIN only; resolve(NONE) reverts BadState.",
+    "complete_set": "split(100) mints exactly 100 YES and 100 NO after exact physical collateral receipt.",
+    "winner_redemption": "At MAX_OUTCOME_SUPPLY, YES_WIN liability equals YES supply and redeemYes(max) pays exactly max without multiplication overflow.",
+    "lifecycle_atomicity": "Factory rejects collateral == resolver; callback routed through a separate resolver during split reverts with no state change and no minted outcomes.",
+    "bounded_arithmetic": "split(MAX_OUTCOME_SUPPLY) succeeds; additional split(1) and split(MAX_OUTCOME_SUPPLY + 1) reject before state change."
+  },
+  "limitations": [
+    "No Python semantic oracle or Python-to-Solidity differential fixture yet.",
+    "No stateful invariant campaign yet.",
+    "Collateral gate is not fully passed because physicalBalance >= liability has not been checked after every accepted transition under a stateful campaign.",
+    "This is a research kernel under research/contract-kernels, not production code."
+  ],
+  "production_gates_unchanged": true
+}

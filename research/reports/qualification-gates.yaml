@@ -9,7 +9,9 @@ static_analysis: measured_with_findings
 slither_complete_ir: blocked_tool
 security_toolchain_complete_static_analysis: blocked_tool
 S-P16_redeemed_cursor: proven_under_assumptions_open_analyzer_gap
-reproducibility_clean: "pass_on_committed_sha_bbbfaa2. Fresh clone and isolated formal Python environment. Default: Prediction 31, PRISM 111, Foundry 166 pass/1 skip. Named research profile executes legacy attack, holder-fairness attack, telescope, exhaustive domain, fixture generators, benchmarks, and long Prediction compositions (2 pass). Historical JSON rewrites remain in temporary clones. Evidence evidence/research/repro/codex-clean-repro-2026-09-28.md. No financial gate upgrade."
+reproducibility_clean: "pass_on_committed_sha_d466cf5. Fresh clone and isolated formal Python environment. Current default: Prediction 33, PRISM 111, Foundry 171 pass/1 skip. Named research profile at earlier bbbfaa2 executes legacy attack, holder-fairness attack, telescope, exhaustive domain, fixture generators, benchmarks, and long Prediction compositions (2 pass); it was not rerun at d466cf5. Historical JSON rewrites remain in temporary clones. Evidence evidence/research/repro/codex-clean-repro-tip-2026-09-28.md and codex-clean-repro-2026-09-28.md. No financial gate upgrade."
+smart_contract_research_gate: fail
+smart_contract_research_gate_report: research/reports/SMART_CONTRACT_RESEARCH_GATE.md
 reproducibility_local: "rerun_pass. SHA 0f14c30b1143067e051693fc9c0633683a937ce6. Python 3.12.3. forge 1.8.3 commit cae51ad458f6abb64852b7709eb784352429825d. Prediction unit tests 15 OK. PRISM unit tests 109 OK. Default-profile forge test 76 passed, 0 failed, 1 skipped (77 total). The skip is test_invalidCompositionsMatchCumulativeFloor because block.gaslimit is below the composition walk. This rerun did not re-execute the supply 0..16 domain. Script exit 0. Existing interpreter and existing Foundry install. Not a clean clone and not a fresh virtualenv. Log evidence/research/repro/repro-local-2026-09-26-rerun.txt. Earlier log evidence/research/repro/repro-local-2026-09-26.txt stays the prior record. Admission gates stay unchanged."
 contradiction_2_resolved_redeem: "recorded_contradiction. Open. ADR-P10 PROPOSED. Acceptance not granted. BinaryCompleteSetMarket.redeem pays 1 while RESOLVED and moves collateral from 4 to 3. PredictionMarket.redeem raises redeem only while REDEEMABLE and leaves collateral at 4. Neither redeem was edited. Not a theorem pass. MATH-1 stays FAIL. PRED-MATH-1 stays partial. PRED-CONTRACT-1 stays not_pass. Log evidence/research/prediction/resolved-redeem-contradiction-2026-09-26.json."
 ADR-P10: "PROPOSED. Acceptance not granted. Keep the prediction lifecycle separation. Leave native_market.py as the reduced oracle. Do not edit either redeem until acceptance. Contradiction 2 stays open. Evidence evidence/research/prediction/resolved-redeem-contradiction-2026-09-26.json."
@@ -60,6 +62,9 @@ prediction:
 
 prism:
   RESEARCH: reproduced
+  component_backing_semantics: proposed_not_frozen
+  reservation_physical_custody: not_yet_validated
+  exact_replication_admission: proposed_not_frozen
   MATH-1A: measured_exact_model
   MATH-1B: "bounded_grids_only. Composition supply 0..16 on 18 decimals, two holders, 917612 states, 7340046 transitions, 8.02598s, EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN. Backing weights {0, 1/2, 1}, supplies 0..8, quantities 0..8, 81 states, 2187 transitions, 0.054409s, EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN. Not a universal proof."
   MATH-1D_candidate_supply16: exhaustively_verified_within_domain
@@ -121,6 +126,50 @@ module_admission_finance_1:
   legally_approved: false
 
 gate_transition_history:
+  - gate: reproducibility_clean
+    previous_state: pass_on_committed_sha_bbbfaa2
+    new_state: pass_on_committed_sha_d466cf5
+    reason: New Prediction negative controls and PRISM decision packets were included in a fresh-clone default-profile rerun; named expensive profile remains the earlier bbbfaa2 run.
+    evidence:
+      - evidence/research/repro/codex-clean-repro-tip-2026-09-28.md
+      - evidence/research/repro/codex-clean-repro-2026-09-28.md
+    sha: d466cf5e18e3d14b1b3b805b07c5785af8b634f5
+    remaining_blocker: Local reproducibility does not resolve financial counterexamples or static-analysis gaps.
+  - gate: prism.component_backing_semantics
+    previous_state: not_yet_validated
+    new_state: proposed_not_frozen
+    reason: Existing requirement-delta arithmetic is supported, but depositor-to-minter ownership, duplicate/zero components, transferability, and donation disposition lack accepted rules.
+    evidence:
+      - research/reports/PRISM_BACKING_RESERVATION_PACKET.md
+    sha: d466cf5e18e3d14b1b3b805b07c5785af8b634f5
+    remaining_blocker: Human acceptance and transfer-aware physical-custody differential harness.
+  - gate: prism.reservation_physical_custody
+    previous_state: absent
+    new_state: not_yet_validated
+    reason: Candidate ledger deposit changes only paper balance, not ERC-20 custody; logical reservation invariants cannot establish a physical backing inequality.
+    evidence:
+      - research/reports/PRISM_BACKING_RESERVATION_PACKET.md
+      - research/contract-kernels/src/prism/CandidateReservationLedger.sol
+    sha: d466cf5e18e3d14b1b3b805b07c5785af8b634f5
+    remaining_blocker: Authoritative custody/reservation lifecycle and physical token harness are not implemented.
+  - gate: prism.exact_replication_admission
+    previous_state: not_yet_validated
+    new_state: proposed_not_frozen
+    reason: A bounded rational solver exists, but certificate schema, authorized admission, source qualification, and onchain binding/equality checks are not frozen.
+    evidence:
+      - research/reports/PRISM_ADMISSION_SOURCE_INTERFACE_PACKET.md
+      - research/prism-model/minimum_cost_replication.py
+    sha: d466cf5e18e3d14b1b3b805b07c5785af8b634f5
+    remaining_blocker: Accept certificate trust boundary and build admission fixtures before source interface freeze.
+  - gate: smart_contract_research_gate
+    previous_state: absent
+    new_state: fail
+    reason: Canonical PRISM MATH-1D fails, Prediction has unresolved holder/liveness/callback findings, physical reservation and source integration are absent, and complete security analysis is blocked.
+    evidence:
+      - research/reports/SMART_CONTRACT_RESEARCH_GATE.md
+      - research/reports/qualification-gates.yaml
+    sha: d466cf5e18e3d14b1b3b805b07c5785af8b634f5
+    remaining_blocker: Resolve financial counterexamples and semantic decisions; then rerun complete differential, stateful, security, and cross-module qualification.
   - gate: security_toolchain_complete_static_analysis
     previous_state: not_yet_validated
     new_state: blocked_tool

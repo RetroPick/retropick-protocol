@@ -1,0 +1,202 @@
+schema_version: 1
+recorded_at: 2026-09-28
+profile: HACKATHON-P0
+branch: codex/hackathon-p0-qualification
+base_sha: e354db0a96eca6b56b950d87bf81ad87fa4278fd
+production_gates_unchanged: true
+production_gate_source: research/reports/qualification-gates.yaml
+status_vocabulary:
+  - PASS
+  - FAIL
+  - BLOCKED_EXTERNAL
+  - BLOCKED_TOOL
+  - NOT_RUN
+evidence_labels:
+  - PROVEN_UNDER_ASSUMPTIONS
+  - EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN
+  - MEASURED_LOCAL
+  - MEASURED_TESTNET
+  - COUNTEREXAMPLE_FOUND
+
+hackathon_p0:
+  semantic_freeze:
+    status: PASS
+    label: FROZEN_SCOPE_DRAFT
+    evidence:
+      - research/hackathon-p0/HACKATHON_P0_SPEC.md
+      - research/hackathon-p0/PREDICTION_P0_SPEC.md
+      - research/hackathon-p0/PRISM_P0_SPEC.md
+      - research/hackathon-p0/CROSS_MODULE_P0_SPEC.md
+      - research/hackathon-p0/KURU_P0_SPEC.md
+    remaining_blocker: Implement executable P0 models, kernels, fixtures, invariants, cross-module harness, and live Kuru evidence.
+
+  prediction:
+    PRED-H1-BINARY-SEMANTICS:
+      status: NOT_RUN
+      evidence:
+        - research/hackathon-p0/PREDICTION_P0_SPEC.md
+      remaining_blocker: Prediction P0 model and Solidity research kernel not implemented.
+    PRED-H2-COLLATERAL:
+      status: NOT_RUN
+      evidence:
+        - research/hackathon-p0/PREDICTION_P0_SPEC.md
+      remaining_blocker: Fixed collateral allowlist and physical-balance tests not implemented.
+    PRED-H3-COMPLETE-SET:
+      status: NOT_RUN
+      evidence:
+        - research/hackathon-p0/PREDICTION_P0_SPEC.md
+      remaining_blocker: Complete-set issuance kernel and tests not implemented.
+    PRED-H4-WINNER-REDEMPTION:
+      status: NOT_RUN
+      evidence:
+        - research/hackathon-p0/PREDICTION_P0_SPEC.md
+      remaining_blocker: Exact winner redemption kernel and boundary tests not implemented.
+    PRED-H5-LIFECYCLE-ATOMICITY:
+      status: NOT_RUN
+      evidence:
+        - research/hackathon-p0/PREDICTION_P0_SPEC.md
+      remaining_blocker: Callback regression against P0 not implemented.
+    PRED-H6-BOUNDED-ARITHMETIC:
+      status: NOT_RUN
+      evidence:
+        - research/hackathon-p0/PREDICTION_P0_SPEC.md
+      remaining_blocker: MAX_OUTCOME_SUPPLY tests not implemented.
+    PRED-H7-DIFFERENTIAL:
+      status: NOT_RUN
+      evidence:
+        - research/hackathon-p0/models/README.md
+      remaining_blocker: P0 Python-to-Solidity fixtures not built.
+    PRED-H8-STATEFUL:
+      status: NOT_RUN
+      evidence: []
+      remaining_blocker: Foundry stateful campaign not built or run.
+
+  prism:
+    PRISM-H1-EXACT-REPLICATION:
+      status: NOT_RUN
+      evidence:
+        - research/hackathon-p0/PRISM_P0_SPEC.md
+      remaining_blocker: P0 demo series certificates and exact recheck evidence not generated.
+    PRISM-H2-EXACT-LOT:
+      status: NOT_RUN
+      evidence:
+        - research/hackathon-p0/PRISM_P0_SPEC.md
+      remaining_blocker: Lot-size derivation model and tests not implemented.
+    PRISM-H3-ATOMIC-MINT:
+      status: NOT_RUN
+      evidence:
+        - research/hackathon-p0/PRISM_P0_SPEC.md
+      remaining_blocker: Atomic minter-funded kernel not implemented.
+    PRISM-H4-PHYSICAL-BACKING:
+      status: NOT_RUN
+      evidence:
+        - research/hackathon-p0/PRISM_P0_SPEC.md
+      remaining_blocker: Physical backing invariant not implemented.
+    PRISM-H5-IN-KIND-REDEMPTION:
+      status: NOT_RUN
+      evidence:
+        - research/hackathon-p0/PRISM_P0_SPEC.md
+      remaining_blocker: redeemInKind kernel and tests not implemented.
+    PRISM-H6-TRANSFERABILITY:
+      status: NOT_RUN
+      evidence:
+        - research/hackathon-p0/PRISM_P0_SPEC.md
+      remaining_blocker: Transferable PRISM ERC-20 research kernel not implemented.
+    PRISM-H7-NO-SHARED-PREFUNDING:
+      status: NOT_RUN
+      evidence:
+        - research/hackathon-p0/PRISM_P0_SPEC.md
+      remaining_blocker: A-has-components/B-mints negative regression not implemented.
+    PRISM-H8-NO-CASH-SETTLEMENT:
+      status: NOT_RUN
+      evidence:
+        - research/hackathon-p0/PRISM_P0_SPEC.md
+      remaining_blocker: ABI/state inspection not implemented.
+    PRISM-H9-STATEFUL:
+      status: NOT_RUN
+      evidence: []
+      remaining_blocker: Stateful mint/transfer/redeem/donation campaign not built or run.
+
+  cross_module:
+    H-X-P0:
+      status: NOT_RUN
+      evidence:
+        - research/hackathon-p0/CROSS_MODULE_P0_SPEC.md
+      remaining_blocker: End-to-end YES and NO world harness not implemented.
+    source_identity:
+      status: NOT_RUN
+      evidence:
+        - research/hackathon-p0/CROSS_MODULE_P0_SPEC.md
+      remaining_blocker: PredictionFactoryP0 source registry not implemented.
+    distinct_liabilities:
+      status: NOT_RUN
+      evidence:
+        - research/hackathon-p0/CROSS_MODULE_P0_SPEC.md
+      remaining_blocker: Combined harness not implemented.
+    kuru_independence:
+      status: NOT_RUN
+      evidence:
+        - research/hackathon-p0/CROSS_MODULE_P0_SPEC.md
+      remaining_blocker: Solvency path not tested with Kuru/indexer/frontend absent.
+
+  kuru:
+    KURU-H1-DOCS-NETWORK:
+      status: NOT_RUN
+      evidence:
+        - research/hackathon-p0/KURU_P0_SPEC.md
+      remaining_blocker: Current official Kuru/Monad testnet sources not verified yet.
+    KURU-H2-ERC20-MARKET:
+      status: BLOCKED_EXTERNAL
+      evidence: []
+      remaining_blocker: Requires live approved testnet, wallet, funds, official Router path, and deployed P0 ERC-20s.
+    KURU-H3-THREE-MARKETS:
+      status: BLOCKED_EXTERNAL
+      evidence: []
+      remaining_blocker: Requires live market deployment after local contract-ready gate.
+    KURU-H4-LIQUIDITY:
+      status: BLOCKED_EXTERNAL
+      evidence: []
+      remaining_blocker: Requires live market addresses, balances, approvals, and funds.
+    KURU-H5-PLACE:
+      status: BLOCKED_EXTERNAL
+      evidence: []
+      remaining_blocker: Requires live deployed markets and funded maker.
+    KURU-H6-FILL:
+      status: BLOCKED_EXTERNAL
+      evidence: []
+      remaining_blocker: Requires live deployed markets and maker/taker flow.
+    KURU-H7-CANCEL:
+      status: BLOCKED_EXTERNAL
+      evidence: []
+      remaining_blocker: Requires live deployed markets and cancelable order.
+
+  HACKATHON-P0-CONTRACT-READY:
+    status: NOT_RUN
+    evidence:
+      - research/reports/HACKATHON_P0_GATE.md
+    remaining_blocker: Prediction, PRISM, and cross-module local gates are not implemented or run.
+  HACKATHON-P0-KURU-READY:
+    status: BLOCKED_EXTERNAL
+    evidence:
+      - research/reports/HACKATHON_P0_GATE.md
+    remaining_blocker: Live official Kuru testnet evidence has not been gathered.
+  HACKATHON-P0-DEMO-READY:
+    status: NOT_RUN
+    evidence:
+      - research/reports/HACKATHON_P0_GATE.md
+    remaining_blocker: Contract-ready and Kuru-ready are not PASS.
+
+gate_transition_history:
+  - gate: hackathon_p0.semantic_freeze
+    previous_state: absent
+    new_state: PASS
+    reason: Created separate Hackathon P0 scope documents that exclude known production counterexamples by construction without changing production gates.
+    evidence:
+      - research/hackathon-p0/HACKATHON_P0_SPEC.md
+      - research/hackathon-p0/PREDICTION_P0_SPEC.md
+      - research/hackathon-p0/PRISM_P0_SPEC.md
+      - research/hackathon-p0/CROSS_MODULE_P0_SPEC.md
+      - research/hackathon-p0/KURU_P0_SPEC.md
+      - evidence/hackathon-p0/repro/baseline-2026-09-28.md
+    sha: e354db0a96eca6b56b950d87bf81ad87fa4278fd
+    remaining_blocker: Build and verify P0 executable models, kernels, cross-module harness, reproducibility, and live Kuru evidence.

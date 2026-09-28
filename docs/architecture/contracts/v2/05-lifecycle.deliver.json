@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "deliver",
+  "type": "lifecycle",
+  "input": "/home/ubuntu/project/retropick/retropick-protocol/docs/architecture/contracts/v2/05-lifecycle.json",
+  "output": "/home/ubuntu/project/retropick/retropick-protocol/docs/architecture/contracts/v2/05-lifecycle.html",
+  "specification": {
+    "sha256": "69f687d4802ee589b9340a8e4cb61b3ee3e7c9c3806a5703b811c54cbdb10d53",
+    "bytes": 964
+  },
+  "artifact": {
+    "sha256": "7be6c23e07fcfbc5f7f7c7094ad0075dd6b6bfb5112a265bbd658cf2093ccc5b",
+    "bytes": 797218
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  }
+}

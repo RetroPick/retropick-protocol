@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "deliver",
+  "type": "architecture",
+  "input": "/home/ubuntu/project/retropick/retropick-protocol/docs/architecture/contracts/v2/06-trust-boundaries.json",
+  "output": "/home/ubuntu/project/retropick/retropick-protocol/docs/architecture/contracts/v2/06-trust-boundaries.html",
+  "specification": {
+    "sha256": "6553c6aaf24452739bec78be128f055bc760174f78242dbad216c11e2e95227a",
+    "bytes": 1537
+  },
+  "artifact": {
+    "sha256": "4ab169ab3d755883eac3e8c6bf709f9dda98b9c897c059aab37f53f7d55910d2",
+    "bytes": 799491
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  }
+}

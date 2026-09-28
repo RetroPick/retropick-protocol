@@ -1,0 +1,22 @@
+{
+  "schema_version":1,"diagram_type":"architecture",
+  "meta":{"title":"RetroPick V1 Implemented Launchpad","locale":"en","quality_profile":"showcase","repository":{"url":"https://github.com/RetroPick/retropick-protocol","revision":"d8971ffee042314def2dfd48a413737e3d84ac22"},"viewBox":[1240,480]},
+  "components":[
+    {"id":"creator","type":"external","label":"Creator / Trader","sublabel":"launch and curve trade","pos":[30,185],"size":[150,60]},
+    {"id":"factory","type":"backend","label":"LaunchFactory V1","sublabel":"deploy, sweep, retryable seed","tag":"first-party","pos":[250,185],"size":[175,60],"sources":[{"path":"contracts/src/v1/RetroPickLaunchFactoryV1.sol","line":55,"label":"factory"}]},
+    {"id":"curve","type":"backend","label":"BondingCurve V1","sublabel":"pre-pool reserves and fee buckets","tag":"first-party","pos":[495,185],"size":[185,60],"sources":[{"path":"contracts/src/v1/RetroPickBondingCurveV1.sol","line":31,"label":"curve"}]},
+    {"id":"v4","type":"external","label":"Uniswap V4","sublabel":"PoolManager + PositionManager","pos":[750,185],"size":[180,60]},
+    {"id":"hook","type":"security","label":"MemeHook / Vault / Locker","sublabel":"post-pool fees and permanent locks","tag":"first-party","pos":[1000,185],"size":[190,60],"sources":[{"path":"contracts/src/v1/hooks/RetroPickMemeHookV1.sol","line":40,"label":"hook"},{"path":"contracts/src/v1/RetroPickBuybackVaultV1.sol","line":36,"label":"vault"},{"path":"contracts/src/v1/RetroPickLaunchLockerV1.sol","line":23,"label":"locker"}]}
+  ],
+  "connections":[
+    {"from":"creator","to":"factory","label":"launch, graduate, create pool","variant":"emphasis","route":"straight","labelDy":54},
+    {"from":"factory","to":"curve","label":"deploy and initialize","variant":"security","route":"straight","labelDy":54},
+    {"from":"curve","to":"v4","label":"sweep then seed","variant":"emphasis","route":"straight","labelDy":54},
+    {"from":"v4","to":"hook","label":"swap callback and LP custody","variant":"security","route":"straight","labelDy":54}
+  ],
+  "cards":[
+    {"dot":"cyan","title":"Implemented today","items":["A Uniswap V4 path; neither Kuru nor a prediction/PRISM runtime is imported or called","Deployer, Guard and Executor support the Factory path (see SOURCE_MAP)"]},
+    {"dot":"amber","title":"Accounting facts","items":["realQuote = trackedQuote − quoteFeeBalance − creatorTaxBalance; readiness is sellableTokens() == 0","V4 seed is floor(sweptTokens × sweptQuote / (sweptQuote + phantomQuote)); excess tokens lock"]},
+    {"dot":"rose","title":"External boundary","items":["FeeEscrow is ABI-only; curve reserves, fee credits, BuybackVault vesting and LP NFT custody stay separate"]}
+  ]
+}

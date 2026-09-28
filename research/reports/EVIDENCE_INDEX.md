@@ -5,6 +5,7 @@
 - `evidence/research/repro/codex-baseline-2026-09-28.md`: fetched-main/Cursor provenance, clean branch baseline, installed tool versions, and focused reproduction before formal dependency setup.
 - `evidence/research/prism/holder-fairness-2026-09-28.json`: `CX-FP-CUM-HOLDER-001`, formal alternating-family check, 6/8/18 Python witnesses, Solidity fixture replay, current aggregate invariant seed, and reentrancy replay. It does not replace the 2026-09-26 evidence.
 - `research/reports/ADR_R03_ACCEPTANCE_PACKET.md`: decision-ready distinction between aggregate settlement and holder-level allocation. ADR-R03 remains PROPOSED with REVISE recommendation.
+- `research/reports/SETTLEMENT_RESIDUAL_DECISION_PACKET.md`: options and recommendation for the exact-ceil 0/1 raw residual, with direct donations and overfunding kept separate. Policy remains NOT_YET_VALIDATED.
 
 The 2026-09-26 command inventory below is historical. The new research environment uses an isolated temporary Python virtual environment with SymPy 1.14.0, mpmath 1.3.0, and z3-solver 5.1.0; the system interpreter still lacks the formal packages.
 

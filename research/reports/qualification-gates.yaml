@@ -7,7 +7,9 @@ promotion_into_contracts_src_v2: false
 benchmarks_measured: local_single_environment
 static_analysis: measured_with_findings
 slither_complete_ir: blocked_tool
+security_toolchain_complete_static_analysis: blocked_tool
 S-P16_redeemed_cursor: proven_under_assumptions_open_analyzer_gap
+reproducibility_clean: "pass_on_committed_sha_bbbfaa2. Fresh clone and isolated formal Python environment. Default: Prediction 31, PRISM 111, Foundry 166 pass/1 skip. Named research profile executes legacy attack, holder-fairness attack, telescope, exhaustive domain, fixture generators, benchmarks, and long Prediction compositions (2 pass). Historical JSON rewrites remain in temporary clones. Evidence evidence/research/repro/codex-clean-repro-2026-09-28.md. No financial gate upgrade."
 reproducibility_local: "rerun_pass. SHA 0f14c30b1143067e051693fc9c0633683a937ce6. Python 3.12.3. forge 1.8.3 commit cae51ad458f6abb64852b7709eb784352429825d. Prediction unit tests 15 OK. PRISM unit tests 109 OK. Default-profile forge test 76 passed, 0 failed, 1 skipped (77 total). The skip is test_invalidCompositionsMatchCumulativeFloor because block.gaslimit is below the composition walk. This rerun did not re-execute the supply 0..16 domain. Script exit 0. Existing interpreter and existing Foundry install. Not a clean clone and not a fresh virtualenv. Log evidence/research/repro/repro-local-2026-09-26-rerun.txt. Earlier log evidence/research/repro/repro-local-2026-09-26.txt stays the prior record. Admission gates stay unchanged."
 contradiction_2_resolved_redeem: "recorded_contradiction. Open. ADR-P10 PROPOSED. Acceptance not granted. BinaryCompleteSetMarket.redeem pays 1 while RESOLVED and moves collateral from 4 to 3. PredictionMarket.redeem raises redeem only while REDEEMABLE and leaves collateral at 4. Neither redeem was edited. Not a theorem pass. MATH-1 stays FAIL. PRED-MATH-1 stays partial. PRED-CONTRACT-1 stays not_pass. Log evidence/research/prediction/resolved-redeem-contradiction-2026-09-26.json."
 ADR-P10: "PROPOSED. Acceptance not granted. Keep the prediction lifecycle separation. Leave native_market.py as the reduced oracle. Do not edit either redeem until acceptance. Contradiction 2 stays open. Evidence evidence/research/prediction/resolved-redeem-contradiction-2026-09-26.json."
@@ -36,6 +38,12 @@ prediction:
   PRED-SPEC-1: proposed
   PRED-MODEL-1: measured
   PRED-MATH-1: partial
+  winner_liability_uint256_domain: counterexample_found
+  INVALID_holder_allocation: counterexample_found
+  ADR-P05_recommendation: revise_proposed
+  ADR-P19: proposed
+  callback_resolver_lifecycle: counterexample_found
+  collateral_admission_policy: proposed_not_frozen
   invalid_floor_compositions: "cumulative floor EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN on ordered compositions of supply 0..16, holders A and B, labelings all-A and alternating, both cursors. 131087 states, 2097154 transitions, 131070 labeled compositions, 0.410255s. Per-call COUNTEREXAMPLE_FOUND. Smallest witness supply 2 parts (1, 1), one-shot 1, per-call 0. Half-up COUNTEREXAMPLE_FOUND, half_up_both_sides(1) == 2. Solidity PredictionMarket._redeem matches the cumulative floor on the same domain: 0 mismatches, 79.76s, gas 370972939410. block_gas_limit 600000000000 is Foundry profile invalid_floor_compositions only. The default profile does not set it. Isolated re-run passed 2 tests, 0 failed, same counts, 79.63s. The default suite skips the walk when block.gaslimit is below 370972939410 and still runs the supply-2 test. Profile invalid_floor_compositions still executes the walk: 131087 states, 2097154 transitions, 0 mismatches, 2 passed, 0 failed. PRED-MATH-1 stays partial. Research candidate."
   PRED-CONTRACT-ARCH-1: proposed
   PRED-CONTRACT-1: not_pass
@@ -113,6 +121,77 @@ module_admission_finance_1:
   legally_approved: false
 
 gate_transition_history:
+  - gate: security_toolchain_complete_static_analysis
+    previous_state: not_yet_validated
+    new_state: blocked_tool
+    reason: Fresh-clone Slither cannot build PredictionMarket IR; scoped Aderyn crashes during AST ingestion; the requested Semgrep registry ruleset returns HTTP 404.
+    evidence:
+      - evidence/research/security/toolchain-2026-09-28.md
+    sha: bbbfaa2ea28c3f08e89b8ff9f80ce449df55a137
+    remaining_blocker: Establish one complete analyzer or local versioned rule pack and triage findings; Foundry negative controls do not substitute for static analysis.
+  - gate: prediction.collateral_admission_policy
+    previous_state: not_yet_validated
+    new_state: proposed_not_frozen
+    reason: Asset classes were classified, but no token-specific onchain admission authority or physical-balance-loss policy has been accepted.
+    evidence:
+      - research/reports/COLLATERAL_ADMISSION_PACKET.md
+      - evidence/research/prediction/callback-resolver-lifecycle-2026-09-28.json
+    sha: 36569e64a81b635d28ddc86ef94fe2693643c823
+    remaining_blocker: Human acceptance of ADR-P06/P08/P09 and token-specific admission controls; no production asset approved.
+  - gate: prediction.ADR-P05_recommendation
+    previous_state: proposed_aggregate_cumulative_floor
+    new_state: revise_proposed
+    reason: The prior per-call odd-unit description is not a per-holder loss bound; identical holders can receive 0 and 20 under valid ordering.
+    evidence:
+      - decisions/ADR-P05-invalid-uses-cumulative-floor.md
+      - evidence/research/prediction/invalid-holder-allocation-2026-09-28.json
+    sha: fbe33b1a41fbb289b5bc28c1cf6dd46e8eab628b
+    remaining_blocker: Define the canonical holder entitlement and update Python, Solidity research, fixtures, and invariants only after acceptance.
+  - gate: prediction.ADR-P19
+    previous_state: absent
+    new_state: proposed
+    reason: New single-split winner-liveness counterexample requires a domain and arithmetic decision.
+    evidence:
+      - decisions/ADR-P19-winner-liability-uint256-overflow.md
+      - evidence/research/prediction/winner-liability-overflow-2026-09-28.json
+    sha: 58af15a4cf5d9856ed1679e6e2a68ce7cb3e0a33
+    remaining_blocker: Human acceptance; no financial kernel change authorized by this proposal.
+  - gate: reproducibility_clean
+    previous_state: not_yet_validated
+    new_state: pass_on_committed_sha_bbbfaa2
+    reason: Both default and named research profiles ran in separate local clones with fresh pinned Python virtual environments; generated historical artifacts did not touch the source checkout.
+    evidence:
+      - evidence/research/repro/codex-clean-repro-2026-09-28.md
+      - research/benchmarks/scripts/repro_clean.sh
+    sha: 84fb50087ae9c850d03fdb8da8501dfebac6c918
+    remaining_blocker: Local-only reproduction is not CI or an audit; semantic and security gates remain open.
+  - gate: prediction.winner_liability_uint256_domain
+    previous_state: not_yet_validated
+    new_state: counterexample_found
+    reason: A fully backed single split of 2^255 resolves YES_WIN or NO_WIN, then liability and openRedemption panic on a checked doubling; Python opens redemption.
+    evidence:
+      - evidence/research/prediction/winner-liability-overflow-2026-09-28.json
+      - decisions/ADR-P19-winner-liability-uint256-overflow.md
+    sha: 58af15a4cf5d9856ed1679e6e2a68ce7cb3e0a33
+    remaining_blocker: Human domain/formula decision and full winner liability plus payout repair in research; ADR-P19 remains PROPOSED.
+  - gate: prediction.INVALID_holder_allocation
+    previous_state: not_yet_validated
+    new_state: counterexample_found
+    reason: Two holders each fund 10 complete sets; alternating one-unit INVALID redemptions on both sides pay 0 and 20 instead of isolated half-values 10 and 10.
+    evidence:
+      - evidence/research/prediction/invalid-holder-allocation-2026-09-28.json
+      - decisions/ADR-P05-invalid-uses-cumulative-floor.md
+    sha: fbe33b1a41fbb289b5bc28c1cf6dd46e8eab628b
+    remaining_blocker: Human choice between aggregate-only order-dependent carry and a holder-independent entitlement; ADR-P05 remains PROPOSED with REVISE recommendation.
+  - gate: prediction.callback_resolver_lifecycle
+    previous_state: not_yet_validated
+    new_state: counterexample_found
+    reason: Unqualified callback collateral configured as resolver commits a result during transferFrom; the suspended outer split then mints outcome tokens in RESOLVED.
+    evidence:
+      - evidence/research/prediction/callback-resolver-lifecycle-2026-09-28.json
+      - research/reports/COLLATERAL_ADMISSION_PACKET.md
+    sha: 36569e64a81b635d28ddc86ef94fe2693643c823
+    remaining_blocker: Asset admission and defense-in-depth state-transition rule not accepted; negative control does not show insolvency.
   - gate: prism.MATH-1D_candidate_ready_for_adr_acceptance
     previous_state: true
     new_state: false

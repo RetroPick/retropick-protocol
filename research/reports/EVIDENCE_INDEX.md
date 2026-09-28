@@ -10,6 +10,8 @@
 - `evidence/research/prediction/winner-liability-overflow-2026-09-28.json`: `CX-PRED-WINNER-OVERFLOW-001`, the fully backed `2^255` winner liveness boundary. Three focused Solidity regressions and a Python comparison; ADR-P19 stays PROPOSED.
 - `evidence/research/prediction/invalid-holder-allocation-2026-09-28.json`: `CX-PRED-INVALID-HOLDER-001`, identical funded holders receiving 0/20 under alternating one-unit INVALID redemptions. Python and Solidity agree; aggregate conservation still holds; ADR-P05 recommendation is REVISE.
 - `evidence/research/prediction/callback-resolver-lifecycle-2026-09-28.json`: `CX-PRED-CALLBACK-RESOLVER-001`, an unqualified token/resolver callback that commits YES_WIN during `split` before issuance is credited. `COLLATERAL_ADMISSION_PACKET.md` records the Phase-1 asset-class recommendation; no kernel repair was applied.
+- `evidence/research/security/toolchain-2026-09-28.md`: fresh-clone Slither reproduction (incomplete IR), scoped Aderyn compiler crash, Semgrep registry-rule 404, and the independent Foundry limits. No complete analyzer close.
+- `research/reports/PREDICTION_SEMANTIC_CONVERGENCE_PACKET.md`: decision queue across ADR-P01..P19, including implementation/docs differences, witnesses, proposed rules, change scope, and integration/compatibility effects. No ADR acceptance.
 
 The 2026-09-26 command inventory below is historical. The new research environment uses an isolated temporary Python virtual environment with SymPy 1.14.0, mpmath 1.3.0, and z3-solver 5.1.0; the system interpreter still lacks the formal packages.
 

@@ -1,0 +1,88 @@
+schema_version: 1
+classification: research_benchmark_detail_not_implementation_authority
+repository_baseline_sha: 50a57134880acf6b282d4862dd7eebe376ac79d8
+kuru_contracts_source_sha: 2060bb2736080c175d80d568bfdb6226bb5abd04
+kuru_sdk_source_sha: 636509c2eafd63479d3f399703354e0d09f51e18
+canonical_summary: development/launchpad/control/status.yaml
+allowed_row_statuses: [PASS, FAIL, BLOCKED_EXTERNAL, DECISION_REQUIRED, NOT_RUN]
+rows:
+  KURU-B1-ENVIRONMENT:
+    status: PASS
+    evidence:
+      - evidence/launchpad/kuru/environment-manifest-2026-09-30.json
+      - evidence/launchpad/kuru/environment-verification-2026-09-30.md
+      - evidence/launchpad/kuru/quote-qualification-2026-09-30.md
+      - evidence/launchpad/kuru/fork-deploy-seed-2026-09-30.md
+    limitation: Block-pinned read-only identity; repeat drift check before fork/live execution.
+  KURU-B2-QUOTE:
+    status: DECISION_REQUIRED
+    evidence:
+      - evidence/launchpad/kuru/environment-manifest-2026-09-30.json
+      - evidence/launchpad/kuru/environment-verification-2026-09-30.md
+      - development/launchpad/contracts/QUOTE_ASSETS.md
+    blocker: Kuru-listed and Circle-listed testnet USDC differ; select exact address under ADR-011, then qualify exact-transfer, allowance, issuer and Kuru paths.
+  KURU-B3-PARAMETERS:
+    status: DECISION_REQUIRED
+    evidence:
+      - evidence/launchpad/kuru/parameter-profile-matrix-2026-09-30.json
+      - evidence/launchpad/kuru/parameter-profile-report-2026-09-30.md
+    blocker: Candidate tuple and supported launch envelope require fork evidence and ADR-021 acceptance.
+  KURU-B4-SEED:
+    status: DECISION_REQUIRED
+    evidence:
+      - evidence/launchpad/kuru/parameter-profile-matrix-2026-09-30.json
+      - evidence/launchpad/kuru/parameter-profile-report-2026-09-30.md
+      - evidence/launchpad/kuru/seed-price-continuity-bound-2026-09-29.md
+    blocker: Proposed five-bps combined seed/tick envelope has not been accepted or fork-checked.
+  KURU-B5-FORK-DEPLOY:
+    status: PASS
+    evidence:
+      - contracts/test/v2/integration/KuruForkResearch.t.sol
+      - evidence/launchpad/kuru/fork-deploy-seed-2026-09-30.md
+    limitation: Pinned real-Router research fixture; not production Factory integration or atomic phase two.
+  KURU-B6-VAULT-SEED:
+    status: PASS
+    evidence:
+      - contracts/test/v2/integration/KuruForkResearch.t.sol
+      - evidence/launchpad/kuru/fork-deploy-seed-2026-09-30.md
+    limitation: Pinned real-vault seed with fork-only USDC balances; not live-token issuance or whole-phase accounting.
+  KURU-B7-CUSTODY:
+    status: NOT_RUN
+    partial_evidence:
+      - contracts/test/v2/integration/KuruForkResearch.t.sol
+      - evidence/launchpad/kuru/atomic-retry-increment-2026-09-30.md
+    blocker: Candidate no-exit negative paths passed; full protected-asset/rescue audit and ADR-022 decision remain open.
+  KURU-B8-RETRY:
+    status: NOT_RUN
+    partial_evidence:
+      - contracts/test/v2/integration/KuruAtomicResearch.t.sol
+      - evidence/launchpad/kuru/atomic-retry-increment-2026-09-30.md
+    blocker: Five injection points, Router revert, wrong registry, rollback, same-launch retry and replay passed; full external-failure matrix and ADR-023 remain open.
+  KURU-B9-DRIFT:
+    status: NOT_RUN
+    partial_evidence:
+      - contracts/test/v2/integration/KuruAtomicResearch.t.sol
+      - evidence/launchpad/kuru/atomic-retry-increment-2026-09-30.md
+    blocker: OrderBook/vault code and MarginAccount getter drift halt passed; Router address/getter and pause variants remain open.
+  KURU-B10-GAS:
+    status: NOT_RUN
+    partial_evidence:
+      - evidence/launchpad/kuru/atomic-retry-increment-2026-09-30.md
+    blocker: One native research phase-two gas delta recorded; MON/USDC profile distributions and block-gas feasibility remain open.
+  KURU-B11-LIVE-TESTNET:
+    status: NOT_RUN
+    blocker: No approved research fixture has completed fork qualification; no live transaction sent.
+  KURU-B12-USABILITY:
+    status: NOT_RUN
+    blocker: No live market exists from B11, so two-actor smoke is not possible yet.
+rollup:
+  KURU_TECHNICAL_BENCHMARK: NOT_RUN
+  KURU_TARGET_FROZEN: BLOCKED
+  CORE_BASELINE_QUALIFIED: BLOCKED
+  READY_FOR_DEV4_KURU_EXECUTOR: BLOCKED
+  SMART_CONTRACT_DOCS_READY: BLOCKED
+  staging_ready: false
+  mainnet_candidate: false
+  mainnet_authorized: false
+required_human_decisions: [ADR-009, ADR-011, ADR-021, ADR-022, ADR-023]
+production_kuru_executor_authorized: false

@@ -28,7 +28,7 @@ version: v2
 
 ## Test reality
 
-Committed tests currently target Doorway. This means no current Launchpad V2 release claim can rely on the existing unit/fuzz/invariant/integration directories.
+The V2 tree now includes Core math, launch, fee/accounting, stateful and graduation-path tests; Doorway is no longer the only tested contract. These are partial qualification, not a release claim: owner-approved nonstandard quote assets retain a backing-deficit counterexample, fee/buyback branches and successful Core graduation/retry are incomplete, and the full invariant campaign has not been reproduced in this checkpoint. Research-only Kuru fork fixtures under `contracts/test/v2/integration/` prove scoped external deploy/seed and rollback behavior, not the production Core boundary.
 
 ## TARGET
 

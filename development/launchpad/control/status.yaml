@@ -18,8 +18,8 @@ goal_qualification:
     reason: Factory, scoped authority/asset cases and one pre-graduation buyback/vesting path are tested; owner-approved nonstandard quotes have preserved backing-deficit counterexamples. Asset qualification, remaining fee/buyback branches, successful graduation/retry and the complete invariant matrix remain open.
   KURU_TARGET_FROZEN:
     status: blocked
-    evidence: development/launchpad/integrations/KURU_TARGET_FREEZE_PACKET.md
-    reason: Exact first-seed price-error bounds now have proof and bounded enumeration; accepted parameter/error classes, quote qualification, LP custody and atomic retry ADR acceptance plus fork validation remain open.
+    evidence: evidence/launchpad/kuru/kuru-benchmark-gates-2026-09-30.yaml
+    reason: B1 environment and scoped B5/B6 real-router/vault fork tests pass. Quote identity, accepted parameters and seed tolerance remain decision-required; complete custody, failure/retry, drift, gas and live usability gates remain open.
   READY_FOR_DEV4_KURU_EXECUTOR:
     status: blocked
     reason: Both preceding gates are blocked and ADR-009/011/021/022/023 remain PROPOSED.
@@ -28,7 +28,7 @@ blockers:
     reason: Core V2 math, Factory/Deployer launch, direct Curve/Token/fee-ledger, native-quote stateful coverage, authority, one buyback/vesting path and mocked V4 failure rollback are partial. Owner-approved nonstandard quotes can deficit tracked backing. Remaining Fee/Buyback branches, successful graduation/retry, asset qualification and integration coverage remain open.
     next_owner: launchpad-solidity
   - id: BLOCK-KURU-TARGET
-    reason: Monad Testnet identities were read-only verified and candidate price-continuity bounds are proved; RetroPick parameter/error tolerance, quote, LP-custody and retry decisions plus fork/live integration remain unresolved. Target is not frozen.
+    reason: Pinned live environment and scoped real Kuru fork deploy/seed are verified. Two official testnet USDC listings conflict; parameter/error tolerance, LP custody, complete retry/drift/gas, live integration and ADR decisions remain unresolved. Target is not frozen.
     next_owner: launchpad-integrations
   - id: BLOCK-ARCH-ADRS
     reason: Full-stack workspace, backend, indexer, auth, storage, admin, upgradeability and V4-retirement choices are PROPOSED rather than accepted.

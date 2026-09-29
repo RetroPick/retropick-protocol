@@ -2,6 +2,10 @@
 
 This packet qualifies the *target interface* for Launchpad Core V2 on Monad Testnet. It does not authorize the production executor, accept ADR-009/011/021, deploy a market, or clear `BLOCK-KURU-TARGET`. The machine-readable [read-only chain snapshot](../../../evidence/launchpad/kuru/target-snapshot-2026-09-29.json) and the exact [seed model](../../../research/integration/kuru/launchpad_seed_model.py) are the new evidence. Historical Hackathon-P0 material is retained unmodified.
 
+## 2026-09-30 qualification increment
+
+The current [B1 environment manifest](../../../evidence/launchpad/kuru/environment-manifest-2026-09-30.json) independently rechecked public source heads and block-pinned Router/implementation/code identity. A [candidate profile matrix](../../../evidence/launchpad/kuru/parameter-profile-matrix-2026-09-30.json) now derives terminal `T` from original launch supply: a one-million-token 100/100 launch has terminal `T=500,000` tokens and proposed `B=250,000` tokens, not `T=1,000,000`. A [real Kuru fork fixture](../../../evidence/launchpad/kuru/fork-deploy-seed-2026-09-30.md) deployed and seeded native MON and two distinct six-decimal `USDC`-symbol contracts. It caught and corrected an erroneous first-bid denominator in the research oracle. The [quote identity packet](../../../evidence/launchpad/kuru/quote-qualification-2026-09-30.md) records that Kuru's listed testnet USDC differs from Circle's listed Monad Testnet USDC. See the [B1–B12 benchmark gate](KURU_BENCHMARK_GATE.md) for current scoped row statuses. No ADR has been accepted, no complete phase-2 or live transaction has been proven, and the target remains **NOT FROZEN**.
+
 ## CURRENT / TARGET / DELTA / MIGRATION ORDER
 
 - **CURRENT:** V2 Factory holds the launch record and uses a V4-oriented two-phase `NotGraduated → Swept → PoolCreated` path. Curve secures reserves first; `createGraduatedPool` is retryable. No Kuru call exists in V2 production source.
@@ -32,7 +36,7 @@ Proposed phase-2 verification, all before committing `GRADUATED`:
 3. Compare returned market, Router `verifiedMarket(market)`, OrderBook `getMarketParams`, its Router/owner and `getVaultParams` vault/spread against the accepted tuple. Verify vault token1/base, token2/quote, market, MarginAccount, spread and Router/owner getters. Do not trust the return address or `MarketRegistered` event alone.
 4. Seed physical base/quote, verify actual consumed balances, minted LP shares and receiver, and require the vault's first ask and both nonzero order sizes satisfy the accepted price/size bounds. Only then record the unique destination and `GRADUATED`.
 
-The preferred execution is one atomic phase-2 transaction. Any revert restores phase-2 local changes while leaving the earlier secured `GRADUATING` state intact and retryable. No ordinary curve trade resumes; recovery/rescue is a distinct, governed state transition. Fork gas/atomicity testing and an accepted retry ADR remain open. Kuru Router/OrderBook/Vault upgrade and market pause authority are external trust risks even when RetroPick LP shares are locked.
+The preferred execution is one atomic phase-2 transaction. Any revert restores phase-2 local changes while leaving the earlier secured `GRADUATING` state intact and retryable. No ordinary curve trade resumes; recovery/rescue is a distinct, governed state transition. A [research-only pinned-fork increment](../../../evidence/launchpad/kuru/atomic-retry-increment-2026-09-30.md) proves five injected post-boundary reverts, same-launch retry, replay rejection and two environment-drift stops for a native-quote sketch. It does **not** complete the required failure matrix, multi-quote gas benchmark or Core-integrated retry proof; ADR-023 remains PROPOSED. Kuru Router/OrderBook/Vault upgrade and market pause authority are external trust risks even when RetroPick LP shares are locked.
 
 ## Price continuity and first liquidity
 
@@ -51,4 +55,4 @@ The later [exact price-continuity bound](../../../evidence/launchpad/kuru/seed-p
 | [ADR-022 LP-share custody](../../../decisions/ADR-022-kuru-lp-share-custody.md) | PROPOSED; dedicated non-creator-controlled lock recommended. Withdrawal/emergency, unrelated-asset recovery and excess-token ownership require human economic decision. |
 | [ADR-023 retry/verification](../../../decisions/ADR-023-kuru-graduation-atomic-retry-and-verification.md) | PROPOSED; atomic phase-2 is the candidate. Fork gas and explicit recovery authority require acceptance. |
 
-`KURU_TARGET_FROZEN = BLOCKED` and `READY_FOR_DEV4_KURU_EXECUTOR = BLOCKED`. A source/code snapshot and model are progress, not a complete target freeze. No live Kuru transaction was sent.
+`KURU_TARGET_FROZEN = BLOCKED` and `READY_FOR_DEV4_KURU_EXECUTOR = BLOCKED`. The [B1–B12 machine-readable gate](../../../evidence/launchpad/kuru/kuru-benchmark-gates-2026-09-30.yaml) records scoped B1/B5/B6 passes and remaining decisions/tests. A source/code snapshot, model and partial fork proof are progress, not a complete target freeze. No live Kuru transaction was sent.

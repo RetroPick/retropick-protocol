@@ -1,6 +1,6 @@
 # PRISM P0 specification
 
-Status: FROZEN_SCOPE_DRAFT
+Status: FROZEN_SCOPE_DRAFT; exact-lot executable candidate added 2026-09-29
 
 PRISM P0 is exact-backed, long-only, transferable, and redeemable in kind. It is
 not the production PRISM settlement design and does not change PRISM `MATH-1`.
@@ -58,6 +58,15 @@ componentAmount_i(q) = q * numerator_i / denominator_i
 
 No floor, ceil, or rounding operation may exist on the enabled mint/redeem path.
 
+The implementation candidate reduces each fraction to coprime `n_i/d_i`, then
+sets `lotSizeRaw = lcm(d_1, ..., d_m)`. A valid `q = k * lotSizeRaw` therefore
+has exact component amount `k * (lotSizeRaw/d_i) * n_i`. Conversely, since each
+`n_i/d_i` is reduced, integrality for every component requires every `d_i` to
+divide `q`, so this LCM is the smallest valid raw lot. P0 bounds reduced
+numerators and denominators to `uint64` and total PRISM supply and lot size to
+`uint128`; dividing by `d_i` before multiplying by `n_i` keeps the exact
+component amount below `2^192` and within `uint256`.
+
 ## Component scope
 
 P0 accepts:
@@ -90,6 +99,12 @@ A component must prove it is an outcome token created by the accepted
 
 This is a narrow hackathon trust boundary, not the production source-interface
 freeze.
+
+The Hackathon `PrismFactoryP0` instance is deployed against one approved
+`PredictionFactoryP0`; every series it creates uses that same factory. Each
+series records immutable payoff and replication hashes plus a deterministic
+source-set hash. The hashes identify the reviewed off-chain certificate; the
+P0 kernel does not solve or recheck arbitrary replication systems onchain.
 
 ## Atomic mint
 
@@ -147,3 +162,19 @@ claim ownership, not backing. The required P0 witness is:
 Direct component transfers that make `physicalBalance > requiredBacking` are
 surplus. P0 does not sweep, assign, or count them as somebody's prefunding.
 They may remain stranded.
+
+## Executable candidate and evidence
+
+- Python oracle: `research/hackathon-p0/models/prism_p0.py`.
+- Solidity research kernel: `research/contract-kernels/src/hackathon/PrismSeriesP0.sol`.
+- Exact fixture: `research/hackathon-p0/fixtures/prism_p0_exact_lot.json`.
+- Unit and adversarial tests: `research/contract-kernels/test/hackathon/PrismP0.t.sol`.
+- Stateful handler: `research/contract-kernels/test/hackathon/PrismP0Invariant.t.sol`.
+
+The kernel admits only outcome tokens whose market is registered by the
+configured `PredictionFactoryP0`, whose market uses that factory's one approved
+collateral, and whose token/market report the P0 version and common decimals.
+It provides atomic caller-funded `mint(q, receiver)` and transferable in-kind
+`redeemInKind(q, receiver)`. It has no public deposit, cash settlement,
+settlement cursor, or surplus sweep method. This remains a research candidate;
+it is not production PRISM Solidity.

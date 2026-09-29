@@ -8,6 +8,7 @@ import {PredictionMarketP0} from "./PredictionMarketP0.sol";
 contract PredictionFactoryP0 {
     address public immutable allowedCollateral;
     bytes32 public constant SEMANTIC_VERSION = keccak256("RETROPICK_PREDICTION_P0_FACTORY_V1");
+    mapping(address market => bool admitted) public isMarket;
 
     error ZeroAddress();
     error CollateralResolverOverlap();
@@ -32,6 +33,7 @@ contract PredictionFactoryP0 {
         market = new PredictionMarketP0(
             allowedCollateral, address(this), resolver, resolutionSpecHash, yesName, yesSymbol, noName, noSymbol
         );
+        isMarket[address(market)] = true;
         emit MarketCreated(address(market), resolver, resolutionSpecHash);
     }
 

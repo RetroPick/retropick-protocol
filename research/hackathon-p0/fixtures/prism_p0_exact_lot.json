@@ -1,0 +1,87 @@
+{
+  "arithmetic": "exact rational and integer only",
+  "artifact": "PRISM-H1/H2 exact replication and exact lot fixture",
+  "component_decimals": 6,
+  "excluded": [
+    "floor",
+    "ceil",
+    "cash settlement",
+    "rounding cursor",
+    "shared prefunding"
+  ],
+  "lot_derivation": {
+    "formula": "lcm(reduced denominators)",
+    "proof": "For q=k*L where L is the denominator lcm, q*n_i/d_i=k*(L/d_i)*n_i is integral for every i.",
+    "reduced_denominators": [
+      2,
+      2
+    ]
+  },
+  "lot_size_raw": 2,
+  "profile": "HACKATHON-P0",
+  "replication": {
+    "G": [
+      [
+        "1",
+        "0"
+      ],
+      [
+        "0",
+        "1"
+      ]
+    ],
+    "components": [
+      {
+        "collateral": "HackathonCollateralP0:stable",
+        "decimals": 6,
+        "factory_admitted": true,
+        "market": "PredictionMarketP0:market-A",
+        "outcome_index": 0,
+        "resolution_spec_hash": "0x70726564696374696f6e2d70302d737065632d686173682d30303030303030",
+        "semantic_version": "RETROPICK_PREDICTION_P0_V1",
+        "token": "PredictionMarketP0:market-A:YES"
+      },
+      {
+        "collateral": "HackathonCollateralP0:stable",
+        "decimals": 6,
+        "factory_admitted": true,
+        "market": "PredictionMarketP0:market-A",
+        "outcome_index": 1,
+        "resolution_spec_hash": "0x70726564696374696f6e2d70302d737065632d686173682d30303030303030",
+        "semantic_version": "RETROPICK_PREDICTION_P0_V1",
+        "token": "PredictionMarketP0:market-A:NO"
+      }
+    ],
+    "exact_recheck": true,
+    "h": [
+      "1/2",
+      "1/2"
+    ],
+    "recomputed_Gx": [
+      "1/2",
+      "1/2"
+    ],
+    "state_labels": [
+      "state_0",
+      "state_1"
+    ],
+    "x": [
+      "1/2",
+      "1/2"
+    ]
+  },
+  "sample_mint": {
+    "component_amounts_raw": [
+      5000000,
+      5000000
+    ],
+    "prism_amount_raw": 10000000,
+    "valid_lot_multiple": true
+  },
+  "schema_version": 1,
+  "sha256": "29eaa4850c6834f17385d718ef30a093d4fa4922f1e3c4e5061b712d76d166cd",
+  "weights": [
+    "1/2",
+    "1/2"
+  ]
+}

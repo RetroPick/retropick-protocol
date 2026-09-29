@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-09-29",
+  "profile": "HACKATHON-P0",
+  "artifact": "Prediction P0 Python-to-Solidity differential",
+  "classification": "MEASURED_LOCAL",
+  "branch": "codex/hackathon-p0-qualification",
+  "base_sha": "e354db0a96eca6b56b950d87bf81ad87fa4278fd",
+  "tested_worktree_head": "68b2b617e0f97633102972b77fea7c980dae76e7",
+  "environment": {
+    "python": "3.12.3",
+    "foundry": "1.8.3",
+    "solc": "0.8.26",
+    "optimizer": true,
+    "optimizer_runs": 200,
+    "via_ir": false
+  },
+  "commands": [
+    {
+      "command": "python3 -m py_compile research/hackathon-p0/models/prediction_p0.py",
+      "result": "PASS"
+    },
+    {
+      "command": "compare prediction_p0.differential_fixture() with research/hackathon-p0/fixtures/prediction_p0_differential.json",
+      "result": "PASS",
+      "detail": "Exact JSON structure and integer state snapshots matched."
+    },
+    {
+      "command": "cd research/contract-kernels && forge test --match-path test/hackathon/PredictionP0Differential.t.sol -vv",
+      "result": "PASS",
+      "tests_passed": 4,
+      "tests_failed": 0,
+      "worlds": ["YES_WIN", "NO_WIN"]
+    },
+    {
+      "command": "cd research/contract-kernels && forge test --match-path test/hackathon/PredictionP0.t.sol -vv",
+      "result": "PASS",
+      "tests_passed": 10,
+      "tests_failed": 0
+    }
+  ],
+  "coverage": {
+    "PRED-H2-COLLATERAL": "PASS for the exercised fixed-collateral lifecycle: actual market ERC20 balance and accounting liability are compared at each fixture checkpoint across split, merge, resolution, redemption, and archive.",
+    "PRED-H7-DIFFERENTIAL": "PASS for the explicitly exercised operations and YES_WIN/NO_WIN fixture scenarios; accepted state snapshots, redemption payouts, and one rejected wrong-side redemption are checked."
+  },
+  "limitations": [
+    "This does not establish a stateful invariant result; PRED-H8 remains NOT_RUN.",
+    "The fixture exercises a bounded scenario rather than every accepted call sequence.",
+    "The artifact qualifies a research kernel only; it does not promote contracts into production."
+  ]
+}

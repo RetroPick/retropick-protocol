@@ -50,7 +50,7 @@ Allowed lifecycle:
 | --- | --- | --- |
 | `DRAFT` | Market exists, issuance unavailable | none |
 | `OPEN` | Complete-set issuance and merge enabled | split, merge |
-| `LOCKED` | New split disabled | merge if explicitly implemented |
+| `LOCKED` | New split disabled; complete sets may still be closed | merge |
 | `RESOLVED` | Winner committed exactly once | open redemption only |
 | `REDEEMABLE` | Winning outcome redemption enabled | redeem winner |
 | `ARCHIVED` | No live liability | none |
@@ -72,6 +72,10 @@ For a split of `q` raw collateral units:
 9. Mint exactly `q` YES and `q` NO to the caller.
 
 No one-sided mint, admin mint, creator mint, or arbitrary token mint exists.
+Outcome ERC-20 balances are transferable in every lifecycle state. Transfer
+moves the holder's claim and does not change aggregate supply, collateral, or
+liability. YES and NO balances can move independently; only a holder with both
+sides may merge a complete set.
 
 ## Arithmetic domain
 

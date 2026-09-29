@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "model": "HackathonPredictionModel",
+  "scenario": {
+    "split_amount": 12,
+    "transfer_amount": 2,
+    "merge_amount": 2,
+    "first_redeem_amount": 4,
+    "bob_redeem_amount": 1,
+    "worthless_burn_amount": 8,
+    "bob_worthless_burn_amount": 1,
+    "final_redeem_amount": 4,
+    "checkpoints": ["draft", "activated", "split", "transferred", "merged", "closed", "locked_merged", "resolved", "opened", "redeemed", "bob_redeemed", "burned", "final_redeemed", "archived"],
+    "snapshot_fields": ["state", "result", "collateral_locked", "physical_balance", "liability", "yes_supply", "no_supply", "yes_balance", "no_balance", "second_yes_balance", "second_no_balance"]
+  },
+  "cases": [
+    {
+      "result": "YES_WIN",
+      "snapshots": [
+        [0,0,0,0,0,0,0,0,0,0,0],
+        [1,0,0,0,0,0,0,0,0,0,0],
+        [1,0,12,12,12,12,12,12,12,0,0],
+        [1,0,12,12,12,12,12,10,10,2,2],
+        [1,0,10,10,10,10,10,8,8,2,2],
+        [2,0,10,10,10,10,10,8,8,2,2],
+        [2,0,9,9,9,9,9,8,8,1,1],
+        [3,1,9,9,9,9,9,8,8,1,1],
+        [4,1,9,9,9,9,9,8,8,1,1],
+        [4,1,5,5,5,5,9,4,8,1,1],
+        [4,1,4,4,4,4,9,4,8,0,1],
+        [4,1,4,4,4,4,0,4,0,0,0],
+        [4,1,0,0,0,0,0,0,0,0,0],
+        [5,1,0,0,0,0,0,0,0,0,0]
+      ],
+      "payouts": [4,1,4]
+    },
+    {
+      "result": "NO_WIN",
+      "snapshots": [
+        [0,0,0,0,0,0,0,0,0,0,0],
+        [1,0,0,0,0,0,0,0,0,0,0],
+        [1,0,12,12,12,12,12,12,12,0,0],
+        [1,0,12,12,12,12,12,10,10,2,2],
+        [1,0,10,10,10,10,10,8,8,2,2],
+        [2,0,10,10,10,10,10,8,8,2,2],
+        [2,0,9,9,9,9,9,8,8,1,1],
+        [3,2,9,9,9,9,9,8,8,1,1],
+        [4,2,9,9,9,9,9,8,8,1,1],
+        [4,2,5,5,5,9,5,8,4,1,1],
+        [4,2,4,4,4,9,4,8,4,1,0],
+        [4,2,4,4,4,0,4,0,4,0,0],
+        [4,2,0,0,0,0,0,0,0,0,0],
+        [5,2,0,0,0,0,0,0,0,0,0]
+      ],
+      "payouts": [4,1,4]
+    }
+  ]
+}

@@ -102,9 +102,12 @@ freeze.
 
 The Hackathon `PrismFactoryP0` instance is deployed against one approved
 `PredictionFactoryP0`; every series it creates uses that same factory. Each
-series records immutable payoff and replication hashes plus a deterministic
-source-set hash. The hashes identify the reviewed off-chain certificate; the
-P0 kernel does not solve or recheck arbitrary replication systems onchain.
+series creator is fixed at factory deployment and only that address can admit
+series. Each series records immutable payoff and replication hashes plus a
+deterministic source-set hash. The hashes identify the reviewed off-chain
+certificate; the P0 kernel does not solve or recheck arbitrary replication
+systems onchain. The creator must independently exact-recheck the certificate
+before admitting a series.
 
 ## Atomic mint
 

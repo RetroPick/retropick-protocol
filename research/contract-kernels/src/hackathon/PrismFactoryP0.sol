@@ -7,15 +7,18 @@ import {PrismSeriesP0} from "./PrismSeriesP0.sol";
 /// @notice Hackathon trust boundary binding every official series to one Prediction P0 factory.
 contract PrismFactoryP0 {
     PredictionFactoryP0 public immutable predictionFactory;
+    address public immutable seriesCreator;
     mapping(address series => bool admitted) public isSeries;
 
     error ZeroAddress();
+    error NotSeriesCreator();
 
     event SeriesCreated(address indexed series, bytes32 indexed seriesId, bytes32 payoffHash, bytes32 replicationHash);
 
     constructor(address predictionFactory_) {
         if (predictionFactory_ == address(0)) revert ZeroAddress();
         predictionFactory = PredictionFactoryP0(predictionFactory_);
+        seriesCreator = msg.sender;
     }
 
     function createSeries(
@@ -27,6 +30,7 @@ contract PrismFactoryP0 {
         bytes32 payoffHash,
         bytes32 replicationHash
     ) external returns (PrismSeriesP0 series) {
+        if (msg.sender != seriesCreator) revert NotSeriesCreator();
         series = new PrismSeriesP0(
             address(predictionFactory), tokens, numerators, denominators, name, symbol, payoffHash, replicationHash
         );

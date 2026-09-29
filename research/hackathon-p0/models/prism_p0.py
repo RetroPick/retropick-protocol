@@ -105,9 +105,17 @@ def exact_replication_certificate(
 class HackathonPrismModel:
     """Small independent state model of atomic minter-funded in-kind backing."""
 
-    def __init__(self, components: Sequence[ComponentIdentity], weights: Sequence[Fraction | int | str]):
+    def __init__(
+        self,
+        components: Sequence[ComponentIdentity],
+        weights: Sequence[Fraction | int | str],
+        series_creator: str = "deployer",
+        caller: str = "deployer",
+    ):
         if not 1 <= len(components) <= MAX_COMPONENTS or len(components) != len(weights):
             raise PrismP0Error("component count must be between one and four and match weights")
+        if not series_creator or caller != series_creator:
+            raise PrismP0Error("only the deployment-pinned series creator may admit a series")
         tokens = [component.token for component in components]
         if any(not token for token in tokens) or len(set(tokens)) != len(tokens):
             raise PrismP0Error("component tokens must be nonzero and distinct")
@@ -122,6 +130,7 @@ class HackathonPrismModel:
         if len({component.decimals for component in components}) != 1:
             raise PrismP0Error("components must follow one fixed decimal policy")
         self.components = tuple(components)
+        self.series_creator = series_creator
         self.weights = tuple(_fraction(weight) for weight in weights)
         self.lot_size_raw = derive_lot_size(self.weights)
         self.total_supply = 0

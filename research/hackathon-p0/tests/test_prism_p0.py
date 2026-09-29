@@ -75,6 +75,10 @@ class PrismP0ModelTest(unittest.TestCase):
         with self.assertRaises(PrismP0Error):
             HackathonPrismModel(wrong_collateral, (1, 1))
 
+    def test_only_deployment_pinned_creator_can_admit_a_series(self):
+        with self.assertRaises(PrismP0Error):
+            HackathonPrismModel(components(), (1, 1), series_creator="operator", caller="anyone")
+
     def test_demo_series_has_an_exact_gx_equals_h_certificate(self):
         cert = exact_replication_certificate(
             ((1, 0), (0, 1)),

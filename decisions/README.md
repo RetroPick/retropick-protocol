@@ -22,6 +22,8 @@ Status: `PROPOSED`, `ACCEPTED`, `SUPERSEDED`, `REJECTED`.
 - `ADR-019-launchpad-non-upgradeability.md`
 - `ADR-020-v4-retirement-after-kuru-proof.md`
 - `ADR-021-kuru-market-parameter-policy.md`
+- `ADR-022-kuru-lp-share-custody.md`
+- `ADR-023-kuru-graduation-atomic-retry-and-verification.md`
 
 PROPOSED means agents must not treat the choice as binding implementation authority. Accept or supersede explicitly.
 

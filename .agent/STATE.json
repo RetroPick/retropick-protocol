@@ -19,7 +19,7 @@
       "current_runtime": {
         "contracts": "V2_CURRENT_V4_ORIENTED_GRADUATION",
         "kuru": "TARGET_NOT_IMPLEMENTED",
-        "web": "NOT_IMPLEMENTED",
+        "web": "MOCK_PROTOTYPE_NO_LIVE_CORE_EXECUTION",
         "api": "NOT_IMPLEMENTED",
         "indexer": "NOT_IMPLEMENTED"
       },

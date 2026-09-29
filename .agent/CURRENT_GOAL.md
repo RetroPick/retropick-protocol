@@ -16,7 +16,10 @@ docs/platform/README.md
 ## Launchpad Core V2
 
 **Control-plane goal:** COMPLETE
-**Next development objective:** resolve DEVELOPMENT_READY blockers.
+**Active qualification objective:** `LAUNCHPAD-V2-CORE-QUALIFICATION-AND-KURU-TARGET-FREEZE` — qualify the current financial Core and freeze a decision-complete Kuru target before DEV-4. This is in progress, not executor authorization.
+**Next development objective:** resolve DEVELOPMENT_READY blockers with executable Core tests and accepted Kuru policy/ownership/retry decisions.
+
+Incremental evidence: `evidence/launchpad/core/core-baseline-increment-2026-09-29.md`, `evidence/launchpad/kuru/target-snapshot-2026-09-29.json`, `development/launchpad/integrations/KURU_TARGET_FREEZE_PACKET.md`. The Core baseline and Kuru target remain BLOCKED, so DEV-4 remains unauthorized.
 
 Current blockers:
 1. dedicated core V2 Factory/Token/Curve/Fee/Graduation qualification suite;

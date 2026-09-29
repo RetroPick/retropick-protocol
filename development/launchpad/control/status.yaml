@@ -11,16 +11,28 @@ readiness:
   STAGING_READY: blocked
   MAINNET_CANDIDATE: blocked
   MAINNET_AUTHORIZED: blocked
+goal_qualification:
+  CORE_BASELINE_QUALIFIED:
+    status: blocked
+    evidence: evidence/launchpad/core/core-baseline-increment-2026-09-29.md
+    reason: Factory-mediated creation, ERC20/adversarial quote, buyback, current V4 graduation and complete invariant matrix remain unqualified; standalone Deployer wiring has direct tests.
+  KURU_TARGET_FROZEN:
+    status: blocked
+    evidence: development/launchpad/integrations/KURU_TARGET_FREEZE_PACKET.md
+    reason: Exact parameter classes, quote qualification, LP custody and atomic retry ADR acceptance plus fork validation remain open.
+  READY_FOR_DEV4_KURU_EXECUTOR:
+    status: blocked
+    reason: Both preceding gates are blocked and ADR-009/011/021/022/023 remain PROPOSED.
 blockers:
   - id: BLOCK-CONTRACT-TESTS
-    reason: No committed core Launchpad V2 Factory/Token/Curve/Fee/Graduation qualification suite exists yet.
+    reason: Core V2 math, standalone Deployer and direct Curve/Token/fee-ledger qualification has begun; Factory-mediated launch, full Fee/Buyback, current V4 graduation, malicious-token and integration coverage remain unqualified. Native-quote stateful coverage is scoped, not a full invariant pass.
     next_owner: launchpad-solidity
   - id: BLOCK-KURU-TARGET
-    reason: Kuru source code is pinned, but exact target Monad deployment addresses, concrete market-deploy call path and accepted RetroPick market-parameter policy remain unresolved.
+    reason: Monad Testnet Router, MarginAccount, USDC and implementation identities were read-only verified, but RetroPick parameter/quote/LP-custody/retry decisions, price-continuity bounds and fork/live integration remain unresolved; target is not frozen.
     next_owner: launchpad-integrations
   - id: BLOCK-ARCH-ADRS
     reason: Full-stack workspace, backend, indexer, auth, storage, admin, upgradeability and V4-retirement choices are PROPOSED rather than accepted.
     next_owner: launchpad-planner
   - id: BLOCK-FULLSTACK
-    reason: apps/web, apps/api, apps/indexer and shared runtime packages are not implemented.
+    reason: apps/web has a mock-driven product prototype, not live Launchpad Core execution; apps/api, apps/indexer and shared runtime SDK/contracts packages are not implemented.
     next_owner: launchpad-planner

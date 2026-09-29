@@ -183,8 +183,10 @@ class HackathonPrismModel:
         self.assert_backed()
 
     def transfer(self, sender: str, receiver: str, amount: int) -> None:
-        if amount <= 0 or not receiver or self.holder_balances.get(sender, 0) < amount:
+        if amount < 0 or not sender or not receiver or self.holder_balances.get(sender, 0) < amount:
             raise PrismP0Error("invalid or underfunded PRISM transfer")
+        if amount == 0 or sender == receiver:
+            return
         self.holder_balances[sender] -= amount
         self.holder_balances[receiver] = self.holder_balances.get(receiver, 0) + amount
         self.assert_backed()

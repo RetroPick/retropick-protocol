@@ -121,6 +121,20 @@ contract PrismP0Test is Test {
         assertEq(no.balanceOf(address(series)), noBefore);
     }
 
+    function test_standardPrismErc20ZeroAndSelfTransfersAreNoopTransitions() public {
+        vm.prank(alice);
+        series.mint(10, alice);
+        uint256 balanceBefore = series.balanceOf(alice);
+        uint256 supplyBefore = series.totalSupply();
+        vm.startPrank(alice);
+        series.transfer(bob, 0);
+        series.transfer(alice, 4);
+        vm.stopPrank();
+        assertEq(series.balanceOf(alice), balanceBefore);
+        assertEq(series.balanceOf(bob), 0);
+        assertEq(series.totalSupply(), supplyBefore);
+    }
+
     function test_aDonationCannotFundAnotherMintersMint() public {
         vm.startPrank(alice);
         yes.transfer(address(series), 1);

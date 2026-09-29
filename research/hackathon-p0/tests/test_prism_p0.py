@@ -79,6 +79,16 @@ class PrismP0ModelTest(unittest.TestCase):
         with self.assertRaises(PrismP0Error):
             HackathonPrismModel(components(), (1, 1), series_creator="operator", caller="anyone")
 
+    def test_standard_erc20_zero_and_self_transfer_are_noop_transitions(self):
+        model = HackathonPrismModel(components(), (Fraction(1, 2), Fraction(1, 2)))
+        model.fund_wallet("alice", 0, 5)
+        model.fund_wallet("alice", 1, 5)
+        model.mint("alice", 10, "alice")
+        before = model.snapshot()
+        model.transfer("alice", "bob", 0)
+        model.transfer("alice", "alice", 4)
+        self.assertEqual(model.snapshot(), before)
+
     def test_demo_series_has_an_exact_gx_equals_h_certificate(self):
         cert = exact_replication_certificate(
             ((1, 0), (0, 1)),

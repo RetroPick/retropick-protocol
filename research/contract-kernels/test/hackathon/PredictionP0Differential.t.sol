@@ -52,6 +52,21 @@ contract PredictionP0DifferentialTest is Test {
         _assertSnapshot(json, 0, 1);
     }
 
+    function test_standardOutcomeTokenZeroAndSelfTransfersAreNoopTransitions() public {
+        vm.prank(ALICE);
+        market.split(5);
+        uint256 yesBefore = market.yesToken().balanceOf(ALICE);
+        uint256 noBefore = market.noToken().balanceOf(ALICE);
+        vm.startPrank(ALICE);
+        market.yesToken().transfer(ALICE, 0);
+        market.noToken().transfer(ALICE, 2);
+        vm.stopPrank();
+        assertEq(market.yesToken().balanceOf(ALICE), yesBefore);
+        assertEq(market.noToken().balanceOf(ALICE), noBefore);
+        assertEq(market.yesToken().totalSupply(), yesBefore);
+        assertEq(market.noToken().totalSupply(), noBefore);
+    }
+
     function test_rejectedWrongSideRedemptionPreservesP0State() public {
         vm.prank(ALICE);
         market.split(3);

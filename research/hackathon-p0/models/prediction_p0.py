@@ -103,9 +103,11 @@ class PredictionP0:
         self.state = "ARCHIVED"
 
     def transfer(self, sender: str, recipient: str, side: str, amount: int):
-        self._require(sender != recipient and amount > 0)
+        self._require(bool(sender) and bool(recipient) and amount >= 0)
         balances = self.yes_holders if side == "YES" else self.no_holders
         self._require(side in ("YES", "NO") and balances.get(sender, 0) >= amount)
+        if amount == 0 or sender == recipient:
+            return
         balances[sender] -= amount
         balances[recipient] = balances.get(recipient, 0) + amount
 

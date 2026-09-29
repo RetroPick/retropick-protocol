@@ -14,8 +14,8 @@ readiness:
 goal_qualification:
   CORE_BASELINE_QUALIFIED:
     status: blocked
-    evidence: evidence/launchpad/core/core-baseline-increment-2026-09-29.md
-    reason: Factory-mediated creation, ERC20/adversarial quote, buyback, current V4 graduation and complete invariant matrix remain unqualified; standalone Deployer wiring has direct tests.
+    evidence: evidence/launchpad/core/factory-launch-increment-2026-09-29.md
+    reason: Factory-mediated native and admitted six-decimal quote creation have direct tests; adversarial quote behavior, buyback, current V4 graduation and complete invariant matrix remain unqualified.
   KURU_TARGET_FROZEN:
     status: blocked
     evidence: development/launchpad/integrations/KURU_TARGET_FREEZE_PACKET.md
@@ -25,7 +25,7 @@ goal_qualification:
     reason: Both preceding gates are blocked and ADR-009/011/021/022/023 remain PROPOSED.
 blockers:
   - id: BLOCK-CONTRACT-TESTS
-    reason: Core V2 math, standalone Deployer and direct Curve/Token/fee-ledger qualification has begun; Factory-mediated launch, full Fee/Buyback, current V4 graduation, malicious-token and integration coverage remain unqualified. Native-quote stateful coverage is scoped, not a full invariant pass.
+    reason: Core V2 math, Factory/Deployer launch, direct Curve/Token/fee-ledger and native-quote stateful coverage are partial; full Fee/Buyback, current V4 graduation, malicious-token and integration coverage remain unqualified.
     next_owner: launchpad-solidity
   - id: BLOCK-KURU-TARGET
     reason: Monad Testnet Router, MarginAccount, USDC and implementation identities were read-only verified, but RetroPick parameter/quote/LP-custody/retry decisions, price-continuity bounds and fork/live integration remain unresolved; target is not frozen.

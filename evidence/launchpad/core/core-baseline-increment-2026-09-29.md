@@ -55,6 +55,10 @@
 
 No LP-I row above is a full protocol PASS yet. A test file or one direct sequence does not satisfy the whole invariant domain.
 
+## Later same-day increment
+
+Factory-mediated native and admitted six-decimal quote launch tests were added after this baseline. They preserve the known anti-snipe and CREATE2 contradictions as executable negative controls. See [factory-launch-increment-2026-09-29.md](factory-launch-increment-2026-09-29.md). The 62-test count and pending items above describe the earlier checkpoint, not the later suite state.
+
 ## Open qualification work
 
 Factory/deployer launch path and economics pin; native/ERC20 quote matrix; token metadata bounds; partial final buy; high-run Curve fuzz; multi-actor stateful handler; buyback vault/fee escrow paths; current V4 graduation/retry; malicious quote tokens; Slither/Aderyn/Solhint triage; full Kuru target parameters, LP custody and retry ADR acceptance. `BLOCK-CONTRACT-TESTS` remains active.

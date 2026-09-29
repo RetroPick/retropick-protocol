@@ -107,7 +107,10 @@ series. Each series records immutable payoff and replication hashes plus a
 deterministic source-set hash. The hashes identify the reviewed off-chain
 certificate; the P0 kernel does not solve or recheck arbitrary replication
 systems onchain. The creator must independently exact-recheck the certificate
-before admitting a series.
+before admitting a series. `PrismSeriesP0` construction is callable only by the
+factory passed into its constructor, and that factory must report the same
+bound `PredictionFactoryP0`. A direct constructor call cannot bypass the
+pinned-creator check or receive canonical `isSeries` registration.
 
 ## Atomic mint
 
@@ -144,6 +147,11 @@ Internal accounting alone is not proof of backing.
 3. Burns `q` PRISM units from the caller.
 4. Transfers exact component amounts to `receiver`.
 5. Verifies remaining physical backing.
+
+Mint and redemption reject `address(this)` as receiver so callers cannot
+accidentally strand PRISM claims or redeemed components at the series contract.
+Component out-transfers verify both the exact series debit and exact receiver
+credit.
 
 After Prediction resolves, a PRISM holder redeems in kind to receive outcome
 ERC-20s, then separately redeems the winning outcome at the Prediction market.

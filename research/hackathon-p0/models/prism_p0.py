@@ -102,6 +102,31 @@ def exact_replication_certificate(
     }
 
 
+class HackathonPrismFactory:
+    """P0 model of the canonical factory's deployment-pinned creator gate."""
+
+    def __init__(self, series_creator: str = "deployer"):
+        if not series_creator:
+            raise PrismP0Error("series creator must be nonzero")
+        self.series_creator = series_creator
+        self.series: list[HackathonPrismModel] = []
+
+    def create_series(
+        self,
+        caller: str,
+        components: Sequence[ComponentIdentity],
+        weights: Sequence[Fraction | int | str],
+    ) -> HackathonPrismModel:
+        if caller != self.series_creator:
+            raise PrismP0Error("only the deployment-pinned series creator may admit a series")
+        series = HackathonPrismModel(components, weights, _factory=self, _caller=caller)
+        self.series.append(series)
+        return series
+
+    def is_series(self, series: HackathonPrismModel) -> bool:
+        return any(admitted is series for admitted in self.series)
+
+
 class HackathonPrismModel:
     """Small independent state model of atomic minter-funded in-kind backing."""
 
@@ -109,13 +134,14 @@ class HackathonPrismModel:
         self,
         components: Sequence[ComponentIdentity],
         weights: Sequence[Fraction | int | str],
-        series_creator: str = "deployer",
-        caller: str = "deployer",
+        *,
+        _factory: HackathonPrismFactory | None = None,
+        _caller: str = "",
     ):
         if not 1 <= len(components) <= MAX_COMPONENTS or len(components) != len(weights):
             raise PrismP0Error("component count must be between one and four and match weights")
-        if not series_creator or caller != series_creator:
-            raise PrismP0Error("only the deployment-pinned series creator may admit a series")
+        if _factory is None or _caller != _factory.series_creator:
+            raise PrismP0Error("series must be admitted through its deployment-pinned factory")
         tokens = [component.token for component in components]
         if any(not token for token in tokens) or len(set(tokens)) != len(tokens):
             raise PrismP0Error("component tokens must be nonzero and distinct")
@@ -130,7 +156,7 @@ class HackathonPrismModel:
         if len({component.decimals for component in components}) != 1:
             raise PrismP0Error("components must follow one fixed decimal policy")
         self.components = tuple(components)
-        self.series_creator = series_creator
+        self.series_factory = _factory
         self.weights = tuple(_fraction(weight) for weight in weights)
         self.lot_size_raw = derive_lot_size(self.weights)
         self.total_supply = 0

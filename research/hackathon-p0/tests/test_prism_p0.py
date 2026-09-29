@@ -7,6 +7,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "models"))
 
 from prism_p0 import (
     ComponentIdentity,
+    HackathonPrismFactory,
     HackathonPrismModel,
     PrismP0Error,
     derive_lot_size,
@@ -22,6 +23,12 @@ def components():
     )
 
 
+def create_series(component_set=None, weights=(Fraction(1, 2), Fraction(1, 2)), caller="deployer", creator="deployer"):
+    factory = HackathonPrismFactory(series_creator=creator)
+    series = factory.create_series(caller, components() if component_set is None else component_set, weights)
+    return factory, series
+
+
 class PrismP0ModelTest(unittest.TestCase):
     def test_reduced_fraction_derives_exact_lot_without_rounding(self):
         weights = (Fraction(2, 6), Fraction(4, 6))
@@ -34,7 +41,8 @@ class PrismP0ModelTest(unittest.TestCase):
             self.assertEqual(amount * weights[1].numerator % weights[1].denominator, 0)
 
     def test_mint_is_minter_funded_transferable_and_redeemable_in_kind(self):
-        model = HackathonPrismModel(components(), (Fraction(1, 2), Fraction(1, 2)))
+        factory, model = create_series()
+        self.assertTrue(factory.is_series(model))
         self.assertEqual(model.lot_size_raw, 2)
         model.fund_wallet("alice", 0, 5_000_000)
         model.fund_wallet("alice", 1, 5_000_000)
@@ -47,7 +55,7 @@ class PrismP0ModelTest(unittest.TestCase):
         model.assert_backed()
 
     def test_unaligned_mint_and_unfunded_other_minter_preserve_state(self):
-        model = HackathonPrismModel(components(), (Fraction(1, 2), Fraction(1, 2)))
+        _, model = create_series()
         model.fund_wallet("alice", 0, 100)
         model.fund_wallet("alice", 1, 100)
         model.mint("alice", 100, "alice")
@@ -60,7 +68,7 @@ class PrismP0ModelTest(unittest.TestCase):
         self.assertEqual(model.snapshot(), before)
 
     def test_direct_donation_remains_surplus_not_minter_credit(self):
-        model = HackathonPrismModel(components(), (Fraction(1, 2), Fraction(1, 2)))
+        _, model = create_series()
         model.donate(0, 100)
         before = model.snapshot()
         with self.assertRaises(PrismP0Error):
@@ -70,17 +78,20 @@ class PrismP0ModelTest(unittest.TestCase):
     def test_factory_and_collateral_admission_are_explicit(self):
         unregistered = (components()[0], ComponentIdentity("other", "market2", 0, "stable", 6, "h", factory_admitted=False))
         with self.assertRaises(PrismP0Error):
-            HackathonPrismModel(unregistered, (1, 1))
+            create_series(unregistered, (1, 1))
         wrong_collateral = (components()[0], ComponentIdentity("other", "market2", 1, "other", 6, "h"))
         with self.assertRaises(PrismP0Error):
-            HackathonPrismModel(wrong_collateral, (1, 1))
+            create_series(wrong_collateral, (1, 1))
 
-    def test_only_deployment_pinned_creator_can_admit_a_series(self):
+    def test_factory_blocks_unpinned_creator_and_direct_model_construction(self):
+        factory = HackathonPrismFactory(series_creator="operator")
         with self.assertRaises(PrismP0Error):
-            HackathonPrismModel(components(), (1, 1), series_creator="operator", caller="anyone")
+            factory.create_series("anyone", components(), (1, 1))
+        with self.assertRaises(PrismP0Error):
+            HackathonPrismModel(components(), (1, 1))
 
     def test_standard_erc20_zero_and_self_transfer_are_noop_transitions(self):
-        model = HackathonPrismModel(components(), (Fraction(1, 2), Fraction(1, 2)))
+        _, model = create_series()
         model.fund_wallet("alice", 0, 5)
         model.fund_wallet("alice", 1, 5)
         model.mint("alice", 10, "alice")

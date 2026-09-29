@@ -78,6 +78,16 @@ contract PredictionP0Test is Test {
         assertEq(market.liability(), 100);
     }
 
+    function test_zeroSplitRejectsWithoutChangingState() public {
+        vm.expectRevert(PredictionMarketP0.ZeroAmount.selector);
+        vm.prank(alice);
+        market.split(0);
+        assertEq(market.yesSupply(), 0);
+        assertEq(market.noSupply(), 0);
+        assertEq(market.collateralLocked(), 0);
+        assertEq(collateral.balanceOf(address(market)), 0);
+    }
+
     function test_feeOnTransferCollateralCannotIssue() public {
         collateral.setFeeOnTransfer(true);
         vm.expectRevert(PredictionMarketP0.Shortfall.selector);
@@ -125,6 +135,78 @@ contract PredictionP0Test is Test {
         assertEq(market.redeemYes(max), max);
         assertEq(market.liability(), 0);
         assertEq(market.collateralLocked(), 0);
+        assertEq(collateral.balanceOf(address(market)), 0);
+    }
+
+    function test_mergeRejectsNonExactOutboundCollateral() public {
+        vm.prank(alice);
+        market.split(100);
+        uint256 aliceBefore = collateral.balanceOf(alice);
+        collateral.setFeeOnTransfer(true);
+
+        vm.expectRevert(
+            abi.encodeWithSelector(PredictionMarketP0.NonExactCollateralTransfer.selector, 100, 100, 99)
+        );
+        vm.prank(alice);
+        market.merge(100);
+
+        assertEq(market.yesSupply(), 100);
+        assertEq(market.noSupply(), 100);
+        assertEq(market.collateralLocked(), 100);
+        assertEq(collateral.balanceOf(address(market)), 100);
+        assertEq(collateral.balanceOf(alice), aliceBefore);
+        assertEq(market.yesToken().balanceOf(alice), 100);
+        assertEq(market.noToken().balanceOf(alice), 100);
+    }
+
+    function test_winnerRedemptionRejectsNonExactOutboundCollateral() public {
+        vm.prank(alice);
+        market.split(100);
+        vm.startPrank(resolver);
+        market.closeMint();
+        market.resolve(PredictionMarketP0.Result.YES_WIN);
+        vm.stopPrank();
+        market.openRedemption();
+        uint256 aliceBefore = collateral.balanceOf(alice);
+        collateral.setFeeOnTransfer(true);
+
+        vm.expectRevert(
+            abi.encodeWithSelector(PredictionMarketP0.NonExactCollateralTransfer.selector, 100, 100, 99)
+        );
+        vm.prank(alice);
+        market.redeemYes(100);
+
+        assertEq(market.yesSupply(), 100);
+        assertEq(market.collateralLocked(), 100);
+        assertEq(market.liability(), 100);
+        assertEq(collateral.balanceOf(address(market)), 100);
+        assertEq(collateral.balanceOf(alice), aliceBefore);
+        assertEq(market.yesToken().balanceOf(alice), 100);
+    }
+
+    function testFuzz_binaryWinnerReceivesExactlyBurnedAmount(uint128 rawAmount, bool yesWins) public {
+        uint256 amount = bound(uint256(rawAmount), 1, market.MAX_OUTCOME_SUPPLY());
+        vm.prank(alice);
+        market.split(amount);
+
+        vm.startPrank(resolver);
+        market.closeMint();
+        market.resolve(yesWins ? PredictionMarketP0.Result.YES_WIN : PredictionMarketP0.Result.NO_WIN);
+        vm.stopPrank();
+        market.openRedemption();
+
+        uint256 balanceBefore = collateral.balanceOf(alice);
+        uint256 payout;
+        if (yesWins) {
+            vm.prank(alice);
+            payout = market.redeemYes(amount);
+        } else {
+            vm.prank(alice);
+            payout = market.redeemNo(amount);
+        }
+        assertEq(payout, amount);
+        assertEq(collateral.balanceOf(alice) - balanceBefore, amount);
+        assertEq(market.liability(), 0);
         assertEq(collateral.balanceOf(address(market)), 0);
     }
 

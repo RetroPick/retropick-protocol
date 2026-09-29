@@ -120,6 +120,12 @@ For `NO_WIN`:
 
 Second redemption of the same balance cannot double pay.
 
+Outbound collateral movement during `merge` and winner redemption must verify
+both the market's exact debit and the recipient's exact balance increase. A
+collateral that charges a fee on outbound transfer is not qualified: the
+transition rejects atomically with all outcome balances, supplies, liability,
+and collateral restored.
+
 ## Callback and lifecycle defense
 
 The historical callback witness `CX-PRED-CALLBACK-RESOLVER-001` must reject in

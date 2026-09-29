@@ -89,6 +89,29 @@ contract PrismP0Test is Test {
         assertEq(series.totalSupply(), 4_000_000);
     }
 
+    function testFuzz_exactLotMintRedeemReturnsExactComponents(uint64 rawLots) public {
+        uint256 lots = bound(uint256(rawLots), 1, 10_000_000);
+        uint256 amount = lots * series.lotSizeRaw();
+        uint256 expectedPerComponent = lots;
+        uint256 aliceYesBefore = yes.balanceOf(alice);
+        uint256 aliceNoBefore = no.balanceOf(alice);
+
+        vm.prank(alice);
+        series.mint(amount, alice);
+        assertEq(yes.balanceOf(address(series)), expectedPerComponent);
+        assertEq(no.balanceOf(address(series)), expectedPerComponent);
+        assertEq(series.requiredBacking(series.totalSupply(), 0), expectedPerComponent);
+        assertEq(series.requiredBacking(series.totalSupply(), 1), expectedPerComponent);
+
+        vm.prank(alice);
+        series.redeemInKind(amount, alice);
+        assertEq(series.totalSupply(), 0);
+        assertEq(yes.balanceOf(address(series)), 0);
+        assertEq(no.balanceOf(address(series)), 0);
+        assertEq(yes.balanceOf(alice), aliceYesBefore);
+        assertEq(no.balanceOf(alice), aliceNoBefore);
+    }
+
     function test_nontrivialReducedWeightsUseSmallestExactLot() public {
         PrismSeriesP0 thirds = _series(address(yes), address(no), 2, 6, 4, 6);
         assertEq(thirds.lotSizeRaw(), 3);
@@ -216,6 +239,49 @@ contract PrismP0Test is Test {
         vm.expectRevert(PrismFactoryP0.NotSeriesCreator.selector);
         vm.prank(alice);
         prismFactory.createSeries(tokens, nums, dens, "unauthorized", "BAD", bytes32("p"), bytes32("r"));
+    }
+
+    function test_directSeriesDeploymentCannotBypassCanonicalFactory() public {
+        address[] memory tokens = new address[](1);
+        tokens[0] = address(yes);
+        uint128[] memory nums = new uint128[](1);
+        nums[0] = 1;
+        uint128[] memory dens = new uint128[](1);
+        dens[0] = 1;
+        vm.expectRevert(PrismSeriesP0.OnlyPrismFactory.selector);
+        new PrismSeriesP0(
+            address(prismFactory),
+            address(factory),
+            tokens,
+            nums,
+            dens,
+            "Bypass",
+            "BYPASS",
+            keccak256("unreviewed-payoff"),
+            keccak256("unreviewed-replication")
+        );
+    }
+
+    function test_mintCannotTrapPRISMAtTheSeriesAddress() public {
+        uint256 aliceYesBefore = yes.balanceOf(alice);
+        vm.expectRevert(PrismSeriesP0.InvalidReceiver.selector);
+        vm.prank(alice);
+        series.mint(2, address(series));
+        assertEq(series.totalSupply(), 0);
+        assertEq(yes.balanceOf(alice), aliceYesBefore);
+        assertEq(yes.balanceOf(address(series)), 0);
+    }
+
+    function test_redeemCannotSendUnderlyingToTheSeriesAddress() public {
+        vm.prank(alice);
+        series.mint(2, alice);
+        uint256 yesBefore = yes.balanceOf(address(series));
+        vm.expectRevert(PrismSeriesP0.InvalidReceiver.selector);
+        vm.prank(alice);
+        series.redeemInKind(2, address(series));
+        assertEq(series.totalSupply(), 2);
+        assertEq(series.balanceOf(alice), 2);
+        assertEq(yes.balanceOf(address(series)), yesBefore);
     }
 
     function test_directDonationIsSurplusAndNotSweepable() public {

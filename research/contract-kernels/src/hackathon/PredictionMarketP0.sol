@@ -53,6 +53,7 @@ contract PredictionMarketP0 is ReentrancyGuard {
     error BadState();
     error ZeroAmount();
     error Shortfall();
+    error NonExactCollateralTransfer(uint256 expected, uint256 debited, uint256 received);
     error SupplyCapExceeded(uint256 currentSupply, uint256 amount, uint256 maxSupply);
     error CollateralResolverOverlap();
     error StateChangedDuringTransfer();
@@ -135,7 +136,7 @@ contract PredictionMarketP0 is ReentrancyGuard {
         yesSupply -= amount;
         noSupply -= amount;
         collateralLocked -= amount;
-        collateral.safeTransfer(msg.sender, amount);
+        _transferCollateralExact(msg.sender, amount);
         emit Merged(msg.sender, amount);
     }
 
@@ -205,8 +206,21 @@ contract PredictionMarketP0 is ReentrancyGuard {
             noSupply -= amount;
         }
         collateralLocked -= payout;
-        collateral.safeTransfer(account, payout);
+        _transferCollateralExact(account, payout);
         emit Redeemed(account, yesSide ? 0 : 1, amount, payout);
+    }
+
+    function _transferCollateralExact(address receiver, uint256 amount) private {
+        uint256 beforeMarket = collateral.balanceOf(address(this));
+        uint256 beforeReceiver = collateral.balanceOf(receiver);
+        collateral.safeTransfer(receiver, amount);
+        uint256 afterMarket = collateral.balanceOf(address(this));
+        uint256 afterReceiver = collateral.balanceOf(receiver);
+        uint256 debited = afterMarket <= beforeMarket ? beforeMarket - afterMarket : 0;
+        uint256 received = afterReceiver >= beforeReceiver ? afterReceiver - beforeReceiver : 0;
+        if (debited != amount || received != amount) {
+            revert NonExactCollateralTransfer(amount, debited, received);
+        }
     }
 
     function _checkSupplyCap(uint256 amount) internal view {

@@ -11,6 +11,10 @@ import {OutcomeTokenP0} from "./OutcomeTokenP0.sol";
 import {PredictionFactoryP0} from "./PredictionFactoryP0.sol";
 import {PredictionMarketP0} from "./PredictionMarketP0.sol";
 
+interface IPrismFactoryP0View {
+    function predictionFactory() external view returns (address);
+}
+
 /// @notice Exact-lot, physically backed, in-kind PRISM P0 research kernel.
 /// @dev Deliberately excludes cash settlement, cursors, shared deposits, and arbitrary sources.
 contract PrismSeriesP0 is ERC20, ReentrancyGuard {
@@ -48,10 +52,13 @@ contract PrismSeriesP0 is ERC20, ReentrancyGuard {
     error NonUniformDecimals(address token, uint8 expected, uint8 actual);
     error LotTooLarge(uint256 lotSize);
     error MissingCommitment();
+    error OnlyPrismFactory();
+    error InvalidReceiver();
     error InvalidLot(uint256 amount, uint256 lotSize);
     error ZeroAmount();
     error SupplyCapExceeded(uint256 supply, uint256 amount, uint256 maximum);
     error ShortComponentReceipt(address token, uint256 expected, uint256 received);
+    error NonExactComponentTransfer(address token, uint256 expected, uint256 debited, uint256 received);
     error InsufficientWalletComponent(address token, uint256 expected, uint256 available);
     error PhysicalBackingDeficit(address token, uint256 balance, uint256 required);
 
@@ -59,6 +66,7 @@ contract PrismSeriesP0 is ERC20, ReentrancyGuard {
     event RedeemedInKind(address indexed holder, address indexed receiver, uint256 amount);
 
     constructor(
+        address prismFactory_,
         address predictionFactory_,
         address[] memory tokens_,
         uint128[] memory numerators_,
@@ -68,6 +76,10 @@ contract PrismSeriesP0 is ERC20, ReentrancyGuard {
         bytes32 payoffHash_,
         bytes32 replicationHash_
     ) ERC20(name_, symbol_) {
+        if (prismFactory_ == address(0) || msg.sender != prismFactory_) revert OnlyPrismFactory();
+        if (IPrismFactoryP0View(prismFactory_).predictionFactory() != predictionFactory_) {
+            revert OnlyPrismFactory();
+        }
         uint256 count = tokens_.length;
         if (count == 0 || count > MAX_COMPONENTS) revert BadComponentCount(count);
         if (count != numerators_.length || count != denominators_.length) revert BadComponentCount(count);
@@ -171,6 +183,7 @@ contract PrismSeriesP0 is ERC20, ReentrancyGuard {
     function mint(uint256 amount, address receiver) external nonReentrant {
         _validateAmount(amount);
         if (receiver == address(0)) revert ZeroAddress();
+        if (receiver == address(this)) revert InvalidReceiver();
         uint256 supply = totalSupply();
         if (amount > MAX_SERIES_SUPPLY - supply) revert SupplyCapExceeded(supply, amount, MAX_SERIES_SUPPLY);
 
@@ -195,6 +208,7 @@ contract PrismSeriesP0 is ERC20, ReentrancyGuard {
     function redeemInKind(uint256 amount, address receiver) external nonReentrant {
         _validateAmount(amount);
         if (receiver == address(0)) revert ZeroAddress();
+        if (receiver == address(this)) revert InvalidReceiver();
         uint256 supply = totalSupply();
         uint256 count = _components.length;
         uint256[] memory amounts = new uint256[](count);
@@ -204,12 +218,31 @@ contract PrismSeriesP0 is ERC20, ReentrancyGuard {
         uint256 remainingSupply = supply - amount;
         for (uint256 i; i < count; ++i) {
             IERC20 token = IERC20(_components[i].token);
-            token.safeTransfer(receiver, amounts[i]);
+            _transferComponentExact(token, receiver, amounts[i]);
             uint256 balance = token.balanceOf(address(this));
             uint256 required = requiredBacking(remainingSupply, i);
             if (balance < required) revert PhysicalBackingDeficit(address(token), balance, required);
         }
         emit RedeemedInKind(msg.sender, receiver, amount);
+    }
+
+    function _transferComponentExact(IERC20 token, address receiver, uint256 amount) private {
+        uint256 beforeSeries = token.balanceOf(address(this));
+        uint256 beforeReceiver = token.balanceOf(receiver);
+        token.safeTransfer(receiver, amount);
+        uint256 afterSeries = token.balanceOf(address(this));
+        uint256 afterReceiver = token.balanceOf(receiver);
+        if (
+            afterSeries > beforeSeries || beforeSeries - afterSeries != amount || afterReceiver < beforeReceiver
+                || afterReceiver - beforeReceiver != amount
+        ) {
+            revert NonExactComponentTransfer(
+                address(token),
+                amount,
+                beforeSeries >= afterSeries ? beforeSeries - afterSeries : 0,
+                afterReceiver >= beforeReceiver ? afterReceiver - beforeReceiver : 0
+            );
+        }
     }
 
     function _validateAmount(uint256 amount) internal view {

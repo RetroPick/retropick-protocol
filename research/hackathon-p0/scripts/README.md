@@ -6,7 +6,8 @@ Prediction-to-PRISM lifecycle harness.
 
 `./research/hackathon-p0/scripts/test-p0.sh stateful` runs the same checks plus
 three deterministic seeds for each stateful invariant handler (256 runs per
-seed, depth 100).
+seed, depth 100). The fast unit/fuzz invocations use deterministic fuzz seed 1
+and 256 fuzz runs.
 
 Requirements: Python 3.10+ and Foundry `forge`. Python uses only the standard
 library. Foundry resolves the checked-in `research/contract-kernels/foundry.toml`

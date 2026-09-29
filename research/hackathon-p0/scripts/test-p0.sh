@@ -26,15 +26,15 @@ python3 -m unittest discover -s research/hackathon-p0/tests -p 'test_*.py' -v
 
 cd "$repo_root/research/contract-kernels"
 printf '%s\n' '== Prediction unit + differential =='
-forge test --match-path test/hackathon/PredictionP0.t.sol -vv
-forge test --match-path test/hackathon/PredictionP0Differential.t.sol -vv
+forge test --match-path test/hackathon/PredictionP0.t.sol --fuzz-seed 1 --fuzz-runs 256 -vv
+forge test --match-path test/hackathon/PredictionP0Differential.t.sol --fuzz-seed 1 --fuzz-runs 256 -vv
 
 printf '%s\n' '== PRISM unit + differential =='
-forge test --match-path test/hackathon/PrismP0.t.sol -vv
-forge test --match-path test/hackathon/PrismP0Differential.t.sol -vv
+forge test --match-path test/hackathon/PrismP0.t.sol --fuzz-seed 1 --fuzz-runs 256 -vv
+forge test --match-path test/hackathon/PrismP0Differential.t.sol --fuzz-seed 1 --fuzz-runs 256 -vv
 
 printf '%s\n' '== Prediction to PRISM lifecycle =='
-forge test --match-path test/hackathon/CrossModuleP0.t.sol -vv
+forge test --match-path test/hackathon/CrossModuleP0.t.sol --fuzz-seed 1 --fuzz-runs 256 -vv
 
 if [[ "$profile" == "stateful" ]]; then
   for seed in 1 2 3; do

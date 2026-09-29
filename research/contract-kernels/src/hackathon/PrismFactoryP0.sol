@@ -32,7 +32,15 @@ contract PrismFactoryP0 {
     ) external returns (PrismSeriesP0 series) {
         if (msg.sender != seriesCreator) revert NotSeriesCreator();
         series = new PrismSeriesP0(
-            address(predictionFactory), tokens, numerators, denominators, name, symbol, payoffHash, replicationHash
+            address(this),
+            address(predictionFactory),
+            tokens,
+            numerators,
+            denominators,
+            name,
+            symbol,
+            payoffHash,
+            replicationHash
         );
         isSeries[address(series)] = true;
         bytes32 seriesId = keccak256(

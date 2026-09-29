@@ -41,6 +41,8 @@ demo fixture does pass exact rational recheck.
 | Admin/resolver drains backing | No backing withdrawal, cash settlement, or dust-sweep method exists | No drain path in P0 ABI |
 | Direct donations assigned to a minter | Donations remain unassigned surplus and cannot replace the minter-funded transfer | Negative control passes; donation may remain stranded |
 | False payoff/replication metadata | Fixed series creator and immutable hashes; exact certificate review is an explicit off-chain admission assumption | Residual trust assumption, not onchain proof |
+| Direct PRISM-series constructor bypass | Historical kernel allowed arbitrary callers to deploy a series directly, bypassing the pinned `PrismFactoryP0` creator and its canonical `isSeries` registry | `CX-HACK-PRISM-DIRECT-DEPLOY-001` was found at `da723095`; repaired at `4f3c70b` by requiring constructor caller/factory identity and matching Prediction factory. `test_directSeriesDeploymentCannotBypassCanonicalFactory` passes. The witness created an unregistered misleading asset; no direct backing theft was demonstrated. |
+| Non-exact outbound value | Market and series compare both contract debit and recipient credit; fee-on-transfer Prediction collateral rejects atomically; PRISM self-receivers reject | Deterministic tests and 256-case winner/lot fuzz regressions pass |
 
 ## Tool findings and limitations
 
@@ -51,16 +53,19 @@ demo fixture does pass exact rational recheck.
   treated as confirmed findings.
 - Aderyn 0.6.8 crashes while ingesting the five Hackathon Solidity files with
   `content not found` (exit 101).
-- Solhint 6.2.4 completes with exit 0, zero errors, and 195 warnings under the
-  checked-in recommended profile. Warnings are primarily missing NatSpec,
+- Solhint 6.2.4 completes with exit 0, zero errors, and 203 warnings under the
+  checked-in recommended profile after the latest hardening. Warnings are primarily missing NatSpec,
   lower-case immutable naming, gas-style suggestions, and import aliases that
   Solhint does not resolve through Foundry remappings.
 
 These limitations are recorded as `BLOCKED_TOOL`; passing unit or invariant
 counts do not repair them. The independent evidence here is direct Solidity
-execution, Python/Solidity fixtures, bounded stateful invariants, and manual
-path review. No Critical or High defect was identified in the enabled local P0
-paths under the stated factory, token, resolver, and certificate assumptions.
+execution, Python/Solidity fixtures, deterministic fuzzing, bounded stateful
+invariants, and manual path review. The historical direct-constructor admission
+gap has a permanent regression and is repaired in the current kernel. No
+Critical or High defect is currently identified in the enabled local P0 paths
+under the stated factory, token, resolver, and certificate assumptions; this
+remains a scoped research review, not an audit.
 
 ## Deployment boundary
 

@@ -1,0 +1,305 @@
+== Hackathon P0 environment ==
+Python 3.12.3
+forge Version: 1.8.3
+Commit SHA: cae51ad458f6abb64852b7709eb784352429825d
+Build Timestamp: 2026-09-15T10:46:16.519267388Z (1789469176)
+Build Profile: dist
+== Python semantic models ==
+== Prediction unit + differential ==
+Compiling 52 files with Solc 0.8.26
+Solc 0.8.26 finished in 4.97s
+Compiler run successful!
+
+Ran 14 tests for test/hackathon/PredictionP0.t.sol:PredictionP0Test
+[PASS] testFuzz_binaryWinnerReceivesExactlyBurnedAmount(uint128,bool) (runs: 256, μ: 458079, ~: 458110)
+[PASS] test_binaryDomainRejectsNoneResult() (gas: 317662)
+[PASS] test_callbackLifecycleMutationDuringSplitRejectsSafely() (gas: 6517800)
+[PASS] test_completeSetIssuanceUsesExactReceipt() (gas: 307086)
+[PASS] test_exactWinnerRedemptionDoesNotOverflowAtCap() (gas: 461489)
+[PASS] test_factoryRejectsCollateralResolverOverlap() (gas: 2826055)
+[PASS] test_feeOnTransferCollateralCannotIssue() (gas: 165038)
+[PASS] test_losingSideCannotRedeemButCanBurn() (gas: 430592)
+[PASS] test_mergeRejectsNonExactOutboundCollateral() (gas: 476594)
+[PASS] test_supplyCapBoundary() (gas: 296796)
+[PASS] test_supplyCapRejectsAmountAboveMaxBeforeTransfer() (gas: 55299)
+[PASS] test_userCannotMintOutcome() (gas: 35922)
+[PASS] test_winnerRedemptionRejectsNonExactOutboundCollateral() (gas: 548603)
+[PASS] test_zeroSplitRejectsWithoutChangingState() (gas: 66903)
+Suite result: ok. 14 passed; 0 failed; 0 skipped; finished in 28.91ms (33.92ms CPU time)
+
+Ran 1 test suite in 30.52ms (28.91ms CPU time): 14 tests passed, 0 failed, 0 skipped (14 total tests)
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 2.71s
+Compiler run successful!
+
+Ran 5 tests for test/hackathon/PredictionP0Differential.t.sol:PredictionP0DifferentialTest
+[PASS] test_activationMatchesPythonSnapshots() (gas: 2927618)
+[PASS] test_noWorldMatchesPythonSnapshots() (gas: 3287854)
+[PASS] test_rejectedWrongSideRedemptionPreservesP0State() (gas: 480840)
+[PASS] test_standardOutcomeTokenZeroAndSelfTransfersAreNoopTransitions() (gas: 377481)
+[PASS] test_yesWorldMatchesPythonSnapshots() (gas: 3285952)
+Suite result: ok. 5 passed; 0 failed; 0 skipped; finished in 14.97ms (28.30ms CPU time)
+
+Ran 1 test suite in 15.98ms (14.97ms CPU time): 5 tests passed, 0 failed, 0 skipped (5 total tests)
+== PRISM unit + differential ==
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 3.56s
+Compiler run successful!
+
+Ran 15 tests for test/hackathon/PrismP0.t.sol:PrismP0Test
+[PASS] testFuzz_exactLotMintRedeemReturnsExactComponents(uint64) (runs: 256, μ: 378687, ~: 378413)
+[PASS] test_aDonationCannotFundAnotherMintersMint() (gas: 217452)
+[PASS] test_directDonationIsSurplusAndNotSweepable() (gas: 191247)
+[PASS] test_directSeriesDeploymentCannotBypassCanonicalFactory() (gas: 12524)
+[PASS] test_exactLotMintTransferAndInKindRedemption() (gas: 536276)
+[PASS] test_invalidLotRejectsBeforeTakingComponents() (gas: 82357)
+[PASS] test_mintCannotTrapPRISMAtTheSeriesAddress() (gas: 70013)
+[PASS] test_nontrivialReducedWeightsUseSmallestExactLot() (gas: 1699236)
+[PASS] test_onlyFixedSeriesCreatorCanAdmitSeries() (gas: 41078)
+[PASS] test_redeemCannotSendUnderlyingToTheSeriesAddress() (gas: 240685)
+[PASS] test_rejectDuplicateZeroAndMoreThanFourComponents() (gas: 712258)
+[PASS] test_standardPrismErc20ZeroAndSelfTransfersAreNoopTransitions() (gas: 274691)
+[PASS] test_unalignedRedemptionRejectsWithoutBurnOrTransfer() (gas: 257930)
+[PASS] test_unregisteredOutcomeCloneForRealMarketCannotBeAdmitted() (gas: 169479)
+[PASS] test_unregisteredTokenCannotBeAdmitted() (gas: 154921)
+Suite result: ok. 15 passed; 0 failed; 0 skipped; finished in 26.34ms (30.91ms CPU time)
+
+Ran 1 test suite in 27.37ms (26.34ms CPU time): 15 tests passed, 0 failed, 0 skipped (15 total tests)
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 2.54s
+Compiler run successful!
+
+Ran 1 test for test/hackathon/PrismP0Differential.t.sol:PrismP0DifferentialTest
+[PASS] test_fixtureAmountsAndPostStateMatchSolidity() (gas: 278766)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 1.99ms (536.15µs CPU time)
+
+Ran 1 test suite in 9.29ms (1.99ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
+== Prediction to PRISM lifecycle ==
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 2.69s
+Compiler run successful!
+
+Ran 2 tests for test/hackathon/CrossModuleP0.t.sol:CrossModuleP0Test
+[PASS] test_noWinWorldPredictionToPrismAndBack() (gas: 5659478)
+[PASS] test_yesWinWorldPredictionToPrismAndBack() (gas: 5658755)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 3.69ms (5.60ms CPU time)
+
+Ran 1 test suite in 9.20ms (3.69ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)
+== Prediction stateful seed 1 ==
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 2.21s
+Compiler run successful!
+
+Ran 1 test for test/hackathon/PredictionP0Invariant.t.sol:PredictionP0InvariantTest
+[PASS]
+PredictionP0InvariantTest invariants:
+[PASS] invariant_accountedSupplyMatchesOutcomeTokens
+[PASS] invariant_accountingLiabilityAndActualBalanceAgree
+[PASS] invariant_completeSetsRemainConservedBeforeRedemption
+[PASS] invariant_physicalCollateralCoversLiability
+[PASS] invariant_resultAndLifecycleAreConsistent
+ PredictionP0InvariantTest invariants (runs: 256, calls: 25600, reverts: 0)
+
+╭---------------------------+-------------------------+-------+---------+----------╮
+| Contract                  | Selector                | Calls | Reverts | Discards |
++==================================================================================+
+| PredictionP0InvariantTest | archive                 | 2025  | 0       | 0        |
+|---------------------------+-------------------------+-------+---------+----------|
+| PredictionP0InvariantTest | attemptPostLockSplit    | 2013  | 0       | 0        |
+|---------------------------+-------------------------+-------+---------+----------|
+| PredictionP0InvariantTest | attemptSecondResolution | 1905  | 0       | 0        |
+|---------------------------+-------------------------+-------+---------+----------|
+| PredictionP0InvariantTest | burnLoser               | 1948  | 0       | 0        |
+|---------------------------+-------------------------+-------+---------+----------|
+| PredictionP0InvariantTest | closeMint               | 2000  | 0       | 0        |
+|---------------------------+-------------------------+-------+---------+----------|
+| PredictionP0InvariantTest | merge                   | 1984  | 0       | 0        |
+|---------------------------+-------------------------+-------+---------+----------|
+| PredictionP0InvariantTest | openRedemption          | 1884  | 0       | 0        |
+|---------------------------+-------------------------+-------+---------+----------|
+| PredictionP0InvariantTest | redeemWinner            | 1929  | 0       | 0        |
+|---------------------------+-------------------------+-------+---------+----------|
+| PredictionP0InvariantTest | resolveNo               | 2035  | 0       | 0        |
+|---------------------------+-------------------------+-------+---------+----------|
+| PredictionP0InvariantTest | resolveYes              | 1956  | 0       | 0        |
+|---------------------------+-------------------------+-------+---------+----------|
+| PredictionP0InvariantTest | split                   | 1897  | 0       | 0        |
+|---------------------------+-------------------------+-------+---------+----------|
+| PredictionP0InvariantTest | transferNo              | 1995  | 0       | 0        |
+|---------------------------+-------------------------+-------+---------+----------|
+| PredictionP0InvariantTest | transferYes             | 2029  | 0       | 0        |
+╰---------------------------+-------------------------+-------+---------+----------╯
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 3.21s (3.21s CPU time)
+
+Ran 1 test suite in 3.22s (3.21s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
+== Prediction stateful seed 2 ==
+No files changed, compilation skipped
+
+Ran 1 test for test/hackathon/PredictionP0Invariant.t.sol:PredictionP0InvariantTest
+[PASS]
+PredictionP0InvariantTest invariants:
+[PASS] invariant_accountedSupplyMatchesOutcomeTokens
+[PASS] invariant_accountingLiabilityAndActualBalanceAgree
+[PASS] invariant_completeSetsRemainConservedBeforeRedemption
+[PASS] invariant_physicalCollateralCoversLiability
+[PASS] invariant_resultAndLifecycleAreConsistent
+ PredictionP0InvariantTest invariants (runs: 256, calls: 25600, reverts: 0)
+
+╭---------------------------+-------------------------+-------+---------+----------╮
+| Contract                  | Selector                | Calls | Reverts | Discards |
++==================================================================================+
+| PredictionP0InvariantTest | archive                 | 1916  | 0       | 0        |
+|---------------------------+-------------------------+-------+---------+----------|
+| PredictionP0InvariantTest | attemptPostLockSplit    | 2026  | 0       | 0        |
+|---------------------------+-------------------------+-------+---------+----------|
+| PredictionP0InvariantTest | attemptSecondResolution | 1989  | 0       | 0        |
+|---------------------------+-------------------------+-------+---------+----------|
+| PredictionP0InvariantTest | burnLoser               | 1937  | 0       | 0        |
+|---------------------------+-------------------------+-------+---------+----------|
+| PredictionP0InvariantTest | closeMint               | 1985  | 0       | 0        |
+|---------------------------+-------------------------+-------+---------+----------|
+| PredictionP0InvariantTest | merge                   | 1980  | 0       | 0        |
+|---------------------------+-------------------------+-------+---------+----------|
+| PredictionP0InvariantTest | openRedemption          | 2036  | 0       | 0        |
+|---------------------------+-------------------------+-------+---------+----------|
+| PredictionP0InvariantTest | redeemWinner            | 1961  | 0       | 0        |
+|---------------------------+-------------------------+-------+---------+----------|
+| PredictionP0InvariantTest | resolveNo               | 1885  | 0       | 0        |
+|---------------------------+-------------------------+-------+---------+----------|
+| PredictionP0InvariantTest | resolveYes              | 1920  | 0       | 0        |
+|---------------------------+-------------------------+-------+---------+----------|
+| PredictionP0InvariantTest | split                   | 2055  | 0       | 0        |
+|---------------------------+-------------------------+-------+---------+----------|
+| PredictionP0InvariantTest | transferNo              | 1987  | 0       | 0        |
+|---------------------------+-------------------------+-------+---------+----------|
+| PredictionP0InvariantTest | transferYes             | 1923  | 0       | 0        |
+╰---------------------------+-------------------------+-------+---------+----------╯
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 3.53s (3.53s CPU time)
+
+Ran 1 test suite in 3.54s (3.53s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
+== Prediction stateful seed 3 ==
+No files changed, compilation skipped
+
+Ran 1 test for test/hackathon/PredictionP0Invariant.t.sol:PredictionP0InvariantTest
+[PASS]
+PredictionP0InvariantTest invariants:
+[PASS] invariant_accountedSupplyMatchesOutcomeTokens
+[PASS] invariant_accountingLiabilityAndActualBalanceAgree
+[PASS] invariant_completeSetsRemainConservedBeforeRedemption
+[PASS] invariant_physicalCollateralCoversLiability
+[PASS] invariant_resultAndLifecycleAreConsistent
+ PredictionP0InvariantTest invariants (runs: 256, calls: 25600, reverts: 0)
+
+╭---------------------------+-------------------------+-------+---------+----------╮
+| Contract                  | Selector                | Calls | Reverts | Discards |
++==================================================================================+
+| PredictionP0InvariantTest | archive                 | 1985  | 0       | 0        |
+|---------------------------+-------------------------+-------+---------+----------|
+| PredictionP0InvariantTest | attemptPostLockSplit    | 1921  | 0       | 0        |
+|---------------------------+-------------------------+-------+---------+----------|
+| PredictionP0InvariantTest | attemptSecondResolution | 2034  | 0       | 0        |
+|---------------------------+-------------------------+-------+---------+----------|
+| PredictionP0InvariantTest | burnLoser               | 1975  | 0       | 0        |
+|---------------------------+-------------------------+-------+---------+----------|
+| PredictionP0InvariantTest | closeMint               | 1976  | 0       | 0        |
+|---------------------------+-------------------------+-------+---------+----------|
+| PredictionP0InvariantTest | merge                   | 1950  | 0       | 0        |
+|---------------------------+-------------------------+-------+---------+----------|
+| PredictionP0InvariantTest | openRedemption          | 1956  | 0       | 0        |
+|---------------------------+-------------------------+-------+---------+----------|
+| PredictionP0InvariantTest | redeemWinner            | 2017  | 0       | 0        |
+|---------------------------+-------------------------+-------+---------+----------|
+| PredictionP0InvariantTest | resolveNo               | 2035  | 0       | 0        |
+|---------------------------+-------------------------+-------+---------+----------|
+| PredictionP0InvariantTest | resolveYes              | 1911  | 0       | 0        |
+|---------------------------+-------------------------+-------+---------+----------|
+| PredictionP0InvariantTest | split                   | 1904  | 0       | 0        |
+|---------------------------+-------------------------+-------+---------+----------|
+| PredictionP0InvariantTest | transferNo              | 1995  | 0       | 0        |
+|---------------------------+-------------------------+-------+---------+----------|
+| PredictionP0InvariantTest | transferYes             | 1941  | 0       | 0        |
+╰---------------------------+-------------------------+-------+---------+----------╯
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 3.38s (3.38s CPU time)
+
+Ran 1 test suite in 3.39s (3.38s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
+== PRISM stateful seed 1 ==
+Compiling 2 files with Solc 0.8.26
+Solc 0.8.26 finished in 3.04s
+Compiler run successful!
+
+Ran 1 test for test/hackathon/PrismP0Invariant.t.sol:PrismP0InvariantTest
+[PASS] invariant_physicalBackingCoversSupplyAndClaimBalancesConserveSupply() (runs: 256, calls: 25600, reverts: 0)
+
+╭----------------+-----------------------+-------+---------+----------╮
+| Contract       | Selector              | Calls | Reverts | Discards |
++=====================================================================+
+| PrismP0Handler | donateOne             | 4271  | 0       | 0        |
+|----------------+-----------------------+-------+---------+----------|
+| PrismP0Handler | mint                  | 4227  | 0       | 0        |
+|----------------+-----------------------+-------+---------+----------|
+| PrismP0Handler | redeem                | 4385  | 0       | 0        |
+|----------------+-----------------------+-------+---------+----------|
+| PrismP0Handler | rejectUnalignedMint   | 4149  | 0       | 0        |
+|----------------+-----------------------+-------+---------+----------|
+| PrismP0Handler | rejectUnalignedRedeem | 4359  | 0       | 0        |
+|----------------+-----------------------+-------+---------+----------|
+| PrismP0Handler | transfer              | 4209  | 0       | 0        |
+╰----------------+-----------------------+-------+---------+----------╯
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 5.95s (5.95s CPU time)
+
+Ran 1 test suite in 5.96s (5.95s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
+== PRISM stateful seed 2 ==
+No files changed, compilation skipped
+
+Ran 1 test for test/hackathon/PrismP0Invariant.t.sol:PrismP0InvariantTest
+[PASS] invariant_physicalBackingCoversSupplyAndClaimBalancesConserveSupply() (runs: 256, calls: 25600, reverts: 0)
+
+╭----------------+-----------------------+-------+---------+----------╮
+| Contract       | Selector              | Calls | Reverts | Discards |
++=====================================================================+
+| PrismP0Handler | donateOne             | 4270  | 0       | 0        |
+|----------------+-----------------------+-------+---------+----------|
+| PrismP0Handler | mint                  | 4214  | 0       | 0        |
+|----------------+-----------------------+-------+---------+----------|
+| PrismP0Handler | redeem                | 4187  | 0       | 0        |
+|----------------+-----------------------+-------+---------+----------|
+| PrismP0Handler | rejectUnalignedMint   | 4243  | 0       | 0        |
+|----------------+-----------------------+-------+---------+----------|
+| PrismP0Handler | rejectUnalignedRedeem | 4342  | 0       | 0        |
+|----------------+-----------------------+-------+---------+----------|
+| PrismP0Handler | transfer              | 4344  | 0       | 0        |
+╰----------------+-----------------------+-------+---------+----------╯
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 6.25s (6.24s CPU time)
+
+Ran 1 test suite in 6.25s (6.25s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
+== PRISM stateful seed 3 ==
+No files changed, compilation skipped
+
+Ran 1 test for test/hackathon/PrismP0Invariant.t.sol:PrismP0InvariantTest
+[PASS] invariant_physicalBackingCoversSupplyAndClaimBalancesConserveSupply() (runs: 256, calls: 25600, reverts: 0)
+
+╭----------------+-----------------------+-------+---------+----------╮
+| Contract       | Selector              | Calls | Reverts | Discards |
++=====================================================================+
+| PrismP0Handler | donateOne             | 4359  | 0       | 0        |
+|----------------+-----------------------+-------+---------+----------|
+| PrismP0Handler | mint                  | 4323  | 0       | 0        |
+|----------------+-----------------------+-------+---------+----------|
+| PrismP0Handler | redeem                | 4215  | 0       | 0        |
+|----------------+-----------------------+-------+---------+----------|
+| PrismP0Handler | rejectUnalignedMint   | 4304  | 0       | 0        |
+|----------------+-----------------------+-------+---------+----------|
+| PrismP0Handler | rejectUnalignedRedeem | 4212  | 0       | 0        |
+|----------------+-----------------------+-------+---------+----------|
+| PrismP0Handler | transfer              | 4187  | 0       | 0        |
+╰----------------+-----------------------+-------+---------+----------╯
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 6.16s (6.16s CPU time)
+
+Ran 1 test suite in 6.17s (6.16s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
+Hackathon P0 stateful profile: PASS

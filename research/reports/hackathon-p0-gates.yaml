@@ -1,9 +1,9 @@
 schema_version: 1
 recorded_at: 2026-09-29
 profile: HACKATHON-P0
-branch: codex/hackathon-p0-qualification
-base_sha: e354db0a96eca6b56b950d87bf81ad87fa4278fd
-last_qualified_code_sha: da723095c84de6e1480d80aac62e62fdd3337690
+branch: codex/hackathon-p0-hardening
+base_sha: 4b1eb2839fdef310395c0a2ce238e162a6f5a5d6
+last_qualified_code_sha: 4f3c70b965d1ee16e31425dc8e8624bb6a06860a
 production_gates_unchanged: true
 production_gate_source: research/reports/qualification-gates.yaml
 status_vocabulary:
@@ -51,6 +51,7 @@ hackathon_p0:
         - research/contract-kernels/test/hackathon/PredictionP0Invariant.t.sol
         - evidence/hackathon-p0/prediction/prediction-p0-differential-2026-09-29.json
         - evidence/hackathon-p0/prediction/prediction-p0-stateful-2026-09-29.json
+        - evidence/hackathon-p0/security/p0-hardening-qualification-2026-09-29.json
       remaining_blocker: None for the fixed standard test collateral; arbitrary collateral classes are out of scope.
     PRED-H3-COMPLETE-SET:
       status: PASS
@@ -69,7 +70,8 @@ hackathon_p0:
         - research/contract-kernels/src/hackathon/PredictionMarketP0.sol
         - research/contract-kernels/test/hackathon/PredictionP0.t.sol
         - evidence/hackathon-p0/prediction/prediction-p0-kernel-2026-09-28.json
-      remaining_blocker: None within the exercised YES_WIN/NO_WIN cases; see differential fixture limitations.
+        - evidence/hackathon-p0/security/p0-hardening-qualification-2026-09-29.json
+      remaining_blocker: None within exercised YES_WIN/NO_WIN domain; outbound fee-on-transfer rejects atomically, and unbounded token behavior is excluded.
     PRED-H5-LIFECYCLE-ATOMICITY:
       status: PASS
       label: MEASURED_LOCAL
@@ -104,6 +106,7 @@ hackathon_p0:
       evidence:
         - research/contract-kernels/test/hackathon/PredictionP0Invariant.t.sol
         - evidence/hackathon-p0/prediction/prediction-p0-stateful-2026-09-29.json
+        - evidence/hackathon-p0/security/p0-hardening-qualification-2026-09-29.json
       remaining_blocker: None within three deterministic bounded seeds; not a proof/audit or adversarial-token qualification.
 
   prism:
@@ -115,7 +118,8 @@ hackathon_p0:
         - research/hackathon-p0/fixtures/prism_p0_exact_lot.json
         - research/hackathon-p0/models/prism_p0.py
         - research/contract-kernels/test/hackathon/PrismP0Differential.t.sol
-      remaining_blocker: Onchain kernel binds the reviewed certificate hashes; correctness of arbitrary offchain certificate review is trusted and not proven by the kernel.
+        - evidence/hackathon-p0/security/p0-hardening-qualification-2026-09-29.json
+      remaining_blocker: Onchain kernel binds reviewed certificate hashes; arbitrary offchain certificate review remains trusted. Direct construction bypass found at da723095 and repaired at 4f3c70b.
     PRISM-H2-EXACT-LOT:
       status: PASS
       label: PROVEN_UNDER_ASSUMPTIONS
@@ -123,6 +127,7 @@ hackathon_p0:
         - research/hackathon-p0/PRISM_P0_SPEC.md
         - research/hackathon-p0/models/prism_p0.py
         - research/contract-kernels/test/hackathon/PrismP0.t.sol
+        - evidence/hackathon-p0/security/p0-hardening-qualification-2026-09-29.json
       remaining_blocker: Applies to reduced rational weights and bounded P0 integer domain only.
     PRISM-H3-ATOMIC-MINT:
       status: PASS
@@ -131,6 +136,7 @@ hackathon_p0:
         - research/hackathon-p0/PRISM_P0_SPEC.md
         - research/contract-kernels/test/hackathon/PrismP0.t.sol
         - research/hackathon-p0/models/prism_p0.py
+        - evidence/hackathon-p0/security/p0-hardening-qualification-2026-09-29.json
       remaining_blocker: Standard admitted component token behavior only.
     PRISM-H4-PHYSICAL-BACKING:
       status: PASS
@@ -139,6 +145,7 @@ hackathon_p0:
         - research/hackathon-p0/PRISM_P0_SPEC.md
         - research/contract-kernels/test/hackathon/PrismP0Invariant.t.sol
         - evidence/hackathon-p0/prism/prism-p0-stateful-codex-2026-09-29.json
+        - evidence/hackathon-p0/security/p0-hardening-qualification-2026-09-29.json
       remaining_blocker: No external balance-decrease/rebase behavior is admitted or tested.
     PRISM-H5-IN-KIND-REDEMPTION:
       status: PASS
@@ -147,6 +154,7 @@ hackathon_p0:
         - research/hackathon-p0/PRISM_P0_SPEC.md
         - research/contract-kernels/test/hackathon/PrismP0.t.sol
         - research/contract-kernels/test/hackathon/PrismP0Differential.t.sol
+        - evidence/hackathon-p0/security/p0-hardening-qualification-2026-09-29.json
       remaining_blocker: Cash settlement is deliberately excluded from this P0 gate.
     PRISM-H6-TRANSFERABILITY:
       status: PASS
@@ -155,6 +163,7 @@ hackathon_p0:
         - research/hackathon-p0/PRISM_P0_SPEC.md
         - research/contract-kernels/test/hackathon/PrismP0.t.sol
         - evidence/hackathon-p0/prism/prism-p0-stateful-codex-2026-09-29.json
+        - evidence/hackathon-p0/security/p0-hardening-qualification-2026-09-29.json
       remaining_blocker: Transferability conveys only the exact in-kind claim in the P0 model.
     PRISM-H7-NO-SHARED-PREFUNDING:
       status: PASS
@@ -162,6 +171,7 @@ hackathon_p0:
       evidence:
         - research/hackathon-p0/PRISM_P0_SPEC.md
         - research/contract-kernels/test/hackathon/PrismP0.t.sol
+        - evidence/hackathon-p0/security/p0-hardening-qualification-2026-09-29.json
       remaining_blocker: None for caller-funded mint; no general deposit/reservation pool is included.
     PRISM-H8-NO-CASH-SETTLEMENT:
       status: PASS
@@ -177,6 +187,8 @@ hackathon_p0:
       evidence:
         - research/contract-kernels/test/hackathon/PrismP0Invariant.t.sol
         - evidence/hackathon-p0/prism/prism-p0-stateful-codex-2026-09-29.json
+        - evidence/hackathon-p0/security/p0-stateful-raw-2026-09-29.txt
+        - evidence/hackathon-p0/security/p0-hardening-qualification-2026-09-29.json
       remaining_blocker: Bounded standard-token campaign only; no arbitrary token behavior qualification.
 
   cross_module:
@@ -254,6 +266,7 @@ hackathon_p0:
       - evidence/hackathon-p0/prediction/prediction-p0-stateful-2026-09-29.json
       - evidence/hackathon-p0/prism/prism-p0-stateful-codex-2026-09-29.json
       - evidence/hackathon-p0/security/toolchain-2026-09-29.json
+      - evidence/hackathon-p0/security/p0-hardening-qualification-2026-09-29.json
       - research/hackathon-p0/SECURITY_REVIEW.md
     remaining_blocker: Local research kernels passed their P0 gates under explicit assumptions; this is not deployment approval, audit clearance, or production readiness.
   HACKATHON-P0-KURU-READY:
@@ -261,6 +274,7 @@ hackathon_p0:
     evidence:
       - research/reports/HACKATHON_P0_GATE.md
       - evidence/hackathon-p0/kuru/kuru-testnet-verification-2026-09-29.json
+      - evidence/hackathon-p0/kuru/kuru-p0-parameter-packet-2026-09-29.json
     remaining_blocker: H2-H7 require P0 deployments and a funded, authorized Monad testnet wallet for markets, liquidity, order, fill, and cancel transactions.
   HACKATHON-P0-DEMO-READY:
     status: BLOCKED_EXTERNAL
@@ -357,3 +371,31 @@ gate_transition_history:
       - evidence/hackathon-p0/kuru/kuru-testnet-verification-2026-09-29.json
     sha: da723095c84de6e1480d80aac62e62fdd3337690
     remaining_blocker: Kuru H2-H7 remain externally blocked.
+  - gate: hackathon_p0.prism.PRISM-H1-direct-construction-audit
+    previous_state: PASS
+    new_state: FAIL
+    reason: Audit found that direct PrismSeriesP0 construction bypassed the canonical factory's pinned creator and series registry, allowing unregistered assets with arbitrary nonzero certificate hashes.
+    evidence:
+      - evidence/hackathon-p0/security/p0-hardening-qualification-2026-09-29.json
+      - research/contract-kernels/src/hackathon/PrismSeriesP0.sol
+    sha: da723095c84de6e1480d80aac62e62fdd3337690
+    remaining_blocker: Require construction through a factory bound to the same PredictionFactory and add a direct-deployment negative regression.
+  - gate: hackathon_p0.HACKATHON-P0-CONTRACT-READY-admission-audit
+    previous_state: PASS
+    new_state: FAIL
+    reason: The discovered PRISM direct-construction bypass violated authorized-series/certificate admission, so the prior local contract-ready PASS was temporarily withdrawn.
+    evidence:
+      - evidence/hackathon-p0/security/p0-hardening-qualification-2026-09-29.json
+    sha: da723095c84de6e1480d80aac62e62fdd3337690
+    remaining_blocker: Repair source/factory binding and rerun Prediction, PRISM, fuzz, stateful, and cross-module profiles.
+  - gate: hackathon_p0.PRISM-H1-and-contract-ready-repair
+    previous_state: FAIL
+    new_state: PASS
+    reason: Series construction now requires its caller to be the passed PrismFactoryP0 and that factory to report the same PredictionFactoryP0; exact outbound transfers are checked and trapped self receivers reject. Fast plus full seeded stateful profiles pass.
+    evidence:
+      - evidence/hackathon-p0/security/p0-hardening-qualification-2026-09-29.json
+      - evidence/hackathon-p0/security/p0-stateful-raw-2026-09-29.txt
+      - research/contract-kernels/test/hackathon/PrismP0.t.sol
+      - research/contract-kernels/test/hackathon/PredictionP0.t.sol
+    sha: 4f3c70b965d1ee16e31425dc8e8624bb6a06860a
+    remaining_blocker: Offchain replication certificate review remains trusted; live Kuru gates remain BLOCKED_EXTERNAL.

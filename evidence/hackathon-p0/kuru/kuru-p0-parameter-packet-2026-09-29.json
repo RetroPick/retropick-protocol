@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-09-29",
+  "classification": "PREPARED_NOT_DEPLOYED",
+  "source_code": "https://github.com/Kuru-Labs/kuru-sdk/blob/main/src/create/market.ts",
+  "sources": [
+    "https://docs.kuru.io/contracts/Contract-addresses",
+    "https://docs.kuru.io/contracts/Router",
+    "https://docs.kuru.io/sdk/deploy-market",
+    "https://github.com/Kuru-Labs/kuru-sdk/blob/main/src/create/market.ts"
+  ],
+  "network": {
+    "name": "Monad Testnet",
+    "chain_id": 10143,
+    "router": "0x7EFbE105Ca7415dE98F96622173458ac1c054630",
+    "margin_account": "0xd029C2D98ff85D8F64799017fE00a59B1159CE02",
+    "quote_symbol": "USDC",
+    "quote_token": "0x3bA3d39AFcf8bb994f7964B3e0171Ea2Ba361570",
+    "quote_decimals": 6
+  },
+  "verified_constraints": {
+    "router_method": "deployProxy(uint8,address,address,uint96,uint32,uint32,uint96,uint96,uint256,uint256,uint96)",
+    "erc20_erc20_market_type": 0,
+    "event": "MarketRegistered",
+    "official_sdk_method": "ParamCreator.deployMarket",
+    "sdk_helper_advisory_only": true,
+    "sdk_helper_uses_binary64_numbers": true
+  },
+  "demo_parameter_assumptions": {
+    "classification": "HACKATHON_DEMO_PARAMETER",
+    "base_decimals": 6,
+    "reference_price_quote_per_base": "0.50",
+    "maximum_reference_price": "1.00",
+    "minimum_order_base": "1.00",
+    "tick_bps": 100,
+    "fees_are_zero_for_demo": true,
+    "kuru_amm_spread": 0,
+    "meaning": "Orderbook mechanics only; not fair value, expected payout, backing, or liquidity evidence"
+  },
+  "candidate_router_params": {
+    "market_type": 0,
+    "price_precision": "10000",
+    "size_precision": "10000",
+    "tick_size": "50",
+    "min_size": "10000",
+    "max_size": "1000000000",
+    "taker_fee_bps": 0,
+    "maker_fee_bps": 0,
+    "kuru_amm_spread": "0"
+  },
+  "derivation": {
+    "tick_size_in_price_units": "0.005 * 10000 = 50",
+    "min_size_in_size_units": "1 * 10000 = 10000",
+    "raw_max_size_before_power_of_ten_rounding": "8589934590",
+    "max_size_rounding": "round down to 10^9 size units",
+    "max_size_human_base": "100000"
+  },
+  "deployment_state": {
+    "transactions_sent": false,
+    "base_token_addresses": null,
+    "market_addresses": [],
+    "liquidity_added": false,
+    "orders_placed": false,
+    "fill_observed": false,
+    "order_cancelled": false
+  },
+  "gates": {
+    "KURU-H2-ERC20-MARKET": "BLOCKED_EXTERNAL",
+    "KURU-H3-THREE-MARKETS": "BLOCKED_EXTERNAL",
+    "KURU-H4-LIQUIDITY": "BLOCKED_EXTERNAL",
+    "KURU-H5-PLACE": "BLOCKED_EXTERNAL",
+    "KURU-H6-FILL": "BLOCKED_EXTERNAL",
+    "KURU-H7-CANCEL": "BLOCKED_EXTERNAL"
+  },
+  "limitations": [
+    "Current docs/source must be reverified immediately before live execution.",
+    "No P0 tokens are deployed, so base token decimals are assumptions rather than measured onchain facts.",
+    "No live Router validation was performed for this parameter tuple.",
+    "SDK helper outputs are advisory and the helper uses JavaScript number arithmetic.",
+    "Demo reference prices are not financial value estimates and do not evidence liquidity."
+  ]
+}

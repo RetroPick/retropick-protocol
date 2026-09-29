@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-09-29",
+  "profile": "HACKATHON-P0",
+  "classification": "MEASURED_LOCAL",
+  "source_sha": "4f3c70b965d1ee16e31425dc8e8624bb6a06860a",
+  "command": "./research/hackathon-p0/scripts/test-p0.sh stateful",
+  "raw_output": "evidence/hackathon-p0/security/p0-stateful-raw-2026-09-29.txt",
+  "environment": {
+    "python": "3.12.3",
+    "foundry": "1.8.3",
+    "solc": "0.8.26",
+    "evm_version": "cancun",
+    "optimizer": true,
+    "optimizer_runs": 200,
+    "via_ir": false
+  },
+  "fast_profile": {
+    "python_tests_passed": 9,
+    "prediction_unit_and_fuzz_tests_passed": 14,
+    "prediction_differential_tests_passed": 5,
+    "prism_unit_and_fuzz_tests_passed": 15,
+    "prism_differential_tests_passed": 1,
+    "cross_module_tests_passed": 2,
+    "fuzz_seed": 1,
+    "fuzz_runs": 256,
+    "result": "PASS"
+  },
+  "prediction_stateful": {
+    "target": "research/contract-kernels/test/hackathon/PredictionP0Invariant.t.sol:PredictionP0InvariantTest",
+    "invariants": [
+      "invariant_accountedSupplyMatchesOutcomeTokens",
+      "invariant_accountingLiabilityAndActualBalanceAgree",
+      "invariant_completeSetsRemainConservedBeforeRedemption",
+      "invariant_physicalCollateralCoversLiability",
+      "invariant_resultAndLifecycleAreConsistent"
+    ],
+    "seeds": [1, 2, 3],
+    "runs_per_seed": 256,
+    "depth": 100,
+    "calls_per_seed": 25600,
+    "total_calls": 76800,
+    "reverts": 0,
+    "discards": 0,
+    "result": "PASS"
+  },
+  "prism_stateful": {
+    "target": "research/contract-kernels/test/hackathon/PrismP0Invariant.t.sol:PrismP0InvariantTest",
+    "invariants": [
+      "invariant_physicalBackingCoversSupplyAndClaimBalancesConserveSupply"
+    ],
+    "seeds": [1, 2, 3],
+    "runs_per_seed": 256,
+    "depth": 100,
+    "calls_per_seed": 25600,
+    "total_calls": 76800,
+    "reverts": 0,
+    "discards": 0,
+    "result": "PASS"
+  },
+  "resolved_counterexample": {
+    "id": "CX-HACK-PRISM-DIRECT-DEPLOY-001",
+    "previous_source_sha": "da723095c84de6e1480d80aac62e62fdd3337690",
+    "classification": "COUNTEREXAMPLE_FOUND_THEN_REPAIRED",
+    "witness": "Any caller could deploy PrismSeriesP0 directly with canonical Prediction outcome tokens and arbitrary nonzero payoff/replication hashes, bypassing the deployment-pinned PrismFactoryP0 creator check and canonical isSeries registration.",
+    "financial_impact": "No direct backing theft was identified in the witness; it bypassed the intended authorized-series/certificate admission boundary and could create a misleading unregistered transferable asset.",
+    "repair": "PrismSeriesP0 constructor now requires msg.sender to equal the supplied PrismFactoryP0 and requires that factory to report the same bound PredictionFactoryP0.",
+    "regression": "research/contract-kernels/test/hackathon/PrismP0.t.sol:test_directSeriesDeploymentCannotBypassCanonicalFactory",
+    "repaired_source_sha": "4f3c70b965d1ee16e31425dc8e8624bb6a06860a",
+    "regression_result": "PASS"
+  },
+  "additional_regressions": [
+    "Prediction merge and winner redemption verify exact market debit and recipient credit; fee-on-transfer outbound calls revert atomically.",
+    "PRISM mint/redeem reject the series contract as receiver, preventing permanently trapped claims/components.",
+    "PRISM in-kind component transfer checks exact series debit and recipient credit.",
+    "Prediction winner amount and PRISM exact-lot mint/redeem are each fuzzed for 256 deterministic cases."
+  ],
+  "static_analysis": {
+    "solhint": {
+      "version": "6.2.4",
+      "command": "solhint src/hackathon/*.sol",
+      "exit_code": 0,
+      "errors": 0,
+      "warnings": 203,
+      "result": "MEASURED_LOCAL"
+    },
+    "slither": {
+      "version": "0.11.6",
+      "command": "slither . --compile-force-framework foundry --filter-paths 'contracts/lib|test'",
+      "exit_code": 255,
+      "result": "BLOCKED_TOOL",
+      "limitation": "Unresolved AST/IR references; resulting dead-code warnings incorrectly include live P0 helper functions and are not accepted as findings or as a green scan."
+    },
+    "aderyn": {
+      "version": "0.6.8",
+      "command": "aderyn . -i src/hackathon/ -o /tmp/aderyn-hackathon-p0-2026-09-29.md",
+      "exit_code": 101,
+      "result": "BLOCKED_TOOL",
+      "limitation": "Analyzer panicked while ingesting five compiled files: content not found."
+    }
+  },
+  "limitations": [
+    "Bounded local evidence only; not a proof over arbitrary EVM executions and not an audit.",
+    "Factory/deployment address and offchain exact-replication review remain explicit trust assumptions.",
+    "This evidence does not pass the live Kuru market, liquidity, order, fill, or cancellation gates."
+  ]
+}

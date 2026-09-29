@@ -57,6 +57,14 @@ For every P0 market record:
 Unless a parameter comes directly from immutable Kuru constraints, classify it
 as `HACKATHON_DEMO_PARAMETER`.
 
+Current official Router/SDK constraints and a reproducible, demo-only candidate
+parameter set are recorded in:
+`evidence/hackathon-p0/kuru/kuru-p0-parameter-packet-2026-09-29.json` and
+`research/hackathon-p0/KURU_P0_PARAMETER_PACKET.md`. The candidate is not an
+approved price, market deployment, or live-market qualification. Recompute and
+review it against the actual deployed token decimals and intended demonstration
+before sending any transaction.
+
 ## Live evidence gates
 
 Local simulation is not live Kuru qualification. P0 Kuru readiness requires

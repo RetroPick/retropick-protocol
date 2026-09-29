@@ -3,6 +3,7 @@ pragma solidity ^0.8.26;
 
 import {Test} from "forge-std/Test.sol";
 import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import {IPoolManager} from "@uniswap/v4-core/src/interfaces/IPoolManager.sol";
 import {IPositionManager} from "@uniswap/v4-periphery/src/interfaces/IPositionManager.sol";
 import {IAllowanceTransfer} from "permit2/src/interfaces/IAllowanceTransfer.sol";
@@ -40,6 +41,44 @@ contract SenderSurchargeQuote is ERC20 {
         if (from != address(0) && to != address(0)) {
             super._update(from, address(0), value / 10);
         }
+    }
+}
+
+contract FalseReturnQuote is MockERC20 {
+    constructor() MockERC20("False Return Quote", "FQ", 6) {}
+
+    function transferFrom(address, address, uint256) public pure override returns (bool) {
+        return false;
+    }
+}
+
+contract ExternallyReducibleQuote is MockERC20 {
+    constructor() MockERC20("Reducible Quote", "RQ", 6) {}
+
+    function slash(address holder, uint256 amount) external {
+        _burn(holder, amount);
+    }
+}
+
+contract CallbackQuote is MockERC20 {
+    address public targetCurve;
+    uint256 public attempts;
+    bool public callbackSucceeded;
+
+    constructor() MockERC20("Callback Quote", "CQ", 6) {}
+
+    function setTargetCurve(address curve) external {
+        targetCurve = curve;
+    }
+
+    function transferFrom(address from, address to, uint256 value) public override returns (bool) {
+        bool transferred = super.transferFrom(from, to, value);
+        if (to == targetCurve && attempts == 0) {
+            attempts = 1;
+            (callbackSucceeded,) =
+                targetCurve.call(abi.encodeWithSelector(RetroPickBondingCurveV2.buy.selector, 1e6, 0, from));
+        }
+        return transferred;
     }
 }
 
@@ -240,6 +279,65 @@ contract RetroPickFactoryLaunchV2QualificationTest is Test {
         );
     }
 
+    function testApprovedFalseReturnQuoteBuyRevertsWithoutStateChange() public {
+        FalseReturnQuote quote = new FalseReturnQuote();
+        factory.setPairTokenEconomics(address(quote), 100e6, 100e6, 6);
+        factory.setPairTokenApproved(address(quote), true);
+        vm.prank(creator);
+        (address tokenAddress, address curveAddress) =
+            factory.launchToken(_params(bytes32(uint256(6))), 0, address(quote));
+        RetroPickBondingCurveV2 curve = RetroPickBondingCurveV2(payable(curveAddress));
+        quote.mint(creator, 10e6);
+        vm.startPrank(creator);
+        quote.approve(curveAddress, 10e6);
+        vm.expectRevert(abi.encodeWithSelector(SafeERC20.SafeERC20FailedOperation.selector, address(quote)));
+        curve.buy(10e6, 0, creator);
+        vm.stopPrank();
+        assertEq(quote.balanceOf(curveAddress), 0);
+        assertEq(curve.trackedQuote(), 0);
+        assertEq(curve.trackedTokens(), RetroPickLauncherTokenV2(tokenAddress).totalSupply());
+        assertEq(RetroPickLauncherTokenV2(tokenAddress).balanceOf(creator), 0);
+    }
+
+    function testApprovedExternallyReducibleQuoteCanDeficitCurveAfterBuy() public {
+        ExternallyReducibleQuote quote = new ExternallyReducibleQuote();
+        factory.setPairTokenEconomics(address(quote), 100e6, 100e6, 6);
+        factory.setPairTokenApproved(address(quote), true);
+        vm.prank(creator);
+        (, address curveAddress) = factory.launchToken(_params(bytes32(uint256(7))), 0, address(quote));
+        RetroPickBondingCurveV2 curve = RetroPickBondingCurveV2(payable(curveAddress));
+        quote.mint(creator, 10e6);
+        vm.startPrank(creator);
+        quote.approve(curveAddress, 10e6);
+        curve.buy(10e6, 0, creator);
+        vm.stopPrank();
+        assertEq(quote.balanceOf(curveAddress), curve.trackedQuote());
+
+        quote.slash(curveAddress, 1e6);
+        assertEq(curve.trackedQuote() - quote.balanceOf(curveAddress), 1e6);
+        assertGt(curve.realQuoteReserve(), 0, "the curve still reports a tradable quote reserve");
+    }
+
+    function testApprovedCallbackQuoteCannotReenterBuyAccounting() public {
+        CallbackQuote quote = new CallbackQuote();
+        factory.setPairTokenEconomics(address(quote), 100e6, 100e6, 6);
+        factory.setPairTokenApproved(address(quote), true);
+        vm.prank(creator);
+        (address tokenAddress, address curveAddress) =
+            factory.launchToken(_params(bytes32(uint256(8))), 0, address(quote));
+        quote.setTargetCurve(curveAddress);
+        quote.mint(creator, 10e6);
+        vm.startPrank(creator);
+        quote.approve(curveAddress, 10e6);
+        uint256 tokensOut = RetroPickBondingCurveV2(payable(curveAddress)).buy(10e6, 0, creator);
+        vm.stopPrank();
+
+        assertEq(quote.attempts(), 1);
+        assertFalse(quote.callbackSucceeded());
+        assertEq(quote.balanceOf(curveAddress), RetroPickBondingCurveV2(payable(curveAddress)).trackedQuote());
+        assertEq(RetroPickLauncherTokenV2(tokenAddress).balanceOf(creator), tokensOut);
+    }
+
     function testSnipeSettingDoesNotChangeCurrentBuyEconomics() public {
         uint256 state = vm.snapshotState();
         vm.prank(creator);
@@ -288,5 +386,57 @@ contract RetroPickFactoryLaunchV2QualificationTest is Test {
         assertEq(address(factory).balance, lockedQuote, "failed V4 seed did not move secured quote");
         assertEq(RetroPickLauncherTokenV2(tokenAddress).balanceOf(address(factory)), lockedTokens);
         assertEq(uint256(factory.getLaunchedToken(tokenAddress).phase), uint256(GraduationPhase.Swept));
+    }
+
+    function testCreatorFeeRecipientOverrideIsDelayedAndSupersedesInterveningTransfer() public {
+        address attacker = makeAddr("attacker");
+        address replacement = makeAddr("replacement");
+        address ownerChoice = makeAddr("owner-choice");
+        vm.prank(creator);
+        (address tokenAddress, address curveAddress) = factory.launchToken(_params(bytes32(uint256(13))), 0, address(0));
+        RetroPickBondingCurveV2 curve = RetroPickBondingCurveV2(payable(curveAddress));
+
+        vm.prank(attacker);
+        vm.expectRevert(RetroPickLaunchFactoryV2.NotCreatorFeeRecipient.selector);
+        factory.transferCreatorFeeRecipient(tokenAddress, attacker);
+        assertEq(factory.getLaunchedToken(tokenAddress).creatorFeeRecipient, creator);
+
+        factory.setCreatorFeeRecipient(tokenAddress, ownerChoice);
+        vm.prank(attacker);
+        vm.expectPartialRevert(RetroPickLaunchFactoryV2.TimelockNotElapsed.selector);
+        factory.executeCreatorFeeRecipientChange(tokenAddress);
+
+        vm.prank(creator);
+        factory.transferCreatorFeeRecipient(tokenAddress, replacement);
+        assertEq(factory.getLaunchedToken(tokenAddress).creatorFeeRecipient, replacement);
+        assertEq(curve.deployer(), replacement);
+
+        vm.warp(block.timestamp + factory.CREATOR_FEE_RECIPIENT_TIMELOCK());
+        vm.prank(attacker);
+        factory.executeCreatorFeeRecipientChange(tokenAddress);
+        assertEq(factory.getLaunchedToken(tokenAddress).creatorFeeRecipient, ownerChoice);
+        assertEq(curve.deployer(), ownerChoice);
+    }
+
+    function testBuybackAuthorizationCreatorCanEnableOwnerCanOnlyDisable() public {
+        address attacker = makeAddr("attacker");
+        vm.prank(creator);
+        (address tokenAddress, address curveAddress) = factory.launchToken(_params(bytes32(uint256(14))), 0, address(0));
+        RetroPickBondingCurveV2 curve = RetroPickBondingCurveV2(payable(curveAddress));
+
+        vm.expectRevert(RetroPickLaunchFactoryV2.NotBuybackController.selector);
+        factory.setBuybackEnabled(tokenAddress, true);
+        vm.prank(attacker);
+        vm.expectRevert(RetroPickLaunchFactoryV2.NotBuybackController.selector);
+        factory.setBuybackEnabled(tokenAddress, false);
+        assertFalse(curve.buybackEnabled());
+
+        vm.prank(creator);
+        factory.setBuybackEnabled(tokenAddress, true);
+        assertTrue(curve.buybackEnabled());
+        assertTrue(factory.getLaunchedToken(tokenAddress).buybackEnabled);
+        factory.setBuybackEnabled(tokenAddress, false);
+        assertFalse(curve.buybackEnabled());
+        assertFalse(factory.getLaunchedToken(tokenAddress).buybackEnabled);
     }
 }

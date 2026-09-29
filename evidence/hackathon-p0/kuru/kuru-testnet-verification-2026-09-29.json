@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-09-29T11:12:34Z",
+  "profile": "HACKATHON-P0",
+  "classification": "MEASURED_TESTNET_READ_ONLY",
+  "sources": [
+    {
+      "url": "https://docs.kuru.io/contracts/Contract-addresses",
+      "claims": ["Testnet Kuru Router", "Testnet Margin Account", "Testnet USDC address"]
+    },
+    {
+      "url": "https://docs.kuru.io/contracts/Router",
+      "claims": ["Router deployProxy path", "NO_NATIVE means ERC20/ERC20", "Router marginAccountAddress getter"]
+    },
+    {
+      "url": "https://docs.kuru.io/sdk/deploy-market",
+      "claims": ["SDK ParamCreator/deploy-market workflow", "ERC20/ERC20 market type"]
+    },
+    {
+      "url": "https://docs.monad.xyz/developer-essentials/testnets",
+      "claims": ["Monad Testnet chain ID and official RPC"]
+    }
+  ],
+  "network": {
+    "name": "Monad Testnet",
+    "chain_id_documented": 10143,
+    "chain_id_rpc": 10143,
+    "rpc_url": "https://testnet-rpc.monad.xyz",
+    "currency": "MON"
+  },
+  "kuru": {
+    "router": "0x7EFbE105Ca7415dE98F96622173458ac1c054630",
+    "router_code_present": true,
+    "margin_account": "0xd029C2D98ff85D8F64799017fE00a59B1159CE02",
+    "margin_account_code_present": true,
+    "router_margin_account_getter": "0xd029C2D98ff85D8F64799017fE00a59B1159CE02",
+    "market_type": "NO_NATIVE / ERC20-ERC20",
+    "parameter_source": "Current official Router and SDK deploy-market docs; not example economics"
+  },
+  "quote_token": {
+    "symbol": "USDC",
+    "address": "0x3bA3d39AFcf8bb994f7964B3e0171Ea2Ba361570",
+    "decimals": 6,
+    "code_present": true
+  },
+  "official_existing_market": {
+    "pair": "MON-USDC",
+    "address": "0xa241896A7Dbe8a550D2E5fF7A914bB1989ceD2D9",
+    "code_present": true
+  },
+  "documentation_conflict": {
+    "url": "https://docs.kuru.io/sdk/quickstart-sdk",
+    "observed_router": "0x1f5A250c4A506DA4cE584173c6ed1890B1bf7187",
+    "observed_margin_account": "0xdDDaBd30785bA8b45e434a1f134BDf304d6125d9",
+    "resolution": "Did not use the older quickstart sample addresses; used the dedicated Contract Addresses table and verified that the table's Router returns the table's MarginAccount onchain."
+  },
+  "checks": {
+    "rpc_calls_read_only": true,
+    "bytecode_checked_on_router_margin_usdc_and_official_market": true,
+    "usdc_decimals_checked": true,
+    "transaction_sent": false,
+    "wallet_secret_read": false
+  },
+  "gates": {
+    "KURU-H1-DOCS-NETWORK": "PASS",
+    "KURU-H2-ERC20-MARKET": "BLOCKED_EXTERNAL",
+    "KURU-H3-THREE-MARKETS": "BLOCKED_EXTERNAL",
+    "KURU-H4-LIQUIDITY": "BLOCKED_EXTERNAL",
+    "KURU-H5-PLACE": "BLOCKED_EXTERNAL",
+    "KURU-H6-FILL": "BLOCKED_EXTERNAL",
+    "KURU-H7-CANCEL": "BLOCKED_EXTERNAL"
+  },
+  "remaining_external_prerequisites": [
+    "Funded Monad testnet signer controlled by the user/project",
+    "P0 Prediction/PRISM deployment before Kuru market creation",
+    "Small testnet USDC and MON allocations for deployment and liquidity",
+    "Live transaction approval by the authorized wallet operator"
+  ],
+  "production_gates_unchanged": true
+}

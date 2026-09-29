@@ -1,8 +1,9 @@
 schema_version: 1
-recorded_at: 2026-09-28
+recorded_at: 2026-09-29
 profile: HACKATHON-P0
 branch: codex/hackathon-p0-qualification
 base_sha: e354db0a96eca6b56b950d87bf81ad87fa4278fd
+last_qualified_code_sha: da723095c84de6e1480d80aac62e62fdd3337690
 production_gates_unchanged: true
 production_gate_source: research/reports/qualification-gates.yaml
 status_vocabulary:
@@ -12,6 +13,7 @@ status_vocabulary:
   - BLOCKED_TOOL
   - NOT_RUN
 evidence_labels:
+  - FROZEN_SCOPE_DRAFT
   - PROVEN_UNDER_ASSUMPTIONS
   - EXHAUSTIVELY_VERIFIED_WITHIN_DOMAIN
   - MEASURED_LOCAL
@@ -28,7 +30,7 @@ hackathon_p0:
       - research/hackathon-p0/PRISM_P0_SPEC.md
       - research/hackathon-p0/CROSS_MODULE_P0_SPEC.md
       - research/hackathon-p0/KURU_P0_SPEC.md
-    remaining_blocker: Implement executable P0 models, kernels, fixtures, invariants, cross-module harness, and live Kuru evidence.
+    remaining_blocker: Human acceptance of the draft scope remains separate; live Kuru and demo gates remain externally blocked.
 
   prediction:
     PRED-H1-BINARY-SEMANTICS:
@@ -39,12 +41,17 @@ hackathon_p0:
         - research/contract-kernels/src/hackathon/PredictionMarketP0.sol
         - research/contract-kernels/test/hackathon/PredictionP0.t.sol
         - evidence/hackathon-p0/prediction/prediction-p0-kernel-2026-09-28.json
-      remaining_blocker: Python semantic oracle and differential fixture still required for PRED-H7.
+      remaining_blocker: None within the declared local P0 kernel domain; production Prediction semantics remain separately qualified.
     PRED-H2-COLLATERAL:
-      status: NOT_RUN
+      status: PASS
+      label: MEASURED_LOCAL
       evidence:
         - research/hackathon-p0/PREDICTION_P0_SPEC.md
-      remaining_blocker: Fixed collateral allowlist and physical-balance tests not implemented.
+        - research/contract-kernels/test/hackathon/PredictionP0.t.sol
+        - research/contract-kernels/test/hackathon/PredictionP0Invariant.t.sol
+        - evidence/hackathon-p0/prediction/prediction-p0-differential-2026-09-29.json
+        - evidence/hackathon-p0/prediction/prediction-p0-stateful-2026-09-29.json
+      remaining_blocker: None for the fixed standard test collateral; arbitrary collateral classes are out of scope.
     PRED-H3-COMPLETE-SET:
       status: PASS
       label: MEASURED_LOCAL
@@ -53,7 +60,7 @@ hackathon_p0:
         - research/contract-kernels/src/hackathon/PredictionMarketP0.sol
         - research/contract-kernels/test/hackathon/PredictionP0.t.sol
         - evidence/hackathon-p0/prediction/prediction-p0-kernel-2026-09-28.json
-      remaining_blocker: Stateful complete-set conservation campaign still required for PRED-H8.
+      remaining_blocker: None within the bounded stateful domain; see campaign limitations.
     PRED-H4-WINNER-REDEMPTION:
       status: PASS
       label: MEASURED_LOCAL
@@ -62,7 +69,7 @@ hackathon_p0:
         - research/contract-kernels/src/hackathon/PredictionMarketP0.sol
         - research/contract-kernels/test/hackathon/PredictionP0.t.sol
         - evidence/hackathon-p0/prediction/prediction-p0-kernel-2026-09-28.json
-      remaining_blocker: Python differential fixture still required for PRED-H7.
+      remaining_blocker: None within the exercised YES_WIN/NO_WIN cases; see differential fixture limitations.
     PRED-H5-LIFECYCLE-ATOMICITY:
       status: PASS
       label: MEASURED_LOCAL
@@ -72,7 +79,7 @@ hackathon_p0:
         - research/contract-kernels/src/hackathon/PredictionMarketP0.sol
         - research/contract-kernels/test/hackathon/PredictionP0.t.sol
         - evidence/hackathon-p0/prediction/prediction-p0-kernel-2026-09-28.json
-      remaining_blocker: Stateful lifecycle campaign still required for PRED-H8.
+      remaining_blocker: None within the bounded stateful domain; callback regression is covered separately.
     PRED-H6-BOUNDED-ARITHMETIC:
       status: PASS
       label: MEASURED_LOCAL
@@ -81,91 +88,139 @@ hackathon_p0:
         - research/contract-kernels/src/hackathon/PredictionMarketP0.sol
         - research/contract-kernels/test/hackathon/PredictionP0.t.sol
         - evidence/hackathon-p0/prediction/prediction-p0-kernel-2026-09-28.json
-      remaining_blocker: Python boundary oracle still required for PRED-H7.
+      remaining_blocker: None within uint128 supply cap and tested boundaries; no arbitrary uint256-domain claim.
     PRED-H7-DIFFERENTIAL:
-      status: NOT_RUN
+      status: PASS
+      label: MEASURED_LOCAL
       evidence:
-        - research/hackathon-p0/models/README.md
-      remaining_blocker: P0 Python-to-Solidity fixtures not built.
+        - research/hackathon-p0/models/prediction_p0.py
+        - research/hackathon-p0/fixtures/prediction_p0_differential.json
+        - research/contract-kernels/test/hackathon/PredictionP0Differential.t.sol
+        - evidence/hackathon-p0/prediction/prediction-p0-differential-2026-09-29.json
+      remaining_blocker: None for documented fixture operations and tested rejects; this is not exhaustive sequence equivalence.
     PRED-H8-STATEFUL:
-      status: NOT_RUN
-      evidence: []
-      remaining_blocker: Foundry stateful campaign not built or run.
+      status: PASS
+      label: MEASURED_LOCAL
+      evidence:
+        - research/contract-kernels/test/hackathon/PredictionP0Invariant.t.sol
+        - evidence/hackathon-p0/prediction/prediction-p0-stateful-2026-09-29.json
+      remaining_blocker: None within three deterministic bounded seeds; not a proof/audit or adversarial-token qualification.
 
   prism:
     PRISM-H1-EXACT-REPLICATION:
-      status: NOT_RUN
+      status: PASS
+      label: PROVEN_UNDER_ASSUMPTIONS
       evidence:
         - research/hackathon-p0/PRISM_P0_SPEC.md
-      remaining_blocker: P0 demo series certificates and exact recheck evidence not generated.
+        - research/hackathon-p0/fixtures/prism_p0_exact_lot.json
+        - research/hackathon-p0/models/prism_p0.py
+        - research/contract-kernels/test/hackathon/PrismP0Differential.t.sol
+      remaining_blocker: Onchain kernel binds the reviewed certificate hashes; correctness of arbitrary offchain certificate review is trusted and not proven by the kernel.
     PRISM-H2-EXACT-LOT:
-      status: NOT_RUN
+      status: PASS
+      label: PROVEN_UNDER_ASSUMPTIONS
       evidence:
         - research/hackathon-p0/PRISM_P0_SPEC.md
-      remaining_blocker: Lot-size derivation model and tests not implemented.
+        - research/hackathon-p0/models/prism_p0.py
+        - research/contract-kernels/test/hackathon/PrismP0.t.sol
+      remaining_blocker: Applies to reduced rational weights and bounded P0 integer domain only.
     PRISM-H3-ATOMIC-MINT:
-      status: NOT_RUN
+      status: PASS
+      label: MEASURED_LOCAL
       evidence:
         - research/hackathon-p0/PRISM_P0_SPEC.md
-      remaining_blocker: Atomic minter-funded kernel not implemented.
+        - research/contract-kernels/test/hackathon/PrismP0.t.sol
+        - research/hackathon-p0/models/prism_p0.py
+      remaining_blocker: Standard admitted component token behavior only.
     PRISM-H4-PHYSICAL-BACKING:
-      status: NOT_RUN
+      status: PASS
+      label: MEASURED_LOCAL
       evidence:
         - research/hackathon-p0/PRISM_P0_SPEC.md
-      remaining_blocker: Physical backing invariant not implemented.
+        - research/contract-kernels/test/hackathon/PrismP0Invariant.t.sol
+        - evidence/hackathon-p0/prism/prism-p0-stateful-codex-2026-09-29.json
+      remaining_blocker: No external balance-decrease/rebase behavior is admitted or tested.
     PRISM-H5-IN-KIND-REDEMPTION:
-      status: NOT_RUN
+      status: PASS
+      label: MEASURED_LOCAL
       evidence:
         - research/hackathon-p0/PRISM_P0_SPEC.md
-      remaining_blocker: redeemInKind kernel and tests not implemented.
+        - research/contract-kernels/test/hackathon/PrismP0.t.sol
+        - research/contract-kernels/test/hackathon/PrismP0Differential.t.sol
+      remaining_blocker: Cash settlement is deliberately excluded from this P0 gate.
     PRISM-H6-TRANSFERABILITY:
-      status: NOT_RUN
+      status: PASS
+      label: MEASURED_LOCAL
       evidence:
         - research/hackathon-p0/PRISM_P0_SPEC.md
-      remaining_blocker: Transferable PRISM ERC-20 research kernel not implemented.
+        - research/contract-kernels/test/hackathon/PrismP0.t.sol
+        - evidence/hackathon-p0/prism/prism-p0-stateful-codex-2026-09-29.json
+      remaining_blocker: Transferability conveys only the exact in-kind claim in the P0 model.
     PRISM-H7-NO-SHARED-PREFUNDING:
-      status: NOT_RUN
+      status: PASS
+      label: MEASURED_LOCAL
       evidence:
         - research/hackathon-p0/PRISM_P0_SPEC.md
-      remaining_blocker: A-has-components/B-mints negative regression not implemented.
+        - research/contract-kernels/test/hackathon/PrismP0.t.sol
+      remaining_blocker: None for caller-funded mint; no general deposit/reservation pool is included.
     PRISM-H8-NO-CASH-SETTLEMENT:
-      status: NOT_RUN
+      status: PASS
+      label: MEASURED_LOCAL
       evidence:
         - research/hackathon-p0/PRISM_P0_SPEC.md
-      remaining_blocker: ABI/state inspection not implemented.
+        - research/contract-kernels/src/hackathon/PrismSeriesP0.sol
+        - research/contract-kernels/test/hackathon/PrismP0.t.sol
+      remaining_blocker: Cash settlement, settlement cursor, and dust sweep are intentionally absent from this kernel.
     PRISM-H9-STATEFUL:
-      status: NOT_RUN
-      evidence: []
-      remaining_blocker: Stateful mint/transfer/redeem/donation campaign not built or run.
+      status: PASS
+      label: MEASURED_LOCAL
+      evidence:
+        - research/contract-kernels/test/hackathon/PrismP0Invariant.t.sol
+        - evidence/hackathon-p0/prism/prism-p0-stateful-codex-2026-09-29.json
+      remaining_blocker: Bounded standard-token campaign only; no arbitrary token behavior qualification.
 
   cross_module:
     H-X-P0:
-      status: NOT_RUN
+      status: PASS
+      label: MEASURED_LOCAL
       evidence:
         - research/hackathon-p0/CROSS_MODULE_P0_SPEC.md
-      remaining_blocker: End-to-end YES and NO world harness not implemented.
+        - research/contract-kernels/test/hackathon/CrossModuleP0.t.sol
+        - research/hackathon-p0/fixtures/cross_module_p0_lifecycle.json
+      remaining_blocker: Local harness does not demonstrate testnet deployment or general source transformation.
     source_identity:
-      status: NOT_RUN
+      status: PASS
+      label: MEASURED_LOCAL
       evidence:
         - research/hackathon-p0/CROSS_MODULE_P0_SPEC.md
-      remaining_blocker: PredictionFactoryP0 source registry not implemented.
+        - research/contract-kernels/src/hackathon/PredictionFactoryP0.sol
+        - research/contract-kernels/test/hackathon/CrossModuleP0.t.sol
+      remaining_blocker: P0 factory registry is local research code, not production source admission.
     distinct_liabilities:
-      status: NOT_RUN
+      status: PASS
+      label: MEASURED_LOCAL
       evidence:
         - research/hackathon-p0/CROSS_MODULE_P0_SPEC.md
-      remaining_blocker: Combined harness not implemented.
+        - research/contract-kernels/test/hackathon/CrossModuleP0.t.sol
+        - research/hackathon-p0/fixtures/cross_module_p0_lifecycle.json
+      remaining_blocker: Local two-module fixture only.
     kuru_independence:
-      status: NOT_RUN
+      status: PASS
+      label: MEASURED_LOCAL
       evidence:
         - research/hackathon-p0/CROSS_MODULE_P0_SPEC.md
-      remaining_blocker: Solvency path not tested with Kuru/indexer/frontend absent.
+        - research/contract-kernels/test/hackathon/CrossModuleP0.t.sol
+        - research/hackathon-p0/CROSS_MODULE_P0_SPEC.md
+      remaining_blocker: None for local solvency path; live secondary-market compatibility remains separately blocked.
 
   kuru:
     KURU-H1-DOCS-NETWORK:
-      status: NOT_RUN
+      status: PASS
+      label: MEASURED_TESTNET
       evidence:
         - research/hackathon-p0/KURU_P0_SPEC.md
-      remaining_blocker: Current official Kuru/Monad testnet sources not verified yet.
+        - evidence/hackathon-p0/kuru/kuru-testnet-verification-2026-09-29.json
+      remaining_blocker: None for read-only network/address verification; market lifecycle gates remain external.
     KURU-H2-ERC20-MARKET:
       status: BLOCKED_EXTERNAL
       evidence: []
@@ -192,20 +247,27 @@ hackathon_p0:
       remaining_blocker: Requires live deployed markets and cancelable order.
 
   HACKATHON-P0-CONTRACT-READY:
-    status: NOT_RUN
+    status: PASS
+    label: MEASURED_LOCAL
     evidence:
       - research/reports/HACKATHON_P0_GATE.md
-    remaining_blocker: Prediction, PRISM, and cross-module local gates are not implemented or run.
+      - evidence/hackathon-p0/prediction/prediction-p0-stateful-2026-09-29.json
+      - evidence/hackathon-p0/prism/prism-p0-stateful-codex-2026-09-29.json
+      - evidence/hackathon-p0/security/toolchain-2026-09-29.json
+      - research/hackathon-p0/SECURITY_REVIEW.md
+    remaining_blocker: Local research kernels passed their P0 gates under explicit assumptions; this is not deployment approval, audit clearance, or production readiness.
   HACKATHON-P0-KURU-READY:
     status: BLOCKED_EXTERNAL
     evidence:
       - research/reports/HACKATHON_P0_GATE.md
-    remaining_blocker: Live official Kuru testnet evidence has not been gathered.
+      - evidence/hackathon-p0/kuru/kuru-testnet-verification-2026-09-29.json
+    remaining_blocker: H2-H7 require P0 deployments and a funded, authorized Monad testnet wallet for markets, liquidity, order, fill, and cancel transactions.
   HACKATHON-P0-DEMO-READY:
-    status: NOT_RUN
+    status: BLOCKED_EXTERNAL
     evidence:
       - research/reports/HACKATHON_P0_GATE.md
-    remaining_blocker: Contract-ready and Kuru-ready are not PASS.
+      - evidence/hackathon-p0/kuru/kuru-testnet-verification-2026-09-29.json
+    remaining_blocker: Contract-ready is local PASS, but Kuru-ready is externally blocked and no live demo market lifecycle exists.
 
 gate_transition_history:
   - gate: hackathon_p0.semantic_freeze
@@ -232,3 +294,66 @@ gate_transition_history:
       - evidence/hackathon-p0/prediction/prediction-p0-kernel-2026-09-28.json
     sha: 2d0902ecbbc58d8798d2f911459c85a18fd63bad
     remaining_blocker: PRED-H2, PRED-H7, and PRED-H8 remain open; this does not make HACKATHON-P0-CONTRACT-READY pass.
+  - gate: hackathon_p0.prediction.PRED-H2-through-H8
+    previous_state: partial / NOT_RUN
+    new_state: PASS
+    reason: Fixed-collateral physical accounting, Python/Solidity fixture checks, and three seeded stateful campaigns completed at the recorded source revision.
+    evidence:
+      - evidence/hackathon-p0/prediction/prediction-p0-differential-2026-09-29.json
+      - evidence/hackathon-p0/prediction/prediction-p0-stateful-2026-09-29.json
+    sha: da723095c84de6e1480d80aac62e62fdd3337690
+    remaining_blocker: Arbitrary collateral behavior and unbounded call-sequence equivalence are outside P0; no production promotion follows.
+  - gate: hackathon_p0.prism.PRISM-H1-through-H9
+    previous_state: NOT_RUN
+    new_state: PASS
+    reason: Exact reduced-rational lot, caller-funded in-kind issuance/redemption, physical backing, negative prefunding cases, ABI exclusion, and three seeded stateful campaigns passed locally.
+    evidence:
+      - research/hackathon-p0/fixtures/prism_p0_exact_lot.json
+      - research/contract-kernels/test/hackathon/PrismP0.t.sol
+      - research/contract-kernels/test/hackathon/PrismP0Differential.t.sol
+      - evidence/hackathon-p0/prism/prism-p0-stateful-codex-2026-09-29.json
+    sha: da723095c84de6e1480d80aac62e62fdd3337690
+    remaining_blocker: Arbitrary token/certificate behavior and production cash settlement remain unqualified and excluded.
+  - gate: hackathon_p0.cross_module.H-X-P0
+    previous_state: NOT_RUN
+    new_state: PASS
+    reason: Local YES_WIN and NO_WIN end-to-end fixtures pass with source identity and separate Prediction collateral liability versus PRISM token backing; no Kuru/indexer dependency is used.
+    evidence:
+      - research/contract-kernels/test/hackathon/CrossModuleP0.t.sol
+      - research/hackathon-p0/fixtures/cross_module_p0_lifecycle.json
+    sha: da723095c84de6e1480d80aac62e62fdd3337690
+    remaining_blocker: Testnet integration and generalized transformed-source semantics are not demonstrated.
+  - gate: hackathon_p0.kuru.KURU-H1-DOCS-NETWORK
+    previous_state: NOT_RUN
+    new_state: PASS
+    reason: Official current testnet docs were checked read-only against Monad RPC, deployed code, Router margin-account getter, and USDC decimals.
+    evidence:
+      - evidence/hackathon-p0/kuru/kuru-testnet-verification-2026-09-29.json
+    sha: da723095c84de6e1480d80aac62e62fdd3337690
+    remaining_blocker: H2-H7 require a deployed P0 token/series, a funded and authorized wallet, and live transaction approval.
+  - gate: hackathon_p0.HACKATHON-P0-CONTRACT-READY
+    previous_state: NOT_RUN
+    new_state: PASS
+    reason: Prediction P0, PRISM P0, cross-module local suites, and scoped manual review meet the separate local contract-ready profile under stated assumptions.
+    evidence:
+      - research/reports/HACKATHON_P0_GATE.md
+      - research/hackathon-p0/SECURITY_REVIEW.md
+      - evidence/hackathon-p0/security/toolchain-2026-09-29.json
+    sha: da723095c84de6e1480d80aac62e62fdd3337690
+    remaining_blocker: Not an audit or testnet deployment authorization; static analyzers remain BLOCKED_TOOL and Kuru H2-H7 BLOCKED_EXTERNAL.
+  - gate: hackathon_p0.HACKATHON-P0-KURU-READY
+    previous_state: BLOCKED_EXTERNAL
+    new_state: BLOCKED_EXTERNAL
+    reason: Read-only testnet identity/address verification now passes, but no signer/deployment/trading credentials were available and no transactions were sent.
+    evidence:
+      - evidence/hackathon-p0/kuru/kuru-testnet-verification-2026-09-29.json
+    sha: da723095c84de6e1480d80aac62e62fdd3337690
+    remaining_blocker: Funded authorized wallet, P0 deployment, liquidity, order/fill/cancel lifecycle.
+  - gate: hackathon_p0.HACKATHON-P0-DEMO-READY
+    previous_state: NOT_RUN
+    new_state: BLOCKED_EXTERNAL
+    reason: Composite demo gate depends on live Kuru lifecycle evidence, which is not available.
+    evidence:
+      - evidence/hackathon-p0/kuru/kuru-testnet-verification-2026-09-29.json
+    sha: da723095c84de6e1480d80aac62e62fdd3337690
+    remaining_blocker: Kuru H2-H7 remain externally blocked.

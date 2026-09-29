@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-09-29",
+  "profile": "HACKATHON-P0",
+  "gate": "PRISM-H9-STATEFUL",
+  "source_head_before_campaign": "da723095c84de6e1480d80aac62e62fdd3337690",
+  "target": "research/contract-kernels/test/hackathon/PrismP0Invariant.t.sol:PrismP0InvariantTest",
+  "environment": {
+    "foundry": "1.8.3 (cae51ad458f6abb64852b7709eb784352429825d)",
+    "solc": "0.8.26",
+    "evm_version": "cancun",
+    "optimizer": true,
+    "optimizer_runs": 200,
+    "via_ir": false,
+    "invariant_runs_per_seed": 256,
+    "invariant_depth": 100,
+    "fail_on_revert": false
+  },
+  "invariants": [
+    "invariant_physicalBackingCoversSupplyAndClaimBalancesConserveSupply"
+  ],
+  "handler_actions": [
+    "mint",
+    "transfer",
+    "redeem",
+    "donateOne",
+    "rejectUnalignedMint",
+    "rejectUnalignedRedeem"
+  ],
+  "runs": [
+    {
+      "seed": 1,
+      "command": "forge test --match-path test/hackathon/PrismP0Invariant.t.sol --fuzz-seed 1 --fuzz-runs 256 --invariant-depth 100 -vv",
+      "invariant_runs": 256,
+      "invariant_depth": 100,
+      "calls": 25600,
+      "reverts": 0,
+      "discards": 0,
+      "suite_result": "1 passed; 0 failed; 0 skipped"
+    },
+    {
+      "seed": 2,
+      "command": "forge test --match-path test/hackathon/PrismP0Invariant.t.sol --fuzz-seed 2 --fuzz-runs 256 --invariant-depth 100 -vv",
+      "invariant_runs": 256,
+      "invariant_depth": 100,
+      "calls": 25600,
+      "reverts": 0,
+      "discards": 0,
+      "suite_result": "1 passed; 0 failed; 0 skipped"
+    },
+    {
+      "seed": 3,
+      "command": "forge test --match-path test/hackathon/PrismP0Invariant.t.sol --fuzz-seed 3 --fuzz-runs 256 --invariant-depth 100 -vv",
+      "invariant_runs": 256,
+      "invariant_depth": 100,
+      "calls": 25600,
+      "reverts": 0,
+      "discards": 0,
+      "suite_result": "1 passed; 0 failed; 0 skipped"
+    }
+  ],
+  "combined_campaign": {
+    "seeds": 3,
+    "runs_per_seed": 256,
+    "depth": 100,
+    "total_stateful_calls": 76800,
+    "invariant_violations": 0,
+    "unexpected_reverts": 0,
+    "stateful_result": "PASS"
+  },
+  "limitations": [
+    "This is bounded evidence for exact-lot P0 series and standard ERC20-like test components; it is not a proof over arbitrary tokens or all EVM call sequences.",
+    "The campaign does not qualify cash settlement, residual-dust disposition, fee-on-transfer/rebasing components, or arbitrary replication admission.",
+    "This artifact applies only to the separate Hackathon P0 research kernel and does not change production PRISM gates."
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-09-29",
+  "profile": "HACKATHON-P0",
+  "source_sha": "da72309",
+  "tools": [
+    {
+      "tool": "Slither",
+      "version": "0.11.6",
+      "target": "research/contract-kernels",
+      "commands": [
+        "slither . --compile-force-framework foundry --filter-paths 'contracts/lib|test'",
+        "slither src/hackathon/PrismSeriesP0.sol --compile-force-framework foundry --filter-paths 'contracts/lib|test'"
+      ],
+      "exit_codes": [255, 255],
+      "result": "BLOCKED_TOOL",
+      "finding_summary": "Solc AST references/inheritance could not be resolved; IR generation failed for Prediction P0 split, merge, and redemption. Reported dead-code items include functions whose callers Slither failed to model.",
+      "limitation": "No complete P0 IR or reliable P0 detector result was produced."
+    },
+    {
+      "tool": "Aderyn",
+      "version": "0.6.8",
+      "target": "src/hackathon/",
+      "command": "aderyn . -i src/hackathon/ -o ../../evidence/hackathon-p0/security/aderyn-p0-2026-09-29.md",
+      "exit_code": 101,
+      "result": "BLOCKED_TOOL",
+      "finding_summary": "Analyzer panic during AST ingestion: content not found. No report was generated."
+    },
+    {
+      "tool": "Solhint",
+      "version": "6.2.4",
+      "target": "research/contract-kernels/src/hackathon/*.sol",
+      "command": "solhint src/hackathon/*.sol",
+      "config": "research/contract-kernels/.solhint.json (solhint:recommended)",
+      "exit_code": 0,
+      "result": "MEASURED_LOCAL",
+      "errors": 0,
+      "warnings": 195,
+      "finding_summary": "Warnings cover NatSpec, naming, gas-style suggestions, and remapped import paths; no lint errors."
+    }
+  ],
+  "manual_review": {
+    "artifact": "research/hackathon-p0/SECURITY_REVIEW.md",
+    "result": "No Critical or High enabled-path defect identified within the declared local P0 assumptions.",
+    "limitations": [
+      "This is a scoped research review, not an audit.",
+      "Exact replication hashes are off-chain-reviewed commitments, not an onchain general solver proof.",
+      "Live testnet gates remain external and unrun."
+    ]
+  }
+}

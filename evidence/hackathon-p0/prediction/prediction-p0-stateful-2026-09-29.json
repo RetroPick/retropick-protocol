@@ -3,7 +3,7 @@
   "recorded_at": "2026-09-29",
   "profile": "HACKATHON-P0",
   "gate": "PRED-H8-STATEFUL",
-  "source_head_before_campaign": "68b2b617e0f97633102972b77fea7c980dae76e7",
+  "source_head_before_campaign": "da723095c84de6e1480d80aac62e62fdd3337690",
   "target": "research/contract-kernels/test/hackathon/PredictionP0Invariant.t.sol:PredictionP0InvariantTest",
   "environment": {
     "foundry": "forge Version: 1.8.3",

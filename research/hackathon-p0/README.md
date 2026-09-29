@@ -26,6 +26,13 @@ The machine-readable status source is:
 
 ## Current phase
 
-H0/H1: baseline and semantic freeze. Research kernels, models, differential
-fixtures, stateful invariants, cross-module harnesses, and Kuru testnet evidence
-are still required before any P0 readiness claim.
+The reduced Prediction/PRISM local contract profile and local cross-module
+harness are qualified as `PASS` under the assumptions in
+`research/reports/HACKATHON_P0_GATE.md`. Live Kuru market creation, liquidity,
+order, fill, and cancellation remain `BLOCKED_EXTERNAL` pending a deployed P0
+system and a funded authorized testnet wallet. This does not change any
+production-module gate.
+
+Run `./research/hackathon-p0/scripts/test-p0.sh fast` for the local regression
+profile or `./research/hackathon-p0/scripts/test-p0.sh stateful` to include the
+three-seed invariant campaigns.

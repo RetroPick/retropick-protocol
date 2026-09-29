@@ -88,6 +88,7 @@ contract RetroPickFactoryLaunchV2QualificationTest is Test {
     address internal owner = address(this);
     address internal creator = makeAddr("creator");
     address internal protocol = makeAddr("protocol");
+    address internal feeOperator = makeAddr("fee-operator");
     address internal poolManager = makeAddr("pool-manager");
     address internal positionManager = makeAddr("position-manager");
     address internal permit2 = makeAddr("permit2");
@@ -133,6 +134,7 @@ contract RetroPickFactoryLaunchV2QualificationTest is Test {
         vm.mockCall(hook, abi.encodeWithSignature("buybackVault()"), abi.encode(address(vault)));
         vm.mockCall(hook, abi.encodeWithSignature("poolManager()"), abi.encode(poolManager));
         vm.mockCall(hook, abi.encodeWithSignature("feeEscrow()"), abi.encode(address(escrow)));
+        vm.mockCall(hook, abi.encodeWithSignature("feeSweepOperator()"), abi.encode(feeOperator));
         FeePolicySnapshot memory policy = FeePolicySnapshot(protocol, 3_000, 5_000, 100, 300);
         vm.mockCall(hook, abi.encodeWithSignature("currentFeePolicy()"), abi.encode(policy));
 
@@ -438,5 +440,58 @@ contract RetroPickFactoryLaunchV2QualificationTest is Test {
         factory.setBuybackEnabled(tokenAddress, false);
         assertFalse(curve.buybackEnabled());
         assertFalse(factory.getLaunchedToken(tokenAddress).buybackEnabled);
+    }
+
+    function testTrustedFeeSweepLocksBuybackTokensAndPreservesQuoteAccounting() public {
+        RetroPickLaunchFactoryV2.TokenParams memory p = _params(bytes32(uint256(15)));
+        p.buybackEnabled = true;
+        vm.prank(creator);
+        (address tokenAddress, address curveAddress) = factory.launchToken(p, 0, address(0));
+        RetroPickBondingCurveV2 curve = RetroPickBondingCurveV2(payable(curveAddress));
+        vm.prank(creator);
+        curve.buy{value: 10 ether}(10 ether, 0, creator);
+        uint256 pending = curve.quoteFeeBalance();
+        uint256 tax = curve.creatorTaxBalance();
+        uint256 earmark = curve.buybackQuoteBalance();
+        uint256 realBefore = curve.realQuoteReserve();
+        assertGt(earmark, 0);
+
+        vm.prank(creator);
+        vm.expectRevert(RetroPickBondingCurveV2.InternalSwapRequiresOperator.selector);
+        curve.sweepFees(1);
+        vm.prank(feeOperator);
+        vm.expectPartialRevert(RetroPickBondingCurveV2.SlippageExceeded.selector);
+        curve.sweepFees(type(uint256).max);
+        assertEq(curve.quoteFeeBalance(), pending);
+        assertEq(curve.creatorTaxBalance(), tax);
+        assertEq(curve.buybackQuoteBalance(), earmark);
+        assertEq(vault.totalLocked(tokenAddress), 0);
+        vm.prank(feeOperator);
+        curve.sweepFees(1);
+
+        uint256 locked = vault.totalLocked(tokenAddress);
+        assertGt(locked, 0);
+        assertEq(RetroPickLauncherTokenV2(tokenAddress).balanceOf(address(vault)), locked);
+        assertEq(curve.quoteFeeBalance(), 0);
+        assertEq(curve.creatorTaxBalance(), 0);
+        assertEq(curve.buybackQuoteBalance(), 0);
+        assertEq(curve.realQuoteReserve(), realBefore + earmark);
+        assertEq(address(curve).balance, curve.trackedQuote());
+        assertEq(escrow.balanceOf(protocol), pending * 3_000 / 10_000);
+        assertEq(escrow.balanceOf(creator), pending - pending * 3_000 / 10_000 - earmark + tax);
+
+        uint256 protocolEscrowBeforeRelease = escrow.balanceOf(protocol);
+        uint256 creatorEscrowBeforeRelease = escrow.balanceOf(creator);
+        vm.warp(block.timestamp + vault.VESTING_DURATION());
+        vm.prank(makeAddr("unrelated"));
+        vm.expectRevert(RetroPickBuybackVaultV2.NotVestBeneficiary.selector);
+        vault.release(tokenAddress);
+        vm.prank(creator);
+        assertEq(vault.release(tokenAddress), locked);
+        assertEq(vault.totalReleased(tokenAddress), locked);
+        assertEq(RetroPickLauncherTokenV2(tokenAddress).balanceOf(address(vault)), 0);
+        assertEq(RetroPickLauncherTokenV2(tokenAddress).balanceOf(address(escrow)), locked);
+        assertEq(escrow.balanceOf(protocol) - protocolEscrowBeforeRelease, locked * 3_000 / 10_000);
+        assertEq(escrow.balanceOf(creator) - creatorEscrowBeforeRelease, locked - locked * 3_000 / 10_000);
     }
 }

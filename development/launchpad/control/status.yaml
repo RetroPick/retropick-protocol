@@ -14,8 +14,8 @@ readiness:
 goal_qualification:
   CORE_BASELINE_QUALIFIED:
     status: blocked
-    evidence: evidence/launchpad/core/factory-asset-authority-increment-2026-09-29.md
-    reason: Factory and scoped authority/asset cases are tested; owner-approved sender-surcharge and externally reducible quotes have preserved backing-deficit counterexamples. Asset qualification, full buyback, successful graduation/retry and the complete invariant matrix remain open.
+    evidence: evidence/launchpad/core/buyback-sweep-vesting-increment-2026-09-29.md
+    reason: Factory, scoped authority/asset cases and one pre-graduation buyback/vesting path are tested; owner-approved nonstandard quotes have preserved backing-deficit counterexamples. Asset qualification, remaining fee/buyback branches, successful graduation/retry and the complete invariant matrix remain open.
   KURU_TARGET_FROZEN:
     status: blocked
     evidence: development/launchpad/integrations/KURU_TARGET_FREEZE_PACKET.md
@@ -25,7 +25,7 @@ goal_qualification:
     reason: Both preceding gates are blocked and ADR-009/011/021/022/023 remain PROPOSED.
 blockers:
   - id: BLOCK-CONTRACT-TESTS
-    reason: Core V2 math, Factory/Deployer launch, direct Curve/Token/fee-ledger, native-quote stateful coverage, authority tests and mocked V4 failure rollback are partial. Owner-approved nonstandard quotes can deficit tracked backing. Full Fee/Buyback, successful graduation/retry, asset qualification and integration coverage remain open.
+    reason: Core V2 math, Factory/Deployer launch, direct Curve/Token/fee-ledger, native-quote stateful coverage, authority, one buyback/vesting path and mocked V4 failure rollback are partial. Owner-approved nonstandard quotes can deficit tracked backing. Remaining Fee/Buyback branches, successful graduation/retry, asset qualification and integration coverage remain open.
     next_owner: launchpad-solidity
   - id: BLOCK-KURU-TARGET
     reason: Monad Testnet Router, MarginAccount, USDC and implementation identities were read-only verified, but RetroPick parameter/quote/LP-custody/retry decisions, price-continuity bounds and fork/live integration remain unresolved; target is not frozen.

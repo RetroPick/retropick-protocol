@@ -35,3 +35,5 @@ These negative controls do not establish that an exact-transfer stable asset is 
 - Foundry `forge 1.8.3` (`cae51ad458f6abb64852b7709eb784352429825d`), compiler `Solc 0.8.26` in test compilation; production source unchanged.
 
 `LP-I-002` gains exact-transfer physical-balance positive evidence but fails if arbitrary owner-approved nonstandard quotes are in scope. `LP-I-005` and `LP-I-011` gain partial fee-controller/recipient ACL evidence. `LP-I-010` gains admission-positive and adversarial-negative evidence, not a full PASS. No LP-I row is promoted to full PASS. Full fee/buyback execution, expired/cancelled overrides, successful graduation/retry, live Kuru target, and comprehensive stateful integration remain open.
+
+The later [buyback sweep/vesting increment](buyback-sweep-vesting-increment-2026-09-29.md) adds one full pre-graduation path in the same fixture. Counts and SHA above identify this earlier committed checkpoint.

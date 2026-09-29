@@ -196,6 +196,25 @@ contract RetroPickFactoryLaunchV2QualificationTest is Test {
         assertEq(RetroPickBondingCurveV2(payable(curveAddress)).phantomQuote(), 100e6);
     }
 
+    function testApprovedExactTransferSixDecimalQuoteBuySellBalances() public {
+        MockERC20 quote = new MockERC20("Exact Quote", "EQ", 6);
+        factory.setPairTokenEconomics(address(quote), 100e6, 100e6, 6);
+        factory.setPairTokenApproved(address(quote), true);
+        vm.prank(creator);
+        (address tokenAddress, address curveAddress) =
+            factory.launchToken(_params(bytes32(uint256(5))), 0, address(quote));
+        RetroPickBondingCurveV2 curve = RetroPickBondingCurveV2(payable(curveAddress));
+        quote.mint(creator, 10e6);
+        vm.startPrank(creator);
+        quote.approve(curveAddress, 10e6);
+        uint256 tokensOut = curve.buy(10e6, 0, creator);
+        assertEq(quote.balanceOf(curveAddress), curve.trackedQuote());
+        RetroPickLauncherTokenV2(tokenAddress).approve(curveAddress, tokensOut / 2);
+        curve.sell(tokensOut / 2, 0, creator);
+        vm.stopPrank();
+        assertEq(quote.balanceOf(curveAddress), curve.trackedQuote(), "exact-transfer quote preserves tracked backing");
+    }
+
     function testApprovedSenderSurchargeQuoteCanDeficitCurveAfterSell() public {
         SenderSurchargeQuote quote = new SenderSurchargeQuote();
         factory.setPairTokenEconomics(address(quote), 100e6, 100e6, 6);

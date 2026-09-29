@@ -1,8 +1,13 @@
 """Targeted exact-integer negative and representative controls for Kuru freeze."""
 
+import json
 import unittest
+from pathlib import Path
 
-from launchpad_seed_model import quote_first_seed, valid_router_parameters
+from benchmark_launch_profiles import build_matrix
+from launchpad_seed_model import (
+    quote_first_seed, quote_opening_ticks, valid_router_parameters,
+)
 
 
 class KuruLaunchpadSeedModelTest(unittest.TestCase):
@@ -20,7 +25,10 @@ class KuruLaunchpadSeedModelTest(unittest.TestCase):
                     taker_fee_bps=0, amm_spread=100)
         invalid = [
             ("size_precision", 123), ("price_precision", 123),
+            ("size_precision", 2**96), ("price_precision", 2**32),
             ("tick_size", 0), ("min_size", 0), ("max_size", 1),
+            ("tick_size", 2**32), ("min_size", 2**96),
+            ("max_size", 2**96),
             ("maker_fee_bps", 1), ("taker_fee_bps", 10_000),
             ("amm_spread", 9), ("amm_spread", 500),
         ]
@@ -124,6 +132,59 @@ class KuruLaunchpadSeedModelTest(unittest.TestCase):
                 base_decimals=18, quote_decimals=18,
                 size_precision=10**8, amm_spread=100,
             )
+
+    def test_first_bid_matches_pinned_kuru_half_up_rounding(self):
+        opening = quote_opening_ticks(
+            first_ask_price_scaled=10**18, price_precision=10**8,
+            tick_size=1, amm_spread=100,
+        )
+        self.assertEqual(opening.first_bid_price_scaled,
+                         (10**18 * 10_000 + 10_100 // 2) // 10_100)
+        # Preserve the false 20,000-bps bid denominator caught by the fork.
+        self.assertNotEqual(opening.first_bid_price_scaled,
+                            (10**18 * 20_000 + 20_100 // 2) // 20_100)
+        self.assertTrue(opening.usable_limit_ticks)
+        self.assertGreater(opening.ask_tick_floor, opening.bid_tick_floor)
+
+    def test_tick_grid_rejects_unrepresentable_opening(self):
+        opening = quote_opening_ticks(
+            first_ask_price_scaled=1, price_precision=10**8,
+            tick_size=1, amm_spread=100,
+        )
+        self.assertFalse(opening.usable_limit_ticks)
+        self.assertEqual(opening.ask_tick_floor, 0)
+
+    def test_tick_grid_rejects_coarse_tick_that_collapses_spread(self):
+        opening = quote_opening_ticks(
+            first_ask_price_scaled=10**18, price_precision=10**8,
+            tick_size=10**8, amm_spread=100,
+        )
+        self.assertFalse(opening.usable_limit_ticks)
+
+    def test_candidate_profile_matrix_uses_terminal_not_initial_supply(self):
+        matrix = build_matrix()
+        self.assertEqual(len(matrix["rows"]), 12)
+        self.assertTrue(matrix["router_predicates_pass"])
+        for row in matrix["rows"]:
+            with self.subTest(quote=row["quote"], profile=row["profile"]):
+                self.assertLess(row["terminal_tracked_token_T_raw"],
+                                row["launch_total_supply_raw"])
+                self.assertTrue(all(row["arithmetic_bounds"].values()))
+                if row["profile"] == "FACTORY_MINIMUM_NEGATIVE":
+                    self.assertFalse(row["candidate_eligible_in_reduced_model"])
+                    self.assertFalse(row["size_within_candidate_policy"])
+                else:
+                    self.assertTrue(row["candidate_eligible_in_reduced_model"])
+        medium = next(row for row in matrix["rows"] if row["quote"] == "MON"
+                      and row["profile"] == "MEDIUM")
+        self.assertEqual(medium["launch_total_supply_raw"], 1_000_000 * 10**18)
+        self.assertEqual(medium["terminal_tracked_token_T_raw"],
+                         1_000_000 * 10**18 * 100 // (100 + 97))
+
+    def test_profile_artifact_matches_generator(self):
+        root = Path(__file__).resolve().parents[3]
+        artifact = root / "evidence/launchpad/kuru/parameter-profile-matrix-2026-09-30.json"
+        self.assertEqual(json.loads(artifact.read_text()), build_matrix())
 
 
 if __name__ == "__main__":

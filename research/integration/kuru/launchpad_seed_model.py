@@ -12,6 +12,7 @@ from math import isqrt
 VAULT_PRICE_PRECISION = 10**18
 MIN_LIQUIDITY = 10**3
 DOUBLE_BPS = 20_000
+BPS = 10_000
 UINT256_MAX = 2**256 - 1
 UINT96_MAX = 2**96 - 1
 
@@ -32,6 +33,66 @@ class SeedQuote:
     vault_ask_size: int
     vault_bid_size: int
     seedable_in_reduced_model: bool
+
+
+@dataclass(frozen=True)
+class OpeningTicks:
+    """Orderbook tick-grid view of the vault's first prices, not vault rules."""
+
+    first_bid_price_scaled: int
+    ask_price_units: int
+    bid_price_units: int
+    ask_tick_floor: int
+    bid_tick_floor: int
+    ask_tick_error_numerator: int
+    ask_tick_error_denominator: int
+    bid_tick_error_numerator: int
+    bid_tick_error_denominator: int
+    usable_limit_ticks: bool
+
+
+def quote_opening_ticks(
+    *, first_ask_price_scaled: int, price_precision: int,
+    tick_size: int, amm_spread: int,
+) -> OpeningTicks:
+    """Map Kuru's 1e18 vault prices to executable uint32 limit-price ticks.
+
+    The vault itself may quote off the orderbook tick grid. These floor ticks
+    measure the representability error of user limit prices; they do not
+    pretend the vault rounds its price to a tick. Kuru's pinned
+    FixedPointMathLib.mulDivRound rounds half up.
+    """
+    if first_ask_price_scaled <= 0 or price_precision <= 0 or tick_size <= 0:
+        raise ValueError("positive ask, price precision and tick required")
+    if price_precision > 2**32 - 1 or tick_size > 2**32 - 1:
+        raise ValueError("price precision or tick exceeds uint32")
+    if not (0 < amm_spread < 500 and amm_spread % 10 == 0):
+        raise ValueError("current OrderBook spread constraint")
+    first_bid = (
+        first_ask_price_scaled * BPS
+        + (BPS + amm_spread) // 2
+    ) // (BPS + amm_spread)
+    ask_units = first_ask_price_scaled * price_precision // VAULT_PRICE_PRECISION
+    bid_units = first_bid * price_precision // VAULT_PRICE_PRECISION
+    ask_tick = ask_units - ask_units % tick_size
+    bid_tick = bid_units - bid_units % tick_size
+    ask_den = first_ask_price_scaled * price_precision
+    bid_den = first_bid * price_precision
+    return OpeningTicks(
+        first_bid_price_scaled=first_bid,
+        ask_price_units=ask_units,
+        bid_price_units=bid_units,
+        ask_tick_floor=ask_tick,
+        bid_tick_floor=bid_tick,
+        ask_tick_error_numerator=ask_den - ask_tick * VAULT_PRICE_PRECISION,
+        ask_tick_error_denominator=ask_den,
+        bid_tick_error_numerator=bid_den - bid_tick * VAULT_PRICE_PRECISION,
+        bid_tick_error_denominator=bid_den,
+        usable_limit_ticks=(
+            0 < bid_tick < ask_tick <= 2**32 - 1
+            and ask_units <= 2**32 - 1
+        ),
+    )
 
 
 def valid_router_parameters(

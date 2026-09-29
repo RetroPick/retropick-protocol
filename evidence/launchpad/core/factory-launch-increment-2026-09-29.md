@@ -26,3 +26,7 @@ Five tests verify:
 **SUPPORTED_BY_EXECUTABLE_TEST_WITHIN_DECLARED_FIXTURE:** Factory-mediated creation, records, economics pin, simple quote admission and current-code salt/anti-snipe behavior. **NOT_YET_VALIDATED:** malicious or nonstandard ERC20 quote, Factory permission/timelock matrix, FeeEscrow implementation, buyback distribution, current V4 graduation failure/retry, LP-I-006..009 lifecycle, and Kuru atomic target integration. LP-I-001, LP-I-004, LP-I-010 and LP-I-011 gain partial evidence only. No LP-I property is promoted to full PASS on this increment.
 
 Core remains the primary production-development lane. Prediction V2 and PRISM V2 remain separate research-gated lanes; this evidence confers no readiness on them.
+
+## Subsequent checks
+
+Later tests in the same Factory fixture preserve a [nonstandard quote deficit](quote-surcharge-counterexample-2026-09-29.md) and exercise the [crossing-buy/Swept failure path](graduation-failure-increment-2026-09-29.md). The five-test count and SHA above identify this first committed checkpoint, not the later fixture revision.

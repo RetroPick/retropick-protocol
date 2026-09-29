@@ -38,6 +38,8 @@ The target lifecycle is `DRAFT → ACTIVE → GRADUATION_READY → GRADUATING �
 
 Core blockers are [recorded in status.yaml](../../../development/launchpad/control/status.yaml): `BLOCK-CONTRACT-TESTS`, `BLOCK-KURU-TARGET`, `BLOCK-ARCH-ADRS`, and `BLOCK-FULLSTACK`. Therefore **architecture is sufficiently mapped to drive scoped development, but Core is not implementation-complete or deployment-ready**. This map does not accept an ADR or clear a blocker.
 
+The executable [quote-surcharge counterexample](../../../evidence/launchpad/core/quote-surcharge-counterexample-2026-09-29.md) narrows asset admission: current onchain approval checks do not themselves prove exact-transfer semantics. This is a Core-specific qualification finding and does not change the Prediction or PRISM research gates.
+
 ## 2. Prediction V2 — research-gated architecture
 
 Candidate boundary: collateral-holding market and YES/NO outcome ERC-20 liabilities; a resolver commits one deterministic result, and holders redeem by the accepted payout rule. Neither a UI/indexer nor a Kuru orderbook is economic authority. The market/collateral ownership split, INVALID holder entitlement, winning-side uint256 liveness, token admission, callback behavior, lifecycle transitions, and Python↔Solidity equivalence are not frozen. The research report records concrete counterexamples and incomplete security analysis. [Prediction semantic packet](../../../research/reports/PREDICTION_SEMANTIC_CONVERGENCE_PACKET.md) and [collateral policy](../../../research/reports/COLLATERAL_ADMISSION_PACKET.md) are decision packets, not accepted production specs.

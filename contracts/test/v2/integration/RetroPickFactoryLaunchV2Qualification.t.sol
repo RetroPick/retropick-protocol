@@ -2,6 +2,7 @@
 pragma solidity ^0.8.26;
 
 import {Test} from "forge-std/Test.sol";
+import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import {IPoolManager} from "@uniswap/v4-core/src/interfaces/IPoolManager.sol";
 import {IPositionManager} from "@uniswap/v4-periphery/src/interfaces/IPositionManager.sol";
 import {IAllowanceTransfer} from "permit2/src/interfaces/IAllowanceTransfer.sol";
@@ -20,6 +21,27 @@ import {
 } from "../../../src/v2/interfaces/IRetroPickLaunchpadV2.sol";
 import {CurveStateFeeEscrowV2} from "../unit/RetroPickCurrentCurveStateV2Qualification.t.sol";
 import {MockERC20} from "../../mocks/MockERC20.sol";
+
+/// @notice An ERC20 whose sender pays an additional burn on every transfer.
+/// Balance-delta receipt does not protect the Curve when it is the sender.
+contract SenderSurchargeQuote is ERC20 {
+    constructor() ERC20("Surcharge Quote", "SQ") {}
+
+    function decimals() public pure override returns (uint8) {
+        return 6;
+    }
+
+    function mint(address to, uint256 amount) external {
+        _mint(to, amount);
+    }
+
+    function _update(address from, address to, uint256 value) internal override {
+        super._update(from, to, value);
+        if (from != address(0) && to != address(0)) {
+            super._update(from, address(0), value / 10);
+        }
+    }
+}
 
 /// @notice Real Factory/Deployer/Token/Curve path with explicitly mocked V4-only singletons.
 /// The mocks do not qualify V4 pool creation or a live Kuru destination.
@@ -174,6 +196,31 @@ contract RetroPickFactoryLaunchV2QualificationTest is Test {
         assertEq(RetroPickBondingCurveV2(payable(curveAddress)).phantomQuote(), 100e6);
     }
 
+    function testApprovedSenderSurchargeQuoteCanDeficitCurveAfterSell() public {
+        SenderSurchargeQuote quote = new SenderSurchargeQuote();
+        factory.setPairTokenEconomics(address(quote), 100e6, 100e6, 6);
+        factory.setPairTokenApproved(address(quote), true);
+        vm.prank(creator);
+        (address tokenAddress, address curveAddress) =
+            factory.launchToken(_params(bytes32(uint256(4))), 0, address(quote));
+        RetroPickBondingCurveV2 curve = RetroPickBondingCurveV2(payable(curveAddress));
+        quote.mint(creator, 20e6);
+        vm.startPrank(creator);
+        quote.approve(curveAddress, 10e6);
+        uint256 tokensOut = curve.buy(10e6, 0, creator);
+        assertEq(quote.balanceOf(curveAddress), curve.trackedQuote(), "inbound balance delta is exact");
+        RetroPickLauncherTokenV2(tokenAddress).approve(curveAddress, tokensOut / 2);
+        uint256 payout = curve.sell(tokensOut / 2, 0, creator);
+        vm.stopPrank();
+
+        assertGt(payout / 10, 0, "witness has a nonzero surcharge");
+        assertEq(
+            curve.trackedQuote() - quote.balanceOf(curveAddress),
+            payout / 10,
+            "sender-side surcharge destroys exactly one-tenth of payout from backing"
+        );
+    }
+
     function testSnipeSettingDoesNotChangeCurrentBuyEconomics() public {
         uint256 state = vm.snapshotState();
         vm.prank(creator);
@@ -191,5 +238,36 @@ contract RetroPickFactoryLaunchV2QualificationTest is Test {
         uint256 secondOut = RetroPickBondingCurveV2(payable(secondCurve)).buy{value: 1 ether}(1 ether, 0, creator);
         assertEq(firstOut, secondOut);
         assertEq(firstTax, RetroPickBondingCurveV2(payable(secondCurve)).creatorTaxBalance());
+    }
+
+    function testCrossingBuySweepsAssetsAndFailedMockV4SeedPreservesThem() public {
+        vm.deal(creator, 200 ether);
+        vm.prank(creator);
+        (address tokenAddress, address curveAddress) = factory.launchToken(_params(bytes32(uint256(12))), 0, address(0));
+        RetroPickBondingCurveV2 curve = RetroPickBondingCurveV2(payable(curveAddress));
+
+        vm.prank(creator);
+        uint256 purchased = curve.buy{value: 150 ether}(150 ether, 0, creator);
+        assertEq(purchased, 500_000 ether, "crossing order is clamped to sellable allocation");
+        assertEq(curve.sellableTokens(), 0);
+        assertTrue(curve.graduated(), "crossing buy auto-sweeps into Factory");
+        assertEq(uint256(factory.getLaunchedToken(tokenAddress).phase), uint256(GraduationPhase.Swept));
+        uint256 lockedQuote = address(factory).balance;
+        uint256 lockedTokens = RetroPickLauncherTokenV2(tokenAddress).balanceOf(address(factory));
+        assertEq(lockedQuote, factory.getLaunchedToken(tokenAddress).sweptQuote);
+        assertEq(lockedTokens, factory.getLaunchedToken(tokenAddress).sweptTokens);
+
+        vm.prank(creator);
+        vm.expectRevert(RetroPickBondingCurveV2.CurveGraduated.selector);
+        curve.buy{value: 1 ether}(1 ether, 0, creator);
+        vm.prank(creator);
+        vm.expectRevert(RetroPickBondingCurveV2.CurveGraduated.selector);
+        curve.sell(1 ether, 0, creator);
+        vm.expectRevert();
+        factory.createGraduatedPool(tokenAddress);
+
+        assertEq(address(factory).balance, lockedQuote, "failed V4 seed did not move secured quote");
+        assertEq(RetroPickLauncherTokenV2(tokenAddress).balanceOf(address(factory)), lockedTokens);
+        assertEq(uint256(factory.getLaunchedToken(tokenAddress).phase), uint256(GraduationPhase.Swept));
     }
 }

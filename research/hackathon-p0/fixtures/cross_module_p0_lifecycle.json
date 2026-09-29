@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "profile": "HACKATHON-P0",
+  "model": "Prediction P0 -> PRISM P0 local lifecycle",
+  "collateral_decimals": 6,
+  "replication": {
+    "state_labels": ["YES_WIN", "NO_WIN"],
+    "G": [["1", "0"], ["0", "1"]],
+    "h": ["1/2", "1/2"],
+    "x": ["1/2", "1/2"],
+    "exact_recheck": true,
+    "lot_size_raw": 2
+  },
+  "prediction": {
+    "split_raw": 20000000,
+    "yes_supply_before_prism": 20000000,
+    "no_supply_before_prism": 20000000,
+    "physical_collateral_after_split_raw": 20000000,
+    "liability_after_split_raw": 20000000
+  },
+  "prism": {
+    "mint_raw": 10000000,
+    "component_amounts_raw": [5000000, 5000000],
+    "transfer_to_bob_raw": 6000000,
+    "bob_redeem_raw": 6000000,
+    "bob_received_components_raw": [3000000, 3000000],
+    "alice_redeem_raw": 4000000,
+    "alice_received_components_raw": [2000000, 2000000],
+    "series_supply_after_redemption_raw": 0,
+    "source_tokens_held_by_series_after_redemption_raw": [0, 0]
+  },
+  "after_prism_redemption": {
+    "alice_yes_raw": 17000000,
+    "alice_no_raw": 17000000,
+    "bob_yes_raw": 3000000,
+    "bob_no_raw": 3000000,
+    "prediction_liability_raw": 20000000,
+    "prediction_collateral_raw": 20000000
+  },
+  "resolution_worlds": {
+    "YES_WIN": {
+      "alice_winner_redeem_raw": 2000000,
+      "bob_winner_redeem_raw": 3000000,
+      "collateral_paid_raw": 5000000,
+      "remaining_prediction_liability_raw": 15000000
+    },
+    "NO_WIN": {
+      "alice_winner_redeem_raw": 2000000,
+      "bob_winner_redeem_raw": 3000000,
+      "collateral_paid_raw": 5000000,
+      "remaining_prediction_liability_raw": 15000000
+    }
+  },
+  "properties": {
+    "prediction_collateral_is_not_prism_inventory": true,
+    "prism_backing_is_custodied_outcome_tokens": true,
+    "one_outcome_token_cannot_be_redeemed_by_its_prior_holder_after_transfer": true,
+    "kuru_required_for_solvency_or_redemption": false
+  }
+}

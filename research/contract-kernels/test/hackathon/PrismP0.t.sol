@@ -178,6 +178,20 @@ contract PrismP0Test is Test {
         prismFactory.createSeries(tokens, nums, dens, "fake", "FAKE", bytes32("p"), bytes32("r"));
     }
 
+    function test_unregisteredOutcomeCloneForRealMarketCannotBeAdmitted() public {
+        OutcomeTokenP0 clone = new OutcomeTokenP0(address(market), 0, "Clone", "CLONE", 6);
+        address[] memory tokens = new address[](1);
+        tokens[0] = address(clone);
+        uint128[] memory nums = new uint128[](1);
+        nums[0] = 1;
+        uint128[] memory dens = new uint128[](1);
+        dens[0] = 1;
+        vm.expectRevert(
+            abi.encodeWithSelector(PrismSeriesP0.SourceConfigurationMismatch.selector, address(clone))
+        );
+        prismFactory.createSeries(tokens, nums, dens, "clone", "CLONE", bytes32("p"), bytes32("r"));
+    }
+
     function test_directDonationIsSurplusAndNotSweepable() public {
         vm.prank(alice);
         yes.transfer(address(series), 1);

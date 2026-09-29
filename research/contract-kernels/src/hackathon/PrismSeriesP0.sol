@@ -116,7 +116,10 @@ contract PrismSeriesP0 is ERC20, ReentrancyGuard {
         }
         if (
             market.collateral() != IERC20(collateral)
-                || market.SEMANTIC_VERSION() != keccak256("RETROPICK_PREDICTION_P0_V1") || outcome.outcomeIndex() > 1
+                || market.SEMANTIC_VERSION() != keccak256("RETROPICK_PREDICTION_P0_V1")
+                || outcome.outcomeIndex() > 1
+                || (outcome.outcomeIndex() == 0 && address(market.yesToken()) != token)
+                || (outcome.outcomeIndex() == 1 && address(market.noToken()) != token)
         ) revert SourceConfigurationMismatch(token);
 
         uint8 sourceDecimals = IERC20Metadata(token).decimals();

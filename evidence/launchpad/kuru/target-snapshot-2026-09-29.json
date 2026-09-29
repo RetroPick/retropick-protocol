@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "classification": "READ_ONLY_TARGET_SNAPSHOT_NOT_POLICY_ACCEPTANCE",
+  "recorded_at_utc": "2026-09-29T14:15:38Z",
+  "repository_start_sha": "bbc1feae910a23a33113037d424aa2adc53b6fbe",
+  "source": {
+    "contracts_repository": "https://github.com/Kuru-Labs/Kuru-contracts-dex-public",
+    "contracts_main_sha": "2060bb2736080c175d80d568bfdb6226bb5abd04",
+    "sdk_repository": "https://github.com/Kuru-Labs/kuru-sdk",
+    "sdk_main_sha": "636509c2eafd63479d3f399703354e0d09f51e18",
+    "revalidated_at_utc": "2026-09-29T13:50:29Z",
+    "addresses_documentation": "https://docs.kuru.io/contracts/Contract-addresses",
+    "network_documentation": "https://docs.monad.xyz/developer-essentials/testnet"
+  },
+  "network": {
+    "name": "Monad Testnet",
+    "chain_id_rpc": 10143,
+    "rpc_url": "https://testnet-rpc.monad.xyz",
+    "snapshot_block": 66703769
+  },
+  "contracts": {
+    "router": {
+      "address": "0x7EFbE105Ca7415dE98F96622173458ac1c054630",
+      "runtime_code_bytes": 141,
+      "runtime_keccak256": "0xae572ec3ca9b5f49c0364ca34edc5880b6b2837e47802e64e6b681bf2e74aa5c",
+      "eip1967_implementation": "0xaaa0f0c4d49d09ef33ae758d88afab810ecbe1ed",
+      "implementation_runtime_keccak256": "0xadf3e1f5d9bc07f55d68556f5cca8b9c68381716f932f9b49169e152690583b9",
+      "owner": "0x07bBBf2e9911705a7b258e0A05A34620058fC1D1"
+    },
+    "margin_account": {
+      "address": "0xd029C2D98ff85D8F64799017fE00a59B1159CE02",
+      "router_getter_matches": true,
+      "runtime_code_bytes": 141,
+      "runtime_keccak256": "0xae572ec3ca9b5f49c0364ca34edc5880b6b2837e47802e64e6b681bf2e74aa5c",
+      "eip1967_implementation": "0xf10af40f060b7ae54a2d5da682becc981dfb52c3",
+      "implementation_runtime_keccak256": "0xc7fe37d8820177aadb71ffaf4d8616da30140609b79c1eafd189c9ae8cca55fd"
+    },
+    "order_book_implementation": {
+      "address": "0x72caE0a99C19B574e8a6De558F43fc1D019c9374",
+      "runtime_code_bytes": 35548,
+      "runtime_keccak256": "0x24c5974f233021f00d607bfa191d430f79565663fb90805ebcfca52de7333500"
+    },
+    "amm_vault_implementation": {
+      "address": "0x4d54e0d60CaB0cec0100cdA8e00897bC933C5Bb6",
+      "runtime_code_bytes": 11672,
+      "runtime_keccak256": "0xde0b16a79cf8f711403e89093c1e82ce0e7813949dd0f5041b41da324fdd3dc3"
+    },
+    "testnet_usdc": {
+      "address": "0x3bA3d39AFcf8bb994f7964B3e0171Ea2Ba361570",
+      "decimals": 6,
+      "runtime_code_bytes": 1737,
+      "runtime_keccak256": "0xefd6505dcba0cb3b3375320d8f1a4120291dd9f05fbbdc97a9b6fb1d0e3d719e"
+    },
+    "reference_mon_usdc_market": {
+      "address": "0xa241896A7Dbe8a550D2E5fF7A914bB1989ceD2D9",
+      "runtime_code_bytes": 141,
+      "runtime_keccak256": "0xae572ec3ca9b5f49c0364ca34edc5880b6b2837e47802e64e6b681bf2e74aa5c"
+    }
+  },
+  "router_interface": {
+    "deploy_proxy_signature": "deployProxy(uint8,address,address,uint96,uint32,uint32,uint96,uint96,uint256,uint256,uint96)",
+    "deploy_proxy_selector": "0xce186ec3",
+    "market_types": {"NO_NATIVE": 0, "NATIVE_IN_BASE": 1, "NATIVE_IN_QUOTE": 2},
+    "identity_uses_current_orderbook_and_vault_implementations": true
+  },
+  "source_constraints": {
+    "tick_size_positive": true,
+    "size_precision_power_of_ten": true,
+    "price_precision_power_of_ten": true,
+    "maker_fee_lte_taker_fee": true,
+    "taker_fee_lt_10000": true,
+    "amm_spread_divisible_by_10": true,
+    "amm_spread_positive": true,
+    "amm_spread_lt_500": true,
+    "min_size_positive": true,
+    "max_size_gt_min_size": true
+  },
+  "historical_conflict": {
+    "artifact": "evidence/hackathon-p0/kuru/kuru-p0-parameter-packet-2026-09-29.json",
+    "field": "candidate_router_params.kuru_amm_spread",
+    "old_value": 0,
+    "current_source_requirement": "spread > 0 and spread % 10 == 0 and spread < 500",
+    "classification": "INVALID_HISTORICAL_DEMO_PARAMETER_NOT_REWRITTEN"
+  },
+  "limitations": [
+    "Snapshot verifies identities and source constraints, not a live market deployment for a RetroPick token.",
+    "The router and both market/vault implementation addresses are mutable under external governance.",
+    "No launch-token address or accepted RetroPick parameter tuple exists yet, so expected market/vault addresses are not derived.",
+    "No transaction was sent and no wallet secret was accessed."
+  ]
+}

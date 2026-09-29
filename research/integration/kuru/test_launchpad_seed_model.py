@@ -52,6 +52,11 @@ class KuruLaunchpadSeedModelTest(unittest.TestCase):
             size_precision=10**8, amm_spread=100,
         )
         self.assertGreaterEqual(result.price_difference, 0)
+        self.assertLessEqual(result.price_difference,
+                             result.scaled_price_error_upper_bound)
+        self.assertGreater(result.price_error_numerator, 0)
+        self.assertLess(result.price_error_numerator * result.base_seed,
+                        result.price_error_denominator)
         # B=floor(T*Q/(P+Q)); the relative upward drift is < 1/B.
         self.assertLessEqual(
             result.kuru_first_ask_price_scaled * result.base_seed,
@@ -59,6 +64,42 @@ class KuruLaunchpadSeedModelTest(unittest.TestCase):
             + result.base_seed,
         )
         self.assertTrue(result.seedable_in_reduced_model)
+
+    def test_exhaustive_small_terminal_price_continuity_domain(self):
+        checked = 0
+        for supply in range(2, 26):
+            for phantom in range(1, 26):
+                for secured in range(1, 26):
+                    base = supply * secured // (phantom + secured)
+                    if base == 0:
+                        continue
+                    quote = quote_first_seed(
+                        supply=supply, phantom_quote=phantom, secured_quote=secured,
+                        base_decimals=0, quote_decimals=0,
+                        size_precision=10**8, amm_spread=100,
+                    )
+                    self.assertEqual(quote.base_seed, base)
+                    self.assertEqual(quote.price_error_numerator,
+                                     supply * secured - base * (phantom + secured))
+                    self.assertEqual(quote.price_error_denominator,
+                                     base * (phantom + secured))
+                    self.assertGreaterEqual(quote.price_error_numerator, 0)
+                    self.assertLess(quote.price_error_numerator, phantom + secured)
+                    self.assertGreaterEqual(quote.price_difference, 0)
+                    self.assertLessEqual(quote.price_difference,
+                                         quote.scaled_price_error_upper_bound)
+                    checked += 1
+        self.assertEqual(checked, 14_096)
+
+    def test_uint256_input_and_quote_sum_bounds(self):
+        with self.assertRaisesRegex(ValueError, "terminal reserve input exceeds uint256"):
+            quote_first_seed(supply=2**256, phantom_quote=1, secured_quote=1,
+                             base_decimals=18, quote_decimals=18,
+                             size_precision=10**8, amm_spread=100)
+        with self.assertRaisesRegex(ValueError, "virtual plus secured quote exceeds uint256"):
+            quote_first_seed(supply=10**18, phantom_quote=2**256 - 1, secured_quote=1,
+                             base_decimals=18, quote_decimals=18,
+                             size_precision=10**8, amm_spread=100)
 
     def test_tiny_quote_fails_minimum_liquidity_and_vault_size(self):
         result = quote_first_seed(

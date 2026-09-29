@@ -38,6 +38,8 @@ The preferred execution is one atomic phase-2 transaction. Any revert restores p
 
 Let `T` be terminal tracked launch-token units, `P` phantom quote, and `Q` *physically secured* real quote. The terminal reference ratio in raw units is `(P+Q)/T`. Existing V4 seed math chooses `B = floor(T×Q/(P+Q))` base units and leaves `T−B` excess tokens locked; this is the candidate Kuru first-base deposit. Depositing all `T` against only `Q` would instead open at `Q/T`, a lower price because phantom quote is not physical. Kuru's first-deposit ask is `floor(Q×10^baseDecimals×10^18/(B×10^quoteDecimals))`, and first LP shares to receiver equal `floor(sqrt(B×Q))−1000`. Its spread and size precision must also yield both nonzero vault order sizes. The exact model and tests cover 6-decimal USDC, 18-decimal native quote, nondivisible rounding and a tiny unseedable case. `B=0`, ask=0, LP≤0, or zero vault order size means **do not graduate**. The accepted maximum price deviation, bounded configuration classes, excess-token custody, and onchain gas/overflow domain remain undecided.
 
+The later [exact price-continuity bound](../../../evidence/launchpad/kuru/seed-price-continuity-bound-2026-09-29.md) proves under stated integer assumptions that the unrounded seed/reference price ratio is `1 + e/(B(P+Q))`, where `e=TQ−B(P+Q)` and `0≤e<P+Q`. Thus relative upward drift is strictly below `1/B`; a conservative 1e18-scaled absolute bound is also recorded and checked over 14,096 small integer cases. This narrows the mathematics, **not** the protocol decision: the acceptable error threshold and configuration classes are still not frozen.
+
 ## Decision ledger and open gates
 
 | Decision | Current status / missing acceptance |

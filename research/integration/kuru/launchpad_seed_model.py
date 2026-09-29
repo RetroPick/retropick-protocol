@@ -23,6 +23,11 @@ class SeedQuote:
     terminal_price_scaled: int
     kuru_first_ask_price_scaled: int
     price_difference: int
+    # Exact relative uplift of Q/B over (P+Q)/T, before Kuru price flooring.
+    # Ratio = price_error_numerator / price_error_denominator; always < 1/B.
+    price_error_numerator: int
+    price_error_denominator: int
+    scaled_price_error_upper_bound: int
     lp_shares_to_receiver: int
     vault_ask_size: int
     vault_bid_size: int
@@ -74,12 +79,17 @@ def quote_first_seed(
     """
     if min(supply, phantom_quote, secured_quote, size_precision) <= 0:
         raise ValueError("positive terminal reserves, secured quote and precision required")
+    if max(supply, phantom_quote, secured_quote) > UINT256_MAX:
+        raise ValueError("terminal reserve input exceeds uint256")
+    total_quote = phantom_quote + secured_quote
+    if total_quote > UINT256_MAX:
+        raise ValueError("virtual plus secured quote exceeds uint256")
     if not (0 <= base_decimals <= 18 and 0 <= quote_decimals <= 18):
         raise ValueError("declared decimal domain is 0..18")
     if not (0 < amm_spread < 500 and amm_spread % 10 == 0):
         raise ValueError("current OrderBook spread constraint")
 
-    base_seed = supply * secured_quote // (phantom_quote + secured_quote)
+    base_seed = supply * secured_quote // total_quote
     if base_seed == 0 or base_seed >= supply:
         raise ValueError("base seed rounds to zero or leaves no excess")
     if base_seed * secured_quote > UINT256_MAX:
@@ -91,8 +101,16 @@ def quote_first_seed(
         raise ValueError("first-ask numerator exceeds uint256")
     if amm_spread * base_seed * size_precision > UINT256_MAX:
         raise ValueError("vault-size numerator exceeds uint256")
-    terminal_price = (phantom_quote + secured_quote) * normalizer // (supply * quote_scale)
+    terminal_price = total_quote * normalizer // (supply * quote_scale)
     kuru_price = secured_quote * normalizer // (base_seed * quote_scale)
+    error_numerator = supply * secured_quote - base_seed * total_quote
+    error_denominator = base_seed * total_quote
+    assert 0 <= error_numerator < total_quote
+    scaled_error_denominator = supply * quote_scale * base_seed
+    scaled_error_bound = (
+        total_quote * normalizer + scaled_error_denominator - 1
+    ) // scaled_error_denominator
+    assert 0 <= kuru_price - terminal_price <= scaled_error_bound
     shares = isqrt(base_seed * secured_quote) - MIN_LIQUIDITY
     ask_size = amm_spread * base_seed * size_precision // ((DOUBLE_BPS + amm_spread) * 10**base_decimals)
     bid_size = amm_spread * base_seed * size_precision // (DOUBLE_BPS * 10**base_decimals)
@@ -102,6 +120,9 @@ def quote_first_seed(
         terminal_price_scaled=terminal_price,
         kuru_first_ask_price_scaled=kuru_price,
         price_difference=kuru_price - terminal_price,
+        price_error_numerator=error_numerator,
+        price_error_denominator=error_denominator,
+        scaled_price_error_upper_bound=scaled_error_bound,
         lp_shares_to_receiver=shares,
         vault_ask_size=ask_size,
         vault_bid_size=bid_size,

@@ -19,7 +19,7 @@ goal_qualification:
   KURU_TARGET_FROZEN:
     status: blocked
     evidence: development/launchpad/integrations/KURU_TARGET_FREEZE_PACKET.md
-    reason: Exact parameter classes, quote qualification, LP custody and atomic retry ADR acceptance plus fork validation remain open.
+    reason: Exact first-seed price-error bounds now have proof and bounded enumeration; accepted parameter/error classes, quote qualification, LP custody and atomic retry ADR acceptance plus fork validation remain open.
   READY_FOR_DEV4_KURU_EXECUTOR:
     status: blocked
     reason: Both preceding gates are blocked and ADR-009/011/021/022/023 remain PROPOSED.
@@ -28,7 +28,7 @@ blockers:
     reason: Core V2 math, Factory/Deployer launch, direct Curve/Token/fee-ledger, native-quote stateful coverage, authority, one buyback/vesting path and mocked V4 failure rollback are partial. Owner-approved nonstandard quotes can deficit tracked backing. Remaining Fee/Buyback branches, successful graduation/retry, asset qualification and integration coverage remain open.
     next_owner: launchpad-solidity
   - id: BLOCK-KURU-TARGET
-    reason: Monad Testnet Router, MarginAccount, USDC and implementation identities were read-only verified, but RetroPick parameter/quote/LP-custody/retry decisions, price-continuity bounds and fork/live integration remain unresolved; target is not frozen.
+    reason: Monad Testnet identities were read-only verified and candidate price-continuity bounds are proved; RetroPick parameter/error tolerance, quote, LP-custody and retry decisions plus fork/live integration remain unresolved. Target is not frozen.
     next_owner: launchpad-integrations
   - id: BLOCK-ARCH-ADRS
     reason: Full-stack workspace, backend, indexer, auth, storage, admin, upgradeability and V4-retirement choices are PROPOSED rather than accepted.

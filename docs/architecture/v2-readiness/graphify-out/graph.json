@@ -1,0 +1,267 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "label": "PRISM exact-replication admission: research",
+      "file_type": "concept",
+      "source_file": "research/reports/SMART_CONTRACT_RESEARCH_GATE.md",
+      "id": "prism_admission",
+      "community": 0,
+      "community_name": "Community 0",
+      "norm_label": "prism exact-replication admission: research"
+    },
+    {
+      "label": "PRISM custody and reservation: research",
+      "file_type": "concept",
+      "source_file": "research/reports/SMART_CONTRACT_RESEARCH_GATE.md",
+      "id": "prism_backing",
+      "community": 0,
+      "community_name": "Community 0",
+      "norm_label": "prism custody and reservation: research"
+    },
+    {
+      "label": "PRISM finance handoff: FAIL",
+      "file_type": "concept",
+      "source_file": "research/reports/SMART_CONTRACT_RESEARCH_GATE.md",
+      "id": "prism_gate",
+      "community": 0,
+      "community_name": "Community 0",
+      "norm_label": "prism finance handoff: fail"
+    },
+    {
+      "label": "PRISM series liability ERC20: candidate",
+      "file_type": "concept",
+      "source_file": "docs/prism/04-architecture/PHASE1_CANDIDATE_SERIES.md",
+      "id": "prism_series",
+      "community": 0,
+      "community_name": "Community 0",
+      "norm_label": "prism series liability erc20: candidate"
+    },
+    {
+      "label": "PRISM settlement: MATH-1 FAIL",
+      "file_type": "concept",
+      "source_file": "research/reports/SMART_CONTRACT_RESEARCH_GATE.md",
+      "id": "prism_settlement",
+      "community": 0,
+      "community_name": "Community 0",
+      "norm_label": "prism settlement: math-1 fail"
+    },
+    {
+      "label": "Core V2 Curve: reserves and primary pricing",
+      "file_type": "concept",
+      "source_file": "development/launchpad/contracts/TARGET_V2_ARCHITECTURE.md",
+      "id": "core_curve",
+      "community": 1,
+      "community_name": "Community 1",
+      "norm_label": "core v2 curve: reserves and primary pricing"
+    },
+    {
+      "label": "Core V2 Factory: launch/config authority",
+      "file_type": "concept",
+      "source_file": "development/launchpad/contracts/TARGET_V2_ARCHITECTURE.md",
+      "id": "core_factory",
+      "community": 1,
+      "community_name": "Community 1",
+      "norm_label": "core v2 factory: launch/config authority"
+    },
+    {
+      "label": "Core V2 Fee / Buyback Components",
+      "file_type": "concept",
+      "source_file": "development/launchpad/contracts/TARGET_V2_ARCHITECTURE.md",
+      "id": "core_fees",
+      "community": 1,
+      "community_name": "Community 1",
+      "norm_label": "core v2 fee / buyback components"
+    },
+    {
+      "label": "Core V2 Launch Token",
+      "file_type": "concept",
+      "source_file": "docs/architecture/contracts/V2_ARCHITECTURE.md",
+      "id": "core_token",
+      "community": 1,
+      "community_name": "Community 1",
+      "norm_label": "core v2 launch token"
+    },
+    {
+      "label": "Prediction finance handoff: FAIL",
+      "file_type": "concept",
+      "source_file": "research/reports/SMART_CONTRACT_RESEARCH_GATE.md",
+      "id": "pred_gate",
+      "community": 2,
+      "community_name": "Community 2",
+      "norm_label": "prediction finance handoff: fail"
+    },
+    {
+      "label": "Prediction market: research kernel",
+      "file_type": "concept",
+      "source_file": "research/reports/SMART_CONTRACT_RESEARCH_GATE.md",
+      "id": "pred_market",
+      "community": 2,
+      "community_name": "Community 2",
+      "norm_label": "prediction market: research kernel"
+    },
+    {
+      "label": "Prediction outcome ERC20: candidate source",
+      "file_type": "concept",
+      "source_file": "docs/prism/04-architecture/SOURCE_ASSET_INTERFACE.md",
+      "id": "pred_outcome",
+      "community": 2,
+      "community_name": "Community 2",
+      "norm_label": "prediction outcome erc20: candidate source"
+    },
+    {
+      "label": "Versioned source-asset interface: PROPOSED",
+      "file_type": "concept",
+      "source_file": "docs/prism/04-architecture/SOURCE_ASSET_INTERFACE.md",
+      "id": "source_boundary",
+      "community": 2,
+      "community_name": "Community 2",
+      "norm_label": "versioned source-asset interface: proposed"
+    },
+    {
+      "label": "Core DEVELOPMENT_READY: in progress",
+      "file_type": "concept",
+      "source_file": "development/launchpad/control/status.yaml",
+      "id": "core_gate",
+      "community": 3,
+      "community_name": "Community 3",
+      "norm_label": "core development_ready: in progress"
+    },
+    {
+      "label": "Core V2 Graduation Controller: target",
+      "file_type": "concept",
+      "source_file": "development/launchpad/contracts/GRADUATION_TO_KURU.md",
+      "id": "core_graduation",
+      "community": 3,
+      "community_name": "Community 3",
+      "norm_label": "core v2 graduation controller: target"
+    },
+    {
+      "label": "Kuru secondary venue: target, not backing",
+      "file_type": "concept",
+      "source_file": "development/launchpad/contracts/GRADUATION_TO_KURU.md",
+      "id": "core_kuru",
+      "community": 3,
+      "community_name": "Community 3",
+      "norm_label": "kuru secondary venue: target, not backing"
+    }
+  ],
+  "links": [
+    {
+      "relation": "accrues_and_distributes_fees",
+      "confidence": "INFERRED",
+      "source_file": "docs/architecture/contracts/V2_ARCHITECTURE.md",
+      "source": "core_curve",
+      "target": "core_fees",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "back_first_mint_second_candidate",
+      "confidence": "INFERRED",
+      "source_file": "docs/prism/04-architecture/PHASE1_CANDIDATE_SERIES.md",
+      "source": "prism_backing",
+      "target": "prism_series",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "blocks_implementation_until_target_verified",
+      "confidence": "INFERRED",
+      "source_file": "development/launchpad/control/status.yaml",
+      "source": "core_gate",
+      "target": "core_graduation",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "blocks_production_promotion",
+      "confidence": "INFERRED",
+      "source_file": "research/reports/SMART_CONTRACT_RESEARCH_GATE.md",
+      "source": "pred_gate",
+      "target": "pred_market",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "blocks_production_promotion",
+      "confidence": "INFERRED",
+      "source_file": "research/reports/SMART_CONTRACT_RESEARCH_GATE.md",
+      "source": "prism_gate",
+      "target": "prism_settlement",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "candidate_source_only_after_qualification",
+      "confidence": "INFERRED",
+      "source_file": "docs/prism/04-architecture/SOURCE_ASSET_INTERFACE.md",
+      "source": "pred_outcome",
+      "target": "source_boundary",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "deploys_and_configures",
+      "confidence": "INFERRED",
+      "source_file": "development/launchpad/contracts/TARGET_V2_ARCHITECTURE.md",
+      "source": "core_factory",
+      "target": "core_curve",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "deploys_via_deployer",
+      "confidence": "INFERRED",
+      "source_file": "development/launchpad/contracts/TARGET_V2_ARCHITECTURE.md",
+      "source": "core_factory",
+      "target": "core_token",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "issues_outcome_claims_in_research_model",
+      "confidence": "INFERRED",
+      "source_file": "docs/prism/04-architecture/SOURCE_ASSET_INTERFACE.md",
+      "source": "pred_market",
+      "target": "pred_outcome",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "proposed_metadata_and_custody_boundary",
+      "confidence": "INFERRED",
+      "source_file": "docs/prism/04-architecture/SOURCE_ASSET_INTERFACE.md",
+      "source": "source_boundary",
+      "target": "prism_admission",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "proposed_retryable_destination",
+      "confidence": "INFERRED",
+      "source_file": "development/launchpad/contracts/GRADUATION_TO_KURU.md",
+      "source": "core_graduation",
+      "target": "core_kuru",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "redeem_liability_at_terminal_state",
+      "confidence": "INFERRED",
+      "source_file": "research/reports/SMART_CONTRACT_RESEARCH_GATE.md",
+      "source": "prism_series",
+      "target": "prism_settlement",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "requires_exact_replication_and_physical_backing",
+      "confidence": "INFERRED",
+      "source_file": "research/reports/SMART_CONTRACT_RESEARCH_GATE.md",
+      "source": "prism_admission",
+      "target": "prism_backing",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "secures_assets_before_destination",
+      "confidence": "INFERRED",
+      "source_file": "development/launchpad/contracts/GRADUATION_TO_KURU.md",
+      "source": "core_curve",
+      "target": "core_graduation",
+      "confidence_score": 0.5
+    }
+  ],
+  "hyperedges": [],
+  "built_at_commit": "797becbed94005aaa16a7279020688aafa631744"
+}

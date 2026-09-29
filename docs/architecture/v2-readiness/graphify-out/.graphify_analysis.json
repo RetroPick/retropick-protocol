@@ -1,0 +1,165 @@
+{
+  "communities": {
+    "0": [
+      "prism_admission",
+      "prism_backing",
+      "prism_gate",
+      "prism_series",
+      "prism_settlement"
+    ],
+    "1": [
+      "core_curve",
+      "core_factory",
+      "core_fees",
+      "core_token"
+    ],
+    "2": [
+      "pred_gate",
+      "pred_market",
+      "pred_outcome",
+      "source_boundary"
+    ],
+    "3": [
+      "core_gate",
+      "core_graduation",
+      "core_kuru"
+    ]
+  },
+  "cohesion": {
+    "0": 0.4,
+    "1": 0.5,
+    "2": 0.5,
+    "3": 0.6666666666666666
+  },
+  "gods": [
+    {
+      "id": "core_curve",
+      "label": "Core V2 Curve: reserves and primary pricing",
+      "degree": 3
+    },
+    {
+      "id": "core_graduation",
+      "label": "Core V2 Graduation Controller: target",
+      "degree": 3
+    },
+    {
+      "id": "core_factory",
+      "label": "Core V2 Factory: launch/config authority",
+      "degree": 2
+    },
+    {
+      "id": "pred_market",
+      "label": "Prediction market: research kernel",
+      "degree": 2
+    },
+    {
+      "id": "pred_outcome",
+      "label": "Prediction outcome ERC20: candidate source",
+      "degree": 2
+    },
+    {
+      "id": "source_boundary",
+      "label": "Versioned source-asset interface: PROPOSED",
+      "degree": 2
+    },
+    {
+      "id": "prism_admission",
+      "label": "PRISM exact-replication admission: research",
+      "degree": 2
+    },
+    {
+      "id": "prism_backing",
+      "label": "PRISM custody and reservation: research",
+      "degree": 2
+    },
+    {
+      "id": "prism_series",
+      "label": "PRISM series liability ERC20: candidate",
+      "degree": 2
+    },
+    {
+      "id": "prism_settlement",
+      "label": "PRISM settlement: MATH-1 FAIL",
+      "degree": 2
+    }
+  ],
+  "surprises": [
+    {
+      "source": "Versioned source-asset interface: PROPOSED",
+      "target": "PRISM exact-replication admission: research",
+      "source_files": [
+        "docs/prism/04-architecture/SOURCE_ASSET_INTERFACE.md",
+        "research/reports/SMART_CONTRACT_RESEARCH_GATE.md"
+      ],
+      "confidence": "INFERRED",
+      "relation": "proposed_metadata_and_custody_boundary",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; bridges separate communities"
+    },
+    {
+      "source": "Core V2 Factory: launch/config authority",
+      "target": "Core V2 Launch Token",
+      "source_files": [
+        "development/launchpad/contracts/TARGET_V2_ARCHITECTURE.md",
+        "docs/architecture/contracts/V2_ARCHITECTURE.md"
+      ],
+      "confidence": "INFERRED",
+      "relation": "deploys_via_deployer",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories"
+    },
+    {
+      "source": "Prediction market: research kernel",
+      "target": "Prediction outcome ERC20: candidate source",
+      "source_files": [
+        "research/reports/SMART_CONTRACT_RESEARCH_GATE.md",
+        "docs/prism/04-architecture/SOURCE_ASSET_INTERFACE.md"
+      ],
+      "confidence": "INFERRED",
+      "relation": "issues_outcome_claims_in_research_model",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories"
+    },
+    {
+      "source": "PRISM custody and reservation: research",
+      "target": "PRISM series liability ERC20: candidate",
+      "source_files": [
+        "research/reports/SMART_CONTRACT_RESEARCH_GATE.md",
+        "docs/prism/04-architecture/PHASE1_CANDIDATE_SERIES.md"
+      ],
+      "confidence": "INFERRED",
+      "relation": "back_first_mint_second_candidate",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories"
+    },
+    {
+      "source": "PRISM series liability ERC20: candidate",
+      "target": "PRISM settlement: MATH-1 FAIL",
+      "source_files": [
+        "docs/prism/04-architecture/PHASE1_CANDIDATE_SERIES.md",
+        "research/reports/SMART_CONTRACT_RESEARCH_GATE.md"
+      ],
+      "confidence": "INFERRED",
+      "relation": "redeem_liability_at_terminal_state",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories"
+    }
+  ],
+  "questions": [
+    {
+      "type": "bridge_node",
+      "question": "Why does `Versioned source-asset interface: PROPOSED` connect `Community 2` to `Community 0`?",
+      "why": "High betweenness centrality (0.057) - this node is a cross-community bridge."
+    },
+    {
+      "type": "verify_inferred",
+      "question": "Are the 2 inferred relationships involving `Core V2 Curve: reserves and primary pricing` (e.g. with `Core V2 Fee / Buyback Components` and `Core V2 Graduation Controller: target`) actually correct?",
+      "why": "`Core V2 Curve: reserves and primary pricing` has 2 INFERRED edges - model-reasoned connections that need verification."
+    },
+    {
+      "type": "verify_inferred",
+      "question": "Are the 2 inferred relationships involving `Core V2 Factory: launch/config authority` (e.g. with `Core V2 Curve: reserves and primary pricing` and `Core V2 Launch Token`) actually correct?",
+      "why": "`Core V2 Factory: launch/config authority` has 2 INFERRED edges - model-reasoned connections that need verification."
+    },
+    {
+      "type": "isolated_nodes",
+      "question": "What connects `Core V2 Launch Token`, `Core V2 Fee / Buyback Components`, `Kuru secondary venue: target, not backing` to the rest of the system?",
+      "why": "6 weakly-connected nodes found - possible documentation gaps or missing edges."
+    }
+  ]
+}

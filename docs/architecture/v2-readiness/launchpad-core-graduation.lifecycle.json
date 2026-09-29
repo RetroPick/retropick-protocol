@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "diagram_type": "lifecycle",
+  "meta": {
+    "title": "Launchpad Core V2 — Target Graduation Lifecycle",
+    "locale": "en",
+    "quality_profile": "showcase",
+    "viewBox": [1000, 730]
+  },
+  "lanes": [
+    { "id": "main", "label": "Economic phase" },
+    { "id": "recovery", "label": "External venue recovery" },
+    { "id": "terminal", "label": "Terminal record" }
+  ],
+  "states": [
+    { "id": "draft", "type": "start", "label": "DRAFT", "sublabel": "configuration pending", "lane": "main", "col": 0, "step": "01" },
+    { "id": "active", "type": "active", "label": "ACTIVE", "sublabel": "bonding trades", "lane": "main", "col": 1, "step": "02" },
+    { "id": "ready", "type": "decision", "label": "GRADUATION_READY", "sublabel": "threshold satisfied", "lane": "main", "col": 2, "step": "03" },
+    { "id": "graduating", "type": "waiting", "label": "GRADUATING", "sublabel": "assets secured", "lane": "main", "col": 3, "step": "04" },
+    { "id": "graduated", "type": "success", "label": "GRADUATED", "sublabel": "Kuru market verified", "lane": "main", "col": 4, "step": "05" },
+    { "id": "venue_failure", "type": "failure", "label": "Kuru step failed", "sublabel": "secured balances retained", "lane": "recovery", "col": 1, "tag": "retryable" },
+    { "id": "archived", "type": "neutral", "label": "ARCHIVED", "sublabel": "historical record", "lane": "terminal", "col": 2, "tag": "target" }
+  ],
+  "transitions": [
+    { "from": "draft", "to": "active", "label": "activate", "labelAt": [171, 122] },
+    { "from": "active", "to": "ready", "label": "reach threshold", "labelAt": [325, 122] },
+    { "from": "ready", "to": "graduating", "label": "freeze and secure", "labelAt": [479, 122] },
+    { "from": "graduating", "to": "graduated", "label": "verified destination", "labelAt": [633, 122] },
+    { "from": "graduating", "to": "venue_failure", "label": "external revert", "variant": "dashed", "labelAt": [549, 210] },
+    { "from": "venue_failure", "to": "graduating", "label": "retry destination", "variant": "emphasis", "route": "right-channel", "channelX": 633, "labelAt": [650, 250] },
+    { "from": "graduated", "to": "archived", "label": "archive record", "labelAt": [710, 210] }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "Primary trading", "items": ["Only ACTIVE serves ordinary bonding trades", "Readiness is a deterministic threshold condition"] },
+    { "dot": "amber", "title": "Secured transition", "items": ["Graduating keeps token and quote assets accounted", "External failure returns to a retryable state"] },
+    { "dot": "emerald", "title": "Completion rule", "items": ["GRADUATED requires a verified Kuru market identity", "The terminal curve cannot reopen implicitly"] }
+  ]
+}

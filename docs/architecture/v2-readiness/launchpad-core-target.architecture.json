@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Launchpad Core V2 — Target Kuru Architecture",
+    "locale": "en",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/RetroPick/retropick-protocol",
+      "provider": "github",
+      "link_mode": "web",
+      "revision": "797becbed94005aaa16a7279020688aafa631744"
+    },
+    "viewBox": [1380, 820]
+  },
+  "components": [
+    { "id": "wallet", "type": "external", "label": "User wallet", "sublabel": "creation and trades", "pos": [35, 330], "size": [150, 76] },
+    { "id": "factory", "type": "backend", "label": "Launch Factory V2", "sublabel": "configuration and records", "tag": "CURRENT", "pos": [245, 160], "size": [190, 76], "sources": [{ "path": "contracts/src/v2/RetroPickLaunchFactoryV2.sol" }] },
+    { "id": "deployer", "type": "backend", "label": "Launch Deployer V2", "sublabel": "creates curve and token", "tag": "CURRENT", "pos": [490, 160], "size": [185, 76], "sources": [{ "path": "contracts/src/v2/RetroPickLaunchDeployerV2.sol" }] },
+    { "id": "token", "type": "backend", "label": "Launcher Token V2", "sublabel": "fixed supply ERC-20", "tag": "CURRENT", "pos": [720, 160], "size": [180, 76], "sources": [{ "path": "contracts/src/v2/RetroPickLauncherTokenV2.sol" }] },
+    { "id": "curve", "type": "backend", "label": "Bonding Curve V2", "sublabel": "primary reserve authority", "tag": "CURRENT", "pos": [245, 330], "size": [190, 76], "sources": [{ "path": "contracts/src/v2/RetroPickBondingCurveV2.sol" }] },
+    { "id": "fees", "type": "database", "label": "Fee and buyback", "sublabel": "separate from reserves", "tag": "CURRENT / ABI GAP", "pos": [490, 505], "size": [190, 76], "sources": [{ "path": "contracts/src/v2/RetroPickBuybackVaultV2.sol" }, { "path": "contracts/src/v2/interfaces/IRetroPickLaunchpadV2.sol" }] },
+    { "id": "graduation", "type": "security", "label": "Graduation control", "sublabel": "freeze then retry", "tag": "TARGET", "pos": [485, 330], "size": [190, 76], "sources": [{ "path": "development/launchpad/contracts/GRADUATION_TO_KURU.md" }] },
+    { "id": "secured", "type": "database", "label": "Secured assets", "sublabel": "token and quote custody", "tag": "TARGET", "pos": [720, 330], "size": [180, 76], "sources": [{ "path": "development/launchpad/contracts/TARGET_V2_ARCHITECTURE.md" }] },
+    { "id": "executor", "type": "backend", "label": "Kuru executor", "sublabel": "market setup and verification", "tag": "TARGET", "pos": [945, 330], "size": [195, 76], "sources": [{ "path": "development/launchpad/contracts/GRADUATION_TO_KURU.md" }] },
+    { "id": "kuru", "type": "external", "label": "Kuru Router + market", "sublabel": "secondary venue", "tag": "EXTERNAL / TARGET", "pos": [1175, 330], "size": [180, 76], "sources": [{ "path": "docs/launchpad/KURU.md" }] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "RetroPick Launchpad Core", "wraps": ["factory", "deployer", "token", "curve", "fees", "graduation", "secured", "executor"], "pad": 18 }
+  ],
+  "connections": [
+    { "from": "wallet", "to": "factory", "label": "launch request" },
+    { "from": "factory", "to": "deployer", "label": "create launch", "labelAt": [463, 156] },
+    { "from": "deployer", "to": "token", "label": "deploy supply", "labelAt": [698, 156] },
+    { "from": "deployer", "to": "curve", "label": "deploy curve" },
+    { "from": "wallet", "to": "curve", "label": "buy / sell", "labelDy": 42 },
+    { "from": "curve", "to": "fees", "label": "fee allocation" },
+    { "from": "curve", "to": "graduation", "label": "threshold reached", "variant": "dashed", "labelAt": [550, 420] },
+    { "from": "graduation", "to": "secured", "label": "freeze and secure", "variant": "dashed", "labelDy": 62 },
+    { "from": "secured", "to": "executor", "label": "retryable destination", "variant": "dashed", "labelDy": 62 },
+    { "from": "executor", "to": "kuru", "label": "deploy / seed / verify", "variant": "dashed", "labelDy": 62 }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "Current core", "items": ["Factory, token, curve, and fee custody exist in V2 source", "Current graduation still uses Uniswap V4"] },
+    { "dot": "amber", "title": "Target graduation", "items": ["Secure assets before an external Kuru action", "Retry destination failure without reopening the primary curve"] },
+    { "dot": "rose", "title": "Release gate", "items": ["Core contract tests and Kuru policy remain open", "A verified market is required before GRADUATED"] }
+  ]
+}

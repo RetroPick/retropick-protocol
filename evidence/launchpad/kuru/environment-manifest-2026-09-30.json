@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "classification": "READ_ONLY_LIVE_ENVIRONMENT_SNAPSHOT_NOT_ADR_ACCEPTANCE",
+  "recorded_at_utc": "2026-09-29T18:02:11Z",
+  "repository_baseline_sha": "50a57134880acf6b282d4862dd7eebe376ac79d8",
+  "source": {
+    "contracts_repository": "https://github.com/Kuru-Labs/Kuru-contracts-dex-public",
+    "contracts_main_sha": "2060bb2736080c175d80d568bfdb6226bb5abd04",
+    "sdk_repository": "https://github.com/Kuru-Labs/kuru-sdk",
+    "sdk_main_sha": "636509c2eafd63479d3f399703354e0d09f51e18",
+    "sdk_package_version": "0.0.97",
+    "official_addresses": "https://docs.kuru.io/contracts/Contract-addresses",
+    "circle_usdc_addresses": "https://developers.circle.com/stablecoins/usdc-contract-addresses",
+    "monad_network_documentation": "https://docs.monad.xyz/developer-essentials/testnet"
+  },
+  "network": {
+    "name": "Monad Testnet",
+    "chain_id": 10143,
+    "rpc_url_public": "https://testnet-rpc.monad.xyz",
+    "snapshot_block": 66752717,
+    "snapshot_block_timestamp_utc": "2026-09-29T18:00:05Z"
+  },
+  "contracts": {
+    "router": {
+      "address": "0x7EFbE105Ca7415dE98F96622173458ac1c054630",
+      "runtime_code_bytes": 141,
+      "runtime_keccak256": "0xae572ec3ca9b5f49c0364ca34edc5880b6b2837e47802e64e6b681bf2e74aa5c",
+      "eip1967_implementation": "0xaaa0f0c4d49d09ef33ae758d88afab810ecbe1ed",
+      "implementation_runtime_code_bytes": 10389,
+      "implementation_runtime_keccak256": "0xadf3e1f5d9bc07f55d68556f5cca8b9c68381716f932f9b49169e152690583b9",
+      "margin_account_getter": "0xd029C2D98ff85D8F64799017fE00a59B1159CE02",
+      "order_book_implementation_getter": "0x72caE0a99C19B574e8a6De558F43fc1D019c9374",
+      "amm_vault_implementation_getter": "0x4d54e0d60CaB0cec0100cdA8e00897bC933C5Bb6"
+    },
+    "margin_account": {
+      "address": "0xd029C2D98ff85D8F64799017fE00a59B1159CE02",
+      "runtime_code_bytes": 141,
+      "runtime_keccak256": "0xae572ec3ca9b5f49c0364ca34edc5880b6b2837e47802e64e6b681bf2e74aa5c"
+    },
+    "order_book_implementation": {
+      "address": "0x72caE0a99C19B574e8a6De558F43fc1D019c9374",
+      "runtime_code_bytes": 35548,
+      "runtime_keccak256": "0x24c5974f233021f00d607bfa191d430f79565663fb90805ebcfca52de7333500"
+    },
+    "amm_vault_implementation": {
+      "address": "0x4d54e0d60CaB0cec0100cdA8e00897bC933C5Bb6",
+      "runtime_code_bytes": 11672,
+      "runtime_keccak256": "0xde0b16a79cf8f711403e89093c1e82ce0e7813949dd0f5041b41da324fdd3dc3"
+    },
+    "kuru_listed_testnet_usdc": {
+      "address": "0x3bA3d39AFcf8bb994f7964B3e0171Ea2Ba361570",
+      "name": "USD Coin",
+      "symbol": "USDC",
+      "decimals": 6,
+      "runtime_code_bytes": 1737,
+      "runtime_keccak256": "0xefd6505dcba0cb3b3375320d8f1a4120291dd9f05fbbdc97a9b6fb1d0e3d719e"
+    },
+    "circle_listed_testnet_usdc": {
+      "address": "0x534b2f3A21130d7a60830c2Df862319e593943A3",
+      "name": "USDC",
+      "symbol": "USDC",
+      "decimals": 6,
+      "runtime_code_bytes": 1798,
+      "runtime_keccak256": "0x96215e6049ed615cdc22fea7701e85458a8e51a2df3e7d45e8f9fa1d521b5a78",
+      "owner": "0x7A154EA9156D354504ad9A401380AA548039BE8b",
+      "pauser": "0x7A154EA9156D354504ad9A401380AA548039BE8b",
+      "blacklister": "0xA5a9723c4D658a6F92701ce3A5246Fa7d4723c26",
+      "master_minter": "0x87f2e95621D8f12b83bb4a3E9975c0eAd524D437",
+      "paused_at_snapshot": false
+    }
+  },
+  "router_interface": {
+    "deploy_proxy": "deployProxy(uint8,address,address,uint96,uint32,uint32,uint96,uint96,uint256,uint256,uint96)",
+    "deploy_proxy_selector": "0xce186ec3",
+    "compute_address_selector": "0x1444ccb6",
+    "compute_vault_address_selector": "0x7b4372fd",
+    "verified_market_selector": "0x5f71a07c"
+  },
+  "gate": {
+    "KURU-B1-ENVIRONMENT": "PASS",
+    "KURU-B2-QUOTE": "DECISION_REQUIRED",
+    "KURU_TARGET_FROZEN": "BLOCKED"
+  },
+  "quote_asset_identity_conflict": {
+    "classification": "RECORDED_CONTRADICTION",
+    "kuru_listed_usdc": "0x3bA3d39AFcf8bb994f7964B3e0171Ea2Ba361570",
+    "circle_listed_usdc": "0x534b2f3A21130d7a60830c2Df862319e593943A3",
+    "same_contract": false,
+    "resolution": "Select and qualify one exact address under ADR-011; do not equate the two symbols."
+  },
+  "limitations": [
+    "The manifest is a block-pinned snapshot, not an immutable or accepted deployment policy.",
+    "Router, OrderBook, vault and MarginAccount proxies or implementations may change after the snapshot block.",
+    "No market was deployed, token transferred or live transaction sent while collecting this evidence.",
+    "Kuru's listed testnet USDC is a different contract from Circle's listed Monad Testnet USDC; neither is qualified for RetroPick by this snapshot.",
+    "The RPC lacks eth_getProof; code hashes were computed from eth_getCode bytes with cast keccak."
+  ]
+}

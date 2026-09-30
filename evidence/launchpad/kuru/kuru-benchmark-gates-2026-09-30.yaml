@@ -34,7 +34,9 @@ rows:
       - evidence/launchpad/kuru/completion-liveness-research-2026-09-30.md
       - evidence/launchpad/kuru/terminal-q-bounded-envelope-2026-09-30.json
       - evidence/launchpad/kuru/terminal-q-bounded-envelope-2026-09-30.md
-    blocker: Candidate tuple passes six pinned-fork profile/quote combinations. A two-raw-unit cycle repeatedly pumps terminal Q, so neither threshold nor one-shot Q is a prelaunch upper bound. Exact generic completion-ceiling research and 155 tiny bounded all-Q reduced-model cells exist, but no accepted ceiling/guard, complete supported Q interval or ADR-021 acceptance exists.
+      - evidence/launchpad/kuru/terminal-q-wide-bound-2026-09-30.json
+      - evidence/launchpad/kuru/terminal-q-wide-bound-2026-09-30.md
+    blocker: Candidate tuple passes six pinned-fork profile/quote combinations. A two-raw-unit cycle repeatedly pumps terminal Q, so neither threshold nor one-shot Q is a prelaunch upper bound. A sufficient reduced-model proof covers ten isolated profiles through an illustrative 100x-threshold stress endpoint, but no accepted ceiling/guard, continuous supported LaunchConfig domain, full real-fork boundary qualification or ADR-021 acceptance exists.
   KURU-B4-SEED:
     status: DECISION_REQUIRED
     evidence:
@@ -46,7 +48,9 @@ rows:
       - evidence/launchpad/kuru/completion-liveness-witness-2026-09-30.json
       - evidence/launchpad/kuru/terminal-q-bounded-envelope-2026-09-30.json
       - evidence/launchpad/kuru/terminal-q-bounded-envelope-2026-09-30.md
-    blocker: Proposed five-bps combined seed/tick cap passes six pinned-fork candidate profiles and 128 tiny raw-Q cells in a reduced model; the one-token Factory minimum fails 27 other cells. The accepted ceiling interval and all-Q Kuru constraints have not been proven/fork-checked; economic cap remains unaccepted.
+      - evidence/launchpad/kuru/terminal-q-wide-bound-2026-09-30.json
+      - evidence/launchpad/kuru/terminal-q-wide-bound-2026-09-30.md
+    blocker: Proposed five-bps combined seed/tick cap passes six pinned-fork candidate profiles, 128 tiny raw-Q cells and a sufficient reduced-model bound for ten isolated wide-Q profile intervals; the one-token Factory minimum fails 27 bounded cells. The accepted full launch/terminal-Q envelope and real-fork boundaries remain unqualified; economic cap remains unaccepted.
   KURU-B5-FORK-DEPLOY:
     status: PASS
     evidence:

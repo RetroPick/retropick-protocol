@@ -14,7 +14,7 @@ from benchmark_launch_profiles import (
 )
 from completion_terminal_quote import terminal_quote_lower_bound
 from launchpad_seed_model import (
-    UINT96_MAX, UINT256_MAX, quote_first_seed, quote_opening_ticks,
+    MIN_LIQUIDITY, UINT96_MAX, UINT256_MAX, quote_first_seed, quote_opening_ticks,
     valid_router_parameters,
 )
 
@@ -69,7 +69,13 @@ def check_terminal_q(
         ),
         "positive_lp_shares": seed.lp_shares_to_receiver > 0,
         "combined_candidate_error_within_cap": combined_bps <= candidate_error_cap_bps,
-        "bid_intermediate_uint256": seed.kuru_first_ask_price_scaled * 10_000 <= UINT256_MAX,
+        "bid_intermediate_uint256": (
+            seed.kuru_first_ask_price_scaled * 10_000
+            + (10_000 + AMM_SPREAD_BPS) // 2 <= UINT256_MAX
+        ),
+        "tick_conversion_intermediate_uint256": (
+            seed.kuru_first_ask_price_scaled * PRICE_PRECISION <= UINT256_MAX
+        ),
         "terminal_quote_product_uint256": (
             (phantom_quote + secured_quote) * 10**BASE_DECIMALS * 10**18
             <= UINT256_MAX
@@ -172,4 +178,113 @@ def check_terminal_q_interval(
         "monotone_fields_observed": monotone,
         "worst_combined_error_bps_numerator": worst_error.numerator,
         "worst_combined_error_bps_denominator": worst_error.denominator,
+    }
+
+
+def prove_interval_sufficient(
+    *, terminal_tokens: int, phantom_quote: int, lower_q: int, upper_q: int,
+    quote_decimals: int, candidate_error_cap_bps: int = 5,
+) -> dict:
+    """Conservative O(1) sufficient conditions for every raw Q in an interval.
+
+    A True result proves the named reduced-model checks throughout the interval
+    under the pinned formulas; False only means this sufficient bound failed.
+    It is not a real-Router fork qualification or an accepted P0 policy.
+    """
+    if min(terminal_tokens, phantom_quote, lower_q) <= 0 or upper_q < lower_q:
+        raise ValueError("positive terminal inputs and ordered Q interval required")
+    if max(terminal_tokens, phantom_quote, upper_q) > UINT256_MAX:
+        raise ValueError("terminal interval input exceeds uint256")
+    if not 0 <= quote_decimals <= 18:
+        raise ValueError("quote decimals outside 0..18")
+
+    base_scale = 10**BASE_DECIMALS
+    quote_scale = 10**quote_decimals
+    price_scale = 10**18
+    b_lo = terminal_tokens * lower_q // (phantom_quote + lower_q)
+    b_hi = terminal_tokens * upper_q // (phantom_quote + upper_q)
+    ask_size_lo = AMM_SPREAD_BPS * b_lo * SIZE_PRECISION // (
+        (20_000 + AMM_SPREAD_BPS) * base_scale
+    )
+    ask_size_hi = AMM_SPREAD_BPS * b_hi * SIZE_PRECISION // (
+        (20_000 + AMM_SPREAD_BPS) * base_scale
+    )
+    bid_size_lo = AMM_SPREAD_BPS * b_lo * SIZE_PRECISION // (20_000 * base_scale)
+    bid_size_hi = AMM_SPREAD_BPS * b_hi * SIZE_PRECISION // (20_000 * base_scale)
+
+    # B(Q) <= T*Q/(P+Q) implies Q/B(Q) >= (P+Q)/T.
+    # B(Q) >= B(lower) and Q <= upper give a conservative upper bound.
+    ask_lo = (phantom_quote + lower_q) * base_scale * price_scale // (
+        terminal_tokens * quote_scale
+    )
+    ask_hi = (
+        upper_q * base_scale * price_scale // (b_lo * quote_scale)
+        if b_lo else 0
+    )
+    bid_lo = (ask_lo * 10_000 + (10_000 + AMM_SPREAD_BPS) // 2) // (
+        10_000 + AMM_SPREAD_BPS
+    )
+    ask_units_hi = ask_hi * PRICE_PRECISION // price_scale
+    bid_units_lo = bid_lo * PRICE_PRECISION // price_scale
+    unit_gap_lo = (
+        (ask_lo - bid_lo) * PRICE_PRECISION // price_scale
+        if ask_lo >= bid_lo else 0
+    )
+    # The first-deposit LP shares are sqrt(B*Q)-MIN_LIQUIDITY.
+    lp_product_lo = b_lo * lower_q
+    seed_error = Fraction(1, b_lo) if b_lo else Fraction(1)
+    # Rounding a price down to a tick loses strictly less than one tick.
+    tick_error = (
+        Fraction(TICK_SIZE * price_scale, bid_lo * PRICE_PRECISION)
+        if bid_lo else Fraction(1)
+    )
+    combined_bps_bound = 10_000 * (
+        seed_error + tick_error + seed_error * tick_error
+    )
+
+    checks = {
+        "router_tuple": valid_router_parameters(
+            size_precision=SIZE_PRECISION, price_precision=PRICE_PRECISION,
+            tick_size=TICK_SIZE, min_size=MIN_SIZE, max_size=MAX_SIZE,
+            maker_fee_bps=MAKER_FEE_BPS, taker_fee_bps=TAKER_FEE_BPS,
+            amm_spread=AMM_SPREAD_BPS,
+        ),
+        "virtual_quote_sum_uint256": phantom_quote + upper_q <= UINT256_MAX,
+        "base_seed_positive_with_excess": 0 < b_lo and b_hi < terminal_tokens,
+        "base_quote_product_uint256": b_hi * upper_q <= UINT256_MAX,
+        "first_ask_numerator_uint256": upper_q * base_scale * price_scale <= UINT256_MAX,
+        "vault_size_numerator_uint256": AMM_SPREAD_BPS * b_hi * SIZE_PRECISION <= UINT256_MAX,
+        "bid_intermediate_uint256": (
+            ask_hi * 10_000 + (10_000 + AMM_SPREAD_BPS) // 2 <= UINT256_MAX
+        ),
+        "tick_conversion_intermediate_uint256": (
+            ask_hi * PRICE_PRECISION <= UINT256_MAX
+        ),
+        "vault_order_sizes_within_candidate_min_max": (
+            MIN_SIZE <= ask_size_lo <= ask_size_hi <= MAX_SIZE
+            and MIN_SIZE <= bid_size_lo <= bid_size_hi <= MAX_SIZE
+            and ask_size_hi <= UINT96_MAX and bid_size_hi <= UINT96_MAX
+        ),
+        "positive_lp_shares": lp_product_lo >= (MIN_LIQUIDITY + 1) ** 2,
+        "first_ask_bid_ticks_representable": (
+            bid_units_lo >= TICK_SIZE and unit_gap_lo >= TICK_SIZE
+            and ask_units_hi <= 2**32 - 1
+        ),
+        "uniform_combined_error_within_candidate_cap": (
+            combined_bps_bound <= candidate_error_cap_bps
+        ),
+    }
+    return {
+        "all_q_proven_in_reduced_model": all(checks.values()),
+        "classification": "SUFFICIENT_REDUCED_MODEL_BOUND_NOT_FORK_OR_POLICY",
+        "lower_q_raw": lower_q,
+        "upper_q_raw": upper_q,
+        "base_seed_lower_raw": b_lo,
+        "base_seed_upper_raw": b_hi,
+        "ask_price_lower_1e18": ask_lo,
+        "ask_price_upper_1e18": ask_hi,
+        "min_bid_price_1e18": bid_lo,
+        "combined_error_bound_bps_numerator": combined_bps_bound.numerator,
+        "combined_error_bound_bps_denominator": combined_bps_bound.denominator,
+        "checks": checks,
     }

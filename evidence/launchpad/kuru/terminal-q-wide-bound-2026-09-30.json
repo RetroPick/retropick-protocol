@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "classification": "SUFFICIENT_REDUCED_MODEL_STRESS_BOUND_NOT_ACCEPTED_POLICY",
+  "generator": "python3 research/integration/kuru/wide_q_envelope.py",
+  "stress_upper_input": "100 times configured graduation threshold, not an economic recommendation",
+  "candidate_tuple_and_cap": "benchmark_launch_profiles.py fixed tuple and five-bps combined error",
+  "quote_identity": {
+    "MON": "native chain-10143 quote",
+    "CIRCLE_TEST_USDC": "0x534b2f3A21130d7a60830c2Df862319e593943A3"
+  },
+  "rows": [
+    {"quote": "MON", "profile": "FACTORY_MINIMUM_NEGATIVE", "sufficient_bound": false, "failed_checks": ["vault_order_sizes_within_candidate_min_max", "first_ask_bid_ticks_representable"]},
+    {"quote": "MON", "profile": "MINIMUM_VALID_LAUNCH", "sufficient_bound": true},
+    {"quote": "MON", "profile": "SMALL", "sufficient_bound": true},
+    {"quote": "MON", "profile": "MEDIUM", "sufficient_bound": true},
+    {"quote": "MON", "profile": "LARGE", "sufficient_bound": true},
+    {"quote": "MON", "profile": "MAXIMUM_SUPPORTED_CANDIDATE", "sufficient_bound": true},
+    {"quote": "CIRCLE_TEST_USDC", "profile": "FACTORY_MINIMUM_NEGATIVE", "sufficient_bound": false, "failed_checks": ["vault_order_sizes_within_candidate_min_max", "first_ask_bid_ticks_representable"]},
+    {"quote": "CIRCLE_TEST_USDC", "profile": "MINIMUM_VALID_LAUNCH", "sufficient_bound": true},
+    {"quote": "CIRCLE_TEST_USDC", "profile": "SMALL", "sufficient_bound": true},
+    {"quote": "CIRCLE_TEST_USDC", "profile": "MEDIUM", "sufficient_bound": true},
+    {"quote": "CIRCLE_TEST_USDC", "profile": "LARGE", "sufficient_bound": true},
+    {"quote": "CIRCLE_TEST_USDC", "profile": "MAXIMUM_SUPPORTED_CANDIDATE", "sufficient_bound": true}
+  ],
+  "limitations": [
+    "Sufficient bound applies only to the pinned reduced first-deposit arithmetic, not real Router execution.",
+    "Profiles are isolated points in LaunchConfig space, not a continuous admitted launch envelope.",
+    "100-times-threshold is a stress interval and no owner-selected completion ceiling.",
+    "Does not establish Core transition guard, buyer funding, external quote liveness or gas feasibility.",
+    "No production contract or ADR status changed."
+  ]
+}

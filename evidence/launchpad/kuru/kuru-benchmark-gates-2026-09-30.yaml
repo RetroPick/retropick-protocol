@@ -20,7 +20,7 @@ rows:
       - evidence/launchpad/kuru/environment-manifest-2026-09-30.json
       - evidence/launchpad/kuru/environment-verification-2026-09-30.md
       - development/launchpad/contracts/QUOTE_ASSETS.md
-    blocker: Kuru-listed and Circle-listed testnet USDC differ; select exact address under ADR-011, then qualify exact-transfer, allowance, issuer and Kuru paths.
+    blocker: Protocol owner selected chain-10143 Circle USDC 0x534b2f3A21130d7a60830c2Df862319e593943A3; Kuru-listed 0x3bA3d39AFcf8bb994f7964B3e0171Ea2Ba361570 is a separate compatibility fixture. ADR-011 remains PROPOSED and real Circle exact-transfer, allowance, issuer-risk and Kuru deposit paths remain unqualified.
   KURU-B3-PARAMETERS:
     status: DECISION_REQUIRED
     evidence:

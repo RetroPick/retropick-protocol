@@ -349,7 +349,7 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
         if (address(permit2_) == address(0) || address(locker_) == address(0)) revert ZeroAddress();
         if (address(memeHook_) == address(0) || address(feeEscrow_) == address(0)) revert ZeroAddress();
         if (address(buybackVault_) == address(0) || address(quoteAssetPolicy_) == address(0)) revert ZeroAddress();
-        if (address(quoteAssetPolicy_).code.length == 0 || !quoteAssetPolicy_.isSupportedQuote(address(0))) {
+        if (!quoteAssetPolicy_.isSupportedQuote(address(0))) {
             revert PairTokenValidationFailed();
         }
         // The factory initializes pools on `poolManager_` but mints their
@@ -745,7 +745,6 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
         if (launchConfigId >= _launchConfigs.length) revert InvalidLaunchConfigId();
         if (bytes(params.name).length == 0 || bytes(params.symbol).length == 0) revert InvalidTokenParams();
         if (params.creatorTaxBps > maxCreatorTaxBps) revert CreatorTaxTooHigh();
-        if (!quoteAssetPolicy.isSupportedQuote(pairToken)) revert PairTokenNotApproved();
         if (pairToken != address(0) && !approvedPairTokens[pairToken]) revert PairTokenNotApproved();
 
         LaunchConfig memory config = _launchConfigs[launchConfigId];
@@ -1446,11 +1445,14 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
      * minted with a smaller balance than its accounting expects.
      */
     function _transferExact(address token, address recipient, uint256 amount) private {
+        uint256 senderBefore = IERC20(token).balanceOf(address(this));
         uint256 balanceBefore = IERC20(token).balanceOf(recipient);
         IERC20(token).safeTransfer(recipient, amount);
         uint256 balanceAfter = IERC20(token).balanceOf(recipient);
         uint256 received = balanceAfter > balanceBefore ? balanceAfter - balanceBefore : 0;
         if (received != amount) revert InexactTransfer(token, amount, received);
+        uint256 spent = senderBefore - IERC20(token).balanceOf(address(this));
+        if (spent != amount) revert InexactTransfer(token, amount, spent);
     }
 
     function _payLaunchFee() private {

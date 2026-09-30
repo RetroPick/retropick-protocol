@@ -42,6 +42,6 @@ A separate [bounded stateful model campaign](curve-liveness-campaign-2026-09-30.
 
 ## Reproduction and remaining falsifiers
 
-`python3 -m unittest discover -s research/integration/kuru -p 'test_*.py' -v` passes **29/29** including fixture regeneration, minimal pump, ceiling rejection, lower-bound grid, stateful campaign and `uint256` negative. With the existing `contracts/.env.local` loaded, `forge test --match-path test/v2/integration/RetroPickV4GraduationBehavior.t.sol --summary` passes **12/12**, no skips. Forge 1.8.3, solc 0.8.26, optimizer 200, viaIR as locally configured.
+`python3 -m unittest discover -s research/integration/kuru -p 'test_*.py' -v` passes **33/33** including fixture regeneration, minimal pump, ceiling rejection, lower-bound grid, stateful campaign, bounded all-Q candidate cells and `uint256` negative. With the existing `contracts/.env.local` loaded, `forge test --match-path test/v2/integration/RetroPickV4GraduationBehavior.t.sol --summary` passes **12/12**, no skips. Forge 1.8.3, solc 0.8.26, optimizer 200, viaIR as locally configured.
 
 Still required before B3/B4 or Core liveness can pass: a *committed-onchain* generic guard design, full transition inventory (including unusual fee rescue), randomized/stateful accepted-transition campaign, buyer/approval/gas feasibility, accepted ceiling policy, and Kuru endpoint/precision/size proof for every `Q` in the chosen interval. External Circle issuer freeze/blacklist remains a liveness risk outside this arithmetic theorem. `KURU_TARGET_DEV_FROZEN` remains blocked.

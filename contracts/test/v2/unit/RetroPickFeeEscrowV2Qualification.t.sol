@@ -22,6 +22,51 @@ contract EscrowReducibleQuote is MockERC20 {
     }
 }
 
+contract EscrowToggleFailureQuote is MockERC20 {
+    bool public failTransfer;
+    bool public surchargeTransfer;
+
+    constructor() MockERC20("Toggle Failure", "TFAIL", 6) {}
+
+    function setFailure(bool fail_, bool surcharge_) external {
+        failTransfer = fail_;
+        surchargeTransfer = surcharge_;
+    }
+
+    function transfer(address to, uint256 value) public override returns (bool) {
+        if (failTransfer) return false;
+        return super.transfer(to, value);
+    }
+
+    function _update(address from, address to, uint256 value) internal override {
+        super._update(from, to, value);
+        if (surchargeTransfer && from != address(0) && to != address(0)) {
+            super._update(from, address(0), value / 10);
+        }
+    }
+}
+
+contract EscrowReentrantRecipient {
+    RetroPickFeeEscrowV2 public immutable escrow;
+    bool public attempted;
+    bool public reentered;
+
+    constructor(RetroPickFeeEscrowV2 escrow_) {
+        escrow = escrow_;
+    }
+
+    receive() external payable {
+        attempted = true;
+        try escrow.claim(1) {
+            reentered = true;
+        } catch {}
+    }
+
+    function claim() external {
+        escrow.claim();
+    }
+}
+
 contract RetroPickFeeEscrowV2QualificationTest is Test {
     RetroPickFeeEscrowV2 internal escrow;
     MockERC20 internal quote;
@@ -125,5 +170,71 @@ contract RetroPickFeeEscrowV2QualificationTest is Test {
         escrow.creditToken(alice, address(quote), 0);
         assertEq(escrow.totalNativeLiability(), 0);
         assertEq(escrow.totalTokenLiability(address(quote)), 0);
+    }
+
+    function testRepeatedCreditsPartialClaimsAndDoubleClaimRejection() public {
+        vm.startPrank(payer);
+        escrow.credit{value: 1 ether}(alice);
+        escrow.credit{value: 2 ether}(alice);
+        quote.approve(address(escrow), 30e6);
+        escrow.creditToken(alice, address(quote), 10e6);
+        escrow.creditToken(alice, address(quote), 20e6);
+        vm.stopPrank();
+
+        vm.startPrank(alice);
+        assertEq(escrow.claim(1 ether), 1 ether);
+        assertEq(escrow.claimToken(address(quote), 10e6), 10e6);
+        assertEq(escrow.claim(), 2 ether);
+        assertEq(escrow.claimToken(address(quote)), 20e6);
+        vm.expectRevert(RetroPickFeeEscrowV2.ZeroAmount.selector);
+        escrow.claim();
+        vm.expectRevert(RetroPickFeeEscrowV2.ZeroAmount.selector);
+        escrow.claimToken(address(quote));
+        vm.stopPrank();
+        assertEq(escrow.totalNativeLiability(), 0);
+        assertEq(escrow.totalTokenLiability(address(quote)), 0);
+        assertEq(address(escrow).balance, 0);
+        assertEq(quote.balanceOf(address(escrow)), 0);
+    }
+
+    function testRejectedTokenPayoutAndLateSenderSurchargePreserveCredit() public {
+        EscrowToggleFailureQuote token = new EscrowToggleFailureQuote();
+        token.mint(payer, 100e6);
+        vm.startPrank(payer);
+        token.approve(address(escrow), 100e6);
+        escrow.creditToken(alice, address(token), 100e6);
+        vm.stopPrank();
+
+        token.setFailure(true, false);
+        vm.prank(alice);
+        vm.expectRevert();
+        escrow.claimToken(address(token), 10e6);
+        assertEq(escrow.balanceOfToken(alice, address(token)), 100e6);
+        assertEq(escrow.totalTokenLiability(address(token)), 100e6);
+        assertEq(token.balanceOf(address(escrow)), 100e6);
+
+        token.setFailure(false, true);
+        token.mint(address(escrow), 20e6); // Surplus makes the sender loss executable.
+        vm.prank(alice);
+        vm.expectRevert(
+            abi.encodeWithSelector(RetroPickFeeEscrowV2.InexactTokenTransfer.selector, address(token), 10e6, 11e6)
+        );
+        escrow.claimToken(address(token), 10e6);
+        assertEq(escrow.balanceOfToken(alice, address(token)), 100e6);
+        assertEq(escrow.totalTokenLiability(address(token)), 100e6);
+        assertEq(token.balanceOf(address(escrow)), 120e6);
+        assertEq(token.balanceOf(alice), 0);
+    }
+
+    function testNativeReceiverReentryCannotDoubleClaim() public {
+        EscrowReentrantRecipient recipient = new EscrowReentrantRecipient(escrow);
+        vm.prank(payer);
+        escrow.credit{value: 1 ether}(address(recipient));
+        recipient.claim();
+        assertTrue(recipient.attempted());
+        assertFalse(recipient.reentered());
+        assertEq(address(recipient).balance, 1 ether);
+        assertEq(escrow.totalNativeLiability(), 0);
+        assertEq(escrow.balanceOf(address(recipient)), 0);
     }
 }

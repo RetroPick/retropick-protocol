@@ -15,6 +15,7 @@ import {RetroPickLaunchDeployerV2} from "../../../src/v2/RetroPickLaunchDeployer
 import {RetroPickGraduationExecutorV2} from "../../../src/v2/RetroPickGraduationExecutorV2.sol";
 import {RetroPickLaunchLockerV2} from "../../../src/v2/RetroPickLaunchLockerV2.sol";
 import {RetroPickBondingCurveV2} from "../../../src/v2/RetroPickBondingCurveV2.sol";
+import {RetroPickBondingCurveMathV2} from "../../../src/v2/libraries/RetroPickBondingCurveMathV2.sol";
 import {RetroPickLauncherTokenV2} from "../../../src/v2/RetroPickLauncherTokenV2.sol";
 import {RetroPickBuybackVaultV2} from "../../../src/v2/RetroPickBuybackVaultV2.sol";
 import {RetroPickFeeEscrowV2} from "../../../src/v2/RetroPickFeeEscrowV2.sol";
@@ -220,7 +221,26 @@ contract RetroPickV4GraduationBehaviorTest is Test {
     }
 
     function testNativeRoundTripHistoryChangesTerminalQuote() public {
-        _exerciseRoundingCycles(address(0));
+        _exerciseRoundingCycles(address(0), 10, 10);
+    }
+
+    function testNativeMinimumRawRoundTripPumpsReserveRepeatedly() public {
+        _exerciseRoundingCycles(address(0), 2, 16);
+    }
+
+    function testOneRawQuoteCannotCompleteInitialRoundTrip() public {
+        vm.prank(creator);
+        (address tokenAddress, address curveAddress) = factory.launchToken(_params(), 0, address(0));
+        RetroPickBondingCurveV2 curve = RetroPickBondingCurveV2(payable(curveAddress));
+        vm.prank(creator);
+        uint256 bought = curve.buy{value: 1}(1, 0, creator);
+        vm.prank(creator);
+        IERC20(tokenAddress).approve(curveAddress, bought);
+        vm.expectRevert();
+        vm.prank(creator);
+        curve.sell(bought, 0, creator); // gross output floors to zero
+        assertEq(curve.realQuoteReserve(), 1);
+        assertEq(curve.trackedTokens(), 1_000_000 ether - bought);
     }
 
     function testCircleRoundTripHistoryChangesTerminalQuote() public {
@@ -236,12 +256,213 @@ contract RetroPickV4GraduationBehaviorTest is Test {
         factory.setPairTokenEconomics(circle, 100e6, 100e6, 6);
         factory.setPairTokenApproved(circle, true);
         deal(circle, creator, 151e6);
-        _exerciseRoundingCycles(circle);
+        _exerciseRoundingCycles(circle, 10, 10);
+    }
+
+    function testCircleMinimumRawRoundTripPumpsReserveRepeatedly() public {
+        string memory rpc = vm.envOr("MONAD_TESTNET_RPC_URL", string(""));
+        if (bytes(rpc).length == 0) {
+            vm.skip(true, "Circle test requires pinned Monad Testnet fork");
+            return;
+        }
+        vm.createSelectFork(rpc, 66752717);
+        assertEq(block.chainid, 10143);
+        _configure();
+        address circle = RetroPickQuoteAssetPolicyV2(address(factory.quoteAssetPolicy())).CIRCLE_TEST_USDC();
+        factory.setPairTokenEconomics(circle, 100e6, 100e6, 6);
+        factory.setPairTokenApproved(circle, true);
+        deal(circle, creator, 151e6);
+        _exerciseRoundingCycles(circle, 2, 16);
+    }
+
+    function testNativeCompletionQuoteMatchesImmediateFinalBuyAcrossStates() public {
+        _exerciseCompletionDifferential(address(0));
+    }
+
+    function testCircleCompletionQuoteMatchesImmediateFinalBuyAcrossStates() public {
+        string memory rpc = vm.envOr("MONAD_TESTNET_RPC_URL", string(""));
+        if (bytes(rpc).length == 0) {
+            vm.skip(true, "Circle test requires pinned Monad Testnet fork");
+            return;
+        }
+        vm.createSelectFork(rpc, 66752717);
+        assertEq(block.chainid, 10143);
+        _configure();
+        address circle = RetroPickQuoteAssetPolicyV2(address(factory.quoteAssetPolicy())).CIRCLE_TEST_USDC();
+        factory.setPairTokenEconomics(circle, 100e6, 100e6, 6);
+        factory.setPairTokenApproved(circle, true);
+        deal(circle, creator, 250e6);
+        _exerciseCompletionDifferential(circle);
+    }
+
+    function testBuybackEnabledCompletionQuoteBeforeAndAfterSweep() public {
+        RetroPickLaunchFactoryV2.TokenParams memory params = _params();
+        params.buybackEnabled = true;
+        vm.prank(creator);
+        (address tokenAddress, address curveAddress) = factory.launchToken(params, 0, address(0));
+        RetroPickBondingCurveV2 curve = RetroPickBondingCurveV2(payable(curveAddress));
+        vm.prank(creator);
+        curve.buy{value: 20 ether}(20 ether, 0, creator);
+        assertGt(curve.buybackQuoteBalance(), 0);
+        _assertImmediateCompletion(curve, tokenAddress, address(0));
+        curve.sweepFees(1); // trusted sweep operator; executes bounded buyback if possible
+        assertEq(curve.quoteFeeBalance(), 0);
+        _assertImmediateCompletion(curve, tokenAddress, address(0));
+    }
+
+    function testNativeResearchCeilingRejectsFifthCycleSell() public {
+        _exerciseCeilingAttack(address(0));
+    }
+
+    function testCircleResearchCeilingRejectsFifthCycleSell() public {
+        string memory rpc = vm.envOr("MONAD_TESTNET_RPC_URL", string(""));
+        if (bytes(rpc).length == 0) {
+            vm.skip(true, "Circle test requires pinned Monad Testnet fork");
+            return;
+        }
+        vm.createSelectFork(rpc, 66752717);
+        assertEq(block.chainid, 10143);
+        _configure();
+        address circle = RetroPickQuoteAssetPolicyV2(address(factory.quoteAssetPolicy())).CIRCLE_TEST_USDC();
+        factory.setPairTokenEconomics(circle, 100e6, 100e6, 6);
+        factory.setPairTokenApproved(circle, true);
+        deal(circle, creator, 151e6);
+        _exerciseCeilingAttack(circle);
+    }
+
+    /// @notice The current Curve accepts the fifth sell; a future generic
+    /// post-transition guard would reject it and preserve the after-buy state.
+    function _exerciseCeilingAttack(address quote) internal {
+        vm.prank(creator);
+        (address tokenAddress, address curveAddress) = factory.launchToken(_params(), 0, quote);
+        RetroPickBondingCurveV2 curve = RetroPickBondingCurveV2(payable(curveAddress));
+        uint256 phantom = curve.phantomQuote();
+        uint256 ceiling = phantom + 10;
+        if (quote != address(0)) {
+            vm.prank(creator);
+            IERC20(quote).approve(curveAddress, type(uint256).max);
+        }
+        for (uint256 cycle; cycle < 5; ++cycle) {
+            uint256 bought;
+            if (quote == address(0)) {
+                vm.prank(creator);
+                bought = curve.buy{value: 2}(2, 0, creator);
+            } else {
+                vm.prank(creator);
+                bought = curve.buy(2, 0, creator);
+            }
+            vm.prank(creator);
+            IERC20(tokenAddress).approve(curveAddress, bought);
+            (, uint256 afterBuyCompletion) = _completionTerminalQuote(curve);
+            assertLe(afterBuyCompletion, ceiling);
+            if (cycle == 4) {
+                assertEq(afterBuyCompletion, ceiling);
+                uint256 beforeSell = vm.snapshotState();
+                vm.prank(creator);
+                assertEq(curve.sell(bought, 0, creator), 1);
+                (, uint256 afterSellCompletion) = _completionTerminalQuote(curve);
+                assertEq(afterSellCompletion, phantom + 12);
+                assertGt(afterSellCompletion, ceiling);
+                assertLt(curve.realQuoteReserve(), ceiling); // simple current-Q cap misses it
+                assertTrue(vm.revertToState(beforeSell)); // research semantic rejection
+                (, uint256 retainedCompletion) = _completionTerminalQuote(curve);
+                assertEq(retainedCompletion, ceiling);
+                _assertImmediateCompletion(curve, tokenAddress, quote);
+            } else {
+                vm.prank(creator);
+                assertEq(curve.sell(bought, 0, creator), 1);
+                (, uint256 afterSellCompletion) = _completionTerminalQuote(curve);
+                assertLe(afterSellCompletion, ceiling);
+            }
+        }
+    }
+
+    function _exerciseCompletionDifferential(address quote) internal {
+        vm.prank(creator);
+        (address tokenAddress, address curveAddress) = factory.launchToken(_params(), 0, quote);
+        RetroPickBondingCurveV2 curve = RetroPickBondingCurveV2(payable(curveAddress));
+        if (quote != address(0)) {
+            vm.prank(creator);
+            IERC20(quote).approve(curveAddress, type(uint256).max);
+        }
+        _assertImmediateCompletion(curve, tokenAddress, quote); // untouched launch
+
+        uint256 bought;
+        if (quote == address(0)) {
+            vm.prank(creator);
+            bought = curve.buy{value: 2}(2, 0, creator);
+        } else {
+            vm.prank(creator);
+            bought = curve.buy(2, 0, creator);
+        }
+        _assertImmediateCompletion(curve, tokenAddress, quote); // tiny partial buy
+        vm.prank(creator);
+        IERC20(tokenAddress).approve(curveAddress, bought);
+        vm.prank(creator);
+        curve.sell(bought, 0, creator);
+        _assertImmediateCompletion(curve, tokenAddress, quote); // reserve-gaining round trip
+
+        uint256 largeBuy = quote == address(0) ? 20 ether : 20e6;
+        if (quote == address(0)) {
+            vm.prank(creator);
+            bought = curve.buy{value: largeBuy}(largeBuy, 0, creator);
+        } else {
+            vm.prank(creator);
+            bought = curve.buy(largeBuy, 0, creator);
+        }
+        _assertImmediateCompletion(curve, tokenAddress, quote); // pending fee/tax buckets
+        vm.prank(creator);
+        IERC20(tokenAddress).approve(curveAddress, bought / 2);
+        vm.prank(creator);
+        curve.sell(bought / 2, 0, creator);
+        _assertImmediateCompletion(curve, tokenAddress, quote); // sell after large buy
+        vm.prank(creator);
+        curve.sweepFees(0);
+        _assertImmediateCompletion(curve, tokenAddress, quote); // explicit fee sweep
+    }
+
+    /// @notice Research-only exact formula using production getAmountIn/Math.mulDiv.
+    /// The Curve remains venue-agnostic and unchanged.
+    function _completionTerminalQuote(RetroPickBondingCurveV2 curve)
+        internal
+        view
+        returns (uint256 requiredGross, uint256 terminalQuote)
+    {
+        uint256 real = curve.realQuoteReserve();
+        uint256 sellable = curve.trackedTokens() - curve.reservedTokens();
+        if (sellable == 0) return (0, real);
+        uint256 net =
+            RetroPickBondingCurveMathV2.getAmountIn(sellable, curve.phantomQuote() + real, curve.trackedTokens(), 0);
+        uint256 feeBps = curve.feeBps();
+        uint256 taxBps = curve.creatorTaxBps();
+        requiredGross = Math.mulDiv(net, 10_000, 10_000 - feeBps - taxBps, Math.Rounding.Ceil);
+        terminalQuote = real + requiredGross - requiredGross * feeBps / 10_000 - requiredGross * taxBps / 10_000;
+    }
+
+    function _assertImmediateCompletion(RetroPickBondingCurveV2 curve, address tokenAddress, address quote) internal {
+        (uint256 requiredGross, uint256 predicted) = _completionTerminalQuote(curve);
+        assertGt(requiredGross, 0);
+        uint256 snap = vm.snapshotState();
+        if (quote == address(0)) {
+            vm.deal(creator, requiredGross + 1 ether);
+            vm.prank(creator);
+            curve.buy{value: requiredGross}(requiredGross, 0, creator);
+        } else {
+            deal(quote, creator, requiredGross + 1e6);
+            vm.prank(creator);
+            curve.buy(requiredGross, 0, creator);
+        }
+        RetroPickLaunchFactoryV2.LaunchedToken memory secured = factory.getLaunchedToken(tokenAddress);
+        assertEq(uint256(secured.phase), uint256(GraduationPhase.Swept));
+        assertEq(secured.sweptQuote, predicted);
+        assertEq(_quoteBalance(quote, address(factory)), predicted);
+        assertTrue(vm.revertToState(snap));
+        assertFalse(curve.graduated());
     }
 
     /// @notice Ten accepted buy/sell round trips return the token reserve to its initial
     /// value but add one raw quote unit per round to the tradeable reserve.
-    function _exerciseRoundingCycles(address quote) internal {
+    function _exerciseRoundingCycles(address quote, uint256 grossPerBuy, uint256 rounds) internal {
         vm.prank(creator);
         (address tokenAddress, address curveAddress) = factory.launchToken(_params(), 0, quote);
         RetroPickBondingCurveV2 curve = RetroPickBondingCurveV2(payable(curveAddress));
@@ -251,19 +472,19 @@ contract RetroPickV4GraduationBehaviorTest is Test {
             vm.prank(creator);
             IERC20(quote).approve(curveAddress, type(uint256).max);
         }
-        for (uint256 i; i < 10; ++i) {
+        for (uint256 i; i < rounds; ++i) {
             uint256 bought;
             if (quote == address(0)) {
                 vm.prank(creator);
-                bought = curve.buy{value: 10}(10, 0, creator);
+                bought = curve.buy{value: grossPerBuy}(grossPerBuy, 0, creator);
             } else {
                 vm.prank(creator);
-                bought = curve.buy(10, 0, creator);
+                bought = curve.buy(grossPerBuy, 0, creator);
             }
             vm.prank(creator);
             IERC20(tokenAddress).approve(curveAddress, bought);
             vm.prank(creator);
-            assertEq(curve.sell(bought, 0, creator), 9);
+            assertEq(curve.sell(bought, 0, creator), grossPerBuy - 1);
             assertEq(curve.trackedTokens(), originalTokens);
             assertEq(curve.realQuoteReserve(), i + 1);
         }
@@ -277,7 +498,7 @@ contract RetroPickV4GraduationBehaviorTest is Test {
         }
         RetroPickLaunchFactoryV2.LaunchedToken memory secured = factory.getLaunchedToken(tokenAddress);
         assertEq(uint256(secured.phase), uint256(GraduationPhase.Swept));
-        assertEq(secured.sweptQuote, threshold + 22);
+        assertEq(secured.sweptQuote, threshold + 2 + 2 * rounds);
         assertGt(secured.sweptQuote, threshold + 2); // one-shot scenario is not an upper bound
         assertEq(_quoteBalance(quote, address(factory)), secured.sweptQuote);
     }

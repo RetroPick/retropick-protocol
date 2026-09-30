@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "classification": "BOUNDED_REPEATABLE_PUMP_AND_RESEARCH_CEILING_WITNESS",
+  "source": "Current RetroPickBondingCurveV2 exact arithmetic; no production ceiling guard exists",
+  "rows": [
+    {
+      "quote": "MON",
+      "quote_decimals": 18,
+      "configured_threshold_raw": 100000000000000000000,
+      "research_only_ceiling_raw": 100000000000000000010,
+      "minimum_positive_round_trip_buy_raw": 2,
+      "round_trip_sell_payout_raw": 1,
+      "delta_real_quote_per_verified_cycle_raw": 1,
+      "one_raw_buy_sell_payout": "REVERT_ZERO_GROSS_OUTPUT",
+      "cases": [
+        {"completed_round_trips": 0, "real_quote_raw": 0, "immediate_terminal_quote_raw": 100000000000000000002, "within_research_ceiling": true},
+        {"completed_round_trips": 1, "real_quote_raw": 1, "immediate_terminal_quote_raw": 100000000000000000004, "within_research_ceiling": true},
+        {"completed_round_trips": 4, "real_quote_raw": 4, "immediate_terminal_quote_raw": 100000000000000000010, "within_research_ceiling": true},
+        {"completed_round_trips": 5, "real_quote_raw": 5, "immediate_terminal_quote_raw": 100000000000000000012, "within_research_ceiling": false},
+        {"completed_round_trips": 16, "real_quote_raw": 16, "immediate_terminal_quote_raw": 100000000000000000034, "within_research_ceiling": false},
+        {"completed_round_trips": 1000, "real_quote_raw": 1000, "immediate_terminal_quote_raw": 100000000000000002002, "within_research_ceiling": false}
+      ]
+    },
+    {
+      "quote": "CIRCLE_TEST_USDC",
+      "quote_decimals": 6,
+      "configured_threshold_raw": 100000000,
+      "research_only_ceiling_raw": 100000010,
+      "minimum_positive_round_trip_buy_raw": 2,
+      "round_trip_sell_payout_raw": 1,
+      "delta_real_quote_per_verified_cycle_raw": 1,
+      "one_raw_buy_sell_payout": "REVERT_ZERO_GROSS_OUTPUT",
+      "cases": [
+        {"completed_round_trips": 0, "real_quote_raw": 0, "immediate_terminal_quote_raw": 100000002, "within_research_ceiling": true},
+        {"completed_round_trips": 1, "real_quote_raw": 1, "immediate_terminal_quote_raw": 100000004, "within_research_ceiling": true},
+        {"completed_round_trips": 4, "real_quote_raw": 4, "immediate_terminal_quote_raw": 100000010, "within_research_ceiling": true},
+        {"completed_round_trips": 5, "real_quote_raw": 5, "immediate_terminal_quote_raw": 100000012, "within_research_ceiling": false},
+        {"completed_round_trips": 16, "real_quote_raw": 16, "immediate_terminal_quote_raw": 100000034, "within_research_ceiling": false},
+        {"completed_round_trips": 1000, "real_quote_raw": 1000, "immediate_terminal_quote_raw": 100002002, "within_research_ceiling": false}
+      ]
+    }
+  ]
+}

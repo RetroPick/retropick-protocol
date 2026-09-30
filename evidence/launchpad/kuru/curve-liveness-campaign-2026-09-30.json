@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "classification": "BOUNDED_MODEL_CAMPAIGN_NOT_PRODUCTION_GUARD_PROOF",
+  "domain": "single aggregate holder; exact-transfer quote; current buy/sell/sweep integer model; native 18 and Circle-like 6 decimals",
+  "seeds": [20260930, 20261001, 20261002],
+  "random_steps_per_history": 300,
+  "rows": [
+    {
+      "quote_decimals": 18,
+      "seed": 20260930,
+      "prelude_accepted_calls": 8,
+      "random_attempts": 300,
+      "accepted_total": 219,
+      "ceiling_rejected": 63,
+      "invalid_calls": 26,
+      "action_attempts": {"buy": 109, "sell": 75, "sweep": 61, "toggle_buyback": 63},
+      "final_immediate_terminal_quote_raw": 100000000000000000010,
+      "ceiling_raw": 100000000000000000010
+    },
+    {
+      "quote_decimals": 18,
+      "seed": 20261001,
+      "prelude_accepted_calls": 8,
+      "random_attempts": 300,
+      "accepted_total": 145,
+      "ceiling_rejected": 96,
+      "invalid_calls": 67,
+      "action_attempts": {"buy": 116, "sell": 70, "sweep": 59, "toggle_buyback": 63},
+      "final_immediate_terminal_quote_raw": 100000000000000000010,
+      "ceiling_raw": 100000000000000000010
+    },
+    {
+      "quote_decimals": 18,
+      "seed": 20261002,
+      "prelude_accepted_calls": 8,
+      "random_attempts": 300,
+      "accepted_total": 179,
+      "ceiling_rejected": 20,
+      "invalid_calls": 109,
+      "action_attempts": {"buy": 122, "sell": 64, "sweep": 57, "toggle_buyback": 65},
+      "final_immediate_terminal_quote_raw": 100000000000000000010,
+      "ceiling_raw": 100000000000000000010
+    },
+    {
+      "quote_decimals": 6,
+      "seed": 20260930,
+      "prelude_accepted_calls": 8,
+      "random_attempts": 300,
+      "accepted_total": 133,
+      "ceiling_rejected": 53,
+      "invalid_calls": 122,
+      "action_attempts": {"buy": 124, "sell": 64, "sweep": 55, "toggle_buyback": 65},
+      "final_immediate_terminal_quote_raw": 100000010,
+      "ceiling_raw": 100000010
+    },
+    {
+      "quote_decimals": 6,
+      "seed": 20261001,
+      "prelude_accepted_calls": 8,
+      "random_attempts": 300,
+      "accepted_total": 160,
+      "ceiling_rejected": 19,
+      "invalid_calls": 129,
+      "action_attempts": {"buy": 128, "sell": 53, "sweep": 68, "toggle_buyback": 59},
+      "final_immediate_terminal_quote_raw": 100000010,
+      "ceiling_raw": 100000010
+    },
+    {
+      "quote_decimals": 6,
+      "seed": 20261002,
+      "prelude_accepted_calls": 8,
+      "random_attempts": 300,
+      "accepted_total": 196,
+      "ceiling_rejected": 34,
+      "invalid_calls": 78,
+      "action_attempts": {"buy": 135, "sell": 64, "sweep": 59, "toggle_buyback": 50},
+      "final_immediate_terminal_quote_raw": 100000010,
+      "ceiling_raw": 100000010
+    }
+  ],
+  "totals": {"accepted": 1032, "ceiling_rejected": 285, "invalid_calls": 531}
+}

@@ -30,7 +30,9 @@ rows:
       - evidence/launchpad/kuru/parameter-profile-report-2026-09-30.md
       - evidence/launchpad/kuru/dev4-atomic-gas-matrix-2026-09-30.md
       - evidence/launchpad/kuru/prelaunch-round-trip-witness-2026-09-30.json
-    blocker: Candidate tuple passes six pinned-fork profile/quote combinations, but Q depends on valid trading history; neither threshold nor one-shot Q is a proven prelaunch upper bound. Complete reachable-Q/supported envelope and ADR-021 acceptance remain open.
+      - evidence/launchpad/kuru/completion-liveness-witness-2026-09-30.json
+      - evidence/launchpad/kuru/completion-liveness-research-2026-09-30.md
+    blocker: Candidate tuple passes six pinned-fork profile/quote combinations. A two-raw-unit cycle repeatedly pumps terminal Q, so neither threshold nor one-shot Q is a prelaunch upper bound. Exact generic completion-ceiling research exists, but no accepted ceiling/guard, complete supported Q interval or ADR-021 acceptance exists.
   KURU-B4-SEED:
     status: DECISION_REQUIRED
     evidence:
@@ -39,7 +41,8 @@ rows:
       - evidence/launchpad/kuru/seed-price-continuity-bound-2026-09-29.md
       - evidence/launchpad/kuru/dev4-atomic-gas-matrix-2026-09-30.md
       - evidence/launchpad/kuru/prelaunch-round-trip-witness-2026-09-30.json
-    blocker: Proposed five-bps combined seed/tick cap passes six pinned-fork candidate profiles, but trading-history-dependent terminal Q invalidates threshold-only prelaunch admission. The complete reachable envelope has not been proven/fork-checked and the economic cap has not been accepted.
+      - evidence/launchpad/kuru/completion-liveness-witness-2026-09-30.json
+    blocker: Proposed five-bps combined seed/tick cap passes six pinned-fork candidate profiles, but trading-history-dependent terminal Q invalidates threshold-only prelaunch admission. The accepted ceiling interval and all-Q Kuru constraints have not been proven/fork-checked; economic cap remains unaccepted.
   KURU-B5-FORK-DEPLOY:
     status: PASS
     evidence:

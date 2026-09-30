@@ -7,6 +7,10 @@ from pathlib import Path
 from benchmark_launch_profiles import build_matrix
 from prelaunch_quote_witness import build_witness
 from prelaunch_round_trip_witness import build_witness as build_round_trip_witness
+from completion_terminal_quote import (
+    CurveCompletionState, completion_terminal_quote, terminal_quote_lower_bound,
+)
+from completion_liveness_witness import build_witness as build_liveness_witness
 from launchpad_seed_model import (
     one_shot_crossing_quote, round_trip_crossing_quote, quote_first_seed, quote_opening_ticks,
     valid_router_parameters,
@@ -227,10 +231,146 @@ class KuruLaunchpadSeedModelTest(unittest.TestCase):
                 self.assertEqual(result.real_quote_before_crossing, 10)
                 self.assertEqual(result.secured_quote, threshold + 22)
 
+    def test_minimum_two_raw_cycle_repeats_one_thousand_times_in_model(self):
+        for decimals in (18, 6):
+            with self.subTest(quote_decimals=decimals):
+                threshold = 100 * 10**decimals
+                args = dict(
+                    launch_supply=1_000_000 * 10**18,
+                    phantom_quote=threshold,
+                    graduation_threshold=threshold,
+                    curve_fee_bps=100,
+                    creator_tax_bps=50,
+                )
+                with self.assertRaisesRegex(ValueError, "round trip sell is invalid"):
+                    round_trip_crossing_quote(**args, rounds=1,
+                                              round_trip_gross_quote=1)
+                for rounds in (1, 16, 1000):
+                    result = round_trip_crossing_quote(
+                        **args, rounds=rounds, round_trip_gross_quote=2,
+                    )
+                    self.assertEqual(result.real_quote_before_crossing, rounds)
+                    self.assertEqual(result.token_reserve_before_crossing,
+                                     1_000_000 * 10**18)
+                    self.assertEqual(result.secured_quote,
+                                     threshold + 2 + 2 * rounds)
+
     def test_round_trip_witness_artifact_matches_generator(self):
         root = Path(__file__).resolve().parents[3]
         artifact = root / "evidence/launchpad/kuru/prelaunch-round-trip-witness-2026-09-30.json"
         self.assertEqual(json.loads(artifact.read_text()), build_round_trip_witness())
+
+    def test_exact_completion_quote_matches_both_crossing_witnesses(self):
+        for decimals in (18, 6):
+            with self.subTest(quote_decimals=decimals):
+                threshold = 100 * 10**decimals
+                initial = CurveCompletionState(
+                    phantom_quote=threshold, tracked_quote=0,
+                    quote_fee_balance=0, creator_tax_balance=0,
+                    tracked_tokens=1_000_000 * 10**18,
+                    reserved_tokens=500_000 * 10**18,
+                    curve_fee_bps=100, creator_tax_bps=50,
+                )
+                direct = completion_terminal_quote(initial)
+                self.assertEqual(direct.terminal_real_quote, threshold + 2)
+                self.assertEqual(direct.gross_quote_in,
+                                 one_shot_crossing_quote(
+                                     launch_supply=initial.tracked_tokens,
+                                     phantom_quote=threshold,
+                                     graduation_threshold=threshold,
+                                     curve_fee_bps=100, creator_tax_bps=50,
+                                 ).gross_quote_spent)
+                for rounds in (1, 10, 16, 1000):
+                    after_cycles = CurveCompletionState(
+                        phantom_quote=threshold, tracked_quote=rounds,
+                        quote_fee_balance=0, creator_tax_balance=0,
+                        tracked_tokens=initial.tracked_tokens,
+                        reserved_tokens=initial.reserved_tokens,
+                        curve_fee_bps=100, creator_tax_bps=50,
+                    )
+                    self.assertEqual(completion_terminal_quote(after_cycles).terminal_real_quote,
+                                     threshold + 2 + 2 * rounds)
+
+    def test_completion_quote_rejects_intermediate_uint256_overflow(self):
+        too_large = CurveCompletionState(
+            phantom_quote=2**255, tracked_quote=0,
+            quote_fee_balance=0, creator_tax_balance=0,
+            tracked_tokens=10**18, reserved_tokens=10**17,
+            curve_fee_bps=100, creator_tax_bps=50,
+        )
+        with self.assertRaises(OverflowError):
+            completion_terminal_quote(too_large)
+
+    def test_terminal_quote_product_lower_bound_covers_threshold(self):
+        checked = 0
+        for supply in range(2, 65):
+            for phantom in range(1, 33):
+                for threshold in range(1, 33):
+                    reserved = supply * phantom // (phantom + threshold)
+                    if not 0 < reserved < supply:
+                        continue
+                    lower = terminal_quote_lower_bound(
+                        initial_tokens=supply, phantom_quote=phantom,
+                        reserved_tokens=reserved,
+                    )
+                    self.assertGreaterEqual(lower, threshold)
+                    self.assertEqual((phantom + lower) * reserved >= supply * phantom,
+                                     True)
+                    checked += 1
+        self.assertGreater(checked, 50_000)
+
+    def test_liveness_ceiling_blocks_fifth_round_trip_sell_not_completion(self):
+        for decimals in (18, 6):
+            with self.subTest(quote_decimals=decimals):
+                phantom = 100 * 10**decimals
+                supply = 1_000_000 * 10**18
+                floor = supply // 2
+                ceiling = phantom + 10
+                state = CurveCompletionState(
+                    phantom_quote=phantom, tracked_quote=0,
+                    quote_fee_balance=0, creator_tax_balance=0,
+                    tracked_tokens=supply, reserved_tokens=floor,
+                    curve_fee_bps=100, creator_tax_bps=50,
+                )
+                self.assertLessEqual(completion_terminal_quote(state).terminal_real_quote,
+                                     ceiling)
+                for cycle in range(5):
+                    bought = 2 * state.tracked_tokens // (phantom + state.tracked_quote + 2)
+                    after_buy = CurveCompletionState(
+                        phantom_quote=phantom, tracked_quote=state.tracked_quote + 2,
+                        quote_fee_balance=0, creator_tax_balance=0,
+                        tracked_tokens=state.tracked_tokens - bought,
+                        reserved_tokens=floor, curve_fee_bps=100, creator_tax_bps=50,
+                    )
+                    self.assertLessEqual(completion_terminal_quote(after_buy).terminal_real_quote,
+                                         ceiling)
+                    gross_sell = bought * (phantom + after_buy.tracked_quote) // supply
+                    self.assertEqual(gross_sell, 1)
+                    after_sell = CurveCompletionState(
+                        phantom_quote=phantom,
+                        tracked_quote=after_buy.tracked_quote - gross_sell,
+                        quote_fee_balance=0, creator_tax_balance=0,
+                        tracked_tokens=supply, reserved_tokens=floor,
+                        curve_fee_bps=100, creator_tax_bps=50,
+                    )
+                    predicted = completion_terminal_quote(after_sell).terminal_real_quote
+                    if cycle < 4:
+                        self.assertLessEqual(predicted, ceiling)
+                        state = after_sell
+                    else:
+                        self.assertEqual(predicted, phantom + 12)
+                        self.assertGreater(predicted, ceiling)
+                        # Research-only semantic guard rejects this sell and
+                        # keeps the accepted after-buy state completable.
+                        self.assertEqual(
+                            completion_terminal_quote(after_buy).terminal_real_quote,
+                            ceiling,
+                        )
+
+    def test_completion_liveness_artifact_matches_generator(self):
+        root = Path(__file__).resolve().parents[3]
+        artifact = root / "evidence/launchpad/kuru/completion-liveness-witness-2026-09-30.json"
+        self.assertEqual(json.loads(artifact.read_text()), build_liveness_witness())
 
 
 if __name__ == "__main__":

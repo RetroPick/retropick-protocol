@@ -219,6 +219,69 @@ contract RetroPickV4GraduationBehaviorTest is Test {
         _exercise(circle);
     }
 
+    function testNativeRoundTripHistoryChangesTerminalQuote() public {
+        _exerciseRoundingCycles(address(0));
+    }
+
+    function testCircleRoundTripHistoryChangesTerminalQuote() public {
+        string memory rpc = vm.envOr("MONAD_TESTNET_RPC_URL", string(""));
+        if (bytes(rpc).length == 0) {
+            vm.skip(true, "Circle test requires pinned Monad Testnet fork");
+            return;
+        }
+        vm.createSelectFork(rpc, 66752717);
+        assertEq(block.chainid, 10143);
+        _configure();
+        address circle = RetroPickQuoteAssetPolicyV2(address(factory.quoteAssetPolicy())).CIRCLE_TEST_USDC();
+        factory.setPairTokenEconomics(circle, 100e6, 100e6, 6);
+        factory.setPairTokenApproved(circle, true);
+        deal(circle, creator, 151e6);
+        _exerciseRoundingCycles(circle);
+    }
+
+    /// @notice Ten accepted buy/sell round trips return the token reserve to its initial
+    /// value but add one raw quote unit per round to the tradeable reserve.
+    function _exerciseRoundingCycles(address quote) internal {
+        vm.prank(creator);
+        (address tokenAddress, address curveAddress) = factory.launchToken(_params(), 0, quote);
+        RetroPickBondingCurveV2 curve = RetroPickBondingCurveV2(payable(curveAddress));
+        uint256 originalTokens = curve.trackedTokens();
+        uint256 threshold = quote == address(0) ? 100 ether : 100e6;
+        if (quote != address(0)) {
+            vm.prank(creator);
+            IERC20(quote).approve(curveAddress, type(uint256).max);
+        }
+        for (uint256 i; i < 10; ++i) {
+            uint256 bought;
+            if (quote == address(0)) {
+                vm.prank(creator);
+                bought = curve.buy{value: 10}(10, 0, creator);
+            } else {
+                vm.prank(creator);
+                bought = curve.buy(10, 0, creator);
+            }
+            vm.prank(creator);
+            IERC20(tokenAddress).approve(curveAddress, bought);
+            vm.prank(creator);
+            assertEq(curve.sell(bought, 0, creator), 9);
+            assertEq(curve.trackedTokens(), originalTokens);
+            assertEq(curve.realQuoteReserve(), i + 1);
+        }
+
+        if (quote == address(0)) {
+            vm.prank(creator);
+            assertEq(curve.buy{value: 150 ether}(150 ether, 0, creator), 500_000 ether);
+        } else {
+            vm.prank(creator);
+            assertEq(curve.buy(150e6, 0, creator), 500_000 ether);
+        }
+        RetroPickLaunchFactoryV2.LaunchedToken memory secured = factory.getLaunchedToken(tokenAddress);
+        assertEq(uint256(secured.phase), uint256(GraduationPhase.Swept));
+        assertEq(secured.sweptQuote, threshold + 22);
+        assertGt(secured.sweptQuote, threshold + 2); // one-shot scenario is not an upper bound
+        assertEq(_quoteBalance(quote, address(factory)), secured.sweptQuote);
+    }
+
     function _exercise(address quote) internal {
         vm.prank(creator);
         (address tokenAddress, address curveAddress) = factory.launchToken(_params(), 0, quote);

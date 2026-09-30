@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "classification": "BOUNDED_PATH_COUNTEREXAMPLE_NOT_REACHABLE_RANGE_PROOF",
+  "path_assumptions": "ten buy(10 raw quote)/sell(exact purchased tokens) cycles, then one clamped crossing buy; no buyback or earlier fee sweep",
+  "rows": [
+    {
+      "quote": "MON",
+      "quote_decimals": 18,
+      "configured_threshold_raw": 100000000000000000000,
+      "one_shot_secured_quote_raw": 100000000000000000002,
+      "round_trip_path": {
+        "rounds": 10,
+        "round_trip_gross_quote": 10,
+        "real_quote_before_crossing": 10,
+        "token_reserve_before_crossing": 1000000000000000000000000,
+        "secured_quote": 100000000000000000022
+      },
+      "one_shot_base_seed_raw": 250000000000000000002499,
+      "round_trip_base_seed_raw": 250000000000000000027499
+    },
+    {
+      "quote": "CIRCLE_TEST_USDC",
+      "quote_decimals": 6,
+      "configured_threshold_raw": 100000000,
+      "one_shot_secured_quote_raw": 100000002,
+      "round_trip_path": {
+        "rounds": 10,
+        "round_trip_gross_quote": 10,
+        "real_quote_before_crossing": 10,
+        "token_reserve_before_crossing": 1000000000000000000000000,
+        "secured_quote": 100000022
+      },
+      "one_shot_base_seed_raw": 250000002499999975000000,
+      "round_trip_base_seed_raw": 250000027499996975000332
+    }
+  ]
+}

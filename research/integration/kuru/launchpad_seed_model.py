@@ -64,6 +64,72 @@ class OneShotCrossingQuote:
     secured_quote: int
 
 
+@dataclass(frozen=True)
+class RoundTripCrossingQuote:
+    """Bounded trading-history witness; never a universal terminal-Q bound."""
+
+    rounds: int
+    round_trip_gross_quote: int
+    real_quote_before_crossing: int
+    token_reserve_before_crossing: int
+    secured_quote: int
+
+
+def round_trip_crossing_quote(
+    *, launch_supply: int, phantom_quote: int, graduation_threshold: int,
+    curve_fee_bps: int, creator_tax_bps: int, rounds: int,
+    round_trip_gross_quote: int,
+) -> RoundTripCrossingQuote:
+    """Mirror accepted buy→sell round trips, then a clamped terminal buy.
+
+    The model covers no buyback, no sweeps, exact-transfer quote assets and
+    selling exactly the tokens just bought. It is deliberately a path witness,
+    not an admission oracle over all reachable trading histories.
+    """
+    crossing = one_shot_crossing_quote(
+        launch_supply=launch_supply, phantom_quote=phantom_quote,
+        graduation_threshold=graduation_threshold,
+        curve_fee_bps=curve_fee_bps, creator_tax_bps=creator_tax_bps,
+    )
+    if rounds < 0 or round_trip_gross_quote <= 0:
+        raise ValueError("nonnegative rounds and positive gross quote required")
+    real_quote = 0
+    tokens = launch_supply
+    for _ in range(rounds):
+        fee = round_trip_gross_quote * curve_fee_bps // BPS
+        tax = round_trip_gross_quote * creator_tax_bps // BPS
+        net = round_trip_gross_quote - fee - tax
+        if net <= 0:
+            raise ValueError("round trip buy has no net quote")
+        bought = net * tokens // (phantom_quote + real_quote + net)
+        if bought <= 0 or bought >= tokens - crossing.terminal_tokens:
+            raise ValueError("round trip buy is zero or reaches graduation")
+        real_quote += net
+        tokens -= bought
+        sold_gross = bought * (phantom_quote + real_quote) // (tokens + bought)
+        if sold_gross <= 0 or sold_gross > real_quote:
+            raise ValueError("round trip sell is invalid")
+        # Sell fees reduce the recipient's payout, not the gross quote reserve
+        # movement: the fee buckets are excluded from realQuoteReserve().
+        real_quote -= sold_gross
+        tokens += bought
+
+    sellable = tokens - crossing.terminal_tokens
+    net = sellable * (phantom_quote + real_quote) // crossing.terminal_tokens + 1
+    gross = (net * BPS + (BPS - curve_fee_bps - creator_tax_bps) - 1) // (
+        BPS - curve_fee_bps - creator_tax_bps
+    )
+    fee = gross * curve_fee_bps // BPS
+    tax = gross * creator_tax_bps // BPS
+    return RoundTripCrossingQuote(
+        rounds=rounds,
+        round_trip_gross_quote=round_trip_gross_quote,
+        real_quote_before_crossing=real_quote,
+        token_reserve_before_crossing=tokens,
+        secured_quote=real_quote + gross - fee - tax,
+    )
+
+
 def one_shot_crossing_quote(
     *, launch_supply: int, phantom_quote: int, graduation_threshold: int,
     curve_fee_bps: int, creator_tax_bps: int,

@@ -6,8 +6,9 @@ from pathlib import Path
 
 from benchmark_launch_profiles import build_matrix
 from prelaunch_quote_witness import build_witness
+from prelaunch_round_trip_witness import build_witness as build_round_trip_witness
 from launchpad_seed_model import (
-    one_shot_crossing_quote, quote_first_seed, quote_opening_ticks,
+    one_shot_crossing_quote, round_trip_crossing_quote, quote_first_seed, quote_opening_ticks,
     valid_router_parameters,
 )
 
@@ -208,6 +209,28 @@ class KuruLaunchpadSeedModelTest(unittest.TestCase):
         root = Path(__file__).resolve().parents[3]
         artifact = root / "evidence/launchpad/kuru/prelaunch-q-threshold-counterexample-2026-09-30.json"
         self.assertEqual(json.loads(artifact.read_text()), build_witness())
+
+    def test_round_trips_change_terminal_quote_despite_restored_token_reserve(self):
+        for decimals in (18, 6):
+            with self.subTest(quote_decimals=decimals):
+                threshold = 100 * 10**decimals
+                result = round_trip_crossing_quote(
+                    launch_supply=1_000_000 * 10**18,
+                    phantom_quote=threshold,
+                    graduation_threshold=threshold,
+                    curve_fee_bps=100,
+                    creator_tax_bps=50,
+                    rounds=10,
+                    round_trip_gross_quote=10,
+                )
+                self.assertEqual(result.token_reserve_before_crossing, 1_000_000 * 10**18)
+                self.assertEqual(result.real_quote_before_crossing, 10)
+                self.assertEqual(result.secured_quote, threshold + 22)
+
+    def test_round_trip_witness_artifact_matches_generator(self):
+        root = Path(__file__).resolve().parents[3]
+        artifact = root / "evidence/launchpad/kuru/prelaunch-round-trip-witness-2026-09-30.json"
+        self.assertEqual(json.loads(artifact.read_text()), build_round_trip_witness())
 
 
 if __name__ == "__main__":

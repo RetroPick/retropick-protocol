@@ -38,10 +38,24 @@ Choose an **illustrative, unaccepted** generic ceiling `C=threshold+10 raw units
 
 The proposed invariant is: after launch initialization and every accepted buy, sell, fee sweep, buyback sweep, and any other economic state mutation, `completionTerminalQuote(state) <= immutable graduationQuoteCeiling` and the oracle's exact execution path remains valid. Inductively, an accepted state then has an *arithmetic* immediate-completion path under the stated exact-asset/funded-buyer assumptions. Checking only `R<=ceiling` is insufficient. The Curve need not know the venue; a separate accepted graduation policy would derive `graduationQuoteCeiling` at launch and commit it immutably. No production implementation or ADR acceptance follows from this report.
 
+### Curve mutation inventory for a future guard
+
+| Current entry point | Effect on the completion oracle | Required future check |
+| --- | --- | --- |
+| `initialize` | Fixes `T`, initializes `t` and zero real quote | Check initial completion before the launch can admit bonding |
+| `buy` | Changes `R`, `t`, fees and tax; a clamped final buy may set `t=T` | Recompute after booked effects; if the automatic external graduation attempt fails, the ready Core state must still satisfy the ceiling |
+| `sell` | Changes `R`, `t`, fees and tax; tiny sells can consume future completion headroom | Recompute after booked effects, not merely test current `R` |
+| `sweepFees` | Plain fee payout leaves `R,t` unchanged; a successful internal buyback changes `t` and may change completion | Recompute for the entire accepted sweep, including fallback/fold-back and buyback execution |
+| `rescueFees` | Pays exactly the pending fee/tax buckets and clears earmarks, so `R,t` and completion are unchanged if the call succeeds | Verify that algebra and physical backing; retain it as an explicit regression rather than silently exempting it |
+| `setBuybackEnabled`, `setCreatorFeeRecipient`, `exemptFromSnipeTax` | No immediate `R,t` change; changes future routing/tax outcomes | Preserve the launch ceiling and enforce it on subsequent economic transitions |
+| `graduate` | Terminal withdrawal after `t=T`; Curve accounting is drained and trading closes | Check the pre-withdraw secured `Q` against the immutable ceiling in the coordinator; do not apply the active-Curve oracle to zeroed terminal reserves |
+
+The [model](../../../research/integration/kuru/curve_liveness_model.py) now checks the authorized fee-rescue algebra as well as buy/sell/sweep. This is a source-level transition inventory and reduced-model property, **not** a proof that production guard placement or every external callback is safe. Reverts must be atomic; no accepted transition may leave the guard false.
+
 A separate [bounded stateful model campaign](curve-liveness-campaign-2026-09-30.json) applies this proposed post-transition guard to current-style buy/sell/sweep/toggle actions for one aggregate holder. It runs three fixed seeds for each of 18- and 6-decimal quote classes, 300 randomized attempts per history plus eight deliberately boundary-reaching calls: **1,848 total attempts**, **1,032 accepted**, **285 ceiling rejections**, **531 invalid calls**, and no accepted state above the illustrative ceiling. Invalid calls are expected rejects, not invariant failures. The buyback-enabled sweep arithmetic is modeled, but ERC20 callbacks, authorization, physical balance loss, full Core/Factory state, and an actual onchain guard are outside this bounded model. The result tests the proposed rule; it is not a production invariant PASS.
 
 ## Reproduction and remaining falsifiers
 
-`python3 -m unittest discover -s research/integration/kuru -p 'test_*.py' -v` passes **33/33** including fixture regeneration, minimal pump, ceiling rejection, lower-bound grid, stateful campaign, bounded all-Q candidate cells and `uint256` negative. With the existing `contracts/.env.local` loaded, `forge test --match-path test/v2/integration/RetroPickV4GraduationBehavior.t.sol --summary` passes **12/12**, no skips. Forge 1.8.3, solc 0.8.26, optimizer 200, viaIR as locally configured.
+`python3 -m unittest discover -s research/integration/kuru -p 'test_*.py' -v` passes **34/34** including fixture regeneration, minimal pump, ceiling rejection, lower-bound grid, stateful campaign, bounded all-Q candidate cells, fee-rescue algebra and `uint256` negative. With the existing `contracts/.env.local` loaded, `forge test --match-path test/v2/integration/RetroPickV4GraduationBehavior.t.sol --summary` passes **12/12**, no skips. Forge 1.8.3, solc 0.8.26, optimizer 200, viaIR as locally configured.
 
 Still required before B3/B4 or Core liveness can pass: a *committed-onchain* generic guard design, full transition inventory (including unusual fee rescue), randomized/stateful accepted-transition campaign, buyer/approval/gas feasibility, accepted ceiling policy, and Kuru endpoint/precision/size proof for every `Q` in the chosen interval. External Circle issuer freeze/blacklist remains a liveness risk outside this arithmetic theorem. `KURU_TARGET_DEV_FROZEN` remains blocked.

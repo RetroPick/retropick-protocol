@@ -156,6 +156,26 @@ class CurveState:
             buyback_quote_balance=0,
         )
 
+    def rescue_fees(self) -> "CurveState":
+        """Model the factory-authorized fee rescue's reserve effect.
+
+        The payout bypasses escrow and cancels the buyback earmark. It must
+        remove exactly the pre-existing fee/tax buckets from tracked quote,
+        so the tradeable reserve and immediate-completion quote do not move.
+        Authorization and external transfer failure are outside this model.
+        """
+        pending = self.quote_fee_balance
+        tax = self.creator_tax_balance
+        if pending == 0 and tax == 0:
+            raise TradeRejected("no fees to rescue")
+        return replace(
+            self,
+            tracked_quote=self.tracked_quote - pending - tax,
+            quote_fee_balance=0,
+            creator_tax_balance=0,
+            buyback_quote_balance=0,
+        )
+
 
 def admit_transition(candidate: CurveState, graduation_quote_ceiling: int) -> CurveState:
     """Research-only semantic guard applied after a candidate transition.

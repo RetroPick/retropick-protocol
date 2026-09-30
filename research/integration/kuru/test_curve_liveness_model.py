@@ -74,6 +74,22 @@ class CurveLivenessModelTest(unittest.TestCase):
                     with self.assertRaises(CompletionCeilingRejected):
                         admit_transition(swept, after_buy.completion())
 
+    def test_authorized_fee_rescue_preserves_tradeable_reserve_and_completion(self):
+        for decimals in (18, 6):
+            with self.subTest(decimals=decimals):
+                state = self.launch(decimals, buyback_enabled=True)
+                bought, _, _ = state.buy(20 * 10**decimals)
+                self.assertGreater(bought.quote_fee_balance, 0)
+                self.assertGreater(bought.buyback_quote_balance, 0)
+                rescued = bought.rescue_fees()
+                self.assertEqual(rescued.real_quote, bought.real_quote)
+                self.assertEqual(rescued.reserve_product, bought.reserve_product)
+                self.assertEqual(rescued.completion(), bought.completion())
+                self.assertEqual(rescued.buyback_quote_balance, 0)
+                self.assertEqual(admit_transition(rescued, bought.completion()), rescued)
+                with self.assertRaisesRegex(TradeRejected, "no fees"):
+                    rescued.rescue_fees()
+
     def test_deterministic_stateful_campaign_keeps_every_accepted_state_completable(self):
         result = run_campaign()
         self.assertEqual(len(result["rows"]), 6)

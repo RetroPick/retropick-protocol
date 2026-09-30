@@ -61,6 +61,28 @@ interface IKuruVaultResearch {
 /// @dev A later B7 packet must still audit token and vault hooks and settle ADR-022.
 contract KuruResearchNoExitLock {}
 
+/// @notice Research-only candidate lock bound to one destination and asset pair.
+/// It intentionally has no transfer, approval, withdrawal, rescue or generic call entrypoint.
+contract KuruResearchBoundLock {
+    address public immutable base;
+    address public immutable quote;
+    address public immutable market;
+    address public immutable vault;
+
+    constructor(address base_, address quote_, address market_, address vault_) {
+        require(base_ != address(0) && market_ != address(0) && vault_ != address(0));
+        base = base_;
+        quote = quote_;
+        market = market_;
+        vault = vault_;
+    }
+
+    function protectedBalances() external view returns (uint256 lpShares, uint256 excessBase) {
+        lpShares = IERC20(vault).balanceOf(address(this));
+        excessBase = IERC20(base).balanceOf(address(this));
+    }
+}
+
 /// @notice Pinned Monad fork experiment; skipped in normal CI without RPC env.
 /// No production Kuru executor or Factory integration is implied by this test.
 contract KuruForkResearchTest is Test {
@@ -130,7 +152,6 @@ contract KuruForkResearchTest is Test {
         assertEq(token.balanceOf(address(this)), 500_000 ether);
         uint256 baseSeed = 250_000 ether;
         uint256 quoteSeed = 100 ether;
-        KuruResearchNoExitLock lock = new KuruResearchNoExitLock();
 
         address expectedMarket = router.computeAddress(
             address(token),
@@ -147,6 +168,8 @@ contract KuruForkResearchTest is Test {
             false
         );
         address expectedVault = router.computeVaultAddress(expectedMarket, address(0), false);
+        KuruResearchBoundLock lock =
+            new KuruResearchBoundLock(address(token), address(0), expectedMarket, expectedVault);
         assertEq(expectedMarket.code.length, 0);
         assertEq(expectedVault.code.length, 0);
         uint256 gasBefore = gasleft();
@@ -203,21 +226,36 @@ contract KuruForkResearchTest is Test {
         assertEq(bestAsk, vaultAsk);
         assertEq(bestBid, vaultBid);
 
-        address attacker = address(0xCAFE);
-        vm.startPrank(attacker);
-        vm.expectRevert();
-        IKuruVaultResearch(expectedVault).withdraw(shares, attacker, address(lock));
-        vm.expectRevert();
-        token.transferFrom(address(lock), attacker, 250_000 ether);
-        vm.stopPrank();
-        assertEq(IERC20(expectedVault).allowance(address(lock), attacker), 0);
-        (bool transferEscape,) = address(lock).call(abi.encodeWithSelector(IERC20.transfer.selector, attacker, shares));
-        (bool approvalEscape,) = address(lock).call(abi.encodeWithSelector(IERC20.approve.selector, attacker, shares));
-        (bool arbitraryEscape,) =
-            address(lock).call(abi.encodeWithSignature("execute(address,bytes)", expectedVault, bytes("")));
-        assertFalse(transferEscape);
-        assertFalse(approvalEscape);
-        assertFalse(arbitraryEscape);
+        assertEq(lock.base(), address(token));
+        assertEq(lock.quote(), address(0));
+        assertEq(lock.market(), expectedMarket);
+        assertEq(lock.vault(), expectedVault);
+        (uint256 lockedShares, uint256 lockedExcess) = lock.protectedBalances();
+        assertEq(lockedShares, shares);
+        assertEq(lockedExcess, 250_000 ether);
+        address[3] memory actors = [address(0xCAFE), address(0xC0DE), address(0xB0B)];
+        for (uint256 i; i < actors.length; ++i) {
+            address actor = actors[i];
+            vm.startPrank(actor);
+            vm.expectRevert();
+            IKuruVaultResearch(expectedVault).withdraw(shares, actor, address(lock));
+            vm.expectRevert();
+            token.transferFrom(address(lock), actor, 250_000 ether);
+            (bool transferEscape,) = address(lock).call(abi.encodeWithSelector(IERC20.transfer.selector, actor, shares));
+            (bool approvalEscape,) = address(lock).call(abi.encodeWithSelector(IERC20.approve.selector, actor, shares));
+            (bool burnEscape,) = address(lock).call(abi.encodeWithSignature("burn(uint256)", shares));
+            (bool arbitraryEscape,) =
+                address(lock).call(abi.encodeWithSignature("execute(address,bytes)", expectedVault, bytes("")));
+            (bool delegateEscape,) =
+                address(lock).call(abi.encodeWithSignature("delegate(address,bytes)", expectedVault, bytes("")));
+            vm.stopPrank();
+            assertFalse(transferEscape);
+            assertFalse(approvalEscape);
+            assertFalse(burnEscape);
+            assertFalse(arbitraryEscape);
+            assertFalse(delegateEscape);
+            assertEq(IERC20(expectedVault).allowance(address(lock), actor), 0);
+        }
         assertEq(vault.balanceOf(address(lock)), shares);
         assertEq(token.balanceOf(address(lock)), 250_000 ether);
     }
@@ -250,7 +288,6 @@ contract KuruForkResearchTest is Test {
         uint256 terminalTokens = Math.mulDiv(1_000_000 ether, phantom, phantom + quoteSeed);
         uint256 baseSeed = Math.mulDiv(terminalTokens, quoteSeed, phantom + quoteSeed);
         token.transfer(address(0xBEEF), 1_000_000 ether - terminalTokens);
-        KuruResearchNoExitLock lock = new KuruResearchNoExitLock();
         address expectedMarket = router.computeAddress(
             address(token),
             quote,
@@ -266,6 +303,7 @@ contract KuruForkResearchTest is Test {
             false
         );
         address expectedVault = router.computeVaultAddress(expectedMarket, address(0), false);
+        KuruResearchBoundLock lock = new KuruResearchBoundLock(address(token), quote, expectedMarket, expectedVault);
         uint256 gasBefore = gasleft();
         address market = router.deployProxy(
             0, address(token), quote, SIZE_PRECISION, PRICE_PRECISION, TICK_SIZE, MIN_SIZE, MAX_SIZE, 30, 0, SPREAD
@@ -301,6 +339,10 @@ contract KuruForkResearchTest is Test {
         assertEq(token.balanceOf(address(this)), 0);
         assertEq(token.balanceOf(address(lock)), terminalTokens - baseSeed);
         assertEq(vault.balanceOf(address(lock)), shares);
+        (uint256 lockedShares, uint256 lockedExcess) = lock.protectedBalances();
+        assertEq(lockedShares, shares);
+        assertEq(lockedExcess, terminalTokens - baseSeed);
+        assertEq(lock.quote(), quote);
         assertEq(shares, Math.sqrt(baseSeed * quoteSeed) - 1_000);
         (uint256 actualBase, uint256 actualQuote) = vault.totalAssets();
         assertEq(actualBase, baseSeed);

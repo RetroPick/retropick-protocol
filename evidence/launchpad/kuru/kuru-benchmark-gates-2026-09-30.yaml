@@ -11,6 +11,7 @@ rows:
     evidence:
       - evidence/launchpad/kuru/environment-manifest-2026-09-30.json
       - evidence/launchpad/kuru/environment-verification-2026-09-30.md
+      - evidence/launchpad/kuru/dev4-environment-refresh-2026-09-30.md
       - evidence/launchpad/kuru/quote-qualification-2026-09-30.md
       - evidence/launchpad/kuru/fork-deploy-seed-2026-09-30.md
     limitation: Block-pinned read-only identity; repeat drift check before fork/live execution.
@@ -27,14 +28,16 @@ rows:
     evidence:
       - evidence/launchpad/kuru/parameter-profile-matrix-2026-09-30.json
       - evidence/launchpad/kuru/parameter-profile-report-2026-09-30.md
-    blocker: Candidate tuple and supported launch envelope require fork evidence and ADR-021 acceptance.
+      - evidence/launchpad/kuru/dev4-atomic-gas-matrix-2026-09-30.md
+    blocker: Candidate tuple passes six pinned-fork profile/quote combinations, but the complete supported launch envelope and ADR-021 acceptance remain open.
   KURU-B4-SEED:
     status: DECISION_REQUIRED
     evidence:
       - evidence/launchpad/kuru/parameter-profile-matrix-2026-09-30.json
       - evidence/launchpad/kuru/parameter-profile-report-2026-09-30.md
       - evidence/launchpad/kuru/seed-price-continuity-bound-2026-09-29.md
-    blocker: Proposed five-bps combined seed/tick envelope has not been accepted or fork-checked.
+      - evidence/launchpad/kuru/dev4-atomic-gas-matrix-2026-09-30.md
+    blocker: Proposed five-bps combined seed/tick cap passes six pinned-fork candidate profiles, but the complete supported envelope has not been fork-checked and the economic cap has not been accepted.
   KURU-B5-FORK-DEPLOY:
     status: PASS
     evidence:
@@ -50,9 +53,10 @@ rows:
   KURU-B7-CUSTODY:
     status: NOT_RUN
     partial_evidence:
+      - evidence/launchpad/kuru/dev4-bound-lock-fork-increment-2026-09-30.md
       - contracts/test/v2/integration/KuruForkResearch.t.sol
       - evidence/launchpad/kuru/atomic-retry-increment-2026-09-30.md
-    blocker: Candidate no-exit negative paths passed; full protected-asset/rescue audit and ADR-022 decision remain open.
+    blocker: Bound no-exit lock receives real fork LP/excess assets and creator/operator/arbitrary exit attempts fail; production lock and coordinator enforcement, complete protected-asset audit and ADR-022 decision remain open.
   KURU-B8-RETRY:
     status: NOT_RUN
     partial_evidence:
@@ -69,7 +73,8 @@ rows:
     status: NOT_RUN
     partial_evidence:
       - evidence/launchpad/kuru/atomic-retry-increment-2026-09-30.md
-    blocker: One native research phase-two gas delta recorded; MON/USDC profile distributions and block-gas feasibility remain open.
+      - evidence/launchpad/kuru/dev4-atomic-gas-matrix-2026-09-30.md
+    blocker: Six-profile MON/Circle real-fork research coordinator measured, but protected lock, Core finalization, repeated fresh-fork samples, final supported envelope and accepted architecture gas feasibility remain open.
   KURU-B11-LIVE-TESTNET:
     status: NOT_RUN
     evidence:

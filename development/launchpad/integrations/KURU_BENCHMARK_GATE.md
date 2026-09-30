@@ -13,7 +13,7 @@ This document defines the detailed B1–B12 qualification rows for Launchpad Cor
 | B7 custody | Protected LP/excess-token lock with negative authority tests and accepted ADR-022 | NOT_RUN as a complete gate; partial no-exit fixture passed |
 | B8 retry | Atomic failure, unchanged secured assets, same-launch retry and replay rejection; accepted ADR-023 | NOT_RUN as a complete gate; five injected reversions, forced Router revert, false registry, retry and replay passed |
 | B9 drift | Implementation, code-hash, MarginAccount, Router and observable pause mismatches stop new completion | NOT_RUN as a complete gate; OrderBook/vault-code and MarginAccount variants passed |
-| B10 gas | Full phase-2 MON/USDC small/medium/large fork distributions and target-chain headroom | NOT_RUN as a complete gate; one native research delta measured |
+| B10 gas | Full phase-2 MON/Circle small/medium/large fork distributions and target-chain headroom | NOT_RUN as a complete gate; six real-fork research-coordinator rows now measured, without accepted Core/final-lock integration or repeated samples |
 | B11 live testnet | Approved tiny research graduation with block, receipts and independent state | NOT_RUN |
 | B12 usability | Two controlled actors create/fill/cancel orders and record book/events | NOT_RUN |
 

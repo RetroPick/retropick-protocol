@@ -6,8 +6,9 @@ import {StdInvariant} from "forge-std/StdInvariant.sol";
 import {RetroPickBondingCurveV2} from "../../../src/v2/RetroPickBondingCurveV2.sol";
 import {RetroPickLauncherTokenV2} from "../../../src/v2/RetroPickLauncherTokenV2.sol";
 import {RetroPickBuybackVaultV2} from "../../../src/v2/RetroPickBuybackVaultV2.sol";
+import {RetroPickFeeEscrowV2} from "../../../src/v2/RetroPickFeeEscrowV2.sol";
 import {IRetroPickFeePolicyV2, IRetroPickFeeEscrowV2} from "../../../src/v2/interfaces/IRetroPickLaunchpadV2.sol";
-import {CurveStateFeePolicyV2, CurveStateFeeEscrowV2} from "../unit/RetroPickCurrentCurveStateV2Qualification.t.sol";
+import {CurveStateFeePolicyV2} from "../unit/RetroPickCurrentCurveStateV2Qualification.t.sol";
 
 contract CurrentCurveV2Handler is Test {
     RetroPickBondingCurveV2 public immutable curve;
@@ -86,7 +87,7 @@ contract RetroPickCurrentCurveV2InvariantTest is StdInvariant, Test {
         address protocol = makeAddr("protocol");
         address operator = makeAddr("operator");
         address[3] memory actors = [makeAddr("buyer-a"), makeAddr("buyer-b"), makeAddr("buyer-c")];
-        CurveStateFeeEscrowV2 escrow = new CurveStateFeeEscrowV2();
+        RetroPickFeeEscrowV2 escrow = new RetroPickFeeEscrowV2();
         CurveStateFeePolicyV2 policy =
             new CurveStateFeePolicyV2(protocol, operator, IRetroPickFeeEscrowV2(address(escrow)));
         RetroPickBuybackVaultV2 vault = new RetroPickBuybackVaultV2(

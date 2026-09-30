@@ -14,13 +14,15 @@ import {RetroPickLaunchLockerV2} from "../../../src/v2/RetroPickLaunchLockerV2.s
 import {RetroPickBondingCurveV2} from "../../../src/v2/RetroPickBondingCurveV2.sol";
 import {RetroPickLauncherTokenV2} from "../../../src/v2/RetroPickLauncherTokenV2.sol";
 import {RetroPickBuybackVaultV2} from "../../../src/v2/RetroPickBuybackVaultV2.sol";
+import {RetroPickFeeEscrowV2} from "../../../src/v2/RetroPickFeeEscrowV2.sol";
+import {RetroPickQuoteAssetPolicyV2} from "../../../src/v2/RetroPickQuoteAssetPolicyV2.sol";
+import {IRetroPickQuoteAssetPolicyV2} from "../../../src/v2/interfaces/IRetroPickQuoteAssetPolicyV2.sol";
 import {RetroPickMemeHookV2} from "../../../src/v2/hooks/RetroPickMemeHookV2.sol";
 import {
     FeePolicySnapshot,
     IRetroPickFeeEscrowV2,
     GraduationPhase
 } from "../../../src/v2/interfaces/IRetroPickLaunchpadV2.sol";
-import {CurveStateFeeEscrowV2} from "../unit/RetroPickCurrentCurveStateV2Qualification.t.sol";
 import {MockERC20} from "../../mocks/MockERC20.sol";
 
 /// @notice An ERC20 whose sender pays an additional burn on every transfer.
@@ -82,6 +84,16 @@ contract CallbackQuote is MockERC20 {
     }
 }
 
+/// @notice Deliberately permissive research fixture for malicious-token negatives.
+/// It is not the production P0 quote admission policy.
+contract ResearchPermissiveQuotePolicy is IRetroPickQuoteAssetPolicyV2 {
+    function isSupportedQuote(address) external pure returns (bool) {
+        return true;
+    }
+
+    function validateQuote(address, uint8) external pure {}
+}
+
 /// @notice Real Factory/Deployer/Token/Curve path with explicitly mocked V4-only singletons.
 /// The mocks do not qualify V4 pool creation or a live Kuru destination.
 contract RetroPickFactoryLaunchV2QualificationTest is Test {
@@ -99,13 +111,14 @@ contract RetroPickFactoryLaunchV2QualificationTest is Test {
     RetroPickGraduationExecutorV2 internal executor;
     RetroPickLaunchLockerV2 internal locker;
     RetroPickBuybackVaultV2 internal vault;
-    CurveStateFeeEscrowV2 internal escrow;
+    RetroPickFeeEscrowV2 internal escrow;
 
     function setUp() public {
         vm.etch(positionManager, hex"00");
         vm.etch(hook, hex"00");
         vm.mockCall(positionManager, abi.encodeWithSignature("poolManager()"), abi.encode(poolManager));
-        escrow = new CurveStateFeeEscrowV2();
+        escrow = new RetroPickFeeEscrowV2();
+        ResearchPermissiveQuotePolicy researchPolicy = new ResearchPermissiveQuotePolicy();
         locker = new RetroPickLaunchLockerV2(owner, positionManager);
         vault = new RetroPickBuybackVaultV2(
             owner, RetroPickMemeHookV2(payable(hook)), IRetroPickFeeEscrowV2(address(escrow))
@@ -119,6 +132,7 @@ contract RetroPickFactoryLaunchV2QualificationTest is Test {
             RetroPickMemeHookV2(payable(hook)),
             IRetroPickFeeEscrowV2(address(escrow)),
             vault,
+            researchPolicy,
             0
         );
         deployer = new RetroPickLaunchDeployerV2(address(factory));
@@ -191,6 +205,48 @@ contract RetroPickFactoryLaunchV2QualificationTest is Test {
         assertEq(curve.reservedTokens(), 500_000 ether);
     }
 
+    function testCanonicalP0PolicyRejectsArbitraryOwnerApprovedQuote() public {
+        RetroPickQuoteAssetPolicyV2 p0Policy = new RetroPickQuoteAssetPolicyV2();
+        assertTrue(p0Policy.isSupportedQuote(address(0)));
+        assertTrue(p0Policy.isSupportedQuote(p0Policy.CIRCLE_TEST_USDC()));
+        MockERC20 arbitrary = new MockERC20("Arbitrary", "ARB", 6);
+        assertFalse(p0Policy.isSupportedQuote(address(arbitrary)));
+        RetroPickLaunchFactoryV2 p0Factory = new RetroPickLaunchFactoryV2(
+            owner,
+            IPoolManager(poolManager),
+            IPositionManager(positionManager),
+            IAllowanceTransfer(permit2),
+            locker,
+            RetroPickMemeHookV2(payable(hook)),
+            IRetroPickFeeEscrowV2(address(escrow)),
+            vault,
+            p0Policy,
+            0
+        );
+        vm.expectRevert(RetroPickQuoteAssetPolicyV2.QuoteNotSupported.selector);
+        p0Factory.setPairTokenEconomics(address(arbitrary), 100e6, 100e6, 6);
+        vm.expectRevert(RetroPickLaunchFactoryV2.PairTokenEconomicsInvalid.selector);
+        p0Factory.setPairTokenApproved(address(arbitrary), true);
+
+        address circle = p0Policy.CIRCLE_TEST_USDC();
+        vm.etch(circle, hex"");
+        vm.expectRevert(RetroPickQuoteAssetPolicyV2.QuoteCodeMissing.selector);
+        p0Factory.setPairTokenEconomics(circle, 100e6, 100e6, 6);
+
+        MockERC20 wrongScale = new MockERC20("Wrong Scale", "WS", 18);
+        vm.etch(circle, address(wrongScale).code);
+        vm.expectRevert(
+            abi.encodeWithSelector(RetroPickQuoteAssetPolicyV2.QuoteDecimalsMismatch.selector, uint8(6), uint8(18))
+        );
+        p0Factory.setPairTokenEconomics(circle, 100e6, 100e6, 6);
+
+        MockERC20 exactScale = new MockERC20("Circle fixture", "CF", 6);
+        vm.etch(circle, address(exactScale).code);
+        p0Factory.setPairTokenEconomics(circle, 100e6, 100e6, 6);
+        p0Factory.setPairTokenApproved(circle, true);
+        assertTrue(p0Factory.approvedPairTokens(circle));
+    }
+
     function testEconomicsPinAndDisabledConfigRejectWithoutLaunch() public {
         RetroPickLaunchFactoryV2.TokenParams memory p = _params(bytes32(uint256(2)));
         p.expectedEconomics = factory.previewLaunchEconomics(0, address(0));
@@ -256,29 +312,25 @@ contract RetroPickFactoryLaunchV2QualificationTest is Test {
         assertEq(quote.balanceOf(curveAddress), curve.trackedQuote(), "exact-transfer quote preserves tracked backing");
     }
 
-    function testApprovedSenderSurchargeQuoteCanDeficitCurveAfterSell() public {
+    function testApprovedSenderSurchargeQuoteRejectedBeforeCurveAccounting() public {
         SenderSurchargeQuote quote = new SenderSurchargeQuote();
         factory.setPairTokenEconomics(address(quote), 100e6, 100e6, 6);
         factory.setPairTokenApproved(address(quote), true);
         vm.prank(creator);
-        (address tokenAddress, address curveAddress) =
+        (, address curveAddress) =
             factory.launchToken(_params(bytes32(uint256(4))), 0, address(quote));
         RetroPickBondingCurveV2 curve = RetroPickBondingCurveV2(payable(curveAddress));
         quote.mint(creator, 20e6);
         vm.startPrank(creator);
         quote.approve(curveAddress, 10e6);
-        uint256 tokensOut = curve.buy(10e6, 0, creator);
-        assertEq(quote.balanceOf(curveAddress), curve.trackedQuote(), "inbound balance delta is exact");
-        RetroPickLauncherTokenV2(tokenAddress).approve(curveAddress, tokensOut / 2);
-        uint256 payout = curve.sell(tokensOut / 2, 0, creator);
-        vm.stopPrank();
-
-        assertGt(payout / 10, 0, "witness has a nonzero surcharge");
-        assertEq(
-            curve.trackedQuote() - quote.balanceOf(curveAddress),
-            payout / 10,
-            "sender-side surcharge destroys exactly one-tenth of payout from backing"
+        vm.expectRevert(
+            abi.encodeWithSelector(RetroPickBondingCurveV2.InexactQuoteTransfer.selector, 10e6, 11e6)
         );
+        curve.buy(10e6, 0, creator);
+        vm.stopPrank();
+        assertEq(quote.balanceOf(curveAddress), 0);
+        assertEq(curve.trackedQuote(), 0);
+        assertEq(quote.balanceOf(creator), 20e6);
     }
 
     function testApprovedFalseReturnQuoteBuyRevertsWithoutStateChange() public {
@@ -301,7 +353,7 @@ contract RetroPickFactoryLaunchV2QualificationTest is Test {
         assertEq(RetroPickLauncherTokenV2(tokenAddress).balanceOf(creator), 0);
     }
 
-    function testApprovedExternallyReducibleQuoteCanDeficitCurveAfterBuy() public {
+    function testApprovedExternallyReducibleQuoteLossFailsClosed() public {
         ExternallyReducibleQuote quote = new ExternallyReducibleQuote();
         factory.setPairTokenEconomics(address(quote), 100e6, 100e6, 6);
         factory.setPairTokenApproved(address(quote), true);
@@ -317,7 +369,15 @@ contract RetroPickFactoryLaunchV2QualificationTest is Test {
 
         quote.slash(curveAddress, 1e6);
         assertEq(curve.trackedQuote() - quote.balanceOf(curveAddress), 1e6);
-        assertGt(curve.realQuoteReserve(), 0, "the curve still reports a tradable quote reserve");
+        bytes memory deficit = abi.encodeWithSelector(
+            RetroPickBondingCurveV2.QuoteBackingDeficit.selector, 9e6, 10e6
+        );
+        vm.expectRevert(deficit);
+        curve.realQuoteReserve();
+        vm.prank(creator);
+        vm.expectRevert(deficit);
+        curve.sweepFees(0);
+        assertEq(curve.trackedQuote(), 10e6);
     }
 
     function testApprovedCallbackQuoteCannotReenterBuyAccounting() public {
@@ -491,7 +551,9 @@ contract RetroPickFactoryLaunchV2QualificationTest is Test {
         assertEq(vault.totalReleased(tokenAddress), locked);
         assertEq(RetroPickLauncherTokenV2(tokenAddress).balanceOf(address(vault)), 0);
         assertEq(RetroPickLauncherTokenV2(tokenAddress).balanceOf(address(escrow)), locked);
-        assertEq(escrow.balanceOf(protocol) - protocolEscrowBeforeRelease, locked * 3_000 / 10_000);
-        assertEq(escrow.balanceOf(creator) - creatorEscrowBeforeRelease, locked - locked * 3_000 / 10_000);
+        assertEq(escrow.balanceOf(protocol), protocolEscrowBeforeRelease);
+        assertEq(escrow.balanceOf(creator), creatorEscrowBeforeRelease);
+        assertEq(escrow.balanceOfToken(protocol, tokenAddress), locked * 3_000 / 10_000);
+        assertEq(escrow.balanceOfToken(creator, tokenAddress), locked - locked * 3_000 / 10_000);
     }
 }

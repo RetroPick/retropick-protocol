@@ -51,6 +51,8 @@ contract RetroPickBondingCurveV2 is ReentrancyGuard {
     error MinimumOutputRequired();
     error NativeValueMismatch(uint256 supplied, uint256 expected);
     error UnexpectedNativeValue();
+    error QuoteBackingDeficit(uint256 physical, uint256 tracked);
+    error InexactQuoteTransfer(uint256 expected, uint256 actual);
 
     // `fee` and `tax` are reported separately because they fund different
     // parties: the fee splits across protocol, buyback and creator, while the
@@ -303,6 +305,7 @@ contract RetroPickBondingCurveV2 is ReentrancyGuard {
      * @notice Returns the curve's current tradeable reserves, excluding fees pending sweep.
      */
     function getReserves() public view returns (uint256 quoteReserve_, uint256 tokenReserve_) {
+        _requireQuoteBacking();
         quoteReserve_ = phantomQuote + trackedQuote - quoteFeeBalance - creatorTaxBalance;
         tokenReserve_ = trackedTokens;
     }
@@ -319,6 +322,7 @@ contract RetroPickBondingCurveV2 is ReentrancyGuard {
      * liquidity and balances already earmarked as fees or creator tax.
      */
     function realQuoteReserve() public view returns (uint256) {
+        _requireQuoteBacking();
         return trackedQuote - quoteFeeBalance - creatorTaxBalance;
     }
 
@@ -425,6 +429,7 @@ contract RetroPickBondingCurveV2 is ReentrancyGuard {
             emit CurveBuyRefunded(msg.sender, refund);
             _sendQuote(msg.sender, refund);
         }
+        _requireQuoteBacking();
 
         // reentrancy-events: buy() is nonReentrant and all curve state (trackedQuote/trackedTokens/fees) is finalized before the transfers above (checks-effects-interactions), so this final trade log cannot be reordered or fabricated.
         // forge-lint: disable-next-line(reentrancy-events)
@@ -458,6 +463,7 @@ contract RetroPickBondingCurveV2 is ReentrancyGuard {
         returns (uint256 quoteOut)
     {
         if (graduated || readyToGraduate()) revert CurveGraduated();
+        _requireQuoteBacking();
         if (tokensIn == 0) revert ZeroAmount();
         if (recipient == address(0)) revert ZeroAddress();
 
@@ -474,6 +480,7 @@ contract RetroPickBondingCurveV2 is ReentrancyGuard {
         trackedQuote -= quoteOut;
         trackedTokens += tokensIn;
         _sendQuote(recipient, quoteOut);
+        _requireQuoteBacking();
 
         // reentrancy-events: sell() is nonReentrant and curve state (trackedQuote/trackedTokens/fees) is finalized before the payout above (checks-effects-interactions), so this trade log cannot be reordered or fabricated.
         // forge-lint: disable-next-line(reentrancy-events)
@@ -493,6 +500,7 @@ contract RetroPickBondingCurveV2 is ReentrancyGuard {
      */
     function sweepFees(uint256 minBuybackTokensOut) external nonReentrant {
         if (graduated) revert AlreadyGraduated();
+        _requireQuoteBacking();
         bool isOperator = msg.sender == feePolicy.feeSweepOperator();
         if (!isOperator && msg.sender != deployer) {
             revert NotFeeSweepOperator();
@@ -512,6 +520,7 @@ contract RetroPickBondingCurveV2 is ReentrancyGuard {
      */
     function graduate(address recipient) external onlyFactory returns (uint256 quoteOut, uint256 tokenOut) {
         if (graduated) revert AlreadyGraduated();
+        _requireQuoteBacking();
         if (recipient == address(0)) revert ZeroAddress();
         if (!readyToGraduate()) revert NotReadyToGraduate();
 
@@ -548,6 +557,7 @@ contract RetroPickBondingCurveV2 is ReentrancyGuard {
         if (tokenOut != 0) {
             IERC20(token).safeTransfer(recipient, tokenOut);
         }
+        _requireQuoteBacking();
 
         // reentrancy-events: graduate() is onlyFactory; before the transfers above it sets graduated = true and zeroes trackedQuote/trackedTokens, so a reentrant call reverts on the graduated flag and finds empty reserves. The event reports those finalized values and cannot be fabricated or reordered.
         // forge-lint: disable-next-line(reentrancy-events)
@@ -555,10 +565,9 @@ contract RetroPickBondingCurveV2 is ReentrancyGuard {
     }
 
     /**
-     * @dev Pulls `amount` of the quote asset from the caller and returns the
-     * amount actually received. Native launches take it from `msg.value`;
-     * ERC-20 launches measure the balance delta so a fee-on-transfer quote
-     * asset is credited for what arrived, not what was asked for.
+     * @dev P0 ERC-20 quotes must debit and credit exactly `amount`. Checking
+     * both sides rejects fee-on-transfer and sender-surcharge behavior before
+     * any launch liability changes. Donations are excluded from pricing.
      */
     function _receiveQuote(uint256 amount) private returns (uint256) {
         if (isNativeQuote()) {
@@ -569,8 +578,18 @@ contract RetroPickBondingCurveV2 is ReentrancyGuard {
         if (msg.value != 0) revert UnexpectedNativeValue();
         IERC20 quote = IERC20(pairToken);
         uint256 balanceBefore = quote.balanceOf(address(this));
+        uint256 payerBefore = quote.balanceOf(msg.sender);
+        if (balanceBefore < trackedQuote) revert QuoteBackingDeficit(balanceBefore, trackedQuote);
         quote.safeTransferFrom(msg.sender, address(this), amount);
-        return quote.balanceOf(address(this)) - balanceBefore;
+        uint256 balanceAfter = quote.balanceOf(address(this));
+        uint256 payerAfter = quote.balanceOf(msg.sender);
+        if (balanceAfter < balanceBefore || balanceAfter - balanceBefore != amount) {
+            revert InexactQuoteTransfer(amount, balanceAfter > balanceBefore ? balanceAfter - balanceBefore : 0);
+        }
+        if (payerAfter > payerBefore || payerBefore - payerAfter != amount) {
+            revert InexactQuoteTransfer(amount, payerBefore > payerAfter ? payerBefore - payerAfter : 0);
+        }
+        return amount;
     }
 
     /**
@@ -584,7 +603,18 @@ contract RetroPickBondingCurveV2 is ReentrancyGuard {
             if (!sent) revert TransferFailed();
             return;
         }
-        IERC20(pairToken).safeTransfer(recipient, amount);
+        IERC20 quote = IERC20(pairToken);
+        uint256 balanceBefore = quote.balanceOf(address(this));
+        uint256 recipientBefore = quote.balanceOf(recipient);
+        quote.safeTransfer(recipient, amount);
+        uint256 balanceAfter = quote.balanceOf(address(this));
+        uint256 recipientAfter = quote.balanceOf(recipient);
+        if (balanceAfter > balanceBefore || balanceBefore - balanceAfter != amount) {
+            revert InexactQuoteTransfer(amount, balanceBefore > balanceAfter ? balanceBefore - balanceAfter : 0);
+        }
+        if (recipientAfter < recipientBefore || recipientAfter - recipientBefore != amount) {
+            revert InexactQuoteTransfer(amount, recipientAfter > recipientBefore ? recipientAfter - recipientBefore : 0);
+        }
     }
 
     /**
@@ -599,9 +629,14 @@ contract RetroPickBondingCurveV2 is ReentrancyGuard {
             return;
         }
         IERC20(pairToken).forceApprove(address(feeEscrow), amount);
+        uint256 balanceBefore = IERC20(pairToken).balanceOf(address(this));
         // reentrancy-no-eth: only caller _sweepFees decrements trackedQuote before invoking this helper (checks-effects-interactions), the escrow is trusted and immutable, and _sweepFees runs under nonReentrant (sweepFees) or the graduated flag (graduate).
         // forge-lint: disable-next-line(reentrancy-no-eth)
         feeEscrow.creditToken(recipient, pairToken, amount);
+        uint256 balanceAfter = IERC20(pairToken).balanceOf(address(this));
+        if (balanceAfter > balanceBefore || balanceBefore - balanceAfter != amount) {
+            revert InexactQuoteTransfer(amount, balanceBefore > balanceAfter ? balanceBefore - balanceAfter : 0);
+        }
     }
 
     /**
@@ -746,6 +781,7 @@ contract RetroPickBondingCurveV2 is ReentrancyGuard {
         if (creatorAmount != 0) {
             _creditQuote(deployer, creatorAmount);
         }
+        _requireQuoteBacking();
 
         // reentrancy-events: all fee amounts and tracked reserves are finalized before the credit calls above, and _sweepFees runs only under nonReentrant (sweepFees) or the graduated flag (graduate), so this log cannot be reordered or fabricated.
         // forge-lint: disable-next-line(reentrancy-events)
@@ -779,6 +815,7 @@ contract RetroPickBondingCurveV2 is ReentrancyGuard {
      * RetroPickLaunchFactoryV2.rescueSweptGraduation for the reserves in between.
      */
     function rescueFees() external onlyFactory returns (uint256 protocolAmount, uint256 creatorAmount) {
+        _requireQuoteBacking();
         uint256 pending = quoteFeeBalance;
         uint256 tax = creatorTaxBalance;
         if (pending == 0 && tax == 0) revert ZeroAmount();
@@ -797,6 +834,7 @@ contract RetroPickBondingCurveV2 is ReentrancyGuard {
 
         if (protocolAmount != 0) _sendQuote(protocolFeeRecipient, protocolAmount);
         if (creatorAmount != 0) _sendQuote(deployer, creatorAmount);
+        _requireQuoteBacking();
 
         // reentrancy-events: rescueFees is onlyFactory and zeroes every fee bucket and decrements trackedQuote before the payouts above (checks-effects-interactions), so this log reports finalized amounts and cannot be reordered or fabricated.
         // forge-lint: disable-next-line(reentrancy-events)
@@ -814,5 +852,10 @@ contract RetroPickBondingCurveV2 is ReentrancyGuard {
         // Minimal stub implementation for compilation compatibility
         // Anti-snipe tax functionality appears incomplete in upstream source
         (exemptAddress); // Suppress unused parameter warning
+    }
+
+    function _requireQuoteBacking() private view {
+        uint256 physical = isNativeQuote() ? address(this).balance : IERC20(pairToken).balanceOf(address(this));
+        if (physical < trackedQuote) revert QuoteBackingDeficit(physical, trackedQuote);
     }
 }

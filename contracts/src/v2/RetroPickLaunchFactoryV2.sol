@@ -1,11 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.26;
-           
+
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {Ownable2Step} from "@openzeppelin/contracts/access/Ownable2Step.sol";
 import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import {IERC20Metadata} from "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
 import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
 import {IPoolManager} from "@uniswap/v4-core/src/interfaces/IPoolManager.sol";
@@ -29,6 +28,7 @@ import {LaunchDeployment, RetroPickLaunchDeployerV2} from "./RetroPickLaunchDepl
 import {RetroPickGraduationGuardV2} from "./RetroPickGraduationGuardV2.sol";
 import {RetroPickGraduationMathV2} from "./libraries/RetroPickGraduationMathV2.sol";
 import {RetroPickBondingCurveMathV2} from "./libraries/RetroPickBondingCurveMathV2.sol";
+import {IRetroPickQuoteAssetPolicyV2} from "./interfaces/IRetroPickQuoteAssetPolicyV2.sol";
 import {
     FeePolicySnapshot,
     GraduationPhase,
@@ -71,7 +71,6 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
     // Bound on the creator-declared exemption list, so a launch cannot be
     // made unaffordable to itself by an unbounded loop of exemption writes.
     uint256 private constant MAX_SNIPE_TAX_EXEMPTIONS = 32;
-    uint8 private constant MIN_PAIR_TOKEN_DECIMALS = 6;
     // Smallest supply a launch may declare, and the reference supply the
     // quotability check assumes when it runs before any config is known.
     uint256 private constant MIN_LAUNCH_SUPPLY = 1 ether;
@@ -242,8 +241,6 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
     error InvalidPhantomQuote();
     error CurveNotQuotable();
     error PairTokenEconomicsInvalid();
-    error PairTokenDecimalsMismatch(uint8 expected, uint8 actual);
-    error PairTokenDecimalsUnavailable();
     error LaunchEconomicsMismatch(bytes32 expected, bytes32 actual);
     error InexactTransfer(address token, uint256 expected, uint256 received);
     error GraduationSeedNotViable();
@@ -299,6 +296,7 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
     RetroPickLaunchLockerV2 public immutable locker;
     RetroPickMemeHookV2 public immutable memeHook;
     IRetroPickFeeEscrowV2 public immutable feeEscrow;
+    IRetroPickQuoteAssetPolicyV2 public immutable quoteAssetPolicy;
     RetroPickBuybackVaultV2 public immutable buybackVault;
 
     // Not immutable: each helper's constructor needs this factory's
@@ -342,6 +340,7 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
         RetroPickMemeHookV2 memeHook_,
         IRetroPickFeeEscrowV2 feeEscrow_,
         RetroPickBuybackVaultV2 buybackVault_,
+        IRetroPickQuoteAssetPolicyV2 quoteAssetPolicy_,
         uint256 initialLaunchFee
     ) Ownable(initialOwner) {
         if (address(poolManager_) == address(0) || address(positionManager_) == address(0)) {
@@ -349,7 +348,10 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
         }
         if (address(permit2_) == address(0) || address(locker_) == address(0)) revert ZeroAddress();
         if (address(memeHook_) == address(0) || address(feeEscrow_) == address(0)) revert ZeroAddress();
-        if (address(buybackVault_) == address(0)) revert ZeroAddress();
+        if (address(buybackVault_) == address(0) || address(quoteAssetPolicy_) == address(0)) revert ZeroAddress();
+        if (address(quoteAssetPolicy_).code.length == 0 || !quoteAssetPolicy_.isSupportedQuote(address(0))) {
+            revert PairTokenValidationFailed();
+        }
         // The factory initializes pools on `poolManager_` but mints their
         // liquidity through `positionManager_`. If the two point at different
         // singletons every graduation reverts, so the mismatch is caught here
@@ -365,6 +367,7 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
         locker = locker_;
         memeHook = memeHook_;
         feeEscrow = feeEscrow_;
+        quoteAssetPolicy = quoteAssetPolicy_;
         buybackVault = buybackVault_;
         graduationGuard = new RetroPickGraduationGuardV2();
         launchFee = initialLaunchFee;
@@ -481,18 +484,12 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
         if (pairToken == address(0) || phantomQuote == 0 || graduationThreshold == 0) {
             revert PairTokenEconomicsInvalid();
         }
-        // Curve fees are integer basis points of the quote leg, so on a
-        // coarse asset every trade below BASIS_POINTS / feeBps base units
-        // rounds its fee to zero and a trader can split an order into
-        // fee-free pieces. Six decimals is the floor at which that band is
-        // dust, and matches the least granular asset worth quoting in.
-        if (expectedDecimals < MIN_PAIR_TOKEN_DECIMALS) revert PairTokenEconomicsInvalid();
+        quoteAssetPolicy.validateQuote(pairToken, expectedDecimals);
         // A launch against this asset takes its phantom reserve from here but
         // its supply from whichever config it selects, so the strictest case
         // is the smallest supply any config may declare paired with the
         // highest fee any of them may charge.
         _requireQuotable(phantomQuote, MIN_LAUNCH_SUPPLY, MAX_CURVE_FEE_BPS);
-        _requireDecimals(pairToken, expectedDecimals, false);
         pairTokenEconomics[pairToken] = PairTokenEconomics({
             phantomQuote: phantomQuote, graduationThreshold: graduationThreshold, decimals: expectedDecimals
         });
@@ -500,46 +497,20 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
     }
 
     /**
-     * @dev Requires the quote asset to report `expectedDecimals`. Assets with
-     * no code yet, or that omit the optional metadata call, are accepted on
-     * the caller's stated scale because nothing contradicts it. The scale is
-     * stored and re-checked at approval so an address that only becomes a
-     * contract afterwards cannot enter service on an unverified claim.
-     */
-    function _requireDecimals(address pairToken, uint8 expectedDecimals, bool required) private view {
-        if (!required && pairToken.code.length == 0) return;
-        try IERC20Metadata(pairToken).decimals() returns (uint8 actual) {
-            if (actual != expectedDecimals) revert PairTokenDecimalsMismatch(expectedDecimals, actual);
-        } catch {
-            // Sizing may legitimately precede deployment, but an asset whose
-            // scale cannot be read must never enter service on an unverified
-            // claim, since the error this guards against is a silent
-            // twelve-order-of-magnitude mispricing.
-            if (required) revert PairTokenDecimalsUnavailable();
-        }
-    }
-
-    /**
-     * @notice Approves or removes a standard ERC-20 quote asset for new
-     * launches. Because curves collect the quote asset directly, approving
-     * one needs nothing beyond a real token contract and the economics its
-     * curves will price against.
-     * @dev The stored scale is re-verified here rather than trusted from the
-     * economics call. Approval is the point where the asset enters service,
-     * and it is the only point at which the address is guaranteed to hold
-     * code, so this is what closes the gap for an asset configured before it
-     * was deployed or one that has since changed its reported decimals.
+     * @notice Approves or removes a quote asset already admitted by the
+     * immutable P0 policy. Owner approval alone cannot admit another token.
+     * @dev Code and decimals are re-verified through the policy on approval
+     * and again at launch. Exact transfer behavior is enforced by the Curve
+     * and FeeEscrow on each accounting transition.
      */
     function setPairTokenApproved(address pairToken, bool approved) external onlyOwner {
         if (pairToken == address(0)) revert PairTokenValidationFailed();
         if (approved) {
-            if (pairToken.code.length == 0) revert PairTokenValidationFailed();
-
             PairTokenEconomics memory economics = pairTokenEconomics[pairToken];
             if (economics.phantomQuote == 0 || economics.graduationThreshold == 0) {
                 revert PairTokenEconomicsInvalid();
             }
-            _requireDecimals(pairToken, economics.decimals, true);
+            quoteAssetPolicy.validateQuote(pairToken, economics.decimals);
         }
         approvedPairTokens[pairToken] = approved;
         emit PairTokenApprovalUpdated(pairToken, approved);
@@ -774,6 +745,7 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
         if (launchConfigId >= _launchConfigs.length) revert InvalidLaunchConfigId();
         if (bytes(params.name).length == 0 || bytes(params.symbol).length == 0) revert InvalidTokenParams();
         if (params.creatorTaxBps > maxCreatorTaxBps) revert CreatorTaxTooHigh();
+        if (!quoteAssetPolicy.isSupportedQuote(pairToken)) revert PairTokenNotApproved();
         if (pairToken != address(0) && !approvedPairTokens[pairToken]) revert PairTokenNotApproved();
 
         LaunchConfig memory config = _launchConfigs[launchConfigId];
@@ -789,7 +761,7 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
         // figure for its entire life. Re-reading here keeps a silent
         // twelve-order-of-magnitude mispricing out of the launch.
         if (pairToken != address(0)) {
-            _requireDecimals(pairToken, pairTokenEconomics[pairToken].decimals, true);
+            quoteAssetPolicy.validateQuote(pairToken, pairTokenEconomics[pairToken].decimals);
         }
         // Every term below is owner-updatable, so a creator may pin the whole
         // set they were quoted rather than accept whatever is current when

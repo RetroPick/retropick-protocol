@@ -5,8 +5,10 @@ import unittest
 from pathlib import Path
 
 from benchmark_launch_profiles import build_matrix
+from prelaunch_quote_witness import build_witness
 from launchpad_seed_model import (
-    quote_first_seed, quote_opening_ticks, valid_router_parameters,
+    one_shot_crossing_quote, quote_first_seed, quote_opening_ticks,
+    valid_router_parameters,
 )
 
 
@@ -185,6 +187,27 @@ class KuruLaunchpadSeedModelTest(unittest.TestCase):
         root = Path(__file__).resolve().parents[3]
         artifact = root / "evidence/launchpad/kuru/parameter-profile-matrix-2026-09-30.json"
         self.assertEqual(json.loads(artifact.read_text()), build_matrix())
+
+    def test_one_shot_crossing_quote_is_not_configured_threshold(self):
+        for decimals in (18, 6):
+            with self.subTest(quote_decimals=decimals):
+                threshold = 100 * 10**decimals
+                result = one_shot_crossing_quote(
+                    launch_supply=1_000_000 * 10**18,
+                    phantom_quote=threshold,
+                    graduation_threshold=threshold,
+                    curve_fee_bps=100,
+                    creator_tax_bps=50,
+                )
+                # The same exact values are asserted by the native and pinned
+                # Circle Foundry crossing-buy regression, independently.
+                self.assertEqual(result.secured_quote, threshold + 2)
+                self.assertEqual(result.terminal_tokens, 500_000 * 10**18)
+
+    def test_prelaunch_quote_witness_artifact_matches_generator(self):
+        root = Path(__file__).resolve().parents[3]
+        artifact = root / "evidence/launchpad/kuru/prelaunch-q-threshold-counterexample-2026-09-30.json"
+        self.assertEqual(json.loads(artifact.read_text()), build_witness())
 
 
 if __name__ == "__main__":

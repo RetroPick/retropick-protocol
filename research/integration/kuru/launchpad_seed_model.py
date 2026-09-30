@@ -51,6 +51,60 @@ class OpeningTicks:
     usable_limit_ticks: bool
 
 
+@dataclass(frozen=True)
+class OneShotCrossingQuote:
+    """One clamped threshold buy, no earlier trades or buyback execution."""
+
+    terminal_tokens: int
+    sellable_tokens: int
+    net_quote_in: int
+    gross_quote_spent: int
+    curve_fee: int
+    creator_tax: int
+    secured_quote: int
+
+
+def one_shot_crossing_quote(
+    *, launch_supply: int, phantom_quote: int, graduation_threshold: int,
+    curve_fee_bps: int, creator_tax_bps: int,
+) -> OneShotCrossingQuote:
+    """Mirror current Curve initialize + one clamped buy's exact integer path.
+
+    This is a counterexample oracle, not a universal bound on terminal Q.
+    A buyer supplies enough quote to trigger the clamp. Earlier buys/sells,
+    buyback execution, and mutable fee policy can change the later Q.
+    """
+    if min(launch_supply, phantom_quote, graduation_threshold) <= 0:
+        raise ValueError("positive launch supply, phantom and threshold required")
+    if max(launch_supply, phantom_quote, graduation_threshold) > UINT256_MAX:
+        raise ValueError("crossing input exceeds uint256")
+    if phantom_quote + graduation_threshold > UINT256_MAX:
+        raise ValueError("virtual plus threshold exceeds uint256")
+    if curve_fee_bps < 0 or creator_tax_bps < 0 or curve_fee_bps + creator_tax_bps >= BPS:
+        raise ValueError("invalid combined fee")
+
+    terminal = launch_supply * phantom_quote // (phantom_quote + graduation_threshold)
+    sellable = launch_supply - terminal
+    if terminal <= 0 or sellable <= 0:
+        raise ValueError("empty terminal or sellable allocation")
+    # BondingCurveMathV2.getAmountIn(sellable, P, L, 0) floors then adds 1.
+    net = sellable * phantom_quote // terminal + 1
+    gross = (net * BPS + (BPS - curve_fee_bps - creator_tax_bps) - 1) // (
+        BPS - curve_fee_bps - creator_tax_bps
+    )
+    fee = gross * curve_fee_bps // BPS
+    tax = gross * creator_tax_bps // BPS
+    return OneShotCrossingQuote(
+        terminal_tokens=terminal,
+        sellable_tokens=sellable,
+        net_quote_in=net,
+        gross_quote_spent=gross,
+        curve_fee=fee,
+        creator_tax=tax,
+        secured_quote=gross - fee - tax,
+    )
+
+
 def quote_opening_ticks(
     *, first_ask_price_scaled: int, price_precision: int,
     tick_size: int, amm_spread: int,

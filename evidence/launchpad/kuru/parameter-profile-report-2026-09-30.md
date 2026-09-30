@@ -4,6 +4,8 @@
 
 The [machine-readable matrix](parameter-profile-matrix-2026-09-30.json) is reproducibly emitted by `python3 research/integration/kuru/benchmark_launch_profiles.py`; the test suite compares the committed artifact with generator output. It has five candidate supported profiles for each of native MON and six-decimal testnet USDC, plus one permanent negative for the Factory's one-token minimum. Both quote columns use nominal asset units; **no MON/USDC exchange-rate or value parity is assumed**.
 
+The later [one-shot crossing counterexample](prelaunch-q-threshold-counterexample-2026-09-30.md) now proves that even the standard 100/100 Core launch secures `threshold + 2` raw quote units, not exactly the configured threshold, for both native MON and canonical Circle USDC. Thus the matrix's `Q = threshold` rows are scenario fixtures, not a launch-admission proof over reachable terminal Q.
+
 ## Source-derived terminal reserve
 
 The earlier abstract seed fixture passed one million tokens directly as `T`. That is not the actual terminal reserve for a one-million-token launch. Current `RetroPickBondingCurveV2.initialize` reserves `T = floor(L × P / (P + threshold))`, where `L` is original launch supply and `P` is phantom quote. For the existing one-million-token, 100/100 fixture, `T` is 500,000 tokens; if physically secured quote `Q` equals the threshold, the Kuru seed is then `B = floor(T × Q / (P + Q)) = 250,000` tokens, not 500,000. The matrix derives `T` from `L` and records `L`, `T`, `P`, `Q`, `B` and `T−B` separately. It assumes `Q` exactly reaches the configured threshold; actual swept `Q` must be measured and the calculation repeated on fork/live evidence.

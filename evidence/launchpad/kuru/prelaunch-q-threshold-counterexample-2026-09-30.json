@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "classification": "COUNTEREXAMPLE_TO_Q_EQUALS_THRESHOLD_NOT_TERMINAL_Q_RANGE_PROOF",
+  "source": "RetroPickBondingCurveV2.initialize/buy/graduate and BondingCurveMathV2.getAmountIn",
+  "path_assumptions": "one threshold-crossing buy, no prior trades, buyback disabled",
+  "rows": [
+    {
+      "quote": "MON",
+      "quote_decimals": 18,
+      "launch_supply_raw": 1000000000000000000000000,
+      "phantom_quote_raw": 100000000000000000000,
+      "configured_threshold_raw": 100000000000000000000,
+      "curve_fee_bps": 100,
+      "creator_tax_bps": 50,
+      "one_shot_crossing": {
+        "terminal_tokens": 500000000000000000000000,
+        "sellable_tokens": 500000000000000000000000,
+        "net_quote_in": 100000000000000000001,
+        "gross_quote_spent": 101522842639593908631,
+        "curve_fee": 1015228426395939086,
+        "creator_tax": 507614213197969543,
+        "secured_quote": 100000000000000000002
+      },
+      "secured_quote_minus_threshold_raw": 2,
+      "base_seed_if_q_equals_threshold_raw": 250000000000000000000000,
+      "base_seed_from_measured_q_raw": 250000000000000000002499,
+      "base_seed_delta_raw": 2499
+    },
+    {
+      "quote": "CIRCLE_TEST_USDC",
+      "quote_decimals": 6,
+      "launch_supply_raw": 1000000000000000000000000,
+      "phantom_quote_raw": 100000000,
+      "configured_threshold_raw": 100000000,
+      "curve_fee_bps": 100,
+      "creator_tax_bps": 50,
+      "one_shot_crossing": {
+        "terminal_tokens": 500000000000000000000000,
+        "sellable_tokens": 500000000000000000000000,
+        "net_quote_in": 100000001,
+        "gross_quote_spent": 101522844,
+        "curve_fee": 1015228,
+        "creator_tax": 507614,
+        "secured_quote": 100000002
+      },
+      "secured_quote_minus_threshold_raw": 2,
+      "base_seed_if_q_equals_threshold_raw": 250000000000000000000000,
+      "base_seed_from_measured_q_raw": 250000002499999975000000,
+      "base_seed_delta_raw": 2499999975000000
+    }
+  ]
+}

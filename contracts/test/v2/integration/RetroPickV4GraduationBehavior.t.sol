@@ -235,6 +235,8 @@ contract RetroPickV4GraduationBehaviorTest is Test {
 
         RetroPickLaunchFactoryV2.LaunchedToken memory secured = factory.getLaunchedToken(tokenAddress);
         assertEq(uint256(secured.phase), uint256(GraduationPhase.Swept));
+        // getAmountIn's +1 and the gross fee ceil leave two raw quote units above threshold.
+        assertEq(secured.sweptQuote, quote == address(0) ? 100 ether + 2 : 100e6 + 2);
         assertTrue(curve.graduated());
         assertEq(RetroPickLauncherTokenV2(tokenAddress).balanceOf(address(factory)), secured.sweptTokens);
         assertEq(_quoteBalance(quote, address(factory)), secured.sweptQuote);

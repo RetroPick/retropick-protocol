@@ -1,0 +1,16 @@
+# DEV-4 gate scope clarification packet
+
+**Status:** PROPOSED; no gate promoted. **Baseline:** `ef53422c8a5b96baf28e718bb9211733f08e2372` on `codex/kuru-freeze-smart-contract-spec`. This packet separates specification/development authority from implemented-executor and live/staging proof. It does not waive a financial counterexample or accept an ADR.
+
+| Existing control-plane gate | Proposed scoped gate | Evidence required before PASS | Deferred evidence |
+| --- | --- | --- | --- |
+| `CORE_BASELINE_QUALIFIED` (broad, blocked) | `CORE_BASELINE_P0_QUALIFIED` | Native MON and canonical chain-10143 Circle USDC only: exact asset admission and physical accounting; successful V4 graduation, failure/retry/replay; fee/escrow/buyback branches; completed default and deterministic stateful campaigns; no supported-asset solvency counterexample. Unsupported-token negatives remain permanent. | Generic ERC20 support is excluded, not inferred. Broader historical Core gate may remain blocked. |
+| `KURU_TARGET_FROZEN` (historically included live B11/B12) | `KURU_TARGET_DEV_FROZEN` | Current source/environment manifest, Circle identity and fork deposit, exact parameter/seed policy, custody design and executable lock, full atomic failure/retry/drift and gas matrices, plus accepted ADR-009/011/021/022/023 and necessary ADR-020 venue rule. | Live deployed executor/market, two-party order smoke and operational market quality move to `KURU_LIVE_TESTNET_QUALIFIED` / staging. |
+| `READY_FOR_DEV4_KURU_EXECUTOR` (blocked) | Same name, explicit dependency on the two scoped PASS gates | `CORE_BASELINE_P0_QUALIFIED = PASS` and `KURU_TARGET_DEV_FROZEN = PASS`; then the accepted normative `docs/smart-contract/*` pack can authorize building an executor. | It does **not** certify the executor already exists, is audited, is live, or is deployable to staging/mainnet. |
+| No separate live gate | `KURU_LIVE_TESTNET_QUALIFIED` | After DEV-4 implementation: real Core→Kuru transactions, market/vault verification, distinct-actor trade/fill/cancel, receipts/events and balances on Monad Testnet. | This is prerequisite to staging, not to writing DEV-4 Solidity. |
+
+The old gate keys remain in the canonical status artifact for provenance and remain blocked until an explicit reconciliation. New scoped keys are introduced **blocked**, so no implementation authority is created by this migration. `STAGING_READY`, `MAINNET_CANDIDATE` and `MAINNET_AUTHORIZED` remain blocked. The current [B1–B12 record](../../../evidence/launchpad/kuru/kuru-benchmark-gates-2026-09-30.yaml) keeps B11/B12 `NOT_RUN`; a future development verdict must not misreport them as passed.
+
+This split is necessary because a completed live graduation requires a production executor, while the old target-freeze language required live graduation *before* authorizing that executor. The development gate instead proves the target and safety semantics with a real pinned fork and accepted economic policy. Runtime live proof remains a later, stronger stage. Do not use a mock-only result, narrow smoke invariant, or one gas measurement to satisfy either scoped development gate.
+
+**Current verdict:** both proposed scoped gates and DEV-4 remain **BLOCKED**. No `docs/smart-contract/*` implementation-authority pack or production Kuru executor is authorized yet.

@@ -12,20 +12,33 @@ readiness:
   MAINNET_CANDIDATE: blocked
   MAINNET_AUTHORIZED: blocked
 goal_qualification:
+  CORE_BASELINE_P0_QUALIFIED:
+    status: blocked
+    scope: native_MON_and_chain_10143_Circle_USDC_only
+    evidence: evidence/launchpad/core/dev4-core-quote-invariant-increment-2026-09-30.md
+    reason: Factory sender-loss guard, pinned Circle launch/buy/sweep and default Curve stateful campaign now pass; supported-asset V4 success/retry, full fee/buyback branches, broader stateful coverage and Factory code-size headroom remain incomplete.
+  KURU_TARGET_DEV_FROZEN:
+    status: blocked
+    evidence: development/launchpad/control/DEV4_GATE_SCOPE_MIGRATION.md
+    reason: Parameter/seed, protected custody, complete fault/drift/gas matrices and owner ADR acceptances remain incomplete; live B11/B12 are not prerequisites to this development gate.
+  KURU_LIVE_TESTNET_QUALIFIED:
+    status: blocked
+    evidence: evidence/launchpad/kuru/live-actor-funding-readonly-2026-09-30.md
+    reason: No real Core-to-Kuru graduation or two-party market usability transaction has been sent; this is a post-DEV-4 staging prerequisite.
   CORE_BASELINE_QUALIFIED:
     status: blocked
-    evidence: evidence/launchpad/core/quote-backing-escrow-increment-2026-09-30.md
-    reason: Production FeeEscrow and Curve exact quote transfer/backing guards close tested sender-surcharge accounting paths; external balance loss now fails closed. Fixed P0 quote identity policy and bounded native invariant pass, but Factory V4 sender-loss verification, Circle Core-path behavior, remaining fee/buyback branches, successful graduation/retry and the complete invariant matrix remain open. Factory has only 74 bytes EIP-170 margin.
+    evidence: evidence/launchpad/core/dev4-core-quote-invariant-increment-2026-09-30.md
+    reason: Production FeeEscrow, Curve and Factory exact quote guards reject tested sender-surcharge accounting paths; external balance loss fails closed. Fixed P0 quote identity, a pinned Circle Core-path slice and default Curve invariant pass, but remaining fee/buyback branches, successful graduation/retry and the full invariant matrix remain open. Factory has only 11 bytes EIP-170 margin.
   KURU_TARGET_FROZEN:
     status: blocked
     evidence: evidence/launchpad/kuru/kuru-benchmark-gates-2026-09-30.yaml
     reason: B1 environment and scoped B5/B6 real-router/vault fork tests pass; one pinned Circle USDC approval/deposit profile verifies exact physical receipt at Kuru MarginAccount. ADR-011, full quote profile, accepted parameters/seed tolerance, custody, failure/retry, drift, gas and live usability gates remain open.
   READY_FOR_DEV4_KURU_EXECUTOR:
     status: blocked
-    reason: Both preceding gates are blocked and ADR-009/011/021/022/023 remain PROPOSED.
+    reason: CORE_BASELINE_P0_QUALIFIED and KURU_TARGET_DEV_FROZEN are blocked; ADR-009/011/021/022/023 remain PROPOSED. Live-testnet qualification is a later staging gate, not an excuse to promote DEV-4 early.
 blockers:
   - id: BLOCK-CONTRACT-TESTS
-    reason: Core V2 math, Factory/Deployer launch, production FeeEscrow, direct Curve/Token accounting, bounded native stateful coverage, authority, one buyback/vesting path and mocked V4 failure rollback are partial. Curve/Escrow sender-surcharge paths reject and external quote loss fails closed, but Factory V4 sender-loss verification, Circle Core behavior, remaining Fee/Buyback branches, successful graduation/retry, full invariant and integration coverage remain open.
+    reason: Core V2 math, Factory/Deployer launch, production FeeEscrow, direct Curve/Token accounting, default native Curve stateful coverage, authority, one buyback/vesting path, Factory V4 sender-loss rejection, pinned Circle launch/buy/sweep and mocked V4 failure rollback pass within their declared domains. Remaining Fee/Buyback branches, successful V4 graduation/retry, broader invariant and integration coverage remain open.
     next_owner: launchpad-solidity
   - id: BLOCK-KURU-TARGET
     reason: Pinned live environment and scoped real Kuru fork deploy/seed are verified. Circle USDC and Kuru-listed test USDC are distinct; one Circle profile passes with quote held physically at Kuru MarginAccount. Broader Circle behavior, parameter/error tolerance, LP custody, complete retry/drift/gas, live integration and ADR decisions remain unresolved. Target is not frozen.

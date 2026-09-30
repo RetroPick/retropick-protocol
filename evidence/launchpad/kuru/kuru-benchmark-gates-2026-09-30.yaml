@@ -62,13 +62,15 @@ rows:
     partial_evidence:
       - contracts/test/v2/integration/KuruAtomicResearch.t.sol
       - evidence/launchpad/kuru/atomic-retry-increment-2026-09-30.md
-    blocker: Five injection points, Router revert, wrong registry, rollback, same-launch retry and replay passed; full external-failure matrix and ADR-023 remain open.
+      - evidence/launchpad/kuru/dev4-failure-boundary-increment-2026-09-30.md
+    blocker: Eleven research-fixture tests now pass, including staged reversions, real Router/getter faults, base approval and excess-lock transfer faults, synthetic post-deploy result/price/size guards, final-write rollback, same-launch retry and replay. External-result mutation, quote failures, actual Core finalization and ADR-023 remain open.
   KURU-B9-DRIFT:
     status: NOT_RUN
     partial_evidence:
       - contracts/test/v2/integration/KuruAtomicResearch.t.sol
       - evidence/launchpad/kuru/atomic-retry-increment-2026-09-30.md
-    blocker: OrderBook/vault code and MarginAccount getter drift halt passed; Router address/getter and pause variants remain open.
+      - evidence/launchpad/kuru/dev4-failure-boundary-increment-2026-09-30.md
+    blocker: OrderBook/vault code, implementation getters and MarginAccount getter drift plus unexpected pre-existing market halt passed; Router proxy identity/code-hash and observable pause variants remain open.
   KURU-B10-GAS:
     status: NOT_RUN
     partial_evidence:

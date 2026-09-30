@@ -127,6 +127,7 @@ contract KuruAtomicResearchCoordinator {
             SPREAD
         );
         if (failAt == 2) revert("fault-after-deploy");
+        if (failAt == 6) market = address(0xBEEF); // Synthetic wrong deployProxy return.
         require(market == expectedMarket && market.code.length > 0 && vault.code.length > 0);
         (bool marketOk, bytes memory marketData) = market.staticcall(abi.encodeWithSignature("getMarketParams()"));
         (bool routerOk, bytes memory routerData) =
@@ -151,7 +152,9 @@ contract KuruAtomicResearchCoordinator {
                 )
         );
         IKuruVaultResearch v = IKuruVaultResearch(vault);
-        require(v.token1() == address(token) && v.token2() == quoteAsset);
+        address vaultBase = v.token1();
+        if (failAt == 7) vaultBase = address(0xBAD); // Synthetic wrong vault getter.
+        require(vaultBase == address(token) && v.token2() == quoteAsset);
         require(v.market() == market && v.marginAccount() == MARGIN);
         require(v.owner() == ROUTER && v.SPREAD_CONSTANT() == SPREAD);
         (address reportedVault,,,,,, uint96 askSizeBefore, uint96 spread) =
@@ -168,12 +171,15 @@ contract KuruAtomicResearchCoordinator {
         uint256 shares =
             v.deposit{value: quoteAsset == address(0) ? quoteSeed : 0}(baseSeed, quoteSeed, quoteSeed, lock);
         if (failAt == 4) revert("fault-after-deposit");
+        if (failAt == 8) shares = 0; // Synthetic wrong LP return after the real deposit.
         require(shares == Math.sqrt(baseSeed * quoteSeed) - 1_000);
         require(v.balanceOf(lock) == shares);
         (uint256 actualBase, uint256 actualQuote) = v.totalAssets();
         require(actualBase == baseSeed && actualQuote == quoteSeed);
         (address vaultFromBook, uint256 bid,, uint256 ask,, uint96 bidSize, uint96 askSize,) =
             IKuruOrderBookResearch(market).getVaultParams();
+        if (failAt == 9) bidSize = 0; // Synthetic unusable post-deposit order size.
+        if (failAt == 10) ask += ask / 100; // Synthetic price beyond the candidate 5-bps cap.
         require(vaultFromBook == vault && bid > 0 && ask > bid && bidSize > 0 && askSize > 0);
         uint256 referencePrice = Math.mulDiv(phantomQuote + quoteSeed, 1e36, terminalTokens * 10 ** quoteDecimals);
         uint256 priceError = ask > referencePrice ? ask - referencePrice : referencePrice - ask;
@@ -193,6 +199,7 @@ contract KuruAtomicResearchCoordinator {
         destination = market;
         vaultAddress = vault;
         phase = Phase.GRADUATED;
+        if (failAt == 11) revert("fault-after-finalization");
         entered = false;
     }
 }
@@ -238,6 +245,30 @@ contract KuruAtomicResearchTest is Test {
         vm.expectRevert();
         coordinator.complete(0);
         assertEq(IKuruVaultResearch(vault).balanceOf(address(lock)), sharesBefore);
+        assertEq(coordinator.destination(), expectedMarket);
+    }
+
+    function testWrongPostDeployResultsAndFinalizationRollbackThenRetry() public {
+        (
+            RetroPickLauncherTokenV2 token,
+            KuruResearchNoExitLock lock,
+            KuruAtomicResearchCoordinator coordinator,
+            address expectedMarket,
+            address expectedVault
+        ) = _securedLaunch();
+        for (uint8 stage = 6; stage <= 11; ++stage) {
+            vm.expectRevert();
+            coordinator.complete(stage);
+            _assertSecuredUnchanged(token, lock, coordinator, expectedMarket, expectedVault);
+        }
+        (address market, address vault) = coordinator.complete(0);
+        assertEq(market, expectedMarket);
+        assertEq(vault, expectedVault);
+        assertEq(uint8(coordinator.phase()), uint8(KuruAtomicResearchCoordinator.Phase.GRADUATED));
+        assertEq(coordinator.destination(), expectedMarket);
+        assertGt(IKuruVaultResearch(vault).balanceOf(address(lock)), 0);
+        vm.expectRevert();
+        coordinator.complete(0);
         assertEq(coordinator.destination(), expectedMarket);
     }
 
@@ -410,6 +441,89 @@ contract KuruAtomicResearchTest is Test {
         vm.expectRevert();
         coordinator.complete(0);
         _assertSecuredUnchanged(token, lock, coordinator, expectedMarket, expectedVault);
+    }
+
+    function testRouterImplementationGetterDriftStopsBeforeMarketCreation() public {
+        (
+            RetroPickLauncherTokenV2 token,
+            KuruResearchNoExitLock lock,
+            KuruAtomicResearchCoordinator coordinator,
+            address expectedMarket,
+            address expectedVault
+        ) = _securedLaunch();
+        vm.mockCall(
+            ROUTER,
+            abi.encodeWithSelector(IKuruRouterResearch.orderBookImplementation.selector),
+            abi.encode(address(0xBAD))
+        );
+        vm.expectRevert();
+        coordinator.complete(0);
+        _assertSecuredUnchanged(token, lock, coordinator, expectedMarket, expectedVault);
+        vm.clearMockedCalls();
+        vm.mockCall(
+            ROUTER,
+            abi.encodeWithSelector(IKuruRouterResearch.kuruAmmVaultImplementation.selector),
+            abi.encode(address(0xBAD))
+        );
+        vm.expectRevert();
+        coordinator.complete(0);
+        _assertSecuredUnchanged(token, lock, coordinator, expectedMarket, expectedVault);
+        vm.clearMockedCalls();
+        (address market,) = coordinator.complete(0);
+        assertEq(market, expectedMarket);
+    }
+
+    function testUnexpectedExistingMarketStopsBeforeAssetMovement() public {
+        (
+            RetroPickLauncherTokenV2 token,
+            KuruResearchNoExitLock lock,
+            KuruAtomicResearchCoordinator coordinator,
+            address expectedMarket,
+            address expectedVault
+        ) = _securedLaunch();
+        vm.etch(expectedMarket, hex"60006000fd");
+        vm.expectRevert();
+        coordinator.complete(0);
+        assertEq(uint8(coordinator.phase()), uint8(KuruAtomicResearchCoordinator.Phase.GRADUATING));
+        assertEq(coordinator.destination(), address(0));
+        assertEq(token.balanceOf(address(coordinator)), 500_000 ether);
+        assertEq(address(coordinator).balance, 100 ether);
+        assertEq(token.balanceOf(address(lock)), 0);
+        assertEq(token.allowance(address(coordinator), expectedVault), 0);
+        assertEq(expectedVault.code.length, 0);
+        vm.etch(expectedMarket, hex"");
+        (address market,) = coordinator.complete(0);
+        assertEq(market, expectedMarket);
+    }
+
+    function testBaseApprovalAndExcessLockTransferFailuresPreserveSecuredAssets() public {
+        (
+            RetroPickLauncherTokenV2 token,
+            KuruResearchNoExitLock lock,
+            KuruAtomicResearchCoordinator coordinator,
+            address expectedMarket,
+            address expectedVault
+        ) = _securedLaunch();
+        vm.mockCallRevert(
+            address(token),
+            abi.encodeWithSelector(IERC20.approve.selector, expectedVault, 250_000 ether),
+            abi.encodeWithSignature("Error(string)", "injected base approval failure")
+        );
+        vm.expectRevert();
+        coordinator.complete(0);
+        _assertSecuredUnchanged(token, lock, coordinator, expectedMarket, expectedVault);
+        vm.clearMockedCalls();
+        vm.mockCallRevert(
+            address(token),
+            abi.encodeWithSelector(IERC20.transfer.selector, address(lock), 250_000 ether),
+            abi.encodeWithSignature("Error(string)", "injected excess lock transfer failure")
+        );
+        vm.expectRevert();
+        coordinator.complete(0);
+        _assertSecuredUnchanged(token, lock, coordinator, expectedMarket, expectedVault);
+        vm.clearMockedCalls();
+        (address market,) = coordinator.complete(0);
+        assertEq(market, expectedMarket);
     }
 
     function _securedLaunch()

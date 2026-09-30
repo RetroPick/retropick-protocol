@@ -526,6 +526,101 @@ contract KuruAtomicResearchTest is Test {
         assertEq(market, expectedMarket);
     }
 
+    function testCircleApprovalAndQuoteTransferFailuresRetryOnRealFork() public {
+        (
+            RetroPickLauncherTokenV2 token,
+            KuruResearchNoExitLock lock,
+            KuruAtomicResearchCoordinator coordinator,
+            address expectedMarket,
+            address expectedVault
+        ) = _securedCircleLaunch();
+        vm.mockCallRevert(
+            CIRCLE_USDC,
+            abi.encodeWithSelector(IERC20.approve.selector, expectedVault, 100e6),
+            abi.encodeWithSignature("Error(string)", "injected quote approval failure")
+        );
+        vm.expectRevert();
+        coordinator.complete(0);
+        _assertCircleSecuredUnchanged(token, lock, coordinator, expectedMarket, expectedVault);
+        vm.clearMockedCalls();
+
+        vm.mockCallRevert(
+            CIRCLE_USDC,
+            abi.encodeWithSelector(IERC20.transferFrom.selector),
+            abi.encodeWithSignature("Error(string)", "injected quote pull failure")
+        );
+        vm.expectRevert();
+        coordinator.complete(0);
+        _assertCircleSecuredUnchanged(token, lock, coordinator, expectedMarket, expectedVault);
+        vm.clearMockedCalls();
+
+        (address market, address vault) = coordinator.complete(0);
+        assertEq(market, expectedMarket);
+        assertEq(vault, expectedVault);
+        assertEq(uint8(coordinator.phase()), uint8(KuruAtomicResearchCoordinator.Phase.GRADUATED));
+        assertEq(IERC20(CIRCLE_USDC).balanceOf(address(coordinator)), 0);
+        assertGt(IKuruVaultResearch(vault).balanceOf(address(lock)), 0);
+        vm.expectRevert();
+        coordinator.complete(0);
+    }
+
+    function _securedCircleLaunch()
+        internal
+        returns (
+            RetroPickLauncherTokenV2 token,
+            KuruResearchNoExitLock lock,
+            KuruAtomicResearchCoordinator coordinator,
+            address expectedMarket,
+            address expectedVault
+        )
+    {
+        RetroPickLauncherTokenV2.Socials memory socials;
+        token = new RetroPickLauncherTokenV2(
+            "RetroPick Circle Atomic Research",
+            "RPARC",
+            "",
+            "research only",
+            socials,
+            address(this),
+            address(this),
+            address(this),
+            1_000_000 ether
+        );
+        token.transfer(address(0xBEEF), 500_000 ether);
+        lock = new KuruResearchNoExitLock();
+        coordinator = new KuruAtomicResearchCoordinator(
+            IERC20(address(token)), CIRCLE_USDC, address(lock), 500_000 ether, 250_000 ether, 100e6, 100e6
+        );
+        token.approve(address(coordinator), 500_000 ether);
+        deal(CIRCLE_USDC, address(this), 100e6);
+        IERC20(CIRCLE_USDC).approve(address(coordinator), 100e6);
+        coordinator.secure();
+        assertEq(uint8(coordinator.phase()), uint8(KuruAtomicResearchCoordinator.Phase.GRADUATING));
+        IKuruRouterResearch router = IKuruRouterResearch(ROUTER);
+        expectedMarket =
+            router.computeAddress(address(token), CIRCLE_USDC, 1e8, 1e8, 1, 1e6, 1e16, 30, 0, 100, address(0), false);
+        expectedVault = router.computeVaultAddress(expectedMarket, address(0), false);
+    }
+
+    function _assertCircleSecuredUnchanged(
+        RetroPickLauncherTokenV2 token,
+        KuruResearchNoExitLock lock,
+        KuruAtomicResearchCoordinator coordinator,
+        address market,
+        address vault
+    ) internal view {
+        assertEq(uint8(coordinator.phase()), uint8(KuruAtomicResearchCoordinator.Phase.GRADUATING));
+        assertEq(coordinator.destination(), address(0));
+        assertEq(coordinator.vaultAddress(), address(0));
+        assertEq(token.balanceOf(address(coordinator)), 500_000 ether);
+        assertEq(IERC20(CIRCLE_USDC).balanceOf(address(coordinator)), 100e6);
+        assertEq(token.balanceOf(address(lock)), 0);
+        assertEq(token.allowance(address(coordinator), vault), 0);
+        assertEq(IERC20(CIRCLE_USDC).allowance(address(coordinator), vault), 0);
+        assertEq(market.code.length, 0);
+        assertEq(vault.code.length, 0);
+    }
+
     function _securedLaunch()
         internal
         returns (

@@ -65,7 +65,7 @@ rows:
       - contracts/test/v2/integration/KuruAtomicResearch.t.sol
       - evidence/launchpad/kuru/atomic-retry-increment-2026-09-30.md
       - evidence/launchpad/kuru/dev4-failure-boundary-increment-2026-09-30.md
-    blocker: Eleven research-fixture tests now pass, including staged reversions, real Router/getter faults, base approval and excess-lock transfer faults, synthetic post-deploy result/price/size guards, final-write rollback, same-launch retry and replay. External-result mutation, quote failures, actual Core finalization and ADR-023 remain open.
+    blocker: Twelve research-fixture tests now pass, including staged reversions, real Router/getter faults, base/Circle approval and Circle quote-pull failures, excess-lock transfer faults, synthetic post-deploy result/price/size guards, final-write rollback, same-launch retry and replay. External-result mutation, native settlement faults, actual Core finalization and ADR-023 remain open.
   KURU-B9-DRIFT:
     status: NOT_RUN
     partial_evidence:

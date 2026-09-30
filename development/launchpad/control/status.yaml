@@ -19,7 +19,7 @@ goal_qualification:
   KURU_TARGET_FROZEN:
     status: blocked
     evidence: evidence/launchpad/kuru/kuru-benchmark-gates-2026-09-30.yaml
-    reason: B1 environment and scoped B5/B6 real-router/vault fork tests pass. P0 identifies Circle chain-10143 USDC separately from the Kuru-listed compatibility fixture, but Circle transfer/deposit compatibility, accepted parameters and seed tolerance remain unqualified; complete custody, failure/retry, drift, gas and live usability gates remain open.
+    reason: B1 environment and scoped B5/B6 real-router/vault fork tests pass; one pinned Circle USDC approval/deposit profile verifies exact physical receipt at Kuru MarginAccount. ADR-011, full quote profile, accepted parameters/seed tolerance, custody, failure/retry, drift, gas and live usability gates remain open.
   READY_FOR_DEV4_KURU_EXECUTOR:
     status: blocked
     reason: Both preceding gates are blocked and ADR-009/011/021/022/023 remain PROPOSED.
@@ -28,7 +28,7 @@ blockers:
     reason: Core V2 math, Factory/Deployer launch, production FeeEscrow, direct Curve/Token accounting, bounded native stateful coverage, authority, one buyback/vesting path and mocked V4 failure rollback are partial. Sender-surcharge paths now reject and external quote loss fails closed, but Circle admission behavior, remaining Fee/Buyback branches, successful graduation/retry, full invariant and integration coverage remain open.
     next_owner: launchpad-solidity
   - id: BLOCK-KURU-TARGET
-    reason: Pinned live environment and scoped real Kuru fork deploy/seed are verified. Circle USDC and Kuru-listed test USDC are distinct; canonical Circle compatibility, parameter/error tolerance, LP custody, complete retry/drift/gas, live integration and ADR decisions remain unresolved. Target is not frozen.
+    reason: Pinned live environment and scoped real Kuru fork deploy/seed are verified. Circle USDC and Kuru-listed test USDC are distinct; one Circle profile passes with quote held physically at Kuru MarginAccount. Broader Circle behavior, parameter/error tolerance, LP custody, complete retry/drift/gas, live integration and ADR decisions remain unresolved. Target is not frozen.
     next_owner: launchpad-integrations
   - id: BLOCK-ARCH-ADRS
     reason: Full-stack workspace, backend, indexer, auth, storage, admin, upgradeability and V4-retirement choices are PROPOSED rather than accepted.

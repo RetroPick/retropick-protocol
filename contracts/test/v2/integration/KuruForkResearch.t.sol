@@ -285,13 +285,19 @@ contract KuruForkResearchTest is Test {
         // Fork-only funding tests token transfer semantics, not Circle mint authority.
         deal(quote, address(this), quoteSeed);
         assertEq(IERC20(quote).balanceOf(address(this)), quoteSeed);
+        assertEq(IERC20(quote).balanceOf(expectedVault), 0);
+        uint256 marginQuoteBefore = IERC20(quote).balanceOf(MARGIN);
         token.transfer(address(lock), terminalTokens - baseSeed);
         token.approve(expectedVault, baseSeed);
         IERC20(quote).approve(expectedVault, quoteSeed);
+        assertEq(IERC20(quote).allowance(address(this), expectedVault), quoteSeed);
         gasBefore = gasleft();
         uint256 shares = vault.deposit(baseSeed, quoteSeed, quoteSeed, address(lock));
         emit log_named_uint("research_usdc_first_deposit_gas", gasBefore - gasleft());
         assertEq(IERC20(quote).balanceOf(address(this)), 0);
+        assertEq(IERC20(quote).allowance(address(this), expectedVault), 0);
+        assertEq(IERC20(quote).balanceOf(expectedVault), 0);
+        assertEq(IERC20(quote).balanceOf(MARGIN) - marginQuoteBefore, quoteSeed);
         assertEq(token.balanceOf(address(this)), 0);
         assertEq(token.balanceOf(address(lock)), terminalTokens - baseSeed);
         assertEq(vault.balanceOf(address(lock)), shares);

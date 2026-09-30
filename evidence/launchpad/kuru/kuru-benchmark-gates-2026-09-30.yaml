@@ -72,7 +72,9 @@ rows:
     blocker: One native research phase-two gas delta recorded; MON/USDC profile distributions and block-gas feasibility remain open.
   KURU-B11-LIVE-TESTNET:
     status: NOT_RUN
-    blocker: No approved research fixture has completed fork qualification; no live transaction sent.
+    evidence:
+      - evidence/launchpad/kuru/live-actor-funding-readonly-2026-09-30.md
+    blocker: Core and Kuru prerequisites remain unqualified; no live transaction sent. Both controlled actors have zero canonical Circle test USDC at read-only block 66842712.
   KURU-B12-USABILITY:
     status: NOT_RUN
     blocker: No live market exists from B11, so two-actor smoke is not possible yet.

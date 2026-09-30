@@ -45,7 +45,11 @@ def check_terminal_q(
                             opening.ask_tick_error_denominator)
     bid_tick_bps = Fraction(opening.bid_tick_error_numerator * 10_000,
                             opening.bid_tick_error_denominator)
-    combined_bps = seed_bps + max(ask_tick_bps, bid_tick_bps)
+    # Tick loss is relative to the vault price, while seed drift is relative
+    # to the terminal Curve reference. The conservative triangle bound in
+    # terminal-reference units includes the product of the two fractions.
+    worst_tick_bps = max(ask_tick_bps, bid_tick_bps)
+    combined_bps = seed_bps + worst_tick_bps + seed_bps * worst_tick_bps / 10_000
     constraints = {
         "router_tuple_matches_pinned_predicates": valid_router_parameters(
             size_precision=SIZE_PRECISION, price_precision=PRICE_PRECISION,

@@ -33,7 +33,7 @@ The proposed coordinator must hold the only authoritative graduation phase and s
 
 ## Dependency order and falsifiers
 
-1. Record successful native and canonical Circle-USDC V4 launch → threshold → sweep → position mint → locker custody → replay rejection, plus durable failed destination → same-launch retry → success. Current tests prove launch/sweep and mocked failure, not the positive path.
+1. Preserve the [native/Circle positive-path behavioral oracle](../../../evidence/launchpad/core/v4-supported-asset-behavior-oracle-2026-09-30.md) before extraction: launch → threshold → sweep → position mint → locker custody → replay rejection and durable failed destination → same-launch retry → success. Its V4 singleton/Permit2 seam is synthetic. Independently qualify the real V4 destination and custody path before using this as full Core gate evidence.
 2. Qualify Core fees, escrow, buyback, graduation custody and stateful conservation over both admitted quote classes. Preserve pathological-token negatives.
 3. Specify and test Kuru venue-specific launch admission before bonding. The current one-token Factory minimum is a concrete counterexample to the candidate Kuru min-size class; do not admit it to a Kuru-bound launch without a revised, verified tuple.
 4. Complete B2–B10, including the exact quote-custody path through Kuru MarginAccount, protected LP/excess custody, all external failure boundaries, observable drift, and final-architecture gas.

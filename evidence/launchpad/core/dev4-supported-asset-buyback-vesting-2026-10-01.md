@@ -29,4 +29,4 @@ Representative gas observations: native fold-back 4,040,927; Circle fold-back 20
 
 ## Remaining blockers
 
-Successful native and Circle V4 graduation/retry/replay, all FeeEscrow callback faults, broader Factory/escrow/custody stateful coverage, Factory code extraction from the 11-byte EIP-170 margin, accepted venue/quote/envelope/custody/retry ADRs, and the exact terminal-Q graduation ceiling remain open. This evidence narrows the Core blocker but does not promote any gate.
+Factory extraction/code-size qualification and broader Factory/escrow/custody stateful coverage remain open; any remaining FeeEscrow-callback or accepted-P0 post-graduation-hook gap must be named specifically. Native and Circle V4 success/failure/retry/replay behavior is covered by `contracts/test/v2/integration/RetroPickV4GraduationBehavior.t.sol`, while the named FeeEscrow callback/fault matrix is covered by `contracts/test/v2/unit/RetroPickFeeEscrowV2Qualification.t.sol`. Accepted venue/quote/envelope/custody/retry ADRs and the exact terminal-Q graduation ceiling also remain open. This evidence narrows the Core blocker but does not promote any gate.

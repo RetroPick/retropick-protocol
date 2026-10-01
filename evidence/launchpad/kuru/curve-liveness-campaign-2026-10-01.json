@@ -1,0 +1,3315 @@
+{
+  "schema_version": 2,
+  "classification": "BOUNDED_MULTI_PROFILE_MODEL_CAMPAIGN_NOT_PRODUCTION_GUARD_PROOF",
+  "domain": "single aggregate holder; exact-transfer quote; exact current buy/sell/sweep/fee-rescue integer model; native-like 18 and Circle-like 6 decimals; eight isolated launch/economic profiles",
+  "limitations": [
+    "ERC20/native transfer, authorization, external hook, and custody behavior are abstracted",
+    "buyback enable/disable is a reduced-model field toggle, not a production Curve transaction",
+    "ceilings are illustrative research bounds, not accepted Kuru or Launchpad policy",
+    "random histories do not establish exhaustive or symbolic all-configuration coverage"
+  ],
+  "profiles": [
+    {
+      "name": "BASELINE",
+      "launch_supply_whole": 1000000,
+      "phantom_quote_whole": 100,
+      "graduation_threshold_whole": 100,
+      "curve_fee_bps": 100,
+      "creator_tax_bps": 50,
+      "initial_buyback_enabled": false
+    },
+    {
+      "name": "MINIMUM_VALID",
+      "launch_supply_whole": 1000,
+      "phantom_quote_whole": 1,
+      "graduation_threshold_whole": 1,
+      "curve_fee_bps": 100,
+      "creator_tax_bps": 50,
+      "initial_buyback_enabled": false
+    },
+    {
+      "name": "SMALL",
+      "launch_supply_whole": 100000,
+      "phantom_quote_whole": 10,
+      "graduation_threshold_whole": 11,
+      "curve_fee_bps": 100,
+      "creator_tax_bps": 50,
+      "initial_buyback_enabled": false
+    },
+    {
+      "name": "MEDIUM_NONDIVISIBLE",
+      "launch_supply_whole": 1000000,
+      "phantom_quote_whole": 100,
+      "graduation_threshold_whole": 97,
+      "curve_fee_bps": 200,
+      "creator_tax_bps": 300,
+      "initial_buyback_enabled": false
+    },
+    {
+      "name": "HIGH_COMBINED_FEE",
+      "launch_supply_whole": 1000000,
+      "phantom_quote_whole": 100,
+      "graduation_threshold_whole": 100,
+      "curve_fee_bps": 1000,
+      "creator_tax_bps": 1000,
+      "initial_buyback_enabled": false
+    },
+    {
+      "name": "ZERO_FEE",
+      "launch_supply_whole": 1000000,
+      "phantom_quote_whole": 100,
+      "graduation_threshold_whole": 100,
+      "curve_fee_bps": 0,
+      "creator_tax_bps": 0,
+      "initial_buyback_enabled": false
+    },
+    {
+      "name": "LARGE",
+      "launch_supply_whole": 100000000,
+      "phantom_quote_whole": 1000,
+      "graduation_threshold_whole": 1001,
+      "curve_fee_bps": 100,
+      "creator_tax_bps": 50,
+      "initial_buyback_enabled": true
+    },
+    {
+      "name": "MAXIMUM_CANDIDATE",
+      "launch_supply_whole": 1000000000,
+      "phantom_quote_whole": 10000,
+      "graduation_threshold_whole": 9500,
+      "curve_fee_bps": 100,
+      "creator_tax_bps": 50,
+      "initial_buyback_enabled": true
+    }
+  ],
+  "seeds": [
+    20260930,
+    20261001,
+    20261002
+  ],
+  "random_steps_per_history": 220,
+  "rows": [
+    {
+      "profile": "BASELINE",
+      "quote_decimals": 18,
+      "launch_supply_raw": 1000000000000000000000000,
+      "phantom_quote_raw": 100000000000000000000,
+      "graduation_threshold_raw": 100000000000000000000,
+      "curve_fee_bps": 100,
+      "creator_tax_bps": 50,
+      "initial_buyback_enabled": false,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 101000000000000000002,
+      "seed": 20260930,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 101522842639593908633,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 101522842639593908632,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": true,
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 10,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 100000000000000000010
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 54,
+      "ceiling_rejected": 0,
+      "invalid_calls": 167,
+      "action_attempts": {
+        "buy": 71,
+        "sell": 65,
+        "sweep": 33,
+        "rescue_fees": 32,
+        "model_buyback_toggle": 20
+      },
+      "final_immediate_terminal_quote_raw": 100000000000000000010,
+      "final_sellable_tokens_raw": 0
+    },
+    {
+      "profile": "BASELINE",
+      "quote_decimals": 18,
+      "launch_supply_raw": 1000000000000000000000000,
+      "phantom_quote_raw": 100000000000000000000,
+      "graduation_threshold_raw": 100000000000000000000,
+      "curve_fee_bps": 100,
+      "creator_tax_bps": 50,
+      "initial_buyback_enabled": false,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 101000000000000000002,
+      "seed": 20261001,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 101522842639593908633,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 101522842639593908632,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": true,
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 10,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 100000000000000000010
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 64,
+      "ceiling_rejected": 0,
+      "invalid_calls": 157,
+      "action_attempts": {
+        "buy": 64,
+        "sell": 61,
+        "sweep": 31,
+        "rescue_fees": 33,
+        "model_buyback_toggle": 32
+      },
+      "final_immediate_terminal_quote_raw": 100000000000000000010,
+      "final_sellable_tokens_raw": 0
+    },
+    {
+      "profile": "BASELINE",
+      "quote_decimals": 18,
+      "launch_supply_raw": 1000000000000000000000000,
+      "phantom_quote_raw": 100000000000000000000,
+      "graduation_threshold_raw": 100000000000000000000,
+      "curve_fee_bps": 100,
+      "creator_tax_bps": 50,
+      "initial_buyback_enabled": false,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 101000000000000000002,
+      "seed": 20261002,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 101522842639593908633,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 101522842639593908632,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": true,
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 10,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 100000000000000000010
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 64,
+      "ceiling_rejected": 0,
+      "invalid_calls": 157,
+      "action_attempts": {
+        "buy": 85,
+        "sell": 51,
+        "sweep": 34,
+        "rescue_fees": 23,
+        "model_buyback_toggle": 28
+      },
+      "final_immediate_terminal_quote_raw": 100000000000000000010,
+      "final_sellable_tokens_raw": 0
+    },
+    {
+      "profile": "BASELINE",
+      "quote_decimals": 6,
+      "launch_supply_raw": 1000000000000000000000000,
+      "phantom_quote_raw": 100000000,
+      "graduation_threshold_raw": 100000000,
+      "curve_fee_bps": 100,
+      "creator_tax_bps": 50,
+      "initial_buyback_enabled": false,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 101000002,
+      "seed": 20260930,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 101522846,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 101522845,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": true,
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 10,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 100000010
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 62,
+      "ceiling_rejected": 0,
+      "invalid_calls": 159,
+      "action_attempts": {
+        "buy": 57,
+        "sell": 72,
+        "sweep": 31,
+        "rescue_fees": 33,
+        "model_buyback_toggle": 28
+      },
+      "final_immediate_terminal_quote_raw": 100000011,
+      "final_sellable_tokens_raw": 0
+    },
+    {
+      "profile": "BASELINE",
+      "quote_decimals": 6,
+      "launch_supply_raw": 1000000000000000000000000,
+      "phantom_quote_raw": 100000000,
+      "graduation_threshold_raw": 100000000,
+      "curve_fee_bps": 100,
+      "creator_tax_bps": 50,
+      "initial_buyback_enabled": false,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 101000002,
+      "seed": 20261001,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 101522846,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 101522845,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": true,
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 10,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 100000010
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 50,
+      "ceiling_rejected": 0,
+      "invalid_calls": 171,
+      "action_attempts": {
+        "buy": 68,
+        "sell": 71,
+        "sweep": 26,
+        "rescue_fees": 34,
+        "model_buyback_toggle": 22
+      },
+      "final_immediate_terminal_quote_raw": 100000010,
+      "final_sellable_tokens_raw": 0
+    },
+    {
+      "profile": "BASELINE",
+      "quote_decimals": 6,
+      "launch_supply_raw": 1000000000000000000000000,
+      "phantom_quote_raw": 100000000,
+      "graduation_threshold_raw": 100000000,
+      "curve_fee_bps": 100,
+      "creator_tax_bps": 50,
+      "initial_buyback_enabled": false,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 101000002,
+      "seed": 20261002,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 101522846,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 101522845,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": true,
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 10,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 100000010
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 169,
+      "ceiling_rejected": 0,
+      "invalid_calls": 52,
+      "action_attempts": {
+        "buy": 64,
+        "sell": 62,
+        "sweep": 36,
+        "rescue_fees": 28,
+        "model_buyback_toggle": 31
+      },
+      "final_immediate_terminal_quote_raw": 100000036,
+      "final_sellable_tokens_raw": 489531816697358195868918
+    },
+    {
+      "profile": "MINIMUM_VALID",
+      "quote_decimals": 18,
+      "launch_supply_raw": 1000000000000000000000,
+      "phantom_quote_raw": 1000000000000000000,
+      "graduation_threshold_raw": 1000000000000000000,
+      "curve_fee_bps": 100,
+      "creator_tax_bps": 50,
+      "initial_buyback_enabled": false,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 2000000000000000003,
+      "seed": 20260930,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 1015228426395939089,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 1015228426395939088,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": true,
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 10,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 1000000000000000011
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 82,
+      "ceiling_rejected": 0,
+      "invalid_calls": 139,
+      "action_attempts": {
+        "buy": 59,
+        "sell": 65,
+        "sweep": 30,
+        "rescue_fees": 29,
+        "model_buyback_toggle": 38
+      },
+      "final_immediate_terminal_quote_raw": 1000000000000000016,
+      "final_sellable_tokens_raw": 0
+    },
+    {
+      "profile": "MINIMUM_VALID",
+      "quote_decimals": 18,
+      "launch_supply_raw": 1000000000000000000000,
+      "phantom_quote_raw": 1000000000000000000,
+      "graduation_threshold_raw": 1000000000000000000,
+      "curve_fee_bps": 100,
+      "creator_tax_bps": 50,
+      "initial_buyback_enabled": false,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 2000000000000000003,
+      "seed": 20261001,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 1015228426395939089,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 1015228426395939088,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": true,
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 10,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 1000000000000000011
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 66,
+      "ceiling_rejected": 0,
+      "invalid_calls": 155,
+      "action_attempts": {
+        "buy": 69,
+        "sell": 56,
+        "sweep": 22,
+        "rescue_fees": 38,
+        "model_buyback_toggle": 36
+      },
+      "final_immediate_terminal_quote_raw": 1000000000000000015,
+      "final_sellable_tokens_raw": 0
+    },
+    {
+      "profile": "MINIMUM_VALID",
+      "quote_decimals": 18,
+      "launch_supply_raw": 1000000000000000000000,
+      "phantom_quote_raw": 1000000000000000000,
+      "graduation_threshold_raw": 1000000000000000000,
+      "curve_fee_bps": 100,
+      "creator_tax_bps": 50,
+      "initial_buyback_enabled": false,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 2000000000000000003,
+      "seed": 20261002,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 1015228426395939089,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 1015228426395939088,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": true,
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 10,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 1000000000000000011
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 74,
+      "ceiling_rejected": 0,
+      "invalid_calls": 147,
+      "action_attempts": {
+        "buy": 68,
+        "sell": 58,
+        "sweep": 39,
+        "rescue_fees": 22,
+        "model_buyback_toggle": 34
+      },
+      "final_immediate_terminal_quote_raw": 1000000000000000010,
+      "final_sellable_tokens_raw": 0
+    },
+    {
+      "profile": "MINIMUM_VALID",
+      "quote_decimals": 6,
+      "launch_supply_raw": 1000000000000000000000,
+      "phantom_quote_raw": 1000000,
+      "graduation_threshold_raw": 1000000,
+      "curve_fee_bps": 100,
+      "creator_tax_bps": 50,
+      "initial_buyback_enabled": false,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 2000002,
+      "seed": 20260930,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 1015232,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 1015231,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": true,
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 10,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 1000010
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 53,
+      "ceiling_rejected": 0,
+      "invalid_calls": 168,
+      "action_attempts": {
+        "buy": 72,
+        "sell": 64,
+        "sweep": 23,
+        "rescue_fees": 33,
+        "model_buyback_toggle": 29
+      },
+      "final_immediate_terminal_quote_raw": 1000010,
+      "final_sellable_tokens_raw": 0
+    },
+    {
+      "profile": "MINIMUM_VALID",
+      "quote_decimals": 6,
+      "launch_supply_raw": 1000000000000000000000,
+      "phantom_quote_raw": 1000000,
+      "graduation_threshold_raw": 1000000,
+      "curve_fee_bps": 100,
+      "creator_tax_bps": 50,
+      "initial_buyback_enabled": false,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 2000002,
+      "seed": 20261001,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 1015232,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 1015231,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": true,
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 10,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 1000010
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 68,
+      "ceiling_rejected": 0,
+      "invalid_calls": 153,
+      "action_attempts": {
+        "buy": 68,
+        "sell": 54,
+        "sweep": 29,
+        "rescue_fees": 33,
+        "model_buyback_toggle": 37
+      },
+      "final_immediate_terminal_quote_raw": 1000010,
+      "final_sellable_tokens_raw": 0
+    },
+    {
+      "profile": "MINIMUM_VALID",
+      "quote_decimals": 6,
+      "launch_supply_raw": 1000000000000000000000,
+      "phantom_quote_raw": 1000000,
+      "graduation_threshold_raw": 1000000,
+      "curve_fee_bps": 100,
+      "creator_tax_bps": 50,
+      "initial_buyback_enabled": false,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 2000002,
+      "seed": 20261002,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 1015232,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 1015231,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": true,
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 10,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 1000010
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 59,
+      "ceiling_rejected": 0,
+      "invalid_calls": 162,
+      "action_attempts": {
+        "buy": 68,
+        "sell": 58,
+        "sweep": 30,
+        "rescue_fees": 37,
+        "model_buyback_toggle": 28
+      },
+      "final_immediate_terminal_quote_raw": 1000010,
+      "final_sellable_tokens_raw": 0
+    },
+    {
+      "profile": "SMALL",
+      "quote_decimals": 18,
+      "launch_supply_raw": 100000000000000000000000,
+      "phantom_quote_raw": 10000000000000000000,
+      "graduation_threshold_raw": 11000000000000000000,
+      "curve_fee_bps": 100,
+      "creator_tax_bps": 50,
+      "initial_buyback_enabled": false,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 12000000000000000000,
+      "seed": 20260930,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 9229349330872173515,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 9229349330872173514,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": true,
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 10,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 9090909090909090918
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 85,
+      "ceiling_rejected": 0,
+      "invalid_calls": 136,
+      "action_attempts": {
+        "buy": 61,
+        "sell": 58,
+        "sweep": 27,
+        "rescue_fees": 34,
+        "model_buyback_toggle": 41
+      },
+      "final_immediate_terminal_quote_raw": 9090909090909090923,
+      "final_sellable_tokens_raw": 0
+    },
+    {
+      "profile": "SMALL",
+      "quote_decimals": 18,
+      "launch_supply_raw": 100000000000000000000000,
+      "phantom_quote_raw": 10000000000000000000,
+      "graduation_threshold_raw": 11000000000000000000,
+      "curve_fee_bps": 100,
+      "creator_tax_bps": 50,
+      "initial_buyback_enabled": false,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 12000000000000000000,
+      "seed": 20261001,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 9229349330872173515,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 9229349330872173514,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": true,
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 10,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 9090909090909090918
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 74,
+      "ceiling_rejected": 0,
+      "invalid_calls": 147,
+      "action_attempts": {
+        "buy": 68,
+        "sell": 55,
+        "sweep": 41,
+        "rescue_fees": 27,
+        "model_buyback_toggle": 30
+      },
+      "final_immediate_terminal_quote_raw": 9090909090909090919,
+      "final_sellable_tokens_raw": 0
+    },
+    {
+      "profile": "SMALL",
+      "quote_decimals": 18,
+      "launch_supply_raw": 100000000000000000000000,
+      "phantom_quote_raw": 10000000000000000000,
+      "graduation_threshold_raw": 11000000000000000000,
+      "curve_fee_bps": 100,
+      "creator_tax_bps": 50,
+      "initial_buyback_enabled": false,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 12000000000000000000,
+      "seed": 20261002,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 9229349330872173515,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 9229349330872173514,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": true,
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 10,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 9090909090909090918
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 60,
+      "ceiling_rejected": 0,
+      "invalid_calls": 161,
+      "action_attempts": {
+        "buy": 71,
+        "sell": 63,
+        "sweep": 31,
+        "rescue_fees": 28,
+        "model_buyback_toggle": 28
+      },
+      "final_immediate_terminal_quote_raw": 9090909090909090917,
+      "final_sellable_tokens_raw": 0
+    },
+    {
+      "profile": "SMALL",
+      "quote_decimals": 6,
+      "launch_supply_raw": 100000000000000000000000,
+      "phantom_quote_raw": 10000000,
+      "graduation_threshold_raw": 11000000,
+      "curve_fee_bps": 100,
+      "creator_tax_bps": 50,
+      "initial_buyback_enabled": false,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 12000000,
+      "seed": 20260930,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 9229352,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 9229351,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": true,
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 10,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 9090919
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 83,
+      "ceiling_rejected": 0,
+      "invalid_calls": 138,
+      "action_attempts": {
+        "buy": 57,
+        "sell": 59,
+        "sweep": 38,
+        "rescue_fees": 36,
+        "model_buyback_toggle": 31
+      },
+      "final_immediate_terminal_quote_raw": 9090925,
+      "final_sellable_tokens_raw": 0
+    },
+    {
+      "profile": "SMALL",
+      "quote_decimals": 6,
+      "launch_supply_raw": 100000000000000000000000,
+      "phantom_quote_raw": 10000000,
+      "graduation_threshold_raw": 11000000,
+      "curve_fee_bps": 100,
+      "creator_tax_bps": 50,
+      "initial_buyback_enabled": false,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 12000000,
+      "seed": 20261001,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 9229352,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 9229351,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": true,
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 10,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 9090919
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 83,
+      "ceiling_rejected": 0,
+      "invalid_calls": 138,
+      "action_attempts": {
+        "buy": 63,
+        "sell": 68,
+        "sweep": 29,
+        "rescue_fees": 30,
+        "model_buyback_toggle": 31
+      },
+      "final_immediate_terminal_quote_raw": 9090925,
+      "final_sellable_tokens_raw": 0
+    },
+    {
+      "profile": "SMALL",
+      "quote_decimals": 6,
+      "launch_supply_raw": 100000000000000000000000,
+      "phantom_quote_raw": 10000000,
+      "graduation_threshold_raw": 11000000,
+      "curve_fee_bps": 100,
+      "creator_tax_bps": 50,
+      "initial_buyback_enabled": false,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 12000000,
+      "seed": 20261002,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 9229352,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 9229351,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": true,
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 10,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 9090919
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 73,
+      "ceiling_rejected": 0,
+      "invalid_calls": 148,
+      "action_attempts": {
+        "buy": 69,
+        "sell": 52,
+        "sweep": 35,
+        "rescue_fees": 28,
+        "model_buyback_toggle": 37
+      },
+      "final_immediate_terminal_quote_raw": 9090918,
+      "final_sellable_tokens_raw": 0
+    },
+    {
+      "profile": "MEDIUM_NONDIVISIBLE",
+      "quote_decimals": 18,
+      "launch_supply_raw": 1000000000000000000000000,
+      "phantom_quote_raw": 100000000000000000000,
+      "graduation_threshold_raw": 97000000000000000000,
+      "curve_fee_bps": 200,
+      "creator_tax_bps": 300,
+      "initial_buyback_enabled": false,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 104123711340206185568,
+      "seed": 20260930,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 108518719479110146505,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 108518719479110146504,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": true,
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 10,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 103092783505154639185
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 68,
+      "ceiling_rejected": 0,
+      "invalid_calls": 153,
+      "action_attempts": {
+        "buy": 45,
+        "sell": 69,
+        "sweep": 39,
+        "rescue_fees": 40,
+        "model_buyback_toggle": 28
+      },
+      "final_immediate_terminal_quote_raw": 103092783505154639185,
+      "final_sellable_tokens_raw": 0
+    },
+    {
+      "profile": "MEDIUM_NONDIVISIBLE",
+      "quote_decimals": 18,
+      "launch_supply_raw": 1000000000000000000000000,
+      "phantom_quote_raw": 100000000000000000000,
+      "graduation_threshold_raw": 97000000000000000000,
+      "curve_fee_bps": 200,
+      "creator_tax_bps": 300,
+      "initial_buyback_enabled": false,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 104123711340206185568,
+      "seed": 20261001,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 108518719479110146505,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 108518719479110146504,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": true,
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 10,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 103092783505154639185
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 66,
+      "ceiling_rejected": 0,
+      "invalid_calls": 155,
+      "action_attempts": {
+        "buy": 54,
+        "sell": 64,
+        "sweep": 28,
+        "rescue_fees": 38,
+        "model_buyback_toggle": 37
+      },
+      "final_immediate_terminal_quote_raw": 103092783505154639185,
+      "final_sellable_tokens_raw": 0
+    },
+    {
+      "profile": "MEDIUM_NONDIVISIBLE",
+      "quote_decimals": 18,
+      "launch_supply_raw": 1000000000000000000000000,
+      "phantom_quote_raw": 100000000000000000000,
+      "graduation_threshold_raw": 97000000000000000000,
+      "curve_fee_bps": 200,
+      "creator_tax_bps": 300,
+      "initial_buyback_enabled": false,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 104123711340206185568,
+      "seed": 20261002,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 108518719479110146505,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 108518719479110146504,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": true,
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 10,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 103092783505154639185
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 173,
+      "ceiling_rejected": 0,
+      "invalid_calls": 48,
+      "action_attempts": {
+        "buy": 61,
+        "sell": 58,
+        "sweep": 30,
+        "rescue_fees": 39,
+        "model_buyback_toggle": 33
+      },
+      "final_immediate_terminal_quote_raw": 103092783505154639209,
+      "final_sellable_tokens_raw": 394592704579473356227998
+    },
+    {
+      "profile": "MEDIUM_NONDIVISIBLE",
+      "quote_decimals": 6,
+      "launch_supply_raw": 1000000000000000000000000,
+      "phantom_quote_raw": 100000000,
+      "graduation_threshold_raw": 97000000,
+      "curve_fee_bps": 200,
+      "creator_tax_bps": 300,
+      "initial_buyback_enabled": false,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 104123712,
+      "seed": 20260930,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 108518723,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 108518722,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": true,
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 10,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 103092794
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 68,
+      "ceiling_rejected": 0,
+      "invalid_calls": 153,
+      "action_attempts": {
+        "buy": 65,
+        "sell": 65,
+        "sweep": 30,
+        "rescue_fees": 24,
+        "model_buyback_toggle": 37
+      },
+      "final_immediate_terminal_quote_raw": 103092793,
+      "final_sellable_tokens_raw": 0
+    },
+    {
+      "profile": "MEDIUM_NONDIVISIBLE",
+      "quote_decimals": 6,
+      "launch_supply_raw": 1000000000000000000000000,
+      "phantom_quote_raw": 100000000,
+      "graduation_threshold_raw": 97000000,
+      "curve_fee_bps": 200,
+      "creator_tax_bps": 300,
+      "initial_buyback_enabled": false,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 104123712,
+      "seed": 20261001,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 108518723,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 108518722,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": true,
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 10,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 103092794
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 65,
+      "ceiling_rejected": 0,
+      "invalid_calls": 156,
+      "action_attempts": {
+        "buy": 67,
+        "sell": 58,
+        "sweep": 31,
+        "rescue_fees": 32,
+        "model_buyback_toggle": 33
+      },
+      "final_immediate_terminal_quote_raw": 103092793,
+      "final_sellable_tokens_raw": 0
+    },
+    {
+      "profile": "MEDIUM_NONDIVISIBLE",
+      "quote_decimals": 6,
+      "launch_supply_raw": 1000000000000000000000000,
+      "phantom_quote_raw": 100000000,
+      "graduation_threshold_raw": 97000000,
+      "curve_fee_bps": 200,
+      "creator_tax_bps": 300,
+      "initial_buyback_enabled": false,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 104123712,
+      "seed": 20261002,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 108518723,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 108518722,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": true,
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 10,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 103092794
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 73,
+      "ceiling_rejected": 0,
+      "invalid_calls": 148,
+      "action_attempts": {
+        "buy": 58,
+        "sell": 65,
+        "sweep": 32,
+        "rescue_fees": 26,
+        "model_buyback_toggle": 40
+      },
+      "final_immediate_terminal_quote_raw": 103092793,
+      "final_sellable_tokens_raw": 0
+    },
+    {
+      "profile": "HIGH_COMBINED_FEE",
+      "quote_decimals": 18,
+      "launch_supply_raw": 1000000000000000000000000,
+      "phantom_quote_raw": 100000000000000000000,
+      "graduation_threshold_raw": 100000000000000000000,
+      "curve_fee_bps": 1000,
+      "creator_tax_bps": 1000,
+      "initial_buyback_enabled": false,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 101000000000000000002,
+      "seed": 20260930,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 125000000000000000004,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 125000000000000000003,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": true,
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 10,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 100000000000000000010
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 171,
+      "ceiling_rejected": 0,
+      "invalid_calls": 50,
+      "action_attempts": {
+        "buy": 57,
+        "sell": 52,
+        "sweep": 39,
+        "rescue_fees": 36,
+        "model_buyback_toggle": 37
+      },
+      "final_immediate_terminal_quote_raw": 100000000000000000040,
+      "final_sellable_tokens_raw": 465321561676120449388113
+    },
+    {
+      "profile": "HIGH_COMBINED_FEE",
+      "quote_decimals": 18,
+      "launch_supply_raw": 1000000000000000000000000,
+      "phantom_quote_raw": 100000000000000000000,
+      "graduation_threshold_raw": 100000000000000000000,
+      "curve_fee_bps": 1000,
+      "creator_tax_bps": 1000,
+      "initial_buyback_enabled": false,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 101000000000000000002,
+      "seed": 20261001,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 125000000000000000004,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 125000000000000000003,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": true,
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 10,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 100000000000000000010
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 67,
+      "ceiling_rejected": 0,
+      "invalid_calls": 154,
+      "action_attempts": {
+        "buy": 55,
+        "sell": 61,
+        "sweep": 40,
+        "rescue_fees": 39,
+        "model_buyback_toggle": 26
+      },
+      "final_immediate_terminal_quote_raw": 100000000000000000010,
+      "final_sellable_tokens_raw": 0
+    },
+    {
+      "profile": "HIGH_COMBINED_FEE",
+      "quote_decimals": 18,
+      "launch_supply_raw": 1000000000000000000000000,
+      "phantom_quote_raw": 100000000000000000000,
+      "graduation_threshold_raw": 100000000000000000000,
+      "curve_fee_bps": 1000,
+      "creator_tax_bps": 1000,
+      "initial_buyback_enabled": false,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 101000000000000000002,
+      "seed": 20261002,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 125000000000000000004,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 125000000000000000003,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": true,
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 10,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 100000000000000000010
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 65,
+      "ceiling_rejected": 0,
+      "invalid_calls": 156,
+      "action_attempts": {
+        "buy": 61,
+        "sell": 63,
+        "sweep": 34,
+        "rescue_fees": 33,
+        "model_buyback_toggle": 30
+      },
+      "final_immediate_terminal_quote_raw": 100000000000000000010,
+      "final_sellable_tokens_raw": 0
+    },
+    {
+      "profile": "HIGH_COMBINED_FEE",
+      "quote_decimals": 6,
+      "launch_supply_raw": 1000000000000000000000000,
+      "phantom_quote_raw": 100000000,
+      "graduation_threshold_raw": 100000000,
+      "curve_fee_bps": 1000,
+      "creator_tax_bps": 1000,
+      "initial_buyback_enabled": false,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 101000002,
+      "seed": 20260930,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 125000004,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 125000003,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": true,
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 10,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 100000010
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 58,
+      "ceiling_rejected": 0,
+      "invalid_calls": 163,
+      "action_attempts": {
+        "buy": 70,
+        "sell": 66,
+        "sweep": 31,
+        "rescue_fees": 28,
+        "model_buyback_toggle": 26
+      },
+      "final_immediate_terminal_quote_raw": 100000010,
+      "final_sellable_tokens_raw": 0
+    },
+    {
+      "profile": "HIGH_COMBINED_FEE",
+      "quote_decimals": 6,
+      "launch_supply_raw": 1000000000000000000000000,
+      "phantom_quote_raw": 100000000,
+      "graduation_threshold_raw": 100000000,
+      "curve_fee_bps": 1000,
+      "creator_tax_bps": 1000,
+      "initial_buyback_enabled": false,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 101000002,
+      "seed": 20261001,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 125000004,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 125000003,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": true,
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 10,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 100000010
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 177,
+      "ceiling_rejected": 0,
+      "invalid_calls": 44,
+      "action_attempts": {
+        "buy": 67,
+        "sell": 55,
+        "sweep": 26,
+        "rescue_fees": 33,
+        "model_buyback_toggle": 40
+      },
+      "final_immediate_terminal_quote_raw": 100000044,
+      "final_sellable_tokens_raw": 469260509398928915375178
+    },
+    {
+      "profile": "HIGH_COMBINED_FEE",
+      "quote_decimals": 6,
+      "launch_supply_raw": 1000000000000000000000000,
+      "phantom_quote_raw": 100000000,
+      "graduation_threshold_raw": 100000000,
+      "curve_fee_bps": 1000,
+      "creator_tax_bps": 1000,
+      "initial_buyback_enabled": false,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 101000002,
+      "seed": 20261002,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 125000004,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 125000003,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": true,
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 10,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 100000010
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 63,
+      "ceiling_rejected": 0,
+      "invalid_calls": 158,
+      "action_attempts": {
+        "buy": 59,
+        "sell": 63,
+        "sweep": 31,
+        "rescue_fees": 37,
+        "model_buyback_toggle": 31
+      },
+      "final_immediate_terminal_quote_raw": 100000009,
+      "final_sellable_tokens_raw": 0
+    },
+    {
+      "profile": "ZERO_FEE",
+      "quote_decimals": 18,
+      "launch_supply_raw": 1000000000000000000000000,
+      "phantom_quote_raw": 100000000000000000000,
+      "graduation_threshold_raw": 100000000000000000000,
+      "curve_fee_bps": 0,
+      "creator_tax_bps": 0,
+      "initial_buyback_enabled": false,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 101000000000000000001,
+      "seed": 20260930,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 100000000000000000004,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 100000000000000000003,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": false,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 9,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 100000000000000000009
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 63,
+      "ceiling_rejected": 0,
+      "invalid_calls": 158,
+      "action_attempts": {
+        "buy": 65,
+        "sell": 62,
+        "sweep": 31,
+        "rescue_fees": 32,
+        "model_buyback_toggle": 31
+      },
+      "final_immediate_terminal_quote_raw": 100000000000000000009,
+      "final_sellable_tokens_raw": 0
+    },
+    {
+      "profile": "ZERO_FEE",
+      "quote_decimals": 18,
+      "launch_supply_raw": 1000000000000000000000000,
+      "phantom_quote_raw": 100000000000000000000,
+      "graduation_threshold_raw": 100000000000000000000,
+      "curve_fee_bps": 0,
+      "creator_tax_bps": 0,
+      "initial_buyback_enabled": false,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 101000000000000000001,
+      "seed": 20261001,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 100000000000000000004,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 100000000000000000003,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": false,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 9,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 100000000000000000009
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 72,
+      "ceiling_rejected": 0,
+      "invalid_calls": 149,
+      "action_attempts": {
+        "buy": 53,
+        "sell": 68,
+        "sweep": 34,
+        "rescue_fees": 30,
+        "model_buyback_toggle": 36
+      },
+      "final_immediate_terminal_quote_raw": 100000000000000000009,
+      "final_sellable_tokens_raw": 0
+    },
+    {
+      "profile": "ZERO_FEE",
+      "quote_decimals": 18,
+      "launch_supply_raw": 1000000000000000000000000,
+      "phantom_quote_raw": 100000000000000000000,
+      "graduation_threshold_raw": 100000000000000000000,
+      "curve_fee_bps": 0,
+      "creator_tax_bps": 0,
+      "initial_buyback_enabled": false,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 101000000000000000001,
+      "seed": 20261002,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 100000000000000000004,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 100000000000000000003,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": false,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 9,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 100000000000000000009
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 62,
+      "ceiling_rejected": 0,
+      "invalid_calls": 159,
+      "action_attempts": {
+        "buy": 60,
+        "sell": 67,
+        "sweep": 33,
+        "rescue_fees": 33,
+        "model_buyback_toggle": 28
+      },
+      "final_immediate_terminal_quote_raw": 100000000000000000009,
+      "final_sellable_tokens_raw": 0
+    },
+    {
+      "profile": "ZERO_FEE",
+      "quote_decimals": 6,
+      "launch_supply_raw": 1000000000000000000000000,
+      "phantom_quote_raw": 100000000,
+      "graduation_threshold_raw": 100000000,
+      "curve_fee_bps": 0,
+      "creator_tax_bps": 0,
+      "initial_buyback_enabled": false,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 101000001,
+      "seed": 20260930,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 100000004,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 100000003,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": false,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 9,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 100000009
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 168,
+      "ceiling_rejected": 0,
+      "invalid_calls": 53,
+      "action_attempts": {
+        "buy": 66,
+        "sell": 65,
+        "sweep": 27,
+        "rescue_fees": 24,
+        "model_buyback_toggle": 39
+      },
+      "final_immediate_terminal_quote_raw": 100000047,
+      "final_sellable_tokens_raw": 417432885388275731999980
+    },
+    {
+      "profile": "ZERO_FEE",
+      "quote_decimals": 6,
+      "launch_supply_raw": 1000000000000000000000000,
+      "phantom_quote_raw": 100000000,
+      "graduation_threshold_raw": 100000000,
+      "curve_fee_bps": 0,
+      "creator_tax_bps": 0,
+      "initial_buyback_enabled": false,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 101000001,
+      "seed": 20261001,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 100000004,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 100000003,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": false,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 9,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 100000009
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 66,
+      "ceiling_rejected": 0,
+      "invalid_calls": 155,
+      "action_attempts": {
+        "buy": 58,
+        "sell": 72,
+        "sweep": 40,
+        "rescue_fees": 26,
+        "model_buyback_toggle": 25
+      },
+      "final_immediate_terminal_quote_raw": 100000009,
+      "final_sellable_tokens_raw": 0
+    },
+    {
+      "profile": "ZERO_FEE",
+      "quote_decimals": 6,
+      "launch_supply_raw": 1000000000000000000000000,
+      "phantom_quote_raw": 100000000,
+      "graduation_threshold_raw": 100000000,
+      "curve_fee_bps": 0,
+      "creator_tax_bps": 0,
+      "initial_buyback_enabled": false,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 101000001,
+      "seed": 20261002,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 100000004,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 100000003,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": false,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 9,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 100000009
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 60,
+      "ceiling_rejected": 0,
+      "invalid_calls": 161,
+      "action_attempts": {
+        "buy": 67,
+        "sell": 64,
+        "sweep": 24,
+        "rescue_fees": 31,
+        "model_buyback_toggle": 35
+      },
+      "final_immediate_terminal_quote_raw": 100000009,
+      "final_sellable_tokens_raw": 0
+    },
+    {
+      "profile": "LARGE",
+      "quote_decimals": 18,
+      "launch_supply_raw": 100000000000000000000000000,
+      "phantom_quote_raw": 1000000000000000000000,
+      "graduation_threshold_raw": 1001000000000000000000,
+      "curve_fee_bps": 100,
+      "creator_tax_bps": 50,
+      "initial_buyback_enabled": true,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 1011010000000000000000,
+      "seed": 20260930,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 1014214212183755330966,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 1014214212183755330965,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": true,
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 10,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 999000999000999001009
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 179,
+      "ceiling_rejected": 0,
+      "invalid_calls": 42,
+      "action_attempts": {
+        "buy": 66,
+        "sell": 53,
+        "sweep": 45,
+        "rescue_fees": 26,
+        "model_buyback_toggle": 31
+      },
+      "final_immediate_terminal_quote_raw": 999000999000999001040,
+      "final_sellable_tokens_raw": 42443423480613526245830512
+    },
+    {
+      "profile": "LARGE",
+      "quote_decimals": 18,
+      "launch_supply_raw": 100000000000000000000000000,
+      "phantom_quote_raw": 1000000000000000000000,
+      "graduation_threshold_raw": 1001000000000000000000,
+      "curve_fee_bps": 100,
+      "creator_tax_bps": 50,
+      "initial_buyback_enabled": true,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 1011010000000000000000,
+      "seed": 20261001,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 1014214212183755330966,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 1014214212183755330965,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": true,
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 10,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 999000999000999001009
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 59,
+      "ceiling_rejected": 0,
+      "invalid_calls": 162,
+      "action_attempts": {
+        "buy": 65,
+        "sell": 64,
+        "sweep": 33,
+        "rescue_fees": 34,
+        "model_buyback_toggle": 25
+      },
+      "final_immediate_terminal_quote_raw": 999000999000999001008,
+      "final_sellable_tokens_raw": 0
+    },
+    {
+      "profile": "LARGE",
+      "quote_decimals": 18,
+      "launch_supply_raw": 100000000000000000000000000,
+      "phantom_quote_raw": 1000000000000000000000,
+      "graduation_threshold_raw": 1001000000000000000000,
+      "curve_fee_bps": 100,
+      "creator_tax_bps": 50,
+      "initial_buyback_enabled": true,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 1011010000000000000000,
+      "seed": 20261002,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 1014214212183755330966,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 1014214212183755330965,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": true,
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 10,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 999000999000999001009
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 172,
+      "ceiling_rejected": 0,
+      "invalid_calls": 49,
+      "action_attempts": {
+        "buy": 51,
+        "sell": 72,
+        "sweep": 35,
+        "rescue_fees": 27,
+        "model_buyback_toggle": 36
+      },
+      "final_immediate_terminal_quote_raw": 999000999000999001053,
+      "final_sellable_tokens_raw": 43357471189062297127033064
+    },
+    {
+      "profile": "LARGE",
+      "quote_decimals": 6,
+      "launch_supply_raw": 100000000000000000000000000,
+      "phantom_quote_raw": 1000000000,
+      "graduation_threshold_raw": 1001000000,
+      "curve_fee_bps": 100,
+      "creator_tax_bps": 50,
+      "initial_buyback_enabled": true,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 1011010000,
+      "seed": 20260930,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 1014214216,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 1014214215,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": true,
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 10,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 999001008
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 170,
+      "ceiling_rejected": 0,
+      "invalid_calls": 51,
+      "action_attempts": {
+        "buy": 53,
+        "sell": 64,
+        "sweep": 40,
+        "rescue_fees": 28,
+        "model_buyback_toggle": 36
+      },
+      "final_immediate_terminal_quote_raw": 999001036,
+      "final_sellable_tokens_raw": 45787682263562394227180161
+    },
+    {
+      "profile": "LARGE",
+      "quote_decimals": 6,
+      "launch_supply_raw": 100000000000000000000000000,
+      "phantom_quote_raw": 1000000000,
+      "graduation_threshold_raw": 1001000000,
+      "curve_fee_bps": 100,
+      "creator_tax_bps": 50,
+      "initial_buyback_enabled": true,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 1011010000,
+      "seed": 20261001,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 1014214216,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 1014214215,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": true,
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 10,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 999001008
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 174,
+      "ceiling_rejected": 0,
+      "invalid_calls": 47,
+      "action_attempts": {
+        "buy": 65,
+        "sell": 65,
+        "sweep": 27,
+        "rescue_fees": 26,
+        "model_buyback_toggle": 38
+      },
+      "final_immediate_terminal_quote_raw": 999001043,
+      "final_sellable_tokens_raw": 49502674683147359896677688
+    },
+    {
+      "profile": "LARGE",
+      "quote_decimals": 6,
+      "launch_supply_raw": 100000000000000000000000000,
+      "phantom_quote_raw": 1000000000,
+      "graduation_threshold_raw": 1001000000,
+      "curve_fee_bps": 100,
+      "creator_tax_bps": 50,
+      "initial_buyback_enabled": true,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 1011010000,
+      "seed": 20261002,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 1014214216,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 1014214215,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": true,
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 10,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 999001008
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 64,
+      "ceiling_rejected": 0,
+      "invalid_calls": 157,
+      "action_attempts": {
+        "buy": 57,
+        "sell": 66,
+        "sweep": 26,
+        "rescue_fees": 35,
+        "model_buyback_toggle": 37
+      },
+      "final_immediate_terminal_quote_raw": 999001008,
+      "final_sellable_tokens_raw": 0
+    },
+    {
+      "profile": "MAXIMUM_CANDIDATE",
+      "quote_decimals": 18,
+      "launch_supply_raw": 1000000000000000000000000000,
+      "phantom_quote_raw": 10000000000000000000000,
+      "graduation_threshold_raw": 9500000000000000000000,
+      "curve_fee_bps": 100,
+      "creator_tax_bps": 50,
+      "initial_buyback_enabled": true,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 10631578947368421052633,
+      "seed": 20260930,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 10686615014694095645209,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 10686615014694095645208,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": true,
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 10,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 10526315789473684210536
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 183,
+      "ceiling_rejected": 0,
+      "invalid_calls": 38,
+      "action_attempts": {
+        "buy": 69,
+        "sell": 66,
+        "sweep": 28,
+        "rescue_fees": 23,
+        "model_buyback_toggle": 35
+      },
+      "final_immediate_terminal_quote_raw": 10526315789473684210574,
+      "final_sellable_tokens_raw": 484922217019076354794684235
+    },
+    {
+      "profile": "MAXIMUM_CANDIDATE",
+      "quote_decimals": 18,
+      "launch_supply_raw": 1000000000000000000000000000,
+      "phantom_quote_raw": 10000000000000000000000,
+      "graduation_threshold_raw": 9500000000000000000000,
+      "curve_fee_bps": 100,
+      "creator_tax_bps": 50,
+      "initial_buyback_enabled": true,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 10631578947368421052633,
+      "seed": 20261001,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 10686615014694095645209,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 10686615014694095645208,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": true,
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 10,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 10526315789473684210536
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 70,
+      "ceiling_rejected": 0,
+      "invalid_calls": 151,
+      "action_attempts": {
+        "buy": 62,
+        "sell": 63,
+        "sweep": 27,
+        "rescue_fees": 27,
+        "model_buyback_toggle": 42
+      },
+      "final_immediate_terminal_quote_raw": 10526315789473684210536,
+      "final_sellable_tokens_raw": 0
+    },
+    {
+      "profile": "MAXIMUM_CANDIDATE",
+      "quote_decimals": 18,
+      "launch_supply_raw": 1000000000000000000000000000,
+      "phantom_quote_raw": 10000000000000000000000,
+      "graduation_threshold_raw": 9500000000000000000000,
+      "curve_fee_bps": 100,
+      "creator_tax_bps": 50,
+      "initial_buyback_enabled": true,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 10631578947368421052633,
+      "seed": 20261002,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 10686615014694095645209,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 10686615014694095645208,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": true,
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 10,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 10526315789473684210536
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 67,
+      "ceiling_rejected": 0,
+      "invalid_calls": 154,
+      "action_attempts": {
+        "buy": 61,
+        "sell": 60,
+        "sweep": 32,
+        "rescue_fees": 34,
+        "model_buyback_toggle": 34
+      },
+      "final_immediate_terminal_quote_raw": 10526315789473684210536,
+      "final_sellable_tokens_raw": 0
+    },
+    {
+      "profile": "MAXIMUM_CANDIDATE",
+      "quote_decimals": 6,
+      "launch_supply_raw": 1000000000000000000000000000,
+      "phantom_quote_raw": 10000000000,
+      "graduation_threshold_raw": 9500000000,
+      "curve_fee_bps": 100,
+      "creator_tax_bps": 50,
+      "initial_buyback_enabled": true,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 10631578948,
+      "seed": 20260930,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 10686615019,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 10686615018,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": true,
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 10,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 10526315799
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 69,
+      "ceiling_rejected": 0,
+      "invalid_calls": 152,
+      "action_attempts": {
+        "buy": 57,
+        "sell": 59,
+        "sweep": 35,
+        "rescue_fees": 37,
+        "model_buyback_toggle": 33
+      },
+      "final_immediate_terminal_quote_raw": 10526315799,
+      "final_sellable_tokens_raw": 0
+    },
+    {
+      "profile": "MAXIMUM_CANDIDATE",
+      "quote_decimals": 6,
+      "launch_supply_raw": 1000000000000000000000000000,
+      "phantom_quote_raw": 10000000000,
+      "graduation_threshold_raw": 9500000000,
+      "curve_fee_bps": 100,
+      "creator_tax_bps": 50,
+      "initial_buyback_enabled": true,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 10631578948,
+      "seed": 20261001,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 10686615019,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 10686615018,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": true,
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 10,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 10526315799
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 170,
+      "ceiling_rejected": 0,
+      "invalid_calls": 51,
+      "action_attempts": {
+        "buy": 63,
+        "sell": 61,
+        "sweep": 30,
+        "rescue_fees": 35,
+        "model_buyback_toggle": 32
+      },
+      "final_immediate_terminal_quote_raw": 10526315829,
+      "final_sellable_tokens_raw": 502239182081416589932384671
+    },
+    {
+      "profile": "MAXIMUM_CANDIDATE",
+      "quote_decimals": 6,
+      "launch_supply_raw": 1000000000000000000000000000,
+      "phantom_quote_raw": 10000000000,
+      "graduation_threshold_raw": 9500000000,
+      "curve_fee_bps": 100,
+      "creator_tax_bps": 50,
+      "initial_buyback_enabled": true,
+      "ceiling_policy": "max(threshold, fresh completion) + max(one quote unit, that base // 100); illustrative research ceiling",
+      "ceiling_raw": 10631578948,
+      "seed": 20261002,
+      "prelude": {
+        "first_terminal_crossing_gross_raw": 10686615019,
+        "fresh_pump": {
+          "cycles_attempted": 4,
+          "accepted": 8,
+          "ceiling_rejected": 0,
+          "invalid_calls": 0,
+          "buy_failure_reasons": [],
+          "sell_failure_reasons": [],
+          "quote_gain_raw": 4
+        },
+        "near_crossing_buy_gross_raw": 10686615018,
+        "near_crossing_buy": {
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "near_crossing_one_token_sell": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": false,
+          "invalid_reason": "zero gross quote output"
+        },
+        "fee_rescue": {
+          "attempted": true,
+          "accepted": true,
+          "ceiling_rejected": false,
+          "invalid_reason": null
+        },
+        "accepted": 10,
+        "invalid_calls": 1,
+        "ceiling_rejected": 1,
+        "pump_cycles_accepted": 4,
+        "boundary_sell_probe": {
+          "attempted": true,
+          "accepted": false,
+          "ceiling_rejected": true,
+          "invalid_reason": null,
+          "boundary_ceiling_raw": 10526315799
+        }
+      },
+      "random_attempts": 220,
+      "accepted_total": 175,
+      "ceiling_rejected": 0,
+      "invalid_calls": 46,
+      "action_attempts": {
+        "buy": 67,
+        "sell": 64,
+        "sweep": 30,
+        "rescue_fees": 28,
+        "model_buyback_toggle": 32
+      },
+      "final_immediate_terminal_quote_raw": 10526315835,
+      "final_sellable_tokens_raw": 497224053063244109216530010
+    }
+  ],
+  "totals": {
+    "histories": 48,
+    "accepted": 4954,
+    "ceiling_rejected": 48,
+    "invalid_calls": 6176
+  }
+}

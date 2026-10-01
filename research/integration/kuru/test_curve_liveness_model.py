@@ -4,7 +4,7 @@ import unittest
 import json
 from pathlib import Path
 
-from curve_liveness_campaign import run_campaign
+from curve_liveness_campaign import run_campaign, run_legacy_campaign
 from curve_liveness_model import (
     CompletionCeilingRejected, CurveState, TradeRejected, admit_transition,
 )
@@ -92,20 +92,68 @@ class CurveLivenessModelTest(unittest.TestCase):
 
     def test_deterministic_stateful_campaign_keeps_every_accepted_state_completable(self):
         result = run_campaign()
-        self.assertEqual(len(result["rows"]), 6)
-        self.assertGreater(result["totals"]["accepted"], 100)
-        self.assertGreater(result["totals"]["ceiling_rejected"], 0)
-        self.assertGreater(result["totals"]["invalid_calls"], 0)
+        self.assertEqual(result["schema_version"], 2)
+        self.assertEqual(
+            result["classification"],
+            "BOUNDED_MULTI_PROFILE_MODEL_CAMPAIGN_NOT_PRODUCTION_GUARD_PROOF",
+        )
+        self.assertEqual(len(result["rows"]), 48)
+        self.assertEqual(
+            {row["profile"] for row in result["rows"]},
+            {
+                "BASELINE",
+                "MINIMUM_VALID",
+                "SMALL",
+                "MEDIUM_NONDIVISIBLE",
+                "HIGH_COMBINED_FEE",
+                "ZERO_FEE",
+                "LARGE",
+                "MAXIMUM_CANDIDATE",
+            },
+        )
+        self.assertEqual({row["quote_decimals"] for row in result["rows"]}, {18, 6})
+        self.assertEqual(result["seeds"], [20260930, 20261001, 20261002])
+        self.assertEqual(result["random_steps_per_history"], 220)
+        self.assertEqual(
+            result["totals"],
+            {"histories": 48, "accepted": 4954, "ceiling_rejected": 48,
+             "invalid_calls": 6176},
+        )
         for row in result["rows"]:
-            self.assertEqual(row["prelude_accepted_calls"], 8)
-            self.assertEqual(row["random_attempts"], 300)
+            self.assertIn(row["quote_decimals"], (18, 6))
+            self.assertEqual(row["random_attempts"], 220)
+            self.assertEqual(row["prelude"]["pump_cycles_accepted"], 4)
+            self.assertEqual(row["prelude"]["fresh_pump"]["accepted"], 8)
+            self.assertGreater(row["prelude"]["fresh_pump"]["quote_gain_raw"], 0)
+            self.assertTrue(row["prelude"]["boundary_sell_probe"]["attempted"])
+            self.assertTrue(row["prelude"]["boundary_sell_probe"]["ceiling_rejected"])
+            self.assertTrue(row["prelude"]["near_crossing_one_token_sell"]["attempted"])
+            self.assertEqual(
+                row["prelude"]["near_crossing_one_token_sell"]["invalid_reason"],
+                "zero gross quote output",
+            )
             self.assertLessEqual(row["final_immediate_terminal_quote_raw"],
                                  row["ceiling_raw"])
+        self.assertGreater(result["totals"]["accepted"], 0)
+        self.assertEqual(
+            sum(row["prelude"]["boundary_sell_probe"]["ceiling_rejected"]
+                for row in result["rows"]),
+            48,
+        )
+        self.assertEqual(
+            {action for row in result["rows"] for action in row["action_attempts"]},
+            {"buy", "sell", "sweep", "rescue_fees", "model_buyback_toggle"},
+        )
 
     def test_stateful_campaign_artifact_matches_generator(self):
         root = Path(__file__).resolve().parents[3]
-        artifact = root / "evidence/launchpad/kuru/curve-liveness-campaign-2026-09-30.json"
+        artifact = root / "evidence/launchpad/kuru/curve-liveness-campaign-2026-10-01.json"
         self.assertEqual(json.loads(artifact.read_text()), run_campaign())
+
+    def test_legacy_stateful_campaign_artifact_remains_reproducible(self):
+        root = Path(__file__).resolve().parents[3]
+        artifact = root / "evidence/launchpad/kuru/curve-liveness-campaign-2026-09-30.json"
+        self.assertEqual(json.loads(artifact.read_text()), run_legacy_campaign())
 
 
 if __name__ == "__main__":

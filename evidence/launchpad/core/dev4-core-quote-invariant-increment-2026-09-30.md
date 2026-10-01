@@ -63,4 +63,4 @@ This closes the previously listed multiple-sweep, intermediate-vesting and near-
 
 ## Remaining Core blockers
 
-Successful native and Circle V4 graduation/retry/replay, remaining FeeEscrow callback faults, post-graduation hook swaps, a comprehensive Factory/escrow/custody stateful invariant matrix, and a meaningful Factory code-size extraction remain open. `CORE_BASELINE_P0_QUALIFIED` stays **BLOCKED**. The Circle issuer's freeze/blacklist powers remain an external liveness risk, not a solvency test result.
+Factory extraction/code-size qualification and a comprehensive Factory/escrow/custody stateful invariant matrix remain open; any remaining FeeEscrow-callback or accepted-P0 post-graduation-hook gap must be named specifically. Native and Circle V4 success/failure/retry/replay behavior is now covered by `contracts/test/v2/integration/RetroPickV4GraduationBehavior.t.sol`, and the named FeeEscrow callback/fault matrix is covered by `contracts/test/v2/unit/RetroPickFeeEscrowV2Qualification.t.sol`. `CORE_BASELINE_P0_QUALIFIED` stays **BLOCKED**. The Circle issuer's freeze/blacklist powers remain an external liveness risk, not a solvency test result.

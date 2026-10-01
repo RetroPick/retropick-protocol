@@ -304,6 +304,12 @@ A research-only extraction fixture should qualify the following before productio
 11. protected custody receiver/amounts are immutable after securing;
 12. post-extraction Factory runtime is at or below the accepted byte target.
 
+### Current research-fixture result
+
+The bounded fixture at `contracts/test/v2/integration/DEV4GraduationExtractionResearch.t.sol` passes 4/4 for native-MON and ERC20 handoff, durable failure, permissionless retry, replay rejection, protected custody, wrong-executor rejection, and the thin-runtime size boundary. Its research Factory measures 21,810 runtime bytes. Reproducible evidence and limitations are recorded in [DEV-4 Factory-to-Coordinator extraction research](../../../evidence/launchpad/core/dev4-factory-coordinator-extraction-research-2026-10-01.md).
+
+This closes only the first executable-boundary question: the extraction shape can be represented without violating the research size budget. It does not close production extraction, the broader stateful conservation matrix, integrated Core-to-venue qualification, or any owner decision. Items 1, 3, 4, 5, 7, 9, 11, and 12 now have targeted fixture-domain evidence; remaining venue-packet, completion-ceiling, migration, and integrated accounting boundaries stay open.
+
 The existing B8 12/12 fault matrix must be preserved; do not expand it unless a final-architecture boundary is genuinely missing.
 
 ## 12. Falsifiers
@@ -329,7 +335,7 @@ This packet does not close:
 - owner acceptance of ADR-021 terminal-Q ceiling and Kuru parameter class;
 - owner acceptance of ADR-022 permanent P0 custody;
 - owner acceptance of ADR-023 atomic retry packet;
-- production extraction implementation and stateful conservation tests;
+- production extraction implementation and broader stateful conservation tests beyond the new bounded research fixture;
 - accepted generic completion-ceiling placement in Curve;
 - Factory code-size reduction proof;
 - real integrated Core-to-venue qualification.

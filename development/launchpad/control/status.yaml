@@ -8,6 +8,7 @@ control_plane:
 readiness:
   DEVELOPMENT_READY: in_progress
   HACKATHON_READY: blocked
+  V2_HACKATHON_SMART_CONTRACT_DEV_READY: conditional_pass
   STAGING_READY: blocked
   MAINNET_CANDIDATE: blocked
   MAINNET_AUTHORIZED: blocked
@@ -36,6 +37,10 @@ goal_qualification:
   READY_FOR_DEV4_KURU_EXECUTOR:
     status: blocked
     reason: CORE_BASELINE_P0_QUALIFIED and KURU_TARGET_DEV_FROZEN are blocked; ADR-009/011/021/022/023 remain PROPOSED. Live-testnet qualification is a later staging gate, not an excuse to promote DEV-4 early.
+  V2_HACKATHON_SMART_CONTRACT_DEV_READY:
+    status: conditional_pass
+    evidence: development/launchpad/control/V2_HACKATHON_SMART_CONTRACT_DEV_READINESS.md
+    reason: The scoped lower standard has bounded passing evidence for supported native/Circle Core behavior, Kuru B1/B5-B10 research rows, terminal-Q path-dependence handling, Factory-to-Coordinator extraction, permanent custody, retry, drift, gas, and thin-runtime size. This is not P0 authority and does not accept ADRs, authorize staging/mainnet, or promote DEV-4.
 blockers:
   - id: BLOCK-CONTRACT-TESTS
     reason: Core V2 math, Factory/Deployer launch, production FeeEscrow, direct Curve/Token accounting, default native Curve stateful coverage, authority, native and Circle near-graduation fold-back plus repeated buyback sweeps/vesting, Factory V4 sender-loss rejection, pinned Circle launch/buy/sweep, and native/Circle V4 success/failure/retry/replay behavior pass within their declared domains. Factory extraction/code-size qualification and broader Factory/escrow/custody stateful invariants remain open; any remaining FeeEscrow or accepted-P0 post-graduation-hook gap must be named specifically.

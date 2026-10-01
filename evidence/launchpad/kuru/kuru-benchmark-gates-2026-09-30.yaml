@@ -36,7 +36,9 @@ rows:
       - evidence/launchpad/kuru/terminal-q-bounded-envelope-2026-09-30.md
       - evidence/launchpad/kuru/terminal-q-wide-bound-2026-09-30.json
       - evidence/launchpad/kuru/terminal-q-wide-bound-2026-09-30.md
-    blocker: Candidate tuple passes six pinned-fork profile/quote combinations. A two-raw-unit cycle repeatedly pumps terminal Q, so neither threshold nor one-shot Q is a prelaunch upper bound. A sufficient reduced-model proof covers ten isolated profiles through an illustrative 100x-threshold stress endpoint, but no accepted ceiling/guard, continuous supported LaunchConfig domain, full real-fork boundary qualification or ADR-021 acceptance exists.
+      - evidence/launchpad/kuru/p0-terminal-envelope-2026-10-01.json
+      - evidence/launchpad/kuru/p0-terminal-envelope-2026-10-01.md
+    blocker: Candidate tuple passes six pinned-fork profile/quote combinations. A two-raw-unit cycle repeatedly pumps terminal Q, so neither threshold nor one-shot Q is a prelaunch upper bound. Conservative sufficient endpoints now cover the prior 100x-threshold stress range and are exact-admissible at fresh completion, threshold and endpoint, but are not accepted ceilings or exact mathematical maxima. No accepted ceiling/guard, continuous supported LaunchConfig domain, full real-fork boundary qualification or ADR-021 acceptance exists.
   KURU-B4-SEED:
     status: DECISION_REQUIRED
     evidence:
@@ -50,7 +52,9 @@ rows:
       - evidence/launchpad/kuru/terminal-q-bounded-envelope-2026-09-30.md
       - evidence/launchpad/kuru/terminal-q-wide-bound-2026-09-30.json
       - evidence/launchpad/kuru/terminal-q-wide-bound-2026-09-30.md
-    blocker: Proposed five-bps combined seed/tick cap passes six pinned-fork candidate profiles, 128 tiny raw-Q cells and a sufficient reduced-model bound for ten isolated wide-Q profile intervals; the one-token Factory minimum fails 27 bounded cells. The accepted full launch/terminal-Q envelope and real-fork boundaries remain unqualified; economic cap remains unaccepted.
+      - evidence/launchpad/kuru/p0-terminal-envelope-2026-10-01.json
+      - evidence/launchpad/kuru/p0-terminal-envelope-2026-10-01.md
+    blocker: Proposed five-bps combined seed/tick cap passes six pinned-fork candidate profiles, 128 tiny raw-Q cells and a sufficient reduced-model bound for ten isolated wide-Q profile intervals. Conservative sufficient endpoints now cover the prior 100x-threshold stress range and are exact-admissible at fresh completion, threshold and endpoint, but are not accepted ceilings or exact mathematical maxima; the one-token Factory minimum remains a policy contradiction. The accepted full launch/terminal-Q envelope and real-fork boundaries remain unqualified; economic cap remains unaccepted.
   KURU-B5-FORK-DEPLOY:
     status: PASS
     evidence:

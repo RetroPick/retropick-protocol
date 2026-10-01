@@ -57,6 +57,16 @@ interface IKuruVaultResearch {
     function withdraw(uint256, address, address) external returns (uint256, uint256);
 }
 
+interface IKuruMarketStateResearch {
+    enum MarketState {
+        ACTIVE,
+        SOFT_PAUSED,
+        HARD_PAUSED
+    }
+
+    function marketState() external view returns (MarketState);
+}
+
 /// @notice Candidate permanent custody, with deliberately no external authority methods.
 /// @dev A later B7 packet must still audit token and vault hooks and settle ADR-022.
 contract KuruResearchNoExitLock {}

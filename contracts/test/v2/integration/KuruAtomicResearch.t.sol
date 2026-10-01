@@ -10,7 +10,8 @@ import {
     IKuruRouterResearch,
     IKuruOrderBookResearch,
     IKuruVaultResearch,
-    KuruResearchNoExitLock
+    IKuruMarketStateResearch,
+    KuruResearchBoundLock
 } from "./KuruForkResearch.t.sol";
 
 /// @notice RESEARCH-ONLY atomic phase-2 sketch; not a production executor.
@@ -22,6 +23,10 @@ contract KuruAtomicResearchCoordinator {
     address public constant VAULT_IMPL = 0x4d54e0d60CaB0cec0100cdA8e00897bC933C5Bb6;
     bytes32 public constant ORDERBOOK_HASH = 0x24c5974f233021f00d607bfa191d430f79565663fb90805ebcfca52de7333500;
     bytes32 public constant VAULT_HASH = 0xde0b16a79cf8f711403e89093c1e82ce0e7813949dd0f5041b41da324fdd3dc3;
+    bytes32 public constant ROUTER_RUNTIME_HASH =
+        0xae572ec3ca9b5f49c0364ca34edc5880b6b2837e47802e64e6b681bf2e74aa5c;
+    bytes32 public constant MARGIN_RUNTIME_HASH =
+        0xae572ec3ca9b5f49c0364ca34edc5880b6b2837e47802e64e6b681bf2e74aa5c;
 
     uint96 internal constant SIZE_PRECISION = 1e8;
     uint32 internal constant PRICE_PRECISION = 1e8;
@@ -39,7 +44,7 @@ contract KuruAtomicResearchCoordinator {
     IERC20 public immutable token;
     address public immutable quoteAsset;
     uint256 public immutable quoteDecimals;
-    address public immutable lock;
+    KuruResearchBoundLock public immutable lock;
     uint256 public immutable terminalTokens;
     uint256 public immutable baseSeed;
     uint256 public immutable quoteSeed;
@@ -52,13 +57,13 @@ contract KuruAtomicResearchCoordinator {
     constructor(
         IERC20 token_,
         address quoteAsset_,
-        address lock_,
+        KuruResearchBoundLock lock_,
         uint256 terminalTokens_,
         uint256 baseSeed_,
         uint256 quoteSeed_,
         uint256 phantomQuote_
     ) {
-        require(address(token_) != address(0) && lock_ != address(0));
+        require(address(token_) != address(0) && address(lock_) != address(0));
         require(terminalTokens_ > baseSeed_ && baseSeed_ > 0 && quoteSeed_ > 0 && phantomQuote_ > 0);
         token = token_;
         quoteAsset = quoteAsset_;
@@ -91,7 +96,9 @@ contract KuruAtomicResearchCoordinator {
         require(phase == Phase.GRADUATING && !entered);
         entered = true;
         IKuruRouterResearch router = IKuruRouterResearch(ROUTER);
-        require(block.chainid == 10143 && ROUTER.code.length > 0);
+        require(block.chainid == 10143);
+        require(ROUTER.code.length > 0 && ROUTER.codehash == ROUTER_RUNTIME_HASH);
+        require(MARGIN.code.length > 0 && MARGIN.codehash == MARGIN_RUNTIME_HASH);
         require(router.marginAccountAddress() == MARGIN);
         require(router.orderBookImplementation() == ORDERBOOK_IMPL && ORDERBOOK_IMPL.codehash == ORDERBOOK_HASH);
         require(router.kuruAmmVaultImplementation() == VAULT_IMPL && VAULT_IMPL.codehash == VAULT_HASH);
@@ -129,6 +136,7 @@ contract KuruAtomicResearchCoordinator {
         if (failAt == 2) revert("fault-after-deploy");
         if (failAt == 6) market = address(0xBEEF); // Synthetic wrong deployProxy return.
         require(market == expectedMarket && market.code.length > 0 && vault.code.length > 0);
+        require(IKuruMarketStateResearch(market).marketState() == IKuruMarketStateResearch.MarketState.ACTIVE);
         (bool marketOk, bytes memory marketData) = market.staticcall(abi.encodeWithSignature("getMarketParams()"));
         (bool routerOk, bytes memory routerData) =
             ROUTER.staticcall(abi.encodeWithSignature("verifiedMarket(address)", market));
@@ -169,11 +177,11 @@ contract KuruAtomicResearchCoordinator {
         }
         if (failAt == 3) revert("fault-after-approval");
         uint256 shares =
-            v.deposit{value: quoteAsset == address(0) ? quoteSeed : 0}(baseSeed, quoteSeed, quoteSeed, lock);
+            v.deposit{value: quoteAsset == address(0) ? quoteSeed : 0}(baseSeed, quoteSeed, quoteSeed, address(lock));
         if (failAt == 4) revert("fault-after-deposit");
         if (failAt == 8) shares = 0; // Synthetic wrong LP return after the real deposit.
         require(shares == Math.sqrt(baseSeed * quoteSeed) - 1_000);
-        require(v.balanceOf(lock) == shares);
+        require(v.balanceOf(address(lock)) == shares);
         (uint256 actualBase, uint256 actualQuote) = v.totalAssets();
         require(actualBase == baseSeed && actualQuote == quoteSeed);
         (address vaultFromBook, uint256 bid,, uint256 ask,, uint96 bidSize, uint96 askSize,) =
@@ -184,9 +192,9 @@ contract KuruAtomicResearchCoordinator {
         uint256 referencePrice = Math.mulDiv(phantomQuote + quoteSeed, 1e36, terminalTokens * 10 ** quoteDecimals);
         uint256 priceError = ask > referencePrice ? ask - referencePrice : referencePrice - ask;
         require(priceError * 10_000 <= referencePrice * 5); // research-only candidate cap, not accepted policy
-        require(token.transfer(lock, terminalTokens - baseSeed));
+        require(token.transfer(address(lock), terminalTokens - baseSeed));
         if (failAt == 5) revert("fault-after-excess-lock");
-        require(token.balanceOf(lock) == terminalTokens - baseSeed);
+        require(token.balanceOf(address(lock)) == terminalTokens - baseSeed);
         require(token.balanceOf(address(this)) == 0);
         if (quoteAsset == address(0)) {
             require(address(this).balance == 0);
@@ -222,7 +230,7 @@ contract KuruAtomicResearchTest is Test {
     function testInjectedFailuresRollbackThenSameLaunchRetriesAndCannotReplay() public {
         (
             RetroPickLauncherTokenV2 token,
-            KuruResearchNoExitLock lock,
+            KuruResearchBoundLock lock,
             KuruAtomicResearchCoordinator coordinator,
             address expectedMarket,
             address expectedVault
@@ -251,7 +259,7 @@ contract KuruAtomicResearchTest is Test {
     function testWrongPostDeployResultsAndFinalizationRollbackThenRetry() public {
         (
             RetroPickLauncherTokenV2 token,
-            KuruResearchNoExitLock lock,
+            KuruResearchBoundLock lock,
             KuruAtomicResearchCoordinator coordinator,
             address expectedMarket,
             address expectedVault
@@ -270,6 +278,36 @@ contract KuruAtomicResearchTest is Test {
         vm.expectRevert();
         coordinator.complete(0);
         assertEq(coordinator.destination(), expectedMarket);
+    }
+
+    function testNativeAtomicCompletionProtectsLpAndExcessBase() public {
+        (
+            RetroPickLauncherTokenV2 token,
+            KuruResearchBoundLock lock,
+            KuruAtomicResearchCoordinator coordinator,
+            address expectedMarket,
+            address expectedVault
+        ) = _securedLaunch();
+        (address market, address vault) = coordinator.complete(0);
+        assertEq(market, expectedMarket);
+        assertEq(vault, expectedVault);
+        _assertBoundLockProtection(token, lock, expectedMarket, expectedVault, 250_000 ether);
+    }
+
+    function testCircleAtomicCompletionProtectsLpAndExcessBase() public {
+        (
+            RetroPickLauncherTokenV2 token,
+            KuruResearchBoundLock lock,
+            KuruAtomicResearchCoordinator coordinator,
+            ,
+            address expectedVault
+        ) = _securedCircleLaunch();
+        (address market, address vault) = coordinator.complete(0);
+        assertEq(vault, expectedVault);
+        assertEq(coordinator.destination(), market);
+        assertEq(IERC20(CIRCLE_USDC).balanceOf(address(coordinator)), 0);
+        assertEq(IERC20(CIRCLE_USDC).allowance(address(coordinator), vault), 0);
+        _assertBoundLockProtection(token, lock, market, vault, 250_000 ether);
     }
 
     /// @notice Candidate full phase-2 gas comparison, not production Core wiring.
@@ -306,9 +344,12 @@ contract KuruAtomicResearchTest is Test {
             supply
         );
         token.transfer(address(0xBEEF), supply - terminal);
-        KuruResearchNoExitLock lock = new KuruResearchNoExitLock();
+        address expectedMarket = IKuruRouterResearch(ROUTER)
+            .computeAddress(address(token), quote, 1e8, 1e8, 1, 1e6, 1e16, 30, 0, 100, address(0), false);
+        address expectedVault = IKuruRouterResearch(ROUTER).computeVaultAddress(expectedMarket, address(0), false);
+        KuruResearchBoundLock lock = new KuruResearchBoundLock(address(token), quote, expectedMarket, expectedVault);
         KuruAtomicResearchCoordinator coordinator = new KuruAtomicResearchCoordinator(
-            IERC20(address(token)), quote, address(lock), terminal, base, quoteAmount, phantom
+            IERC20(address(token)), quote, lock, terminal, base, quoteAmount, phantom
         );
         token.approve(address(coordinator), terminal);
         if (quote == address(0)) {
@@ -350,7 +391,7 @@ contract KuruAtomicResearchTest is Test {
     function testImplementationCodeDriftStopsBeforeMarketCreation() public {
         (
             RetroPickLauncherTokenV2 token,
-            KuruResearchNoExitLock lock,
+            KuruResearchBoundLock lock,
             KuruAtomicResearchCoordinator coordinator,
             address expectedMarket,
             address expectedVault
@@ -361,10 +402,51 @@ contract KuruAtomicResearchTest is Test {
         _assertSecuredUnchanged(token, lock, coordinator, expectedMarket, expectedVault);
     }
 
+    function testRouterRuntimeDriftStopsThenRestoredTargetRetries() public {
+        (
+            RetroPickLauncherTokenV2 token,
+            KuruResearchBoundLock lock,
+            KuruAtomicResearchCoordinator coordinator,
+            address expectedMarket,
+            address expectedVault
+        ) = _securedLaunch();
+        bytes memory pinnedRuntime = ROUTER.code;
+        vm.etch(ROUTER, hex"00");
+        vm.expectRevert();
+        coordinator.complete(0);
+        _assertSecuredUnchanged(token, lock, coordinator, expectedMarket, expectedVault);
+
+        // Research restoration models offchain requalification after external drift.
+        vm.etch(ROUTER, pinnedRuntime);
+        (address market,) = coordinator.complete(0);
+        assertEq(market, expectedMarket);
+    }
+
+    function testMarginRuntimeDriftStopsThenRestoredTargetRetries() public {
+        (
+            RetroPickLauncherTokenV2 token,
+            KuruResearchBoundLock lock,
+            KuruAtomicResearchCoordinator coordinator,
+            address expectedMarket,
+            address expectedVault
+        ) = _securedLaunch();
+        address margin = coordinator.MARGIN();
+        bytes memory pinnedRuntime = margin.code;
+        vm.etch(margin, hex"00");
+        vm.expectRevert();
+        coordinator.complete(0);
+        _assertSecuredUnchanged(token, lock, coordinator, expectedMarket, expectedVault);
+
+        // Research restoration models offchain requalification after external drift.
+        vm.etch(margin, pinnedRuntime);
+        (address market,) = coordinator.complete(0);
+        assertEq(market, expectedMarket);
+    }
+
     function testWrongMarginGetterStopsBeforeMarketCreation() public {
         (
             RetroPickLauncherTokenV2 token,
-            KuruResearchNoExitLock lock,
+            KuruResearchBoundLock lock,
             KuruAtomicResearchCoordinator coordinator,
             address expectedMarket,
             address expectedVault
@@ -378,7 +460,7 @@ contract KuruAtomicResearchTest is Test {
     function testRouterDeploymentRevertPreservesSecuredLaunch() public {
         (
             RetroPickLauncherTokenV2 token,
-            KuruResearchNoExitLock lock,
+            KuruResearchBoundLock lock,
             KuruAtomicResearchCoordinator coordinator,
             address expectedMarket,
             address expectedVault
@@ -399,7 +481,7 @@ contract KuruAtomicResearchTest is Test {
     function testWrongRouterRegistryDataRollsBackDeploymentAndCanRetry() public {
         (
             RetroPickLauncherTokenV2 token,
-            KuruResearchNoExitLock lock,
+            KuruResearchBoundLock lock,
             KuruAtomicResearchCoordinator coordinator,
             address expectedMarket,
             address expectedVault
@@ -432,7 +514,7 @@ contract KuruAtomicResearchTest is Test {
     function testVaultImplementationCodeDriftStopsBeforeMarketCreation() public {
         (
             RetroPickLauncherTokenV2 token,
-            KuruResearchNoExitLock lock,
+            KuruResearchBoundLock lock,
             KuruAtomicResearchCoordinator coordinator,
             address expectedMarket,
             address expectedVault
@@ -446,7 +528,7 @@ contract KuruAtomicResearchTest is Test {
     function testRouterImplementationGetterDriftStopsBeforeMarketCreation() public {
         (
             RetroPickLauncherTokenV2 token,
-            KuruResearchNoExitLock lock,
+            KuruResearchBoundLock lock,
             KuruAtomicResearchCoordinator coordinator,
             address expectedMarket,
             address expectedVault
@@ -476,7 +558,7 @@ contract KuruAtomicResearchTest is Test {
     function testUnexpectedExistingMarketStopsBeforeAssetMovement() public {
         (
             RetroPickLauncherTokenV2 token,
-            KuruResearchNoExitLock lock,
+            KuruResearchBoundLock lock,
             KuruAtomicResearchCoordinator coordinator,
             address expectedMarket,
             address expectedVault
@@ -499,7 +581,7 @@ contract KuruAtomicResearchTest is Test {
     function testBaseApprovalAndExcessLockTransferFailuresPreserveSecuredAssets() public {
         (
             RetroPickLauncherTokenV2 token,
-            KuruResearchNoExitLock lock,
+            KuruResearchBoundLock lock,
             KuruAtomicResearchCoordinator coordinator,
             address expectedMarket,
             address expectedVault
@@ -529,7 +611,7 @@ contract KuruAtomicResearchTest is Test {
     function testCircleApprovalAndQuoteTransferFailuresRetryOnRealFork() public {
         (
             RetroPickLauncherTokenV2 token,
-            KuruResearchNoExitLock lock,
+            KuruResearchBoundLock lock,
             KuruAtomicResearchCoordinator coordinator,
             address expectedMarket,
             address expectedVault
@@ -568,7 +650,7 @@ contract KuruAtomicResearchTest is Test {
         internal
         returns (
             RetroPickLauncherTokenV2 token,
-            KuruResearchNoExitLock lock,
+            KuruResearchBoundLock lock,
             KuruAtomicResearchCoordinator coordinator,
             address expectedMarket,
             address expectedVault
@@ -587,24 +669,24 @@ contract KuruAtomicResearchTest is Test {
             1_000_000 ether
         );
         token.transfer(address(0xBEEF), 500_000 ether);
-        lock = new KuruResearchNoExitLock();
+        expectedMarket = IKuruRouterResearch(ROUTER).computeAddress(
+            address(token), CIRCLE_USDC, 1e8, 1e8, 1, 1e6, 1e16, 30, 0, 100, address(0), false
+        );
+        expectedVault = IKuruRouterResearch(ROUTER).computeVaultAddress(expectedMarket, address(0), false);
+        lock = new KuruResearchBoundLock(address(token), CIRCLE_USDC, expectedMarket, expectedVault);
         coordinator = new KuruAtomicResearchCoordinator(
-            IERC20(address(token)), CIRCLE_USDC, address(lock), 500_000 ether, 250_000 ether, 100e6, 100e6
+            IERC20(address(token)), CIRCLE_USDC, lock, 500_000 ether, 250_000 ether, 100e6, 100e6
         );
         token.approve(address(coordinator), 500_000 ether);
         deal(CIRCLE_USDC, address(this), 100e6);
         IERC20(CIRCLE_USDC).approve(address(coordinator), 100e6);
         coordinator.secure();
         assertEq(uint8(coordinator.phase()), uint8(KuruAtomicResearchCoordinator.Phase.GRADUATING));
-        IKuruRouterResearch router = IKuruRouterResearch(ROUTER);
-        expectedMarket =
-            router.computeAddress(address(token), CIRCLE_USDC, 1e8, 1e8, 1, 1e6, 1e16, 30, 0, 100, address(0), false);
-        expectedVault = router.computeVaultAddress(expectedMarket, address(0), false);
     }
 
     function _assertCircleSecuredUnchanged(
         RetroPickLauncherTokenV2 token,
-        KuruResearchNoExitLock lock,
+        KuruResearchBoundLock lock,
         KuruAtomicResearchCoordinator coordinator,
         address market,
         address vault
@@ -621,11 +703,56 @@ contract KuruAtomicResearchTest is Test {
         assertEq(vault.code.length, 0);
     }
 
+    /// @dev The test contract is creator/operator; the other actors are arbitrary callers.
+    function _assertBoundLockProtection(
+        RetroPickLauncherTokenV2 token,
+        KuruResearchBoundLock lock,
+        address market,
+        address vault,
+        uint256 excessBase
+    ) internal {
+        uint256 shares = IKuruVaultResearch(vault).balanceOf(address(lock));
+        assertGt(shares, 0);
+        assertGt(excessBase, 0);
+        assertEq(lock.base(), address(token));
+        assertEq(lock.market(), market);
+        assertEq(lock.vault(), vault);
+        (uint256 lockedShares, uint256 lockedExcess) = lock.protectedBalances();
+        assertEq(lockedShares, shares);
+        assertEq(lockedExcess, excessBase);
+
+        address[3] memory actors = [address(this), address(0xCAFE), address(0xB0B)];
+        for (uint256 i; i < actors.length; ++i) {
+            address actor = actors[i];
+            vm.startPrank(actor);
+            vm.expectRevert();
+            IKuruVaultResearch(vault).withdraw(shares, actor, address(lock));
+            vm.expectRevert();
+            token.transferFrom(address(lock), actor, excessBase);
+            (bool transferEscape,) = address(lock).call(abi.encodeWithSelector(IERC20.transfer.selector, actor, shares));
+            (bool approvalEscape,) = address(lock).call(abi.encodeWithSelector(IERC20.approve.selector, actor, shares));
+            (bool burnEscape,) = address(lock).call(abi.encodeWithSignature("burn(uint256)", shares));
+            (bool arbitraryEscape,) =
+                address(lock).call(abi.encodeWithSignature("execute(address,bytes)", vault, bytes("")));
+            (bool delegateEscape,) =
+                address(lock).call(abi.encodeWithSignature("delegate(address,bytes)", vault, bytes("")));
+            vm.stopPrank();
+            assertFalse(transferEscape);
+            assertFalse(approvalEscape);
+            assertFalse(burnEscape);
+            assertFalse(arbitraryEscape);
+            assertFalse(delegateEscape);
+            assertEq(IERC20(vault).allowance(address(lock), actor), 0);
+        }
+        assertEq(IERC20(vault).balanceOf(address(lock)), shares);
+        assertEq(token.balanceOf(address(lock)), excessBase);
+    }
+
     function _securedLaunch()
         internal
         returns (
             RetroPickLauncherTokenV2 token,
-            KuruResearchNoExitLock lock,
+            KuruResearchBoundLock lock,
             KuruAtomicResearchCoordinator coordinator,
             address expectedMarket,
             address expectedVault
@@ -644,23 +771,23 @@ contract KuruAtomicResearchTest is Test {
             1_000_000 ether
         );
         token.transfer(address(0xBEEF), 500_000 ether);
-        lock = new KuruResearchNoExitLock();
+        expectedMarket = IKuruRouterResearch(ROUTER).computeAddress(
+            address(token), address(0), 1e8, 1e8, 1, 1e6, 1e16, 30, 0, 100, address(0), false
+        );
+        expectedVault = IKuruRouterResearch(ROUTER).computeVaultAddress(expectedMarket, address(0), false);
+        lock = new KuruResearchBoundLock(address(token), address(0), expectedMarket, expectedVault);
         coordinator = new KuruAtomicResearchCoordinator(
-            IERC20(address(token)), address(0), address(lock), 500_000 ether, 250_000 ether, 100 ether, 100 ether
+            IERC20(address(token)), address(0), lock, 500_000 ether, 250_000 ether, 100 ether, 100 ether
         );
         token.approve(address(coordinator), 500_000 ether);
         vm.deal(address(this), 100 ether);
         coordinator.secure{value: 100 ether}();
         assertEq(uint8(coordinator.phase()), uint8(KuruAtomicResearchCoordinator.Phase.GRADUATING));
-        IKuruRouterResearch router = IKuruRouterResearch(ROUTER);
-        expectedMarket =
-            router.computeAddress(address(token), address(0), 1e8, 1e8, 1, 1e6, 1e16, 30, 0, 100, address(0), false);
-        expectedVault = router.computeVaultAddress(expectedMarket, address(0), false);
     }
 
     function _assertSecuredUnchanged(
         RetroPickLauncherTokenV2 token,
-        KuruResearchNoExitLock lock,
+        KuruResearchBoundLock lock,
         KuruAtomicResearchCoordinator coordinator,
         address market,
         address vault

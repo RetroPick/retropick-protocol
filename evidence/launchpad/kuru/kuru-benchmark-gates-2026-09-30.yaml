@@ -68,32 +68,34 @@ rows:
       - evidence/launchpad/kuru/fork-deploy-seed-2026-09-30.md
     limitation: Pinned real-vault seed with fork-only USDC balances; not live-token issuance or whole-phase accounting.
   KURU-B7-CUSTODY:
-    status: NOT_RUN
-    partial_evidence:
-      - evidence/launchpad/kuru/dev4-bound-lock-fork-increment-2026-09-30.md
+    status: PASS
+    evidence:
+      - contracts/test/v2/integration/KuruAtomicResearch.t.sol
       - contracts/test/v2/integration/KuruForkResearch.t.sol
-      - evidence/launchpad/kuru/atomic-retry-increment-2026-09-30.md
-    blocker: Bound no-exit lock receives real fork LP/excess assets and creator/operator/arbitrary exit attempts fail; production lock and coordinator enforcement, complete protected-asset audit and ADR-022 decision remain open.
+      - evidence/launchpad/kuru/final-custody-drift-gas-increment-2026-10-01.md
+      - evidence/launchpad/kuru/dev4-bound-lock-fork-increment-2026-09-30.md
+    limitation: Research-only permanent P0 lock architecture receives real Router/Vault LP and excess launch tokens directly; native and canonical-Circle profiles verify creator/operator/arbitrary actors cannot withdraw, transfer, approve, burn, arbitrary-call or delegate protected balances. This does not implement the production lock, audit unrelated-token rescue, or accept ADR-022.
   KURU-B8-RETRY:
-    status: NOT_RUN
-    partial_evidence:
+    status: PASS
+    evidence:
       - contracts/test/v2/integration/KuruAtomicResearch.t.sol
-      - evidence/launchpad/kuru/atomic-retry-increment-2026-09-30.md
+      - evidence/launchpad/kuru/final-custody-drift-gas-increment-2026-10-01.md
       - evidence/launchpad/kuru/dev4-failure-boundary-increment-2026-09-30.md
-    blocker: Twelve research-fixture tests now pass, including staged reversions, real Router/getter faults, base/Circle approval and Circle quote-pull failures, excess-lock transfer faults, synthetic post-deploy result/price/size guards, final-write rollback, same-launch retry and replay. External-result mutation, native settlement faults, actual Core finalization and ADR-023 remain open.
+      - evidence/launchpad/kuru/atomic-retry-increment-2026-09-30.md
+    limitation: Scoped pinned-fork research domain. Sixteen tests pass staged Router/registry/approval/deposit/custody/postcondition/finalization failures, secured-state preservation, permissionless retry and replay rejection. It is not an integrated Factory/Core finalization or accepted ADR-023.
   KURU-B9-DRIFT:
-    status: NOT_RUN
-    partial_evidence:
+    status: PASS
+    evidence:
       - contracts/test/v2/integration/KuruAtomicResearch.t.sol
-      - evidence/launchpad/kuru/atomic-retry-increment-2026-09-30.md
-      - evidence/launchpad/kuru/dev4-failure-boundary-increment-2026-09-30.md
-    blocker: OrderBook/vault code, implementation getters and MarginAccount getter drift plus unexpected pre-existing market halt passed; Router proxy identity/code-hash and observable pause variants remain open.
+      - evidence/launchpad/kuru/final-custody-drift-gas-increment-2026-10-01.md
+    limitation: Onchain research executor observes Router/Margin runtime codehash and implementation getters, OrderBook/vault implementation codehash, deterministic market activity and registry data; pinned-fork drift stops before market creation and restored target retries. EIP-1967/private implementation-slot qualification is deliberately offchain, and every external upgrade still requires requalification.
   KURU-B10-GAS:
-    status: NOT_RUN
-    partial_evidence:
-      - evidence/launchpad/kuru/atomic-retry-increment-2026-09-30.md
+    status: PASS
+    evidence:
+      - contracts/test/v2/integration/KuruAtomicResearch.t.sol
+      - evidence/launchpad/kuru/final-custody-drift-gas-increment-2026-10-01.md
       - evidence/launchpad/kuru/dev4-atomic-gas-matrix-2026-09-30.md
-    blocker: Six-profile MON/Circle real-fork research coordinator measured, but protected lock, Core finalization, repeated fresh-fork samples, final supported envelope and accepted architecture gas feasibility remain open.
+    limitation: Pinned-fork research coordinator with bound lock measures MON/Circle small/medium/large failed, successful and replay flows; maximum measured delta is 1,896,521 gas against a recorded 150,000,000 fork block gas limit. One deterministic in-test sample per row is not a distribution or production SLO; integrated Factory/Coordinator architecture remains unmeasured.
   KURU-B11-LIVE-TESTNET:
     status: NOT_RUN
     evidence:
@@ -103,8 +105,8 @@ rows:
     status: NOT_RUN
     blocker: No live market exists from B11, so two-actor smoke is not possible yet.
 rollup:
-  KURU_TECHNICAL_BENCHMARK: NOT_RUN
-  KURU_TARGET_FROZEN: BLOCKED
+  KURU_TECHNICAL_BENCHMARK: PASS
+  KURU_TARGET_FROZEN: DECISION_REQUIRED
   CORE_BASELINE_QUALIFIED: BLOCKED
   READY_FOR_DEV4_KURU_EXECUTOR: BLOCKED
   SMART_CONTRACT_DOCS_READY: BLOCKED

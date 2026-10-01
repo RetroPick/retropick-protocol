@@ -19,8 +19,8 @@ goal_qualification:
     reason: Factory sender-loss guard, pinned Circle launch/buy/sweep, supported-asset near-graduation fold-back, repeated buyback sweeps with partial/full vesting, default Curve stateful campaign, and native/Circle V4 success/failure/retry/replay behavior now pass; Factory extraction/code-size qualification, broader Factory/escrow/custody stateful coverage, and an accepted generic graduation-completion ceiling remain incomplete.
   KURU_TARGET_DEV_FROZEN:
     status: blocked
-    evidence: development/launchpad/control/DEV4_GATE_SCOPE_MIGRATION.md
-    reason: Two-raw-unit buy/sell cycles repeatably pump terminal Q, so unrestricted LaunchConfig alone cannot establish the candidate Kuru envelope. A venue-agnostic exact completion-quote ceiling is modeled and differentially sampled; reduced-model sufficient bounds cover ten isolated candidate wide-Q profiles through their conservative sufficient-condition endpoints, but those endpoints are not accepted ceilings or exact mathematical maxima, and no production guard, continuous P0 LaunchConfig envelope or real-fork boundary qualification exists. Protected custody, final fault/drift/gas matrices and owner ADR acceptances remain incomplete; live B11/B12 are post-development gates.
+    evidence: evidence/launchpad/kuru/kuru-benchmark-gates-2026-09-30.yaml
+    reason: Two-raw-unit buy/sell cycles repeatably pump terminal Q, so unrestricted LaunchConfig alone cannot establish the candidate Kuru envelope. A venue-agnostic exact completion-quote ceiling is modeled and differentially sampled; reduced-model sufficient bounds cover ten isolated candidate wide-Q profiles through their conservative sufficient-condition endpoints, but those endpoints are not accepted ceilings or exact mathematical maxima, and no production guard, continuous P0 LaunchConfig envelope or real-fork boundary qualification exists. B1 and B5-B10 now pass only in the pinned research-fixture domain; B2-B4 require owner/economic decisions. Factory extraction, Core integration and ADR-009/011/021/022/023 acceptance remain blockers; live B11/B12 are post-development gates.
   KURU_LIVE_TESTNET_QUALIFIED:
     status: blocked
     evidence: evidence/launchpad/kuru/live-actor-funding-readonly-2026-09-30.md
@@ -32,7 +32,7 @@ goal_qualification:
   KURU_TARGET_FROZEN:
     status: blocked
     evidence: evidence/launchpad/kuru/kuru-benchmark-gates-2026-09-30.yaml
-    reason: B1 environment and scoped B5/B6 real-router/vault fork tests pass; one pinned Circle USDC approval/deposit profile verifies exact physical receipt at Kuru MarginAccount. ADR-011, full quote profile, accepted parameters/seed tolerance, custody, failure/retry, drift, gas and live usability gates remain open.
+    reason: KURU_TECHNICAL_BENCHMARK passes only in the pinned research-fixture domain: B1 and B5-B10 cover environment, real deploy/seed, bound custody, retry/replay, observable drift and deterministic gas. B2/B3/B4 remain DECISION_REQUIRED for quote policy and the accepted terminal-Q/parameter/seed envelope; B11/B12 remain NOT_RUN. ADR-009/011/021/022/023 are not accepted, so the target is not frozen.
   READY_FOR_DEV4_KURU_EXECUTOR:
     status: blocked
     reason: CORE_BASELINE_P0_QUALIFIED and KURU_TARGET_DEV_FROZEN are blocked; ADR-009/011/021/022/023 remain PROPOSED. Live-testnet qualification is a later staging gate, not an excuse to promote DEV-4 early.
@@ -41,7 +41,7 @@ blockers:
     reason: Core V2 math, Factory/Deployer launch, production FeeEscrow, direct Curve/Token accounting, default native Curve stateful coverage, authority, native and Circle near-graduation fold-back plus repeated buyback sweeps/vesting, Factory V4 sender-loss rejection, pinned Circle launch/buy/sweep, and native/Circle V4 success/failure/retry/replay behavior pass within their declared domains. Factory extraction/code-size qualification and broader Factory/escrow/custody stateful invariants remain open; any remaining FeeEscrow or accepted-P0 post-graduation-hook gap must be named specifically.
     next_owner: launchpad-solidity
   - id: BLOCK-KURU-TARGET
-    reason: Pinned live environment and scoped real Kuru fork deploy/seed are verified. Circle USDC and Kuru-listed test USDC are distinct; one Circle profile passes with quote held physically at Kuru MarginAccount. Repeatable terminal-Q drift invalidates threshold-only prelaunch admission; the proposed exact completion-ceiling guard and ten-profile wide-Q sufficient endpoint coverage are research-only and are not accepted economic ceilings. Continuous P0 admission, broader Circle behavior, parameter/error tolerance, LP custody, complete retry/drift/gas and ADR decisions remain unresolved. Target is not frozen; live B11/B12 belong to later staging qualification.
+    reason: Pinned live environment, real Router/Vault deploy/seed, bound LP/excess custody, staged failure retry/replay, observable drift rejection and deterministic MON/Circle gas rows now pass in the research fixture. Repeatable terminal-Q drift invalidates threshold-only prelaunch admission; the proposed exact completion-ceiling guard and ten-profile wide-Q sufficient endpoint coverage are research-only and are not accepted economic ceilings. Continuous P0 admission, the owner quote/parameter/seed decisions, Factory/Core integration and ADR acceptance remain unresolved. Target is not frozen; live B11/B12 belong to later staging qualification.
     next_owner: launchpad-integrations
   - id: BLOCK-ARCH-ADRS
     reason: Full-stack workspace, backend, indexer, auth, storage, admin, upgradeability and V4-retirement choices are PROPOSED rather than accepted.

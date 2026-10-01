@@ -10,6 +10,12 @@ Protocol-owner P0 direction identifies `0x534b2f3A21130d7a60830c2Df862319e593943
 
 A subsequent [pinned Circle custody increment](../../../evidence/launchpad/kuru/circle-custody-fork-increment-2026-09-30.md) verifies one real Router/Vault deposit profile: exact caller debit, exact vault allowance consumption and exact **MarginAccount** physical quote-balance increase. The vault itself does not retain the Circle ERC20 balance after deposit. This corrects the physical-custody assumption for later postconditions, but does not complete B2, the gas matrix or live funding/usability.
 
+## 2026-10-01 technical benchmark boundary
+
+The [final custody/drift/gas increment](../../../evidence/launchpad/kuru/final-custody-drift-gas-increment-2026-10-01.md) upgrades the research architecture to a bound no-exit lock and completes B7–B10 only within the pinned research-fixture domain. Real native-MON and canonical-Circle first deposits send LP plus excess launch tokens to the lock; creator/operator/arbitrary authority negatives pass. Observable Router/Margin runtime-codehash and implementation-getter drift stops before market creation and allows retry after restoration. The deterministic MON/Circle small/medium/large failed/retry/replay gas matrix peaks at 1,896,521 gas against the recorded 150,000,000 fork limit. These are not integrated Factory/Core measurements, distributions or an operational SLO.
+
+Accordingly B1 and B5–B10 are technical research passes, B2–B4 remain decision-gated, and B11–B12 remain post-implementation. `KURU_TECHNICAL_BENCHMARK = PASS` in that declared domain, but `KURU_TARGET_FROZEN = DECISION_REQUIRED`; no ADR is accepted here.
+
 ## CURRENT / TARGET / DELTA / MIGRATION ORDER
 
 - **CURRENT:** V2 Factory holds the launch record and uses a V4-oriented two-phase `NotGraduated → Swept → PoolCreated` path. Curve secures reserves first; `createGraduatedPool` is retryable. No Kuru call exists in V2 production source.
@@ -61,4 +67,4 @@ The later [exact price-continuity bound](../../../evidence/launchpad/kuru/seed-p
 | [ADR-022 LP-share custody](../../../decisions/ADR-022-kuru-lp-share-custody.md) | PROPOSED; dedicated non-creator-controlled lock recommended. Withdrawal/emergency, unrelated-asset recovery and excess-token ownership require human economic decision. |
 | [ADR-023 retry/verification](../../../decisions/ADR-023-kuru-graduation-atomic-retry-and-verification.md) | PROPOSED; atomic phase-2 is the candidate. Fork gas and explicit recovery authority require acceptance. |
 
-`KURU_TARGET_FROZEN = BLOCKED` and `READY_FOR_DEV4_KURU_EXECUTOR = BLOCKED`. The [B1–B12 machine-readable gate](../../../evidence/launchpad/kuru/kuru-benchmark-gates-2026-09-30.yaml) records scoped B1/B5/B6 passes and remaining decisions/tests. A source/code snapshot, model and partial fork proof are progress, not a complete target freeze. No live Kuru transaction was sent.
+`KURU_TARGET_FROZEN = BLOCKED / DECISION_REQUIRED` and `READY_FOR_DEV4_KURU_EXECUTOR = BLOCKED`. The [B1–B12 machine-readable gate](../../../evidence/launchpad/kuru/kuru-benchmark-gates-2026-09-30.yaml) records scoped B1/B5–B10 technical passes, B2–B4 decisions and B11–B12 post-implementation gates. Source/code snapshots, models and research-fixture proofs do not accept ADRs or authorize production integration. No live Kuru transaction was sent.

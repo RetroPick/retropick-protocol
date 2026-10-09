@@ -23,10 +23,8 @@ contract KuruAtomicResearchCoordinator {
     address public constant VAULT_IMPL = 0x4d54e0d60CaB0cec0100cdA8e00897bC933C5Bb6;
     bytes32 public constant ORDERBOOK_HASH = 0x24c5974f233021f00d607bfa191d430f79565663fb90805ebcfca52de7333500;
     bytes32 public constant VAULT_HASH = 0xde0b16a79cf8f711403e89093c1e82ce0e7813949dd0f5041b41da324fdd3dc3;
-    bytes32 public constant ROUTER_RUNTIME_HASH =
-        0xae572ec3ca9b5f49c0364ca34edc5880b6b2837e47802e64e6b681bf2e74aa5c;
-    bytes32 public constant MARGIN_RUNTIME_HASH =
-        0xae572ec3ca9b5f49c0364ca34edc5880b6b2837e47802e64e6b681bf2e74aa5c;
+    bytes32 public constant ROUTER_RUNTIME_HASH = 0xae572ec3ca9b5f49c0364ca34edc5880b6b2837e47802e64e6b681bf2e74aa5c;
+    bytes32 public constant MARGIN_RUNTIME_HASH = 0xae572ec3ca9b5f49c0364ca34edc5880b6b2837e47802e64e6b681bf2e74aa5c;
 
     uint96 internal constant SIZE_PRECISION = 1e8;
     uint32 internal constant PRICE_PRECISION = 1e8;
@@ -298,8 +296,7 @@ contract KuruAtomicResearchTest is Test {
         (
             RetroPickLauncherTokenV2 token,
             KuruResearchBoundLock lock,
-            KuruAtomicResearchCoordinator coordinator,
-            ,
+            KuruAtomicResearchCoordinator coordinator,,
             address expectedVault
         ) = _securedCircleLaunch();
         (address market, address vault) = coordinator.complete(0);
@@ -669,9 +666,8 @@ contract KuruAtomicResearchTest is Test {
             1_000_000 ether
         );
         token.transfer(address(0xBEEF), 500_000 ether);
-        expectedMarket = IKuruRouterResearch(ROUTER).computeAddress(
-            address(token), CIRCLE_USDC, 1e8, 1e8, 1, 1e6, 1e16, 30, 0, 100, address(0), false
-        );
+        expectedMarket = IKuruRouterResearch(ROUTER)
+            .computeAddress(address(token), CIRCLE_USDC, 1e8, 1e8, 1, 1e6, 1e16, 30, 0, 100, address(0), false);
         expectedVault = IKuruRouterResearch(ROUTER).computeVaultAddress(expectedMarket, address(0), false);
         lock = new KuruResearchBoundLock(address(token), CIRCLE_USDC, expectedMarket, expectedVault);
         coordinator = new KuruAtomicResearchCoordinator(
@@ -771,9 +767,8 @@ contract KuruAtomicResearchTest is Test {
             1_000_000 ether
         );
         token.transfer(address(0xBEEF), 500_000 ether);
-        expectedMarket = IKuruRouterResearch(ROUTER).computeAddress(
-            address(token), address(0), 1e8, 1e8, 1, 1e6, 1e16, 30, 0, 100, address(0), false
-        );
+        expectedMarket = IKuruRouterResearch(ROUTER)
+            .computeAddress(address(token), address(0), 1e8, 1e8, 1, 1e6, 1e16, 30, 0, 100, address(0), false);
         expectedVault = IKuruRouterResearch(ROUTER).computeVaultAddress(expectedMarket, address(0), false);
         lock = new KuruResearchBoundLock(address(token), address(0), expectedMarket, expectedVault);
         coordinator = new KuruAtomicResearchCoordinator(

@@ -5,6 +5,7 @@ import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {Ownable2Step} from "@openzeppelin/contracts/access/Ownable2Step.sol";
 import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import {ExactAssetV2} from "./libraries/ExactAssetV2.sol";
 import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import {IERC721ReceiverLike} from "./interfaces/IRetroPickLaunchpadV2.sol";
 
@@ -35,6 +36,7 @@ contract RetroPickLaunchLockerV2 is Ownable2Step, IERC721ReceiverLike {
 
     address public immutable positionManager;
     address public factory;
+    address public graduationExecutor;
 
     mapping(address token => uint256 tokenId) public lockedPositions;
     mapping(address token => uint256 amount) public lockedTokenSupply;
@@ -49,14 +51,20 @@ contract RetroPickLaunchLockerV2 is Ownable2Step, IERC721ReceiverLike {
         positionManager = positionManager_;
     }
 
-    modifier onlyFactory() {
-        if (msg.sender != factory) revert NotFactory();
+    modifier onlyExecutor() {
+        if (msg.sender != graduationExecutor) revert NotFactory();
         _;
     }
 
     /**
      * @notice One-time wiring of the v2 factory, set after both are deployed.
      */
+    function setGraduationExecutor(address executor) external onlyOwner {
+        if (graduationExecutor != address(0)) revert AlreadyInitialized();
+        if (executor.code.length == 0) revert ZeroAddress();
+        graduationExecutor = executor;
+    }
+
     function setFactory(address factory_) external onlyOwner {
         if (factory != address(0)) revert AlreadyInitialized();
         if (factory_ == address(0)) revert ZeroAddress();
@@ -93,7 +101,7 @@ contract RetroPickLaunchLockerV2 is Ownable2Step, IERC721ReceiverLike {
      * @dev Called once per launch by the factory, immediately after minting
      * the full-range position directly to this locker's address.
      */
-    function lockPosition(address token, uint256 tokenId) external onlyFactory {
+    function lockPosition(address token, uint256 tokenId) external onlyExecutor {
         if (_locked[token]) revert PositionAlreadyLocked();
         if (IERC721(positionManager).ownerOf(tokenId) != address(this)) revert PositionNotHeld();
 
@@ -106,10 +114,10 @@ contract RetroPickLaunchLockerV2 is Ownable2Step, IERC721ReceiverLike {
      * @notice Permanently locks the virtual-reserve token remainder that
      * cannot enter the graduated pool without lowering its opening price.
      */
-    function lockTokenSupply(address token, uint256 amount) external onlyFactory {
+    function lockTokenSupply(address token, uint256 amount) external onlyExecutor {
         if (token == address(0)) revert ZeroAddress();
         if (amount == 0) return;
-        IERC20(token).safeTransferFrom(msg.sender, address(this), amount);
+        ExactAssetV2.pull(token, msg.sender, address(this), amount);
         lockedTokenSupply[token] += amount;
         emit TokenSupplyLocked(token, amount);
     }

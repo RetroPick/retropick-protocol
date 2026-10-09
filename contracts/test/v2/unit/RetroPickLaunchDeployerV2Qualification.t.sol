@@ -39,6 +39,7 @@ contract RetroPickLaunchDeployerV2QualificationTest is Test {
             curveFeeBps: 100,
             creatorTaxBps: 50,
             buybackEnabled: false,
+            graduationQuoteCeiling: 5000 ether,
             graduationThreshold: 100 ether,
             supply: 1_000_000 ether,
             name: "Launch",

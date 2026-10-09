@@ -1,0 +1,28 @@
+No files changed, compilation skipped
+Script ran successfully.
+
+== Return ==
+d: struct DeployV2MonadTestnet.Deployment Deployment({ registry: 0xd1211276869ec55CAF302E22371D2005B23B9B40, feeEscrow: 0xb0312b0412c3BAa11895A6c4FeeC7CD9A01c2D96, wrappedNative: 0xff437B117Ec17a79a3b24Da4B5047dca4da9D0a2, permit2: 0x10301c3690501cF1a7c27300de4779E695DEDaE1, poolManager: 0xD18dE14a0DB8adc66fd9c1CB9B960dea02c5D3c9, positionDescriptor: 0xB0769a3517f31b324cb5C0f7ca337F2239796532, positionManager: 0x3eb4cB7B07EbeDe7A2A508e4cf0D9e575dC449a9, hookDeployer: 0x09fC0edEEBf13C171eE5739eac6B9C7f3400C9B8, hook: 0x6d70125c61aD8f1a6d85eA4C37c94680b42f2044, buybackVault: 0x2D746643E0BA37F127b38A4C04866a123895BE09, locker: 0x7bb3aA1e48490F810e3F1eEC1Dda52D1F4d76A19, kuruEnvironment: 0xAD59b3ff498d76DbC68351DaD4391D250b1E1Ba1, kuruExecutor: 0xa2590ab344BAD0452c53958821A2B74f87871983, v4Executor: 0xCB4670e7D2146A9Ca4541C383844b281Cf53Edb1, coordinator: 0xaD62309242EA65BB07C833669EC6a4ED23AF738F, launchDeployer: 0x14080b43f3d45B47AEefF3bC1b0bee0cf0cCF5d8, factory: 0xa7f18b9eceb0A9852b08408854A45D00fc682454 })
+
+## Setting up 1 EVM.
+
+==========================
+
+Chain 10143
+
+Estimated gas price: 120 gwei
+
+Estimated total gas used for script: 58807466
+
+Estimated amount required: 7.05689592 MON
+
+==========================
+
+
+==========================
+
+ONCHAIN EXECUTION COMPLETE & SUCCESSFUL.
+
+Transactions saved to: /home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/broadcast/DeployV2MonadTestnet.s.sol/10143/run-latest.json
+
+Sensitive values saved to: /home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/cache/DeployV2MonadTestnet.s.sol/10143/run-latest.json

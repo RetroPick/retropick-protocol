@@ -18,6 +18,15 @@ fs_permissions = [{ access = "read-write", path = "./"}]
 [profile.ci]
 optimizer_runs = 1000
 
+# Test/script harnesses embed or load complete deployments. Runtime artifact gates remain EIP-170 strict.
+[profile.test]
+chain_id = 10143
+network = "monad"
+code_size_limit = 1048576
+
+[profile.release_script]
+code_size_limit = 1048576
+
 [invariant]
 runs = 64
 depth = 64

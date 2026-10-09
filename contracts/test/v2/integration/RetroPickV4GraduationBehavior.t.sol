@@ -7,12 +7,17 @@ import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol
 import {Math} from "@openzeppelin/contracts/utils/math/Math.sol";
 import {IPoolManager} from "@uniswap/v4-core/src/interfaces/IPoolManager.sol";
 import {PoolKey} from "@uniswap/v4-core/src/types/PoolKey.sol";
+import {PositionInfo, PositionInfoLibrary} from "@uniswap/v4-periphery/src/libraries/PositionInfoLibrary.sol";
 import {Currency} from "@uniswap/v4-core/src/types/Currency.sol";
 import {IPositionManager} from "@uniswap/v4-periphery/src/interfaces/IPositionManager.sol";
 import {IAllowanceTransfer} from "permit2/src/interfaces/IAllowanceTransfer.sol";
+import {GraduationCoordinatorV2} from "../../../src/v2/GraduationCoordinatorV2.sol";
+import {RetroPickQuoteAssetRegistryV2} from "../../../src/v2/RetroPickQuoteAssetRegistryV2.sol";
+import {QuoteAssetConfig, GraduationVenue, GraduationState} from "../../../src/v2/interfaces/IGraduationExecutorV2.sol";
+import {ExactAssetV2} from "../../../src/v2/libraries/ExactAssetV2.sol";
 import {RetroPickLaunchFactoryV2} from "../../../src/v2/RetroPickLaunchFactoryV2.sol";
 import {RetroPickLaunchDeployerV2} from "../../../src/v2/RetroPickLaunchDeployerV2.sol";
-import {RetroPickGraduationExecutorV2} from "../../../src/v2/RetroPickGraduationExecutorV2.sol";
+import {UniswapV4GraduationExecutorV2} from "../../../src/v2/UniswapV4GraduationExecutorV2.sol";
 import {RetroPickLaunchLockerV2} from "../../../src/v2/RetroPickLaunchLockerV2.sol";
 import {RetroPickBondingCurveV2} from "../../../src/v2/RetroPickBondingCurveV2.sol";
 import {RetroPickBondingCurveMathV2} from "../../../src/v2/libraries/RetroPickBondingCurveMathV2.sol";
@@ -30,12 +35,15 @@ import {
 /// @notice Stateful V4 seam for Core behavioral regression. It is not a V4 integration fixture.
 contract V4BehaviorPoolManager {
     uint256 public initializationCount;
+    mapping(bytes32 => bool) public initialized;
     bytes32 public lastPoolHash;
 
     function initialize(PoolKey calldata key, uint160 sqrtPriceX96) external returns (int24) {
-        require(sqrtPriceX96 != 0 && initializationCount == 0, "bad pool initialization");
-        initializationCount = 1;
-        lastPoolHash = keccak256(abi.encode(key));
+        bytes32 identity = keccak256(abi.encode(key));
+        require(sqrtPriceX96 != 0 && !initialized[identity], "bad pool initialization");
+        initialized[identity] = true;
+        initializationCount += 1;
+        lastPoolHash = identity;
         return 0;
     }
 }
@@ -48,6 +56,10 @@ contract V4BehaviorPermit2 {
 
     function approve(address token, address spender, uint160 amount, uint48) external {
         allowances[msg.sender][spender][token] = amount;
+    }
+
+    function allowance(address owner, address token, address spender) external view returns (uint160, uint48, uint48) {
+        return (allowances[owner][spender][token], 0, 0);
     }
 
     function pull(address from, address token, uint160 amount) external {
@@ -67,6 +79,9 @@ contract V4BehaviorPositionManager {
     uint256 public nextTokenId = 1;
     bool public failMint;
     mapping(uint256 tokenId => address owner) public ownerOf;
+    mapping(uint256 => uint128) public getPositionLiquidity;
+    mapping(uint256 => PoolKey) internal keys;
+    mapping(uint256 => PositionInfo) internal infos;
     bytes32 public lastPoolHash;
 
     constructor(address poolManager_, V4BehaviorPermit2 permit2_) {
@@ -108,25 +123,34 @@ contract V4BehaviorPositionManager {
 
         lastPoolHash = keccak256(abi.encode(key));
         ownerOf[nextTokenId] = receiver;
+        getPositionLiquidity[nextTokenId] = uint128(liquidity);
+        keys[nextTokenId] = key;
+        infos[nextTokenId] = PositionInfoLibrary.initialize(key, tickLower, tickUpper);
         nextTokenId++;
+    }
+
+    function getPoolAndPositionInfo(uint256 tokenId) external view returns (PoolKey memory, PositionInfo) {
+        return (keys[tokenId], infos[tokenId]);
     }
 }
 
 /// @notice Current V4 Factory semantics before any Factory/coordinator extraction.
 /// The stateful V4 seam verifies Core routing and physical custody; it does not prove real V4 compatibility.
-contract RetroPickV4GraduationBehaviorTest is Test {
+abstract contract RetroPickV4BehaviorFixtureV2 is Test {
     address internal creator = makeAddr("v4-creator");
     address internal protocol = makeAddr("v4-protocol");
     address internal hook = makeAddr("v4-hook");
 
     RetroPickLaunchFactoryV2 internal factory;
+    GraduationCoordinatorV2 internal coordinator;
+    RetroPickQuoteAssetRegistryV2 internal registry;
     RetroPickLaunchLockerV2 internal locker;
     RetroPickFeeEscrowV2 internal escrow;
     V4BehaviorPoolManager internal pool;
     V4BehaviorPositionManager internal position;
     V4BehaviorPermit2 internal permit2;
 
-    function setUp() public {
+    function setUp() public virtual {
         vm.chainId(10143);
         _configure();
     }
@@ -140,26 +164,51 @@ contract RetroPickV4GraduationBehaviorTest is Test {
         RetroPickBuybackVaultV2 buybackVault = new RetroPickBuybackVaultV2(
             address(this), RetroPickMemeHookV2(payable(hook)), IRetroPickFeeEscrowV2(address(escrow))
         );
-        factory = new RetroPickLaunchFactoryV2(
-            address(this),
-            IPoolManager(address(pool)),
-            IPositionManager(address(position)),
-            IAllowanceTransfer(address(permit2)),
-            locker,
-            RetroPickMemeHookV2(payable(hook)),
-            IRetroPickFeeEscrowV2(address(escrow)),
-            buybackVault,
-            new RetroPickQuoteAssetPolicyV2(),
-            0
+        registry = new RetroPickQuoteAssetRegistryV2(address(this));
+        coordinator = new GraduationCoordinatorV2(address(this));
+        _admit(address(0), 100 ether, 100 ether, 18);
+        factory = RetroPickLaunchFactoryV2(
+            payable(vm.deployCode(
+                    "RetroPickLaunchFactoryV2.sol:RetroPickLaunchFactoryV2",
+                    abi.encode(
+                        address(this),
+                        IPoolManager(address(pool)),
+                        IPositionManager(address(position)),
+                        IAllowanceTransfer(address(permit2)),
+                        locker,
+                        RetroPickMemeHookV2(payable(hook)),
+                        IRetroPickFeeEscrowV2(address(escrow)),
+                        buybackVault,
+                        registry,
+                        coordinator,
+                        0
+                    )
+                ))
         );
-        RetroPickLaunchDeployerV2 deployer = new RetroPickLaunchDeployerV2(address(factory));
-        RetroPickGraduationExecutorV2 executor = new RetroPickGraduationExecutorV2(
-            IPositionManager(address(position)), IAllowanceTransfer(address(permit2)), locker, address(factory)
+        RetroPickLaunchDeployerV2 deployer = RetroPickLaunchDeployerV2(
+            vm.deployCode("RetroPickLaunchDeployerV2.sol:RetroPickLaunchDeployerV2", abi.encode(address(factory)))
+        );
+        UniswapV4GraduationExecutorV2 executor = UniswapV4GraduationExecutorV2(
+            payable(vm.deployCode(
+                    "UniswapV4GraduationExecutorV2.sol:UniswapV4GraduationExecutorV2",
+                    abi.encode(
+                        address(coordinator),
+                        IPoolManager(address(pool)),
+                        IPositionManager(address(position)),
+                        IAllowanceTransfer(address(permit2)),
+                        locker,
+                        RetroPickMemeHookV2(payable(hook)),
+                        IRetroPickFeeEscrowV2(address(escrow))
+                    )
+                ))
         );
         locker.setFactory(address(factory));
         buybackVault.setFactory(address(factory));
         factory.setLaunchDeployer(deployer);
-        factory.setGraduationExecutor(executor);
+        coordinator.bindFactory(address(factory));
+        factory.configureVenueExecutor(GraduationVenue.UNISWAP_V4, address(executor));
+        locker.setGraduationExecutor(address(executor));
+        vm.mockCall(hook, abi.encodeWithSignature("graduationExecutor()"), abi.encode(address(executor)));
 
         vm.mockCall(hook, abi.encodeWithSignature("factory()"), abi.encode(address(factory)));
         vm.mockCall(hook, abi.encodeWithSignature("buybackVault()"), abi.encode(address(buybackVault)));
@@ -200,6 +249,23 @@ contract RetroPickV4GraduationBehaviorTest is Test {
         });
     }
 
+    function _admit(address quote, uint256 phantom, uint256 threshold, uint8 decimals) internal {
+        QuoteAssetConfig memory c = QuoteAssetConfig(
+            true,
+            decimals,
+            3,
+            registry.getConfig(quote).policyVersion + 1,
+            phantom,
+            threshold,
+            threshold * 50,
+            keccak256("TEST_FIXTURE_QUALIFICATION"),
+            bytes32(0)
+        );
+        registry.configure(quote, c);
+    }
+}
+
+contract RetroPickV4GraduationBehaviorTest is RetroPickV4BehaviorFixtureV2 {
     function testNativeCurrentV4FailureRetryCustodyAndReplay() public {
         _exercise(address(0));
     }
@@ -214,8 +280,7 @@ contract RetroPickV4GraduationBehaviorTest is Test {
         assertEq(block.chainid, 10143);
         _configure();
         address circle = RetroPickQuoteAssetPolicyV2(address(factory.quoteAssetPolicy())).CIRCLE_TEST_USDC();
-        factory.setPairTokenEconomics(circle, 100e6, 100e6, 6);
-        factory.setPairTokenApproved(circle, true);
+        _admit(circle, 100e6, 100e6, 6);
         deal(circle, creator, 150e6);
         _exercise(circle);
     }
@@ -253,8 +318,7 @@ contract RetroPickV4GraduationBehaviorTest is Test {
         assertEq(block.chainid, 10143);
         _configure();
         address circle = RetroPickQuoteAssetPolicyV2(address(factory.quoteAssetPolicy())).CIRCLE_TEST_USDC();
-        factory.setPairTokenEconomics(circle, 100e6, 100e6, 6);
-        factory.setPairTokenApproved(circle, true);
+        _admit(circle, 100e6, 100e6, 6);
         deal(circle, creator, 151e6);
         _exerciseRoundingCycles(circle, 10, 10);
     }
@@ -269,8 +333,7 @@ contract RetroPickV4GraduationBehaviorTest is Test {
         assertEq(block.chainid, 10143);
         _configure();
         address circle = RetroPickQuoteAssetPolicyV2(address(factory.quoteAssetPolicy())).CIRCLE_TEST_USDC();
-        factory.setPairTokenEconomics(circle, 100e6, 100e6, 6);
-        factory.setPairTokenApproved(circle, true);
+        _admit(circle, 100e6, 100e6, 6);
         deal(circle, creator, 151e6);
         _exerciseRoundingCycles(circle, 2, 16);
     }
@@ -289,8 +352,7 @@ contract RetroPickV4GraduationBehaviorTest is Test {
         assertEq(block.chainid, 10143);
         _configure();
         address circle = RetroPickQuoteAssetPolicyV2(address(factory.quoteAssetPolicy())).CIRCLE_TEST_USDC();
-        factory.setPairTokenEconomics(circle, 100e6, 100e6, 6);
-        factory.setPairTokenApproved(circle, true);
+        _admit(circle, 100e6, 100e6, 6);
         deal(circle, creator, 250e6);
         _exerciseCompletionDifferential(circle);
     }
@@ -324,55 +386,51 @@ contract RetroPickV4GraduationBehaviorTest is Test {
         assertEq(block.chainid, 10143);
         _configure();
         address circle = RetroPickQuoteAssetPolicyV2(address(factory.quoteAssetPolicy())).CIRCLE_TEST_USDC();
-        factory.setPairTokenEconomics(circle, 100e6, 100e6, 6);
-        factory.setPairTokenApproved(circle, true);
+        _admit(circle, 100e6, 100e6, 6);
         deal(circle, creator, 151e6);
         _exerciseCeilingAttack(circle);
     }
 
-    /// @notice The current Curve accepts the fifth sell; a future generic
-    /// post-transition guard would reject it and preserve the after-buy state.
+    /// @notice A generic production ceiling rejects the fifth raw-unit sell, retaining an executable final buy.
     function _exerciseCeilingAttack(address quote) internal {
+        QuoteAssetConfig memory c = registry.getConfig(quote);
+        c.policyVersion += 1;
+        c.graduationQuoteCeiling = c.phantomQuote + 10;
+        c.policyHash = bytes32(0);
+        registry.configure(quote, c);
         vm.prank(creator);
         (address tokenAddress, address curveAddress) = factory.launchToken(_params(), 0, quote);
         RetroPickBondingCurveV2 curve = RetroPickBondingCurveV2(payable(curveAddress));
-        uint256 phantom = curve.phantomQuote();
-        uint256 ceiling = phantom + 10;
+        uint256 ceiling = c.graduationQuoteCeiling;
         if (quote != address(0)) {
             vm.prank(creator);
             IERC20(quote).approve(curveAddress, type(uint256).max);
         }
         for (uint256 cycle; cycle < 5; ++cycle) {
-            uint256 bought;
-            if (quote == address(0)) {
-                vm.prank(creator);
-                bought = curve.buy{value: 2}(2, 0, creator);
-            } else {
-                vm.prank(creator);
-                bought = curve.buy(2, 0, creator);
-            }
+            vm.prank(creator);
+            uint256 bought = quote == address(0) ? curve.buy{value: 2}(2, 0, creator) : curve.buy(2, 0, creator);
             vm.prank(creator);
             IERC20(tokenAddress).approve(curveAddress, bought);
-            (, uint256 afterBuyCompletion) = _completionTerminalQuote(curve);
-            assertLe(afterBuyCompletion, ceiling);
+            assertLe(curve.completionTerminalQuote(), ceiling);
             if (cycle == 4) {
-                assertEq(afterBuyCompletion, ceiling);
-                uint256 beforeSell = vm.snapshotState();
+                assertEq(curve.completionTerminalQuote(), ceiling);
+                uint256 quoteBefore = curve.trackedQuote();
+                uint256 tokensBefore = curve.trackedTokens();
                 vm.prank(creator);
-                assertEq(curve.sell(bought, 0, creator), 1);
-                (, uint256 afterSellCompletion) = _completionTerminalQuote(curve);
-                assertEq(afterSellCompletion, phantom + 12);
-                assertGt(afterSellCompletion, ceiling);
-                assertLt(curve.realQuoteReserve(), ceiling); // simple current-Q cap misses it
-                assertTrue(vm.revertToState(beforeSell)); // research semantic rejection
-                (, uint256 retainedCompletion) = _completionTerminalQuote(curve);
-                assertEq(retainedCompletion, ceiling);
+                vm.expectRevert(
+                    abi.encodeWithSelector(
+                        RetroPickBondingCurveV2.CompletionCeilingExceeded.selector, c.phantomQuote + 12, ceiling
+                    )
+                );
+                curve.sell(bought, 0, creator);
+                assertEq(curve.trackedQuote(), quoteBefore);
+                assertEq(curve.trackedTokens(), tokensBefore);
+                assertEq(curve.completionTerminalQuote(), ceiling);
                 _assertImmediateCompletion(curve, tokenAddress, quote);
             } else {
                 vm.prank(creator);
                 assertEq(curve.sell(bought, 0, creator), 1);
-                (, uint256 afterSellCompletion) = _completionTerminalQuote(curve);
-                assertLe(afterSellCompletion, ceiling);
+                assertLe(curve.completionTerminalQuote(), ceiling);
             }
         }
     }
@@ -455,7 +513,7 @@ contract RetroPickV4GraduationBehaviorTest is Test {
         RetroPickLaunchFactoryV2.LaunchedToken memory secured = factory.getLaunchedToken(tokenAddress);
         assertEq(uint256(secured.phase), uint256(GraduationPhase.Swept));
         assertEq(secured.sweptQuote, predicted);
-        assertEq(_quoteBalance(quote, address(factory)), predicted);
+        assertEq(_quoteBalance(quote, address(coordinator)), predicted);
         assertTrue(vm.revertToState(snap));
         assertFalse(curve.graduated());
     }
@@ -500,7 +558,7 @@ contract RetroPickV4GraduationBehaviorTest is Test {
         assertEq(uint256(secured.phase), uint256(GraduationPhase.Swept));
         assertEq(secured.sweptQuote, threshold + 2 + 2 * rounds);
         assertGt(secured.sweptQuote, threshold + 2); // one-shot scenario is not an upper bound
-        assertEq(_quoteBalance(quote, address(factory)), secured.sweptQuote);
+        assertEq(_quoteBalance(quote, address(coordinator)), secured.sweptQuote);
     }
 
     function _exercise(address quote) internal {
@@ -522,8 +580,8 @@ contract RetroPickV4GraduationBehaviorTest is Test {
         // getAmountIn's +1 and the gross fee ceil leave two raw quote units above threshold.
         assertEq(secured.sweptQuote, quote == address(0) ? 100 ether + 2 : 100e6 + 2);
         assertTrue(curve.graduated());
-        assertEq(RetroPickLauncherTokenV2(tokenAddress).balanceOf(address(factory)), secured.sweptTokens);
-        assertEq(_quoteBalance(quote, address(factory)), secured.sweptQuote);
+        assertEq(RetroPickLauncherTokenV2(tokenAddress).balanceOf(address(coordinator)), secured.sweptTokens);
+        assertEq(_quoteBalance(quote, address(coordinator)), secured.sweptQuote);
         if (quote == address(0)) {
             assertEq(address(escrow).balance, escrow.totalNativeLiability());
         } else {
@@ -539,8 +597,8 @@ contract RetroPickV4GraduationBehaviorTest is Test {
         assertEq(uint256(factory.getLaunchedToken(tokenAddress).phase), uint256(GraduationPhase.Swept));
         assertEq(factory.getLaunchedToken(tokenAddress).sweptQuote, secured.sweptQuote);
         assertEq(factory.getLaunchedToken(tokenAddress).sweptTokens, secured.sweptTokens);
-        assertEq(_quoteBalance(quote, address(factory)), secured.sweptQuote);
-        assertEq(RetroPickLauncherTokenV2(tokenAddress).balanceOf(address(factory)), secured.sweptTokens);
+        assertEq(_quoteBalance(quote, address(coordinator)), secured.sweptQuote);
+        assertEq(RetroPickLauncherTokenV2(tokenAddress).balanceOf(address(coordinator)), secured.sweptTokens);
         assertEq(pool.initializationCount(), 0);
         assertEq(position.nextTokenId(), 1);
         assertEq(locker.lockedTokenSupply(tokenAddress), 0);
@@ -561,9 +619,9 @@ contract RetroPickV4GraduationBehaviorTest is Test {
         assertEq(RetroPickLauncherTokenV2(tokenAddress).balanceOf(address(position)), seedBase);
         assertEq(RetroPickLauncherTokenV2(tokenAddress).totalSupply(), 500_000 ether + seedBase + excess);
         assertEq(_quoteBalance(quote, address(position)), secured.sweptQuote);
-        assertEq(_quoteBalance(quote, address(factory)), 0);
+        assertEq(_quoteBalance(quote, address(coordinator)), 0);
 
-        vm.expectRevert(RetroPickLaunchFactoryV2.WrongGraduationPhase.selector);
+        vm.expectRevert(GraduationCoordinatorV2.WrongPhase.selector);
         factory.createGraduatedPool(tokenAddress);
         assertEq(position.nextTokenId(), 2);
         assertEq(pool.initializationCount(), 1);

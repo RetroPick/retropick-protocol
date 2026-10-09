@@ -121,6 +121,7 @@ contract RetroPickMemeHookV2 is BaseHook, IUnlockCallback, IRetroPickFeePolicyV2
     IRetroPickFeeEscrowV2 public immutable feeEscrow;
 
     address public factory;
+    address public graduationExecutor;
     RetroPickBuybackVaultV2 public buybackVault;
     address public protocolFeeRecipient;
     uint256 public protocolFeeShareBps;
@@ -209,6 +210,12 @@ contract RetroPickMemeHookV2 is BaseHook, IUnlockCallback, IRetroPickFeePolicyV2
      * @notice One-time wiring of the v2 factory, set after both are deployed
      * since the factory needs this hook's mined address to build pool keys.
      */
+    function setGraduationExecutor(address executor) external onlyOwner {
+        if (graduationExecutor != address(0)) revert AlreadySet();
+        if (executor.code.length == 0) revert ZeroAddress();
+        graduationExecutor = executor;
+    }
+
     function setFactory(address factory_) external onlyOwner {
         if (factory != address(0)) revert AlreadySet();
         if (factory_ == address(0)) revert ZeroAddress();
@@ -327,7 +334,8 @@ contract RetroPickMemeHookV2 is BaseHook, IUnlockCallback, IRetroPickFeePolicyV2
         uint16 creatorTaxBps,
         bool buybackEnabled,
         FeePolicySnapshot calldata policy
-    ) external onlyFactory {
+    ) external {
+        if (msg.sender != graduationExecutor) revert NotFactory();
         _registerPool(key, memecoin, creator, buybackCreatorRecipient, creatorTaxBps, buybackEnabled, policy);
     }
 
@@ -436,7 +444,7 @@ contract RetroPickMemeHookV2 is BaseHook, IUnlockCallback, IRetroPickFeePolicyV2
      * this hook from existing without one.
      */
     function _beforeInitialize(address sender, PoolKey calldata, uint160) internal view override returns (bytes4) {
-        if (sender != factory) revert NotFactory();
+        if (sender != graduationExecutor) revert NotFactory();
         return IHooks.beforeInitialize.selector;
     }
 
@@ -491,10 +499,12 @@ contract RetroPickMemeHookV2 is BaseHook, IUnlockCallback, IRetroPickFeePolicyV2
                 // BASIS_POINTS^3 division, so no floored quotient feeds a
                 // multiply. Numerator <= uint128max * 1e3 * 1e4 < uint256max,
                 // and mulDiv carries the final factor in 512-bit space.
-                uint256 buybackScaled =
-                    unspecified * info.hookFeeBps * (BASIS_POINTS - info.protocolFeeShareBps);
-                pendingBuyback[poolId][feeCurrencyAddr] +=
-                    FullMath.mulDiv(buybackScaled, info.buybackBurnBps, BASIS_POINTS * BASIS_POINTS * BASIS_POINTS);
+                uint256 buybackScaled = unspecified * info.hookFeeBps * (BASIS_POINTS - info.protocolFeeShareBps);
+                pendingBuyback[
+                    poolId
+                ][
+                    feeCurrencyAddr
+                ] += FullMath.mulDiv(buybackScaled, info.buybackBurnBps, BASIS_POINTS * BASIS_POINTS * BASIS_POINTS);
             }
         }
         if (taxAmount != 0) pendingCreatorTax[poolId][feeCurrencyAddr] += taxAmount;

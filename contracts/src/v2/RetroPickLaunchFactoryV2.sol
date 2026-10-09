@@ -23,9 +23,19 @@ import {RetroPickBondingCurveV2} from "./RetroPickBondingCurveV2.sol";
 import {RetroPickBuybackVaultV2} from "./RetroPickBuybackVaultV2.sol";
 import {RetroPickLaunchLockerV2} from "./RetroPickLaunchLockerV2.sol";
 import {RetroPickMemeHookV2} from "./hooks/RetroPickMemeHookV2.sol";
-import {RetroPickGraduationExecutorV2} from "./RetroPickGraduationExecutorV2.sol";
+import {GraduationCoordinatorV2} from "./GraduationCoordinatorV2.sol";
+import {RetroPickQuoteAssetRegistryV2} from "./RetroPickQuoteAssetRegistryV2.sol";
+import {
+    GraduationVenue,
+    GraduationState,
+    GraduationPacket,
+    GraduationLedger,
+    GraduationReceipt,
+    QuoteAssetConfig,
+    IGraduationExecutorV2
+} from "./interfaces/IGraduationExecutorV2.sol";
 import {LaunchDeployment, RetroPickLaunchDeployerV2} from "./RetroPickLaunchDeployerV2.sol";
-import {RetroPickGraduationGuardV2} from "./RetroPickGraduationGuardV2.sol";
+
 import {RetroPickGraduationMathV2} from "./libraries/RetroPickGraduationMathV2.sol";
 import {RetroPickBondingCurveMathV2} from "./libraries/RetroPickBondingCurveMathV2.sol";
 import {IRetroPickQuoteAssetPolicyV2} from "./interfaces/IRetroPickQuoteAssetPolicyV2.sol";
@@ -36,22 +46,7 @@ import {
     IRetroPickLaunchFactoryV2
 } from "./interfaces/IRetroPickLaunchpadV2.sol";
 
-/**
- * @title RetroPickLaunchFactoryV2
- * @notice Deploys a bonding curve and its launch token for every RetroPick V2
- * launch, then graduates the curve into a permanently locked, full-range
- * Uniswap V4 position governed by the shared RetroPickMemeHookV2.
- *
- * Each curve already trades in the quote asset its pool will use, so
- * graduation never converts between assets and therefore needs no router and
- * no price oracle. It stays split into two permissionless phases so a failed
- * pool seed cannot strand a curve's reserves:
- * - `graduate`: drains the curve's own reserves into this factory. Purely
- *   internal bookkeeping, so it is safe to call automatically from within
- *   the crossing buy itself.
- * - `createGraduatedPool`: seeds the new V4 pool with those reserves, and
- *   stays retryable until it succeeds.
- */
+/// @notice Launch/config and fee administration authority. Graduation custody and lifecycle belong to the Coordinator.
 contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLaunchFactoryV2 {
     using SafeERC20 for IERC20;
 
@@ -197,6 +192,22 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
      * @notice A protocol-owner-proposed creator-fee-recipient override
      * awaiting its timelock, keyed by launch token.
      */
+    // Launch and fee configuration only. Mutable graduation state exists solely in the Coordinator.
+    struct LaunchRecord {
+        address token;
+        address curve;
+        address deployer;
+        address creatorFeeRecipient;
+        address pairToken;
+        uint256 graduationThreshold;
+        uint24 poolFee;
+        int24 tickSpacing;
+        uint16 creatorTaxBps;
+        bool buybackEnabled;
+        bool exists;
+        GraduationVenue venue;
+    }
+
     struct PendingCreatorFeeRecipient {
         address newRecipient;
         uint256 effectiveAt;
@@ -301,10 +312,12 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
 
     // Not immutable: each helper's constructor needs this factory's
     // already-deployed address, so they are deployed afterward and wired once.
-    RetroPickGraduationExecutorV2 public graduationExecutor;
+    GraduationCoordinatorV2 public immutable graduationCoordinator;
+    RetroPickQuoteAssetRegistryV2 public immutable quoteRegistry;
+    address private _securingToken;
+    bool private _secureCallbackUsed;
     RetroPickLaunchDeployerV2 public launchDeployer;
     address public launchForwarder;
-    RetroPickGraduationGuardV2 public immutable graduationGuard;
 
     // Ceiling on the creator-chosen trade tax, mirroring MAX_CURVE_FEE_BPS's
     // existing pattern for the protocol's own base fee.
@@ -324,10 +337,9 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
     bool public launchEnabled;
 
     mapping(address launcher => bool enabled) public whitelistedLaunchers;
-    mapping(address pairToken => bool approved) public approvedPairTokens;
-    mapping(address pairToken => PairTokenEconomics economics) public pairTokenEconomics;
+
     mapping(address token => FeePolicySnapshot policy) private _launchFeePolicies;
-    mapping(address token => LaunchedToken launched) private _launchedTokens;
+    mapping(address token => LaunchRecord launched) private _launchedTokens;
     mapping(address token => PendingCreatorFeeRecipient) public pendingCreatorFeeRecipient;
     LaunchConfig[] private _launchConfigs;
 
@@ -340,7 +352,8 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
         RetroPickMemeHookV2 memeHook_,
         IRetroPickFeeEscrowV2 feeEscrow_,
         RetroPickBuybackVaultV2 buybackVault_,
-        IRetroPickQuoteAssetPolicyV2 quoteAssetPolicy_,
+        RetroPickQuoteAssetRegistryV2 quoteAssetPolicy_,
+        GraduationCoordinatorV2 coordinator_,
         uint256 initialLaunchFee
     ) Ownable(initialOwner) {
         if (address(poolManager_) == address(0) || address(positionManager_) == address(0)) {
@@ -369,7 +382,9 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
         feeEscrow = feeEscrow_;
         quoteAssetPolicy = quoteAssetPolicy_;
         buybackVault = buybackVault_;
-        graduationGuard = new RetroPickGraduationGuardV2();
+        if (address(coordinator_).code.length == 0) revert LaunchDependenciesNotWired();
+        graduationCoordinator = coordinator_;
+        quoteRegistry = quoteAssetPolicy_;
         launchFee = initialLaunchFee;
     }
 
@@ -392,7 +407,27 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
      * @notice Returns the immutable record for a token created by this factory.
      */
     function getLaunchedToken(address token) external view override returns (LaunchedToken memory) {
-        return _launchedTokens[token];
+        LaunchRecord memory r = _launchedTokens[token];
+        GraduationLedger memory l = graduationCoordinator.ledger(token);
+        return LaunchedToken(
+            r.token,
+            r.curve,
+            r.deployer,
+            r.creatorFeeRecipient,
+            r.pairToken,
+            r.graduationThreshold,
+            r.poolFee,
+            r.tickSpacing,
+            r.creatorTaxBps,
+            r.buybackEnabled,
+            l.phase == GraduationState.GRADUATED
+                ? GraduationPhase.PoolCreated
+                : l.phase == GraduationState.GRADUATING ? GraduationPhase.Swept : GraduationPhase.NotGraduated,
+            l.securedQuote - l.consumedQuote,
+            l.securedLaunchTokens - l.consumedLaunchTokens,
+            l.securedAt,
+            r.exists
+        );
     }
 
     /**
@@ -464,59 +499,6 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
     }
 
     /**
-     * @notice Sets the curve economics a quote asset's launches use, in that
-     * asset's own decimals. Required before the asset may be approved, and
-     * updatable afterwards so the peg to a target native-quote value can be
-     * refreshed as rates move. Existing launches are unaffected: each curve
-     * receives both figures as constructor immutables, so this only governs
-     * launches created after it.
-     * @param expectedDecimals The scale the caller sized both figures against,
-     * checked against the asset's own report. This is the one guard against
-     * reusing an 18-decimal configuration on a 6-decimal asset, which would
-     * otherwise misprice silently by twelve orders of magnitude.
-     */
-    function setPairTokenEconomics(
-        address pairToken,
-        uint256 phantomQuote,
-        uint256 graduationThreshold,
-        uint8 expectedDecimals
-    ) external onlyOwner {
-        if (pairToken == address(0) || phantomQuote == 0 || graduationThreshold == 0) {
-            revert PairTokenEconomicsInvalid();
-        }
-        quoteAssetPolicy.validateQuote(pairToken, expectedDecimals);
-        // A launch against this asset takes its phantom reserve from here but
-        // its supply from whichever config it selects, so the strictest case
-        // is the smallest supply any config may declare paired with the
-        // highest fee any of them may charge.
-        _requireQuotable(phantomQuote, MIN_LAUNCH_SUPPLY, MAX_CURVE_FEE_BPS);
-        pairTokenEconomics[pairToken] = PairTokenEconomics({
-            phantomQuote: phantomQuote, graduationThreshold: graduationThreshold, decimals: expectedDecimals
-        });
-        emit PairTokenEconomicsUpdated(pairToken, phantomQuote, graduationThreshold, expectedDecimals);
-    }
-
-    /**
-     * @notice Approves or removes a quote asset already admitted by the
-     * immutable P0 policy. Owner approval alone cannot admit another token.
-     * @dev Code and decimals are re-verified through the policy on approval
-     * and again at launch. Exact transfer behavior is enforced by the Curve
-     * and FeeEscrow on each accounting transition.
-     */
-    function setPairTokenApproved(address pairToken, bool approved) external onlyOwner {
-        if (pairToken == address(0)) revert PairTokenValidationFailed();
-        if (approved) {
-            PairTokenEconomics memory economics = pairTokenEconomics[pairToken];
-            if (economics.phantomQuote == 0 || economics.graduationThreshold == 0) {
-                revert PairTokenEconomicsInvalid();
-            }
-            quoteAssetPolicy.validateQuote(pairToken, economics.decimals);
-        }
-        approvedPairTokens[pairToken] = approved;
-        emit PairTokenApprovalUpdated(pairToken, approved);
-    }
-
-    /**
      * @notice Adjusts the ceiling a creator's chosen trade tax is validated
      * against at launch time. Already-launched tokens keep the immutable
      * tax rate they launched with regardless of later ceiling changes.
@@ -557,22 +539,27 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
     }
 
     /**
-     * @notice One-time wiring of the graduation executor, set after both are
-     * deployed since the executor's constructor needs this factory's
-     * already-known address.
-     */
-    function setGraduationExecutor(RetroPickGraduationExecutorV2 executor) external onlyOwner {
-        if (address(graduationExecutor) != address(0)) revert AlreadySet();
-        if (address(executor) == address(0)) revert ZeroAddress();
-        graduationExecutor = executor;
-        emit GraduationExecutorSet(address(executor));
-    }
-
-    /**
      * @notice One-time wiring of the launch deployer, set after both are
      * deployed since the deployer's constructor needs this factory's
      * already-known address.
      */
+    function configureVenueExecutor(GraduationVenue venue, address executor) external onlyOwner {
+        graduationCoordinator.configureExecutor(venue, executor);
+    }
+
+    function previewVenueEconomics(uint256 id, address quote, GraduationVenue venue) public view returns (bytes32) {
+        return graduationCoordinator.previewEconomics(id, quote, venue);
+    }
+
+    function launchToken(TokenParams calldata params, uint256 id, address quote, GraduationVenue venue)
+        external
+        payable
+        nonReentrant
+        returns (address token, address curve)
+    {
+        return _launchToken(params, id, quote, msg.sender, venue);
+    }
+
     function setLaunchDeployer(RetroPickLaunchDeployerV2 deployer) external onlyOwner {
         if (address(launchDeployer) != address(0)) revert AlreadySet();
         if (address(deployer) == address(0)) revert ZeroAddress();
@@ -617,13 +604,8 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
      * leaves the terms free to move in between; the pin is what makes that
      * movement revert instead of silently repricing the launch.
      */
-    function previewLaunchEconomics(uint256 launchConfigId, address pairToken) external view returns (bytes32) {
-        if (launchConfigId >= _launchConfigs.length) revert InvalidLaunchConfigId();
-        LaunchConfig memory config = _launchConfigs[launchConfigId];
-        (uint256 phantomQuote, uint256 graduationThreshold) = pairToken == address(0)
-            ? (config.phantomQuote, config.graduationThreshold)
-            : (pairTokenEconomics[pairToken].phantomQuote, pairTokenEconomics[pairToken].graduationThreshold);
-        return _economicsDigest(config, memeHook.currentFeePolicy(), phantomQuote, graduationThreshold);
+    function previewLaunchEconomics(uint256 id, address quote) external view returns (bytes32) {
+        return previewVenueEconomics(id, quote, GraduationVenue.UNISWAP_V4);
     }
 
     /**
@@ -637,27 +619,6 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
      * creator supplies rather than one the protocol sets, so a change makes
      * the launch revert on its own rather than silently reprice.
      */
-    function _economicsDigest(
-        LaunchConfig memory config,
-        FeePolicySnapshot memory policy,
-        uint256 phantomQuote,
-        uint256 graduationThreshold
-    ) private pure returns (bytes32) {
-        return keccak256(
-            abi.encode(
-                phantomQuote,
-                graduationThreshold,
-                config.supply,
-                config.curveFeeBps,
-                config.poolFee,
-                config.tickSpacing,
-                policy.protocolFeeShareBps,
-                policy.buybackBurnBps,
-                policy.hookFeeBps,
-                policy.maxInternalPriceImpactBps
-            )
-        );
-    }
 
     /**
      * @notice Deploys a bonding curve and its launch token, wires them
@@ -673,7 +634,7 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
         nonReentrant
         returns (address token, address curve)
     {
-        return _launchToken(params, launchConfigId, pairToken, msg.sender);
+        return _launchToken(params, launchConfigId, pairToken, msg.sender, GraduationVenue.UNISWAP_V4);
     }
 
     /**
@@ -690,7 +651,7 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
         address pairToken,
         address[] calldata snipeTaxExemptions
     ) external payable nonReentrant returns (address token, address curve) {
-        (token, curve) = _launchToken(params, launchConfigId, pairToken, msg.sender);
+        (token, curve) = _launchToken(params, launchConfigId, pairToken, msg.sender, GraduationVenue.UNISWAP_V4);
         _exemptFromSnipeTax(curve, snipeTaxExemptions);
     }
 
@@ -709,7 +670,7 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
         address[] calldata snipeTaxExemptions
     ) external payable nonReentrant returns (address token, address curve) {
         if (msg.sender != launchForwarder) revert NotLaunchForwarder();
-        (token, curve) = _launchToken(params, launchConfigId, pairToken, originalDeployer);
+        (token, curve) = _launchToken(params, launchConfigId, pairToken, originalDeployer, GraduationVenue.UNISWAP_V4);
         _exemptFromSnipeTax(curve, snipeTaxExemptions);
     }
 
@@ -736,7 +697,8 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
         TokenParams calldata params,
         uint256 launchConfigId,
         address pairToken,
-        address originalDeployer
+        address originalDeployer,
+        GraduationVenue venue
     ) private returns (address token, address curve) {
         if (address(launchDeployer) == address(0)) revert LaunchDeployerNotSet();
         _requireLaunchDependenciesWired();
@@ -745,27 +707,18 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
         if (launchConfigId >= _launchConfigs.length) revert InvalidLaunchConfigId();
         if (bytes(params.name).length == 0 || bytes(params.symbol).length == 0) revert InvalidTokenParams();
         if (params.creatorTaxBps > maxCreatorTaxBps) revert CreatorTaxTooHigh();
-        if (pairToken != address(0) && !approvedPairTokens[pairToken]) revert PairTokenNotApproved();
 
         LaunchConfig memory config = _launchConfigs[launchConfigId];
         FeePolicySnapshot memory policy = memeHook.currentFeePolicy();
-        // A launch prices in whatever asset it collects, so a custom quote
-        // asset supplies its own phantom reserve and threshold in its own
-        // decimals rather than inheriting the config's wei-denominated pair.
-        (uint256 phantomQuote, uint256 graduationThreshold) = pairToken == address(0)
-            ? (config.phantomQuote, config.graduationThreshold)
-            : (pairTokenEconomics[pairToken].phantomQuote, pairTokenEconomics[pairToken].graduationThreshold);
-        // The scale was verified at approval, but an upgradeable quote asset
-        // can change it afterwards, and this curve prices against the stored
-        // figure for its entire life. Re-reading here keeps a silent
-        // twelve-order-of-magnitude mispricing out of the launch.
-        if (pairToken != address(0)) {
-            quoteAssetPolicy.validateQuote(pairToken, pairTokenEconomics[pairToken].decimals);
-        }
+        QuoteAssetConfig memory q = quoteRegistry.admitted(pairToken, venue);
+        uint256 phantomQuote = q.phantomQuote;
+        uint256 graduationThreshold = q.graduationThreshold;
+        address executor = graduationCoordinator.executors(venue);
+        if (executor.code.length == 0) revert GraduationExecutorNotSet();
         // Every term below is owner-updatable, so a creator may pin the whole
         // set they were quoted rather than accept whatever is current when
         // their transaction lands.
-        bytes32 economics = _economicsDigest(config, policy, phantomQuote, graduationThreshold);
+        bytes32 economics = graduationCoordinator.previewEconomics(launchConfigId, pairToken, venue);
         if (params.expectedEconomics != bytes32(0) && params.expectedEconomics != economics) {
             revert LaunchEconomicsMismatch(params.expectedEconomics, economics);
         }
@@ -785,33 +738,12 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
         // a pair, and it is the pair that fixes the seed. Terms that imply a
         // position V4 will not mint are refused here, while the creator still
         // has their fee and nothing has been deployed.
-        _requireSeedableTerms(config.supply, phantomQuote, graduationThreshold, config.tickSpacing);
+        _requireQuotable(phantomQuote, config.supply, config.curveFeeBps);
 
         address creatorFeeRecipient =
             params.creatorFeeRecipient == address(0) ? originalDeployer : params.creatorFeeRecipient;
 
-        (token, curve) = launchDeployer.deployLaunch(
-            LaunchDeployment({
-                pairToken: pairToken,
-                creatorFeeRecipient: creatorFeeRecipient,
-                originalDeployer: originalDeployer,
-                feePolicy: memeHook,
-                policy: policy,
-                feeEscrow: feeEscrow,
-                buybackVault: buybackVault,
-                phantomQuote: phantomQuote,
-                curveFeeBps: config.curveFeeBps,
-                creatorTaxBps: params.creatorTaxBps,
-                buybackEnabled: params.buybackEnabled,
-                graduationThreshold: graduationThreshold,
-                supply: config.supply,
-                name: params.name,
-                symbol: params.symbol,
-                logo: params.logo,
-                description: params.description,
-                socials: params.socials
-            })
-        );
+        (token, curve) = _deployPair(params, config, q, pairToken, originalDeployer, creatorFeeRecipient, policy);
         RetroPickBondingCurveV2(curve).initialize(token);
 
         // The creator's own addresses never count as snipers on their own
@@ -822,7 +754,7 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
             RetroPickBondingCurveV2(curve).exemptFromSnipeTax(creatorFeeRecipient);
         }
 
-        _launchedTokens[token] = LaunchedToken({
+        _launchedTokens[token] = LaunchRecord({
             token: token,
             curve: curve,
             deployer: originalDeployer,
@@ -833,13 +765,11 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
             tickSpacing: config.tickSpacing,
             creatorTaxBps: params.creatorTaxBps,
             buybackEnabled: params.buybackEnabled,
-            phase: GraduationPhase.NotGraduated,
-            sweptQuote: 0,
-            sweptTokens: 0,
-            sweptAt: 0,
-            exists: true
+            exists: true,
+            venue: venue
         });
         _launchFeePolicies[token] = policy;
+        graduationCoordinator.registerLaunch(token, curve, venue, config.poolFee, config.tickSpacing);
 
         // Last, after the launch is fully recorded: this forwards ETH to the
         // protocol recipient, which may be a contract that calls back in.
@@ -850,6 +780,38 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
         //   path can alter the immutable launch record this announces.
         // forge-lint: disable-next-line(reentrancy-events)
         emit TokenLaunched(token, curve, originalDeployer, pairToken, launchConfigId, graduationThreshold);
+    }
+
+    function _deployPair(
+        TokenParams calldata params,
+        LaunchConfig memory config,
+        QuoteAssetConfig memory q,
+        address quote,
+        address originalDeployer,
+        address creatorFeeRecipient,
+        FeePolicySnapshot memory policy
+    ) private returns (address token, address curve) {
+        LaunchDeployment memory d;
+        d.pairToken = quote;
+        d.creatorFeeRecipient = creatorFeeRecipient;
+        d.originalDeployer = originalDeployer;
+        d.feePolicy = memeHook;
+        d.policy = policy;
+        d.feeEscrow = feeEscrow;
+        d.buybackVault = buybackVault;
+        d.phantomQuote = q.phantomQuote;
+        d.curveFeeBps = config.curveFeeBps;
+        d.creatorTaxBps = params.creatorTaxBps;
+        d.buybackEnabled = params.buybackEnabled;
+        d.graduationThreshold = q.graduationThreshold;
+        d.graduationQuoteCeiling = q.graduationQuoteCeiling;
+        d.supply = config.supply;
+        d.name = params.name;
+        d.symbol = params.symbol;
+        d.logo = params.logo;
+        d.description = params.description;
+        d.socials = params.socials;
+        return launchDeployer.deployLaunch(d);
     }
 
     // ---------------------------------------------------------------------
@@ -866,7 +828,7 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
      * set here. See `setCreatorFeeRecipient`.
      */
     function transferCreatorFeeRecipient(address token, address newRecipient) external {
-        LaunchedToken storage launch = _launchedTokens[token];
+        LaunchRecord storage launch = _launchedTokens[token];
         if (!launch.exists) revert TokenNotFound();
         if (msg.sender != launch.creatorFeeRecipient) revert NotCreatorFeeRecipient();
 
@@ -882,7 +844,7 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
      * protocol's 30% release share against the creator's wishes.
      */
     function setBuybackEnabled(address token, bool enabled) external {
-        LaunchedToken storage launch = _launchedTokens[token];
+        LaunchRecord storage launch = _launchedTokens[token];
         if (!launch.exists) revert TokenNotFound();
         bool isCreator = msg.sender == launch.creatorFeeRecipient;
         bool isOwner = msg.sender == owner();
@@ -894,9 +856,12 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
         // Emit before the external forwarders: the reported state is fully
         // recorded above and does not depend on their result.
         emit BuybackEnabledUpdated(token, enabled, msg.sender);
-        if (launch.phase == GraduationPhase.NotGraduated) {
+        if (graduationCoordinator.ledger(token).phase == GraduationState.NONE) {
             RetroPickBondingCurveV2(launch.curve).setBuybackEnabled(enabled);
-        } else if (launch.phase == GraduationPhase.PoolCreated) {
+        } else if (
+            graduationCoordinator.ledger(token).phase == GraduationState.GRADUATED
+                && launch.venue == GraduationVenue.UNISWAP_V4
+        ) {
             memeHook.setBuybackEnabled(_poolIdFor(token, launch), enabled);
         }
     }
@@ -925,7 +890,7 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
      * between shows up as a mismatch between the two.
      */
     function setCreatorFeeRecipient(address token, address newRecipient) external onlyOwner {
-        LaunchedToken storage launch = _launchedTokens[token];
+        LaunchRecord storage launch = _launchedTokens[token];
         if (!launch.exists) revert TokenNotFound();
         if (newRecipient == address(0)) revert ZeroAddress();
 
@@ -953,7 +918,7 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
         // forge-lint: disable-next-line(block-timestamp)
         if (block.timestamp > pending.expiresAt) revert TimelockExpired(pending.expiresAt);
 
-        LaunchedToken storage launch = _launchedTokens[token];
+        LaunchRecord storage launch = _launchedTokens[token];
         delete pendingCreatorFeeRecipient[token];
 
         _setCreatorFeeRecipient(token, launch, pending.newRecipient);
@@ -971,7 +936,7 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
      * whichever contract currently pays out creator fees: the bonding curve
      * pre-graduation, or the registered meme hook pool afterward.
      */
-    function _setCreatorFeeRecipient(address token, LaunchedToken storage launch, address newRecipient) private {
+    function _setCreatorFeeRecipient(address token, LaunchRecord storage launch, address newRecipient) private {
         if (newRecipient == address(0)) revert ZeroAddress();
 
         address previousRecipient = launch.creatorFeeRecipient;
@@ -982,7 +947,10 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
         // not depend on the downstream calls.
         emit CreatorFeeRecipientUpdated(token, previousRecipient, newRecipient);
 
-        if (launch.phase == GraduationPhase.PoolCreated) {
+        if (
+            graduationCoordinator.ledger(token).phase == GraduationState.GRADUATED
+                && launch.venue == GraduationVenue.UNISWAP_V4
+        ) {
             memeHook.setCreatorFeeRecipient(_poolIdFor(token, launch), newRecipient);
         } else {
             RetroPickBondingCurveV2(launch.curve).setCreatorFeeRecipient(newRecipient);
@@ -1012,43 +980,21 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
      * could otherwise accept buys but later block fee sweeps or graduation.
      */
     function _requireLaunchDependenciesWired() private view {
-        if (address(graduationExecutor) == address(0)) revert LaunchDependenciesNotWired();
-        if (launchDeployer.factory() != address(this) || graduationExecutor.factory() != address(this)) {
-            revert LaunchDependenciesNotWired();
-        }
-        if (memeHook.factory() != address(this) || address(memeHook.buybackVault()) != address(buybackVault)) {
-            revert LaunchDependenciesNotWired();
-        }
-        if (buybackVault.factory() != address(this) || locker.factory() != address(this)) {
-            revert LaunchDependenciesNotWired();
-        }
         if (
-            address(memeHook.poolManager()) != address(poolManager)
+            launchDeployer.factory() != address(this) || graduationCoordinator.factory() != address(this)
+                || memeHook.factory() != address(this) || address(memeHook.buybackVault()) != address(buybackVault)
+                || buybackVault.factory() != address(this) || address(memeHook.poolManager()) != address(poolManager)
                 || address(memeHook.feeEscrow()) != address(feeEscrow)
-        ) {
-            revert LaunchDependenciesNotWired();
-        }
-        if (
-            address(buybackVault.feePolicy()) != address(memeHook)
+                || address(buybackVault.feePolicy()) != address(memeHook)
                 || address(buybackVault.feeEscrow()) != address(feeEscrow)
-        ) {
-            revert LaunchDependenciesNotWired();
-        }
-        if (locker.positionManager() != address(positionManager)) revert LaunchDependenciesNotWired();
-        if (
-            address(graduationExecutor.positionManager()) != address(positionManager)
-                || address(graduationExecutor.permit2()) != address(permit2)
-                || address(graduationExecutor.locker()) != address(locker)
-        ) {
-            revert LaunchDependenciesNotWired();
-        }
+        ) revert LaunchDependenciesNotWired();
     }
 
     /**
      * @dev Reconstructs the pool ID for an already-graduated launch from its
      * snapshotted config, since the factory does not separately store it.
      */
-    function _poolIdFor(address token, LaunchedToken storage launch) private view returns (PoolId) {
+    function _poolIdFor(address token, LaunchRecord storage launch) private view returns (PoolId) {
         (Currency currency0, Currency currency1,) = _sortCurrencies(token, launch.pairToken);
         PoolKey memory key = PoolKey({
             currency0: currency0,
@@ -1071,114 +1017,30 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
      * instant a buy crosses the graduation threshold.
      */
     function graduate(address token) external nonReentrant {
-        LaunchedToken storage launch = _launchedTokens[token];
+        LaunchRecord storage launch = _launchedTokens[token];
         if (!launch.exists) revert TokenNotFound();
-        if (launch.phase != GraduationPhase.NotGraduated) revert WrongGraduationPhase();
-        RetroPickBondingCurveV2 curve = RetroPickBondingCurveV2(launch.curve);
-        if (!curve.readyToGraduate()) {
-            revert RetroPickBondingCurveV2.NotReadyToGraduate();
-        }
-        _assertGraduationSeedable(token, launch, curve.realQuoteReserve(), curve.tokenReserve());
-        _sweepCurve(token, launch, curve);
+        if (_securingToken != address(0)) revert WrongGraduationPhase();
+        _securingToken = token;
+        _secureCallbackUsed = false;
+        graduationCoordinator.secure(token);
+        if (!_secureCallbackUsed) revert WrongGraduationPhase();
+        delete _securingToken;
+        delete _secureCallbackUsed;
     }
 
-    /**
-     * @notice Sweeps a curve whose seed the preflight refuses, moving its
-     * reserves into this factory so the delayed rescue path can return them.
-     * @dev The preflight in `graduate` runs before the irreversible sweep, so
-     * a launch it refuses stays in NotGraduated. Trading is already closed at
-     * that point, because the curve shuts its sell side the moment it is ready
-     * to graduate, and `rescueSweptGraduation` keys off the Swept phase, so
-     * without this the reserves would have no exit at all. Restricted to
-     * launches the preflight genuinely refuses: while a seed is still viable
-     * anyone can call `graduate` and this reverts, so it cannot be used to
-     * take a healthy launch's reserves in place of seeding its pool. The
-     * rescue timelock still runs from the sweep recorded here.
-     */
-    function forceSweptGraduation(address token) external nonReentrant onlyOwner {
-        LaunchedToken storage launch = _launchedTokens[token];
-        if (!launch.exists) revert TokenNotFound();
-        if (launch.phase != GraduationPhase.NotGraduated) revert WrongGraduationPhase();
-        RetroPickBondingCurveV2 curve = RetroPickBondingCurveV2(launch.curve);
-        if (!curve.readyToGraduate()) {
-            revert RetroPickBondingCurveV2.NotReadyToGraduate();
-        }
-        if (_graduationSeedable(token, launch, curve.realQuoteReserve(), curve.tokenReserve())) {
-            revert GraduationStillViable();
-        }
-
-        _sweepCurve(token, launch, curve);
-        // reentrancy-events: forceSweptGraduation is onlyOwner and nonReentrant, and this marker logs
-        //   only `token` (the function argument) after the completed sweep; no reentrant path applies.
-        // forge-lint: disable-next-line(reentrancy-events)
-        emit LaunchForceSwept(token);
-    }
-
-    /**
-     * @dev Moves a ready curve's reserves into this factory and records the
-     * Swept phase. Shared by the normal graduation path and the forced sweep,
-     * which differ only in the preflight that precedes them.
-     */
-    function _sweepCurve(address token, LaunchedToken storage launch, RetroPickBondingCurveV2 curve) private {
-        // Record what this factory actually received rather than what the
-        // curve reported sending. A quote asset that does not deliver its
-        // full nominal amount would otherwise leave the launch claiming a
-        // balance it never got, and the shortfall would be drawn from
-        // whatever other launches are holding the same asset in escrow here.
-        uint256 quoteBefore = _quoteBalance(launch.pairToken);
-        // unused-return: the curve reports a nominal quote amount, but this factory deliberately
-        //   ignores it and credits only the measured balance delta below (documented above), so the
-        //   reported value is intentionally discarded.
-        // reentrancy-balance: reading the balance before and after curve.graduate is the intended
-        //   measurement; both callers (graduate, forceSweptGraduation) are nonReentrant, and the curve
-        //   is a protocol-deployed contract, so no attacker-controlled reentrancy can skew the delta.
-        // forge-lint: disable-next-line(unused-return, reentrancy-balance)
-        (, uint256 tokenOut) = curve.graduate(address(this));
-        uint256 quoteOut = _quoteBalance(launch.pairToken) - quoteBefore;
-        if (quoteOut == 0) revert NothingToGraduate();
-
-        launch.sweptQuote = quoteOut;
-        launch.sweptTokens = tokenOut;
-        launch.sweptAt = block.timestamp;
-        launch.phase = GraduationPhase.Swept;
-
-        // reentrancy-events: quoteOut/tokenOut are the measured result of curve.graduate,
-        // so this event cannot be emitted before that call. Both callers (graduate,
-        // forceSweptGraduation) are nonReentrant, so no reentrant read of stale state is possible.
-        // forge-lint: disable-next-line(reentrancy-events)
-        emit LaunchSwept(token, quoteOut, tokenOut);
-    }
-
-    /**
-     * @dev Whether the seed these reserves imply is one V4 would mint. Mirrors
-     * `_assertGraduationSeedable` without reverting, so the forced sweep can
-     * tell a stuck launch from a healthy one. A seed that rounds to nothing is
-     * reported as unseedable too, since `_poolTokenAmount` refuses it and the
-     * launch is stuck on that path just the same.
-     */
-    function _graduationSeedable(address token, LaunchedToken storage launch, uint256 sweptQuote, uint256 sweptTokens)
-        private
-        view
-        returns (bool)
-    {
-        if (sweptQuote == 0 || sweptTokens == 0) return false;
-        uint256 virtualQuote = sweptQuote + RetroPickBondingCurveV2(launch.curve).phantomQuote();
-        uint256 poolTokenAmount = FullMath.mulDiv(sweptTokens, sweptQuote, virtualQuote);
-        if (poolTokenAmount == 0) return false;
-
-        try graduationGuard.assertSeedable(token, launch.pairToken, launch.tickSpacing, sweptQuote, poolTokenAmount) {
-            return true;
-        } catch {
-            return false;
-        }
-    }
-
-    /**
-     * @dev This factory's holding of a launch's quote asset, covering both the
-     * native and ERC-20 cases so graduation can measure a delta either way.
-     */
-    function _quoteBalance(address pairToken) private view returns (uint256) {
-        return pairToken == address(0) ? address(this).balance : IERC20(pairToken).balanceOf(address(this));
+    /// @notice Narrow one-hop callback: the Curve continues trusting only its Factory.
+    function secureCurve(address token) external returns (uint256 quoteOut, uint256 tokenOut) {
+        if (
+            msg.sender != address(graduationCoordinator) || token == address(0) || token != _securingToken
+                || _secureCallbackUsed
+        ) revert WrongGraduationPhase();
+        LaunchRecord storage launch = _launchedTokens[token];
+        if (
+            !launch.exists || graduationCoordinator.ledger(token).phase != GraduationState.NONE
+                || RetroPickBondingCurveV2(launch.curve).graduated()
+        ) revert WrongGraduationPhase();
+        _secureCallbackUsed = true;
+        return RetroPickBondingCurveV2(launch.curve).graduate(address(graduationCoordinator));
     }
 
     // ---------------------------------------------------------------------
@@ -1193,27 +1055,10 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
      * Permissionless and retryable: a launch stays in Swept until a seed
      * succeeds, so a transient failure can never strand reserves.
      */
-    function createGraduatedPool(address token) external nonReentrant returns (uint256 positionId) {
-        if (address(graduationExecutor) == address(0)) revert GraduationExecutorNotSet();
-        LaunchedToken storage launch = _launchedTokens[token];
-        if (!launch.exists) revert TokenNotFound();
-        if (launch.phase != GraduationPhase.Swept) revert WrongGraduationPhase();
-
-        uint256 sweptQuote = launch.sweptQuote;
-        _assertGraduationSeedable(token, launch, sweptQuote, launch.sweptTokens);
-        uint256 tokenAmount = _lockExcessGraduationTokens(token, launch, sweptQuote, launch.sweptTokens);
-
-        launch.sweptQuote = 0;
-        launch.sweptTokens = 0;
-        launch.sweptAt = 0;
-        launch.phase = GraduationPhase.PoolCreated;
-
-        positionId = _createPoolAndMintPosition(token, launch, tokenAmount, sweptQuote);
-
-        // reentrancy-events: positionId is the result of _createPoolAndMintPosition, so this
-        // event cannot precede that call. The function is nonReentrant.
-        // forge-lint: disable-next-line(reentrancy-events)
-        emit PoolGraduated(token, positionId, tokenAmount, sweptQuote);
+    function createGraduatedPool(address token) external returns (uint256 positionId) {
+        if (!_launchedTokens[token].exists) revert TokenNotFound();
+        GraduationReceipt memory r = graduationCoordinator.complete(token);
+        return r.positionId;
     }
 
     /**
@@ -1226,233 +1071,13 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
      * a no-op and lets graduation proceed.
      */
     function rescueCurveFees(address token) external nonReentrant onlyOwner {
-        LaunchedToken storage launch = _launchedTokens[token];
+        LaunchRecord storage launch = _launchedTokens[token];
         if (!launch.exists) revert TokenNotFound();
         // unused-return: rescueFees pays and emits the drained protocol/creator amounts itself; this
         //   caller only needs the buckets cleared so graduation can proceed, so the returned amounts
         //   are intentionally not consumed here.
         // forge-lint: disable-next-line(unused-return)
         RetroPickBondingCurveV2(payable(launch.curve)).rescueFees();
-    }
-
-    /**
-     * @notice Releases a swept launch's reserves to `recipient` when its quote
-     * asset can no longer satisfy the seed step. `graduate` accepts a quote
-     * asset that under-delivers, because it credits the balance it actually
-     * received, but the seed leg funds the executor through `_transferExact`
-     * and requires the full nominal amount. An asset that becomes
-     * fee-on-transfer, rebasing, or blocklisting after approval therefore
-     * leaves a launch that has already halted its curve with a seed step that
-     * can never succeed, and every holder's quote asset frozen behind it.
-     *
-     * Deliberately does not use `_transferExact`: the asset's inability to
-     * deliver exactly is the reason this path exists, so requiring it here
-     * would reproduce the failure it recovers from. The reserves are moved
-     * whole to a single recipient for off-chain distribution rather than
-     * split on chain, since a launch in this state has no reliable way to pay
-     * many holders in an asset that cannot pay one.
-     *
-     * The owner is trusted here, bounded by GRADUATION_RESCUE_DELAY. What
-     * makes that bound meaningful is that seeding stays permissionless
-     * throughout the wait: any holder can end the window early, and
-     * permanently, with one call to createGraduatedPool. Reserves only stay
-     * reachable by this path if nobody could seed them.
-     *
-     * Mirrors RetroPickMemeHookV2.rescuePoolFees, which covers the same asset class
-     * for the post-graduation pool.
-     */
-    function rescueSweptGraduation(address token, address recipient) external nonReentrant onlyOwner {
-        LaunchedToken storage launch = _launchedTokens[token];
-        if (!launch.exists) revert TokenNotFound();
-        if (launch.phase != GraduationPhase.Swept) revert WrongGraduationPhase();
-        if (recipient == address(0)) revert ZeroAddress();
-
-        uint256 availableAt = launch.sweptAt + GRADUATION_RESCUE_DELAY;
-        // block-timestamp: GRADUATION_RESCUE_DELAY is a 7-day window; seconds of miner drift cannot
-        //   meaningfully advance a days-scale rescue delay.
-        // forge-lint: disable-next-line(block-timestamp)
-        if (block.timestamp < availableAt) revert GraduationRescueTooEarly(availableAt);
-
-        uint256 quoteAmount = launch.sweptQuote;
-        uint256 tokenAmount = launch.sweptTokens;
-        address pairToken = launch.pairToken;
-
-        launch.sweptQuote = 0;
-        launch.sweptTokens = 0;
-        launch.sweptAt = 0;
-        launch.phase = GraduationPhase.Rescued;
-
-        if (quoteAmount != 0) {
-            if (pairToken == address(0)) {
-                (bool sent,) = payable(recipient).call{value: quoteAmount}("");
-                if (!sent) revert FeeTransferFailed();
-            } else {
-                IERC20(pairToken).safeTransfer(recipient, quoteAmount);
-            }
-        }
-        if (tokenAmount != 0) {
-            IERC20(token).safeTransfer(recipient, tokenAmount);
-        }
-
-        // reentrancy-events: the event announces the completed reserve release, so it must
-        // follow the transfers above. The function is nonReentrant and all launch state was
-        // zeroed before the sends, so no reentrant path can observe stale reserves.
-        // forge-lint: disable-next-line(reentrancy-events)
-        emit LaunchGraduationRescued(token, recipient, quoteAmount, tokenAmount);
-    }
-
-    /**
-     * @dev Uses only the token amount that preserves the terminal curve price
-     * against the physically held graduation quote asset. The virtual-reserve
-     * remainder is permanently locked in the launch locker and never enters
-     * circulation.
-     */
-    function _lockExcessGraduationTokens(
-        address token,
-        LaunchedToken storage launch,
-        uint256 sweptQuote,
-        uint256 totalTokenAmount
-    ) private returns (uint256 poolTokenAmount) {
-        poolTokenAmount = _poolTokenAmount(launch, sweptQuote, totalTokenAmount);
-
-        uint256 excess = totalTokenAmount - poolTokenAmount;
-        if (excess != 0) {
-            IERC20(token).forceApprove(address(locker), excess);
-            locker.lockTokenSupply(token, excess);
-            // reentrancy-events: announces the completed permanent lock, so it follows the
-            // locker call. The only caller, createGraduatedPool, is nonReentrant.
-            // forge-lint: disable-next-line(reentrancy-events)
-            emit GraduationTokensPermanentlyLocked(token, excess);
-        }
-    }
-
-    /**
-     * @dev Derives the reserve fraction that preserves the curve's terminal
-     * price after the virtual quote reserve is removed from the pool seed.
-     */
-    function _poolTokenAmount(LaunchedToken storage launch, uint256 sweptQuote, uint256 totalTokenAmount)
-        private
-        view
-        returns (uint256 poolTokenAmount)
-    {
-        if (sweptQuote == 0 || totalTokenAmount == 0) revert NothingToGraduate();
-        uint256 virtualQuote = sweptQuote + RetroPickBondingCurveV2(launch.curve).phantomQuote();
-        poolTokenAmount = FullMath.mulDiv(totalTokenAmount, sweptQuote, virtualQuote);
-        if (poolTokenAmount == 0) revert NothingToGraduate();
-    }
-
-    /**
-     * @dev Runs the V4 mint preflight while the curve is still reversible, so
-     * a launch can never reach the irreversible Swept phase with a seed that
-     * would be rejected. It also rejects amounts the executor could only
-     * represent through a lossy uint128 cast.
-     */
-    function _assertGraduationSeedable(
-        address token,
-        LaunchedToken storage launch,
-        uint256 sweptQuote,
-        uint256 sweptTokens
-    ) private view {
-        uint256 poolTokenAmount = _poolTokenAmount(launch, sweptQuote, sweptTokens);
-        graduationGuard.assertSeedable(token, launch.pairToken, launch.tickSpacing, sweptQuote, poolTokenAmount);
-    }
-
-    /**
-     * @dev Initializes the V4 pool and registers it with the meme hook, then
-     * hands the exact minted assets to RetroPickGraduationExecutorV2 to encode
-     * the Permit2 approvals and PositionManager mint call. That step is
-     * split into its own contract purely to keep this factory's own
-     * bytecode under EIP-170's size limit.
-     */
-    function _createPoolAndMintPosition(
-        address token,
-        LaunchedToken storage launch,
-        uint256 tokenAmount,
-        uint256 pairTokenAmount
-    ) private returns (uint256 positionId) {
-        (Currency currency0, Currency currency1, bool memecoinIsCurrency0) = _sortCurrencies(token, launch.pairToken);
-        PoolKey memory key = PoolKey({
-            currency0: currency0,
-            currency1: currency1,
-            fee: launch.poolFee,
-            tickSpacing: launch.tickSpacing,
-            hooks: IHooks(address(memeHook))
-        });
-
-        (uint256 amount0, uint256 amount1) =
-            memecoinIsCurrency0 ? (tokenAmount, pairTokenAmount) : (pairTokenAmount, tokenAmount);
-        if (amount0 > type(uint128).max || amount1 > type(uint128).max) revert GraduationSeedNotViable();
-        uint160 sqrtPriceX96 = RetroPickGraduationMathV2.sqrtPriceX96FromAmounts(amount0, amount1);
-        if (sqrtPriceX96 <= TickMath.MIN_SQRT_PRICE || sqrtPriceX96 >= TickMath.MAX_SQRT_PRICE) {
-            revert SqrtPriceOutOfBounds();
-        }
-
-        // unused-return: initialize returns the pool's opening tick, which is fully determined by the
-        //   sqrtPriceX96 computed above; this factory does not need the echoed value.
-        // forge-lint: disable-next-line(unused-return)
-        poolManager.initialize(key, sqrtPriceX96);
-        FeePolicySnapshot memory policy = _launchFeePolicies[token];
-        // Passing the curve's own creator recipient keeps this pool's vest in
-        // the same vault epoch as any tranche the curve locked before
-        // graduation. Later rotations still redirect the vest, through
-        // _setCreatorFeeRecipient's call into the vault.
-        memeHook.registerPool(
-            key,
-            token,
-            launch.creatorFeeRecipient,
-            RetroPickBondingCurveV2(launch.curve).buybackCreatorRecipient(),
-            launch.creatorTaxBps,
-            launch.buybackEnabled,
-            policy
-        );
-
-        (int24 tickLower, int24 tickUpper) = _fullRangeTicks(launch.tickSpacing);
-        positionId = positionManager.nextTokenId();
-
-        uint256 nativeValue = _fundGraduationExecutor(currency0, currency1, amount0, amount1);
-        // arbitrary-send-eth: recipient is graduationExecutor, an owner-configured trusted protocol
-        //   contract (checked non-zero in createGraduatedPool), and this seed path is nonReentrant.
-        // Kept on a single line so the disable-next-line anchors on this send rather than mis-anchoring
-        //   across a multi-line call.
-        // forge-lint: disable-next-line(arbitrary-send-eth)
-        graduationExecutor.mintFullRangePosition{value: nativeValue}(token, key, tickLower, tickUpper, sqrtPriceX96, amount0, amount1, currency0, currency1, policy.protocolFeeRecipient);
-        locker.lockPosition(token, positionId);
-    }
-
-    /**
-     * @dev Transfers exactly the assets a mint needs to the graduation
-     * executor, returning whichever amount is native ETH (if either leg is)
-     * so the caller can forward it as `msg.value` on the mint call itself.
-     */
-    function _fundGraduationExecutor(Currency currency0, Currency currency1, uint256 amount0, uint256 amount1)
-        private
-        returns (uint256 nativeValue)
-    {
-        if (currency0.isAddressZero()) {
-            nativeValue = amount0;
-        } else {
-            _transferExact(Currency.unwrap(currency0), address(graduationExecutor), amount0);
-        }
-        if (currency1.isAddressZero()) {
-            nativeValue = amount1;
-        } else {
-            _transferExact(Currency.unwrap(currency1), address(graduationExecutor), amount1);
-        }
-    }
-
-    /**
-     * @dev Rejects non-exact ERC-20 transfers before a V4 position can be
-     * minted with a smaller balance than its accounting expects.
-     */
-    function _transferExact(address token, address recipient, uint256 amount) private {
-        uint256 senderBefore = IERC20(token).balanceOf(address(this));
-        uint256 balanceBefore = IERC20(token).balanceOf(recipient);
-        IERC20(token).safeTransfer(recipient, amount);
-        uint256 balanceAfter = IERC20(token).balanceOf(recipient);
-        uint256 received = balanceAfter > balanceBefore ? balanceAfter - balanceBefore : 0;
-        if (received != amount) revert InexactTransfer(token, amount, received);
-        uint256 spent = senderBefore - IERC20(token).balanceOf(address(this));
-        if (spent != amount) revert InexactTransfer(token, amount, spent);
     }
 
     function _payLaunchFee() private {
@@ -1479,14 +1104,6 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
         // boolean-cst: returning a constant tuple flag (memecoinIsCurrency0); not a boolean expression bug.
         // forge-lint: disable-next-line(boolean-cst)
         return (Currency.wrap(memecoin), Currency.wrap(pairToken), true);
-    }
-
-    function _fullRangeTicks(int24 tickSpacing) private pure returns (int24 tickLower, int24 tickUpper) {
-        // Truncation toward zero is required to derive V4's usable boundary ticks.
-        // forge-lint: disable-next-line(divide-before-multiply)
-        tickLower = (MIN_USABLE_TICK / tickSpacing) * tickSpacing;
-        // forge-lint: disable-next-line(divide-before-multiply)
-        tickUpper = (MAX_USABLE_TICK / tickSpacing) * tickSpacing;
     }
 
     function _validateLaunchConfig(LaunchConfig calldata config) private pure {
@@ -1519,30 +1136,6 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
         if (RetroPickBondingCurveMathV2.quoteAmountOut(referenceBuy, phantomQuote, supply, curveFeeBps) == 0) {
             revert CurveNotQuotable();
         }
-    }
-
-    /**
-     * @notice Reverts unless the seed these launch terms imply is one Uniswap
-     * V4 would mint.
-     * @dev Graduation drains a fixed share of supply against a quote reserve
-     * the threshold fixes, so the seed is determined by the terms rather than
-     * by how the curve is traded. Rejecting unmintable proportions at launch
-     * keeps a curve from taking deposits it could never graduate. Fees and the
-     * creator tax move the realised quote slightly off the threshold, so this
-     * narrows the failure rather than removing it, and forceSweptGraduation
-     * remains the backstop for whatever it does not catch.
-     */
-    function _requireSeedableTerms(uint256 supply, uint256 phantomQuote, uint256 graduationThreshold, int24 tickSpacing)
-        private
-        view
-    {
-        uint256 virtualQuote = phantomQuote + graduationThreshold;
-        uint256 reserved = FullMath.mulDiv(supply, phantomQuote, virtualQuote);
-        uint256 poolTokenAmount = FullMath.mulDiv(reserved, graduationThreshold, virtualQuote);
-        // Terms whose token side rounds away have nothing to seed with, and
-        // the price the guard derives from a zero amount is undefined.
-        if (poolTokenAmount == 0) revert GraduationSeedNotViable();
-        graduationGuard.assertSeedableEitherOrdering(tickSpacing, graduationThreshold, poolTokenAmount);
     }
 
     /**

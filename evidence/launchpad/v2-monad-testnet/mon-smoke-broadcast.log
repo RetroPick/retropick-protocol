@@ -1,0 +1,31 @@
+No files changed, compilation skipped
+Script ran successfully.
+
+== Return ==
+token: address 0x43e7e9b1b7d9A143573307b13D14B51580c18f15
+curveAddress: address 0x454A3A449d4e65CA5203d331905d167BA218E276
+market: address 0x1F5dE72616a7fe645Cf45aC66dfce8Ac7452C57F
+vault: address 0xc88DED06eB0081430Ff02d124C22b532e122CbE7
+
+## Setting up 1 EVM.
+
+==========================
+
+Chain 10143
+
+Estimated gas price: 120 gwei
+
+Estimated total gas used for script: 8953583
+
+Estimated amount required: 1.07442996 MON
+
+==========================
+
+
+==========================
+
+ONCHAIN EXECUTION COMPLETE & SUCCESSFUL.
+
+Transactions saved to: /home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/broadcast/SmokeV2MonadTestnet.s.sol/10143/run-latest.json
+
+Sensitive values saved to: /home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/cache/SmokeV2MonadTestnet.s.sol/10143/run-latest.json

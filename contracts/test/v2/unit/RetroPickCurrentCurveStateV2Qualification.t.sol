@@ -8,6 +8,7 @@ import {RetroPickLauncherTokenV2} from "../../../src/v2/RetroPickLauncherTokenV2
 import {RetroPickBuybackVaultV2} from "../../../src/v2/RetroPickBuybackVaultV2.sol";
 import {
     FeePolicySnapshot,
+    IRetroPickLaunchFactoryV2,
     IRetroPickFeePolicyV2,
     IRetroPickFeeEscrowV2
 } from "../../../src/v2/interfaces/IRetroPickLaunchpadV2.sol";
@@ -82,6 +83,7 @@ contract RetroPickCurrentCurveStateV2QualificationTest is Test {
         RetroPickBuybackVaultV2 vault = new RetroPickBuybackVaultV2(
             address(this), IRetroPickFeePolicyV2(address(policy)), IRetroPickFeeEscrowV2(address(escrow))
         );
+        vault.setFactory(address(this));
         curve = new RetroPickBondingCurveV2(
             address(0),
             creator,
@@ -94,7 +96,8 @@ contract RetroPickCurrentCurveStateV2QualificationTest is Test {
             FEE_BPS,
             TAX_BPS,
             false,
-            THRESHOLD
+            THRESHOLD,
+            (THRESHOLD) * 50
         );
         RetroPickLauncherTokenV2.Socials memory socials;
         token = new RetroPickLauncherTokenV2(
@@ -117,6 +120,36 @@ contract RetroPickCurrentCurveStateV2QualificationTest is Test {
         (uint256 quoteReserve, uint256 tokenReserve) = curve.getReserves();
         assertEq(quoteReserve, PHANTOM);
         assertEq(tokenReserve, SUPPLY);
+    }
+
+    function testCompletionQuoteMatchesExecutableFinalBuyAfterMutations() public {
+        vm.deal(buyer, 1_000 ether);
+        vm.startPrank(buyer);
+        uint256 bought = curve.buy{value: 3 ether}(3 ether, 0, buyer);
+        token.approve(address(curve), bought / 3);
+        curve.sell(bought / 3, 0, buyer);
+        vm.stopPrank();
+        curve.setBuybackEnabled(true);
+        vm.prank(buyer);
+        curve.buy{value: 2 ether}(2 ether, 0, buyer);
+        vm.prank(operator);
+        curve.sweepFees(1);
+        (uint256 terminal, uint256 gross) = curve.completionQuote();
+        assertLe(terminal, curve.graduationQuoteCeiling());
+        vm.prank(buyer);
+        curve.buy{value: gross}(gross, 0, buyer);
+        assertEq(curve.sellableTokens(), 0);
+        assertEq(curve.realQuoteReserve(), terminal);
+        // This test contract has no graduate(token) callback: the final buy remains ready and closed.
+        assertTrue(curve.readyToGraduate());
+        (uint256 quoteOut,) = curve.graduate(address(this));
+        assertEq(quoteOut, terminal);
+    }
+
+    receive() external payable {}
+
+    function getLaunchedToken(address) external view returns (IRetroPickLaunchFactoryV2.LaunchedToken memory launch) {
+        launch.curve = address(curve);
     }
 
     function testBuySellAndFeeBucketsReconcileWithPhysicalBalances() public {

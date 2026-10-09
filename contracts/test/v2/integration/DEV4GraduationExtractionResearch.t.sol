@@ -432,7 +432,9 @@ contract DEV4ThinFactory is IDEV4ThinFactory {
                 50,
                 false,
                 graduationThreshold
-            )
+            ,
+            (graduationThreshold) * 50
+        )
         );
         token = address(
             new RetroPickLauncherTokenV2(

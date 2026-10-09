@@ -804,6 +804,7 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
                 creatorTaxBps: params.creatorTaxBps,
                 buybackEnabled: params.buybackEnabled,
                 graduationThreshold: graduationThreshold,
+                graduationQuoteCeiling: graduationThreshold * 50,
                 supply: config.supply,
                 name: params.name,
                 symbol: params.symbol,

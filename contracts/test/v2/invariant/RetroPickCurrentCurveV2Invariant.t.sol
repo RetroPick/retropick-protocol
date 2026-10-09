@@ -106,6 +106,8 @@ contract RetroPickCurrentCurveV2InvariantTest is StdInvariant, Test {
             50,
             false,
             100 ether
+        ,
+            (100 ether) * 50
         );
         RetroPickLauncherTokenV2.Socials memory socials;
         token = new RetroPickLauncherTokenV2(

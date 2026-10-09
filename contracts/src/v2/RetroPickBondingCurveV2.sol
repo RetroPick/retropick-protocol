@@ -1,11 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.26;
+import {CompletionQuoteMathV2} from "./libraries/CompletionQuoteMathV2.sol";
 
 import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import {Math} from "@openzeppelin/contracts/utils/math/Math.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
-import {RetroPickBondingCurveMathV2} from "./libraries/RetroPickBondingCurveMathV2.sol"; 
+import {RetroPickBondingCurveMathV2} from "./libraries/RetroPickBondingCurveMathV2.sol";
 import {RetroPickBuybackVaultV2} from "./RetroPickBuybackVaultV2.sol";
 import {RetroPickLauncherTokenV2} from "./RetroPickLauncherTokenV2.sol";
 import {FeePolicySnapshot, IRetroPickFeeEscrowV2, IRetroPickFeePolicyV2} from "./interfaces/IRetroPickLaunchpadV2.sol";
@@ -104,6 +105,8 @@ contract RetroPickBondingCurveV2 is ReentrancyGuard {
     // Virtual quote reserve seeded at deploy, denominated in the quote
     // asset's own decimals rather than always in wei.
     uint256 public immutable phantomQuote;
+    uint256 public immutable graduationQuoteCeiling;
+    error CompletionCeilingExceeded(uint256 terminalQuote, uint256 ceiling);
     uint256 public immutable feeBps;
     // Creator-chosen at launch, capped by the protocol at launch time. Kept
     // entirely separate from feeBps: it is layered on top of the base trade
@@ -182,7 +185,8 @@ contract RetroPickBondingCurveV2 is ReentrancyGuard {
         uint256 feeBps_,
         uint256 creatorTaxBps_,
         bool buybackEnabled_,
-        uint256 graduationThreshold_
+        uint256 graduationThreshold_,
+        uint256 graduationQuoteCeiling_
     ) {
         if (deployer_ == address(0) || factory_ == address(0)) revert ZeroAddress();
         if (address(feePolicy_) == address(0) || address(feeEscrow_) == address(0)) revert ZeroAddress();
@@ -219,6 +223,8 @@ contract RetroPickBondingCurveV2 is ReentrancyGuard {
         creatorTaxBps = creatorTaxBps_;
         buybackEnabled = buybackEnabled_;
         graduationThreshold = graduationThreshold_;
+        if (graduationQuoteCeiling_ < graduationThreshold_) revert InvalidLaunchEconomics();
+        graduationQuoteCeiling = graduationQuoteCeiling_;
     }
 
     /**
@@ -259,6 +265,7 @@ contract RetroPickBondingCurveV2 is ReentrancyGuard {
         // The allocation the curve actually received, which is the whole
         // supply: the token mints to this curve in its own constructor.
         trackedTokens = IERC20(token_).balanceOf(address(this));
+        _requireCompletionLiveness();
 
         // reentrancy-events: initialize is onlyFactory and one-shot (AlreadyInitialized), and the only prior external calls are view reads (totalSupply/balanceOf) on the factory's freshly-deployed token, so no reentrant path can reorder or fabricate this log.
         // forge-lint: disable-next-line(reentrancy-events)
@@ -298,6 +305,7 @@ contract RetroPickBondingCurveV2 is ReentrancyGuard {
      */
     function setBuybackEnabled(bool enabled) external onlyFactory {
         buybackEnabled = enabled;
+        if (!graduated && token != address(0)) _requireCompletionLiveness();
         emit BuybackEnabledUpdated(enabled);
     }
 
@@ -395,7 +403,8 @@ contract RetroPickBondingCurveV2 is ReentrancyGuard {
         uint256 spent = received;
         uint256 fee = (spent * feeBps) / BASIS_POINTS;
         uint256 tax = (spent * creatorTaxBps) / BASIS_POINTS;
-        tokensOut = RetroPickBondingCurveMathV2.getAmountOut(spent - fee - tax, quoteReserveBefore, tokenReserveBefore, 0);
+        tokensOut =
+            RetroPickBondingCurveMathV2.getAmountOut(spent - fee - tax, quoteReserveBefore, tokenReserveBefore, 0);
 
         uint256 sellable = tokenReserveBefore > reservedTokens ? tokenReserveBefore - reservedTokens : 0;
         if (sellable == 0) revert CurveGraduated();
@@ -470,7 +479,8 @@ contract RetroPickBondingCurveV2 is ReentrancyGuard {
         (uint256 quoteReserveBefore, uint256 tokenReserveBefore) = getReserves();
         IERC20(token).safeTransferFrom(msg.sender, address(this), tokensIn);
 
-        uint256 grossQuoteOut = RetroPickBondingCurveMathV2.getAmountOut(tokensIn, tokenReserveBefore, quoteReserveBefore, 0);
+        uint256 grossQuoteOut =
+            RetroPickBondingCurveMathV2.getAmountOut(tokensIn, tokenReserveBefore, quoteReserveBefore, 0);
         uint256 fee = (grossQuoteOut * feeBps) / BASIS_POINTS;
         uint256 tax = (grossQuoteOut * creatorTaxBps) / BASIS_POINTS;
         quoteOut = grossQuoteOut - fee - tax;
@@ -857,5 +867,33 @@ contract RetroPickBondingCurveV2 is ReentrancyGuard {
     function _requireQuoteBacking() private view {
         uint256 physical = isNativeQuote() ? address(this).balance : IERC20(pairToken).balanceOf(address(this));
         if (physical < trackedQuote) revert QuoteBackingDeficit(physical, trackedQuote);
+        if (!graduated && token != address(0)) _requireCompletionLiveness();
+    }
+
+    function completionQuote() public view onlyInitialized returns (uint256 terminalQuote, uint256 grossInput) {
+        if (graduated) return (0, 0);
+        return CompletionQuoteMathV2.calculate(
+            CompletionQuoteMathV2.State({
+                phantomQuote: phantomQuote,
+                trackedQuote: trackedQuote,
+                quoteFeeBalance: quoteFeeBalance,
+                creatorTaxBalance: creatorTaxBalance,
+                trackedTokens: trackedTokens,
+                reservedTokens: reservedTokens,
+                feeBps: feeBps,
+                creatorTaxBps: creatorTaxBps
+            })
+        );
+    }
+
+    function completionTerminalQuote() external view returns (uint256 terminalQuote) {
+        (terminalQuote,) = completionQuote();
+    }
+
+    function _requireCompletionLiveness() private view {
+        (uint256 terminalQuote,) = completionQuote();
+        if (terminalQuote > graduationQuoteCeiling) {
+            revert CompletionCeilingExceeded(terminalQuote, graduationQuoteCeiling);
+        }
     }
 }

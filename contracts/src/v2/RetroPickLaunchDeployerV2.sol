@@ -25,6 +25,7 @@ struct LaunchDeployment {
     uint256 creatorTaxBps;
     bool buybackEnabled;
     uint256 graduationThreshold;
+    uint256 graduationQuoteCeiling;
     uint256 supply;
     string name;
     string symbol;
@@ -97,7 +98,8 @@ contract RetroPickLaunchDeployerV2 {
                 params.curveFeeBps,
                 params.creatorTaxBps,
                 params.buybackEnabled,
-                params.graduationThreshold
+                params.graduationThreshold,
+                params.graduationQuoteCeiling
             )
         );
         token = address(

@@ -6,7 +6,7 @@ import type { EventMarket } from './types';
 import type { TokenLaunchSummary } from './launchpad-types';
 import type { InstrumentAdapter, InstrumentCapabilities, InstrumentContractRef, LaunchInstrument, ReferenceClass, TradeIntent, TradeParams } from './instruments';
 
-const monad = { chainId: 143, name: 'Monad' } as const;
+const monad = { chainId: 10143, name: 'Monad' } as const;
 const disabled = { previewTrade: false, trade: false, claim: false, create: false } as const;
 
 function capabilities(instrument: LaunchInstrument): InstrumentCapabilities {

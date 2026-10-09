@@ -10,8 +10,9 @@ import { useTheme } from '@/lib/theme';
 import './index.css';
 
 // Fail-closed data-mode guard, identical contract to apps/web's root layout:
-// any mode other than mock throws instead of rendering live-looking data.
-chooseDataMode(import.meta.env.VITE_DATA_MODE);
+// 'live' additionally requires an indexer URL; anything else throws instead of
+// rendering live-looking data.
+chooseDataMode(import.meta.env.VITE_DATA_MODE, import.meta.env.VITE_INDEXER_URL);
 
 // Applying the stored theme happens at theme-module init (before this
 // render), so the first paint already matches the user's preference.

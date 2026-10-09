@@ -13,6 +13,10 @@ const store=new Store(file);const indexer=new Indexer(store,url);
 type Snapshot={launches:IndexedLaunch[];trades:IndexedTrade[];holders:Record<string,{address:string;balanceRaw:string}[]>};
 const server=createServer((req,res)=>{
  res.setHeader('Content-Type','application/json');res.setHeader('Cache-Control','no-store');
+ // Read-only GET API: allow browser consumers (the retro-ui dev server and
+ // any future read client). No credentials are ever accepted or exposed.
+ res.setHeader('Access-Control-Allow-Origin','*');res.setHeader('Access-Control-Allow-Methods','GET, OPTIONS');
+ if(req.method==='OPTIONS'){res.statusCode=204;res.end();return;}
  const send=(status:number,data:unknown)=>{res.statusCode=status;res.end(jsonExact(data));};
  if(req.method!=='GET'){send(405,{error:'READ_ONLY_API'});return;}
  const path=new URL(req.url??'/', 'http://localhost').pathname;

@@ -1,7 +1,7 @@
 schema_version: 1
 product: launchpad
 version: v2
-current_phase: DEV-0
+current_phase: HACKATHON_FREEZE
 control_plane:
   status: pass
   validated_commit: 7c24e20e88cfaa1c6e71d953a949670f64392d31
@@ -54,3 +54,16 @@ blockers:
   - id: BLOCK-FULLSTACK
     reason: apps/web has a mock-driven product prototype, not live Launchpad Core execution; apps/api, apps/indexer and shared runtime SDK/contracts packages are not implemented.
     next_owner: launchpad-planner
+
+# Superseding testnet delivery; earlier qualification entries remain historical.
+metropolis_testnet_release:
+  solidity_freeze: HACKATHON_FREEZE
+  deployed_source_sha: f0363249f4b74e58dde37d1241742ca5a92bcfe3
+  manifest: deployments/monad-testnet/v2.json
+  native_mon_to_kuru: pass
+  kuru_order_fill_cancel: pass
+  circle_live: BLOCKED_FUNDING
+  frontend: implementation_under_verification
+  current_release_checks: running
+  submission: draft_requires_founder_approval
+  production_or_mainnet_authorized: false

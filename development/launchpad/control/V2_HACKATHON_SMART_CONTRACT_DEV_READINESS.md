@@ -124,3 +124,9 @@ Start with research-to-implementation scaffolding in this order:
 8. integrated fork qualification.
 
 The hackathon track should produce auditable candidate contracts and tests, not a deployment candidate.
+
+## Superseding testnet delivery status — 9 October 2026
+
+The V2 testnet architecture has been implemented and deployed; historical predeployment qualification was 145 passed / 0 failed / 0 skipped, fork 69,507,986. Factory runtime 23,423 bytes. Native MON → Kuru and two-actor order/fill/cancel PASS. Circle live BLOCKED_FUNDING. Exact source and onchain proof: [manifest](../../../deployments/monad-testnet/v2.json) and [release evidence](../../../evidence/launchpad/v2-monad-testnet/README.md).
+
+This supersedes older executor-development blockers for the delivered hackathon candidate, while preserving independent staging/mainnet/production gates. Solidity is in HACKATHON_FREEZE; current Metropolis work is frontend, reproducibility and submission evidence. Fresh repository qualification must be recorded separately and is not inferred from the historical result.

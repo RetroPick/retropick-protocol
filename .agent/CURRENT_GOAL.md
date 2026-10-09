@@ -13,6 +13,10 @@ goals/active/RETROPICK-PLATFORM-RESEARCH-AND-PRODUCTION-OS-V2.md
 research/production/README.md
 docs/platform/README.md
 
+## Metropolis delivery — current testnet override
+
+Solidity V2 is deployed and in HACKATHON_FREEZE. Native MON graduation and two-actor Kuru usability PASS; Circle live BLOCKED_FUNDING. Current work: release reproducibility, live frontend, judge evidence, required videos and founder-approved submission. No staging/mainnet gates are promoted. See `docs/hackathon/SUBMISSION_CHECKLIST.md` and `deployments/monad-testnet/v2.json`. Older qualification goals below remain historical context.
+
 ## Launchpad Core V2
 
 **Control-plane goal:** COMPLETE

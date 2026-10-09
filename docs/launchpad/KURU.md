@@ -24,3 +24,11 @@ Normative RetroPick requirements:
 - RetroPick is not GRADUATED until the Kuru market is verified.
 
 Concrete target deployment addresses/ABI calls remain implementation data and must be verified before coding.
+
+## Implemented testnet candidate — 9 October 2026
+
+The earlier target language above describes the design requirements. The V2 delivery now implements Kuru graduation through `GraduationCoordinatorV2`, `KuruGraduationExecutorV2`, protocol-derived parameter policy and per-launch permanent LP/excess custody. Native MON lifecycle and two-wallet order/fill/cancel are recorded PASS; canonical Circle-USDC live smoke remains BLOCKED_FUNDING.
+
+[Manifest](../../deployments/monad-testnet/v2.json) and [judge evidence](../hackathon/EVIDENCE_MAP.md) distinguish historical deployment source from current release work. Router `0x7EFbE105Ca7415dE98F96622173458ac1c054630`; MarginAccount `0xd029C2D98ff85D8F64799017fE00a59B1159CE02`. These are mutable external dependencies: fresh environment/code/getter verification is required before new graduation. The historical snapshot is not a claim that identities never change.
+
+HACKATHON_FREEZE applies to Solidity. No production/mainnet or asset onboarding authorization follows from the testnet result.

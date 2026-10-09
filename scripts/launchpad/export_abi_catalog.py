@@ -13,7 +13,7 @@ import argparse
 import hashlib
 import json
 import shutil
-from datetime import datetime, timezone
+
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -114,8 +114,11 @@ def export():
             existing['deployments'].append({'role': role, 'address': entry['address']})
 
     CATALOG.mkdir(parents=True, exist_ok=True)
+    # Remove only stale per-contract ABI files. Never touch package.json (the
+    # workspace manifest pnpm resolution depends on) or manifest.json.
+    emitted = {name + '.json' for name in by_name} | {'manifest.json', 'package.json'}
     for stale in CATALOG.glob('*.json'):
-        if stale.name not in ('manifest.json',):
+        if stale.name not in emitted:
             stale.unlink()
 
     catalog_contracts = []
@@ -175,7 +178,6 @@ def export():
         },
         'templates': bundle_manifest.get('templates', {}),
         'contracts': catalog_contracts,
-        'generatedAt': datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),
     }
     (CATALOG / 'manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
 

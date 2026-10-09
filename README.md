@@ -1,83 +1,76 @@
-# RetroPick Protocol
+# RetroPick
 
-RetroPick is one programmable onchain **Launchpad platform** on Monad.
+**The market creation layer for Monad.**
 
-The repository currently contains an established Launchpad Core plus independently qualified financial modules:
+RetroPick lets anyone launch a token through transparent onchain price discovery and automatically graduate it into mature Kuru orderbook liquidity.
 
-~~~text
-RetroPick Launchpad Platform
-├── Launchpad Core        current production-engineering track
-├── Prediction Markets    incubating financial module
-└── PRISM                 incubating structured-markets module
-~~~
+**Launch → Bonding Curve → Graduation Coordinator → Kuru Market → Protected Liquidity → Orderbook Trading**
 
-The modules belong to one product platform. Their financial semantics, security invariants, and production qualification remain independent.
+## Live on Monad Testnet
 
-Start with:
-- [Platform documentation](docs/platform/README.md)
-- [Launchpad Core](docs/launchpad/README.md)
-- [Prediction + PRISM](docs/prism/README.md)
-- [Engineering agent router](AGENTS.md)
+The canonical deployed candidate demonstrates:
 
-## Launchpad Core
+- ✅ Token issuance and bonding-curve buy/sell
+- ✅ Safe graduation and real Kuru market creation
+- ✅ Permanent custody for graduation LP shares and excess tokens
+- ✅ Permissionless completion/retry
+- ✅ Live testnet limit order, fill and cancel
 
-Launchpad Core is the current production-oriented launch primitive:
+Public frontend deployment and demo video are being verified for the submission. The testnet contract lifecycle is already evidenced; this is an **unaudited hackathon candidate**, not a production or mainnet release. Canonical Circle-USDC live smoke: **BLOCKED_FUNDING**.
 
-~~~text
-CREATE
--> fixed/capped ERC20
--> bonding primary market
--> demand/liquidity formation
--> safe graduation
--> Kuru mature market
-~~~
+[Judge overview](HACKATHON.md) · [Evidence map](docs/hackathon/EVIDENCE_MAP.md) · [Full deployment manifest](deployments/monad-testnet/v2.json) · [Metropolis requirements](docs/hackathon/METROPOLIS_REQUIREMENTS.md)
 
-Current repository reality remains explicit:
-- substantive V1/V2 Solidity exists;
-- current V2 graduation is still Uniswap-V4-oriented;
-- Kuru is the target V2 mature venue, not yet a completed committed integration;
-- web/API/indexer/shared TypeScript runtimes are not yet implemented;
-- dedicated V2 core qualification remains required.
+## Why Monad?
 
-Start with:
-- [docs/launchpad/README.md](docs/launchpad/README.md)
-- [development/launchpad/README.md](development/launchpad/README.md)
-- [contracts/docs/launchpad/README.md](contracts/docs/launchpad/README.md)
+RetroPick produces two active phases: rapid bonding-curve transactions and post-graduation orderbook trading. Low-cost execution, fast settlement and responsive market state matter when many primary markets and secondary orderbooks operate simultaneously. This connects asset primitives, market infrastructure and settlement to Metropolis's Onchain Finance & Trading track.
 
-## Prediction and PRISM
+## Why Kuru?
 
-Prediction and PRISM are **RetroPick Launchpad modules**, not separate startups or products.
+RetroPick specializes in issuance, creator distribution, primary discovery and graduation safety. Kuru supplies the secondary orderbook, limit orders and market-making workflows. Our demo created an actual Kuru market, seeded its vault and executed an order, fill and cancel. Depth, spreads and execution quality remain market-dependent; neither integration nor permanent custody guarantees trading outcomes.
 
-They are intentionally isolated while their financial mechanisms are researched and qualified. PRISM currently remains governed by MATH-1 and CONTRACT-ARCH-1 before production Solidity can become authoritative.
+## Deployed proof
 
-Start with:
-- [docs/prism/README.md](docs/prism/README.md)
-- [docs/prism/00-context/EXECUTIVE_SUMMARY.md](docs/prism/00-context/EXECUTIVE_SUMMARY.md)
-- [docs/prism/math/README.md](docs/prism/math/README.md)
-- [research/prism-model/README.md](research/prism-model/README.md)
-- [research/prism/README.md](research/prism/README.md)
+| Component | Monad Testnet address |
+| --- | --- |
+| Factory | [0xa7f18b9eceb0A9852b08408854A45D00fc682454](https://testnet.monadexplorer.com/address/0xa7f18b9eceb0A9852b08408854A45D00fc682454) |
+| Coordinator | [0xaD62309242EA65BB07C833669EC6a4ED23AF738F](https://testnet.monadexplorer.com/address/0xaD62309242EA65BB07C833669EC6a4ED23AF738F) |
+| Demo token | [0x43e7e9b1b7d9A143573307b13D14B51580c18f15](https://testnet.monadexplorer.com/address/0x43e7e9b1b7d9A143573307b13D14B51580c18f15) |
+| Bonding curve | [0x454A3A449d4e65CA5203d331905d167BA218E276](https://testnet.monadexplorer.com/address/0x454A3A449d4e65CA5203d331905d167BA218E276) |
+| Kuru market | [0x1F5dE72616a7fe645Cf45aC66dfce8Ac7452C57F](https://testnet.monadexplorer.com/address/0x1F5dE72616a7fe645Cf45aC66dfce8Ac7452C57F) |
+| Kuru vault | [0xc88DED06eB0081430Ff02d124C22b532e122CbE7](https://testnet.monadexplorer.com/address/0xc88DED06eB0081430Ff02d124C22b532e122CbE7) |
+| Permanent LP/excess lock | [0x72ced84b20Bb8467c5547e3EbF85E62321B6a425](https://testnet.monadexplorer.com/address/0x72ced84b20Bb8467c5547e3EbF85E62321B6a425) |
 
-## Platform rule
+Six concise proof transactions: [launch](https://testnet.monadexplorer.com/tx/0x5cc1d0469ee7b811139055a81f2ba85a49a3de5b8ea54e158426693a556271f3), [bonding buy](https://testnet.monadexplorer.com/tx/0x41627a9090bd0fbdac03126457de8b3bc60a29486c70efffd18f71997596a926), [graduation](https://testnet.monadexplorer.com/tx/0x70d0cb480e7824ca9af62eaa5cb8d246a352efc6f2ba3585119c8bc64fa63fde), [order](https://testnet.monadexplorer.com/tx/0xabd44f6922c652f0043658bf86f7d72e5cc550d4755a001cfd8d1c519ae515b7), [fill](https://testnet.monadexplorer.com/tx/0x93e056ca41c8f55022c2030f4ecaade5775187fc443e8b98f7ddac7a65855415), [cancel](https://testnet.monadexplorer.com/tx/0x471faeb38c8598fc7207cb97c18a550db989e6d43bf0ce23b3539ea7920ac920). These are functional testnet transactions, not organic adoption.
 
-Shared product infrastructure should converge where safe: frontend, wallet integration, discovery, portfolio, indexing, APIs, SDK/types, observability, environment management and Kuru connectivity.
+## Engineering depth
 
-Financial semantics remain module-local.
+Factory → single-ledger Coordinator → venue executor keeps lifecycle authority separate from venue work. Architectural extraction reduced Factory runtime from approximately 24,565 to **23,423 bytes**. Exact integer terminal-quote constraints preserve completion liveness across valid trade histories; graduation LP/excess assets enter a permanent bound lock. Native/Circle Uniswap v4 compatibility remains in the release campaign.
 
-Launchpad bonding/graduation rules do not redefine PRISM backing/settlement rules, and PRISM research cannot block or weaken the existing Launchpad Core.
+Historical predeployment campaign: **145 passed / 0 failed / 0 skipped**, fresh qualification fork **69,507,986**. [Release artifacts](evidence/launchpad/v2-monad-testnet/README.md). Deployed bytecode source: `f0363249f4b74e58dde37d1241742ca5a92bcfe3`; main integration baseline: `84861f50494a79772cf6f97a5e710bcc24973d5e`. Current repository release verification is recorded separately; source SHA is not a live readiness claim.
 
-A module joins the production platform only through explicit module admission and its own qualification gates.
+## Run the web app
 
-## Frontend prototype
+Node ≥22.13 and pnpm 11.25.0:
 
-The interactive RetroPick Launchpad lives in [`apps/web`](apps/web). It is a responsive, fixture-backed prototype for the platform's Prediction Markets and PRISM modules. From the repository root:
-
-```bash
+```sh
 pnpm install --frozen-lockfile
-pnpm dev:web
-pnpm typecheck:web
-pnpm lint:web
-pnpm test:web
+cp apps/web/.env.example apps/web/.env.local
+pnpm --filter @retropick/web dev
 ```
 
-The app does not deploy contracts, connect a wallet, or submit live orders. Its data, ticket, resolution and PRISM backing views remain explicit simulations until the relevant module qualification gates close.
+The default live flow uses deployed Monad Testnet addresses. Set a server-only `MONAD_TESTNET_RPC_URL` for a reliable provider. Wallets sign/broadcast directly; the server RPC proxy is read-only. Set `NEXT_PUBLIC_DATA_MODE=mock` only for the explicitly labelled legacy visual prototype.
 
+```sh
+pnpm --filter @retropick/web typecheck
+pnpm --filter @retropick/web build
+```
+
+Contracts require Foundry, recursive submodules, the separately built v4/Permit2 dependencies and a funded RPC endpoint for mandatory fork tests. See [contract setup](contracts/README.md) and [release evidence](evidence/launchpad/v2-monad-testnet/README.md). Never commit signing keys.
+
+## Hackathon scope and attribution
+
+Pre-existing foundations include V1/shared Solidity dependencies and the visual frontend prototype. V2 delivery introduced Coordinator extraction, policy snapshots, completion liveness, Kuru graduation/protected custody, V4 migration and deployment/smoke tooling. This submission release connects the live frontend and judge evidence. Build-window claims must be assessed from public commit history; this repository is not entirely new hackathon code.
+
+AI-assisted tools were used for engineering, testing and documentation; maintainers remain responsible for review and claims. Third-party notices: [contracts](contracts/THIRD_PARTY_NOTICES.md), dependency licenses and frontend package/vendor notices. Original project source uses the [MIT license](LICENSE); [third-party licenses](THIRD_PARTY_NOTICES.md) remain applicable.
+
+[Submission copy](docs/hackathon/SUBMISSION_COPY.md) · [Demo](docs/hackathon/DEMO_SCRIPT.md) · [Pitch](docs/hackathon/PITCH_SCRIPT.md) · [Q&A](docs/hackathon/JUDGE_QA.md) · [Partnership plan](docs/hackathon/MONAD_PARTNERSHIP.md) · [Growth](docs/hackathon/GROWTH_PLAN.md)

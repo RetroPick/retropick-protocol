@@ -1,13 +1,13 @@
 import { parseAbi, zeroAddress, type Address } from 'viem';
-import { chain, release } from './client';
+import { addresses, chain, release } from './client';
 import {decodeBook} from './book';
 export const kuruAbi = parseAbi([
   'function getMarketParams() view returns (uint32,uint96,address,uint256,address,uint256,uint32,uint96,uint96,uint256,uint256)',
   'function getVaultParams() view returns (address,uint256,uint96,uint256,uint96,uint96,uint96,uint96)',
   'function bestBidAsk() view returns (uint256,uint256)',
   'function getL2Book(uint32,uint32) view returns (bytes)',
-  'function addBuyOrder(uint32 price,uint96 size,bool postOnly) returns (uint40)',
-  'function addSellOrder(uint32 price,uint96 size,bool postOnly) returns (uint40)',
+  'function addBuyOrder(uint32 price,uint96 size,bool postOnly)',
+  'function addSellOrder(uint32 price,uint96 size,bool postOnly)',
   'function batchCancelOrders(uint40[] orderIds)',
   'function s_orders(uint40) view returns (address owner,uint96 size,uint40 prev,uint40 next,uint40 flippedId,uint32 price,uint32 flippedPrice,bool isBuy)',
   'event OrderCreated(uint40 orderId,address owner,uint96 size,uint32 price,bool isBuy)',
@@ -18,6 +18,7 @@ export const marginAbi = parseAbi(['function deposit(address user,address token,
 const routerAbi = parseAbi(['function marginAccountAddress() view returns (address)', 'function orderBookImplementation() view returns (address)', 'function kuruAmmVaultImplementation() view returns (address)', 'function verifiedMarket(address) view returns (uint32,uint96,address,uint256,address,uint256,uint32,uint96,uint96,uint256,uint256)']);
 export async function readKuru(market: Address, token: Address, vault: Address, account?: Address) {
   const blockNumber = await chain.getBlockNumber({ cacheTime: 0 });
+  await chain.readContract({address:addresses.kuruEnvironment,abi:parseAbi(['function validate() view']),functionName:'validate',blockNumber});
   const router = release.kuruEnvironment.router as Address;
   const [params, vaultParams, best, encoded, margin, orderImpl, vaultImpl, registered] = await Promise.all([
     chain.readContract({ address: market, abi: kuruAbi, functionName: 'getMarketParams', blockNumber }),

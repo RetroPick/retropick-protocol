@@ -4,5 +4,5 @@ import TokenDetail from '@/features/launchpad/token-detail';
 
 export default async function LaunchpadTokenDetail({ params }: { params: Promise<{ tokenId: string }> }) {
   const { tokenId } = await params;
-  return liveMode() ? <LiveToken token={tokenId}/> : <TokenDetail id={tokenId}/>;
+  return liveMode() ? <LiveToken key={tokenId.toLowerCase()} token={tokenId}/> : <TokenDetail id={tokenId}/>;
 }

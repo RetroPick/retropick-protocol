@@ -13,3 +13,12 @@ export function sellQuote(input: bigint, tokenReserve: bigint, quoteReserve: big
   return gross - gross * fee / BPS - gross * tax / BPS;
 }
 export function minOutput(output: bigint, slippageBps = 50n) { return output * (BPS - slippageBps) / BPS; }
+
+/** Reject excess precision instead of rounding the user's signed amount. */
+export function parseExact(value: string, decimals = 18) {
+  const text = value.trim();
+  if (!/^\d+(?:\.\d+)?$/.test(text)) throw Error('Enter an ordinary positive decimal amount.');
+  const [whole, fraction = ''] = text.split('.');
+  if (fraction.length > decimals) throw Error(`Use at most ${decimals} decimal places.`);
+  return BigInt(whole) * 10n ** BigInt(decimals) + BigInt(fraction.padEnd(decimals, '0') || '0');
+}

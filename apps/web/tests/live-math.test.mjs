@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
-const { amountOut, buyQuote, sellQuote, minOutput } = require('../.test-output/live/math.js');
+const { amountOut, buyQuote, sellQuote, minOutput, parseExact } = require('../.test-output/live/math.js');
 const { decodeBook } = require('../.test-output/live/book.js');
 test('exact fee flooring and large reserves preserve integer precision', () => {
   const reserve = 10n ** 24n;
@@ -19,4 +19,12 @@ test('Kuru L2 encoding uses a one-word side delimiter, preserving price and size
   const hex = '0x' + words.map(n => n.toString(16).padStart(64, '0')).join('');
   assert.deepEqual(decodeBook(hex), { block: 69510121n, bids: [{ price: 400000n, size: 123456789012345678n }], asks: [{ price: 410000n, size: 200000000n }] });
   assert.deepEqual(decodeBook('0x' + [1n, 0n].map(n => n.toString(16).padStart(64, '0')).join('')), { block: 1n, bids: [], asks: [] });
+});
+
+test('signed decimal inputs reject excess precision and exponent notation', () => {
+  assert.equal(parseExact('1.000000000000000001'), 1000000000000000001n);
+  assert.equal(parseExact('0.004', 8), 400000n);
+  assert.throws(() => parseExact('0.0000000000000000001'));
+  assert.throws(() => parseExact('1e18'));
+  assert.throws(() => parseExact('-1'));
 });

@@ -32,12 +32,22 @@
       "multicallReads": 5,
       "browserErrors": 0
     },
-    "scope": "Read-only view aggregation; simulations and wallet writes retain their original sender."
+    "scope": "Read-only view aggregation; simulations and wallet writes retain their original sender.",
+    "publicBrowser": {
+      "durationMs": 5829,
+      "rpcCalls": 8,
+      "multicallReads": 5,
+      "browserErrors": 0
+    },
+    "senderSimulation": "PASS_WITH_BROADCAST_DISABLED"
   },
   "technicalDemo": {
     "durationSeconds": 168.08,
     "bytes": 4157675,
     "url": "https://retropick-metropolis.vercel.app/launchpad/demo",
-    "status": "BUILT_PUBLIC_DEPLOY_PENDING"
-  }
+    "status": "EARLIER_ADAPTER_FOOTAGE_REPLACEMENT_PENDING"
+  },
+  "currentUI": "Original apps/web Launchpad feed, wizard, terminal and product shell",
+  "originalUIRead": "DESKTOP_1440_MOBILE_390_PASS_NO_OVERFLOW_NO_BROWSER_ERRORS",
+  "originalUIWalletCampaign": "PENDING_FRESH_RECORDING"
 }

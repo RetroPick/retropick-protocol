@@ -1,30 +1,4 @@
-Compiling 164 files with Solc 0.8.26
-Solc 0.8.26 finished in 266.95s
-Compiler run successful with warnings:
-Warning (5159): "selfdestruct" has been deprecated. Note that, starting from the Cancun hard fork, the underlying opcode no longer deletes the code and data associated with an account and only transfers its Ether to the beneficiary, unless executed in the same transaction in which the contract was created (see EIP-6780). Any use in newly deployed contracts is strongly discouraged even if the new behavior is taken into account. Future changes to the EVM might further reduce the functionality of the opcode.
-   --> test/v2/integration/KuruV2EndToEndFork.t.sol:276:9:
-    |
-276 |         selfdestruct(receiver);
-    |         ^^^^^^^^^^^^
-
-Warning (2018): Function state mutability can be restricted to view
-   --> src/v2/RetroPickBondingCurveV2.sol:861:5:
-    |
-861 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
-    |     ^ (Relevant source part starts here and spans across multiple lines).
-
-Warning (2018): Function state mutability can be restricted to view
-   --> src/v1/RetroPickBondingCurveV1.sol:815:5:
-    |
-815 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
-    |     ^ (Relevant source part starts here and spans across multiple lines).
-
-Warning (2018): Function state mutability can be restricted to pure
-  --> test/v2/integration/DEV4GraduationExtractionResearch.t.sol:41:5:
-   |
-41 |     function feeEscrow() external view returns (IRetroPickFeeEscrowV2) {
-   |     ^ (Relevant source part starts here and spans across multiple lines).
-
+No files changed, compilation skipped
 
 ╭-------------------------------+------------------+-------------------+--------------------+---------------------╮
 | Contract                      | Runtime Size (B) | Initcode Size (B) | Runtime Margin (B) | Initcode Margin (B) |
@@ -171,10 +145,10 @@ warning[locked-ether]: contract can receive ETH but has no mechanism to send it 
   ╰ help: https://getfoundry.sh/forge/linting/locked-ether
 
 warning[missing-zero-check]: address parameter is used in a state write or value transfer without a zero-address check
-   ╭▸ src/v2/UniswapV4GraduationExecutorV2.sol:54:9
+   ╭▸ src/v2/RetroPickHookDeployerV2.sol:12:17
    │
-54 │         address coordinator_,
-   │         ━━━━━━━━━━━━━━━━━━━━
+12 │     constructor(address owner_) {
+   │                 ━━━━━━━━━━━━━━
    │
    ╰ help: https://getfoundry.sh/forge/linting/missing-zero-check
 
@@ -185,6 +159,14 @@ warning[missing-zero-check]: address parameter is used in a state write or value
    │                 ━━━━━━━━━━━━━━━━━
    │
    ╰ help: https://getfoundry.sh/forge/linting/missing-zero-check
+
+warning[missing-events-access-control]: `graduationExecutor` is changed without an event but is used for access control
+   ╭▸ src/v2/RetroPickLaunchLockerV2.sol:65:9
+   │
+65 │         graduationExecutor = executor;
+   │         ━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/missing-events-access-control
 
 warning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on
    ╭▸ src/v2/libraries/ExecutorDonationsV2.sol:26:13
@@ -201,6 +183,14 @@ warning[reentrancy-events]: event emitted after an external call; reentrancy can
    │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    │
    ╰ help: https://getfoundry.sh/forge/linting/reentrancy-events
+
+warning[missing-zero-check]: address parameter is used in a state write or value transfer without a zero-address check
+   ╭▸ src/v2/UniswapV4GraduationExecutorV2.sol:54:9
+   │
+54 │         address coordinator_,
+   │         ━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/missing-zero-check
 
 warning[incorrect-strict-equality]: dangerous strict equality check on an externally-influenced value
    ╭▸ src/v2/libraries/ExactAssetV2.sol:15:13
@@ -425,20 +415,20 @@ warning[unused-return]: return value of an external call is not used
     ╰ help: https://getfoundry.sh/forge/linting/unused-return
 
 warning[missing-zero-check]: address parameter is used in a state write or value transfer without a zero-address check
+   ╭▸ src/v2/RetroPickLaunchLockerV2.sol:62:36
+   │
+62 │     function setGraduationExecutor(address executor) external onlyOwner {
+   │                                    ━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/missing-zero-check
+
+warning[missing-zero-check]: address parameter is used in a state write or value transfer without a zero-address check
    ╭▸ src/v2/GraduationCoordinatorV2.sol:70:26
    │
 70 │     function bindFactory(address factory_) external onlyOwner {
    │                          ━━━━━━━━━━━━━━━━
    │
    ╰ help: https://getfoundry.sh/forge/linting/missing-zero-check
-
-warning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on
-    ╭▸ src/v2/RetroPickBondingCurveV2.sol:309:9
-    │
-309 │         emit BuybackEnabledUpdated(enabled);
-    │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    │
-    ╰ help: https://getfoundry.sh/forge/linting/reentrancy-events
 
 warning[reentrancy-no-eth]: external call can be reentered before `_securingToken` is updated
      ╭▸ src/v2/RetroPickLaunchFactoryV2.sol:1025:9
@@ -456,11 +446,27 @@ warning[missing-zero-check]: address parameter is used in a state write or value
      │
      ╰ help: https://getfoundry.sh/forge/linting/missing-zero-check
 
+warning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on
+    ╭▸ src/v2/RetroPickBondingCurveV2.sol:309:9
+    │
+309 │         emit BuybackEnabledUpdated(enabled);
+    │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/reentrancy-events
+
+warning[missing-events-access-control]: `graduationExecutor` is changed without an event but is used for access control
+    ╭▸ src/v2/hooks/RetroPickMemeHookV2.sol:216:9
+    │
+216 │         graduationExecutor = executor;
+    │         ━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/missing-events-access-control
+
 warning[missing-zero-check]: address parameter is used in a state write or value transfer without a zero-address check
-   ╭▸ src/v2/RetroPickHookDeployerV2.sol:12:17
+   ╭▸ src/v2/KuruLiquidityLockV2.sol:13:39
    │
-12 │     constructor(address owner_) {
-   │                 ━━━━━━━━━━━━━━
+13 │     constructor(address launchToken_, address quoteToken_, address market_, address vault_) {
+   │                                       ━━━━━━━━━━━━━━━━━━━
    │
    ╰ help: https://getfoundry.sh/forge/linting/missing-zero-check
 
@@ -582,22 +588,6 @@ warning[encode-packed-collision]: `abi.encodePacked()` called with multiple dyna
     │
     ╰ help: https://getfoundry.sh/forge/linting/encode-packed-collision
 
-warning[missing-events-access-control]: `graduationExecutor` is changed without an event but is used for access control
-   ╭▸ src/v2/RetroPickLaunchLockerV2.sol:65:9
-   │
-65 │         graduationExecutor = executor;
-   │         ━━━━━━━━━━━━━━━━━━
-   │
-   ╰ help: https://getfoundry.sh/forge/linting/missing-events-access-control
-
-warning[missing-zero-check]: address parameter is used in a state write or value transfer without a zero-address check
-   ╭▸ src/v2/KuruLiquidityLockV2.sol:13:39
-   │
-13 │     constructor(address launchToken_, address quoteToken_, address market_, address vault_) {
-   │                                       ━━━━━━━━━━━━━━━━━━━
-   │
-   ╰ help: https://getfoundry.sh/forge/linting/missing-zero-check
-
 warning[require-revert-in-loop]: `require` or `revert` inside a loop
    ╭▸ src/v2/libraries/RetroPickBondingCurveMathV2.sol:78:29
    │
@@ -622,21 +612,13 @@ warning[require-revert-in-loop]: `require` or `revert` inside a loop
    │
    ╰ help: https://getfoundry.sh/forge/linting/require-revert-in-loop
 
-warning[missing-events-access-control]: `graduationExecutor` is changed without an event but is used for access control
-    ╭▸ src/v2/hooks/RetroPickMemeHookV2.sol:216:9
-    │
-216 │         graduationExecutor = executor;
-    │         ━━━━━━━━━━━━━━━━━━
-    │
-    ╰ help: https://getfoundry.sh/forge/linting/missing-events-access-control
-
 warning[missing-zero-check]: address parameter is used in a state write or value transfer without a zero-address check
-   ╭▸ src/v2/RetroPickLaunchLockerV2.sol:62:36
-   │
-62 │     function setGraduationExecutor(address executor) external onlyOwner {
-   │                                    ━━━━━━━━━━━━━━━━
-   │
-   ╰ help: https://getfoundry.sh/forge/linting/missing-zero-check
+    ╭▸ src/v2/hooks/RetroPickMemeHookV2.sol:213:36
+    │
+213 │     function setGraduationExecutor(address executor) external onlyOwner {
+    │                                    ━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/missing-zero-check
 
 warning[reentrancy-no-eth]: external call can be reentered before `quoteLiability` is updated
     ╭▸ src/v2/GraduationCoordinatorV2.sol:192:59
@@ -704,14 +686,6 @@ warning[incorrect-strict-equality]: dangerous strict equality check on an extern
     │                    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     │
     ╰ help: https://getfoundry.sh/forge/linting/incorrect-strict-equality
-
-warning[missing-zero-check]: address parameter is used in a state write or value transfer without a zero-address check
-    ╭▸ src/v2/hooks/RetroPickMemeHookV2.sol:213:36
-    │
-213 │     function setGraduationExecutor(address executor) external onlyOwner {
-    │                                    ━━━━━━━━━━━━━━━━
-    │
-    ╰ help: https://getfoundry.sh/forge/linting/missing-zero-check
 
 warning[arbitrary-send-eth]: ETH is sent to a user-controlled destination; restrict the destination or the caller
      ╭▸ src/v1/RetroPickLaunchFactoryV1.sol:1447:9

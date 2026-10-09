@@ -56,8 +56,8 @@ The V2 delivery added quote-policy snapshots, immutable venue selection, Coordin
 
 ## Live demo
 
-Public frontend URL: https://retropick-metropolis.vercel.app (public reads verified; wallet E2E qualification pending).
-Technical demo video ≤3 minutes: PENDING RECORDING.
+Public frontend URL: https://retropick-metropolis.vercel.app (fresh MON launch, bonding buy/sell, Kuru graduation and two-wallet order/fill/cancel verified).
+Technical demo video ≤3 minutes: https://retropick-metropolis.vercel.app/demo/retropick-technical-demo.mp4 (168.08 seconds); player https://retropick-metropolis.vercel.app/launchpad/demo.
 Pitch video ≤2 minutes: PENDING FOUNDER RECORDING.
 Canonical testnet token: `0x43e7e9b1b7d9A143573307b13D14B51580c18f15`.
 [Transactions and proof](EVIDENCE_MAP.md).

@@ -1,6 +1,6 @@
 {
   "chainId": 10143,
-  "block": 69549143,
+  "block": 69560362,
   "router": "0x7EFbE105Ca7415dE98F96622173458ac1c054630",
   "marginAccount": "0xd029C2D98ff85D8F64799017fE00a59B1159CE02",
   "orderBookImplementation": "0x72caE0a99C19B574e8a6De558F43fc1D019c9374",
@@ -19,12 +19,12 @@
   "actors": {
     "A": {
       "address": "0xB505cBaab3ACdF287af1366b9B1229404757913b",
-      "monWei": "1249326007898989897",
+      "monWei": "1207266639898989897",
       "circleRaw": 0
     },
     "B": {
       "address": "0x101212C52620ca00540ee04D1515E714e6368Fcd",
-      "monWei": "24643977792170000000",
+      "monWei": "22725047246770060965",
       "circleRaw": 0
     }
   }

@@ -1,14 +1,21 @@
 {
-  "repositoryBaseSHA": "a0ab1bdd4425c1999c1f599ebcc649bc19cd8d51",
-  "workingTree": true,
+  "repositorySHA": "89fe028c547f4e282fbef09568f2219c0dda30a7",
+  "dirty": false,
   "deployedSourceSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3",
-  "forkBlock": 69549163,
+  "forkBlock": 69560382,
   "exitCodes": {
+    "v4-dependencies": 0,
+    "permit2": 0,
     "format": 0,
     "oracle": 0,
     "tests": 0,
     "sizes": 0,
     "runtime-sizes": 0
+  },
+  "tests": {
+    "passed": 145,
+    "failed": 0,
+    "skipped": 0
   },
   "sizes": {
     "IGraduationCoordinatorV2": 0,
@@ -82,11 +89,6 @@
     "coordinatorQuoteLiability": 0,
     "workerResiduals": 0,
     "workerVaultAllowances": 0,
-    "verifiedAtBlock": 69550941
-  },
-  "tests": {
-    "passed": 145,
-    "failed": 0,
-    "skipped": 0
+    "verifiedAtBlock": 69560444
   }
 }

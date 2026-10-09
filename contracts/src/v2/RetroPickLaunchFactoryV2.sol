@@ -551,8 +551,6 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
         return graduationCoordinator.previewEconomics(id, quote, venue);
     }
 
-
-
     function launchToken(TokenParams calldata params, uint256 id, address quote, GraduationVenue venue)
         external
         payable
@@ -621,7 +619,6 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
      * creator supplies rather than one the protocol sets, so a change makes
      * the launch revert on its own rather than silently reprice.
      */
-
 
     /**
      * @notice Deploys a bonding curve and its launch token, wires them
@@ -785,16 +782,34 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
         emit TokenLaunched(token, curve, originalDeployer, pairToken, launchConfigId, graduationThreshold);
     }
 
-    function _deployPair(TokenParams calldata params, LaunchConfig memory config, QuoteAssetConfig memory q,
-        address quote, address originalDeployer, address creatorFeeRecipient, FeePolicySnapshot memory policy)
-        private returns (address token, address curve) {
+    function _deployPair(
+        TokenParams calldata params,
+        LaunchConfig memory config,
+        QuoteAssetConfig memory q,
+        address quote,
+        address originalDeployer,
+        address creatorFeeRecipient,
+        FeePolicySnapshot memory policy
+    ) private returns (address token, address curve) {
         LaunchDeployment memory d;
-        d.pairToken = quote; d.creatorFeeRecipient = creatorFeeRecipient; d.originalDeployer = originalDeployer;
-        d.feePolicy = memeHook; d.policy = policy; d.feeEscrow = feeEscrow; d.buybackVault = buybackVault;
-        d.phantomQuote = q.phantomQuote; d.curveFeeBps = config.curveFeeBps; d.creatorTaxBps = params.creatorTaxBps;
-        d.buybackEnabled = params.buybackEnabled; d.graduationThreshold = q.graduationThreshold;
-        d.graduationQuoteCeiling = q.graduationQuoteCeiling; d.supply = config.supply;
-        d.name = params.name; d.symbol = params.symbol; d.logo = params.logo; d.description = params.description;
+        d.pairToken = quote;
+        d.creatorFeeRecipient = creatorFeeRecipient;
+        d.originalDeployer = originalDeployer;
+        d.feePolicy = memeHook;
+        d.policy = policy;
+        d.feeEscrow = feeEscrow;
+        d.buybackVault = buybackVault;
+        d.phantomQuote = q.phantomQuote;
+        d.curveFeeBps = config.curveFeeBps;
+        d.creatorTaxBps = params.creatorTaxBps;
+        d.buybackEnabled = params.buybackEnabled;
+        d.graduationThreshold = q.graduationThreshold;
+        d.graduationQuoteCeiling = q.graduationQuoteCeiling;
+        d.supply = config.supply;
+        d.name = params.name;
+        d.symbol = params.symbol;
+        d.logo = params.logo;
+        d.description = params.description;
         d.socials = params.socials;
         return launchDeployer.deployLaunch(d);
     }

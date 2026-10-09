@@ -98,7 +98,8 @@ interface IGraduationFactoryV2 {
 
 interface IGraduationCoordinatorV2 {
     function factory() external view returns (address);
-    function registerLaunch(address token, address curve, GraduationVenue venue, uint24 poolFee, int24 tickSpacing) external;
+    function registerLaunch(address token, address curve, GraduationVenue venue, uint24 poolFee, int24 tickSpacing)
+        external;
     function packet(address token) external view returns (GraduationPacket memory);
     function ledger(address token) external view returns (GraduationLedger memory);
     function secure(address token) external;

@@ -1,6 +1,7 @@
 """Generate/check Solidity vectors against the existing exact Python oracle."""
 import argparse
 import random
+import re
 import sys
 from pathlib import Path
 
@@ -44,6 +45,6 @@ contract CompletionQuoteOracleV2Test is Test {
 """
 target = ROOT / "contracts/test/v2/unit/CompletionQuoteOracleV2.t.sol"
 if "--check" in sys.argv:
-    assert target.read_text() == output, "oracle vectors differ; regenerate"
+    assert re.sub(r"\s+", "", target.read_text()) == re.sub(r"\s+", "", output), "oracle vectors differ; regenerate"
 else:
     target.write_text(output)

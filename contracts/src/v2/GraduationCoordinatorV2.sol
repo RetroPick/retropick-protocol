@@ -21,9 +21,15 @@ import {
 } from "./interfaces/IGraduationExecutorV2.sol";
 
 struct GraduationLaunchConfigV2 {
-    uint256 supply; uint256 curveFeeBps; uint256 phantomQuote; uint256 graduationThreshold;
-    uint24 poolFee; int24 tickSpacing; bool enabled;
+    uint256 supply;
+    uint256 curveFeeBps;
+    uint256 phantomQuote;
+    uint256 graduationThreshold;
+    uint24 poolFee;
+    int24 tickSpacing;
+    bool enabled;
 }
+
 interface IGraduationLaunchConfigV2 {
     function getLaunchConfig(uint256 id) external view returns (GraduationLaunchConfigV2 memory);
     function memeHook() external view returns (IRetroPickFeePolicyV2);
@@ -99,22 +105,50 @@ contract GraduationCoordinatorV2 is Ownable2Step, ReentrancyGuard {
         GraduationLaunchConfigV2 memory config = f.getLaunchConfig(id);
         QuoteAssetConfig memory q = f.quoteRegistry().admitted(quote, venue);
         address executor = executors[venue];
-        return keccak256(abi.encode(config.supply, config.curveFeeBps, config.poolFee, config.tickSpacing,
-            q.policyHash, q.policyVersion, q.phantomQuote, q.graduationThreshold, q.graduationQuoteCeiling,
-            f.memeHook().currentFeePolicy(), venue, executor, executor.codehash,
-            IGraduationExecutorV2(executor).policyHash()));
+        return keccak256(
+            abi.encode(
+                config.supply,
+                config.curveFeeBps,
+                config.poolFee,
+                config.tickSpacing,
+                q.policyHash,
+                q.policyVersion,
+                q.phantomQuote,
+                q.graduationThreshold,
+                q.graduationQuoteCeiling,
+                f.memeHook().currentFeePolicy(),
+                venue,
+                executor,
+                executor.codehash,
+                IGraduationExecutorV2(executor).policyHash()
+            )
+        );
     }
 
-    function registerLaunch(address token, address curveAddress, GraduationVenue venue, uint24 poolFee, int24 tickSpacing)
-        external onlyFactory {
+    function registerLaunch(
+        address token,
+        address curveAddress,
+        GraduationVenue venue,
+        uint24 poolFee,
+        int24 tickSpacing
+    ) external onlyFactory {
         RetroPickBondingCurveV2 c = RetroPickBondingCurveV2(curveAddress);
         QuoteAssetConfig memory q = IGraduationLaunchConfigV2(factory).quoteRegistry().admitted(c.pairToken(), venue);
         GraduationPacket memory p;
-        p.token = token; p.curve = curveAddress; p.quoteAsset = c.pairToken(); p.venue = venue;
-        p.executor = executors[venue]; p.executorCodeHash = p.executor.codehash;
-        p.quoteDecimals = q.decimals; p.quotePolicyVersion = q.policyVersion; p.quotePolicyHash = q.policyHash;
-        p.phantomQuote = q.phantomQuote; p.graduationThreshold = q.graduationThreshold;
-        p.graduationQuoteCeiling = q.graduationQuoteCeiling; p.poolFee = poolFee; p.tickSpacing = tickSpacing;
+        p.token = token;
+        p.curve = curveAddress;
+        p.quoteAsset = c.pairToken();
+        p.venue = venue;
+        p.executor = executors[venue];
+        p.executorCodeHash = p.executor.codehash;
+        p.quoteDecimals = q.decimals;
+        p.quotePolicyVersion = q.policyVersion;
+        p.quotePolicyHash = q.policyHash;
+        p.phantomQuote = q.phantomQuote;
+        p.graduationThreshold = q.graduationThreshold;
+        p.graduationQuoteCeiling = q.graduationQuoteCeiling;
+        p.poolFee = poolFee;
+        p.tickSpacing = tickSpacing;
         p.feePolicy = IGraduationLaunchConfigV2(factory).getLaunchFeePolicy(token);
         p.venuePolicyHash = IGraduationExecutorV2(p.executor).policyHash();
         p.protectedLPReceiver = IGraduationExecutorV2(p.executor).previewReceiver(p);

@@ -8,9 +8,13 @@ import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol
 import {IPoolManager} from "@uniswap/v4-core/src/interfaces/IPoolManager.sol";
 import {IPositionManager} from "@uniswap/v4-periphery/src/interfaces/IPositionManager.sol";
 import {IAllowanceTransfer} from "permit2/src/interfaces/IAllowanceTransfer.sol";
+import {GraduationCoordinatorV2} from "../../../src/v2/GraduationCoordinatorV2.sol";
+import {RetroPickQuoteAssetRegistryV2} from "../../../src/v2/RetroPickQuoteAssetRegistryV2.sol";
+import {QuoteAssetConfig, GraduationVenue, GraduationState} from "../../../src/v2/interfaces/IGraduationExecutorV2.sol";
+import {ExactAssetV2} from "../../../src/v2/libraries/ExactAssetV2.sol";
 import {RetroPickLaunchFactoryV2} from "../../../src/v2/RetroPickLaunchFactoryV2.sol";
 import {RetroPickLaunchDeployerV2} from "../../../src/v2/RetroPickLaunchDeployerV2.sol";
-import {RetroPickGraduationExecutorV2} from "../../../src/v2/RetroPickGraduationExecutorV2.sol";
+import {UniswapV4GraduationExecutorV2} from "../../../src/v2/UniswapV4GraduationExecutorV2.sol";
 import {RetroPickLaunchLockerV2} from "../../../src/v2/RetroPickLaunchLockerV2.sol";
 import {RetroPickBondingCurveV2} from "../../../src/v2/RetroPickBondingCurveV2.sol";
 import {RetroPickLauncherTokenV2} from "../../../src/v2/RetroPickLauncherTokenV2.sol";
@@ -115,7 +119,7 @@ contract ResearchPermissiveQuotePolicy is IRetroPickQuoteAssetPolicyV2 {
 
 /// @notice Real Factory/Deployer/Token/Curve path with explicitly mocked V4-only singletons.
 /// The mocks do not qualify V4 pool creation or a live Kuru destination.
-contract RetroPickFactoryLaunchV2QualificationTest is Test {
+abstract contract RetroPickFactoryFixtureV2 is Test {
     address internal owner = address(this);
     address internal creator = makeAddr("creator");
     address internal protocol = makeAddr("protocol");
@@ -126,17 +130,20 @@ contract RetroPickFactoryLaunchV2QualificationTest is Test {
     address internal hook = makeAddr("hook");
 
     RetroPickLaunchFactoryV2 internal factory;
+    GraduationCoordinatorV2 internal coordinator;
+    RetroPickQuoteAssetRegistryV2 internal registry;
     RetroPickLaunchDeployerV2 internal deployer;
-    RetroPickGraduationExecutorV2 internal executor;
+    UniswapV4GraduationExecutorV2 internal executor;
     RetroPickLaunchLockerV2 internal locker;
     RetroPickBuybackVaultV2 internal vault;
     RetroPickFeeEscrowV2 internal escrow;
 
-    function setUp() public {
+    function setUp() public virtual {
+        vm.chainId(10143);
         _configureFixture(new ResearchPermissiveQuotePolicy());
     }
 
-    function _configureFixture(IRetroPickQuoteAssetPolicyV2 policy_) internal {
+    function _configureFixture(IRetroPickQuoteAssetPolicyV2) internal {
         vm.etch(positionManager, hex"00");
         vm.etch(hook, hex"00");
         vm.mockCall(positionManager, abi.encodeWithSignature("poolManager()"), abi.encode(poolManager));
@@ -145,26 +152,51 @@ contract RetroPickFactoryLaunchV2QualificationTest is Test {
         vault = new RetroPickBuybackVaultV2(
             owner, RetroPickMemeHookV2(payable(hook)), IRetroPickFeeEscrowV2(address(escrow))
         );
-        factory = new RetroPickLaunchFactoryV2(
-            owner,
-            IPoolManager(poolManager),
-            IPositionManager(positionManager),
-            IAllowanceTransfer(permit2),
-            locker,
-            RetroPickMemeHookV2(payable(hook)),
-            IRetroPickFeeEscrowV2(address(escrow)),
-            vault,
-            policy_,
-            0
+        registry = new RetroPickQuoteAssetRegistryV2(address(this));
+        coordinator = new GraduationCoordinatorV2(address(this));
+        _admit(address(0), 100 ether, 100 ether, 18);
+        factory = RetroPickLaunchFactoryV2(
+            payable(vm.deployCode(
+                    "RetroPickLaunchFactoryV2.sol:RetroPickLaunchFactoryV2",
+                    abi.encode(
+                        owner,
+                        IPoolManager(poolManager),
+                        IPositionManager(positionManager),
+                        IAllowanceTransfer(permit2),
+                        locker,
+                        RetroPickMemeHookV2(payable(hook)),
+                        IRetroPickFeeEscrowV2(address(escrow)),
+                        vault,
+                        registry,
+                        coordinator,
+                        0
+                    )
+                ))
         );
-        deployer = new RetroPickLaunchDeployerV2(address(factory));
-        executor = new RetroPickGraduationExecutorV2(
-            IPositionManager(positionManager), IAllowanceTransfer(permit2), locker, address(factory)
+        deployer = RetroPickLaunchDeployerV2(
+            vm.deployCode("RetroPickLaunchDeployerV2.sol:RetroPickLaunchDeployerV2", abi.encode(address(factory)))
+        );
+        executor = UniswapV4GraduationExecutorV2(
+            payable(vm.deployCode(
+                    "UniswapV4GraduationExecutorV2.sol:UniswapV4GraduationExecutorV2",
+                    abi.encode(
+                        address(coordinator),
+                        IPoolManager(poolManager),
+                        IPositionManager(positionManager),
+                        IAllowanceTransfer(permit2),
+                        locker,
+                        RetroPickMemeHookV2(payable(hook)),
+                        IRetroPickFeeEscrowV2(address(escrow))
+                    )
+                ))
         );
         locker.setFactory(address(factory));
         vault.setFactory(address(factory));
         factory.setLaunchDeployer(deployer);
-        factory.setGraduationExecutor(executor);
+        coordinator.bindFactory(address(factory));
+        factory.configureVenueExecutor(GraduationVenue.UNISWAP_V4, address(executor));
+        locker.setGraduationExecutor(address(executor));
+        vm.mockCall(hook, abi.encodeWithSignature("graduationExecutor()"), abi.encode(address(executor)));
 
         vm.mockCall(hook, abi.encodeWithSignature("factory()"), abi.encode(address(factory)));
         vm.mockCall(hook, abi.encodeWithSignature("buybackVault()"), abi.encode(address(vault)));
@@ -207,6 +239,23 @@ contract RetroPickFactoryLaunchV2QualificationTest is Test {
         });
     }
 
+    function _admit(address quote, uint256 phantom, uint256 threshold, uint8 decimals) internal {
+        QuoteAssetConfig memory c = QuoteAssetConfig(
+            true,
+            decimals,
+            3,
+            registry.getConfig(quote).policyVersion + 1,
+            phantom,
+            threshold,
+            threshold * 50,
+            keccak256("TEST_FIXTURE_QUALIFICATION"),
+            bytes32(0)
+        );
+        registry.configure(quote, c);
+    }
+}
+
+contract RetroPickFactoryLaunchV2QualificationTest is RetroPickFactoryFixtureV2 {
     function testFactoryCreatesAndRecordsNativeLaunch() public {
         RetroPickLaunchFactoryV2.TokenParams memory p = _params(bytes32(uint256(1)));
         p.expectedEconomics = factory.previewLaunchEconomics(0, address(0));
@@ -227,46 +276,26 @@ contract RetroPickFactoryLaunchV2QualificationTest is Test {
         assertEq(curve.reservedTokens(), 500_000 ether);
     }
 
-    function testCanonicalP0PolicyRejectsArbitraryOwnerApprovedQuote() public {
-        RetroPickQuoteAssetPolicyV2 p0Policy = new RetroPickQuoteAssetPolicyV2();
-        assertTrue(p0Policy.isSupportedQuote(address(0)));
-        assertTrue(p0Policy.isSupportedQuote(p0Policy.CIRCLE_TEST_USDC()));
+    function testRegistryRejectsUnadmittedQuoteAndWrongCircleIdentity() public {
+        address circle = registry.CIRCLE_TEST_USDC();
         MockERC20 arbitrary = new MockERC20("Arbitrary", "ARB", 6);
-        assertFalse(p0Policy.isSupportedQuote(address(arbitrary)));
-        RetroPickLaunchFactoryV2 p0Factory = new RetroPickLaunchFactoryV2(
-            owner,
-            IPoolManager(poolManager),
-            IPositionManager(positionManager),
-            IAllowanceTransfer(permit2),
-            locker,
-            RetroPickMemeHookV2(payable(hook)),
-            IRetroPickFeeEscrowV2(address(escrow)),
-            vault,
-            p0Policy,
-            0
-        );
-        vm.expectRevert(RetroPickQuoteAssetPolicyV2.QuoteNotSupported.selector);
-        p0Factory.setPairTokenEconomics(address(arbitrary), 100e6, 100e6, 6);
-        vm.expectRevert(RetroPickLaunchFactoryV2.PairTokenEconomicsInvalid.selector);
-        p0Factory.setPairTokenApproved(address(arbitrary), true);
-
-        address circle = p0Policy.CIRCLE_TEST_USDC();
+        assertFalse(registry.isSupportedQuote(address(arbitrary)));
+        vm.prank(creator);
+        vm.expectRevert(RetroPickQuoteAssetRegistryV2.UnsupportedQuote.selector);
+        factory.launchToken(_params(bytes32(0)), 0, address(arbitrary));
+        QuoteAssetConfig memory c =
+            QuoteAssetConfig(true, 6, 3, 1, 100e6, 100e6, 5000e6, keccak256("CIRCLE_FIXTURE"), bytes32(0));
         vm.etch(circle, hex"");
-        vm.expectRevert(RetroPickQuoteAssetPolicyV2.QuoteCodeMissing.selector);
-        p0Factory.setPairTokenEconomics(circle, 100e6, 100e6, 6);
-
+        vm.expectRevert(RetroPickQuoteAssetRegistryV2.InvalidQuoteConfig.selector);
+        registry.configure(circle, c);
         MockERC20 wrongScale = new MockERC20("Wrong Scale", "WS", 18);
         vm.etch(circle, address(wrongScale).code);
-        vm.expectRevert(
-            abi.encodeWithSelector(RetroPickQuoteAssetPolicyV2.QuoteDecimalsMismatch.selector, uint8(6), uint8(18))
-        );
-        p0Factory.setPairTokenEconomics(circle, 100e6, 100e6, 6);
-
+        vm.expectRevert(RetroPickQuoteAssetRegistryV2.InvalidQuoteConfig.selector);
+        registry.configure(circle, c);
         MockERC20 exactScale = new MockERC20("Circle fixture", "CF", 6);
         vm.etch(circle, address(exactScale).code);
-        p0Factory.setPairTokenEconomics(circle, 100e6, 100e6, 6);
-        p0Factory.setPairTokenApproved(circle, true);
-        assertTrue(p0Factory.approvedPairTokens(circle));
+        registry.configure(circle, c);
+        assertTrue(registry.isSupportedQuote(circle));
     }
 
     function testPinnedCircleCoreLaunchBuySweepAndFailedV4PreservesAssets() public {
@@ -280,8 +309,7 @@ contract RetroPickFactoryLaunchV2QualificationTest is Test {
         RetroPickQuoteAssetPolicyV2 p0Policy = new RetroPickQuoteAssetPolicyV2();
         _configureFixture(p0Policy);
         address circle = p0Policy.CIRCLE_TEST_USDC();
-        factory.setPairTokenEconomics(circle, 100e6, 100e6, 6);
-        factory.setPairTokenApproved(circle, true);
+        _admit(circle, 100e6, 100e6, 6);
         deal(circle, creator, 150e6);
         vm.prank(creator);
         (address tokenAddress, address curveAddress) = factory.launchToken(_params(bytes32(uint256(31))), 0, circle);
@@ -294,7 +322,7 @@ contract RetroPickFactoryLaunchV2QualificationTest is Test {
         assertTrue(curve.graduated());
         assertEq(uint256(factory.getLaunchedToken(tokenAddress).phase), uint256(GraduationPhase.Swept));
         uint256 secured = factory.getLaunchedToken(tokenAddress).sweptQuote;
-        uint256 physicalBefore = IERC20(circle).balanceOf(address(factory));
+        uint256 physicalBefore = IERC20(circle).balanceOf(address(coordinator));
         assertEq(physicalBefore, secured);
         assertEq(curve.trackedQuote(), 0);
         assertEq(IERC20(circle).balanceOf(address(curve)), 0);
@@ -304,7 +332,7 @@ contract RetroPickFactoryLaunchV2QualificationTest is Test {
         vm.expectRevert();
         factory.createGraduatedPool(tokenAddress);
         assertEq(factory.getLaunchedToken(tokenAddress).sweptQuote, secured);
-        assertEq(IERC20(circle).balanceOf(address(factory)), physicalBefore);
+        assertEq(IERC20(circle).balanceOf(address(coordinator)), physicalBefore);
         assertEq(uint256(factory.getLaunchedToken(tokenAddress).phase), uint256(GraduationPhase.Swept));
     }
 
@@ -341,11 +369,10 @@ contract RetroPickFactoryLaunchV2QualificationTest is Test {
         MockERC20 stable = new MockERC20("Test USDC", "USDC", 6);
         RetroPickLaunchFactoryV2.TokenParams memory p = _params(bytes32(uint256(3)));
         vm.prank(creator);
-        vm.expectRevert(RetroPickLaunchFactoryV2.PairTokenNotApproved.selector);
+        vm.expectRevert(RetroPickQuoteAssetRegistryV2.UnsupportedQuote.selector);
         factory.launchToken(p, 0, address(stable));
 
-        factory.setPairTokenEconomics(address(stable), 100e6, 100e6, 6);
-        factory.setPairTokenApproved(address(stable), true);
+        _admit(address(stable), 100e6, 100e6, 6);
         p.expectedEconomics = factory.previewLaunchEconomics(0, address(stable));
         vm.prank(creator);
         (address tokenAddress, address curveAddress) = factory.launchToken(p, 0, address(stable));
@@ -356,8 +383,7 @@ contract RetroPickFactoryLaunchV2QualificationTest is Test {
 
     function testApprovedExactTransferSixDecimalQuoteBuySellBalances() public {
         MockERC20 quote = new MockERC20("Exact Quote", "EQ", 6);
-        factory.setPairTokenEconomics(address(quote), 100e6, 100e6, 6);
-        factory.setPairTokenApproved(address(quote), true);
+        _admit(address(quote), 100e6, 100e6, 6);
         vm.prank(creator);
         (address tokenAddress, address curveAddress) =
             factory.launchToken(_params(bytes32(uint256(5))), 0, address(quote));
@@ -375,8 +401,7 @@ contract RetroPickFactoryLaunchV2QualificationTest is Test {
 
     function testApprovedSenderSurchargeQuoteRejectedBeforeCurveAccounting() public {
         SenderSurchargeQuote quote = new SenderSurchargeQuote();
-        factory.setPairTokenEconomics(address(quote), 100e6, 100e6, 6);
-        factory.setPairTokenApproved(address(quote), true);
+        _admit(address(quote), 100e6, 100e6, 6);
         vm.prank(creator);
         (, address curveAddress) = factory.launchToken(_params(bytes32(uint256(4))), 0, address(quote));
         RetroPickBondingCurveV2 curve = RetroPickBondingCurveV2(payable(curveAddress));
@@ -393,8 +418,7 @@ contract RetroPickFactoryLaunchV2QualificationTest is Test {
 
     function testApprovedFalseReturnQuoteBuyRevertsWithoutStateChange() public {
         FalseReturnQuote quote = new FalseReturnQuote();
-        factory.setPairTokenEconomics(address(quote), 100e6, 100e6, 6);
-        factory.setPairTokenApproved(address(quote), true);
+        _admit(address(quote), 100e6, 100e6, 6);
         vm.prank(creator);
         (address tokenAddress, address curveAddress) =
             factory.launchToken(_params(bytes32(uint256(6))), 0, address(quote));
@@ -413,8 +437,7 @@ contract RetroPickFactoryLaunchV2QualificationTest is Test {
 
     function testApprovedExternallyReducibleQuoteLossFailsClosed() public {
         ExternallyReducibleQuote quote = new ExternallyReducibleQuote();
-        factory.setPairTokenEconomics(address(quote), 100e6, 100e6, 6);
-        factory.setPairTokenApproved(address(quote), true);
+        _admit(address(quote), 100e6, 100e6, 6);
         vm.prank(creator);
         (, address curveAddress) = factory.launchToken(_params(bytes32(uint256(7))), 0, address(quote));
         RetroPickBondingCurveV2 curve = RetroPickBondingCurveV2(payable(curveAddress));
@@ -438,8 +461,7 @@ contract RetroPickFactoryLaunchV2QualificationTest is Test {
 
     function testApprovedCallbackQuoteCannotReenterBuyAccounting() public {
         CallbackQuote quote = new CallbackQuote();
-        factory.setPairTokenEconomics(address(quote), 100e6, 100e6, 6);
-        factory.setPairTokenApproved(address(quote), true);
+        _admit(address(quote), 100e6, 100e6, 6);
         vm.prank(creator);
         (address tokenAddress, address curveAddress) =
             factory.launchToken(_params(bytes32(uint256(8))), 0, address(quote));
@@ -487,8 +509,8 @@ contract RetroPickFactoryLaunchV2QualificationTest is Test {
         assertEq(curve.sellableTokens(), 0);
         assertTrue(curve.graduated(), "crossing buy auto-sweeps into Factory");
         assertEq(uint256(factory.getLaunchedToken(tokenAddress).phase), uint256(GraduationPhase.Swept));
-        uint256 lockedQuote = address(factory).balance;
-        uint256 lockedTokens = RetroPickLauncherTokenV2(tokenAddress).balanceOf(address(factory));
+        uint256 lockedQuote = address(coordinator).balance;
+        uint256 lockedTokens = RetroPickLauncherTokenV2(tokenAddress).balanceOf(address(coordinator));
         assertEq(lockedQuote, factory.getLaunchedToken(tokenAddress).sweptQuote);
         assertEq(lockedTokens, factory.getLaunchedToken(tokenAddress).sweptTokens);
 
@@ -501,15 +523,14 @@ contract RetroPickFactoryLaunchV2QualificationTest is Test {
         vm.expectRevert();
         factory.createGraduatedPool(tokenAddress);
 
-        assertEq(address(factory).balance, lockedQuote, "failed V4 seed did not move secured quote");
-        assertEq(RetroPickLauncherTokenV2(tokenAddress).balanceOf(address(factory)), lockedTokens);
+        assertEq(address(coordinator).balance, lockedQuote, "failed V4 seed did not move secured quote");
+        assertEq(RetroPickLauncherTokenV2(tokenAddress).balanceOf(address(coordinator)), lockedTokens);
         assertEq(uint256(factory.getLaunchedToken(tokenAddress).phase), uint256(GraduationPhase.Swept));
     }
 
     function testFactoryV4SeedRejectsQuoteSenderSurchargeAfterSweep() public {
         ToggleSenderSurchargeQuote quote = new ToggleSenderSurchargeQuote();
-        factory.setPairTokenEconomics(address(quote), 100e6, 100e6, 6);
-        factory.setPairTokenApproved(address(quote), true);
+        _admit(address(quote), 100e6, 100e6, 6);
         vm.prank(creator);
         (address tokenAddress, address curveAddress) =
             factory.launchToken(_params(bytes32(uint256(30))), 0, address(quote));
@@ -520,21 +541,17 @@ contract RetroPickFactoryLaunchV2QualificationTest is Test {
         vm.stopPrank();
         assertEq(uint256(factory.getLaunchedToken(tokenAddress).phase), uint256(GraduationPhase.Swept));
         uint256 secured = factory.getLaunchedToken(tokenAddress).sweptQuote;
-        quote.mint(address(factory), secured / 5); // Surplus makes the extra sender burn executable.
-        uint256 physicalBefore = quote.balanceOf(address(factory));
+        quote.mint(address(coordinator), secured / 5); // Surplus makes the extra sender burn executable.
+        uint256 physicalBefore = quote.balanceOf(address(coordinator));
         quote.setSurchargeEnabled(true);
         vm.etch(poolManager, hex"00");
         vm.mockCall(poolManager, abi.encodeWithSelector(IPoolManager.initialize.selector), abi.encode(int24(0)));
         vm.mockCall(
             positionManager, abi.encodeWithSelector(IPositionManager.nextTokenId.selector), abi.encode(uint256(1))
         );
-        vm.expectRevert(
-            abi.encodeWithSelector(
-                RetroPickLaunchFactoryV2.InexactTransfer.selector, address(quote), secured, secured + secured / 10
-            )
-        );
+        vm.expectRevert(abi.encodeWithSelector(ExactAssetV2.InexactAssetTransfer.selector, address(quote)));
         factory.createGraduatedPool(tokenAddress);
-        assertEq(quote.balanceOf(address(factory)), physicalBefore);
+        assertEq(quote.balanceOf(address(coordinator)), physicalBefore);
         assertEq(factory.getLaunchedToken(tokenAddress).sweptQuote, secured);
         assertEq(uint256(factory.getLaunchedToken(tokenAddress).phase), uint256(GraduationPhase.Swept));
     }
@@ -662,8 +679,7 @@ contract RetroPickFactoryLaunchV2QualificationTest is Test {
         RetroPickQuoteAssetPolicyV2 p0Policy = new RetroPickQuoteAssetPolicyV2();
         _configureFixture(p0Policy);
         address circle = p0Policy.CIRCLE_TEST_USDC();
-        factory.setPairTokenEconomics(circle, 100e6, 100e6, 6);
-        factory.setPairTokenApproved(circle, true);
+        _admit(circle, 100e6, 100e6, 6);
         deal(circle, creator, 200e6);
         _exerciseNearGraduationBuybackFoldBack(circle, 1e6);
     }
@@ -684,8 +700,7 @@ contract RetroPickFactoryLaunchV2QualificationTest is Test {
         RetroPickQuoteAssetPolicyV2 p0Policy = new RetroPickQuoteAssetPolicyV2();
         _configureFixture(p0Policy);
         address circle = p0Policy.CIRCLE_TEST_USDC();
-        factory.setPairTokenEconomics(circle, 100e6, 100e6, 6);
-        factory.setPairTokenApproved(circle, true);
+        _admit(circle, 100e6, 100e6, 6);
         deal(circle, creator, 200e6);
         _exerciseRepeatedBuybackSweepsAndVest(circle, 1e6);
     }

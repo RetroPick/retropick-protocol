@@ -1,6 +1,6 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {basketPreview,canRedeem,validAmount,settlementCovered} from '../.test-output/math.js';
+import {basketPreview,canRedeem,validAmount,settlementCovered} from '../.test-output/domain/math.js';
 test('canonical pFEDBTC payoff and exact backing',()=>{const p=basketPreview(6000,4000,1000);assert.deepEqual(p.payoffs,[.4,0,1,.6]);assert.deepEqual(p.backing,[600,400]);});
 test('nonnegative normalized allocation rejects negative and overweight baskets',()=>{for(const a of [[-1,10001],[6000,5000],[0,0],[NaN,10000],[.5,9999.5]])assert.equal(basketPreview(...a,1000),null);});
 test('zero allocation is supported, never negative liability',()=>{assert.deepEqual(basketPreview(10000,0,5).payoffs,[0,0,1,1]);});

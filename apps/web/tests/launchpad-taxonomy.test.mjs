@@ -3,12 +3,12 @@ import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
 
 const require = createRequire(import.meta.url);
-const { LaunchTokenAdapter, PredictionMarketAdapter, PrismInstrumentAdapter, getInstrumentAdapter, getInstrumentRoute, getInstrumentTradeIntent } = require('../.test-output/launchpad-adapters.js');
-const { createInstrumentRepository, launchInstruments, queryLaunchInstruments } = require('../.test-output/launchpad-repository.js');
-const { resolveContractDeployment, hasExecutableContract } = require('../.test-output/contract-registry.js');
-const { tokenLaunches } = require('../.test-output/launchpad-fixtures.js');
-const { markets } = require('../.test-output/fixtures.js');
-const { prismSeries } = require('../.test-output/prism-fixtures.js');
+const { LaunchTokenAdapter, PredictionMarketAdapter, PrismInstrumentAdapter, getInstrumentAdapter, getInstrumentRoute, getInstrumentTradeIntent } = require('../.test-output/domain/launchpad-adapters.js');
+const { createInstrumentRepository, launchInstruments, queryLaunchInstruments } = require('../.test-output/domain/launchpad-repository.js');
+const { resolveContractDeployment, hasExecutableContract } = require('../.test-output/domain/contract-registry.js');
+const { tokenLaunches } = require('../.test-output/domain/launchpad-fixtures.js');
+const { markets } = require('../.test-output/domain/fixtures.js');
+const { prismSeries } = require('../.test-output/domain/prism-fixtures.js');
 
 const byId = (id) => launchInstruments.find((item) => item.id === id);
 

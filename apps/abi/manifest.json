@@ -1,0 +1,958 @@
+{
+  "schemaVersion": 2,
+  "catalog": "retropick-v2-monad-testnet",
+  "description": "Published JSON ABI catalog derived from the frozen deployment bundle.",
+  "chainId": 10143,
+  "deploymentBlock": 69509526,
+  "deployedSourceSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3",
+  "kuruSDKSourceSHA": "636509c2eafd63479d3f399703354e0d09f51e18",
+  "kuruContractsSourceSHA": "2060bb2736080c175d80d568bfdb6226bb5abd04",
+  "derivedFrom": {
+    "bundle": "deployments/monad-testnet/abi/",
+    "bundleManifestSHA256": "671cd01dcce524abe4a76440e60f0b86633d96b0e63ba17e5f2e8b55acc52df8",
+    "limitations": [
+      "Canonical Circle USDC is an external proxy. Only the qualified ERC20 interface is exported; its full implementation ABI has not been independently established.",
+      "Kuru ABIs are compiled from the pinned qualified official contract source, including overloads missing from the SDK. Dependency commits are recorded. This is not a verified deployed-bytecode match; runtime identity validation remains required."
+    ]
+  },
+  "verification": {
+    "recordedAt": "2026-10-09T17:10:00Z",
+    "evidence": "evidence/launchpad/v2-monad-testnet/source-verification-foundry.md",
+    "sourcifyEndpoints": [
+      "https://sourcify-api-monad.blockvision.org/",
+      "https://sourcify.dev/server/"
+    ],
+    "note": "exact_match = runtime bytecode identity confirmed by Sourcify recompilation."
+  },
+  "templates": {
+    "token": {
+      "abi": "RetroPickLauncherTokenV2.json",
+      "discovery": "TokenLaunched",
+      "coverage": "FULL_ARTIFACT_ABI"
+    },
+    "curve": {
+      "abi": "RetroPickBondingCurveV2.json",
+      "discovery": "TokenLaunched",
+      "coverage": "FULL_ARTIFACT_ABI"
+    },
+    "lpLock": {
+      "abi": "KuruLiquidityLockV2.json",
+      "discovery": "GraduationCompleted + Coordinator.receipt",
+      "coverage": "FULL_ARTIFACT_ABI"
+    },
+    "market": {
+      "abi": "OrderBook.json",
+      "discovery": "GraduationCompleted + Coordinator.receipt",
+      "coverage": "FULL_ARTIFACT_ABI"
+    },
+    "vault": {
+      "abi": "KuruAMMVault.json",
+      "discovery": "GraduationCompleted + Coordinator.receipt",
+      "coverage": "FULL_ARTIFACT_ABI"
+    }
+  },
+  "contracts": [
+    {
+      "contractName": "ERC20MetadataInterface",
+      "abiFile": "ERC20MetadataInterface.json",
+      "abiSHA256": "dae70ba6201d05389d4720aa04cfd6aff7d1525ea78870ec55ef8a964da95cc0",
+      "roles": [
+        "canonicalCircleUSDC"
+      ],
+      "address": "0x534b2f3A21130d7a60830c2Df862319e593943A3",
+      "deployments": [
+        {
+          "role": "canonicalCircleUSDC",
+          "address": "0x534b2f3A21130d7a60830c2Df862319e593943A3"
+        }
+      ],
+      "coverage": "QUALIFIED_INTERFACE_ONLY",
+      "ownership": "EXTERNAL_INTERFACE_ONLY",
+      "origin": {
+        "kind": "ERC20_INTERFACE",
+        "note": "Not the complete Circle proxy/implementation ABI"
+      },
+      "functions": 9,
+      "events": 2,
+      "errors": 0,
+      "verification": {
+        "status": "NOT_SUBMITTED",
+        "reason": "Third-party owned source; not published as RetroPick-owned."
+      }
+    },
+    {
+      "contractName": "ExecutorDonationLockV2",
+      "abiFile": "ExecutorDonationLockV2.json",
+      "abiSHA256": "8cb0c80f9493df5c7c5179a47bbed676ea2227e4d46bd1bba371a8a8d65f802e",
+      "roles": [
+        "kuruDonationLock",
+        "v4DonationLock"
+      ],
+      "address": "0xbcd997c476be3ca0a1608804c9ad55c7ebd5271c",
+      "deployments": [
+        {
+          "role": "kuruDonationLock",
+          "address": "0xbcd997c476be3ca0a1608804c9ad55c7ebd5271c"
+        },
+        {
+          "role": "v4DonationLock",
+          "address": "0xf2aacba1ca0b6683023f437900314419d4aeca3b"
+        }
+      ],
+      "coverage": "FULL_ARTIFACT_ABI",
+      "ownership": "RETROPICK_OWNED",
+      "origin": {
+        "kind": "DEPLOYED_RELEASE_FOUNDRY",
+        "path": "contracts/out/ExecutorDonationsV2.sol/ExecutorDonationLockV2.json",
+        "gitSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3"
+      },
+      "compiler": "0.8.26+commit.8a97fa7a",
+      "functions": 1,
+      "events": 0,
+      "errors": 0,
+      "verification": {
+        "sourcifyRuntimeMatch": "exact_match",
+        "endpoints": [
+          "https://sourcify-api-monad.blockvision.org/",
+          "https://sourcify.dev/server/"
+        ]
+      }
+    },
+    {
+      "contractName": "GraduationCoordinatorV2",
+      "abiFile": "GraduationCoordinatorV2.json",
+      "abiSHA256": "dab04d6a4ba228429212d2437afdfa22e4fb2ebaa6dcde3df37e896881cf058b",
+      "roles": [
+        "coordinator"
+      ],
+      "address": "0xaD62309242EA65BB07C833669EC6a4ED23AF738F",
+      "deployments": [
+        {
+          "role": "coordinator",
+          "address": "0xaD62309242EA65BB07C833669EC6a4ED23AF738F"
+        }
+      ],
+      "coverage": "FULL_ARTIFACT_ABI",
+      "ownership": "RETROPICK_OWNED",
+      "origin": {
+        "kind": "DEPLOYED_RELEASE_FOUNDRY",
+        "path": "contracts/out/GraduationCoordinatorV2.sol/GraduationCoordinatorV2.json",
+        "gitSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3"
+      },
+      "compiler": "0.8.26+commit.8a97fa7a",
+      "functions": 18,
+      "events": 7,
+      "errors": 12,
+      "verification": {
+        "sourcifyRuntimeMatch": "exact_match",
+        "endpoints": [
+          "https://sourcify-api-monad.blockvision.org/",
+          "https://sourcify.dev/server/"
+        ]
+      }
+    },
+    {
+      "contractName": "KuruAMMVault",
+      "abiFile": "KuruAMMVault.json",
+      "abiSHA256": "914814a16d031d0516ac7fb47ffffc1d04ea23a3471004d33c8f123599610915",
+      "roles": [
+        "demo.vault",
+        "kuruVaultImplementation"
+      ],
+      "address": "0xc88DED06eB0081430Ff02d124C22b532e122CbE7",
+      "deployments": [
+        {
+          "role": "demo.vault",
+          "address": "0xc88DED06eB0081430Ff02d124C22b532e122CbE7"
+        },
+        {
+          "role": "kuruVaultImplementation",
+          "address": "0x4d54e0d60CaB0cec0100cdA8e00897bC933C5Bb6"
+        }
+      ],
+      "dynamicInstances": true,
+      "coverage": "FULL_ARTIFACT_ABI",
+      "ownership": "UPSTREAM_KURU",
+      "origin": {
+        "kind": "QUALIFIED_KURU_SOURCE_COMPILE",
+        "url": "https://github.com/Kuru-Labs/Kuru-contracts-dex-public/blob/2060bb2736080c175d80d568bfdb6226bb5abd04/contracts/KuruAMMVault.sol",
+        "gitSHA": "2060bb2736080c175d80d568bfdb6226bb5abd04",
+        "openzeppelinSHA": "fcbae5394ae8ad52d8e580a3477db99814b9d565",
+        "soladySHA": "acd959aa4bd04720d640bf4e6a5c71037510cc4b",
+        "bytecodeMatch": "NOT_ESTABLISHED"
+      },
+      "compiler": "0.8.30+commit.73712a01",
+      "functions": 31,
+      "events": 6,
+      "errors": 22,
+      "verification": {
+        "status": "NOT_SUBMITTED",
+        "reason": "Third-party owned source; not published as RetroPick-owned."
+      }
+    },
+    {
+      "contractName": "KuruEnvironmentV2",
+      "abiFile": "KuruEnvironmentV2.json",
+      "abiSHA256": "aa23b8133c95e0deb25b4a2bf171254b14b58a2be848b3f8096efc61d1895eb5",
+      "roles": [
+        "kuruEnvironment"
+      ],
+      "address": "0xAD59b3ff498d76DbC68351DaD4391D250b1E1Ba1",
+      "deployments": [
+        {
+          "role": "kuruEnvironment",
+          "address": "0xAD59b3ff498d76DbC68351DaD4391D250b1E1Ba1"
+        }
+      ],
+      "coverage": "FULL_ARTIFACT_ABI",
+      "ownership": "RETROPICK_OWNED",
+      "origin": {
+        "kind": "DEPLOYED_RELEASE_FOUNDRY",
+        "path": "contracts/out/KuruEnvironmentV2.sol/KuruEnvironmentV2.json",
+        "gitSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3"
+      },
+      "compiler": "0.8.26+commit.8a97fa7a",
+      "functions": 9,
+      "events": 0,
+      "errors": 1,
+      "verification": {
+        "sourcifyRuntimeMatch": "exact_match",
+        "endpoints": [
+          "https://sourcify-api-monad.blockvision.org/",
+          "https://sourcify.dev/server/"
+        ]
+      }
+    },
+    {
+      "contractName": "KuruGraduationExecutorV2",
+      "abiFile": "KuruGraduationExecutorV2.json",
+      "abiSHA256": "aebe1bfa3970ccd80cb52a8bf008e81852ec2447dbaa34658ad28e9d634c51cf",
+      "roles": [
+        "kuruExecutor"
+      ],
+      "address": "0xa2590ab344BAD0452c53958821A2B74f87871983",
+      "deployments": [
+        {
+          "role": "kuruExecutor",
+          "address": "0xa2590ab344BAD0452c53958821A2B74f87871983"
+        }
+      ],
+      "coverage": "FULL_ARTIFACT_ABI",
+      "ownership": "RETROPICK_OWNED",
+      "origin": {
+        "kind": "DEPLOYED_RELEASE_FOUNDRY",
+        "path": "contracts/out/KuruGraduationExecutorV2.sol/KuruGraduationExecutorV2.json",
+        "gitSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3"
+      },
+      "compiler": "0.8.26+commit.8a97fa7a",
+      "functions": 8,
+      "events": 1,
+      "errors": 10,
+      "verification": {
+        "sourcifyRuntimeMatch": "exact_match",
+        "endpoints": [
+          "https://sourcify-api-monad.blockvision.org/",
+          "https://sourcify.dev/server/"
+        ]
+      }
+    },
+    {
+      "contractName": "KuruLiquidityLockV2",
+      "abiFile": "KuruLiquidityLockV2.json",
+      "abiSHA256": "a88e67ff62d66381a81064f67426a3a9571ee0deb70b3a32368d1a15c2959eea",
+      "roles": [
+        "demo.lpLock"
+      ],
+      "address": "0x72ced84b20Bb8467c5547e3EbF85E62321B6a425",
+      "deployments": [
+        {
+          "role": "demo.lpLock",
+          "address": "0x72ced84b20Bb8467c5547e3EbF85E62321B6a425"
+        }
+      ],
+      "dynamicInstances": true,
+      "coverage": "FULL_ARTIFACT_ABI",
+      "ownership": "RETROPICK_OWNED",
+      "origin": {
+        "kind": "DEPLOYED_RELEASE_FOUNDRY",
+        "path": "contracts/out/KuruLiquidityLockV2.sol/KuruLiquidityLockV2.json",
+        "gitSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3"
+      },
+      "compiler": "0.8.26+commit.8a97fa7a",
+      "functions": 5,
+      "events": 0,
+      "errors": 1,
+      "verification": {
+        "sourcifyRuntimeMatch": "exact_match",
+        "endpoints": [
+          "https://sourcify-api-monad.blockvision.org/",
+          "https://sourcify.dev/server/"
+        ]
+      }
+    },
+    {
+      "contractName": "MarginAccount",
+      "abiFile": "MarginAccount.json",
+      "abiSHA256": "294b29447cb2b374ed93caeee02388f518161e0fa2996580cf4780641689f206",
+      "roles": [
+        "kuruMarginAccount",
+        "kuruMarginImplementation"
+      ],
+      "address": "0xd029C2D98ff85D8F64799017fE00a59B1159CE02",
+      "deployments": [
+        {
+          "role": "kuruMarginAccount",
+          "address": "0xd029C2D98ff85D8F64799017fE00a59B1159CE02"
+        },
+        {
+          "role": "kuruMarginImplementation",
+          "address": "0xf10af40f060b7ae54a2d5da682becc981dfb52c3"
+        }
+      ],
+      "coverage": "FULL_ARTIFACT_ABI",
+      "ownership": "UPSTREAM_KURU",
+      "origin": {
+        "kind": "QUALIFIED_KURU_SOURCE_COMPILE",
+        "url": "https://github.com/Kuru-Labs/Kuru-contracts-dex-public/blob/2060bb2736080c175d80d568bfdb6226bb5abd04/contracts/MarginAccount.sol",
+        "gitSHA": "2060bb2736080c175d80d568bfdb6226bb5abd04",
+        "openzeppelinSHA": "fcbae5394ae8ad52d8e580a3477db99814b9d565",
+        "soladySHA": "acd959aa4bd04720d640bf4e6a5c71037510cc4b",
+        "bytecodeMatch": "NOT_ESTABLISHED"
+      },
+      "compiler": "0.8.30+commit.73712a01",
+      "functions": 24,
+      "events": 9,
+      "errors": 16,
+      "verification": {
+        "status": "NOT_SUBMITTED",
+        "reason": "Third-party owned source; not published as RetroPick-owned."
+      }
+    },
+    {
+      "contractName": "OrderBook",
+      "abiFile": "OrderBook.json",
+      "abiSHA256": "779599a58d76e7bd539a3bc58cae973851d8e7af9bfdd3985cd4c4acc132c57e",
+      "roles": [
+        "demo.market",
+        "kuruOrderBookImplementation"
+      ],
+      "address": "0x1F5dE72616a7fe645Cf45aC66dfce8Ac7452C57F",
+      "deployments": [
+        {
+          "role": "demo.market",
+          "address": "0x1F5dE72616a7fe645Cf45aC66dfce8Ac7452C57F"
+        },
+        {
+          "role": "kuruOrderBookImplementation",
+          "address": "0x72caE0a99C19B574e8a6De558F43fc1D019c9374"
+        }
+      ],
+      "dynamicInstances": true,
+      "coverage": "FULL_ARTIFACT_ABI",
+      "ownership": "UPSTREAM_KURU",
+      "origin": {
+        "kind": "QUALIFIED_KURU_SOURCE_COMPILE",
+        "url": "https://github.com/Kuru-Labs/Kuru-contracts-dex-public/blob/2060bb2736080c175d80d568bfdb6226bb5abd04/contracts/OrderBook.sol",
+        "gitSHA": "2060bb2736080c175d80d568bfdb6226bb5abd04",
+        "openzeppelinSHA": "fcbae5394ae8ad52d8e580a3477db99814b9d565",
+        "soladySHA": "acd959aa4bd04720d640bf4e6a5c71037510cc4b",
+        "bytecodeMatch": "NOT_ESTABLISHED"
+      },
+      "compiler": "0.8.30+commit.73712a01",
+      "functions": 37,
+      "events": 12,
+      "errors": 28,
+      "verification": {
+        "status": "NOT_SUBMITTED",
+        "reason": "Third-party owned source; not published as RetroPick-owned."
+      }
+    },
+    {
+      "contractName": "Permit2",
+      "abiFile": "Permit2.json",
+      "abiSHA256": "62dab8841513e558aeebdbe20dca54f7da8e2224b0c7d62ebc45f28caf45979d",
+      "roles": [
+        "permit2"
+      ],
+      "address": "0x10301c3690501cF1a7c27300de4779E695DEDaE1",
+      "deployments": [
+        {
+          "role": "permit2",
+          "address": "0x10301c3690501cF1a7c27300de4779E695DEDaE1"
+        }
+      ],
+      "coverage": "FULL_ARTIFACT_ABI",
+      "ownership": "UPSTREAM_UNISWAP_V4_STACK",
+      "origin": {
+        "kind": "DEPLOYMENT_DEPENDENCY_FOUNDRY",
+        "path": "contracts/lib/v4-deployment-periphery/lib/permit2/out/Permit2.sol/Permit2.json",
+        "deploymentSourceSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3"
+      },
+      "compiler": "0.8.17+commit.8df45f5f",
+      "functions": 15,
+      "events": 5,
+      "errors": 11,
+      "verification": {
+        "status": "NOT_SUBMITTED",
+        "reason": "Third-party owned source; not published as RetroPick-owned."
+      }
+    },
+    {
+      "contractName": "PoolManager",
+      "abiFile": "PoolManager.json",
+      "abiSHA256": "83db8be4e85c7d37e0551191c8326ff1b715f6946bc7dabc8e039f6727092f38",
+      "roles": [
+        "poolManager"
+      ],
+      "address": "0xD18dE14a0DB8adc66fd9c1CB9B960dea02c5D3c9",
+      "deployments": [
+        {
+          "role": "poolManager",
+          "address": "0xD18dE14a0DB8adc66fd9c1CB9B960dea02c5D3c9"
+        }
+      ],
+      "coverage": "FULL_ARTIFACT_ABI",
+      "ownership": "UPSTREAM_UNISWAP_V4_STACK",
+      "origin": {
+        "kind": "DEPLOYMENT_DEPENDENCY_FOUNDRY",
+        "path": "contracts/deployment-v4/out/PoolManager.sol/PoolManager.json",
+        "deploymentSourceSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3"
+      },
+      "compiler": "0.8.26+commit.8a97fa7a",
+      "functions": 33,
+      "events": 10,
+      "errors": 15,
+      "verification": {
+        "status": "NOT_SUBMITTED",
+        "reason": "Third-party owned source; not published as RetroPick-owned."
+      }
+    },
+    {
+      "contractName": "PositionDescriptor",
+      "abiFile": "PositionDescriptor.json",
+      "abiSHA256": "140f2f8adb11b1a859727054192d03709a6a3e524719b2ce4664d55f69c2ce1c",
+      "roles": [
+        "positionDescriptor"
+      ],
+      "address": "0xB0769a3517f31b324cb5C0f7ca337F2239796532",
+      "deployments": [
+        {
+          "role": "positionDescriptor",
+          "address": "0xB0769a3517f31b324cb5C0f7ca337F2239796532"
+        }
+      ],
+      "coverage": "FULL_ARTIFACT_ABI",
+      "ownership": "UPSTREAM_UNISWAP_V4_STACK",
+      "origin": {
+        "kind": "DEPLOYMENT_DEPENDENCY_FOUNDRY",
+        "path": "contracts/deployment-v4/out/PositionDescriptor.sol/PositionDescriptor.json",
+        "deploymentSourceSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3"
+      },
+      "compiler": "0.8.26+commit.8a97fa7a",
+      "functions": 6,
+      "events": 0,
+      "errors": 3,
+      "verification": {
+        "status": "NOT_SUBMITTED",
+        "reason": "Third-party owned source; not published as RetroPick-owned."
+      }
+    },
+    {
+      "contractName": "PositionManager",
+      "abiFile": "PositionManager.json",
+      "abiSHA256": "6584aff67a588648ea23d9915db506f5bb7ab40245bfeed56543c392af85d038",
+      "roles": [
+        "positionManager"
+      ],
+      "address": "0x3eb4cB7B07EbeDe7A2A508e4cf0D9e575dC449a9",
+      "deployments": [
+        {
+          "role": "positionManager",
+          "address": "0x3eb4cB7B07EbeDe7A2A508e4cf0D9e575dC449a9"
+        }
+      ],
+      "coverage": "FULL_ARTIFACT_ABI",
+      "ownership": "UPSTREAM_UNISWAP_V4_STACK",
+      "origin": {
+        "kind": "DEPLOYMENT_DEPENDENCY_FOUNDRY",
+        "path": "contracts/deployment-v4/out/PositionManager.sol/PositionManager.json",
+        "deploymentSourceSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3"
+      },
+      "compiler": "0.8.26+commit.8a97fa7a",
+      "functions": 39,
+      "events": 6,
+      "errors": 28,
+      "verification": {
+        "status": "NOT_SUBMITTED",
+        "reason": "Third-party owned source; not published as RetroPick-owned."
+      }
+    },
+    {
+      "contractName": "RetroPickBondingCurveV2",
+      "abiFile": "RetroPickBondingCurveV2.json",
+      "abiSHA256": "9fcb24c0c64cada431e84f1be20a0f1a7c1975f40678de57651b14843d8fee97",
+      "roles": [
+        "demo.curve"
+      ],
+      "address": "0x454A3A449d4e65CA5203d331905d167BA218E276",
+      "deployments": [
+        {
+          "role": "demo.curve",
+          "address": "0x454A3A449d4e65CA5203d331905d167BA218E276"
+        }
+      ],
+      "dynamicInstances": true,
+      "coverage": "FULL_ARTIFACT_ABI",
+      "ownership": "RETROPICK_OWNED",
+      "origin": {
+        "kind": "DEPLOYED_RELEASE_FOUNDRY",
+        "path": "contracts/out/RetroPickBondingCurveV2.sol/RetroPickBondingCurveV2.json",
+        "gitSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3"
+      },
+      "compiler": "0.8.26+commit.8a97fa7a",
+      "functions": 43,
+      "events": 11,
+      "errors": 27,
+      "verification": {
+        "sourcifyRuntimeMatch": "exact_match",
+        "endpoints": [
+          "https://sourcify-api-monad.blockvision.org/",
+          "https://sourcify.dev/server/"
+        ]
+      }
+    },
+    {
+      "contractName": "RetroPickBuybackVaultV2",
+      "abiFile": "RetroPickBuybackVaultV2.json",
+      "abiSHA256": "ee53a91f5420bbb1146b9659ed48b93aa01d66bcb57962cbcffd115015c8e87e",
+      "roles": [
+        "buybackVault"
+      ],
+      "address": "0x2D746643E0BA37F127b38A4C04866a123895BE09",
+      "deployments": [
+        {
+          "role": "buybackVault",
+          "address": "0x2D746643E0BA37F127b38A4C04866a123895BE09"
+        }
+      ],
+      "coverage": "FULL_ARTIFACT_ABI",
+      "ownership": "RETROPICK_OWNED",
+      "origin": {
+        "kind": "DEPLOYED_RELEASE_FOUNDRY",
+        "path": "contracts/out/RetroPickBuybackVaultV2.sol/RetroPickBuybackVaultV2.json",
+        "gitSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3"
+      },
+      "compiler": "0.8.26+commit.8a97fa7a",
+      "functions": 19,
+      "events": 7,
+      "errors": 12,
+      "verification": {
+        "sourcifyRuntimeMatch": "exact_match",
+        "endpoints": [
+          "https://sourcify-api-monad.blockvision.org/",
+          "https://sourcify.dev/server/"
+        ]
+      }
+    },
+    {
+      "contractName": "RetroPickFeeEscrowV2",
+      "abiFile": "RetroPickFeeEscrowV2.json",
+      "abiSHA256": "1ebade9cc6c6461960258d1359ca030b1b16e29942944d120b324237c7012171",
+      "roles": [
+        "feeEscrow"
+      ],
+      "address": "0xb0312b0412c3BAa11895A6c4FeeC7CD9A01c2D96",
+      "deployments": [
+        {
+          "role": "feeEscrow",
+          "address": "0xb0312b0412c3BAa11895A6c4FeeC7CD9A01c2D96"
+        }
+      ],
+      "coverage": "FULL_ARTIFACT_ABI",
+      "ownership": "RETROPICK_OWNED",
+      "origin": {
+        "kind": "DEPLOYED_RELEASE_FOUNDRY",
+        "path": "contracts/out/RetroPickFeeEscrowV2.sol/RetroPickFeeEscrowV2.json",
+        "gitSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3"
+      },
+      "compiler": "0.8.26+commit.8a97fa7a",
+      "functions": 10,
+      "events": 4,
+      "errors": 8,
+      "verification": {
+        "sourcifyRuntimeMatch": "exact_match",
+        "endpoints": [
+          "https://sourcify-api-monad.blockvision.org/",
+          "https://sourcify.dev/server/"
+        ]
+      }
+    },
+    {
+      "contractName": "RetroPickGraduationGuardV2",
+      "abiFile": "RetroPickGraduationGuardV2.json",
+      "abiSHA256": "9b9dac57b265ca6b38fbc6909ed8d255b6b1d613f654a12be2738b0399f9cb14",
+      "roles": [
+        "v4Guard"
+      ],
+      "address": "0x1f1cbe81f6f0abd8165cdf691700f64ec36339a8",
+      "deployments": [
+        {
+          "role": "v4Guard",
+          "address": "0x1f1cbe81f6f0abd8165cdf691700f64ec36339a8"
+        }
+      ],
+      "coverage": "FULL_ARTIFACT_ABI",
+      "ownership": "RETROPICK_OWNED",
+      "origin": {
+        "kind": "DEPLOYED_RELEASE_FOUNDRY",
+        "path": "contracts/out/RetroPickGraduationGuardV2.sol/RetroPickGraduationGuardV2.json",
+        "gitSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3"
+      },
+      "compiler": "0.8.26+commit.8a97fa7a",
+      "functions": 2,
+      "events": 0,
+      "errors": 4,
+      "verification": {
+        "sourcifyRuntimeMatch": "exact_match",
+        "endpoints": [
+          "https://sourcify-api-monad.blockvision.org/",
+          "https://sourcify.dev/server/"
+        ]
+      }
+    },
+    {
+      "contractName": "RetroPickHookDeployerV2",
+      "abiFile": "RetroPickHookDeployerV2.json",
+      "abiSHA256": "44b1eb2bbde4f8063ddee66ac04994c981c8508703b5ec1c1bbbbfb063563154",
+      "roles": [
+        "hookDeployer"
+      ],
+      "address": "0x09fC0edEEBf13C171eE5739eac6B9C7f3400C9B8",
+      "deployments": [
+        {
+          "role": "hookDeployer",
+          "address": "0x09fC0edEEBf13C171eE5739eac6B9C7f3400C9B8"
+        }
+      ],
+      "coverage": "FULL_ARTIFACT_ABI",
+      "ownership": "RETROPICK_OWNED",
+      "origin": {
+        "kind": "DEPLOYED_RELEASE_FOUNDRY",
+        "path": "contracts/out/RetroPickHookDeployerV2.sol/RetroPickHookDeployerV2.json",
+        "gitSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3"
+      },
+      "compiler": "0.8.26+commit.8a97fa7a",
+      "functions": 2,
+      "events": 0,
+      "errors": 1,
+      "verification": {
+        "sourcifyRuntimeMatch": "exact_match",
+        "endpoints": [
+          "https://sourcify-api-monad.blockvision.org/",
+          "https://sourcify.dev/server/"
+        ]
+      }
+    },
+    {
+      "contractName": "RetroPickLaunchDeployerV2",
+      "abiFile": "RetroPickLaunchDeployerV2.json",
+      "abiSHA256": "8c09a61d723b74b7b38ecccecc7ed9f52d1273058b5e1c8ca385237636c11b3b",
+      "roles": [
+        "launchDeployer"
+      ],
+      "address": "0x14080b43f3d45B47AEefF3bC1b0bee0cf0cCF5d8",
+      "deployments": [
+        {
+          "role": "launchDeployer",
+          "address": "0x14080b43f3d45B47AEefF3bC1b0bee0cf0cCF5d8"
+        }
+      ],
+      "coverage": "FULL_ARTIFACT_ABI",
+      "ownership": "RETROPICK_OWNED",
+      "origin": {
+        "kind": "DEPLOYED_RELEASE_FOUNDRY",
+        "path": "contracts/out/RetroPickLaunchDeployerV2.sol/RetroPickLaunchDeployerV2.json",
+        "gitSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3"
+      },
+      "compiler": "0.8.26+commit.8a97fa7a",
+      "functions": 2,
+      "events": 0,
+      "errors": 2,
+      "verification": {
+        "sourcifyRuntimeMatch": "exact_match",
+        "endpoints": [
+          "https://sourcify-api-monad.blockvision.org/",
+          "https://sourcify.dev/server/"
+        ]
+      }
+    },
+    {
+      "contractName": "RetroPickLaunchFactoryV2",
+      "abiFile": "RetroPickLaunchFactoryV2.json",
+      "abiSHA256": "70a563adf79ce6fff50b8fb00af49ea1ca000bb396d0b307bfd80fd780050ba4",
+      "roles": [
+        "factory"
+      ],
+      "address": "0xa7f18b9eceb0A9852b08408854A45D00fc682454",
+      "deployments": [
+        {
+          "role": "factory",
+          "address": "0xa7f18b9eceb0A9852b08408854A45D00fc682454"
+        }
+      ],
+      "coverage": "FULL_ARTIFACT_ABI",
+      "ownership": "RETROPICK_OWNED",
+      "origin": {
+        "kind": "DEPLOYED_RELEASE_FOUNDRY",
+        "path": "contracts/out/RetroPickLaunchFactoryV2.sol/RetroPickLaunchFactoryV2.json",
+        "gitSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3"
+      },
+      "compiler": "0.8.26+commit.8a97fa7a",
+      "functions": 58,
+      "events": 25,
+      "errors": 46,
+      "verification": {
+        "sourcifyRuntimeMatch": "exact_match",
+        "endpoints": [
+          "https://sourcify-api-monad.blockvision.org/",
+          "https://sourcify.dev/server/"
+        ]
+      }
+    },
+    {
+      "contractName": "RetroPickLaunchLockerV2",
+      "abiFile": "RetroPickLaunchLockerV2.json",
+      "abiSHA256": "c5d6393e0de19d899f5df74a0a51eb13b641ee210673f2d601cf027a3c1b4132",
+      "roles": [
+        "locker"
+      ],
+      "address": "0x7bb3aA1e48490F810e3F1eEC1Dda52D1F4d76A19",
+      "deployments": [
+        {
+          "role": "locker",
+          "address": "0x7bb3aA1e48490F810e3F1eEC1Dda52D1F4d76A19"
+        }
+      ],
+      "coverage": "FULL_ARTIFACT_ABI",
+      "ownership": "RETROPICK_OWNED",
+      "origin": {
+        "kind": "DEPLOYED_RELEASE_FOUNDRY",
+        "path": "contracts/out/RetroPickLaunchLockerV2.sol/RetroPickLaunchLockerV2.json",
+        "gitSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3"
+      },
+      "compiler": "0.8.26+commit.8a97fa7a",
+      "functions": 16,
+      "events": 5,
+      "errors": 11,
+      "verification": {
+        "sourcifyRuntimeMatch": "exact_match",
+        "endpoints": [
+          "https://sourcify-api-monad.blockvision.org/",
+          "https://sourcify.dev/server/"
+        ]
+      }
+    },
+    {
+      "contractName": "RetroPickLauncherTokenV2",
+      "abiFile": "RetroPickLauncherTokenV2.json",
+      "abiSHA256": "7906a46f3ddf5af72be4a8da600c1f81d2e5df94f59dea5fb738e9ab3467f65c",
+      "roles": [
+        "demo.token"
+      ],
+      "address": "0x43e7e9b1b7d9A143573307b13D14B51580c18f15",
+      "deployments": [
+        {
+          "role": "demo.token",
+          "address": "0x43e7e9b1b7d9A143573307b13D14B51580c18f15"
+        }
+      ],
+      "dynamicInstances": true,
+      "coverage": "FULL_ARTIFACT_ABI",
+      "ownership": "RETROPICK_OWNED",
+      "origin": {
+        "kind": "DEPLOYED_RELEASE_FOUNDRY",
+        "path": "contracts/out/RetroPickLauncherTokenV2.sol/RetroPickLauncherTokenV2.json",
+        "gitSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3"
+      },
+      "compiler": "0.8.26+commit.8a97fa7a",
+      "functions": 18,
+      "events": 2,
+      "errors": 7,
+      "verification": {
+        "sourcifyRuntimeMatch": "exact_match",
+        "endpoints": [
+          "https://sourcify-api-monad.blockvision.org/",
+          "https://sourcify.dev/server/"
+        ]
+      }
+    },
+    {
+      "contractName": "RetroPickMemeHookV2",
+      "abiFile": "RetroPickMemeHookV2.json",
+      "abiSHA256": "3a6f65a982fe82f8ce5f83d6fdd2cba7835b5f6330eea1ab20a2b20b4822228b",
+      "roles": [
+        "hook"
+      ],
+      "address": "0x6d70125c61aD8f1a6d85eA4C37c94680b42f2044",
+      "deployments": [
+        {
+          "role": "hook",
+          "address": "0x6d70125c61aD8f1a6d85eA4C37c94680b42f2044"
+        }
+      ],
+      "coverage": "FULL_ARTIFACT_ABI",
+      "ownership": "RETROPICK_OWNED",
+      "origin": {
+        "kind": "DEPLOYED_RELEASE_FOUNDRY",
+        "path": "contracts/out/RetroPickMemeHookV2.sol/RetroPickMemeHookV2.json",
+        "gitSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3"
+      },
+      "compiler": "0.8.26+commit.8a97fa7a",
+      "functions": 47,
+      "events": 18,
+      "errors": 22,
+      "verification": {
+        "sourcifyRuntimeMatch": "exact_match",
+        "endpoints": [
+          "https://sourcify-api-monad.blockvision.org/",
+          "https://sourcify.dev/server/"
+        ]
+      }
+    },
+    {
+      "contractName": "RetroPickQuoteAssetRegistryV2",
+      "abiFile": "RetroPickQuoteAssetRegistryV2.json",
+      "abiSHA256": "d8135a6886f385a4b802b4e5d9aeb1b938b89aa4d675ee39f49b28032bd332a3",
+      "roles": [
+        "quoteRegistry"
+      ],
+      "address": "0xd1211276869ec55CAF302E22371D2005B23B9B40",
+      "deployments": [
+        {
+          "role": "quoteRegistry",
+          "address": "0xd1211276869ec55CAF302E22371D2005B23B9B40"
+        }
+      ],
+      "coverage": "FULL_ARTIFACT_ABI",
+      "ownership": "RETROPICK_OWNED",
+      "origin": {
+        "kind": "DEPLOYED_RELEASE_FOUNDRY",
+        "path": "contracts/out/RetroPickQuoteAssetRegistryV2.sol/RetroPickQuoteAssetRegistryV2.json",
+        "gitSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3"
+      },
+      "compiler": "0.8.26+commit.8a97fa7a",
+      "functions": 12,
+      "events": 3,
+      "errors": 5,
+      "verification": {
+        "sourcifyRuntimeMatch": "exact_match",
+        "endpoints": [
+          "https://sourcify-api-monad.blockvision.org/",
+          "https://sourcify.dev/server/"
+        ]
+      }
+    },
+    {
+      "contractName": "Router",
+      "abiFile": "Router.json",
+      "abiSHA256": "dc4272a72b681ae138deaff9bad0e10ce1c6b4bb6a2ec8c3be0d740c50173166",
+      "roles": [
+        "kuruRouter",
+        "kuruRouterImplementation"
+      ],
+      "address": "0x7EFbE105Ca7415dE98F96622173458ac1c054630",
+      "deployments": [
+        {
+          "role": "kuruRouter",
+          "address": "0x7EFbE105Ca7415dE98F96622173458ac1c054630"
+        },
+        {
+          "role": "kuruRouterImplementation",
+          "address": "0xaaa0f0c4d49d09ef33ae758d88afab810ecbe1ed"
+        }
+      ],
+      "coverage": "FULL_ARTIFACT_ABI",
+      "ownership": "UPSTREAM_KURU",
+      "origin": {
+        "kind": "QUALIFIED_KURU_SOURCE_COMPILE",
+        "url": "https://github.com/Kuru-Labs/Kuru-contracts-dex-public/blob/2060bb2736080c175d80d568bfdb6226bb5abd04/contracts/Router.sol",
+        "gitSHA": "2060bb2736080c175d80d568bfdb6226bb5abd04",
+        "openzeppelinSHA": "fcbae5394ae8ad52d8e580a3477db99814b9d565",
+        "soladySHA": "acd959aa4bd04720d640bf4e6a5c71037510cc4b",
+        "bytecodeMatch": "NOT_ESTABLISHED"
+      },
+      "compiler": "0.8.30+commit.73712a01",
+      "functions": 25,
+      "events": 9,
+      "errors": 23,
+      "verification": {
+        "status": "NOT_SUBMITTED",
+        "reason": "Third-party owned source; not published as RetroPick-owned."
+      }
+    },
+    {
+      "contractName": "UniswapV4GraduationExecutorV2",
+      "abiFile": "UniswapV4GraduationExecutorV2.json",
+      "abiSHA256": "6fcc5f23de430ee7ff130cd067f5a77f4c6b5a0eb9553dd0ef80dda8cbe5e80c",
+      "roles": [
+        "v4Executor"
+      ],
+      "address": "0xCB4670e7D2146A9Ca4541C383844b281Cf53Edb1",
+      "deployments": [
+        {
+          "role": "v4Executor",
+          "address": "0xCB4670e7D2146A9Ca4541C383844b281Cf53Edb1"
+        }
+      ],
+      "coverage": "FULL_ARTIFACT_ABI",
+      "ownership": "RETROPICK_OWNED",
+      "origin": {
+        "kind": "DEPLOYED_RELEASE_FOUNDRY",
+        "path": "contracts/out/UniswapV4GraduationExecutorV2.sol/UniswapV4GraduationExecutorV2.json",
+        "gitSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3"
+      },
+      "compiler": "0.8.26+commit.8a97fa7a",
+      "functions": 14,
+      "events": 1,
+      "errors": 10,
+      "verification": {
+        "sourcifyRuntimeMatch": "exact_match",
+        "endpoints": [
+          "https://sourcify-api-monad.blockvision.org/",
+          "https://sourcify.dev/server/"
+        ]
+      }
+    },
+    {
+      "contractName": "WETH",
+      "abiFile": "WETH.json",
+      "abiSHA256": "339e380e7c2496b68bf6777bb451e9e611528fa2a18a6a1b10e189a7ccff0d1d",
+      "roles": [
+        "wrappedNative"
+      ],
+      "address": "0xff437B117Ec17a79a3b24Da4B5047dca4da9D0a2",
+      "deployments": [
+        {
+          "role": "wrappedNative",
+          "address": "0xff437B117Ec17a79a3b24Da4B5047dca4da9D0a2"
+        }
+      ],
+      "coverage": "FULL_ARTIFACT_ABI",
+      "ownership": "UPSTREAM_UNISWAP_V4_STACK",
+      "origin": {
+        "kind": "DEPLOYMENT_DEPENDENCY_FOUNDRY",
+        "path": "contracts/deployment-v4/out/WETH.sol/WETH.json",
+        "deploymentSourceSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3"
+      },
+      "compiler": "0.8.26+commit.8a97fa7a",
+      "functions": 14,
+      "events": 4,
+      "errors": 0,
+      "verification": {
+        "status": "NOT_SUBMITTED",
+        "reason": "Third-party owned source; not published as RetroPick-owned."
+      }
+    }
+  ],
+  "generatedAt": "2026-10-09T17:19:30Z"
+}

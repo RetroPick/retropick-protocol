@@ -16,7 +16,7 @@ The canonical deployed candidate demonstrates:
 - ✅ Permissionless completion/retry
 - ✅ Live testnet limit order, fill and cancel
 
-Public frontend deployment and demo video are being verified for the submission. The testnet contract lifecycle is already evidenced; this is an **unaudited hackathon candidate**, not a production or mainnet release. Canonical Circle-USDC live smoke: **BLOCKED_FUNDING**.
+[Open the live frontend](https://retropick-metropolis.vercel.app). A fresh public-frontend launch, buy/sell, Kuru graduation and two-wallet order/fill/cancel are [verified](evidence/hackathon/metropolis/frontend-e2e-trading.json). [Watch the 2:48 technical demo](https://retropick-metropolis.vercel.app/launchpad/demo). The testnet contract lifecycle is already evidenced; this is an **unaudited hackathon candidate**, not a production or mainnet release. Canonical Circle-USDC live smoke: **BLOCKED_FUNDING**.
 
 [Judge overview](HACKATHON.md) · [Evidence map](docs/hackathon/EVIDENCE_MAP.md) · [Full deployment manifest](deployments/monad-testnet/v2.json) · [Metropolis requirements](docs/hackathon/METROPOLIS_REQUIREMENTS.md)
 
@@ -41,6 +41,8 @@ RetroPick specializes in issuance, creator distribution, primary discovery and g
 | Permanent LP/excess lock | [0x72ced84b20Bb8467c5547e3EbF85E62321B6a425](https://testnet.monadexplorer.com/address/0x72ced84b20Bb8467c5547e3EbF85E62321B6a425) |
 
 Six concise proof transactions: [launch](https://testnet.monadexplorer.com/tx/0x5cc1d0469ee7b811139055a81f2ba85a49a3de5b8ea54e158426693a556271f3), [bonding buy](https://testnet.monadexplorer.com/tx/0x41627a9090bd0fbdac03126457de8b3bc60a29486c70efffd18f71997596a926), [graduation](https://testnet.monadexplorer.com/tx/0x70d0cb480e7824ca9af62eaa5cb8d246a352efc6f2ba3585119c8bc64fa63fde), [order](https://testnet.monadexplorer.com/tx/0xabd44f6922c652f0043658bf86f7d72e5cc550d4755a001cfd8d1c519ae515b7), [fill](https://testnet.monadexplorer.com/tx/0x93e056ca41c8f55022c2030f4ecaade5775187fc443e8b98f7ddac7a65855415), [cancel](https://testnet.monadexplorer.com/tx/0x471faeb38c8598fc7207cb97c18a550db989e6d43bf0ce23b3539ea7920ac920). These are functional testnet transactions, not organic adoption.
+
+[Verified contract sources — seven exact runtime matches](evidence/hackathon/metropolis/SOURCE_VERIFICATION.md).
 
 ## Engineering depth
 

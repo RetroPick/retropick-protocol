@@ -21,3 +21,7 @@ Start in the live product, not a terminal. Use testnet assets. Record real recei
 ## Recording checklist
 
 Use a fresh launch where possible; record token/curve/market/vault/lock and each hash. Prepare two funded testnet actors; avoid exposing keystores, provider secrets or account credentials. Show actual onchain success, not just button clicks. Narrate test trades as functional evidence, not demand. Public video must meet the portal's ≤3-minute limit. Founder pitch is a separate required ≤2-minute video. Keep a canonical market fallback and receipt links available.
+
+## Recorded technical demo
+
+[Public player](https://retropick-metropolis.vercel.app/launchpad/demo) · [Direct MP4](https://retropick-metropolis.vercel.app/demo/retropick-technical-demo.mp4). Duration: 168.08 seconds. Captioned real browser footage with documented cuts and acceleration; no founder impersonation. Funded EIP-1193 test-wallet adapters signed onchain transactions through the public frontend. [Edit manifest](../../evidence/hackathon/metropolis/technical-demo-edit.json), [launch proof](../../evidence/hackathon/metropolis/frontend-e2e-launch.json), [order/fill/cancel assertions](../../evidence/hackathon/metropolis/frontend-e2e-trading.json). The separate founder pitch URL remains pending.

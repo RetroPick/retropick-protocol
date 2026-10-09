@@ -1,0 +1,95 @@
+{
+  "token": "0x9BAE085e25c940Ed311d15D423C602B1C5d3CCf5",
+  "curve": "0xec20a47A42996B5f0b5d8588b423F1415D55A407",
+  "url": "https://retropick-metropolis.vercel.app/launchpad/token/0x9BAE085e25c940Ed311d15D423C602B1C5d3CCf5",
+  "market": "0x9dC675E88da25E7BBea297344b7b094689677517",
+  "vault": "0x884E97123b3933460D79e5c312247ea5B73D87DF",
+  "lpLock": "0x9F5fb44A1f4A1850651C6991de68c2636D0EC2e1",
+  "core": "PASS",
+  "graduation": "PASS",
+  "securedQuote": "1000000000000000002",
+  "securedLaunchTokens": "500000000000000000000",
+  "protectedLPAmount": "15811388300841895683",
+  "protectedExcessAmount": "249999999999999999751",
+  "quoteAsset": "0x0000000000000000000000000000000000000000",
+  "onchainVerification": {
+    "phase": "GRADUATED",
+    "ledgerWords": [
+      2,
+      "1000000000000000002",
+      "500000000000000000000",
+      "1000000000000000002",
+      "500000000000000000000",
+      "900737369839879226140530064089051841977504986391",
+      "59403363338830858858381131538753040293033877867197453039145278573710002096405",
+      "909863808788804553529598250937368291292138619617",
+      "15811388300841895683",
+      "909863808788804553529598250937368291292138619617",
+      "249999999999999999751",
+      1791553488
+    ],
+    "coordinatorPhysicalQuote": 0,
+    "coordinatorQuoteLiability": 0,
+    "workerResiduals": 0,
+    "workerVaultAllowances": 0,
+    "verifiedAtBlock": 69554910
+  },
+  "transactions": [
+    {
+      "actor": "B",
+      "to": "0xa7f18b9eceb0A9852b08408854A45D00fc682454",
+      "selector": "0x41c0731e",
+      "hash": "0xc5f588761e535a747d6e1659229b8c97857831175eea73d2579332240f2bc25a",
+      "block": 69553735,
+      "status": "CONFIRMED"
+    },
+    {
+      "actor": "B",
+      "to": "0xec20a47A42996B5f0b5d8588b423F1415D55A407",
+      "selector": "0x59a87bc1",
+      "hash": "0xc69d41779c5864bb7c5d12a6da1a803702d217528aad0dd9f96cb705c44b4d79",
+      "block": 69553781,
+      "status": "CONFIRMED"
+    },
+    {
+      "actor": "B",
+      "to": "0x9BAE085e25c940Ed311d15D423C602B1C5d3CCf5",
+      "selector": "0x095ea7b3",
+      "hash": "0xb536c76541f89727765bcf0b66c5adbbe80fdb0cb87c00efe4427092eb5035e9",
+      "block": 69553838,
+      "status": "CONFIRMED"
+    },
+    {
+      "actor": "B",
+      "to": "0xec20a47A42996B5f0b5d8588b423F1415D55A407",
+      "selector": "0xd04c6983",
+      "hash": "0x251b9b62f05d4c859a1e26e7056826118c6a930bf5f9f2f56d0a3da1b91766a3",
+      "block": 69553848,
+      "status": "CONFIRMED"
+    },
+    {
+      "actor": "B",
+      "to": "0xec20a47A42996B5f0b5d8588b423F1415D55A407",
+      "selector": "0x59a87bc1",
+      "hash": "0x4ea4a6f2be6e5a9829fc21629874d3236b3caba4dfc49b2f19547bcacfa50379",
+      "block": 69553875,
+      "status": "CONFIRMED"
+    },
+    {
+      "actor": "B",
+      "to": "0xa7f18b9eceb0A9852b08408854A45D00fc682454",
+      "selector": "0xff6d8d05",
+      "hash": "0xe4e794927bc9f23aeff86d25b83c95b89ae11c710e693f89f7e556bf80bc72bb",
+      "block": 69554494,
+      "status": "CONFIRMED"
+    },
+    {
+      "actor": "B",
+      "to": "0xaD62309242EA65BB07C833669EC6a4ED23AF738F",
+      "selector": "0x93af0292",
+      "hash": "0xa97bdfefbf61cad929421b879fb2998c81dba457f11b8e6c9b7d67be6a3b63d6",
+      "block": 69554538,
+      "status": "CONFIRMED"
+    }
+  ]
+}

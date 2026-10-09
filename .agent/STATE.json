@@ -19,15 +19,15 @@
       "current_runtime": {
         "contracts": "V2_MONAD_TESTNET_DEPLOYED",
         "kuru": "MON_GRADUATION_AND_TWO_ACTOR_SMOKE_PASS",
-        "web": "LIVE_MON_KURU_IMPLEMENTATION_UNDER_VERIFICATION",
+        "web": "LIVE_PUBLIC_FRONTEND_MON_KURU_WALLET_E2E_PASS",
         "api": "NOT_IMPLEMENTED",
         "indexer": "NOT_IMPLEMENTED"
       },
       "blockers": [
-        "METROPOLIS_FRONTEND_RELEASE_VERIFICATION",
-        "REQUIRED_DEMO_AND_PITCH_VIDEOS",
-        "SOURCE_VERIFICATION",
-        "FOUNDER_SUBMISSION_APPROVAL"
+        "FINAL_RELEASE_QUALIFICATION_AND_TAG",
+        "REQUIRED_FOUNDER_PITCH_VIDEO",
+        "FOUNDER_SUBMISSION_APPROVAL",
+        "CIRCLE_LIVE_BLOCKED_FUNDING"
       ],
       "testnet_evidence": "deployments/monad-testnet/v2.json",
       "circle_live": "BLOCKED_FUNDING"

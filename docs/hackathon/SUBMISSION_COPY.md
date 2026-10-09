@@ -1,6 +1,6 @@
 # Metropolis submission copy — review draft
 
-Do not submit without founder approval. Replace pending URLs with verified public links. Requirements: [portal checklist](METROPOLIS_REQUIREMENTS.md).
+Do not submit without founder approval. Technical demo: https://retropick-metropolis.vercel.app/launchpad/demo (2:48). Founder pitch: pending; supplied by founder later. Requirements: [portal checklist](METROPOLIS_REQUIREMENTS.md).
 
 ## Tagline — under 80 characters
 
@@ -56,7 +56,7 @@ The V2 delivery added quote-policy snapshots, immutable venue selection, Coordin
 
 ## Live demo
 
-Public frontend URL: PENDING VERIFIED DEPLOYMENT.
+Public frontend URL: https://retropick-metropolis.vercel.app (public reads verified; wallet E2E qualification pending).
 Technical demo video ≤3 minutes: PENDING RECORDING.
 Pitch video ≤2 minutes: PENDING FOUNDER RECORDING.
 Canonical testnet token: `0x43e7e9b1b7d9A143573307b13D14B51580c18f15`.

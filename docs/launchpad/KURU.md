@@ -8,7 +8,7 @@ status: active
 
 # Kuru
 
-Kuru is the target mature-market venue for Launchpad V2.
+Kuru graduation is implemented in the deployed Launchpad V2 Monad Testnet hackathon candidate. Native MON graduation and two-actor trading PASS; canonical Circle-USDC live smoke is BLOCKED_FUNDING. Production and mainnet qualification remain separate.
 
 Verified public-source pins used by current engineering docs:
 - SDK main: `636509c2eafd63479d3f399703354e0d09f51e18`;
@@ -23,7 +23,7 @@ Normative RetroPick requirements:
 - destination failure is retryable without losing secured assets;
 - RetroPick is not GRADUATED until the Kuru market is verified.
 
-Concrete target deployment addresses/ABI calls remain implementation data and must be verified before coding.
+Concrete deployment addresses and observable ABI calls are pinned in the deployment manifest and revalidated before new execution; historical snapshots do not prove an external venue remains unchanged.
 
 ## Implemented testnet candidate — 9 October 2026
 

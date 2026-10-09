@@ -1,9 +1,9 @@
 {
-  "sourceSHA": "030ab8794688f99f4b8cda336d9f6160b485eebd",
+  "sourceSHA": "6629acc7a5d18b2a431df306d229d69285333179",
   "typecheck": "PASS",
   "build": "PASS",
   "unitTests": {
-    "passed": 20,
+    "passed": 21,
     "failed": 0,
     "skipped": 0
   },
@@ -13,9 +13,31 @@
     "findings": 0
   },
   "canonicalBrowserRead": "PASS",
-  "walletE2E": "PENDING",
-  "rpcRateLimitFix": "IMPLEMENTED_RECHECK_PENDING",
+  "walletE2E": "MON_CREATE_BUY_SELL_SECURE_KURU_COMPLETE_ORDER_FILL_CANCEL_PASS",
+  "rpcRateLimitFix": "CANONICAL_PUBLIC_READS_PASS",
   "deploymentId": "dpl_FaVJ7e5y2PPVior8GvCcGormVo65",
-  "publicDeployment": "PENDING",
-  "submission": "NOT_SUBMITTED"
+  "publicDeployment": {
+    "url": "https://retropick-metropolis.vercel.app",
+    "status": "READY_PUBLIC_READS_PASS",
+    "walletE2E": "MON_CREATE_BUY_SELL_SECURE_KURU_COMPLETE_ORDER_FILL_CANCEL_PASS"
+  },
+  "submission": "NOT_SUBMITTED",
+  "readAggregation": {
+    "network": "Monad Testnet",
+    "address": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "codeHash": "0xd5c15df687b16f2ff992fc8d767b4216323184a2bbc6ee2f9c398c318e770891",
+    "localBrowser": {
+      "durationMs": 4248,
+      "rpcCalls": 8,
+      "multicallReads": 5,
+      "browserErrors": 0
+    },
+    "scope": "Read-only view aggregation; simulations and wallet writes retain their original sender."
+  },
+  "technicalDemo": {
+    "durationSeconds": 168.08,
+    "bytes": 4157675,
+    "url": "https://retropick-metropolis.vercel.app/launchpad/demo",
+    "status": "BUILT_PUBLIC_DEPLOY_PENDING"
+  }
 }

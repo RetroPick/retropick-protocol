@@ -22,7 +22,7 @@ RetroPick originates markets. Kuru provides mature secondary execution, limit or
 
 ## Live Demo
 
-Canonical Monad Testnet lifecycle: **MON launch PASS; Kuru graduation PASS; two-actor order/fill/cancel PASS**. Public frontend and videos are undergoing release verification. [Six canonical proof transactions](docs/hackathon/EVIDENCE_MAP.md); full 43-transaction manifest remains available.
+Canonical Monad Testnet lifecycle: **MON launch PASS; Kuru graduation PASS; two-actor order/fill/cancel PASS**. [Live frontend](https://retropick-metropolis.vercel.app) completed a fresh wallet E2E launch, graduation and two-actor trading campaign. [Technical demo · 2:48](https://retropick-metropolis.vercel.app/launchpad/demo); founder pitch pending. [Six canonical proof transactions](docs/hackathon/EVIDENCE_MAP.md); full 43-transaction manifest remains available.
 
 ## Deployed Contracts
 
@@ -66,6 +66,8 @@ Primary: **Bring New Assets and Markets to Kuru**. We provide creator/community 
 ## Verification
 
 Historical candidate: **145 pass / 0 fail / 0 skip**, fork **69,507,986**. Deployed source `f0363249f4b74e58dde37d1241742ca5a92bcfe3`; main integration baseline `84861f50494a79772cf6f97a5e710bcc24973d5e`. Current release SHA/checks are separate. [Manifest](deployments/monad-testnet/v2.json) and [release evidence](evidence/launchpad/v2-monad-testnet/README.md).
+
+[Seven verified source/runtime matches](evidence/hackathon/metropolis/SOURCE_VERIFICATION.md). The public frontend also issued and graduated a fresh test launch; [wallet E2E receipt evidence](evidence/hackathon/metropolis/frontend-e2e-launch.json). [Two-wallet trading event, price, size and cancellation assertions](evidence/hackathon/metropolis/frontend-e2e-trading.json) also pass.
 
 ## Roadmap
 

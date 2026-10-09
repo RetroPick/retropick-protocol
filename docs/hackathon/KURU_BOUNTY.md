@@ -14,7 +14,7 @@ RetroPick is upstream market-origination infrastructure: creator/community ERC20
 | Customer / demand | Creators/communities; early traders and liquidity participants | [Founder-reported demand register](DEMAND_EVIDENCE.md), [X](https://x.com/RetroPickMarket) | 30+ signups / ~300K engagements reported; analytics pending; no confirmed pilots |
 | Legal / operations | Testnet only; token rights and promotion require issuer-specific review before expansion | [Partnership roadmap](MONAD_PARTNERSHIP.md) | No blanket compliance claim; no unsupported RWA integration |
 | Continuation | Qualified assets, SDK/API, creator onboarding, market-quality measurement | [Growth plan](GROWTH_PLAN.md) | Future plan; not deployed functionality |
-| Consumer application | Existing UI adapted to live MON/Kuru flow, `apps/web/features/live/` | Runtime/browser evidence required before claiming secondary qualification | Pending live frontend campaign |
+| Consumer application | Existing UI adapted to live MON/Kuru flow, `apps/web/features/live/` | [Fresh public-frontend wallet campaign](../../evidence/hackathon/metropolis/frontend-e2e-trading.json) | MON launch/graduation/order/fill/cancel PASS; demand and retention remain unproven |
 
 ## Why Kuru benefits
 

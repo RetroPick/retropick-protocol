@@ -25,11 +25,11 @@ goal_qualification:
   KURU_LIVE_TESTNET_QUALIFIED:
     status: blocked
     evidence: evidence/launchpad/kuru/live-actor-funding-readonly-2026-09-30.md
-    reason: No real Core-to-Kuru graduation or two-party market usability transaction has been sent; this is a post-DEV-4 staging prerequisite.
+    reason: Native MON Core-to-Kuru and distinct-actor order/fill/cancel pass in the recorded hackathon deployment. Canonical Circle live remains BLOCKED_FUNDING; no broad staging or production promotion is implied. See deployments/monad-testnet/v2.json.
   CORE_BASELINE_QUALIFIED:
     status: blocked
     evidence: evidence/launchpad/core/dev4-core-quote-invariant-increment-2026-09-30.md
-    reason: Production FeeEscrow, Curve and Factory exact quote guards reject tested sender-surcharge accounting paths; external balance loss fails closed. Fixed P0 quote identity, pinned Circle launch/buy/sweep, default Curve invariants and supported-asset V4 graduation behavior pass, but Factory extraction/code-size qualification and the broader Factory/escrow/custody invariant matrix remain open. Factory has only 11 bytes EIP-170 margin.
+    reason: Production FeeEscrow, Curve and Factory exact quote guards reject tested sender-surcharge accounting paths; external balance loss fails closed. Fixed P0 quote identity, pinned Circle launch/buy/sweep, default Curve invariants and supported-asset V4 graduation behavior pass, but Factory extraction/code-size qualification and the broader Factory/escrow/custody invariant matrix remain open. The earlier 11-byte Factory margin is historical; the delivered testnet Factory is 23,423 bytes. Broader production-authority gates remain separate from the passing hackathon campaign.
   KURU_TARGET_FROZEN:
     status: blocked
     evidence: evidence/launchpad/kuru/kuru-benchmark-gates-2026-09-30.yaml
@@ -52,7 +52,7 @@ blockers:
     reason: Full-stack workspace, backend, indexer, auth, storage, admin, upgradeability and V4-retirement choices are PROPOSED rather than accepted.
     next_owner: launchpad-planner
   - id: BLOCK-FULLSTACK
-    reason: apps/web has a mock-driven product prototype, not live Launchpad Core execution; apps/api, apps/indexer and shared runtime SDK/contracts packages are not implemented.
+    reason: apps/web now has a public wallet-direct MON launch/buy/sell/secure/Kuru graduation flow; secondary-order UI qualification is continuing. A production API/indexer/shared SDK and full operational stack remain unimplemented.
     next_owner: launchpad-planner
 
 # Superseding testnet delivery; earlier qualification entries remain historical.
@@ -63,7 +63,7 @@ metropolis_testnet_release:
   native_mon_to_kuru: pass
   kuru_order_fill_cancel: pass
   circle_live: BLOCKED_FUNDING
-  frontend: implementation_under_verification
-  current_release_checks: running
+  frontend: public_MON_core_to_Kuru_pass_trading_under_verification
+  current_release_checks: pass_145_tests_zero_failures_zero_skips
   submission: draft_requires_founder_approval
   production_or_mainnet_authorized: false

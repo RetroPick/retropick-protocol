@@ -1,0 +1,35 @@
+{
+  "contract": "KuruLiquidityLockV2",
+  "address": "0x72ced84b20Bb8467c5547e3EbF85E62321B6a425",
+  "deployedSourceSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3",
+  "compiler": "0.8.26+commit.8a97fa7a",
+  "sourceFilesHashVerified": 2,
+  "creationTransactionHash": "0x5cc1d0469ee7b811139055a81f2ba85a49a3de5b8ea54e158426693a556271f3",
+  "response": {
+    "verificationId": "2ba52f56-6a6c-477e-b279-8cc7ebe2a701"
+  },
+  "job": {
+    "isJobCompleted": true,
+    "verificationId": "2ba52f56-6a6c-477e-b279-8cc7ebe2a701",
+    "jobStartTime": "2026-10-09T13:36:11Z",
+    "jobFinishTime": "2026-10-09T13:36:12Z",
+    "compilationTime": "128",
+    "externalVerifications": {
+      "etherscan": {
+        "verificationId": "nxhsgqlrkk6ysex16xssasza6s8idjjjbm5tjeq655lihdp1u6",
+        "statusUrl": "https://api.etherscan.io/v2/api?chainid=10143&module=contract&action=checkverifystatus&guid=nxhsgqlrkk6ysex16xssasza6s8idjjjbm5tjeq655lihdp1u6",
+        "explorerUrl": "https://testnet.monadscan.com//address/0x72ced84b20Bb8467c5547e3EbF85E62321B6a425",
+        "contractApiUrl": "https://api.etherscan.io/v2/api?chainid=10143&module=contract&action=getabi&address=0x72ced84b20Bb8467c5547e3EbF85E62321B6a425"
+      }
+    },
+    "contract": {
+      "match": "exact_match",
+      "creationMatch": null,
+      "runtimeMatch": "exact_match",
+      "chainId": "10143",
+      "address": "0x72ced84b20Bb8467c5547e3EbF85E62321B6a425",
+      "verifiedAt": "2026-10-09T13:36:12Z",
+      "matchId": "55824402"
+    }
+  }
+}

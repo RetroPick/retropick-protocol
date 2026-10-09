@@ -491,10 +491,12 @@ contract RetroPickMemeHookV1 is BaseHook, IUnlockCallback, IRetroPickFeePolicyV1
                 // BASIS_POINTS^3 division, so no floored quotient feeds a
                 // multiply. Numerator <= uint128max * 1e3 * 1e4 < uint256max,
                 // and mulDiv carries the final factor in 512-bit space.
-                uint256 buybackScaled =
-                    unspecified * info.hookFeeBps * (BASIS_POINTS - info.protocolFeeShareBps);
-                pendingBuyback[poolId][feeCurrencyAddr] +=
-                    FullMath.mulDiv(buybackScaled, info.buybackBurnBps, BASIS_POINTS * BASIS_POINTS * BASIS_POINTS);
+                uint256 buybackScaled = unspecified * info.hookFeeBps * (BASIS_POINTS - info.protocolFeeShareBps);
+                pendingBuyback[
+                    poolId
+                ][
+                    feeCurrencyAddr
+                ] += FullMath.mulDiv(buybackScaled, info.buybackBurnBps, BASIS_POINTS * BASIS_POINTS * BASIS_POINTS);
             }
         }
         if (taxAmount != 0) pendingCreatorTax[poolId][feeCurrencyAddr] += taxAmount;

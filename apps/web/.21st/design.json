@@ -1,0 +1,344 @@
+{
+  "version": 1,
+  "project": {
+    "name": "@retropick/web",
+    "productType": null,
+    "stack": [
+      "nextjs",
+      "react",
+      "tailwind-v4"
+    ]
+  },
+  "sources": {
+    "tokens": [
+      "app/globals.css"
+    ],
+    "components": [
+      "components/ui"
+    ],
+    "assets": [
+      "public/brand"
+    ],
+    "instructions": []
+  },
+  "design": {
+    "colorMode": "light-and-dark",
+    "colors": {
+      "--background": {
+        "value": "#0c0e12",
+        "source": "app/globals.css"
+      },
+      "--foreground": {
+        "value": "#edf0f6",
+        "source": "app/globals.css"
+      },
+      "--card-foreground": {
+        "value": "#edf0f6",
+        "source": "app/globals.css"
+      },
+      "--popover-foreground": {
+        "value": "#edf0f6",
+        "source": "app/globals.css"
+      },
+      "--primary": {
+        "value": "#5873ff",
+        "source": "app/globals.css"
+      },
+      "--primary-foreground": {
+        "value": "#fff",
+        "source": "app/globals.css"
+      },
+      "--secondary": {
+        "value": "#1b202a",
+        "source": "app/globals.css"
+      },
+      "--secondary-foreground": {
+        "value": "#edf0f6",
+        "source": "app/globals.css"
+      },
+      "--muted": {
+        "value": "#1a1e27",
+        "source": "app/globals.css"
+      },
+      "--muted-foreground": {
+        "value": "#969dab",
+        "source": "app/globals.css"
+      },
+      "--accent": {
+        "value": "#202634",
+        "source": "app/globals.css"
+      },
+      "--accent-foreground": {
+        "value": "#fff",
+        "source": "app/globals.css"
+      },
+      "--destructive": {
+        "value": "#ef8196",
+        "source": "app/globals.css"
+      },
+      "--border": {
+        "value": "#262b35",
+        "source": "app/globals.css"
+      },
+      "--ring": {
+        "value": "#6d83ff",
+        "source": "app/globals.css"
+      },
+      "--chart-1": {
+        "value": "#8e51ff",
+        "source": "app/globals.css"
+      },
+      "--chart-2": {
+        "value": "#00bc7d",
+        "source": "app/globals.css"
+      },
+      "--chart-3": {
+        "value": "#fe9a00",
+        "source": "app/globals.css"
+      },
+      "--chart-4": {
+        "value": "#ad46ff",
+        "source": "app/globals.css"
+      },
+      "--chart-5": {
+        "value": "#ff2056",
+        "source": "app/globals.css"
+      },
+      "--sidebar-foreground": {
+        "value": "#ededed",
+        "source": "app/globals.css"
+      },
+      "--sidebar-primary": {
+        "value": "#8e51ff",
+        "source": "app/globals.css"
+      },
+      "--sidebar-primary-foreground": {
+        "value": "#ededed",
+        "source": "app/globals.css"
+      },
+      "--sidebar-accent": {
+        "value": "#262626",
+        "source": "app/globals.css"
+      },
+      "--sidebar-accent-foreground": {
+        "value": "#ededed",
+        "source": "app/globals.css"
+      },
+      "--sidebar-border": {
+        "value": "#ffffff1a",
+        "source": "app/globals.css"
+      },
+      "--sidebar-ring": {
+        "value": "#737373",
+        "source": "app/globals.css"
+      },
+      "--color-background": {
+        "value": "var(--background)",
+        "source": "app/globals.css"
+      },
+      "--color-foreground": {
+        "value": "var(--foreground)",
+        "source": "app/globals.css"
+      },
+      "--color-card": {
+        "value": "var(--card)",
+        "source": "app/globals.css"
+      },
+      "--color-card-foreground": {
+        "value": "var(--card-foreground)",
+        "source": "app/globals.css"
+      },
+      "--color-popover": {
+        "value": "var(--popover)",
+        "source": "app/globals.css"
+      },
+      "--color-popover-foreground": {
+        "value": "var(--popover-foreground)",
+        "source": "app/globals.css"
+      },
+      "--color-primary": {
+        "value": "var(--primary)",
+        "source": "app/globals.css"
+      },
+      "--color-primary-foreground": {
+        "value": "var(--primary-foreground)",
+        "source": "app/globals.css"
+      },
+      "--color-secondary": {
+        "value": "var(--secondary)",
+        "source": "app/globals.css"
+      },
+      "--color-secondary-foreground": {
+        "value": "var(--secondary-foreground)",
+        "source": "app/globals.css"
+      },
+      "--color-muted": {
+        "value": "var(--muted)",
+        "source": "app/globals.css"
+      },
+      "--color-muted-foreground": {
+        "value": "var(--muted-foreground)",
+        "source": "app/globals.css"
+      },
+      "--color-accent": {
+        "value": "var(--accent)",
+        "source": "app/globals.css"
+      },
+      "--color-accent-foreground": {
+        "value": "var(--accent-foreground)",
+        "source": "app/globals.css"
+      },
+      "--color-destructive": {
+        "value": "var(--destructive)",
+        "source": "app/globals.css"
+      },
+      "--color-border": {
+        "value": "var(--border)",
+        "source": "app/globals.css"
+      },
+      "--color-input": {
+        "value": "var(--input)",
+        "source": "app/globals.css"
+      },
+      "--color-ring": {
+        "value": "var(--ring)",
+        "source": "app/globals.css"
+      },
+      "--color-chart-1": {
+        "value": "var(--chart-1)",
+        "source": "app/globals.css"
+      },
+      "--color-chart-2": {
+        "value": "var(--chart-2)",
+        "source": "app/globals.css"
+      },
+      "--color-chart-3": {
+        "value": "var(--chart-3)",
+        "source": "app/globals.css"
+      },
+      "--color-chart-4": {
+        "value": "var(--chart-4)",
+        "source": "app/globals.css"
+      },
+      "--color-chart-5": {
+        "value": "var(--chart-5)",
+        "source": "app/globals.css"
+      },
+      "--color-sidebar": {
+        "value": "var(--sidebar)",
+        "source": "app/globals.css"
+      },
+      "--color-sidebar-foreground": {
+        "value": "var(--sidebar-foreground)",
+        "source": "app/globals.css"
+      },
+      "--color-sidebar-primary": {
+        "value": "var(--sidebar-primary)",
+        "source": "app/globals.css"
+      },
+      "--color-sidebar-primary-foreground": {
+        "value": "var(--sidebar-primary-foreground)",
+        "source": "app/globals.css"
+      },
+      "--color-sidebar-accent": {
+        "value": "var(--sidebar-accent)",
+        "source": "app/globals.css"
+      },
+      "--color-sidebar-accent-foreground": {
+        "value": "var(--sidebar-accent-foreground)",
+        "source": "app/globals.css"
+      },
+      "--color-sidebar-border": {
+        "value": "var(--sidebar-border)",
+        "source": "app/globals.css"
+      },
+      "--color-sidebar-ring": {
+        "value": "var(--sidebar-ring)",
+        "source": "app/globals.css"
+      }
+    },
+    "typography": {
+      "--font-sans": {
+        "value": "Arial, Helvetica, sans-serif",
+        "source": "app/globals.css"
+      },
+      "--font-mono": {
+        "value": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,\n    \"Liberation Mono\", \"Courier New\", monospace",
+        "source": "app/globals.css"
+      }
+    },
+    "spacing": {},
+    "radius": {
+      "--radius": {
+        "value": ".625rem",
+        "source": "app/globals.css"
+      },
+      "--radius-sm": {
+        "value": "calc(var(--radius) - 4px)",
+        "source": "app/globals.css"
+      },
+      "--radius-md": {
+        "value": "calc(var(--radius) - 2px)",
+        "source": "app/globals.css"
+      },
+      "--radius-lg": {
+        "value": "var(--radius)",
+        "source": "app/globals.css"
+      },
+      "--radius-xl": {
+        "value": "calc(var(--radius) + 4px)",
+        "source": "app/globals.css"
+      }
+    },
+    "shadows": {},
+    "motion": {},
+    "density": "unknown"
+  },
+  "components": {
+    "installed": [
+      "button",
+      "checkbox",
+      "dialog",
+      "select",
+      "sheet",
+      "skeleton",
+      "sonner",
+      "table",
+      "tabs"
+    ],
+    "preferredPrimitives": [],
+    "patterns": []
+  },
+  "constraints": {
+    "must": [],
+    "avoid": []
+  },
+  "decisions": [],
+  "evidence": [
+    {
+      "fact": "components.installed",
+      "source": "components/ui"
+    },
+    {
+      "fact": "design.colorMode:light-and-dark",
+      "source": "app/globals.css"
+    },
+    {
+      "fact": "design.tokens",
+      "source": "app/globals.css"
+    },
+    {
+      "fact": "project.stack:nextjs",
+      "source": "package.json"
+    },
+    {
+      "fact": "project.stack:react",
+      "source": "package.json"
+    },
+    {
+      "fact": "project.stack:tailwind-v4",
+      "source": "package.json"
+    }
+  ],
+  "generatedAt": "2026-10-09T12:51:32.326Z"
+}

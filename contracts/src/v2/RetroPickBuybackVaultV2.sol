@@ -6,7 +6,11 @@ import {Ownable2Step} from "@openzeppelin/contracts/access/Ownable2Step.sol";
 import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
-import {IRetroPickFeeEscrowV2, IRetroPickFeePolicyV2, IRetroPickLaunchFactoryV2} from "./interfaces/IRetroPickLaunchpadV2.sol";
+import {
+    IRetroPickFeeEscrowV2,
+    IRetroPickFeePolicyV2,
+    IRetroPickLaunchFactoryV2
+} from "./interfaces/IRetroPickLaunchpadV2.sol";
 
 /**
  * @title RetroPickBuybackVaultV2
@@ -85,7 +89,9 @@ contract RetroPickBuybackVaultV2 is Ownable2Step, ReentrancyGuard {
      * @param feePolicy_ Shared protocol/creator split policy, the same singleton the curve and hook read.
      * @param feeEscrow_ Shared claimable balance ledger releases are paid through.
      */
-    constructor(address initialOwner, IRetroPickFeePolicyV2 feePolicy_, IRetroPickFeeEscrowV2 feeEscrow_) Ownable(initialOwner) {
+    constructor(address initialOwner, IRetroPickFeePolicyV2 feePolicy_, IRetroPickFeeEscrowV2 feeEscrow_)
+        Ownable(initialOwner)
+    {
         if (address(feePolicy_) == address(0) || address(feeEscrow_) == address(0)) revert ZeroAddress();
         feePolicy = feePolicy_;
         feeEscrow = feeEscrow_;

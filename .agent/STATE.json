@@ -10,25 +10,27 @@
   "modules": {
     "launchpad_core": {
       "version": "v2",
-      "state": "DEVELOPMENT",
+      "state": "HACKATHON_FREEZE",
       "production_track": true,
       "control_plane_status": "PASS",
       "development_ready": "IN_PROGRESS",
       "status_source": "development/launchpad/control/status.yaml",
       "goal": "create -> bonding -> graduation -> Kuru",
       "current_runtime": {
-        "contracts": "V2_CURRENT_V4_ORIENTED_GRADUATION",
-        "kuru": "TARGET_NOT_IMPLEMENTED",
-        "web": "MOCK_PROTOTYPE_NO_LIVE_CORE_EXECUTION",
+        "contracts": "V2_MONAD_TESTNET_DEPLOYED",
+        "kuru": "MON_GRADUATION_AND_TWO_ACTOR_SMOKE_PASS",
+        "web": "LIVE_PUBLIC_FRONTEND_MON_KURU_WALLET_E2E_PASS",
         "api": "NOT_IMPLEMENTED",
         "indexer": "NOT_IMPLEMENTED"
       },
       "blockers": [
-        "CORE_V2_TEST_QUALIFICATION",
-        "KURU_TARGET_API_AND_PARAMETER_POLICY",
-        "PROPOSED_ARCHITECTURE_ADRS",
-        "FULLSTACK_RUNTIME"
-      ]
+        "FINAL_RELEASE_QUALIFICATION_AND_TAG",
+        "REQUIRED_FOUNDER_PITCH_VIDEO",
+        "FOUNDER_SUBMISSION_APPROVAL",
+        "CIRCLE_LIVE_BLOCKED_FUNDING"
+      ],
+      "testnet_evidence": "deployments/monad-testnet/v2.json",
+      "circle_live": "BLOCKED_FUNDING"
     },
     "prediction": {
       "state": "RESEARCH",

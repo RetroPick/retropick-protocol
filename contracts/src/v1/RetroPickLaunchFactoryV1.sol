@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.26;
-           
+
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {Ownable2Step} from "@openzeppelin/contracts/access/Ownable2Step.sol";
 import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
@@ -1444,7 +1444,18 @@ contract RetroPickLaunchFactoryV1 is Ownable2Step, ReentrancyGuard, IRetroPickLa
         // Kept on a single line so the disable-next-line anchors on this send rather than mis-anchoring
         //   across a multi-line call.
         // forge-lint: disable-next-line(arbitrary-send-eth)
-        graduationExecutor.mintFullRangePosition{value: nativeValue}(token, key, tickLower, tickUpper, sqrtPriceX96, amount0, amount1, currency0, currency1, policy.protocolFeeRecipient);
+        graduationExecutor.mintFullRangePosition{value: nativeValue}(
+            token,
+            key,
+            tickLower,
+            tickUpper,
+            sqrtPriceX96,
+            amount0,
+            amount1,
+            currency0,
+            currency1,
+            policy.protocolFeeRecipient
+        );
         locker.lockPosition(token, positionId);
     }
 

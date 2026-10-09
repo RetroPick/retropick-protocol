@@ -1,0 +1,109 @@
+{
+  "editing": "Real automated EIP-1193 wallet browser recordings. Cuts remove idle waits; speed changes disclosed. Captions only, no founder impersonation.",
+  "scenes": [
+    {
+      "scene": 1,
+      "source": "created.png",
+      "sourceStart": 0,
+      "sourceDuration": 7,
+      "speed": 1,
+      "caption": "RetroPick: the market creation layer for Monad.\nToken issuance \u2192 price discovery \u2192 Kuru secondary trading."
+    },
+    {
+      "scene": 2,
+      "source": "page@e8dfe6568cc902666dd0b8518c43cfe4.webm",
+      "sourceStart": 0,
+      "sourceDuration": 12,
+      "speed": 1,
+      "caption": "Create an ERC20. Quote: MON. Venue: Kuru.\nLaunch policy is immutable before public bonding."
+    },
+    {
+      "scene": 3,
+      "source": "page@e8dfe6568cc902666dd0b8518c43cfe4.webm",
+      "sourceStart": 12,
+      "sourceDuration": 22,
+      "speed": 1.5,
+      "caption": "Buy on the bonding curve, then sell.\nReal wallet transactions confirmed on Monad Testnet."
+    },
+    {
+      "scene": 4,
+      "source": "page@e8dfe6568cc902666dd0b8518c43cfe4.webm",
+      "sourceStart": 34,
+      "sourceDuration": 15,
+      "speed": 1,
+      "caption": "Complete the sellable allocation. Bonding closes.\nCompletion uses exact integer arithmetic and a generic ceiling."
+    },
+    {
+      "scene": 5,
+      "source": "page@6f11255b4792b8452c0bdb6930d8c25b.webm",
+      "sourceStart": 4,
+      "sourceDuration": 14,
+      "speed": 1,
+      "caption": "Secure launch assets to the Graduation Coordinator.\nGRADUATING is durable; anyone can complete or retry."
+    },
+    {
+      "scene": 6,
+      "source": "page@6f11255b4792b8452c0bdb6930d8c25b.webm",
+      "sourceStart": 18,
+      "sourceDuration": 13,
+      "speed": 1,
+      "caption": "Complete Kuru graduation. Actual market and vault created.\nLP shares and excess tokens enter permanent protected custody."
+    },
+    {
+      "scene": 7,
+      "source": "page@6cbbfd68c60749be8f08856638a4e611.webm",
+      "sourceStart": 0,
+      "sourceDuration": 38,
+      "speed": 2,
+      "caption": "Wallet B places a post-only sell order: 1 RPE2E at 0.00399 MON.\nKuru emits OrderCreated; the resting ask appears."
+    },
+    {
+      "scene": 8,
+      "source": "page@86f15ed831372b9f67f5ba955fd0db49.webm",
+      "sourceStart": 76,
+      "sourceDuration": 12,
+      "speed": 1,
+      "caption": "Wallet A deposits MON into Kuru trading funds.\nTrading deposits are separate from protected graduation liquidity."
+    },
+    {
+      "scene": 9,
+      "source": "page@86f15ed831372b9f67f5ba955fd0db49.webm",
+      "sourceStart": 102,
+      "sourceDuration": 24,
+      "speed": 1.5,
+      "caption": "Wallet A buys at 0.00399 MON, filling Wallet B\u2019s order.\nTrade event proves two-wallet execution on the actual market."
+    },
+    {
+      "scene": 10,
+      "source": "page@6cbbfd68c60749be8f08856638a4e611.webm",
+      "sourceStart": 178,
+      "sourceDuration": 26,
+      "speed": 2,
+      "caption": "Wallet B places another sell order.\nThe new OrderCreated event returns order ID 2."
+    },
+    {
+      "scene": 11,
+      "source": "page@6cbbfd68c60749be8f08856638a4e611.webm",
+      "sourceStart": 254,
+      "sourceDuration": 28,
+      "speed": 2,
+      "caption": "Wallet B cancels order ID 2.\nOrdersCanceled confirms cancellation; the resting ask disappears."
+    },
+    {
+      "scene": 12,
+      "source": "read-check.png",
+      "sourceStart": 0,
+      "sourceDuration": 10,
+      "speed": 1,
+      "caption": "Launch Proof: market, vault, immutable venue and permanent LP lock.\nTestnet candidate; unaudited. Circle live smoke remains blocked by funding."
+    },
+    {
+      "scene": 13,
+      "source": "read-check.png",
+      "sourceStart": 0,
+      "sourceDuration": 8,
+      "speed": 1,
+      "caption": "RetroPick originates markets. Monad settles. Kuru executes.\nPublic source, verified contracts and transaction evidence are linked beside this video."
+    }
+  ]
+}

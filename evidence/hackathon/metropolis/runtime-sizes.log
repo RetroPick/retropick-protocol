@@ -1,0 +1,621 @@
+No files changed, compilation skipped
+
+╭-------------------------------+------------------+-------------------+--------------------+---------------------╮
+| Contract                      | Runtime Size (B) | Initcode Size (B) | Runtime Margin (B) | Initcode Margin (B) |
++=================================================================================================================+
+| BalanceDeltaLibrary           | 111              | 139               | 1,048,465          | 2,097,013           |
+|-------------------------------+------------------+-------------------+--------------------+---------------------|
+| BeforeSwapDeltaLibrary        | 111              | 139               | 1,048,465          | 2,097,013           |
+|-------------------------------+------------------+-------------------+--------------------+---------------------|
+| CurrencyLibrary               | 111              | 139               | 1,048,465          | 2,097,013           |
+|-------------------------------+------------------+-------------------+--------------------+---------------------|
+| ExecutorDonationLockV2        | 161              | 286               | 1,048,415          | 2,096,866           |
+|-------------------------------+------------------+-------------------+--------------------+---------------------|
+| GraduationCoordinatorV2       | 14,026           | 14,285            | 1,034,550          | 2,082,867           |
+|-------------------------------+------------------+-------------------+--------------------+---------------------|
+| ImmutableState                | 156              | 281               | 1,048,420          | 2,096,871           |
+|-------------------------------+------------------+-------------------+--------------------+---------------------|
+| KuruEnvironmentV2             | 1,608            | 1,634             | 1,046,968          | 2,095,518           |
+|-------------------------------+------------------+-------------------+--------------------+---------------------|
+| KuruGraduationExecutorV2      | 16,457           | 17,382            | 1,032,119          | 2,079,770           |
+|-------------------------------+------------------+-------------------+--------------------+---------------------|
+| KuruLiquidityLockV2           | 775              | 1,081             | 1,047,801          | 2,096,071           |
+|-------------------------------+------------------+-------------------+--------------------+---------------------|
+| LPFeeLibrary                  | 215              | 244               | 1,048,361          | 2,096,908           |
+|-------------------------------+------------------+-------------------+--------------------+---------------------|
+| MockERC20                     | 1,731            | 2,670             | 1,046,845          | 2,094,482           |
+|-------------------------------+------------------+-------------------+--------------------+---------------------|
+| ProtocolFeeLibrary            | 113              | 141               | 1,048,463          | 2,097,011           |
+|-------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickBondingCurveV1       | 9,280            | 10,517            | 1,039,296          | 2,086,635           |
+|-------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickBondingCurveV2       | 11,612           | 12,928            | 1,036,964          | 2,084,224           |
+|-------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickBuybackVaultV1       | 4,610            | 4,993             | 1,043,966          | 2,092,159           |
+|-------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickBuybackVaultV2       | 4,610            | 4,993             | 1,043,966          | 2,092,159           |
+|-------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickDoorwayV1            | 7,124            | 7,632             | 1,041,452          | 2,089,520           |
+|-------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickDoorwayV2            | 7,124            | 7,632             | 1,041,452          | 2,089,520           |
+|-------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickFeeEscrowV2          | 3,013            | 3,075             | 1,045,563          | 2,094,077           |
+|-------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickGraduationExecutorV1 | 4,402            | 4,749             | 1,044,174          | 2,092,403           |
+|-------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickGraduationGuardV1    | 2,896            | 2,922             | 1,045,680          | 2,094,230           |
+|-------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickGraduationGuardV2    | 2,896            | 2,922             | 1,045,680          | 2,094,230           |
+|-------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickHookDeployerV2       | 17,059           | 17,192            | 1,031,517          | 2,079,960           |
+|-------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickLaunchDeployerV1     | 19,291           | 19,443            | 1,029,285          | 2,077,709           |
+|-------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickLaunchDeployerV2     | 21,713           | 21,866            | 1,026,863          | 2,075,286           |
+|-------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickLaunchFactoryV1      | 24,106           | 28,129            | 1,024,470          | 2,069,023           |
+|-------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickLaunchFactoryV2      | 23,423           | 24,938            | 1,025,153          | 2,072,214           |
+|-------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickLaunchLockerV1       | 1,969            | 2,281             | 1,046,607          | 2,094,871           |
+|-------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickLaunchLockerV2       | 2,652            | 2,964             | 1,045,924          | 2,094,188           |
+|-------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickLauncherTokenV1      | 3,248            | 7,099             | 1,045,328          | 2,090,053           |
+|-------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickLauncherTokenV2      | 3,248            | 7,099             | 1,045,328          | 2,090,053           |
+|-------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickMemeHookV1           | 15,357           | 16,470            | 1,033,219          | 2,080,682           |
+|-------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickMemeHookV2           | 15,505           | 16,618            | 1,033,071          | 2,080,534           |
+|-------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickQuoteAssetPolicyV2   | 682              | 708               | 1,047,894          | 2,096,444           |
+|-------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickQuoteAssetRegistryV2 | 2,654            | 2,901             | 1,045,922          | 2,094,251           |
+|-------------------------------+------------------+-------------------+--------------------+---------------------|
+| StateLibrary                  | 269              | 299               | 1,048,307          | 2,096,853           |
+|-------------------------------+------------------+-------------------+--------------------+---------------------|
+| UniswapV4GraduationExecutorV2 | 15,661           | 20,163            | 1,032,915          | 2,076,989           |
+╰-------------------------------+------------------+-------------------+--------------------+---------------------╯
+
+warning[locked-ether]: contract can receive ETH but has no mechanism to send it out
+  ╭▸ src/v2/libraries/ExecutorDonationsV2.sol:7:10
+  │
+7 │ contract ExecutorDonationLockV2 {
+  │          ━━━━━━━━━━━━━━━━━━━━━━
+  │
+  ╰ help: https://getfoundry.sh/forge/linting/locked-ether
+
+warning[missing-zero-check]: address parameter is used in a state write or value transfer without a zero-address check
+   ╭▸ src/v2/libraries/ExecutorDonationsV2.sol:10:17
+   │
+10 │     constructor(address executor_) {
+   │                 ━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/missing-zero-check
+
+warning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on
+   ╭▸ src/v2/libraries/ExecutorDonationsV2.sol:26:13
+   │
+26 │             emit UnsolicitedAssetsLocked(address(0), receiver, nativeDonation);
+   │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/reentrancy-events
+
+warning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on
+   ╭▸ src/v2/libraries/ExecutorDonationsV2.sol:36:13
+   │
+36 │             emit UnsolicitedAssetsLocked(asset, receiver, amount);
+   │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/reentrancy-events
+
+warning[incorrect-strict-equality]: dangerous strict equality check on an externally-influenced value
+   ╭▸ src/v2/libraries/ExactAssetV2.sol:15:13
+   │
+15 │         if (IERC20(asset).balanceOf(from) != source - amount || IERC20(asset).balanceOf(to) != destination + amount) {
+   │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/incorrect-strict-equality
+
+warning[missing-zero-check]: address parameter is used in a state write or value transfer without a zero-address check
+   ╭▸ src/v2/UniswapV4GraduationExecutorV2.sol:54:9
+   │
+54 │         address coordinator_,
+   │         ━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/missing-zero-check
+
+warning[incorrect-strict-equality]: dangerous strict equality check on an externally-influenced value
+   ╭▸ src/v2/libraries/ExactAssetV2.sol:15:65
+   │
+15 │         if (IERC20(asset).balanceOf(from) != source - amount || IERC20(asset).balanceOf(to) != destination + amount) {
+   │                                                                 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/incorrect-strict-equality
+
+warning[incorrect-strict-equality]: dangerous strict equality check on an externally-influenced value
+   ╭▸ src/v2/libraries/ExactAssetV2.sol:26:13
+   │
+26 │             IERC20(asset).balanceOf(address(this)) != source - amount
+   │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/incorrect-strict-equality
+
+warning[incorrect-strict-equality]: dangerous strict equality check on an externally-influenced value
+   ╭▸ src/v2/libraries/ExactAssetV2.sol:27:20
+   │
+27 │                 || IERC20(asset).balanceOf(to) != destination + amount
+   │                    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/incorrect-strict-equality
+
+warning[missing-events-access-control]: `graduationExecutor` is changed without an event but is used for access control
+    ╭▸ src/v2/hooks/RetroPickMemeHookV2.sol:216:9
+    │
+216 │         graduationExecutor = executor;
+    │         ━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/missing-events-access-control
+
+warning[non-reentrant-not-first]: `nonReentrant` is not the first modifier
+    ╭▸ src/v2/UniswapV4GraduationExecutorV2.sol:129:9
+    │
+129 │         nonReentrant
+    │         ━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/non-reentrant-not-first
+
+warning[unused-return]: return value of an external call is not used
+    ╭▸ src/v2/UniswapV4GraduationExecutorV2.sol:146:9
+    │
+146 │         poolManager.initialize(key, price);
+    │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/unused-return
+
+warning[incorrect-strict-equality]: dangerous strict equality check on an externally-influenced value
+    ╭▸ src/v2/UniswapV4GraduationExecutorV2.sol:174:13
+    │
+174 │             IERC20(p.token).balanceOf(address(this)) != 0 || ExactAssetV2.balance(p.quoteAsset, address(this)) != 0
+    │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/incorrect-strict-equality
+
+warning[divide-before-multiply]: division before multiplication may lose precision
+    ╭▸ src/v2/UniswapV4GraduationExecutorV2.sol:195:23
+    │
+195 │         int24 lower = (TickMath.MIN_TICK / p.tickSpacing) * p.tickSpacing;
+    │                       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/divide-before-multiply
+
+warning[divide-before-multiply]: division before multiplication may lose precision
+    ╭▸ src/v2/UniswapV4GraduationExecutorV2.sol:196:23
+    │
+196 │         int24 upper = (TickMath.MAX_TICK / p.tickSpacing) * p.tickSpacing;
+    │                       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/divide-before-multiply
+
+warning[divide-before-multiply]: division before multiplication may lose precision
+    ╭▸ src/v2/UniswapV4GraduationExecutorV2.sol:223:23
+    │
+223 │         int24 lower = (TickMath.MIN_TICK / key.tickSpacing) * key.tickSpacing;
+    │                       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/divide-before-multiply
+
+warning[divide-before-multiply]: division before multiplication may lose precision
+    ╭▸ src/v2/UniswapV4GraduationExecutorV2.sol:224:23
+    │
+224 │         int24 upper = (TickMath.MAX_TICK / key.tickSpacing) * key.tickSpacing;
+    │                       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/divide-before-multiply
+
+warning[unsafe-typecast]: typecast can truncate values
+    ╭▸ src/v2/UniswapV4GraduationExecutorV2.sol:234:32
+    │
+234 │             ? abi.encodePacked(uint8(Actions.MINT_POSITION), uint8(Actions.SETTLE_PAIR), uint8(Actions.SWEEP))
+    │                                ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ├ note: consider disabling this lint if you're certain the cast is safe
+    │       
+    │       // casting to 'uint8' is safe because [explain why]
+    │       // forge-lint: disable-next-line(unsafe-typecast)
+    │       
+    │       
+    ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
+
+warning[unsafe-typecast]: typecast can truncate values
+    ╭▸ src/v2/UniswapV4GraduationExecutorV2.sol:234:62
+    │
+234 │             ? abi.encodePacked(uint8(Actions.MINT_POSITION), uint8(Actions.SETTLE_PAIR), uint8(Actions.SWEEP))
+    │                                                              ━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ├ note: consider disabling this lint if you're certain the cast is safe
+    │       
+    │       // casting to 'uint8' is safe because [explain why]
+    │       // forge-lint: disable-next-line(unsafe-typecast)
+    │       
+    │       
+    ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
+
+warning[unsafe-typecast]: typecast can truncate values
+    ╭▸ src/v2/UniswapV4GraduationExecutorV2.sol:234:90
+    │
+234 │             ? abi.encodePacked(uint8(Actions.MINT_POSITION), uint8(Actions.SETTLE_PAIR), uint8(Actions.SWEEP))
+    │                                                                                          ━━━━━━━━━━━━━━━━━━━━
+    │
+    ├ note: consider disabling this lint if you're certain the cast is safe
+    │       
+    │       // casting to 'uint8' is safe because [explain why]
+    │       // forge-lint: disable-next-line(unsafe-typecast)
+    │       
+    │       
+    ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
+
+warning[unsafe-typecast]: typecast can truncate values
+    ╭▸ src/v2/UniswapV4GraduationExecutorV2.sol:235:32
+    │
+235 │             : abi.encodePacked(uint8(Actions.MINT_POSITION), uint8(Actions.SETTLE_PAIR));
+    │                                ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ├ note: consider disabling this lint if you're certain the cast is safe
+    │       
+    │       // casting to 'uint8' is safe because [explain why]
+    │       // forge-lint: disable-next-line(unsafe-typecast)
+    │       
+    │       
+    ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
+
+warning[unsafe-typecast]: typecast can truncate values
+    ╭▸ src/v2/UniswapV4GraduationExecutorV2.sol:235:62
+    │
+235 │             : abi.encodePacked(uint8(Actions.MINT_POSITION), uint8(Actions.SETTLE_PAIR));
+    │                                                              ━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ├ note: consider disabling this lint if you're certain the cast is safe
+    │       
+    │       // casting to 'uint8' is safe because [explain why]
+    │       // forge-lint: disable-next-line(unsafe-typecast)
+    │       
+    │       
+    ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
+
+warning[unsafe-typecast]: typecast can truncate values
+    ╭▸ src/v2/UniswapV4GraduationExecutorV2.sol:238:52
+    │
+238 │             key, lower, upper, uint256(liquidity), uint128(amount0), uint128(amount1), address(locker), bytes("")
+    │                                                    ━━━━━━━━━━━━━━━━
+    │
+    ├ note: consider disabling this lint if you're certain the cast is safe
+    │       
+    │       // casting to 'uint128' is safe because [explain why]
+    │       // forge-lint: disable-next-line(unsafe-typecast)
+    │       
+    │       
+    ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
+
+warning[unsafe-typecast]: typecast can truncate values
+    ╭▸ src/v2/UniswapV4GraduationExecutorV2.sol:238:70
+    │
+238 │             key, lower, upper, uint256(liquidity), uint128(amount0), uint128(amount1), address(locker), bytes("")
+    │                                                                      ━━━━━━━━━━━━━━━━
+    │
+    ├ note: consider disabling this lint if you're certain the cast is safe
+    │       
+    │       // casting to 'uint128' is safe because [explain why]
+    │       // forge-lint: disable-next-line(unsafe-typecast)
+    │       
+    │       
+    ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
+
+warning[unsafe-typecast]: typecast can truncate values
+    ╭▸ src/v2/UniswapV4GraduationExecutorV2.sol:254:58
+    │
+254 │         permit2.approve(asset, address(positionManager), uint160(amount), uint48(block.timestamp + 300));
+    │                                                          ━━━━━━━━━━━━━━━
+    │
+    ├ note: consider disabling this lint if you're certain the cast is safe
+    │       
+    │       // casting to 'uint160' is safe because [explain why]
+    │       // forge-lint: disable-next-line(unsafe-typecast)
+    │       
+    │       
+    ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
+
+warning[unsafe-typecast]: typecast can truncate values
+    ╭▸ src/v2/UniswapV4GraduationExecutorV2.sol:254:75
+    │
+254 │         permit2.approve(asset, address(positionManager), uint160(amount), uint48(block.timestamp + 300));
+    │                                                                           ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ├ note: consider disabling this lint if you're certain the cast is safe
+    │       
+    │       // casting to 'uint48' is safe because [explain why]
+    │       // forge-lint: disable-next-line(unsafe-typecast)
+    │       
+    │       
+    ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
+
+warning[unused-return]: return value of an external call is not used
+    ╭▸ src/v2/UniswapV4GraduationExecutorV2.sol:260:30
+    │
+260 │         (uint160 amount,,) = permit2.allowance(address(this), asset, address(positionManager));
+    │                              ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/unused-return
+
+warning[missing-zero-check]: address parameter is used in a state write or value transfer without a zero-address check
+   ╭▸ src/v2/GraduationCoordinatorV2.sol:70:26
+   │
+70 │     function bindFactory(address factory_) external onlyOwner {
+   │                          ━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/missing-zero-check
+
+warning[missing-zero-check]: address parameter is used in a state write or value transfer without a zero-address check
+   ╭▸ src/v2/RetroPickHookDeployerV2.sol:12:17
+   │
+12 │     constructor(address owner_) {
+   │                 ━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/missing-zero-check
+
+warning[missing-zero-check]: address parameter is used in a state write or value transfer without a zero-address check
+   ╭▸ src/v2/KuruLiquidityLockV2.sol:13:39
+   │
+13 │     constructor(address launchToken_, address quoteToken_, address market_, address vault_) {
+   │                                       ━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/missing-zero-check
+
+warning[missing-zero-check]: address parameter is used in a state write or value transfer without a zero-address check
+    ╭▸ src/v2/hooks/RetroPickMemeHookV2.sol:213:36
+    │
+213 │     function setGraduationExecutor(address executor) external onlyOwner {
+    │                                    ━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/missing-zero-check
+
+warning[missing-events-access-control]: `graduationExecutor` is changed without an event but is used for access control
+   ╭▸ src/v2/RetroPickLaunchLockerV2.sol:65:9
+   │
+65 │         graduationExecutor = executor;
+   │         ━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/missing-events-access-control
+
+warning[reentrancy-no-eth]: external call can be reentered before `_securingToken` is updated
+     ╭▸ src/v2/RetroPickLaunchFactoryV2.sol:1025:9
+     │
+1025 │         graduationCoordinator.secure(token);
+     │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     │
+     ╰ help: https://getfoundry.sh/forge/linting/reentrancy-no-eth
+
+warning[missing-zero-check]: address parameter is used in a state write or value transfer without a zero-address check
+     ╭▸ src/v2/RetroPickLaunchFactoryV2.sol:1019:23
+     │
+1019 │     function graduate(address token) external nonReentrant {
+     │                       ━━━━━━━━━━━━━
+     │
+     ╰ help: https://getfoundry.sh/forge/linting/missing-zero-check
+
+warning[missing-zero-check]: address parameter is used in a state write or value transfer without a zero-address check
+   ╭▸ src/v2/KuruGraduationExecutorV2.sol:33:17
+   │
+33 │     constructor(address coordinator_, KuruEnvironmentV2 environment_) {
+   │                 ━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/missing-zero-check
+
+warning[missing-zero-check]: address parameter is used in a state write or value transfer without a zero-address check
+   ╭▸ src/v2/RetroPickLaunchLockerV2.sol:62:36
+   │
+62 │     function setGraduationExecutor(address executor) external onlyOwner {
+   │                                    ━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/missing-zero-check
+
+warning[non-reentrant-not-first]: `nonReentrant` is not the first modifier
+   ╭▸ src/v2/KuruGraduationExecutorV2.sol:74:9
+   │
+74 │         nonReentrant
+   │         ━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/non-reentrant-not-first
+
+warning[incorrect-strict-equality]: dangerous strict equality check on an externally-influenced value
+   ╭▸ src/v2/KuruGraduationExecutorV2.sol:93:13
+   │
+93 │             IERC20(p.token).balanceOf(address(this)) != 0
+   │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/incorrect-strict-equality
+
+warning[incorrect-strict-equality]: dangerous strict equality check on an externally-influenced value
+    ╭▸ src/v2/KuruGraduationExecutorV2.sol:106:13
+    │
+106 │             IERC20(p.token).balanceOf(address(this)) != 0 || ExactAssetV2.balance(p.quoteAsset, address(this)) != 0
+    │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/incorrect-strict-equality
+
+warning[incorrect-strict-equality]: dangerous strict equality check on an externally-influenced value
+    ╭▸ src/v2/KuruGraduationExecutorV2.sol:137:45
+    │
+137 │                 || lock.vault() != vault || IERC20(vault).balanceOf(address(lock)) != r.protectedLPAmount
+    │                                             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/incorrect-strict-equality
+
+warning[incorrect-strict-equality]: dangerous strict equality check on an externally-influenced value
+    ╭▸ src/v2/KuruGraduationExecutorV2.sol:138:20
+    │
+138 │                 || IERC20(p.token).balanceOf(address(lock)) != r.protectedExcessAmount
+    │                    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/incorrect-strict-equality
+
+warning[unused-return]: return value of an external call is not used
+    ╭▸ src/v2/KuruGraduationExecutorV2.sol:220:51
+    │
+220 │         (address reported,,,,,,, uint96 spread) = IKuruOrderBookV2(market).getVaultParams();
+    │                                                   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/unused-return
+
+warning[arbitrary-send-eth]: ETH is sent to a user-controlled destination; restrict the destination or the caller
+    ╭▸ src/v2/KuruGraduationExecutorV2.sol:246:18
+    │
+246 │           shares = v.deposit{value: p.quoteAsset == address(0) ? quoteAmount : 0}(
+    │ ┏━━━━━━━━━━━━━━━━━━┛
+247 │ ┃             baseSeed, quoteAmount, quoteAmount, receiver
+248 │ ┃         );
+    │ ┗━━━━━━━━━┛
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/arbitrary-send-eth
+
+warning[incorrect-strict-equality]: dangerous strict equality check on an externally-influenced value
+    ╭▸ src/v2/KuruGraduationExecutorV2.sol:236:54
+    │
+236 │             initialBase != 0 || initialQuote != 0 || v.balanceOf(receiver) != 0
+    │                                                      ━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/incorrect-strict-equality
+
+warning[incorrect-strict-equality]: dangerous strict equality check on an externally-influenced value
+    ╭▸ src/v2/KuruGraduationExecutorV2.sol:253:67
+    │
+253 │             shares != Math.sqrt(baseSeed * quoteAmount) - 1000 || v.balanceOf(receiver) != shares
+    │                                                                   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/incorrect-strict-equality
+
+warning[incorrect-strict-equality]: dangerous strict equality check on an externally-influenced value
+    ╭▸ src/v2/KuruGraduationExecutorV2.sol:255:20
+    │
+255 │                 || IERC20(p.token).balanceOf(address(this)) != terminalTokens - baseSeed
+    │                    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/incorrect-strict-equality
+
+warning[incorrect-strict-equality]: dangerous strict equality check on an externally-influenced value
+    ╭▸ src/v2/KuruGraduationExecutorV2.sol:256:20
+    │
+256 │                 || IERC20(p.token).balanceOf(environment.MARGIN()) != marginBaseBefore + baseSeed
+    │                    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/incorrect-strict-equality
+
+warning[unused-return]: return value of an external call is not used
+    ╭▸ src/v2/KuruGraduationExecutorV2.sol:274:13
+    │
+274 │             IKuruOrderBookV2(market).getVaultParams();
+    │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/unused-return
+
+warning[encode-packed-collision]: `abi.encodePacked()` called with multiple dynamic type arguments; hash collisions possible
+    ╭▸ src/v2/KuruGraduationExecutorV2.sol:315:33
+    │
+315 │ ┏ …                     abi.encodePacked(
+316 │ ┃ …                         type(KuruLiquidityLockV2).creationCode,
+317 │ ┃ …                         abi.encode(p.token, p.quoteAsset, market, vault)
+318 │ ┃ …                     )
+    │ ┗━━━━━━━━━━━━━━━━━━━━━━━┛
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/encode-packed-collision
+
+warning[arbitrary-send-eth]: ETH is sent to a user-controlled destination; restrict the destination or the caller
+     ╭▸ src/v1/RetroPickLaunchFactoryV1.sol:1447:9
+     │
+1447 │ ┏         graduationExecutor.mintFullRangePosition{value: nativeValue}(
+1448 │ ┃             token,
+1449 │ ┃             key,
+1450 │ ┃             tickLower,
+     ‡ ┃
+1457 │ ┃             policy.protocolFeeRecipient
+1458 │ ┃         );
+     │ ┗━━━━━━━━━┛
+     │
+     ╰ help: https://getfoundry.sh/forge/linting/arbitrary-send-eth
+
+warning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on
+    ╭▸ src/v2/RetroPickBondingCurveV2.sol:309:9
+    │
+309 │         emit BuybackEnabledUpdated(enabled);
+    │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/reentrancy-events
+
+warning[reentrancy-no-eth]: external call can be reentered before `quoteLiability` is updated
+    ╭▸ src/v2/GraduationCoordinatorV2.sol:192:59
+    │
+192 │         (uint256 reportedQuote, uint256 reportedTokens) = IGraduationFactoryV2(factory).secureCurve(token);
+    │                                                           ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/reentrancy-no-eth
+
+warning[non-reentrant-not-first]: `nonReentrant` is not the first modifier
+    ╭▸ src/v2/GraduationCoordinatorV2.sol:178:57
+    │
+178 │     function secure(address token) external onlyFactory nonReentrant {
+    │                                                         ━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/non-reentrant-not-first
+
+warning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on
+    ╭▸ src/v2/GraduationCoordinatorV2.sol:203:9
+    │
+203 │         emit GraduationSecured(token, expectedQuote, expectedTokens);
+    │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/reentrancy-events
+
+warning[incorrect-strict-equality]: dangerous strict equality check on an externally-influenced value
+    ╭▸ src/v2/GraduationCoordinatorV2.sol:196:20
+    │
+196 │                 || IERC20(token).balanceOf(address(this)) != tokensBefore + expectedTokens
+    │                    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/incorrect-strict-equality
+
+warning[arbitrary-send-eth]: ETH is sent to a user-controlled destination; restrict the destination or the caller
+    ╭▸ src/v2/GraduationCoordinatorV2.sol:219:13
+    │
+219 │           r = IGraduationExecutorV2(p.executor).execute{value: p.quoteAsset == address(0) ? quoteAmount : 0}(
+    │ ┏━━━━━━━━━━━━━┛
+220 │ ┃             p, quoteAmount, tokenAmount
+221 │ ┃         );
+    │ ┗━━━━━━━━━┛
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/arbitrary-send-eth
+
+warning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on
+    ╭▸ src/v2/GraduationCoordinatorV2.sol:249:9
+    │
+249 │         emit GraduationCompleted(token, r.destinationIdentity, l.receiptHash);
+    │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/reentrancy-events
+
+warning[incorrect-strict-equality]: dangerous strict equality check on an externally-influenced value
+    ╭▸ src/v2/GraduationCoordinatorV2.sol:233:20
+    │
+233 │                 || IERC20(token).balanceOf(address(this)) != tokenBefore - tokenAmount
+    │                    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/incorrect-strict-equality
+
+warning[incorrect-strict-equality]: dangerous strict equality check on an externally-influenced value
+    ╭▸ src/v2/GraduationCoordinatorV2.sol:234:20
+    │
+234 │                 || IERC20(token).balanceOf(p.protectedExcessReceiver) != protectedBefore + r.protectedExcessAmount
+    │                    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/incorrect-strict-equality
+

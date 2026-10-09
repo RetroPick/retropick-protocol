@@ -52,62 +52,18 @@ No files changed, compilation skipped
 ╰------------------------------------------------------------+------------------+-------------------+--------------------+---------------------╯
 
 warning[unsafe-typecast]: typecast can truncate values
-   ╭▸ src/libraries/Allowance.sol:24:78
-   │
-24 │         uint48 storedExpiration = expiration == BLOCK_TIMESTAMP_EXPIRATION ? uint48(block.timestamp) : expiration;
-   │                                                                              ━━━━━━━━━━━━━━━━━━━━━━━
-   │
-   ├ note: consider disabling this lint if you're certain the cast is safe
-   │       
-   │       // casting to 'uint48' is safe because [explain why]
-   │       // forge-lint: disable-next-line(unsafe-typecast)
-   │       
-   │       
-   ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
-
-warning[unsafe-typecast]: typecast can truncate values
    ╭▸ src/libraries/SafeCast160.sol:12:16
    │
 12 │         return uint160(value);
    │                ━━━━━━━━━━━━━━
    │
    ├ note: consider disabling this lint if you're certain the cast is safe
-   │       
+   │
    │       // casting to 'uint160' is safe because [explain why]
    │       // forge-lint: disable-next-line(unsafe-typecast)
-   │       
-   │       
+   │
+   │
    ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
-
-warning[encode-packed-collision]: `abi.encodePacked()` called with multiple dynamic type arguments; hash collisions possible
-   ╭▸ src/libraries/PermitHash.sol:90:38
-   │
-90 │         bytes32 typeHash = keccak256(abi.encodePacked(_PERMIT_TRANSFER_FROM_WITNESS_TYPEHASH_STUB, witnessTypeString));
-   │                                      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   │
-   ╰ help: https://getfoundry.sh/forge/linting/encode-packed-collision
-
-warning[unsafe-typecast]: typecast can truncate values
-   ╭▸ src/libraries/Allowance.sol:40:48
-   │
-40 │         allowed.expiration = expiration == 0 ? uint48(block.timestamp) : expiration;
-   │                                                ━━━━━━━━━━━━━━━━━━━━━━━
-   │
-   ├ note: consider disabling this lint if you're certain the cast is safe
-   │       
-   │       // casting to 'uint48' is safe because [explain why]
-   │       // forge-lint: disable-next-line(unsafe-typecast)
-   │       
-   │       
-   ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
-
-warning[encode-packed-collision]: `abi.encodePacked()` called with multiple dynamic type arguments; hash collisions possible
-    ╭▸ src/libraries/PermitHash.sol:102:23
-    │
-102 │             keccak256(abi.encodePacked(_PERMIT_BATCH_WITNESS_TRANSFER_FROM_TYPEHASH_STUB, witnessTypeString));
-    │                       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    │
-    ╰ help: https://getfoundry.sh/forge/linting/encode-packed-collision
 
 warning[uninitialized-local]: local variable is read before being initialized
     ╭▸ src/libraries/Permit2Lib.sol:111:25
@@ -117,14 +73,6 @@ warning[uninitialized-local]: local variable is read before being initialized
     │
     ╰ help: https://getfoundry.sh/forge/linting/uninitialized-local
 
-warning[ecrecover]: `ecrecover` call does not reject malleable signatures
-   ╭▸ src/libraries/SignatureVerification.sol:39:30
-   │
-39 │             address signer = ecrecover(hash, v, r, s);
-   │                              ━━━━━━━━━━━━━━━━━━━━━━━━
-   │
-   ╰ help: https://getfoundry.sh/forge/linting/ecrecover
-
 warning[uninitialized-local]: local variable is read before being initialized
     ╭▸ src/libraries/Permit2Lib.sol:108:13
     │
@@ -132,6 +80,74 @@ warning[uninitialized-local]: local variable is read before being initialized
     │             ━━━━━━━
     │
     ╰ help: https://getfoundry.sh/forge/linting/uninitialized-local
+
+warning[unsafe-typecast]: typecast can truncate values
+   ╭▸ src/libraries/Allowance.sol:24:78
+   │
+24 │         uint48 storedExpiration = expiration == BLOCK_TIMESTAMP_EXPIRATION ? uint48(block.timestamp) : expiration;
+   │                                                                              ━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ├ note: consider disabling this lint if you're certain the cast is safe
+   │
+   │       // casting to 'uint48' is safe because [explain why]
+   │       // forge-lint: disable-next-line(unsafe-typecast)
+   │
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
+
+warning[unsafe-typecast]: typecast can truncate values
+   ╭▸ src/libraries/Allowance.sol:40:48
+   │
+40 │         allowed.expiration = expiration == 0 ? uint48(block.timestamp) : expiration;
+   │                                                ━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ├ note: consider disabling this lint if you're certain the cast is safe
+   │
+   │       // casting to 'uint48' is safe because [explain why]
+   │       // forge-lint: disable-next-line(unsafe-typecast)
+   │
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
+
+warning[arbitrary-send-erc20]: `transferFrom` uses an arbitrary `from`; require it to equal `msg.sender` or `address(this)`
+   ╭▸ src/SignatureTransfer.sol:67:9
+   │
+67 │         ERC20(permit.permitted.token).safeTransferFrom(owner, transferDetails.to, requestedAmount);
+   │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/arbitrary-send-erc20
+
+warning[encode-packed-collision]: `abi.encodePacked()` called with multiple dynamic type arguments; hash collisions possible
+   ╭▸ src/libraries/PermitHash.sol:90:38
+   │
+90 │         bytes32 typeHash = keccak256(abi.encodePacked(_PERMIT_TRANSFER_FROM_WITNESS_TYPEHASH_STUB, witnessTypeString));
+   │                                      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/encode-packed-collision
+
+warning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators
+   ╭▸ src/AllowanceTransfer.sol:34:13
+   │
+34 │         if (block.timestamp > permitSingle.sigDeadline) revert SignatureExpired(permitSingle.sigDeadline);
+   │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/block-timestamp
+
+warning[encode-packed-collision]: `abi.encodePacked()` called with multiple dynamic type arguments; hash collisions possible
+    ╭▸ src/libraries/PermitHash.sol:102:23
+    │
+102 │             keccak256(abi.encodePacked(_PERMIT_BATCH_WITNESS_TRANSFER_FROM_TYPEHASH_STUB, witnessTypeString));
+    │                       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/encode-packed-collision
+
+warning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators
+   ╭▸ src/SignatureTransfer.sol:60:13
+   │
+60 │         if (block.timestamp > permit.deadline) revert SignatureExpired(permit.deadline);
+   │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/block-timestamp
 
 warning[unused-return]: return value of an external call is not used
     ╭▸ src/libraries/Permit2Lib.sol:146:29
@@ -141,13 +157,13 @@ warning[unused-return]: return value of an external call is not used
     │
     ╰ help: https://getfoundry.sh/forge/linting/unused-return
 
-warning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators
-   ╭▸ src/AllowanceTransfer.sol:34:13
+warning[ecrecover]: `ecrecover` call does not reject malleable signatures
+   ╭▸ src/libraries/SignatureVerification.sol:39:30
    │
-34 │         if (block.timestamp > permitSingle.sigDeadline) revert SignatureExpired(permitSingle.sigDeadline);
-   │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+39 │             address signer = ecrecover(hash, v, r, s);
+   │                              ━━━━━━━━━━━━━━━━━━━━━━━━
    │
-   ╰ help: https://getfoundry.sh/forge/linting/block-timestamp
+   ╰ help: https://getfoundry.sh/forge/linting/ecrecover
 
 warning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators
    ╭▸ src/AllowanceTransfer.sol:44:13
@@ -164,6 +180,14 @@ warning[require-revert-in-loop]: `require` or `revert` inside a loop
     │                                     ━━━━━━━━━━━━━━━━━━━━━━
     │
     ╰ help: https://getfoundry.sh/forge/linting/require-revert-in-loop
+
+warning[solmate-safe-transfer-lib]: the `SafeTransferLib` from Solmate does not check that the token has code, so a transfer to a token-less address succeeds silently
+   ╭▸ src/SignatureTransfer.sol:67:9
+   │
+67 │         ERC20(permit.permitted.token).safeTransferFrom(owner, transferDetails.to, requestedAmount);
+   │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/solmate-safe-transfer-lib
 
 warning[require-revert-in-loop]: `require` or `revert` inside a loop
    ╭▸ src/AllowanceTransfer.sol:79:51
@@ -182,36 +206,12 @@ warning[require-revert-in-loop]: `require` or `revert` inside a loop
    ╰ help: https://getfoundry.sh/forge/linting/require-revert-in-loop
 
 warning[arbitrary-send-erc20]: `transferFrom` uses an arbitrary `from`; require it to equal `msg.sender` or `address(this)`
-   ╭▸ src/SignatureTransfer.sol:67:9
-   │
-67 │         ERC20(permit.permitted.token).safeTransferFrom(owner, transferDetails.to, requestedAmount);
-   │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   │
-   ╰ help: https://getfoundry.sh/forge/linting/arbitrary-send-erc20
-
-warning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators
-   ╭▸ src/SignatureTransfer.sol:60:13
-   │
-60 │         if (block.timestamp > permit.deadline) revert SignatureExpired(permit.deadline);
-   │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   │
-   ╰ help: https://getfoundry.sh/forge/linting/block-timestamp
-
-warning[arbitrary-send-erc20]: `transferFrom` uses an arbitrary `from`; require it to equal `msg.sender` or `address(this)`
    ╭▸ src/AllowanceTransfer.sol:93:9
    │
 93 │         ERC20(token).safeTransferFrom(from, to, amount);
    │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    │
    ╰ help: https://getfoundry.sh/forge/linting/arbitrary-send-erc20
-
-warning[solmate-safe-transfer-lib]: the `SafeTransferLib` from Solmate does not check that the token has code, so a transfer to a token-less address succeeds silently
-   ╭▸ src/SignatureTransfer.sol:67:9
-   │
-67 │         ERC20(permit.permitted.token).safeTransferFrom(owner, transferDetails.to, requestedAmount);
-   │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   │
-   ╰ help: https://getfoundry.sh/forge/linting/solmate-safe-transfer-lib
 
 warning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators
    ╭▸ src/AllowanceTransfer.sol:79:13
@@ -221,28 +221,6 @@ warning[block-timestamp]: usage of `block.timestamp` in a comparison may be mani
    │
    ╰ help: https://getfoundry.sh/forge/linting/block-timestamp
 
-warning[unsafe-typecast]: typecast can truncate values
-   ╭▸ src/AllowanceTransfer.sol:87:38
-   │
-87 │                     allowed.amount = uint160(maxAmount) - amount;
-   │                                      ━━━━━━━━━━━━━━━━━━
-   │
-   ├ note: consider disabling this lint if you're certain the cast is safe
-   │       
-   │       // casting to 'uint160' is safe because [explain why]
-   │       // forge-lint: disable-next-line(unsafe-typecast)
-   │       
-   │       
-   ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
-
-warning[solmate-safe-transfer-lib]: the `SafeTransferLib` from Solmate does not check that the token has code, so a transfer to a token-less address succeeds silently
-   ╭▸ src/AllowanceTransfer.sol:93:9
-   │
-93 │         ERC20(token).safeTransferFrom(from, to, amount);
-   │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   │
-   ╰ help: https://getfoundry.sh/forge/linting/solmate-safe-transfer-lib
-
 warning[arbitrary-send-erc20]: `transferFrom` uses an arbitrary `from`; require it to equal `msg.sender` or `address(this)`
     ╭▸ src/SignatureTransfer.sol:123:21
     │
@@ -251,6 +229,20 @@ warning[arbitrary-send-erc20]: `transferFrom` uses an arbitrary `from`; require 
     │
     ╰ help: https://getfoundry.sh/forge/linting/arbitrary-send-erc20
 
+warning[unsafe-typecast]: typecast can truncate values
+   ╭▸ src/AllowanceTransfer.sol:87:38
+   │
+87 │                     allowed.amount = uint160(maxAmount) - amount;
+   │                                      ━━━━━━━━━━━━━━━━━━
+   │
+   ├ note: consider disabling this lint if you're certain the cast is safe
+   │
+   │       // casting to 'uint160' is safe because [explain why]
+   │       // forge-lint: disable-next-line(unsafe-typecast)
+   │
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
+
 warning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators
     ╭▸ src/SignatureTransfer.sol:108:13
     │
@@ -258,6 +250,14 @@ warning[block-timestamp]: usage of `block.timestamp` in a comparison may be mani
     │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     │
     ╰ help: https://getfoundry.sh/forge/linting/block-timestamp
+
+warning[solmate-safe-transfer-lib]: the `SafeTransferLib` from Solmate does not check that the token has code, so a transfer to a token-less address succeeds silently
+   ╭▸ src/AllowanceTransfer.sol:93:9
+   │
+93 │         ERC20(token).safeTransferFrom(from, to, amount);
+   │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/solmate-safe-transfer-lib
 
 warning[require-revert-in-loop]: `require` or `revert` inside a loop
     ╭▸ src/SignatureTransfer.sol:119:57
@@ -282,11 +282,11 @@ warning[unsafe-typecast]: typecast can truncate values
     │                   ━━━━━━━━━━━━━━━━━━━
     │
     ├ note: consider disabling this lint if you're certain the cast is safe
-    │       
+    │
     │       // casting to 'uint248' is safe because [explain why]
     │       // forge-lint: disable-next-line(unsafe-typecast)
-    │       
-    │       
+    │
+    │
     ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
 
 warning[unsafe-typecast]: typecast can truncate values
@@ -296,10 +296,10 @@ warning[unsafe-typecast]: typecast can truncate values
     │                  ━━━━━━━━━━━━
     │
     ├ note: consider disabling this lint if you're certain the cast is safe
-    │       
+    │
     │       // casting to 'uint8' is safe because [explain why]
     │       // forge-lint: disable-next-line(unsafe-typecast)
-    │       
-    │       
+    │
+    │
     ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
 

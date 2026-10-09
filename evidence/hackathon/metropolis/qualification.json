@@ -1,8 +1,8 @@
 {
-  "repositorySHA": "89fe028c547f4e282fbef09568f2219c0dda30a7",
+  "repositorySHA": "c23ed7159d0a7e365383f7b5cc50b2d5c33d50c4",
   "dirty": false,
   "deployedSourceSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3",
-  "forkBlock": 69560382,
+  "forkBlock": 69573641,
   "exitCodes": {
     "v4-dependencies": 0,
     "permit2": 0,
@@ -89,6 +89,6 @@
     "coordinatorQuoteLiability": 0,
     "workerResiduals": 0,
     "workerVaultAllowances": 0,
-    "verifiedAtBlock": 69560444
+    "verifiedAtBlock": 69573702
   }
 }

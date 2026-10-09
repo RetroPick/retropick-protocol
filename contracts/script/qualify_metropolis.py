@@ -14,6 +14,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--env-file', required=True)
     args = parser.parse_args()
+    source_sha = release.sha()
+    source_dirty = bool(subprocess.check_output(['git', 'status', '--porcelain', '--untracked-files=no'], cwd=ROOT))
     env = release.load_env(args.env_file)
     snapshot = release.preflight(env)
     block = int(release.rpc(env, 'eth_blockNumber', []), 16)
@@ -29,7 +31,7 @@ def main():
         ('sizes', ['forge', 'build', '--sizes'], ROOT / 'contracts'),
         ('runtime-sizes', ['forge', 'build', '--sizes', '--skip', 'test', '--skip', 'script'], ROOT / 'contracts'),
     ]
-    report = {'repositorySHA': release.sha(), 'dirty': bool(subprocess.check_output(['git', 'status', '--porcelain', '--untracked-files=no'], cwd=ROOT)),
+    report = {'repositorySHA': source_sha, 'dirty': source_dirty,
               'deployedSourceSHA': 'f0363249f4b74e58dde37d1241742ca5a92bcfe3', 'forkBlock': block, 'exitCodes': {}}
     for label, command, cwd in commands:
         print('Running', label, flush=True)

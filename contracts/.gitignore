@@ -14,3 +14,7 @@ broadcast/
 *.tmp
 *.swp
 *~
+# Unsigned simulation/intermediate release outputs; confirmed evidence lives in deployments/.
+v2-deployment-addresses.json
+v2-smoke-result.json
+v2-trade-result.json

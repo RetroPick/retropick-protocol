@@ -8,6 +8,8 @@ importers:
 
   .: {}
 
+  apps/abi: {}
+
   apps/indexer:
     dependencies:
       '@retropick/launchpad-sdk':
@@ -26,6 +28,9 @@ importers:
 
   apps/retro-ui:
     dependencies:
+      '@retropick/abi':
+        specifier: workspace:*
+        version: link:../abi
       '@retropick/launchpad-sdk':
         specifier: workspace:*
         version: link:../../packages/launchpad-sdk

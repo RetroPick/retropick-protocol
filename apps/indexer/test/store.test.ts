@@ -1,0 +1,9 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {Store,type JournalEvent} from '../src/store.ts';
+import {project} from '../src/project.ts';
+const event=(block:number):JournalEvent=>({id:`10143:hash${block}:tx:0`,chainId:10143,address:'0x1',name:'Transfer',args:{value:2n**200n},block,blockHash:`hash${block}`,transactionHash:'tx',transactionIndex:0,logIndex:0,timestamp:100});
+test('journal replay is idempotent and preserves exact large integers',()=>{const s=new Store(':memory:');try{s.commit('root',10,'hash10',[event(10)]);s.commit('root',10,'hash10',[event(10)]);assert.equal(s.events().length,1);assert.equal(s.events()[0].args.value,(2n**200n).toString());assert.equal(s.cursor('root',1),10);}finally{s.close();}});
+test('reorg removes orphaned events/checkpoints/snapshot and permits replacement',()=>{const s=new Store(':memory:');try{s.commit('root',10,'hash10',[event(10)]);s.commit('root',11,'hash11',[event(11)]);s.set('snapshot',{unverified:true});s.rollback(10);assert.equal(s.cursor('root',1),10);assert.equal(s.events().length,1);assert.equal(s.get('snapshot'),undefined);s.commit('root',11,'replacement11',[{...event(11),id:'replacement'}]);assert.equal(s.events()[1].id,'replacement');}finally{s.close();}});
+test('failed range does not advance checkpoint or retain partial events',()=>{const s=new Store(':memory:');try{s.commit('root',10,'hash10',[event(10)]);assert.throws(()=>s.commit('root',11,'hash11',[event(11),{...event(11),id:undefined as unknown as string}]));assert.equal(s.cursor('root',1),10);assert.equal(s.events().length,1);}finally{s.close();}});
+test('empty projections do not invent launches or trade activity',()=>{const result=project([],[],100);assert.deepEqual(result,{launches:[],trades:[],activity:[],holders:{}});});

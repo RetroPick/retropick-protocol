@@ -24,3 +24,8 @@ cache/
 broadcast/
 artifacts/
 .vercel/
+
+apps/indexer/.data/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal

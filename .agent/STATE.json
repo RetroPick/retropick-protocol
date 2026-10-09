@@ -19,9 +19,10 @@
       "current_runtime": {
         "contracts": "V2_MONAD_TESTNET_DEPLOYED",
         "kuru": "MON_GRADUATION_AND_TWO_ACTOR_SMOKE_PASS",
-        "web": "LIVE_PUBLIC_FRONTEND_MON_KURU_WALLET_E2E_PASS",
-        "api": "NOT_IMPLEMENTED",
-        "indexer": "NOT_IMPLEMENTED"
+        "web": "APPS_WEB_HISTORICAL_DEMO_RETRO_UI_INTEGRATION_IN_PROGRESS",
+        "api": "TESTNET_READ_ONLY_CANDIDATE_UNQUALIFIED",
+        "indexer": "TESTNET_EVENT_JOURNAL_CANDIDATE_UNQUALIFIED",
+        "canonical_frontend": "apps/retro-ui"
       },
       "blockers": [
         "FINAL_RELEASE_QUALIFICATION_AND_TAG",

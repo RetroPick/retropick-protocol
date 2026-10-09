@@ -3,8 +3,15 @@ pragma solidity ^0.8.26;
 
 import {FeePolicySnapshot} from "./IRetroPickLaunchpadV2.sol";
 
-enum GraduationVenue { UNISWAP_V4, KURU }
-enum GraduationState { NONE, GRADUATING, GRADUATED }
+enum GraduationVenue {
+    UNISWAP_V4,
+    KURU
+}
+enum GraduationState {
+    NONE,
+    GRADUATING,
+    GRADUATED
+}
 
 struct QuoteAssetConfig {
     bool enabled;
@@ -79,7 +86,9 @@ interface IGraduationExecutorV2 {
     function previewReceiver(GraduationPacket calldata packet) external view returns (address);
     function validateLaunch(GraduationPacket calldata packet, uint256 supply) external view;
     function execute(GraduationPacket calldata packet, uint256 quoteAmount, uint256 tokenAmount)
-        external payable returns (GraduationReceipt memory);
+        external
+        payable
+        returns (GraduationReceipt memory);
     function verifyReceipt(GraduationPacket calldata packet, GraduationReceipt calldata receipt) external view;
 }
 
@@ -89,7 +98,7 @@ interface IGraduationFactoryV2 {
 
 interface IGraduationCoordinatorV2 {
     function factory() external view returns (address);
-    function registerLaunch(GraduationPacket calldata packet) external;
+    function registerLaunch(address token, address curve, GraduationVenue venue, uint24 poolFee, int24 tickSpacing) external;
     function packet(address token) external view returns (GraduationPacket memory);
     function ledger(address token) external view returns (GraduationLedger memory);
     function secure(address token) external;

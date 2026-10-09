@@ -1,0 +1,36 @@
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 21.61s
+Compiler run successful with warnings:
+Warning (2018): Function state mutability can be restricted to view
+   --> src/v2/RetroPickBondingCurveV2.sol:861:5:
+    |
+861 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Script ran successfully.
+
+== Return ==
+token: address 0x43e7e9b1b7d9A143573307b13D14B51580c18f15
+curveAddress: address 0x454A3A449d4e65CA5203d331905d167BA218E276
+market: address 0x1F5dE72616a7fe645Cf45aC66dfce8Ac7452C57F
+vault: address 0xc88DED06eB0081430Ff02d124C22b532e122CbE7
+
+## Setting up 1 EVM.
+
+==========================
+
+Chain 10143
+
+Estimated gas price: 120 gwei
+
+Estimated total gas used for script: 8953583
+
+Estimated amount required: 1.07442996 MON
+
+==========================
+
+SIMULATION COMPLETE. To broadcast these transactions, add --broadcast and wallet configuration(s) to the previous command. See forge script --help for more.
+
+Transactions saved to: /home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/broadcast/SmokeV2MonadTestnet.s.sol/10143/dry-run/run-latest.json
+
+Sensitive values saved to: /home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/cache/SmokeV2MonadTestnet.s.sol/10143/dry-run/run-latest.json

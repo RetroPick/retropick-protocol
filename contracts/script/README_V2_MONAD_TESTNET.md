@@ -48,6 +48,10 @@ receipt status, addresses, blocks, transaction hashes and source SHA are merged 
 `deployments/monad-testnet/v2.json`. Logs and gate snapshots live under
 `evidence/launchpad/v2-monad-testnet/`. Circle live smoke requires canonical funding;
 an unfunded path is recorded as `BLOCKED_FUNDING`, even when its fork passes.
+If MON broadcast succeeds but evidence recording fails, use `recover-smoke` to
+verify and record existing receipts without signing or repeating economic writes.
+Large Foundry JSON integer fields can be decimal strings; the verifier parses them
+as exact Python integers.
 The optional two-actor trading script deposits one launch token from actor A and
 0.01 MON from actor B, fills a 0.1 token maker ask inside the AMM spread, then
 places and cancels a second ask. It simulates before signing and checks margin

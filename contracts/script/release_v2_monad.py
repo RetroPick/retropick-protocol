@@ -70,8 +70,17 @@ def address(word):
 
 
 def write(path, value):
+    def exact_json(item):
+        if isinstance(item, dict):
+            return {key: exact_json(v) for key, v in item.items()}
+        if isinstance(item, list):
+            return [exact_json(v) for v in item]
+        # Preserve exact values for downstream JavaScript consumers too.
+        if isinstance(item, int) and not isinstance(item, bool) and abs(item) > 2**53 - 1:
+            return str(item)
+        return item
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(value, indent=2) + "\n")
+    path.write_text(json.dumps(exact_json(value), indent=2) + "\n")
 
 
 def sha():
@@ -186,11 +195,11 @@ def verify_launch(env, manifest, launch):
     raw = call(env, addresses["coordinator"], "ledger(address)", launch["token"])[2:]
     words = [int(raw[i:i + 64], 16) for i in range(0, len(raw), 64)]
     assert len(words) == 12 and words[0] == 2, "Onchain phase must be GRADUATED"
-    assert words[1] == words[3] == launch["securedQuote"]
-    assert words[2] == words[4] == launch["securedLaunchTokens"]
+    assert words[1] == words[3] == int(launch["securedQuote"])
+    assert words[2] == words[4] == int(launch["securedLaunchTokens"])
     assert words[5] != 0 and words[6] != 0
     assert address(hex(words[7])[2:].zfill(64)).lower() == launch["lpLock"].lower()
-    assert words[8] == launch["protectedLPAmount"] and words[10] == launch["protectedExcessAmount"]
+    assert words[8] == int(launch["protectedLPAmount"]) and words[10] == int(launch["protectedExcessAmount"])
     assert int(call(env, launch["curve"], "graduated()"), 16) == 1
     assert int(call(env, launch["vault"], "balanceOf(address)", launch["lpLock"]), 16) == words[8]
     assert int(call(env, launch["token"], "balanceOf(address)", launch["lpLock"]), 16) == words[10]
@@ -216,7 +225,7 @@ def verify_launch(env, manifest, launch):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=("check", "gates", "deploy", "smoke", "circle", "trade", "record"))
+    parser.add_argument("command", choices=("check", "gates", "deploy", "smoke", "recover-smoke", "circle", "trade", "record"))
     parser.add_argument("--env-file", required=True, help="Authorized external env file; secrets are never printed")
     args = parser.parse_args()
     env = load_env(args.env_file)
@@ -265,9 +274,9 @@ def main():
               "quotePolicyVersions": {"MON": 1, "CIRCLE_TEST_USDC": 1}, "quotePolicy": "TESTNET_POLICY_V1",
               "gates": gates, "deploymentTransactions": receipts, "monSmoke": "PENDING",
               "circleSmoke": "BLOCKED_FUNDING" if snapshot["actors"]["A"]["circleRaw"] < 2_000_000 else "PENDING"})
-    elif args.command in ("smoke", "circle"):
+    elif args.command in ("smoke", "recover-smoke", "circle"):
         manifest = json.loads(manifest_path.read_text())
-        kind = "mon" if args.command == "smoke" else "circle"
+        kind = "circle" if args.command == "circle" else "mon"
         assert manifest[kind + "Smoke"] != "PASS", "Smoke already recorded; avoid a duplicate launch"
         if kind == "circle" and snapshot["actors"]["A"]["circleRaw"] < 2_000_000:
             manifest["circleSmoke"] = "BLOCKED_FUNDING"
@@ -276,10 +285,20 @@ def main():
             return
         env.update(V2_FACTORY=manifest["addresses"]["factory"],
                    V2_SMOKE_QUOTE="0x" + "0" * 40 if kind == "mon" else CIRCLE)
-        script(env, "SmokeV2MonadTestnet", kind + "-smoke-simulation.log")
-        assert snapshot["actors"]["A"]["monWei"] >= (3 if kind == "mon" else 1) * 10**18, "Smoke gas funding"
-        script(env, "SmokeV2MonadTestnet", kind + "-smoke-broadcast.log", broadcast=True)
+        if args.command != "recover-smoke":
+            intermediate = CONTRACTS / "v2-smoke-result.json"
+            if intermediate.exists():
+                prior = json.loads(intermediate.read_text())
+                if (prior["factory"].lower() == env["V2_FACTORY"].lower()
+                        and prior["quoteAsset"].lower() == env["V2_SMOKE_QUOTE"].lower()
+                        and rpc(env, "eth_getCode", [prior["token"], "latest"]) != "0x"):
+                    raise RuntimeError("Existing live smoke: recover confirmed receipts instead of launching again")
+            script(env, "SmokeV2MonadTestnet", kind + "-smoke-simulation.log")
+            assert snapshot["actors"]["A"]["monWei"] >= (3 if kind == "mon" else 1) * 10**18, "Smoke gas funding"
+            script(env, "SmokeV2MonadTestnet", kind + "-smoke-broadcast.log", broadcast=True)
         result = json.loads((CONTRACTS / "v2-smoke-result.json").read_text())
+        assert result["factory"].lower() == env["V2_FACTORY"].lower()
+        assert result["quoteAsset"].lower() == env["V2_SMOKE_QUOTE"].lower()
         result["transactions"] = confirmed(env, "SmokeV2MonadTestnet")
         assert result["phase"] == "GRADUATED", "Expected GRADUATED"
         result["onchainVerification"] = verify_launch(env, manifest, result)

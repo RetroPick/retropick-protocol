@@ -1,0 +1,31 @@
+{
+  "chainId": 10143,
+  "block": 69510812,
+  "router": "0x7EFbE105Ca7415dE98F96622173458ac1c054630",
+  "marginAccount": "0xd029C2D98ff85D8F64799017fE00a59B1159CE02",
+  "orderBookImplementation": "0x72caE0a99C19B574e8a6De558F43fc1D019c9374",
+  "vaultImplementation": "0x4d54e0d60CaB0cec0100cdA8e00897bC933C5Bb6",
+  "codeHashes": {
+    "0x7EFbE105Ca7415dE98F96622173458ac1c054630": "0xae572ec3ca9b5f49c0364ca34edc5880b6b2837e47802e64e6b681bf2e74aa5c",
+    "0xd029C2D98ff85D8F64799017fE00a59B1159CE02": "0xae572ec3ca9b5f49c0364ca34edc5880b6b2837e47802e64e6b681bf2e74aa5c",
+    "0x72caE0a99C19B574e8a6De558F43fc1D019c9374": "0x24c5974f233021f00d607bfa191d430f79565663fb90805ebcfca52de7333500",
+    "0x4d54e0d60CaB0cec0100cdA8e00897bC933C5Bb6": "0xde0b16a79cf8f711403e89093c1e82ce0e7813949dd0f5041b41da324fdd3dc3",
+    "0x534b2f3A21130d7a60830c2Df862319e593943A3": "0x96215e6049ed615cdc22fea7701e85458a8e51a2df3e7d45e8f9fa1d521b5a78"
+  },
+  "proxyImplementations": {
+    "0x7EFbE105Ca7415dE98F96622173458ac1c054630": "0xaaa0f0c4d49d09ef33ae758d88afab810ecbe1ed",
+    "0xd029C2D98ff85D8F64799017fE00a59B1159CE02": "0xf10af40f060b7ae54a2d5da682becc981dfb52c3"
+  },
+  "actors": {
+    "A": {
+      "address": "0xB505cBaab3ACdF287af1366b9B1229404757913b",
+      "monWei": "1249326007898989897",
+      "circleRaw": 0
+    },
+    "B": {
+      "address": "0x101212C52620ca00540ee04D1515E714e6368Fcd",
+      "monWei": "24643977792170000000",
+      "circleRaw": 0
+    }
+  }
+}

@@ -1,0 +1,22 @@
+No files changed, compilation skipped
+Script ran successfully.
+
+## Setting up 1 EVM.
+
+==========================
+
+Chain 10143
+
+Estimated gas price: 120 gwei
+
+Estimated total gas used for script: 1817184
+
+Estimated amount required: 0.21806208 MON
+
+==========================
+
+SIMULATION COMPLETE. To broadcast these transactions, add --broadcast and wallet configuration(s) to the previous command. See forge script --help for more.
+
+Transactions saved to: /home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/broadcast/TradeV2KuruTestnet.s.sol/10143/dry-run/run-latest.json
+
+Sensitive values saved to: /home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/cache/TradeV2KuruTestnet.s.sol/10143/dry-run/run-latest.json

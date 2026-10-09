@@ -5,7 +5,7 @@ import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol
 import {Math} from "@openzeppelin/contracts/utils/math/Math.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
-import {RetroPickBondingCurveMathV1} from "./libraries/RetroPickBondingCurveMathV1.sol"; 
+import {RetroPickBondingCurveMathV1} from "./libraries/RetroPickBondingCurveMathV1.sol";
 import {RetroPickBuybackVaultV1} from "./RetroPickBuybackVaultV1.sol";
 import {RetroPickLauncherTokenV1} from "./RetroPickLauncherTokenV1.sol";
 import {FeePolicySnapshot, IRetroPickFeeEscrowV1, IRetroPickFeePolicyV1} from "./interfaces/IRetroPickLaunchpadV1.sol";
@@ -391,7 +391,8 @@ contract RetroPickBondingCurveV1 is ReentrancyGuard {
         uint256 spent = received;
         uint256 fee = (spent * feeBps) / BASIS_POINTS;
         uint256 tax = (spent * creatorTaxBps) / BASIS_POINTS;
-        tokensOut = RetroPickBondingCurveMathV1.getAmountOut(spent - fee - tax, quoteReserveBefore, tokenReserveBefore, 0);
+        tokensOut =
+            RetroPickBondingCurveMathV1.getAmountOut(spent - fee - tax, quoteReserveBefore, tokenReserveBefore, 0);
 
         uint256 sellable = tokenReserveBefore > reservedTokens ? tokenReserveBefore - reservedTokens : 0;
         if (sellable == 0) revert CurveGraduated();
@@ -464,7 +465,8 @@ contract RetroPickBondingCurveV1 is ReentrancyGuard {
         (uint256 quoteReserveBefore, uint256 tokenReserveBefore) = getReserves();
         IERC20(token).safeTransferFrom(msg.sender, address(this), tokensIn);
 
-        uint256 grossQuoteOut = RetroPickBondingCurveMathV1.getAmountOut(tokensIn, tokenReserveBefore, quoteReserveBefore, 0);
+        uint256 grossQuoteOut =
+            RetroPickBondingCurveMathV1.getAmountOut(tokensIn, tokenReserveBefore, quoteReserveBefore, 0);
         uint256 fee = (grossQuoteOut * feeBps) / BASIS_POINTS;
         uint256 tax = (grossQuoteOut * creatorTaxBps) / BASIS_POINTS;
         quoteOut = grossQuoteOut - fee - tax;

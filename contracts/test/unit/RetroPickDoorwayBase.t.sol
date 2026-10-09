@@ -70,7 +70,11 @@ abstract contract RetroPickDoorwayBaseTest is Test {
     function _attest(bytes32 id) internal {
         Migration memory m = doorway.getMigration(id);
         Attestation memory a = Attestation({
-            migrationId: id, sourceTxHash: m.sourceTxHash, amount: m.amount, timestamp: vm.getBlockTimestamp(), nonce: m.nonce
+            migrationId: id,
+            sourceTxHash: m.sourceTxHash,
+            amount: m.amount,
+            timestamp: vm.getBlockTimestamp(),
+            nonce: m.nonce
         });
         vm.prank(guardian);
         doorway.attestMigration(a);

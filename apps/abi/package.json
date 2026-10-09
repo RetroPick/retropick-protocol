@@ -1,0 +1,13 @@
+{
+  "name": "@retropick/abi",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Published RetroPick V2 Monad Testnet ABI catalog, derived from the frozen deployment bundle.",
+  "exports": {
+    "./abi": "./abi.ts",
+    "./manifest.json": "./manifest.json",
+    "./*.json": "./*.json",
+    "./package.json": "./package.json"
+  }
+}

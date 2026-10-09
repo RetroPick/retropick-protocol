@@ -1,1 +1,19 @@
-{"name":"@retropick/launchpad-sdk","version":"0.1.0","private":true,"type":"module","exports":{"./*":"./src/*.ts"},"dependencies":{"viem":"2.57.4"}}
+{
+  "name": "@retropick/launchpad-sdk",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": { "./*": "./src/*.ts" },
+  "scripts": {
+    "test": "node --experimental-strip-types --test test/*.test.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@retropick/abi": "workspace:*",
+    "viem": "2.57.4"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "5.9.3"
+  }
+}

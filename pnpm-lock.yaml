@@ -207,9 +207,19 @@ importers:
 
   packages/launchpad-sdk:
     dependencies:
+      '@retropick/abi':
+        specifier: workspace:*
+        version: link:../../apps/abi
       viem:
         specifier: 2.57.4
         version: 2.57.4(typescript@5.9.3)(zod@3.25.76)
+    devDependencies:
+      '@types/node':
+        specifier: ^24.0.0
+        version: 24.19.1
+      typescript:
+        specifier: 5.9.3
+        version: 5.9.3
 
 packages:
 

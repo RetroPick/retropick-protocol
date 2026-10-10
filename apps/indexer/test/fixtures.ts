@@ -1,0 +1,13 @@
+import type { JournalEvent } from '../src/store.ts';
+import type { LaunchSeed, Snapshot } from '../src/project.ts';
+import { project, PROJECTION_VERSION, ZERO } from '../src/project.ts';
+export const TOKEN = '0x1111111111111111111111111111111111111111';
+export const CURVE = '0x2222222222222222222222222222222222222222';
+export const MARKET = '0x3333333333333333333333333333333333333333';
+export const ALICE = '0x4444444444444444444444444444444444444444';
+export const BOB = '0x5555555555555555555555555555555555555555';
+export const USDC = '0x6666666666666666666666666666666666666666';
+export const seed = (overrides: Partial<LaunchSeed['launch']> = {}): LaunchSeed => ({ launch: { token: TOKEN, curve: CURVE, creator: ALICE, quoteAsset: ZERO, quoteSymbol: 'MON', quoteDecimals: 18, baseDecimals: 18, name: 'Real Launch', symbol: 'REAL', description: 'Onchain metadata', logo: 'https://example.com/token.png', supplyRaw: '1000000000000000000000', launchSupplyRaw: '1000000000000000000000', createdBlock: 10, createdAt: '2026-10-10T00:00:00Z', phase: 'ACTIVE', venue: 'KURU', market: null, vault: null, lpLock: null, policyVersion: 1, quoteReserveRaw: '1000000000000000000', liquidityRaw: '1000000000000000000', liquiditySource: 'CURVE_RESERVE', priceRaw: '1000000000000000', priceX18: '1000000000000000', priceSource: 'CURVE_SPOT', marketCapRaw: '1000000000000000000', bondingProgressBps: 1000, ...overrides } });
+export const graduated = (quoteDecimals = 18): LaunchSeed => seed({ phase: 'GRADUATED', market: MARKET, priceRaw: null, priceX18: null, liquidityRaw: null, liquiditySource: 'UNAVAILABLE', quoteAsset: quoteDecimals === 6 ? USDC : ZERO, quoteSymbol: quoteDecimals === 6 ? 'USDC' : 'MON', quoteDecimals, marketParams: { pricePrecision: '100000000', sizePrecision: '100000000', baseDecimals: 18, quoteDecimals, baseAsset: TOKEN, quoteAsset: quoteDecimals === 6 ? USDC : ZERO } });
+export const event = (name: string, args: Record<string, unknown>, overrides: Partial<JournalEvent> = {}): JournalEvent => ({ id: `event:${name}:${JSON.stringify(args, (_, v) => typeof v === 'bigint' ? v.toString() : v)}`, chainId: 10143, address: CURVE, name, args, block: 11, blockHash: `0x${'a'.repeat(64)}`, transactionHash: `0x${'b'.repeat(64)}`, transactionIndex: 0, logIndex: 0, timestamp: 120, ...overrides });
+export const snapshot = (seeds: LaunchSeed[] = [seed()], events: JournalEvent[] = []): Snapshot => ({ ...project(events, seeds, 1000), indexedBlock: 100, indexedBlockHash: `0x${'a'.repeat(64)}`, indexedTimestamp: 1000, indexedAt: '2026-10-10T00:00:00Z', projectionVersion: PROJECTION_VERSION, reorgRevision: 0, beneficiaryIndexedBlock: 100 });

@@ -1,93 +1,37 @@
 'use client';
-
-import { useCallback, useEffect, useState } from 'react';
-import type { Address } from 'viem';
+import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { formatUnits, zeroAddress, type Address } from 'viem';
 import { publicClient } from '@/lib/live/public-client';
+import { launchKeys } from '@/lib/live/queries';
 import { useWallet } from '@/wallet/provider';
 import { executePreparedWrite, type TxPhase } from '@/services/tx-pipeline';
-import { readFeeEscrowCredit, readBuybackReleasable } from '@retropick/launchpad-sdk/registry';
+import { fetchWalletState } from '@/services/wallet-state';
 import { prepareFeeClaim, prepareFeeClaimToken, prepareBuybackRelease } from '@retropick/launchpad-sdk/prepare';
-import { fetchLaunches } from '@/lib/live/indexer-client';
-import { INDEXER_URL } from '@/lib/live/env';
-import { shortAddress } from '@/lib/live/format';
+import { explorer } from '@retropick/launchpad-sdk/chain';
+import { markStage, measureStage } from '@/lib/live/performance';
 import { toast } from 'sonner';
-
-interface BuybackRow { token: Address; symbol: string; releasable: bigint }
-
-/** Live Earn surface: real FeeEscrow credit and BuybackVault release for the
- * connected creator, executed through the shared transaction pipeline. */
 export function LiveEarn() {
-  const wallet = useWallet();
-  const account = wallet.account;
-  const [credit, setCredit] = useState<bigint | null>(null);
-  const [buybacks, setBuybacks] = useState<BuybackRow[]>([]);
-  const [tx, setTx] = useState<TxPhase | { kind: 'idle' }>({ kind: 'idle' });
-  const [error, setError] = useState('');
-  const [tick, setTick] = useState(0);
-  const refresh = useCallback(() => setTick((value) => value + 1), []);
-  const busy = tx.kind !== 'idle' && tx.kind !== 'failed';
-
-  const refreshState = useCallback(async () => {
-    if (!account) return;
-    const [escrow, launches] = await Promise.all([
-      readFeeEscrowCredit(publicClient, account),
-      INDEXER_URL ? fetchLaunches(INDEXER_URL).then((envelope) => envelope.data).catch(() => []) : Promise.resolve([]),
-    ]);
-    setCredit(escrow);
-    const mine = launches.filter((launch) => launch.creator.toLowerCase() === account.toLowerCase());
-    const rows: BuybackRow[] = [];
-    for (const launch of mine) {
-      const releasable = await readBuybackReleasable(publicClient, launch.token as Address).catch(() => 0n);
-      if (releasable > 0n) rows.push({ token: launch.token as Address, symbol: launch.symbol, releasable });
-    }
-    setBuybacks(rows);
-  }, [account]);
-
-  useEffect(() => { void refreshState().catch(() => undefined); }, [refreshState, tick]);
-
-  const run = async (prepare: () => Promise<Parameters<typeof executePreparedWrite>[2]>, label: string) => {
-    if (!wallet.wallet || !account) return;
-    setError('');
-    try {
-      const prepared = await prepare();
-      const result = await executePreparedWrite(publicClient, wallet.wallet, prepared, { onPhase: setTx });
-      if (result.kind === 'success') {
-        toast.success(`${label} confirmed`, { description: result.hash });
-        setTx({ kind: 'idle' });
-        refresh();
-      } else {
-        setError(result.reason);
-        setTx({ kind: 'idle' });
-      }
-    } catch (cause) {
-      setError(cause instanceof Error ? cause.message : 'Transaction failed.');
-      setTx({ kind: 'idle' });
-    }
-  };
-
-  if (!account) {
-    return <section className="earn-panel panel"><h2>Creator earnings</h2><p className="earn-empty">Connect your wallet to see claimable creator fees and vested buyback proceeds on Monad Testnet.</p></section>;
-  }
-
-  return <section className="earn-panel panel" aria-label="Live creator earnings">
-    <div className="earn-panel-head"><h2>Creator fees · live</h2><span className="addr-chip">{shortAddress(account)}</span></div>
-    <div className="earn-amount-row"><strong>{credit === null ? '…' : `${Number(credit) / 1e18}`}</strong><span>MON available in the fee escrow</span></div>
-    <div className="earn-actions">
-      <button className="btn primary" disabled={busy || !credit} onClick={() => run(() => prepareFeeClaim(publicClient, account), 'Fee claim')}>
-        {busy ? 'Working…' : 'Claim MON fees'}
-      </button>
-    </div>
-    {buybacks.length > 0 && <div className="earn-row-group">
-      <span className="field-label">Vested buyback proceeds</span>
-      {buybacks.map((row) => <div className="earn-row" key={row.token}>
-        <span>{row.symbol} · releasable {Number(row.releasable) / 1e18}</span>
-        <span>
-          <button className="btn ghost" disabled={busy} onClick={() => run(() => prepareBuybackRelease(publicClient, row.token, account), `Buyback release ${row.symbol}`)}>Release</button>
-          <button className="btn ghost" disabled={busy} onClick={() => run(() => prepareFeeClaimToken(publicClient, account, row.token), `Token claim ${row.symbol}`)} title="Released buyback credit arrives as escrowed tokens; claim them here after releasing.">Claim tokens</button>
-        </span>
-      </div>)}
-    </div>}
-    {error && <div role="alert" className="form-error">{error}</div>}
-    <p className="earn-empty">Claims settle directly from the deployed FeeEscrow and BuybackVault contracts.</p>
-  </section>;
+ const wallet=useWallet(),account=wallet.account;
+ const state=useQuery({queryKey:launchKeys.wallet(account??'disconnected','state'),enabled:!!account,queryFn:({signal})=>fetchWalletState(account!,signal),refetchInterval:10_000,structuralSharing:false});
+ const [tx,setTx]=useState<TxPhase|{kind:'idle'}>({kind:'idle'}),[error,setError]=useState('');
+ const busy=!['idle','failed','success'].includes(tx.kind), data=state.data;
+ const run=async(prepare:()=>Promise<Parameters<typeof executePreparedWrite>[2]>)=>{
+  if(!wallet.wallet||!account)return;setError('');setTx({kind:'preparing'});markStage('transaction.click');const preflight=measureStage('transaction.preflight');
+  try{const prepared=await prepare();preflight();const result=await executePreparedWrite(publicClient,wallet.wallet,prepared,{onPhase:setTx});if(result.kind==='failed')setError(result.reason);else{toast.success(`${prepared.label} confirmed`,{description:result.hash});void state.refetch();}}catch(cause){setError(cause instanceof Error?cause.message:'Claim failed.');}finally{setTx({kind:'idle'});}
+ };
+ if(!account)return <section className="earn-panel panel"><h2>Available to claim</h2><p>Connect your wallet to view real creator credits and buyback releases.</p></section>;
+ const credits=data?.assets.filter(row=>row.creditRaw>0n)??[];
+ return <section className="earn-panel panel" aria-label="Live earnings"><h2>Available to claim</h2>
+ {state.isPending?<p role="status">Reading wallet credits…</p>:state.isError?<p role="alert">Wallet credits are temporarily unavailable.</p>:<>
+ <div className="earn-amount-row"><strong>{data?formatUnits(data.nativeCreditRaw,18):'—'} MON</strong><span>Creator fee credit</span></div>
+ <button className="btn primary" disabled={busy||!wallet.wallet||!data?.nativeCreditRaw} onClick={()=>void run(()=>prepareFeeClaim(publicClient,account))}>Claim MON fees</button>
+ <div className="earn-row-group">{credits.map(row=><div className="earn-row" key={row.token}><span>{row.decimals===null?`${row.creditRaw} atomic units`:formatUnits(row.creditRaw,row.decimals)} {row.symbol} available</span><button className="btn ghost" disabled={busy||!wallet.wallet} onClick={()=>void run(()=>prepareFeeClaimToken(publicClient,account,row.token as Address))}>Claim {row.symbol}</button></div>)}{!credits.length&&<p>No ERC20 fee credits available.</p>}</div>
+ <h3>Buyback / vested release</h3>{data?.buybacks.length?data.buybacks.map(row=><div className="earn-row" key={row.token}><span>{row.symbol} · your currently releasable share {formatUnits(row.beneficiaryRaw,row.decimals)}</span><button className="btn ghost" disabled={busy||!wallet.wallet||row.releasableRaw===0n} onClick={()=>void run(()=>prepareBuybackRelease(publicClient,row.token as Address,account))}>Release</button></div>):<p>No indexed vesting positions for your wallet.</p>}
+ <p className="ticket-note">Release credits the fee escrow. Claim that token separately to receive it in your wallet.</p>
+ <h3>Claim history</h3>{data?.claims.length?<table className="detail-trades"><thead><tr><th>Asset</th><th>Amount</th><th>Time</th><th>Transaction</th></tr></thead><tbody>{data.claims.slice(0,100).map(row=>{const asset=data.assets.find(a=>a.token.toLowerCase()===row.token.toLowerCase());const native=row.token===zeroAddress;return <tr key={row.id}><td>{native?'MON':asset?.symbol??row.token}</td><td>{native?formatUnits(BigInt(row.amountRaw),18):asset?.decimals!==null&&asset?.decimals!==undefined?formatUnits(BigInt(row.amountRaw),asset.decimals):`${row.amountRaw} atomic units`}</td><td>{new Date(row.timestamp*1000).toLocaleString()}</td><td><a href={explorer(row.transactionHash,'tx')} target="_blank" rel="noreferrer">View transaction</a></td></tr>;})}</tbody></table>:<p>No indexed claims yet.</p>}
+ {data?.issues.map(issue=><p role="status" key={issue}>{issue}.</p>)}
+ </>}
+ {busy&&<p role="status" data-tx-phase={tx.kind}>{tx.kind==='awaiting-signature'?'Confirm in wallet…':`${tx.kind}…`}</p>}{error&&<p role="alert" className="form-error">{error}</p>}
+ <p className="earn-empty">Balances stay grouped by asset. Testnet MON has no assumed USD value.</p></section>;
 }

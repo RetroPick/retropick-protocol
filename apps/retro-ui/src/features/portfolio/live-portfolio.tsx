@@ -1,80 +1,28 @@
 'use client';
-
-import { useCallback, useEffect, useState } from 'react';
-import type { Address } from 'viem';
-import { zeroAddress } from 'viem';
-import { publicClient } from '@/lib/live/public-client';
+import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { formatUnits, type Address } from 'viem';
 import { useWallet } from '@/wallet/provider';
-import { fetchLaunches } from '@/lib/live/indexer-client';
-import { INDEXER_URL } from '@/lib/live/env';
-import { shortAddress } from '@/lib/live/format';
-import { release } from '@retropick/launchpad-sdk/chain';
-import { tokenAbi, marginAbi } from '@retropick/launchpad-sdk/abi';
-import { readFeeEscrowCredit } from '@retropick/launchpad-sdk/registry';
-
-interface LivePosition { token: Address; symbol: string; name: string; phase: string; balanceRaw: bigint; priceRaw: string | null }
-
-/** Live portfolio for the connected wallet: real balances across the wallet,
- * Kuru margin custody and the fee escrow — no fabricated PnL. */
+import { publicClient } from '@/lib/live/public-client';
+import { launchKeys } from '@/lib/live/queries';
+import { fetchWalletState } from '@/services/wallet-state';
+import { executePreparedWrite, type TxPhase } from '@/services/tx-pipeline';
+import { prepareKuruCancel, prepareMarginWithdraw } from '@retropick/launchpad-sdk/prepare';
+import { zeroAddress } from 'viem';
+import Link from '@/components/product/safe-link';
 export function LivePortfolio() {
-  const wallet = useWallet();
-  const account = wallet.account;
-  const [monBalance, setMonBalance] = useState<bigint | null>(null);
-  const [positions, setPositions] = useState<LivePosition[]>([]);
-  const [marginMon, setMarginMon] = useState<bigint | null>(null);
-  const [escrowCredit, setEscrowCredit] = useState<bigint | null>(null);
-  const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading');
-
-  const refresh = useCallback(async () => {
-    if (!account) return;
-    try {
-      const launches = INDEXER_URL ? await fetchLaunches(INDEXER_URL).then((envelope) => envelope.data).catch(() => []) : [];
-      const [mon, escrow, marginQuote, ...tokenBalances] = await Promise.all([
-        publicClient.getBalance({ address: account }),
-        readFeeEscrowCredit(publicClient, account),
-        publicClient.readContract({ address: release.kuruEnvironment.marginAccount as Address, abi: marginAbi, functionName: 'getBalance', args: [account, zeroAddress] }),
-        ...launches.map((launch) => publicClient.readContract({ address: launch.token as Address, abi: tokenAbi, functionName: 'balanceOf', args: [account] }).catch(() => 0n)),
-      ]);
-      setMonBalance(mon);
-      setEscrowCredit(escrow);
-      setMarginMon(marginQuote);
-      setPositions(launches.map((launch, index) => ({
-        token: launch.token as Address,
-        symbol: launch.symbol,
-        name: launch.name,
-        phase: launch.phase,
-        balanceRaw: tokenBalances[index] ?? 0n,
-        priceRaw: launch.priceRaw,
-      })).filter((position) => position.balanceRaw > 0n));
-      setStatus('ready');
-    } catch {
-      setStatus('error');
-    }
-  }, [account]);
-
-  useEffect(() => { void refresh(); }, [refresh]);
-
-  if (!account) return <section className="panel"><h2>Portfolio</h2><p className="empty-copy">Connect your wallet to see live positions on Monad Testnet.</p></section>;
-  if (status === 'loading') return <section className="panel"><h2>Portfolio</h2><p className="empty-copy">Reading balances from the deployed contracts…</p></section>;
-  if (status === 'error') return <section className="panel"><h2>Portfolio</h2><p className="empty-copy">Balances are temporarily unavailable. Retry shortly.</p></section>;
-
-  const valueOf = (balanceRaw: bigint, priceRaw: string | null) => priceRaw ? balanceRaw * BigInt(priceRaw) / 10n ** 18n : null;
-
-  return <section className="panel" aria-label="Live portfolio">
-    <div className="earn-panel-head"><h2>Portfolio · live · {shortAddress(account)}</h2></div>
-    <div className="earn-amount-row"><strong>{monBalance === null ? '—' : `${Number(monBalance) / 1e18}`}</strong><span>MON in wallet</span></div>
-    {positions.length > 0 && <table className="detail-trades"><thead><tr><th>Token</th><th>Balance</th><th>Phase</th><th>Value (MON)</th></tr></thead><tbody>
-      {positions.map((position) => <tr key={position.token}>
-        <td>{position.symbol}</td>
-        <td>{Number(position.balanceRaw) / 1e18}</td>
-        <td>{position.phase.replaceAll('_', ' ')}</td>
-        <td>{valueOf(position.balanceRaw, position.priceRaw) === null ? 'unavailable' : `${Number(valueOf(position.balanceRaw, position.priceRaw)) / 1e18}`}</td>
-      </tr>)}
-    </tbody></table>}
-    <div className="earn-row-group">
-      <div className="earn-row"><span>Kuru margin · MON</span><strong>{marginMon === null ? '—' : `${Number(marginMon) / 1e18}`}</strong></div>
-      <div className="earn-row"><span>Claimable creator fees · MON</span><strong>{escrowCredit === null ? '—' : `${Number(escrowCredit) / 1e18}`}</strong></div>
-    </div>
-    <p className="earn-empty">Values are last-trade estimates from the indexer; cost basis and PnL are not fabricated — they show as unavailable.</p>
-  </section>;
+ const wallet=useWallet(),account=wallet.account;
+ const state=useQuery({queryKey:launchKeys.wallet(account??'disconnected','state'),enabled:!!account,queryFn:({signal})=>fetchWalletState(account!,signal),refetchInterval:10_000,structuralSharing:false});
+ const [tx,setTx]=useState<TxPhase|{kind:'idle'}>({kind:'idle'}),[error,setError]=useState('');
+ const busy=!['idle','failed','success'].includes(tx.kind),data=state.data;
+ const run=async(prepare:()=>Promise<Parameters<typeof executePreparedWrite>[2]>)=>{if(!wallet.wallet)return;setError('');setTx({kind:'preparing'});try{const result=await executePreparedWrite(publicClient,wallet.wallet,await prepare(),{onPhase:setTx});if(result.kind==='failed')setError(result.reason);else void state.refetch();}catch(e){setError(e instanceof Error?e.message:'Action failed.');}finally{setTx({kind:'idle'});}};
+ if(!account)return <section className="panel"><h2>Portfolio</h2><p>Connect your wallet to view assets, Kuru margin balances and orders.</p></section>;
+ if(state.isPending)return <section className="panel"><h2>Portfolio</h2><p role="status">Reading current wallet balances…</p></section>;
+ if(state.isError)return <section className="panel"><h2>Portfolio</h2><p role="alert">Balances are temporarily unavailable.</p><button className="btn" onClick={()=>void state.refetch()}>Retry</button></section>;
+ const assets=data?.assets.filter(row=>row.walletRaw>0n||row.marginRaw>0n)??[],orders=data?.orders.filter(o=>o.status==='OPEN'||o.status==='PARTIALLY_FILLED')??[];
+ return <section className="panel" aria-label="Live portfolio"><h2>Portfolio</h2><div className="quote-lines"><div><span>MON in wallet</span><strong>{data?formatUnits(data.monRaw,18):'—'}</strong></div><div><span>MON in Kuru margin</span><strong>{data?formatUnits(data.nativeMarginRaw,18):'—'}</strong><button className="btn ghost" disabled={busy||!wallet.wallet||!data?.nativeMarginRaw} onClick={()=>void run(()=>prepareMarginWithdraw(publicClient,account,{token:zeroAddress,amount:data!.nativeMarginRaw}))}>Withdraw</button></div></div>
+ <table className="detail-trades"><thead><tr><th>Asset</th><th>Wallet</th><th>Kuru margin</th><th>Action</th></tr></thead><tbody>{assets.map(row=><tr key={row.token}><td><Link href={`/launchpad/token/${row.token}`}>{row.symbol}</Link></td><td>{row.decimals===null?`${row.walletRaw} atomic units`:formatUnits(row.walletRaw,row.decimals)}</td><td>{row.decimals===null?`${row.marginRaw} atomic units`:formatUnits(row.marginRaw,row.decimals)}</td><td><button className="btn ghost" disabled={busy||!wallet.wallet||!row.marginRaw} onClick={()=>void run(()=>prepareMarginWithdraw(publicClient,account,{token:row.token as Address,amount:row.marginRaw}))}>Withdraw</button></td></tr>)}</tbody></table>{!assets.length&&<p>No indexed token balances in your wallet or margin.</p>}
+ <h3>Open Kuru orders</h3>{orders.length?<table className="detail-trades"><thead><tr><th>Side</th><th>Price</th><th>Initial resting size</th><th>Remaining</th><th>Created</th><th>Status</th><th>Action</th></tr></thead><tbody>{orders.map(o=><tr key={`${o.market}:${o.orderId}`}><td>{o.side}</td><td>{formatUnits(BigInt(o.priceX18),18)}</td><td>{formatUnits(BigInt(o.originalSizeUnits)*10n**BigInt(o.baseDecimals)/BigInt(o.sizePrecision),o.baseDecimals)}</td><td>{formatUnits(BigInt(o.remainingSizeUnits)*10n**BigInt(o.baseDecimals)/BigInt(o.sizePrecision),o.baseDecimals)}</td><td>{new Date(o.createdAt*1000).toLocaleString()}</td><td>{o.status.replaceAll('_',' ')}</td><td><button className="btn ghost" disabled={busy||!wallet.wallet} onClick={()=>void run(()=>prepareKuruCancel(publicClient,o.market as Address,account,[Number(o.orderId)]))}>Cancel</button></td></tr>)}</tbody></table>:<p>No indexed open orders.</p>}
+ {data?.issues.map(issue=><p role="status" key={issue}>{issue}.</p>)}{error&&<p role="alert" className="form-error">{error}</p>}{busy&&<p role="status" data-tx-phase={tx.kind}>Working…</p>}
+ <p className="ticket-note">Wallet balances and free margin balances are read from chain. Open order history is indexed; cancellation validates current on-chain ownership.</p></section>;
 }

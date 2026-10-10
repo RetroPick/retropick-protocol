@@ -12,7 +12,7 @@ export function sellQuote(input: bigint, tokenReserve: bigint, quoteReserve: big
   const gross = amountOut(input, tokenReserve, quoteReserve);
   return gross - gross * fee / BPS - gross * tax / BPS;
 }
-export function minOutput(output: bigint, slippageBps = 50n) { return output * (BPS - slippageBps) / BPS; }
+export function minOutput(output: bigint, slippageBps = 50n) { if (slippageBps < 0n || slippageBps >= BPS) throw Error('Slippage must be between 0 and 9999 basis points.'); return output * (BPS - slippageBps) / BPS; }
 
 /** Reject excess precision instead of rounding the user's signed amount. */
 export function parseExact(value: string, decimals = 18) {

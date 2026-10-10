@@ -1,6 +1,12 @@
 import { type Abi, type Address, type Hex, type Log, decodeErrorResult, decodeEventLog, toFunctionSelector } from 'viem';
-import { coordinatorAbi, curveAbi, factoryAbi, kuruAbi, marginAbi, tokenAbi } from './abi.ts';
-import { retroPickBuybackVaultV2Abi, retroPickFeeEscrowV2Abi } from '@retropick/abi/abi';
+import { coordinatorAbi } from './abis/coordinatorAbi.ts';
+import { curveAbi } from './abis/curveAbi.ts';
+import { factoryAbi } from './abis/factoryAbi.ts';
+import { kuruAbi } from './abis/kuruAbi.ts';
+import { marginAbi } from './abis/marginAbi.ts';
+import { tokenAbi } from './abis/tokenAbi.ts';
+import { retroPickBuybackVaultV2Abi } from './abis/retroPickBuybackVaultV2Abi.ts';
+import { retroPickFeeEscrowV2Abi } from './abis/retroPickFeeEscrowV2Abi.ts';
 
 /** ABIs whose events/errors the application decodes from receipts. */
 export const decodeAbis = [

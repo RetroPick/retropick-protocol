@@ -1,129 +1,92 @@
 'use client';
-
+// Earn & Portfolio finance hub (Sections 20–23). LIVE sections consume the existing qualified wallet/claim/referral
+// components unchanged; DEMO shows the same information architecture with no claimable amounts and no
+// copied third-party fee policy (no SOL, no "50% of fees", no deployer revenue rate).
 import { useState } from 'react';
-import { toast } from 'sonner';
-import { Banknote, Check, Copy, Rocket, Share2, Wallet } from 'lucide-react';
-import { Segments } from '@/components/product/ui';
-import { money } from '@/lib/domain/fixtures';
+import { useQuery } from '@tanstack/react-query';
+import { ArrowUpRight, Coins, Gift, Layers, Rocket, Send, Wallet } from 'lucide-react';
+import Link from '@/components/product/safe-link';
 import Portfolio from '@/features/portfolio/portfolio';
+import { LivePortfolio } from '@/features/portfolio/live-portfolio';
+import { ReferralCard } from './referrals';
+import { FundWallet } from './fund-wallet';
+import { SendToWallet } from './send-to-wallet';
 import { LiveEarn } from '@/features/earn/live-earn';
-import { DATA_MODE } from '@/lib/live/env';
+import { DATA_MODE, INDEXER_URL } from '@/lib/live/env';
+import { fetchSearch } from '@/lib/live/indexer-client';
+import { launchKeys } from '@/lib/live/queries';
+import { useWallet } from '@/wallet/provider';
+import { useDemo } from '@/components/product/provider';
+import { liveRow } from '@/lib/view-models/discovery';
+import { DemoBadge, EmptyState, InfoHint, useCopy } from '@/components/trading/primitives';
+import { LaunchTable } from '@/features/launchpad/launch-table';
+import './earn-hub.css';
 
-// Local demo snapshot. No claim, revenue or cash-out surface is connected —
-// every value is presentation-only and nothing here moves funds.
-const EARN = {
-  creatorFees: 0,
-  referralEarnings: 0,
-  deployerRevenue: 0,
-  claimedAllTime: 0,
-  solAvailable: '0 SOL',
-  address: '3hKz...6nPw',
-};
-const DEMO_REFERRAL = 'https://demo.retropick.xyz/r/3hKz6nPw';
+const SECTIONS: Array<[string, string]> = [['claims', 'Claims'], ['portfolio', 'Portfolio'], ['launches', 'Created launches'], ['referrals', 'Referrals'], ['funding', 'Fund & send']];
 
-function copyText(value: string, message: string) {
-  const done = () => toast.success(message);
-  if (navigator.clipboard?.writeText) {
-    navigator.clipboard.writeText(value).then(done, () => toast.error('Copy is unavailable in this browser.'));
-  } else {
-    toast.error('Copy is unavailable in this browser.');
-  }
+function HubNav() {
+  return <nav className="rp-hub-nav" aria-label="Earn and portfolio sections">{SECTIONS.map(([id, label]) => <a key={id} href={`#${id}`}>{label}</a>)}</nav>;
 }
 
-function AddrChip({ address }: { address: string }) {
-  return <button className="addr-chip" onClick={() => copyText(address, 'Address copied')} aria-label={`Copy address ${address}`}>
-    <span>{address}</span>
-    <Copy size={12}/>
-  </button>;
-}
-
-function ClaimAllButton({ compact = false }: { compact?: boolean }) {
-  return <button className={`btn${compact ? '' : ' primary'}`} onClick={() => toast.info('Demo only — no live earnings are connected to this interface.')}>Claim all</button>;
-}
-
-function CreatorFeesPanel() {
-  return <section className="earn-panel panel" id="creator-fees" aria-label="Creator fees">
-    <div className="earn-panel-head"><h2>Creator fees</h2><AddrChip address={EARN.address}/></div>
-    <div className="earn-amount-row"><strong>{money(EARN.creatorFees)}</strong><span>Available to claim</span><span className="earn-sol">{EARN.solAvailable}</span></div>
-    <p className="earn-empty">Nothing to claim right now — fees show up here as your coins trade.</p>
-    <div className="earn-row"><span>Claimed all-time</span><strong>{money(EARN.claimedAllTime)}</strong></div>
-    <div className="earn-actions"><ClaimAllButton/></div>
+/** Created launches. The indexer has no creator filter; search by the wallet address is capped at 20 results. */
+function CreatedLaunches() {
+  const { account } = useWallet();
+  const q = useQuery({ queryKey: [...launchKeys.all, 'created', account ?? ''], enabled: !!INDEXER_URL && !!account, queryFn: ({ signal }) => fetchSearch(INDEXER_URL!, account!, signal), staleTime: 10000 });
+  const rows = (q.data?.data ?? []).filter((l) => l.creator.toLowerCase() === account?.toLowerCase()).map(liveRow);
+  return <section id="launches" className="rp-hub-section" aria-labelledby="h-launches">
+    <h2 id="h-launches"><Rocket size={16} aria-hidden/>Created launches</h2>
+    {!account ? <EmptyState title="Connect a wallet to see launches you created"/>
+      : q.isError ? <p className="rp-note" role="alert">Launch search is unavailable. Try again later.</p>
+      : <><LaunchTable rows={rows} view="list" now={Date.now()} empty="No indexed launches list this wallet as creator."/>
+        <p className="rp-note">Matched by creator address through indexer search (first 20 matches). {(q.data?.data.length ?? 0) >= 20 ? 'More launches may exist — this list is not complete.' : 'This list may still be incomplete until the indexer exposes a creator filter.'}</p></>}
   </section>;
 }
 
-function ReferralPanel() {
-  const [activated, setActivated] = useState(false);
-  const activate = () => {
-    setActivated(true);
-    copyText(DEMO_REFERRAL, 'Demo referral link copied');
-  };
-  return <section className="earn-panel panel" id="referrals" aria-label="Referral earnings">
-    <div className="earn-panel-head"><h2>Referral earnings</h2><Share2 size={17} className="earn-glyph"/></div>
-    <p className="earn-empty">Earn 50% of protocol fees when someone launches a coin with your link.</p>
-    <div className="earn-actions">
-      {activated
-        ? <button className="btn" onClick={() => copyText(DEMO_REFERRAL, 'Demo referral link copied')}><Check size={15}/> Copy referral link</button>
-        : <button className="btn primary" onClick={activate}>Activate referral link</button>}
+function LiveHub() {
+  return <div className="rp-hub" data-testid="earn-hub" data-data-mode="live">
+    <header className="rp-hub-head"><div><h1>Earn &amp; Portfolio</h1><p>Real balances, claims and attribution for your connected Monad Testnet wallet.</p></div></header>
+    <HubNav/>
+    <section id="claims" className="rp-hub-section"><LiveEarn/></section>
+    <section id="portfolio" className="rp-hub-section"><LivePortfolio/></section>
+    <CreatedLaunches/>
+    <section className="rp-hub-section"><ReferralCard/></section>
+    <section id="funding" className="rp-hub-section"><FundWallet><SendToWallet/></FundWallet></section>
+  </div>;
+}
+
+const DEMO_REFERRAL = 'https://demo.retropick.xyz/r/DEMO-0001';
+
+function DemoHub() {
+  const demo = useDemo();
+  const [copied, copy] = useCopy();
+  const [view, setView] = useState<'earnings' | 'portfolio'>('earnings');
+  return <div className="rp-hub" data-testid="earn-hub" data-data-mode="demo">
+    <header className="rp-hub-head"><div><h1>Earn &amp; Portfolio <DemoBadge/></h1><p>How creator fees, buyback releases, referrals and wallet funding appear in RetroPick. No real funds and no claim contract are connected in demo mode.</p></div></header>
+    <HubNav/>
+    <section id="claims" className="rp-hub-hero" aria-label="Available to claim">
+      <div><span className="rp-hub-label">Available to claim</span><strong className="rp-hub-total" data-testid="claimable-total">—</strong><p>In live mode this is read per asset from the RetroPick fee escrow for your wallet. Demo mode has no claimable balance.</p></div>
+      <button className="rp-btn rp-btn-primary" disabled title="No claim contract is connected in demo mode">Claim all</button>
+    </section>
+    <div className="rp-hub-cards">
+      <div className="rp-hub-card"><Coins size={16} aria-hidden/><span>Creator fees <InfoHint text="The creator fee configured on each launch (shown on the token's Protocol tab) is credited to the fee escrow on every curve trade."/></span><strong>—</strong><small>Fee escrow credit · live only</small></div>
+      <div className="rp-hub-card"><Layers size={16} aria-hidden/><span>Buyback / vested release</span><strong>—</strong><small>Releasable share from buyback vaults · live only</small></div>
+      <div className="rp-hub-card"><Gift size={16} aria-hidden/><span>Referral earnings</span><strong>Not enabled</strong><small>Referral attribution is tracked; payouts are not funded.</small></div>
     </div>
-  </section>;
-}
-
-function DeployerPanel() {
-  return <section className="earn-panel panel" id="deployers" aria-label="Deployer earnings">
-    <div className="earn-panel-head"><h2>Deployer earnings</h2><AddrChip address={EARN.address}/></div>
-    <div className="earn-amount-row"><strong>{money(EARN.deployerRevenue)}</strong><span>Available to claim</span><span className="earn-sol">{EARN.solAvailable}</span></div>
-    <p className="earn-empty">No deployer earnings to claim yet. Fees show here as your coins trade.</p>
-    <p className="earn-note">Deployers earn 0.20% from every trade (even if you share 100% of creator fees).</p>
-    <div className="earn-actions"><ClaimAllButton/></div>
-  </section>;
-}
-
-function CashOutPanel() {
-  return <section className="earn-panel panel" aria-label="Cash out">
-    <div className="earn-panel-head"><h2>Cash out</h2><Wallet size={17} className="earn-glyph"/></div>
-    <p className="earn-empty">Move what you&apos;ve earned to a bank account or a wallet.</p>
-    <div className="cashout-grid">
-      <div className="cashout-card">
-        <span className="cashout-kind"><Banknote size={15}/> Bank or card · MoonPay</span>
-        <p>Send money to your bank account or debit card with MoonPay. Settles in 1–3 business days, depending on your bank.</p>
-        <button className="btn" onClick={() => toast.info('Demo only — cash-out is not connected.')}>Cash out to bank</button>
-      </div>
-      <div className="cashout-card">
-        <span className="cashout-kind"><Wallet size={15}/> Wallet address</span>
-        <p>Send money to a wallet address on Coinbase, Binance, Solana, or Robinhood. Payment settles instantly.</p>
-        <button className="btn" onClick={() => toast.info('Demo only — cash-out is not connected.')}>Send to a wallet</button>
-      </div>
-    </div>
-  </section>;
+    <section id="portfolio" className="rp-hub-section" aria-labelledby="h-portfolio">
+      <div className="rp-hub-row"><h2 id="h-portfolio"><Wallet size={16} aria-hidden/>Portfolio</h2><button className="rp-btn rp-btn-ghost rp-btn-sm" onClick={() => setView(view === 'portfolio' ? 'earnings' : 'portfolio')} aria-expanded={view === 'portfolio'}>{view === 'portfolio' ? 'Hide demo positions' : 'Show demo positions'}</button></div>
+      <p className="rp-note">Live mode lists wallet assets, Kuru margin (with withdraw), and open orders from chain + indexer.{demo.connected ? '' : ' Prediction/PRISM demo positions are available below.'}</p>
+      {view === 'portfolio' && <div className="rp-hub-embed"><Portfolio/></div>}
+    </section>
+    <section id="launches" className="rp-hub-section" aria-labelledby="h-launches"><h2 id="h-launches"><Rocket size={16} aria-hidden/>Created launches</h2><p className="rp-note">Launches your wallet created appear here in live mode. <Link className="rp-link" href="/launchpad/create">Launch a token <ArrowUpRight size={12} aria-hidden/></Link></p></section>
+    <section id="referrals" className="rp-hub-section" aria-labelledby="h-ref">
+      <h2 id="h-ref"><Gift size={16} aria-hidden/>Referrals</h2>
+      <p className="rp-note">Share a link to attribute confirmed launches and trades to your wallet. Referral earnings are not enabled.</p>
+      <div className="rp-ref"><label className="rp-sr" htmlFor="demo-ref">Your referral link</label><input id="demo-ref" readOnly value={DEMO_REFERRAL} aria-label="Your referral link"/><button className="rp-btn rp-btn-sm" onClick={() => copy(DEMO_REFERRAL)}>{copied ? 'Link copied' : 'Copy'}</button><DemoBadge/></div>
+    </section>
+    <section id="funding" className="rp-hub-section" aria-labelledby="h-fund"><h2 id="h-fund" className="rp-sr">Fund and send</h2><FundWallet/><div className="rp-hub-send"><h3><Send size={15} aria-hidden/>Send</h3><p className="rp-note">Transfers to an EVM address on Monad Testnet. Connect a live wallet in live mode; demo mode never sends.</p></div></section>
+  </div>;
 }
 
 export default function EarnPage() {
-  const [view, setView] = useState('Earnings');
-  const total = EARN.creatorFees + EARN.referralEarnings + EARN.deployerRevenue;
-  return <>
-    <div className="page-heading"><div><h1>Earn</h1><p>Everything you&apos;ve earned on Bags, in one place.</p></div><span className="tag">DEMO</span></div>
-    <Segments values={['Earnings', 'Portfolio']} value={view} onChange={setView} label="Earn sections"/>
-    {view === 'Portfolio' ? <div style={{ marginTop: 22 }}><Portfolio/></div> : DATA_MODE === 'live' ? <>
-      <div style={{ marginTop: 22 }}><LiveEarn/></div>
-      <div className="notice" style={{ marginTop: 20 }}>Live earnings on Monad Testnet: creator fees accrue to your fee-escrow as your launches trade, and vested buyback proceeds release here. Referral and deployer-revenue programs are not part of the deployed V2 contracts.</div>
-    </> : <>
-      <section className="earn-hero panel" aria-label="Available to claim">
-        <div>
-          <span className="earn-label">Available to claim</span>
-          <strong className="earn-total">{money(total)}</strong>
-          <p>{EARN.solAvailable} across creator fees, referrals and deployer revenue</p>
-        </div>
-        <ClaimAllButton/>
-      </section>
-      <div className="earn-cards">
-        <a className="earn-card" href="#creator-fees"><span>Creator fees</span><strong>{money(EARN.creatorFees)}</strong></a>
-        <a className="earn-card" href="#referrals"><span>Referral earnings</span><strong>{money(EARN.referralEarnings)}</strong></a>
-        <a className="earn-card" href="#deployers"><span>Deployer revenue</span><strong>{money(EARN.deployerRevenue)}</strong></a>
-      </div>
-      <CreatorFeesPanel/>
-      <ReferralPanel/>
-      <DeployerPanel/>
-      <CashOutPanel/>
-    </>}
-  </>;
+  return DATA_MODE === 'live' ? <LiveHub/> : <DemoHub/>;
 }

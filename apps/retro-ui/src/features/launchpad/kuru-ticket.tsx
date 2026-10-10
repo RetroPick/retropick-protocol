@@ -1,185 +1,142 @@
 'use client';
-
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import type { Address } from 'viem';
-import { zeroAddress } from 'viem';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { formatUnits, zeroAddress, type Address } from 'viem';
 import { publicClient } from '@/lib/live/public-client';
+import { launchKeys, queryClient } from '@/lib/live/queries';
+import { measureStage, markStage } from '@/lib/live/performance';
 import { useWallet } from '@/wallet/provider';
 import { executePreparedWrite, type TxPhase } from '@/services/tx-pipeline';
-import { Segments } from '@/components/product/ui';
-import { kuruAbi, marginAbi } from '@retropick/launchpad-sdk/abi';
+import { useIndexedRecord } from '@/hooks/use-indexed-record';
+import { kuruAbi } from '@retropick/launchpad-sdk/abis/kuruAbi';
+import { marginAbi } from '@retropick/launchpad-sdk/abis/marginAbi';
 import { release } from '@retropick/launchpad-sdk/chain';
-import { readMarketParams, kuruGrid, prepareMarginDeposit, prepareMarginWithdraw, prepareKuruLimitOrder, prepareKuruMarketOrder, prepareKuruCancel, type KuruMarketParams } from '@retropick/launchpad-sdk/prepare';
-import { decodeOrderCreated, decodeOrderCancellations } from '@retropick/launchpad-sdk/decode';
-import { parseExact } from '@retropick/launchpad-sdk/math';
+import { assertKuruMarketIdentity, kuruGrid, prepareMarginDeposit, prepareMarginWithdraw, prepareKuruLimitOrder, prepareKuruMarketOrder } from '@retropick/launchpad-sdk/prepare';
+import { parseExact, minOutput } from '@retropick/launchpad-sdk/math';
 import { toast } from 'sonner';
+import { AmountField, QuoteLines, SlippageControl, TicketShell, TxProgress, stageFromPhase, trim, type OrderKind, type Side } from '@/features/trading/ticket-shell';
+import { flowBusy, flowMessage, runDepositThenOrder, shortfall, type FlowState, type WriteResult } from '@/features/trading/deposit-order-machine';
+import { SegmentedControl } from '@/components/trading/primitives';
 
-interface OpenOrder { id: number; isBuy: boolean; priceUnits: bigint; sizeUnits: bigint }
+type MarketParams = Awaited<ReturnType<typeof assertKuruMarketIdentity>>;
 
 /**
- * Kuru orderbook ticket for graduated launches: margin account, resting limit
- * orders, fill-or-kill market orders and cancels — all through the shared
- * transaction pipeline and the security-reviewed SDK write boundary.
+ * Exact collateral an order needs in the margin account — the same quantity prepareKuruLimitOrder /
+ * prepareKuruMarketOrder compare against getBalance (no new math: SDK kuruGrid + parseExact).
  */
-export function KuruTicket({ market, token, tokenSymbol, initialQuoteBalance, initialBaseBalance, reload }: {
-  market: Address;
-  token: Address;
-  tokenSymbol: string;
-  initialQuoteBalance: bigint;
-  initialBaseBalance: bigint;
-  reload: () => void;
-}) {
-  const wallet = useWallet();
-  const account = wallet.account;
-  const [params, setParams] = useState<KuruMarketParams | null>(null);
-  const [marginQuote, setMarginQuote] = useState(initialQuoteBalance);
-  const [marginBase, setMarginBase] = useState(initialBaseBalance);
-  const [orders, setOrders] = useState<OpenOrder[]>([]);
-  const [side, setSide] = useState('Buy');
-  const [kind, setKind] = useState('Limit');
-  const [price, setPrice] = useState('');
-  const [size, setSize] = useState('');
-  const [tx, setTx] = useState<TxPhase | { kind: 'idle' }>({ kind: 'idle' });
-  const [error, setError] = useState('');
-  const [tick, setTick] = useState(0);
-  const refresh = useCallback(() => setTick((value) => value + 1), []);
-  const busy = tx.kind !== 'idle' && tx.kind !== 'failed';
-
-  const refreshState = useCallback(async () => {
-    if (!account) return;
-    const [marketParams, quote, base, counter] = await Promise.all([
-      readMarketParams(publicClient, market),
-      publicClient.readContract({ address: marginAddress(), abi: marginAbi, functionName: 'getBalance', args: [account, zeroAddress] }),
-      publicClient.readContract({ address: marginAddress(), abi: marginAbi, functionName: 'getBalance', args: [account, token] }),
-      publicClient.readContract({ address: market, abi: kuruAbi, functionName: 's_orderIdCounter' }),
-    ]);
-    setParams(marketParams);
-    setMarginQuote(quote);
-    setMarginBase(base);
-    // Order ids are only ever taken from chain storage, never derived here.
-    const ids: number[] = [];
-    for (let id = Number(counter); id > 0 && ids.length < 120; id -= 1) ids.push(id);
-    // Batched: one multicall covers the whole id range.
-    const results = await Promise.all(ids.map((id) =>
-      publicClient.readContract({ address: market, abi: kuruAbi, functionName: 's_orders', args: [id] }).catch(() => undefined) as Promise<unknown>,
-    ));
-    const found: OpenOrder[] = [];
-    results.forEach((raw, index) => {
-      if (!raw) return;
-      // The catalog ABI decodes this struct positionally: (owner, size, prev, next, flippedId, price, flippedPrice, isBuy)
-      const order = raw as unknown as [Address, bigint | number, number, number, number, bigint | number, number, boolean];
-      const [owner, size, , , , price, , isBuy] = order;
-      const sizeUnits = BigInt(size);
-      const priceUnits = BigInt(price);
-      if (sizeUnits > 0n && String(owner).toLowerCase() === account.toLowerCase()) {
-        found.push({ id: ids[index], isBuy, priceUnits, sizeUnits });
-      }
-    });
-    setOrders(found);
-  }, [account, market, token]);
-
-  useEffect(() => { void refreshState().catch(() => undefined); }, [refreshState, tick, reload]);
-
-  const quotes = useMemo(() => {
-    if (!params) return null;
-    return { quote: Number(marginQuote) / 1e18, base: Number(marginBase) / 1e18 };
-  }, [params, marginQuote, marginBase]);
-
-  const run = async (prepare: () => Promise<Parameters<typeof executePreparedWrite>[2]>, successNote: (events: string[]) => string) => {
-    if (!wallet.wallet || !account) return;
-    setError('');
-    try {
-      const prepared = await prepare();
-      const result = await executePreparedWrite(publicClient, wallet.wallet, prepared, { onPhase: setTx });
-      if (result.kind === 'success') {
-        toast.success(successNote([/* events decoded by callers where relevant */]), { description: result.hash });
-        refresh();
-        reload();
-      } else {
-        setError(result.reason);
-      }
-    } catch (cause) {
-      setError(cause instanceof Error ? cause.message : 'Transaction failed.');
-    } finally {
-      setTx({ kind: 'idle' });
-    }
-  };
-
-  const deposit = () => run(
-    () => prepareMarginDeposit(publicClient, account!, { token: zeroAddress, amount: parseExact(depositAmount || '0', 18) }),
-    () => 'Margin deposit confirmed',
-  );
-  const withdraw = () => run(
-    () => prepareMarginWithdraw(publicClient, account!, { token: zeroAddress, amount: parseExact(withdrawAmount || '0', 18) }),
-    () => 'Margin withdrawal confirmed',
-  );
-  const [depositAmount, setDepositAmount] = useState('');
-  const [withdrawAmount, setWithdrawAmount] = useState('');
-
-  const submitOrder = () => {
-    if (!params || !account) return;
+export function requiredCollateral(params: MarketParams, kind: OrderKind, side: Side, price: string, size: string): { amount: bigint; asset: 'quote' | 'base' } | null {
+  try {
     if (kind === 'Limit') {
-      return run(
-        () => prepareKuruLimitOrder(publicClient, account!, {
-          market, token, side: side.toLowerCase() as 'buy' | 'sell',
-          priceRaw: parseExact(price || '0', 18), sizeRaw: parseExact(size || '0', 18), postOnly: false,
-        }),
-        () => 'Limit order placed',
-      );
+      const sizeRaw = parseExact(size, Number(params.baseDecimals));
+      if (side === 'Sell') return { amount: sizeRaw, asset: 'base' };
+      const priceUnits = kuruGrid.priceToUnits(parseExact(price, Number(params.quoteDecimals)), params, 'buy');
+      return { amount: kuruGrid.quoteCostBuy(priceUnits, kuruGrid.sizeToUnits(sizeRaw, params), params), asset: 'quote' };
     }
-    return run(
-      () => prepareKuruMarketOrder(publicClient, account!, {
-        market, token, side: side.toLowerCase() as 'buy' | 'sell',
-        amountRaw: side === 'Buy' ? parseExact(size || '0', 18) : parseExact(size || '0', 18),
-        minOutcomeRaw: 0n, // fill-or-kill with on-chain price protection from the book itself
-        slippageBps: 300n,
-      }),
-      () => 'Market order executed',
-    );
-  };
-
-  const cancel = (id: number) => run(() => prepareKuruCancel(publicClient, market, account!, [id]), () => 'Order cancelled');
-
-  const priceFor = (units: bigint) => params ? Number(kuruGrid.unitsToPriceRaw(units, params)) / 1e18 : 0;
-
-  return <div className="panel token-trade-ticket kuru-ticket">
-    <h2>Kuru <small>Graduated market</small></h2>
-    <div className="quote-lines">
-      <div><span>Margin · MON</span><strong>{quotes ? quotes.quote.toFixed(4) : '—'}</strong></div>
-      <div><span>Margin · {tokenSymbol}</span><strong>{quotes ? quotes.base.toFixed(2) : '—'}</strong></div>
-    </div>
-    <div className="form-grid">
-      <label className="field"><span>Deposit MON</span>
-        <input inputMode="decimal" value={depositAmount} onChange={(event) => setDepositAmount(event.target.value)} placeholder="0"/>
-        <button className="btn ghost" disabled={busy} onClick={deposit}>Deposit</button>
-      </label>
-      <label className="field"><span>Withdraw MON</span>
-        <input inputMode="decimal" value={withdrawAmount} onChange={(event) => setWithdrawAmount(event.target.value)} placeholder="0"/>
-        <button className="btn ghost" disabled={busy} onClick={withdraw}>Withdraw</button>
-      </label>
-    </div>
-    <Segments label="Order side" values={['Buy', 'Sell']} value={side} onChange={setSide}/>
-    <Segments label="Order type" values={['Limit', 'Market']} value={kind} onChange={setKind}/>
-    <label className="field"><span>{kind === 'Limit' ? 'Price' : side === 'Buy' ? 'Spend' : 'Sell'} {kind === 'Limit' ? `· MON per ${tokenSymbol}` : kind === 'Market' && side === 'Buy' ? '· MON' : `· ${tokenSymbol}`}</span>
-      <input inputMode="decimal" value={price} onChange={(event) => setPrice(event.target.value)} placeholder="0" disabled={kind === 'Market'} style={kind === 'Market' ? { display: 'none' } : undefined}/>
-      <input inputMode="decimal" value={size} onChange={(event) => setSize(event.target.value)} placeholder="0"/>
-      <small>{kind === 'Limit' ? 'Price and size snap to the market grid; validated before signing.' : 'Fill-or-kill against the book, funded from margin.'}</small>
-    </label>
-    {error && <div role="alert" className="form-error">{error}</div>}
-    {busy && <div role="status" className="ticket-note" data-tx-phase={tx.kind}>Working…</div>}
-    <button className="btn primary full" disabled={busy || !params} onClick={submitOrder}>
-      {busy ? 'Working…' : `${side === 'Buy' ? 'Buy' : 'Sell'} ${tokenSymbol}${kind === 'Limit' ? ' · limit' : ' · market'}`}
-    </button>
-    {orders.length > 0 && <div className="open-orders">
-      <span className="field-label">Open orders</span>
-      {orders.map((order) => <div className="open-order" key={order.id}>
-        <span className={order.isBuy ? 'positive' : 'negative'}>{order.isBuy ? 'Buy' : 'Sell'}</span>
-        <span>{params ? Number(order.sizeUnits * 10n ** 18n / (10n ** BigInt(params.baseDecimals) * params.sizePrecision)) : Number(order.sizeUnits)} {tokenSymbol} @ {priceFor(order.priceUnits).toFixed(8)} MON</span>
-        <button className="btn ghost" disabled={busy} onClick={() => cancel(order.id)}>Cancel</button>
-      </div>)}
-    </div>}
-    <p className="ticket-note">Orders live on the verified Kuru orderbook. Order ids come from on-chain storage; nothing is fabricated.</p>
-  </div>;
+    return side === 'Buy' ? { amount: parseExact(size, Number(params.quoteDecimals)), asset: 'quote' } : { amount: parseExact(size, Number(params.baseDecimals)), asset: 'base' };
+  } catch { return null; }
 }
 
-const marginAddress = () => release.kuruEnvironment.marginAccount as Address;
+export function KuruTicket({ market, token, tokenSymbol, quoteSymbol = 'MON', initialQuoteBalance, initialBaseBalance, reload, orderKind, onKindChange }: {
+  market: Address; token: Address; tokenSymbol: string; quoteSymbol?: string; initialQuoteBalance: bigint; initialBaseBalance: bigint; reload: () => void; orderKind?: string; onKindChange?: (kind: string) => void;
+}) {
+  const wallet = useWallet(), account = wallet.account;
+  const [side, setSide] = useState<Side>('Buy'), [localKind, setLocalKind] = useState<OrderKind>('Market'), [price, setPrice] = useState(''), [size, setSize] = useState('');
+  const [slippage, setSlippage] = useState('50');
+  const kind = (orderKind ?? localKind) as OrderKind, setKind = (k: OrderKind) => (onKindChange ?? ((v: string) => setLocalKind(v as OrderKind)))(k);
+  const [depositAmount, setDepositAmount] = useState(''), [withdrawAmount, setWithdrawAmount] = useState(''), [fundAsset, setFundAsset] = useState<'quote' | 'base'>('quote');
+  const [tx, setTx] = useState<TxPhase | { kind: 'idle' }>({ kind: 'idle' }), [error, setError] = useState('');
+  const [flow, setFlow] = useState<FlowState>({ step: 'idle' });
+  const [placed, setPlaced] = useState<string | null>(null);
+  const running = useRef(false);
+  const busy = !['idle', 'failed', 'success'].includes(tx.kind) || flowBusy(flow);
+  const paramsQuery = useQuery({ queryKey: launchKeys.resource(token, 'ticket-params', { market }), queryFn: () => assertKuruMarketIdentity(publicClient, market, token), staleTime: 10_000, structuralSharing: false });
+  const params = paramsQuery.data;
+  const readMargin = async (asset: Address) => publicClient.readContract({ address: release.kuruEnvironment.marginAccount as Address, abi: marginAbi, functionName: 'getBalance', args: [account!, asset], blockNumber: await publicClient.getBlockNumber({ cacheTime: 0 }) });
+  const balancesQuery = useQuery({ queryKey: launchKeys.wallet(account ?? 'disconnected', `margin:${market}`), enabled: !!account && !!params, queryFn: async () => {
+    const blockNumber = await publicClient.getBlockNumber({ cacheTime: 0 });
+    return await Promise.all([publicClient.readContract({ address: release.kuruEnvironment.marginAccount as Address, abi: marginAbi, functionName: 'getBalance', args: [account!, params!.quoteAsset], blockNumber }), publicClient.readContract({ address: release.kuruEnvironment.marginAccount as Address, abi: marginAbi, functionName: 'getBalance', args: [account!, token], blockNumber })]);
+  }, refetchInterval: 3000, structuralSharing: false });
+  useEffect(() => { setError(''); setTx({ kind: 'idle' }); setFlow({ step: 'idle' }); setPlaced(null); }, [account, market]);
+  const indexed = useIndexedRecord(placed && kind === 'Limit' ? 'order' : placed ? 'trade' : null, token.toLowerCase(), placed, account);
+  const marginQuote = balancesQuery.data?.[0] ?? initialQuoteBalance, marginBase = balancesQuery.data?.[1] ?? initialBaseBalance;
+  const preview = useMemo(() => { if (!params || kind !== 'Limit') return null; try {
+    const p = kuruGrid.priceToUnits(parseExact(price, Number(params.quoteDecimals)), params, side === 'Buy' ? 'buy' : 'sell'); const s = kuruGrid.sizeToUnits(parseExact(size, Number(params.baseDecimals)), params);
+    return { price: formatUnits(kuruGrid.unitsToPriceRaw(p, params), Number(params.quoteDecimals)), quote: formatUnits(kuruGrid.quoteCostBuy(p, s, params), Number(params.quoteDecimals)), base: formatUnits(kuruGrid.unitsToSize(s, params), Number(params.baseDecimals)) };
+  } catch { return null; } }, [params, kind, side, price, size]);
+  const [marketPreview, setMarketPreview] = useState<bigint | null>(null);
+  useEffect(() => { setMarketPreview(null); if (!params || kind !== 'Market' || !size) return; let alive = true; const timer = setTimeout(() => { void (async () => {
+    try { const raw = parseExact(size, Number(side === 'Buy' ? params.quoteDecimals : params.baseDecimals)); const units = side === 'Buy' ? kuruGrid.quoteToUnits(raw, params) : kuruGrid.sizeToUnits(raw, params); const quote = await publicClient.simulateContract({ address: market, abi: kuruAbi, functionName: side === 'Buy' ? 'placeAndExecuteMarketBuy' : 'placeAndExecuteMarketSell', args: [units, 0n, true, true], account: zeroAddress }); if (alive) setMarketPreview(BigInt(quote.result)); } catch { if (alive) setMarketPreview(null); }
+  })(); }, 250); return () => { alive = false; clearTimeout(timer); }; }, [params, kind, side, size, market]);
+
+  /** Single execution path for every Kuru write (unchanged pipeline). Resolves after the receipt. */
+  const exec = async (prepare: () => Promise<Parameters<typeof executePreparedWrite>[2]>): Promise<WriteResult> => {
+    if (!wallet.wallet || !account) return { kind: 'failed', reason: 'Connect a wallet first.', failure: 'unknown' };
+    setError(''); setTx({ kind: 'preparing' }); markStage('transaction.click'); const finish = measureStage('transaction.preflight');
+    try {
+      const prepared = await prepare(); finish();
+      const result = await executePreparedWrite(publicClient, wallet.wallet, prepared, { onPhase: setTx });
+      if (result.kind === 'failed') { setError(result.reason); return result; }
+      toast.success(`${prepared.label} confirmed on-chain`, { description: result.hash });
+      await queryClient.invalidateQueries({ queryKey: launchKeys.all }); reload();
+      return { kind: 'success', hash: result.hash };
+    } catch (cause) { const reason = cause instanceof Error ? cause.message : 'Transaction failed.'; setError(reason); setTx({ kind: 'failed', reason, failure: 'unknown' }); return { kind: 'failed', reason, failure: 'unknown' }; }
+  };
+  const prepareOrder = () => kind === 'Limit'
+    ? prepareKuruLimitOrder(publicClient, account!, { market, token, side: side === 'Buy' ? 'buy' : 'sell', priceRaw: parseExact(price, Number(params!.quoteDecimals)), sizeRaw: parseExact(size, Number(params!.baseDecimals)), postOnly: false })
+    : prepareKuruMarketOrder(publicClient, account!, { market, token, side: side === 'Buy' ? 'buy' : 'sell', amountRaw: parseExact(size, Number(side === 'Buy' ? params!.quoteDecimals : params!.baseDecimals)), minOutcomeRaw: 0n, slippageBps: BigInt(slippage) });
+
+  const need = params ? requiredCollateral(params, kind, side, price, size) : null;
+  const fundingAddress = need?.asset === 'base' ? token : params?.quoteAsset ?? zeroAddress;
+  const fundingDecimals = Number(need?.asset === 'base' ? params?.baseDecimals ?? 18n : params?.quoteDecimals ?? 18n);
+  const fundingSymbol = need?.asset === 'base' ? tokenSymbol : quoteSymbol;
+  const gap = need && account ? shortfall(need.amount, need.asset === 'base' ? marginBase : marginQuote) : 0n;
+  const resumable = flow.step === 'order-failed' && !!flow.depositHash;
+
+  const submit = async () => {
+    if (!params || !account || !need || running.current) return;
+    running.current = true; setPlaced(null);
+    try {
+      const final = await runDepositThenOrder({
+        required: need.amount,
+        readMargin: () => readMargin(fundingAddress),
+        deposit: (amount) => exec(() => prepareMarginDeposit(publicClient, account, { token: fundingAddress, amount })),
+        placeOrder: () => exec(prepareOrder),
+        onState: setFlow,
+      }, resumable ? flow : { step: 'idle' });
+      if (final.step === 'done') { setPlaced(final.orderHash); setSize(''); }
+    } finally { running.current = false; }
+  };
+
+  let stage = stageFromPhase(tx);
+  if (flow.step === 'done') stage = indexed === 'indexed' ? 'completed' : 'confirmed';
+  const flowText = flowMessage(flow, `${trim(formatUnits(gap, fundingDecimals))} ${fundingSymbol}`);
+  const ctaLabel = busy ? 'Working…' : resumable ? `Place order (margin already deposited)` : gap > 0n ? 'Deposit & place order' : `${side} ${tokenSymbol}`;
+  const cta = !wallet.wallet
+    ? <button className="rp-btn rp-btn-primary rp-btn-block" onClick={() => void (wallet.status === 'wrong-chain' ? wallet.switchChain() : wallet.connect()).catch(() => {})}>{wallet.status === 'wrong-chain' ? 'Switch to Monad Testnet' : 'Connect wallet'}</button>
+    : <button className="rp-btn rp-btn-block" data-tone={side === 'Buy' ? 'buy' : 'sell'} disabled={busy || !params || !size || !need || (kind === 'Limit' && !preview)} onClick={() => void submit()}>{ctaLabel}</button>;
+  return <TicketShell venue="Kuru orderbook · Monad Testnet" kind={kind} onKind={setKind} side={side} onSide={(s) => { setSide(s); setFlow({ step: 'idle' }); }}
+    sync={!params ? (paramsQuery.error instanceof Error ? paramsQuery.error.message : 'Syncing Kuru market state…') : null}
+    cta={cta}
+    status={<>
+      {gap > 0n && wallet.wallet && !busy && flow.step === 'idle' && <div className="rp-steps" data-testid="funding-preview"><p><strong>Two wallet signatures</strong> · not one atomic transaction</p><ol><li>Step 1/2 · Deposit {trim(formatUnits(gap, fundingDecimals))} {fundingSymbol} to Kuru margin</li><li>Step 2/2 · Place {kind.toLowerCase()} {side.toLowerCase()} order</li></ol><p className="rp-note">You can reject either request. If the order fails after the deposit, the margin stays deposited and can be withdrawn under Advanced.</p></div>}
+      {flowText && <div className={`rp-tx ${flow.step === 'order-failed' && flow.depositHash ? 'rp-tx-warn' : flow.step.endsWith('failed') ? 'rp-tx-neutral' : ''}`} role="status" data-flow={flow.step}>{flowText}</div>}
+      <TxProgress stage={stage} message={error && flow.step === 'idle' ? error : null} hash={'hash' in tx ? tx.hash : placed}/>
+    </>}
+    footer={kind === 'Limit' ? 'Good till cancelled (GTC). Resting orders use your Kuru margin balance.' : 'Market orders use a fresh quote, a minimum output and fill-or-kill.'}>
+    {kind === 'Limit' && <div className="rp-field"><div className="rp-field-top"><label htmlFor="kuru-limit-price">Limit price</label><span className="rp-muted">{quoteSymbol} per {tokenSymbol}</span></div><div className="rp-input"><input id="kuru-limit-price" data-testid="ticket-limit-price" inputMode="decimal" value={price} onChange={(e) => setPrice(e.target.value)} placeholder="0.0"/><span className="rp-input-unit">{quoteSymbol}</span></div>{preview && <p className="rp-note">Normalized to market tick: {trim(preview.price)} {quoteSymbol}</p>}</div>}
+    <AmountField testId="ticket-amount" label={kind === 'Market' && side === 'Buy' ? 'Pay' : kind === 'Limit' ? 'Amount' : 'Sell'} unit={kind === 'Market' && side === 'Buy' ? quoteSymbol : tokenSymbol} value={size} onChange={setSize}
+      balanceRaw={account ? (kind === 'Market' && side === 'Buy' ? marginQuote : side === 'Sell' ? marginBase : null) : null} decimals={kind === 'Market' && side === 'Buy' ? Number(params?.quoteDecimals ?? 18n) : Number(params?.baseDecimals ?? 18n)}/>
+    <QuoteLines rows={kind === 'Limit'
+      ? [['Order total', preview ? `${trim(preview.quote)} ${quoteSymbol}` : '—', 'ticket-total'], ['You receive', preview ? (side === 'Buy' ? `${trim(preview.base)} ${tokenSymbol}` : `${trim(preview.quote)} ${quoteSymbol}`) : '—'], ['Order policy', 'Good till cancelled']]
+      : [['You receive', marketPreview && params ? `${trim(formatUnits(marketPreview, Number(side === 'Buy' ? params.baseDecimals : params.quoteDecimals)))} ${side === 'Buy' ? tokenSymbol : quoteSymbol}` : '—', 'ticket-receive'], ['Minimum received', marketPreview && params ? `${trim(formatUnits(minOutput(marketPreview, BigInt(slippage)), Number(side === 'Buy' ? params.baseDecimals : params.quoteDecimals)))}` : '—']]}/>
+    {kind === 'Market' && <SlippageControl bps={slippage} onChange={setSlippage}/>}
+    <details className="rp-advanced"><summary>Advanced · Kuru margin</summary>
+      <QuoteLines rows={[[`Margin ${quoteSymbol}`, trim(formatUnits(marginQuote, Number(params?.quoteDecimals ?? 18n)))], [`Margin ${tokenSymbol}`, trim(formatUnits(marginBase, Number(params?.baseDecimals ?? 18n)))]]}/>
+      <SegmentedControl label="Margin asset" size="sm" value={fundAsset} onChange={setFundAsset} options={[{ value: 'quote', label: quoteSymbol }, { value: 'base', label: tokenSymbol }]}/>
+      <div className="rp-adv-grid">
+        <label className="rp-field">Deposit<div className="rp-input"><input inputMode="decimal" value={depositAmount} onChange={(e) => setDepositAmount(e.target.value)} placeholder="0.0"/></div><button className="rp-btn rp-btn-ghost rp-btn-sm" disabled={busy || !wallet.wallet || !depositAmount} onClick={() => void exec(() => prepareMarginDeposit(publicClient, account!, { token: fundAsset === 'base' ? token : params?.quoteAsset ?? zeroAddress, amount: parseExact(depositAmount, Number(fundAsset === 'base' ? params?.baseDecimals ?? 18n : params?.quoteDecimals ?? 18n)) }))}>Deposit</button></label>
+        <label className="rp-field">Withdraw<div className="rp-input"><input inputMode="decimal" value={withdrawAmount} onChange={(e) => setWithdrawAmount(e.target.value)} placeholder="0.0"/></div><button className="rp-btn rp-btn-ghost rp-btn-sm" disabled={busy || !wallet.wallet || !withdrawAmount} onClick={() => void exec(() => prepareMarginWithdraw(publicClient, account!, { token: fundAsset === 'base' ? token : params?.quoteAsset ?? zeroAddress, amount: parseExact(withdrawAmount, Number(fundAsset === 'base' ? params?.baseDecimals ?? 18n : params?.quoteDecimals ?? 18n)) }))}>Withdraw</button></label>
+      </div>
+    </details>
+  </TicketShell>;
+}

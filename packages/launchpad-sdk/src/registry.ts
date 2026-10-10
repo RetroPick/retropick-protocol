@@ -1,7 +1,11 @@
 import { zeroAddress, type Address } from 'viem';
 import { addresses, release, type ChainClient } from './chain.ts';
-import { factoryAbi, registryAbi, tokenAbi } from './abi.ts';
-import { retroPickFeeEscrowV2Abi, retroPickBuybackVaultV2Abi } from '@retropick/abi/abi';
+import { factoryAbi } from './abis/factoryAbi.ts';
+import { registryAbi } from './abis/registryAbi.ts';
+import { tokenAbi } from './abis/tokenAbi.ts';
+import { memeHookAbi } from './abis/memeHookAbi.ts';
+import { retroPickFeeEscrowV2Abi } from './abis/retroPickFeeEscrowV2Abi.ts';
+import { retroPickBuybackVaultV2Abi } from './abis/retroPickBuybackVaultV2Abi.ts';
 
 /** GraduationVenue enum on the deployed factory: 0 = Uniswap V4, 1 = Kuru. */
 export const VENUE = { UNISWAP_V4: 0, KURU: 1 } as const;
@@ -33,6 +37,7 @@ export type LaunchPreconditions = {
   canLaunch: boolean | null;
   launchFee: bigint;
   maxCreatorTaxBps: bigint;
+  currentHookFeeBps: bigint;
   snipeTaxSeconds: bigint;
   snipeTaxStartBps: bigint;
   configs: LaunchConfigView[];
@@ -40,16 +45,16 @@ export type LaunchPreconditions = {
 };
 
 /** Static candidate quote assets; admission is verified live per venue. */
-async function quoteCandidates(chain: ChainClient): Promise<{ address: Address; symbol: string; decimals: number }[]> {
+async function quoteCandidates(chain: ChainClient, blockNumber: bigint): Promise<{ address: Address; symbol: string; decimals: number }[]> {
   const wrapped = release.addresses.wrappedNative as Address;
   const circleUsdc = (await chain.readContract({
     address: addresses.quoteRegistry,
     abi: registryAbi,
-    functionName: 'CIRCLE_TEST_USDC',
+    functionName: 'CIRCLE_TEST_USDC', blockNumber,
   })) as Address;
   const [wrappedDecimals, usdcDecimals] = await Promise.all([
-    chain.readContract({ address: wrapped, abi: tokenAbi, functionName: 'decimals' }),
-    chain.readContract({ address: circleUsdc, abi: tokenAbi, functionName: 'decimals' }),
+    chain.readContract({ address: wrapped, abi: tokenAbi, functionName: 'decimals', blockNumber }),
+    chain.readContract({ address: circleUsdc, abi: tokenAbi, functionName: 'decimals', blockNumber }),
   ]);
   return [
     { address: zeroAddress, symbol: 'MON', decimals: 18 }, // native quote sentinel
@@ -59,10 +64,10 @@ async function quoteCandidates(chain: ChainClient): Promise<{ address: Address; 
 }
 
 /** Everything the create form and launch validation need, read atomically enough for review. */
-export async function readLaunchPreconditions(chain: ChainClient, account?: Address): Promise<LaunchPreconditions> {
-  const blockNumber = await chain.getBlockNumber({ cacheTime: 0 });
+export async function readLaunchPreconditions(chain: ChainClient, account?: Address, targetBlock?: bigint): Promise<LaunchPreconditions> {
+  const blockNumber = targetBlock ?? await chain.getBlockNumber({ cacheTime: 0 });
   const factory = addresses.factory;
-  const [launchEnabled, launchFee, maxCreatorTaxBps, snipeTaxSeconds, snipeTaxStartBps, configCount, canLaunch, candidates] = await Promise.all([
+  const [launchEnabled, launchFee, maxCreatorTaxBps, snipeTaxSeconds, snipeTaxStartBps, configCount, canLaunch, candidates, hookPolicy] = await Promise.all([
     chain.readContract({ address: factory, abi: factoryAbi, functionName: 'launchEnabled', blockNumber }),
     chain.readContract({ address: factory, abi: factoryAbi, functionName: 'launchFee', blockNumber }),
     chain.readContract({ address: factory, abi: factoryAbi, functionName: 'maxCreatorTaxBps', blockNumber }),
@@ -72,36 +77,25 @@ export async function readLaunchPreconditions(chain: ChainClient, account?: Addr
     account
       ? (chain.readContract({ address: factory, abi: factoryAbi, functionName: 'canLaunch', args: [account], blockNumber }) as Promise<boolean>)
       : Promise.resolve(null),
-    quoteCandidates(chain),
+    quoteCandidates(chain, blockNumber),
+    chain.readContract({address:addresses.hook,abi:memeHookAbi,functionName:'currentFeePolicy',blockNumber}),
   ]);
   const ids = Array.from({ length: Number(configCount) }, (_, index) => BigInt(index));
   const configs = await Promise.all(ids.map((id) =>
     chain.readContract({ address: factory, abi: factoryAbi, functionName: 'getLaunchConfig', args: [id], blockNumber })
   ));
-  const quotes: AdmittedQuote[] = [];
-  for (const venue of [VENUE.UNISWAP_V4, VENUE.KURU] as VenueId[]) {
-    for (const candidate of candidates) {
-      // admitted() reverts for unsupported pairs; absence means not offered for this venue.
-      const config = await chain.readContract({
-        address: addresses.quoteRegistry,
-        abi: registryAbi,
-        functionName: 'admitted',
-        args: [candidate.address, venue],
-        blockNumber,
-      }).catch(() => undefined) as unknown as
-        | { enabled: boolean; phantomQuote: bigint; graduationThreshold: bigint; graduationQuoteCeiling: bigint }
-        | undefined;
-      if (config?.enabled) {
-        quotes.push({ venue, ...candidate, phantomQuote: config.phantomQuote, graduationThreshold: config.graduationThreshold });
-      }
-    }
-  }
+  const attempts = await Promise.all(([VENUE.UNISWAP_V4, VENUE.KURU] as VenueId[]).flatMap(venue => candidates.map(async candidate => {
+    const config = await chain.readContract({ address: addresses.quoteRegistry, abi: registryAbi, functionName: 'admitted', args: [candidate.address, venue], blockNumber }).catch(() => undefined);
+    return config?.enabled ? { venue, ...candidate, phantomQuote: config.phantomQuote, graduationThreshold: config.graduationThreshold } : undefined;
+  })));
+  const quotes = attempts.filter((q): q is AdmittedQuote => q !== undefined);
   return {
     blockNumber,
     launchEnabled: Boolean(launchEnabled),
     canLaunch: canLaunch === null ? null : Boolean(canLaunch),
     launchFee,
     maxCreatorTaxBps,
+    currentHookFeeBps: BigInt(hookPolicy.hookFeeBps),
     snipeTaxSeconds,
     snipeTaxStartBps,
     configs: configs.map((config, index) => ({
@@ -119,21 +113,21 @@ export async function readLaunchPreconditions(chain: ChainClient, account?: Addr
 }
 
 /** Creator fee credit held by the escrow for `account` (native MON). */
-export async function readFeeEscrowCredit(chain: ChainClient, account: Address): Promise<bigint> {
+export async function readFeeEscrowCredit(chain: ChainClient, account: Address, blockNumber?: bigint): Promise<bigint> {
   return chain.readContract({
     address: addresses.feeEscrow,
     abi: retroPickFeeEscrowV2Abi as never,
     functionName: 'balanceOf',
-    args: [account],
+    args: [account], blockNumber,
   });
 }
 
 /** Vested, currently releasable buyback amount for a launched token. */
-export async function readBuybackReleasable(chain: ChainClient, token: Address): Promise<bigint> {
+export async function readBuybackReleasable(chain: ChainClient, token: Address, blockNumber?: bigint): Promise<bigint> {
   return chain.readContract({
     address: addresses.buybackVault,
     abi: retroPickBuybackVaultV2Abi as never,
     functionName: 'releasable',
-    args: [token],
+    args: [token], blockNumber,
   });
 }

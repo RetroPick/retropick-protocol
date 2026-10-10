@@ -1,112 +1,55 @@
-'use client';
-
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import type { Address } from 'viem';
-import { readLaunch } from '@retropick/launchpad-sdk/model';
-import { curveAbi } from '@retropick/launchpad-sdk/abi';
-import { readKuru } from '@retropick/launchpad-sdk/kuru';
-import type { LiveLaunch } from '@retropick/launchpad-sdk/model';
-import type { KuruState } from '@retropick/launchpad-sdk/kuru';
-import { fetchCandles, fetchLaunch, fetchTrades, IndexerUnavailableError, isStale, type IndexFreshness, type IndexedCandle, type IndexedLaunch, type IndexedTrade } from '@/lib/live/indexer-client';
-import { publicClient } from '@/lib/live/public-client';
+import { readLaunchEssential, readLaunchEconomic, readLaunchProof, type EssentialLaunch, type LiveLaunch } from '@retropick/launchpad-sdk/model';
+import { readKuru, type KuruState } from '@retropick/launchpad-sdk/kuru';
+import { fetchLaunch, fetchTrades, fetchCandles, isStale, type IndexedLaunch, type IndexedTrade, type IndexedCandle, type IndexFreshness } from '@/lib/live/indexer-client';
 import { INDEXER_URL } from '@/lib/live/env';
-
+import { publicClient } from '@/lib/live/public-client';
+import { queryClient, launchKeys, type LaunchSeed } from '@/lib/live/queries';
+import { markStage, measureStage } from '@/lib/live/performance';
 export type LaunchDetailStatus = 'loading' | 'ready' | 'stale' | 'partial' | 'unavailable';
-
+export interface DetailOptions { resolution?: string; range?: string; proofEnabled?: boolean }
 export interface LaunchDetail {
-  indexed: IndexedLaunch | null;
-  freshness: IndexFreshness | null;
-  /** Authoritative on-chain economic state via the SDK read model. */
-  launch: LiveLaunch | null;
-  /** Curve readiness signal while the launch is still bonding. */
-  readyToGraduate: boolean;
-  /** Kuru market state when the launch graduated to the Kuru venue. */
-  kuru: KuruState | null;
-  trades: IndexedTrade[];
-  candles: IndexedCandle[];
-  status: LaunchDetailStatus;
-  error: string | null;
-  reload: () => void;
+ indexed: IndexedLaunch | null; freshness: IndexFreshness | null; essential: EssentialLaunch | null;
+ launch: LiveLaunch | null; seed: LaunchSeed | null; readyToGraduate: boolean; kuru: KuruState | null;
+ proof: Awaited<ReturnType<typeof readLaunchProof>> | null; trades: IndexedTrade[]; candles: IndexedCandle[];
+ status: LaunchDetailStatus; error: string | null; pendingConfirmation: boolean; reload: () => void;
 }
-
-/**
- * Token detail for a deployed launch: indexer for history (trades, candles,
- * discovery metadata) and direct RPC for current economic state. Route
- * addresses are verified by the SDK read model — an address that is not a
- * RetroPick V2 launch fails with status 'unavailable'.
- */
-export function useLaunchDetail(token: string | null, account?: Address): LaunchDetail {
-  const [detail, setDetail] = useState<LaunchDetail>({
-    indexed: null, freshness: null, launch: null, readyToGraduate: false, kuru: null,
-    trades: [], candles: [], status: 'loading', error: null, reload: () => {},
-  });
-  const [tick, setTick] = useState(0);
-  const reload = useCallback(() => setTick((value) => value + 1), []);
-
-  useEffect(() => {
-    if (!token || !/^0x[0-9a-fA-F]{40}$/.test(token)) {
-      setDetail((prev) => ({ ...prev, status: 'unavailable', error: 'Invalid token address.' }));
-      return;
-    }
-    let alive = true;
-    const address = token as `0x${string}` as Address;
-    const load = async () => {
-      setDetail((prev) => ({ ...prev, status: prev.launch ? prev.status : 'loading' }));
-      const next: LaunchDetail = { indexed: null, freshness: null, launch: null, readyToGraduate: false, kuru: null, trades: [], candles: [], status: 'loading', error: null, reload };
-      try {
-        const onchain = await readLaunch(publicClient, address, account);
-        if (!alive) return;
-        next.launch = onchain;
-        if (Number(onchain.ledger.phase) === 0) {
-          next.readyToGraduate = Boolean(await publicClient.readContract({
-            address: onchain.packet.curve,
-            abi: curveAbi,
-            functionName: 'readyToGraduate',
-            blockNumber: onchain.blockNumber,
-          }).catch(() => false));
-        }
-        // Kuru identity/state only when graduated with a market receipt.
-        const receiptMarket = onchain.receipt.market;
-        const market: string | null = next.indexed?.market ?? (Number(onchain.ledger.phase) === 2 && receiptMarket && receiptMarket !== '0x0000000000000000000000000000000000000000' ? receiptMarket : null);
-        const vault = onchain.receipt.vault;
-        if (Number(onchain.ledger.phase) === 2 && market && vault && vault !== '0x0000000000000000000000000000000000000000') {
-          try {
-            next.kuru = await readKuru(publicClient, market as `0x${string}` as Address, address, vault as `0x${string}` as Address, account);
-          } catch {
-            // Identity mismatch or venue unavailable: surface the launch, not fabricated market data.
-            next.kuru = null;
-          }
-        }
-        next.status = 'ready';
-      } catch (cause) {
-        if (!alive) return;
-        next.status = 'unavailable';
-        next.error = cause instanceof Error ? cause.message : 'On-chain read failed.';
-      }
-      if (INDEXER_URL) {
-        try {
-          const [launchEnvelope, tradesEnvelope, candlesEnvelope] = await Promise.all([
-            fetchLaunch(INDEXER_URL, address),
-            fetchTrades(INDEXER_URL, address).catch(() => null),
-            fetchCandles(INDEXER_URL, address).catch(() => null),
-          ]);
-          if (!alive) return;
-          next.indexed = launchEnvelope.data;
-          next.freshness = launchEnvelope.freshness;
-          next.trades = tradesEnvelope?.data ?? [];
-          next.candles = candlesEnvelope?.data ?? [];
-          if (next.status === 'ready' && isStale(launchEnvelope.freshness)) next.status = 'stale';
-        } catch (cause) {
-          if (!alive) return;
-          if (next.status === 'ready') next.status = 'partial'; // chain truth without indexer history
-          next.error = next.error ?? (cause instanceof IndexerUnavailableError ? cause.message : 'Indexer unreachable.');
-        }
-      }
-      if (alive) setDetail(next);
-    };
-    void load();
-    return () => { alive = false; };
-  }, [token, account, tick, reload]);
-
-  return detail;
+export function useLaunchDetail(token: string | null, account?: Address, options: DetailOptions = {}): LaunchDetail {
+ const address=(token??'').toLowerCase() as Address;
+ const valid=/^0x[0-9a-f]{40}$/.test(address);
+ const seedQuery=useQuery({queryKey:launchKeys.seed(address),queryFn:()=>queryClient.getQueryData<LaunchSeed>(launchKeys.seed(address))??null,enabled:false,staleTime:Infinity,structuralSharing:false});
+ const seed=seedQuery.data??null;
+ const health=useQuery({queryKey:[...launchKeys.all,'health'],enabled:valid&&!!seed&&!!INDEXER_URL,queryFn:async({signal})=>{const r=await fetch(INDEXER_URL+'/health',{signal});if(!r.ok)throw Error('Indexer unavailable');return r.json() as Promise<{freshness:IndexFreshness}>;},refetchInterval:3000});
+ const canIndex=valid&&!!INDEXER_URL&&(!seed||!!health.data&&BigInt(health.data.freshness.indexedBlock)>=seed.receiptBlock);
+ const indexed=useQuery({queryKey:launchKeys.indexed(address),enabled:canIndex,queryFn:({signal})=>fetchLaunch(INDEXER_URL!,address,signal),staleTime:3000,refetchInterval:10000});
+ const essential=useQuery({queryKey:launchKeys.essential(address),enabled:valid,queryFn:async()=>{const finish=measureStage('detail:essential');const value=await readLaunchEssential(publicClient,address);finish();return value;},staleTime:2000,refetchInterval:3000,structuralSharing:false});
+ const current=essential.data;
+ const economic=useQuery({
+  queryKey:[...launchKeys.economic(address,account),current?.blockNumber.toString()],enabled:valid&&!!current,
+  queryFn:async()=>{const finish=measureStage('detail:economic');const launch=await readLaunchEconomic(publicClient,current!,account);finish();return{launch,account:account?.toLowerCase()??null};},
+  staleTime:Infinity,gcTime:15000,structuralSharing:false,
+  placeholderData:(previous)=>previous?.account===(account?.toLowerCase()??null)&&previous.launch.token.toLowerCase()===address?previous:undefined,
+ });
+ useEffect(()=>{if(economic.data)markStage('detail:trade-interactive');},[economic.data]);
+ const graduated=current?.ledger.phase===2;
+ const kuru=useQuery({
+  queryKey:launchKeys.resource(address,'kuru-quotes',{account:account??''}),enabled:valid&&!!graduated,
+  queryFn:()=>readKuru(publicClient,current!.receipt.market,address,current!.receipt.vault,account,{includeBook:false,includeBalances:false}),
+  staleTime:1000,refetchInterval:1500,structuralSharing:false,
+ });
+ const proof=useQuery({queryKey:launchKeys.resource(address,'proof'),enabled:valid&&!!current&&!!options.proofEnabled,queryFn:()=>readLaunchProof(publicClient,current!),staleTime:60000,structuralSharing:false});
+ const candleParams={resolution:options.resolution??'5m',range:options.range??'24h'};
+ const candles=useQuery({queryKey:launchKeys.resource(address,'candles',candleParams),enabled:canIndex,queryFn:({signal})=>fetchCandles(INDEXER_URL!,address,candleParams,signal),staleTime:3000,refetchInterval:10000});
+ const trades=useQuery({queryKey:launchKeys.resource(address,'trades'),enabled:canIndex,queryFn:({signal})=>fetchTrades(INDEXER_URL!,address,{},signal),staleTime:3000,refetchInterval:10000});
+ useEffect(()=>{if(indexed.data||current||seed)markStage('detail:content');},[indexed.data,current,seed]);
+ const reload=useCallback(()=>{void queryClient.invalidateQueries({queryKey:launchKeys.all});},[]);
+ const hasContent=!!(indexed.data||current||seed);
+ const status:LaunchDetailStatus=!valid?'unavailable':!hasContent?(essential.isError&&indexed.isError?'unavailable':'loading'):indexed.data&&isStale(indexed.data.freshness)?'stale':essential.isError||indexed.isError?'partial':'ready';
+ const error=essential.error??economic.error??kuru.error??indexed.error;
+ return{indexed:indexed.data?.data??null,freshness:indexed.data?.freshness??null,essential:current??null,launch:economic.data?.launch??null,seed,
+  readyToGraduate:current?.ledger.phase===0&&current.remaining===0n,kuru:kuru.data??null,proof:proof.data??null,
+  trades:trades.data?.data??[],candles:candles.data?.data??[],status,error:error instanceof Error?error.message:null,
+  pendingConfirmation:!!seed&&!indexed.data,reload};
 }

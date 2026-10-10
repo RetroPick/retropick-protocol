@@ -1,21 +1,21 @@
-// SPA route table reproducing apps/web's app/ router exactly:
-// every route, every legacy redirect (with query-param preservation),
-// the 404 view and the error boundary. Navigation between routes stays
-// full-page-load (SafeLink), so this resolver reads the URL once per load.
-import { Component, useEffect, type ReactNode } from 'react';
-import { usePathname, useSearchParams } from '@/lib/next-compat';
+import { Component, lazy, Suspense, useEffect, type ReactNode } from 'react';
+import { usePathname, useSearchParams, navigate } from '@/lib/next-compat';
 import Link from '@/components/product/safe-link';
 import { Skeleton } from '@/components/ui/skeleton';
-import LaunchpadDiscovery from '@/features/launchpad/discovery';
-import CreateLaunch from '@/features/launchpad/create-launch';
-import MarketDetail from '@/features/markets/detail';
-import TokenDetail from '@/features/launchpad/token-detail';
-import ActivityFeed from '@/features/markets/activity';
-import Portfolio from '@/features/portfolio/portfolio';
-import EarnPage from '@/features/earn/earn';
-import { PrismDetail, PrismDiscovery, PrismCreate } from '@/features/prism/prism';
-import Creator from '@/features/creator/creator';
-import Docs from '@/features/docs/docs';
+import { DATA_MODE } from '@/lib/live/env';
+import { captureReferral } from '@/lib/live/referral-client';
+const LaunchpadDiscovery=lazy(()=>import('@/features/launchpad/discovery'));
+const CreateLaunch=lazy(()=>import('@/features/launchpad/create-launch'));
+const TokenDetail=lazy(()=>import('@/features/launchpad/token-detail'));
+const EarnPage=lazy(()=>import('@/features/earn/earn'));
+const Docs=lazy(()=>import('@/features/docs/docs'));
+const Portfolio=lazy(()=>import('@/features/portfolio/portfolio'));
+const MarketDetail=lazy(()=>import('@/features/markets/detail'));
+const ActivityFeed=lazy(()=>import('@/features/markets/activity'));
+const Creator=lazy(()=>import('@/features/creator/creator'));
+const PrismDiscovery=lazy(()=>import('@/features/prism/prism').then(m=>({default:m.PrismDiscovery})));
+const PrismDetail=lazy(()=>import('@/features/prism/prism').then(m=>({default:m.PrismDetail})));
+const PrismCreate=lazy(()=>import('@/features/prism/prism').then(m=>({default:m.PrismCreate})));
 
 function RouteLoading() {
   return <div aria-label="Loading RetroPick"><Skeleton className="h-12 w-2/3 mb-6"/><Skeleton className="h-24 w-full mb-6"/><div className="two-col"><Skeleton className="h-72 w-full"/><Skeleton className="h-72 w-full"/></div></div>;
@@ -23,7 +23,7 @@ function RouteLoading() {
 
 /** Full-page redirect, mirroring apps/web's server-side redirect() pages. */
 function RedirectTo({ to }: { to: string }) {
-  useEffect(() => { window.location.replace(to); }, [to]);
+  useEffect(() => { navigate(to, true); }, [to]);
   return <RouteLoading/>;
 }
 
@@ -68,6 +68,9 @@ function RouteSwitch() {
   const pathname = usePathname();
   const params = useSearchParams();
   const segs = pathname.split('/').filter(Boolean);
+  useEffect(() => { const ref = params.get('ref'); if (DATA_MODE === 'live' && ref) captureReferral(ref); }, [params]);
+  if (segs[0] === 'r' && segs.length === 2) return <ReferralRedirect code={segs[1]}/>;
+  if (DATA_MODE === 'live' && (['prism','activity','creator','markets'].includes(segs[0]) || segs[1] === 'prediction')) return <div className="panel"><h1>Research module</h1><p>This module has no live financial data.</p><Link href="/launchpad">Open live Launchpad</Link></div>;
   if (segs.length === 0) return <RedirectTo to="/launchpad"/>;
   if (segs.length === 1) {
     switch (segs[0]) {
@@ -76,7 +79,7 @@ function RouteSwitch() {
       case 'create': return <RedirectTo to={legacyCreateTarget(params)}/>;
       case 'activity': return <ActivityFeed/>;
       case 'earn': return <EarnPage/>;
-      case 'portfolio': return <Portfolio/>;
+      case 'portfolio': return DATA_MODE === 'live' ? <RedirectTo to="/earn"/> : <Portfolio/>;
       case 'prism': return <PrismDiscovery/>;
       case 'docs': return <Docs/>;
     }
@@ -93,6 +96,12 @@ function RouteSwitch() {
   return <NotFound/>;
 }
 
+function ReferralRedirect({code}:{code:string}) {
+  useEffect(()=>{captureReferral(code);navigate('/launchpad',true);},[code]);
+  return <RouteLoading/>;
+}
+
 export function Routes() {
-  return <RouteErrorBoundary><RouteSwitch/></RouteErrorBoundary>;
+  const pathname=usePathname();
+  return <RouteErrorBoundary key={pathname}><Suspense fallback={<RouteLoading/>}><RouteSwitch/></Suspense></RouteErrorBoundary>;
 }

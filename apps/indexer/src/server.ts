@@ -1,41 +1,73 @@
-import {createServer} from 'node:http';
-import {mkdirSync} from 'node:fs';
-import {dirname,resolve} from 'node:path';
-import {jsonExact} from '@retropick/launchpad-sdk/events';
-import type {IndexedLaunch,IndexedTrade} from '@retropick/launchpad-sdk/read-model';
-import {Store} from './store.ts';
-import {Indexer} from './sync.ts';
-const url=process.env.MONAD_TESTNET_RPC_URL;
-if(!url)throw Error('MONAD_TESTNET_RPC_URL is required');
-const fallbackUrl=process.env.MONAD_TESTNET_RPC_FALLBACK_URL;
-const file=resolve(process.env.INDEXER_DB??'.data/monad-testnet.sqlite');
-mkdirSync(dirname(file),{recursive:true});
-const store=new Store(file);const indexer=new Indexer(store,fallbackUrl?[url,fallbackUrl]:url);
-type Snapshot={launches:IndexedLaunch[];trades:IndexedTrade[];holders:Record<string,{address:string;balanceRaw:string}[]>};
-const server=createServer((req,res)=>{
- res.setHeader('Content-Type','application/json');res.setHeader('Cache-Control','no-store');
- // Read-only GET API: allow browser consumers (the retro-ui dev server and
- // any future read client). No credentials are ever accepted or exposed.
- res.setHeader('Access-Control-Allow-Origin','*');res.setHeader('Access-Control-Allow-Methods','GET, OPTIONS');
- if(req.method==='OPTIONS'){res.statusCode=204;res.end();return;}
- const send=(status:number,data:unknown)=>{res.statusCode=status;res.end(jsonExact(data));};
- if(req.method!=='GET'){send(405,{error:'READ_ONLY_API'});return;}
- const path=new URL(req.url??'/', 'http://localhost').pathname;
- const freshness=indexer.freshness();
- if(path==='/health'){send(200,{freshness,ready:!!store.get('snapshot')});return;}
- const snapshot=store.get<Snapshot>('snapshot');
- if(!snapshot){send(503,{error:'INDEX_NOT_READY',freshness});return;}
- if(path==='/v1/launches'){send(200,{data:snapshot.launches,freshness});return;}
- const match=/^\/v1\/launches\/(0x[\da-fA-F]{40})(?:\/(trades|holders|candles))?$/.exec(path);
- if(!match){send(404,{error:'NOT_FOUND',freshness});return;}
- const token=match[1].toLowerCase();const launch=snapshot.launches.find(l=>l.token.toLowerCase()===token);
- if(!launch){send(404,{error:'LAUNCH_NOT_FOUND',freshness});return;}
- const data=match[2]==='trades'?snapshot.trades.filter(t=>t.token===token):match[2]==='holders'?snapshot.holders[token]??[]:match[2]==='candles'?launch.candles:launch;
- send(200,{data,freshness});
-});
-const port=Number(process.env.INDEXER_PORT??8787);
-server.listen(port,'127.0.0.1',()=>console.log('Testnet read-only indexer listening on',port));
-void indexer.sync();
-const timer=setInterval(()=>void indexer.sync(),15000);
-const stop=()=>{clearInterval(timer);server.close(()=>{store.close();process.exit(0);});};
-process.on('SIGINT',stop);process.on('SIGTERM',stop);
+import { createServer } from 'node:http';
+import { mkdirSync, openSync, writeSync, closeSync, readFileSync, rmSync } from 'node:fs';
+import { dirname, resolve } from 'node:path';
+import { pathToFileURL } from 'node:url';
+import { createHash } from 'node:crypto';
+import { jsonExact } from '@retropick/launchpad-sdk/events';
+import type { IndexFreshness } from '@retropick/launchpad-sdk/read-model';
+import { Store } from './store.ts';
+import { Indexer } from './sync.ts';
+import { PROJECTION_VERSION, type Snapshot } from './project.ts';
+import { query, QueryError } from './query.ts';
+export function createReadServer(source: { snapshot(): Snapshot | undefined; freshness(): IndexFreshness; diagnostics?(): Record<string, unknown> }) {
+  return createServer((req, res) => {
+    res.setHeader('Content-Type', 'application/json'); res.setHeader('Cache-Control', 'no-store');
+    res.setHeader('Access-Control-Allow-Origin', '*'); res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Accept, If-None-Match'); res.setHeader('Access-Control-Expose-Headers', 'ETag, Cache-Control');
+    const send = (status: number, value: unknown) => { res.statusCode = status; res.end(jsonExact(value)); };
+    if (req.method === 'OPTIONS') { res.statusCode = 204; res.end(); return; }
+    if (req.method !== 'GET') { send(405, { error: 'READ_ONLY_API' }); return; }
+    const url = new URL(req.url ?? '/', 'http://localhost'); const freshness = source.freshness(); const snapshot = source.snapshot();
+    if (url.pathname === '/health') { send(200, { freshness, ready: snapshot?.projectionVersion === PROJECTION_VERSION, projection: { expected: PROJECTION_VERSION, published: snapshot?.projectionVersion ?? null }, ...(source.diagnostics?.() ?? {}) }); return; }
+    if (!snapshot || snapshot.projectionVersion !== PROJECTION_VERSION) { send(503, { error: snapshot ? 'INDEX_SCHEMA_UPGRADING' : 'INDEX_NOT_READY', freshness }); return; }
+    if (url.pathname.startsWith('/v1/wallets/') && snapshot.beneficiaryIndexedBlock < snapshot.indexedBlock) { send(503, { error: 'BENEFICIARY_HISTORY_SYNCING', freshness }); return; }
+    try {
+      const result = query(snapshot, url, freshness); const body = jsonExact(result);
+      const walletSpecific = url.pathname.startsWith('/v1/wallets/') || url.searchParams.has('owner');
+      if (!walletSpecific) {
+        res.setHeader('Cache-Control', 'public, max-age=1, stale-while-revalidate=10');
+        const etag = `"${createHash('sha256').update(body).digest('hex')}"`; res.setHeader('ETag', etag);
+        if (req.headers['if-none-match'] === etag) { res.statusCode = 304; res.end(); return; }
+      }
+      res.statusCode = 200; res.end(body);
+    } catch (error) { send(error instanceof QueryError ? error.status : 500, { error: error instanceof QueryError ? error.code : 'QUERY_FAILED', freshness }); }
+  });
+}
+/** One indexer process per database: an exclusive lock file with the owner pid; stale locks (dead pid) are reclaimed. */
+export function acquireDbLock(file: string): () => void {
+  const lock = `${file}.lock`;
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try { const fd = openSync(lock, 'wx'); writeSync(fd, String(process.pid)); closeSync(fd); return () => { try { if (readFileSync(lock, 'utf8') === String(process.pid)) rmSync(lock); } catch { /* already gone */ } }; }
+    catch (error) {
+      if ((error as NodeJS.ErrnoException).code !== 'EEXIST') throw error;
+      const owner = Number(readFileSync(lock, 'utf8'));
+      let alive = false; try { process.kill(owner, 0); alive = true; } catch { alive = false; }
+      if (alive && owner !== process.pid) throw Error(`INDEXER_DB_LOCKED: database ${file} is owned by pid ${owner}`);
+      rmSync(lock, { force: true });
+    }
+  }
+  throw Error(`INDEXER_DB_LOCKED: could not acquire ${lock}`);
+}
+/** Ordered, provider-neutral endpoint list: MONAD_TESTNET_RPC_URLS (comma separated) or primary + fallback. */
+export function rpcEndpoints(env: NodeJS.ProcessEnv): string[] {
+  const list = (env.MONAD_TESTNET_RPC_URLS ?? '').split(',').map(s => s.trim()).filter(Boolean);
+  const urls = list.length ? list : [env.MONAD_TESTNET_RPC_URL, env.MONAD_TESTNET_RPC_FALLBACK_URL].map(s => s?.trim()).filter((s): s is string => !!s);
+  if (!urls.length) throw Error('MONAD_TESTNET_RPC_URLS or MONAD_TESTNET_RPC_URL is required');
+  return [...new Set(urls)];
+}
+if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
+  const urls = rpcEndpoints(process.env);
+  const file = resolve(process.env.INDEXER_DB ?? '.data/monad-testnet.sqlite');
+  mkdirSync(dirname(file), { recursive: true }); const release = acquireDbLock(file);
+  const store = new Store(file);
+  // Always go through the provider pool (even for one URL) so failures are classified and observable.
+  const indexer = new Indexer(store, urls.length === 1 ? [urls[0], urls[0]] : urls, 8, Number(process.env.INDEXER_MAX_BLOCKS_PER_PASS ?? 20_000));
+  void indexer.pool?.probe().then(h => console.log('RPC providers', JSON.stringify(h.map(p => ({ endpoint: p.endpoint, state: p.state, chainId: p.chainId, failure: p.lastFailure, latencyMs: p.latencyMs })))));
+  const server = createReadServer({ snapshot: () => store.get<Snapshot>('snapshot'), freshness: () => indexer.freshness(), diagnostics: () => ({ progress: { ...indexer.progress, cursors: { root: store.cursor('root', 0), dynamic: store.cursor('dynamic', 0), beneficiary: store.cursor('beneficiary', 0) } }, providers: indexer.pool?.health() ?? [] }) });
+  const port = Number(process.env.INDEXER_PORT ?? 8787); server.listen(port, '127.0.0.1', () => console.log('Testnet read-only indexer listening on', port, 'db', file, 'pid', process.pid));
+  // While catching up, passes run back-to-back; at the head the regular 15 s cadence applies.
+  let stopped = false, looping = false;
+  const loop = async () => { if (looping) return; looping = true; try { while (!stopped) { await indexer.sync(); if (!indexer.progress.catchingUp || indexer.error) break; } } finally { looping = false; } };
+  void loop(); const timer = setInterval(() => void loop(), 15000);
+  const stop = () => { stopped = true; clearInterval(timer); server.close(() => { store.close(); release(); process.exit(0); }); }; process.on('SIGINT', stop); process.on('SIGTERM', stop);
+}

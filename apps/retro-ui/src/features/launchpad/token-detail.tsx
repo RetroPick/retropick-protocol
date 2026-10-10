@@ -1,254 +1,120 @@
-'use client';
-
+import { lazy, Suspense, useCallback, useMemo, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { type Address, zeroAddress } from 'viem';
 import Link from '@/components/product/safe-link';
-import { Empty, Segments, Spark, Stat, TokenIcon } from '@/components/product/ui';
-import { compact, money } from '@/lib/domain/fixtures';
-import { getLaunchInstrument } from '@/lib/domain/launchpad-repository';
-import { DATA_MODE } from '@/lib/live/env';
+import { DATA_MODE, INDEXER_URL } from '@/lib/live/env';
+import { fetchHolders, fetchTrades } from '@/lib/live/indexer-client';
+import { launchKeys } from '@/lib/live/queries';
 import { useLaunchDetail } from '@/hooks/use-launch-detail';
-import { bpsToPercent, priceToDisplay, rawToDisplay, shortAddress } from '@/lib/live/format';
-import { buyQuote, minOutput, parseExact, sellQuote } from '@retropick/launchpad-sdk/math';
-import { prepareCurveBuy, prepareCurveSell, prepareFactoryGraduate, prepareCoordinatorComplete } from '@retropick/launchpad-sdk/prepare';
-import { decodeCurveTrade, decodeGraduation } from '@retropick/launchpad-sdk/decode';
-import { executePreparedWrite, type TxPhase } from '@/services/tx-pipeline';
-import { KuruTicket } from '@/features/launchpad/kuru-ticket';
 import { useWallet } from '@/wallet/provider';
-import { publicClient } from '@/lib/live/public-client';
-import { toast } from 'sonner';
-import { ArrowLeft, CandlestickChart, Info, Landmark } from 'lucide-react';
-import { useMemo, useState } from 'react';
+import { useSearchParams } from '@/lib/next-compat';
+import { addresses } from '@retropick/launchpad-sdk/chain';
+import { EmptyState, ErrorState, SkeletonLine } from '@/components/trading/primitives';
+import { TokenTerminal, type TerminalTab } from './terminal/token-terminal';
+import { DemoTicket } from './terminal/demo-ticket';
+import { LiveOrdersPanel } from './terminal/live-orders';
+import { getDemoFixture, parseScenario } from '@/lib/view-models/demo-terminal-fixtures';
+import { DEFAULT_INTERVAL, RANGE_SECONDS, aggregateCandles, curveSpotX18, intervalFor, marketCapRaw, type CandleInterval, type ChartRange, type Lifecycle, type TerminalData, type TokenTerminalVM } from '@/lib/view-models/token-terminal';
 
-function lifecycleCopy(state: string, live: boolean) {
-  if (state === 'GRADUATED') return live
-    ? 'Graduated to the Kuru orderbook. Bonding-curve trading is closed; trade on Kuru.'
-    : 'Graduated · Kuru is the intended mature venue in this demo. Execution is not connected.';
-  if (state === 'GRADUATION_READY') return live
-    ? 'Graduation threshold reached. Trigger the graduation transaction to move liquidity to the mature venue.'
-    : 'Graduation threshold reached. Destination setup is pending; this is not a successful migration.';
-  if (state === 'GRADUATING') return live
-    ? 'Graduation is in progress. If it stalled, completing the transition is a permissionless retry.'
-    : 'Destination setup is pending. Trading remains a demo fixture.';
-  return 'Trading on the RetroPick bonding curve. Graduation moves only after the configured threshold is met.';
-}
-function tokenPrice(value: number) {
-  return value < 0.1 ? `$${value.toFixed(5)}` : money(value);
+const Ticket = lazy(() => import('./live-trading-ticket').then((m) => ({ default: m.LiveTradingTicket })));
+
+function useChartControls() {
+  const [range, setRangeState] = useState<ChartRange>('24h');
+  const [interval, setIntervalState] = useState<CandleInterval>(DEFAULT_INTERVAL['24h']);
+  const [mode, setMode] = useState<'Line' | 'Candles'>('Line');
+  const setRange = useCallback((r: ChartRange) => { setRangeState(r); setIntervalState((i) => intervalFor(r, i)); }, []);
+  return { range, interval, mode, setRange, setInterval: setIntervalState, setMode };
 }
 
-function LiveSparkline({ points }: { points: number[] }) {
-  if (points.length < 2) return <Spark seed={11} large />;
-  const min = Math.min(...points);
-  const max = Math.max(...points);
-  const span = max - min || 1;
-  const path = points.map((value, index) => `${(index / (points.length - 1)) * 100},${28 - ((value - min) / span) * 26}`).join(' ');
-  const positive = points[points.length - 1] >= points[0];
-  return <svg viewBox="0 0 100 30" preserveAspectRatio="none" className="live-sparkline" role="img" aria-label="Price history"><polyline points={path} fill="none" stroke={positive ? '#3ddc97' : '#ff6b81'} strokeWidth="1.4" vectorEffect="non-scaling-stroke"/></svg>;
+const TICKET_FALLBACK = <section className="rp-ticket" aria-label="Trade ticket" data-testid="trade-ticket"><header className="rp-ticket-head"><h2>Trade</h2></header><div className="rp-ticket-sync" role="status">Syncing on-chain state…</div><SkeletonLine height={44}/><SkeletonLine height={44}/><SkeletonLine height={48}/></section>;
+
+/** DEMO route: deterministic fixtures through the shared terminal. Scenario via ?scenario=… (DEMO only). */
+function DemoTokenRoute({ id }: { id: string }) {
+  const params = useSearchParams();
+  const scenario = parseScenario(params.get('scenario'));
+  const fixture = useMemo(() => getDemoFixture(id, scenario), [id, scenario]);
+  const chart = useChartControls();
+  const [tab, setTab] = useState<TerminalTab>('Trades');
+  const [tradePage, setTradePage] = useState(0);
+  const PAGE = 50;
+  const data = useMemo<TerminalData | null>(() => {
+    if (!fixture) return null;
+    const since = fixture.vm.now / 1000 - RANGE_SECONDS[chart.range];
+    const rows = aggregateCandles(fixture.data.candles.rows.filter((c) => c.timestamp >= since), chart.interval);
+    const all = fixture.data.trades.rows;
+    // Same page size + cursor semantics as the indexer (50 rows, next cursor when more exist).
+    const trades = { rows: all.slice(tradePage * PAGE, (tradePage + 1) * PAGE), nextCursor: (tradePage + 1) * PAGE < all.length ? String(tradePage + 1) : null, status: 'ready' as const };
+    return { ...fixture.data, trades, candles: { rows, nextCursor: null, status: 'ready' } };
+  }, [fixture, chart.range, chart.interval, tradePage]);
+  if (!fixture || !data) return <EmptyState title="Token launch not found" text="This demo token is not part of the DEMO fixture set." action={<Link className="rp-btn rp-btn-ghost" href="/launchpad">Back to Launchpad</Link>}/>;
+  return <TokenTerminal vm={fixture.vm} data={data} chart={chart} tab={tab} onTab={setTab}
+    tradesPager={{ hasNext: data.trades.nextCursor !== null, hasPrev: tradePage > 0, next: () => setTradePage((p) => p + 1), first: () => setTradePage(0) }}
+    ticket={<DemoTicket key={`${fixture.vm.id}:${scenario}`} fixture={fixture}/>}/>;
 }
 
-/** Live bonding-curve ticket: real quote math, exact amounts, pipeline execution. */
-function LiveTicket({ onchain, quoteSymbol, reload, graduateReady, phase }: {
-  onchain: NonNullable<ReturnType<typeof useLaunchDetail>['launch']>;
-  quoteSymbol: string;
-  reload: () => void;
-  graduateReady: boolean;
-  phase: string;
-}) {
+function LiveTokenRoute({ id }: { id: string }) {
   const wallet = useWallet();
-  const [side, setSide] = useState('Buy');
-  const [amount, setAmount] = useState('');
-  const [slippageBps, setSlippageBps] = useState('50');
-  const [tx, setTx] = useState<TxPhase | { kind: 'idle' }>({ kind: 'idle' });
-  const [error, setError] = useState('');
-  const decimals = onchain.packet.quoteDecimals ?? 18;
-  const busy = tx.kind !== 'idle' && tx.kind !== 'failed';
-  const bonding = Number(onchain.ledger.phase) === 0;
+  const chart = useChartControls();
+  const [tab, setTab] = useState<TerminalTab>('Trades');
+  const [tradeCursor, setTradeCursor] = useState<string | undefined>();
+  const [holderCursor, setHolderCursor] = useState<string | undefined>();
+  const detail = useLaunchDetail(id, wallet.account ?? undefined, { range: chart.range, resolution: chart.interval, proofEnabled: tab === 'Protocol' });
+  const trades = useQuery({ queryKey: launchKeys.resource(id, 'trade-page', { cursor: tradeCursor }), queryFn: ({ signal }) => fetchTrades(INDEXER_URL!, id, { cursor: tradeCursor }, signal), enabled: !!detail.indexed && tab === 'Trades', refetchInterval: tradeCursor ? false : 10000 });
+  const holders = useQuery({ queryKey: launchKeys.resource(id, 'holders', { cursor: holderCursor }), queryFn: ({ signal }) => fetchHolders(INDEXER_URL!, id, { cursor: holderCursor }, signal), enabled: !!detail.indexed && tab === 'Holders', refetchInterval: holderCursor ? false : 10000 });
 
-  const quote = useMemo(() => {
-    if (!amount || !bonding) return null;
-    try {
-      const [quoteReserve, tokenReserve] = onchain.reserves;
-      if (side === 'Buy') {
-        const quoteIn = parseExact(amount, decimals);
-        const out = buyQuote(quoteIn, quoteReserve, tokenReserve, onchain.remaining, onchain.fee, onchain.tax);
-        return out > 0n ? { expected: out, min: minOutput(out, BigInt(slippageBps)), unit: onchain.symbol, scaled: 18 } : null;
-      }
-      const tokensIn = parseExact(amount, 18);
-      if (tokensIn > onchain.balance) return null;
-      const out = sellQuote(tokensIn, tokenReserve, quoteReserve, onchain.fee, onchain.tax);
-      return out > 0n ? { expected: out, min: minOutput(out, BigInt(slippageBps)), unit: quoteSymbol, scaled: decimals } : null;
-    } catch {
-      return null;
-    }
-  }, [amount, side, onchain, bonding, slippageBps, decimals, quoteSymbol]);
+  const vm = useMemo<TokenTerminalVM | null>(() => {
+    const indexed = detail.indexed, state = detail.essential, economic = detail.launch, seed = detail.seed;
+    const name = state?.name ?? indexed?.name ?? seed?.name;
+    if (!name) return null;
+    const decimals = state?.packet.quoteDecimals ?? indexed?.quoteDecimals ?? seed?.quoteDecimals ?? 18;
+    const baseDecimals = indexed?.baseDecimals ?? 18;
+    const quoteAsset = state?.packet.quoteAsset ?? indexed?.quoteAsset ?? null;
+    const lifecycle: Lifecycle = state ? state.ledger.phase === 2 ? 'GRADUATED' : state.ledger.phase === 1 ? 'GRADUATING' : detail.readyToGraduate ? 'GRADUATION_READY' : 'ACTIVE' : (indexed?.phase ?? 'PENDING_CONFIRMATION');
+    // Price authority (unchanged rules): curve spot from live reserves while bonding; Kuru last trade after graduation.
+    let price: string | null = indexed?.priceX18 ?? indexed?.priceRaw ?? null, source = 'Last executed trade';
+    if (state?.ledger.phase === 0 && state.reserves[1] > 0n) { price = curveSpotX18(state.reserves[0], state.reserves[1], decimals).toString(); source = 'Current curve spot price'; }
+    if (lifecycle === 'GRADUATED' && indexed?.priceSource !== 'KURU_LAST_TRADE') { price = null; source = 'No executed Kuru trade yet'; }
+    const mcap = price && state ? marketCapRaw(BigInt(price), state.supply, decimals, baseDecimals).toString() : indexed?.marketCapRaw ?? null;
+    const venue = (state ? (state.packet.venue === 1 ? 'KURU' : 'UNSUPPORTED') : indexed?.venue === 'UNISWAP_V4' ? 'UNSUPPORTED' : 'KURU') as TokenTerminalVM['venue'];
+    return {
+      dataMode: 'live', id: id.toLowerCase(), name, symbol: state?.symbol ?? indexed?.symbol ?? seed?.symbol ?? '', description: state?.description ?? indexed?.description ?? seed?.description ?? '',
+      logo: indexed?.logo && /^https:\/\//.test(indexed.logo) ? indexed.logo : null, icon: { glyph: (name[0] ?? '◈').toUpperCase(), color: '#836ef9' },
+      socials: indexed?.socials ?? {}, createdAt: indexed?.createdAt ? Math.floor(Date.parse(indexed.createdAt) / 1000) : null, now: Date.now(),
+      quote: { symbol: indexed?.quoteSymbol ?? seed?.quoteSymbol ?? (quoteAsset === zeroAddress ? 'MON' : 'QUOTE'), decimals, native: quoteAsset === zeroAddress },
+      baseDecimals, lifecycle, venue, price: { x18: price, source }, change24hBps: indexed?.change24hBps ?? null,
+      marketCapRaw: mcap, liquidityRaw: state?.ledger.phase === 0 ? state.realQuote.toString() : indexed?.liquidityRaw ?? null,
+      liquidityNote: lifecycle === 'GRADUATED' ? 'Kuru book depth is not aggregated' : 'Real curve quote reserve',
+      volume24hRaw: indexed?.volume24hRaw ?? null, lifetimeVolumeRaw: indexed?.lifetimeVolumeRaw ?? null, trades24h: indexed?.trades24h ?? null, holderCount: indexed?.holderCount ?? null,
+      supplyRaw: state ? state.supply.toString() : indexed?.supplyRaw ?? null, creatorEarnedRaw: null, bondingProgressBps: indexed?.bondingProgressBps ?? null,
+      addresses: { token: id, curve: state?.packet.curve ?? indexed?.curve ?? null, factory: addresses.factory ?? null, coordinator: addresses.coordinator ?? null, quoteAsset, creator: state?.creator ?? indexed?.creator ?? seed?.creator ?? null, creatorFeeRecipient: economic?.record.creatorFeeRecipient ?? null, market: state?.receipt.market && state.receipt.market !== zeroAddress ? state.receipt.market : indexed?.market ?? null, vault: state?.receipt.vault && state.receipt.vault !== zeroAddress ? state.receipt.vault : indexed?.vault ?? null, lpLock: state?.ledger.protectedLPReceiver && state.ledger.protectedLPReceiver !== zeroAddress ? state.ledger.protectedLPReceiver : null, excessLock: state?.ledger.protectedExcessReceiver && state.ledger.protectedExcessReceiver !== zeroAddress ? state.ledger.protectedExcessReceiver : null },
+      economics: { curveFeeBps: economic ? Number(economic.fee) : null, creatorFeeBps: economic ? Number(economic.tax) : null, policy: state ? `Version ${state.packet.quotePolicyVersion} · ${String(state.packet.quotePolicyHash).slice(0, 10)}…` : null, buybackEnabled: economic ? Boolean(economic.record.buybackEnabled) : null, graduationThresholdRaw: state ? String(state.packet.graduationThreshold) : null },
+      txs: { launch: indexed?.launchTransactionHash ?? null, graduation: indexed?.graduationTransactionHash ?? null },
+      graduationTimestamp: indexed?.graduationTimestamp ?? null,
+      freshness: detail.freshness ? { indexedBlock: String(detail.freshness.indexedBlock), lagBlocks: detail.freshness.lagBlocks, stale: detail.status === 'stale' } : null,
+      sync: { onchain: state ? 'ready' : detail.essential === null && detail.error ? 'error' : 'syncing', indexer: detail.pendingConfirmation ? 'pending' : detail.status === 'stale' ? 'stale' : detail.indexed ? 'ready' : 'unavailable', message: detail.pendingConfirmation ? 'Pending indexer confirmation. Trading state is read from chain.' : null },
+    };
+  }, [id, detail]);
 
-  const submit = async () => {
-    if (!wallet.wallet || !wallet.account) return;
-    setError('');
-    try {
-      const prepared = side === 'Buy'
-        ? await prepareCurveBuy(publicClient, onchain.token, wallet.account, { quoteIn: parseExact(amount, decimals), slippageBps: BigInt(slippageBps) })
-        : await prepareCurveSell(publicClient, onchain.token, wallet.account, { tokensIn: parseExact(amount, 18), slippageBps: BigInt(slippageBps) });
-      const result = await executePreparedWrite(publicClient, wallet.wallet, prepared, { onPhase: setTx });
-      if (result.kind === 'success') {
-        const events = decodeCurveTrade(result.receipt.logs);
-        toast.success(`${side} confirmed`, { description: events.map((event) => event.eventName).join(', ') || result.hash });
-        setAmount('');
-        setTx({ kind: 'idle' });
-        reload();
-      } else {
-        setError(result.reason);
-        setTx({ kind: 'idle' });
-      }
-    } catch (cause) {
-      console.error('[live-ticket] trade failed', cause);
-      setError(cause instanceof Error ? cause.message : 'Trade failed.');
-      setTx({ kind: 'idle' });
-    }
-  };
+  const data = useMemo<TerminalData>(() => ({
+    candles: { rows: detail.candles, nextCursor: null, status: detail.indexed ? 'ready' : detail.status === 'loading' ? 'loading' : 'ready' },
+    trades: { rows: trades.data?.data ?? detail.trades, nextCursor: trades.data?.nextCursor ?? null, status: trades.isError ? 'error' : trades.isLoading && !detail.trades.length ? 'loading' : 'ready' },
+    holders: { rows: holders.data?.data ?? [], nextCursor: holders.data?.nextCursor ?? null, status: holders.isError ? 'error' : !holders.data ? 'loading' : 'ready' },
+    orders: null,
+  }), [detail, trades.data, trades.isError, trades.isLoading, holders.data, holders.isError]);
 
-  const graduate = async () => {
-    if (!wallet.wallet || !wallet.account) return;
-    setError('');
-    try {
-      const prepared = Number(onchain.ledger.phase) === 0
-        ? await prepareFactoryGraduate(publicClient, onchain.token, wallet.account)
-        : await prepareCoordinatorComplete(publicClient, onchain.token, wallet.account);
-      const result = await executePreparedWrite(publicClient, wallet.wallet, prepared, { onPhase: setTx });
-      if (result.kind === 'success') {
-        toast.success('Graduation transaction confirmed', { description: decodeGraduation(result.receipt.logs).map((event) => event.eventName).join(' → ') || result.hash });
-        setTx({ kind: 'idle' });
-        reload();
-      } else {
-        setError(result.reason);
-        setTx({ kind: 'idle' });
-      }
-    } catch (cause) {
-      setError(cause instanceof Error ? cause.message : 'Graduation failed.');
-      setTx({ kind: 'idle' });
-    }
-  };
-
-  const phaseLabel = tx.kind === 'approving' ? 'Approving…' : tx.kind === 'simulating' ? 'Simulating…' : tx.kind === 'awaiting-signature' ? 'Confirm in wallet…' : tx.kind === 'broadcasting' ? 'Broadcasting…' : tx.kind === 'confirming' ? 'Confirming…' : '';
-
-  return <div className="panel token-trade-ticket">
-    <h2>Trade <small>Live · Monad 10143</small></h2>
-    {bonding && <Segments label="Trade side" values={['Buy', 'Sell']} value={side} onChange={setSide}/>}
-    {bonding ? <>
-      <label className="field"><span>You {side === 'Buy' ? 'pay' : 'sell'}</span><input inputMode="decimal" value={amount} onChange={(event) => setAmount(event.target.value)} placeholder="0"/><small>{side === 'Buy' ? quoteSymbol : onchain.symbol}</small></label>
-      <label className="field"><span>Slippage tolerance</span>
-        <select value={slippageBps} onChange={(event) => setSlippageBps(event.target.value)} aria-label="Slippage tolerance">
-          <option value="10">0.1%</option><option value="50">0.5%</option><option value="200">2.0%</option>
-        </select>
-        <small>Applied as an exact minimum on the signed transaction.</small>
-      </label>
-      <dl className="quote-lines">
-        <div><span>Estimated receive</span><strong>{quote ? `${Number(quote.expected) / 10 ** quote.scaled} ${quote.unit}` : '—'}</strong></div>
-        <div><span>Minimum received</span><strong>{quote ? `${Number(quote.min) / 10 ** quote.scaled} ${quote.unit}` : '—'}</strong></div>
-        <div><span>Fees</span><strong>{Number(onchain.fee) / 100}% + {Number(onchain.tax) / 100}% creator</strong></div>
-        <div><span>Your balance</span><strong>{side === 'Buy' ? 'wallet MON' : `${Number(onchain.balance) / 1e18} ${onchain.symbol}`}</strong></div>
-      </dl>
-    </> : <p className="ticket-note">The bonding curve has closed. Graduated tokens trade on the Kuru orderbook.</p>}
-    {error && <div role="alert" className="form-error">{error}</div>}
-    {busy && phaseLabel && <div role="status" className="ticket-note" data-tx-phase={tx.kind}>{phaseLabel}</div>}
-    {wallet.status !== 'connected'
-      ? <button className="btn primary full" onClick={() => void wallet.connect().catch(() => {})}>{wallet.status === 'wrong-chain' ? 'Wrong chain — switch' : 'Connect wallet'}</button>
-      : wallet.status === 'connected' && wallet.chainId !== 10143
-        ? <button className="btn primary full" onClick={() => void wallet.switchChain()}>Switch to Monad Testnet</button>
-        : bonding
-          ? <button className="btn primary full" disabled={busy || !quote} onClick={submit}>{busy ? 'Working…' : `${side} ${onchain.symbol}`}</button>
-          : null}
-    {wallet.status === 'connected' && wallet.chainId === 10143 && (graduateReady || phase === 'GRADUATING') && (
-      <button className="btn full" disabled={busy} onClick={graduate} style={{ marginTop: 10 }}>
-        {phase === 'GRADUATING' ? 'Complete graduation (retry)' : 'Graduate to Kuru'}
-      </button>
-    )}
-    <p className="ticket-note">Signed through your wallet after an on-chain simulation. Partial fills and refunds follow the deployed curve rules.</p>
-  </div>;
+  if (!/^0x[\da-fA-F]{40}$/.test(id)) return <ErrorState title="Invalid token address" text="Token pages use a 0x-prefixed 20-byte address."/>;
+  if (!vm) {
+    if (detail.status === 'unavailable') return <ErrorState title="Launch unavailable" text={detail.error ?? 'This address is not a RetroPick V2 launch on Monad Testnet.'} onRetry={detail.reload}/>;
+    // Progressive shell: identity skeleton only — never a blank full-page blocker.
+    return <div className="rp-terminal" data-testid="token-terminal" aria-busy="true"><div className="rp-head"><SkeletonLine width={280} height={48} label="Loading token"/><SkeletonLine width={200} height={48}/></div><div className="rp-grid"><section className="rp-chart-panel"><SkeletonLine height={380}/></section><aside className="rp-rail">{TICKET_FALLBACK}</aside></div></div>;
+  }
+  return <TokenTerminal vm={vm} data={data} chart={chart} tab={tab} onTab={(t) => { setTab(t); setTradeCursor(undefined); setHolderCursor(undefined); }} onRetry={detail.reload}
+    tradesPager={{ hasNext: !!trades.data?.nextCursor, hasPrev: !!tradeCursor, next: () => setTradeCursor(trades.data!.nextCursor!), first: () => { setTradeCursor(undefined); void trades.refetch(); } }}
+    holdersPager={{ hasNext: !!holders.data?.nextCursor, hasPrev: !!holderCursor, next: () => setHolderCursor(holders.data!.nextCursor!), first: () => { setHolderCursor(undefined); void holders.refetch(); } }}
+    ordersPanel={vm.lifecycle === 'GRADUATED' ? <LiveOrdersPanel token={vm.id} market={vm.addresses.market} quoteSymbol={vm.quote.symbol}/> : undefined}
+    ticket={<Suspense fallback={TICKET_FALLBACK}>{detail.essential ? <Ticket token={id as Address} launch={detail.launch} kuru={detail.kuru} quoteSymbol={vm.quote.symbol} readyToGraduate={detail.readyToGraduate} reload={detail.reload}/> : TICKET_FALLBACK}</Suspense>}/>;
 }
 
 export default function TokenDetail({ id }: { id: string }) {
-  const liveAddress = DATA_MODE === 'live' && /^0x[0-9a-fA-F]{40}$/.test(id);
-  const wallet = useWallet();
-  const detail = useLaunchDetail(liveAddress ? id : null, liveAddress ? (wallet.account ?? undefined) : undefined);
-  const reload = detail.reload;
-  const fixture = liveAddress ? undefined : getLaunchInstrument(id);
-  const [side, setSide] = useState('Buy');
-  const [amount, setAmount] = useState('');
-  const [tab, setTab] = useState('Overview');
-
-  const view = useMemo(() => {
-    if (!liveAddress) {
-      if (!fixture || fixture.kind !== 'token') return null;
-      const stock = fixture.referenceClass === 'stock';
-      return {
-        live: false as const, name: fixture.name, symbol: fixture.symbol ?? '', description: fixture.description ?? '',
-        icon: fixture.icon ?? '◇', color: fixture.color ?? '#b09cfa', creator: fixture.creator ?? '—', stock,
-        quoteAsset: fixture.pair?.symbol ?? '—', price: Number(fixture.price ?? 0), change: fixture.change24h ?? 0,
-        lifecycle: fixture.status as string, progress: Math.round((fixture.token?.curveProgressBps ?? 0) / 100),
-        marketCap: fixture.marketCap === null ? null : Number(fixture.marketCap), liquidity: fixture.liquidity === null ? null : Number(fixture.liquidity),
-        volume24h: fixture.volume24h === null ? null : Number(fixture.volume24h), trades24h: fixture.trades24h,
-        candles: [] as number[], trades: [] as { side: string; price: string; size: string; time: string }[], holders: null as number | null,
-        address: null as string | null, market: null as string | null, feeBps: null as number | null, taxBps: null as number | null,
-        primaryVenue: fixture.token?.primaryVenue ?? '', matureVenue: fixture.token?.matureVenue ?? '',
-      };
-    }
-    const indexed = detail.indexed;
-    const onchain = detail.launch;
-    if (!onchain) return null;
-    const decimals = indexed?.quoteDecimals ?? 18;
-    const lifecycle = Number(onchain.ledger.phase) === 2 ? 'GRADUATED' : Number(onchain.ledger.phase) === 1 ? 'GRADUATING' : 'GRADUATION_READY' as string;
-    const phase = Number(onchain.ledger.phase) === 2 ? 'GRADUATED' : Number(onchain.ledger.phase) === 1 ? 'GRADUATING' : (indexed?.phase ?? 'ACTIVE') === 'ACTIVE' ? 'CURVE' : 'GRADUATION_READY';
-    const [quoteReserve, tokenReserve] = onchain.reserves;
-    const terminal = onchain.completion[0] ?? 0n;
-    const progress = phase === 'CURVE' && terminal > 0n ? Math.min(100, Number(quoteReserve * 10_000n / terminal)) : phase === 'CURVE' ? (indexed?.bondingProgressBps ?? 0) / 100 : 100;
-    return {
-      live: true as const, name: onchain.name, symbol: onchain.symbol, description: indexed?.description ?? '',
-      icon: '◈', color: '#7ef0c0', creator: indexed?.creator ?? shortAddress(onchain.packet.token), stock: false,
-      quoteAsset: indexed?.quoteSymbol ?? 'MON', price: priceToDisplay(indexed?.priceRaw ?? null) ?? 0,
-      change: bpsToPercent(indexed?.change24hBps ?? null) ?? 0, lifecycle: phase, progress,
-      marketCap: rawToDisplay(indexed?.marketCapRaw ?? null, decimals), liquidity: rawToDisplay(indexed?.quoteReserveRaw ?? null, decimals),
-      volume24h: rawToDisplay(indexed?.volume24hRaw ?? null, decimals), trades24h: indexed?.trades24h ?? null,
-      candles: detail.candles.map((candle) => Number(candle.close)).filter((value) => Number.isFinite(value)),
-      trades: detail.trades.slice(0, 30).map((trade) => ({
-        side: trade.side, price: (Number(trade.priceRaw) / 1e18).toPrecision(4),
-        size: compact(Number(trade.tokensRaw) / 1e18), time: new Date(trade.timestamp * 1000).toLocaleTimeString(),
-      })),
-      holders: indexed?.holderCount ?? null, address: onchain.token, market: detail.kuru ? (indexed?.market ?? null) : null,
-      feeBps: Number(onchain.fee), taxBps: Number(onchain.tax),
-      primaryVenue: 'RetroPick bonding market', matureVenue: (indexed?.venue ?? 'KURU') === 'KURU' ? 'Kuru orderbook' : 'Uniswap V4',
-      onchain,
-    };
-  }, [liveAddress, fixture, detail]);
-
-  // Read-only live quote preview from real curve state (SDK bigint math); the
-  // button stays disabled until the wallet/transaction engine ships. Must stay
-  // above every early return to keep hook order stable across render phases.
-  const preview = useMemo(() => {
-    const onchain = detail.launch;
-    if (!liveAddress || !onchain || !amount || Number(onchain.ledger.phase) !== 0) return null;
-    try {
-      const [quoteReserve, tokenReserve] = onchain.reserves;
-      if (side === 'Buy') {
-        const quoteIn = parseExact(amount, 18);
-        return `${Number(buyQuote(quoteIn, quoteReserve, tokenReserve, onchain.remaining, onchain.fee, onchain.tax)) / 1e18} ${onchain.symbol}`;
-      }
-      const tokensIn = parseExact(amount, 18);
-      return `${Number(sellQuote(tokensIn, tokenReserve, quoteReserve, onchain.fee, onchain.tax)) / 1e18} MON`;
-    } catch {
-      return null;
-    }
-  }, [liveAddress, detail.launch, amount, side]);
-
-  if (liveAddress && detail.status === 'loading') return <Empty title="Loading launch…" text="Reading the RetroPick V2 contracts on Monad Testnet."/>;
-  if (!view) return liveAddress
-    ? <Empty title="Launch not found on-chain" text={detail.error ?? 'This address is not a RetroPick V2 launch token on Monad Testnet (chain 10143).'}/>
-    : <Empty title="Token launch not found" text="This demo token may have been removed from the Launchpad fixture."/>;
-
-  const stock = view.stock;
-  const quoteAsset = view.quoteAsset;
-  const tokenValue = (value: number | null) => value === null ? '—' : compact(value);
-  const currentPrice = view.price;
-  const change = view.change;
-  const lifecycle = view.lifecycle;
-  const progress = Math.round(view.progress);
-  return <div className="token-detail-page"><Link className="back-link" href={`/launchpad?type=${stock ? 'stocks' : 'crypto'}`}><ArrowLeft size={14}/>Back to Launchpad</Link><section className="token-detail-heading"><TokenIcon market={{ icon: view.icon, color: view.color }}/><div><div className="card-top"><span className={`launch-kind-badge ${(stock ? 'stock_paired_token' : 'crypto_token')}`}>{stock ? 'Stock-paired' : 'Crypto token'}</span><span className="demo-pill">{view.live ? 'LIVE · 10143' : 'DEMO'}</span></div><h1>{view.name} <span>{view.symbol}</span></h1><p>{view.description || 'No description provided.'}</p><div className="meta-row"><span>Pair {quoteAsset}</span><span>Creator {view.creator}</span><span>{view.live ? `Address ${shortAddress(view.address ?? '')}` : 'Address not deployed'}</span><span>{lifecycle.replaceAll('_', ' ')}</span></div></div></section>{stock && <div className="notice stock-disclosure"><Landmark size={17}/><span>Paired against a tokenized stock asset. The launched token is not itself equity in {fixture?.token?.stockReference}.</span></div>}<section className="token-detail-stats"><Stat label="Price" value={tokenPrice(currentPrice)} note={`${change >= 0 ? '+' : ''}${change.toFixed(1)}% · 24h`}/><Stat label="Market cap" value={tokenValue(view.marketCap)} note={view.live ? 'Last trade · onchain' : 'DEMO snapshot'}/><Stat label="Liquidity" value={tokenValue(view.liquidity)} note={view.live ? (lifecycle === 'GRADUATED' ? 'Seeded quote' : 'Curve quote reserve') : 'Curve reserve · demo'}/><Stat label="24h volume" value={tokenValue(view.volume24h)} note={`${view.trades24h ?? 0} ${view.live ? 'indexed trades' : 'demo trades'}`}/></section><div className="workspace token-terminal"><section><div className="panel token-chart-panel"><div className="chart-top"><div><span className="eyebrow">{view.live ? 'INDEXED PRICE HISTORY' : 'ILLUSTRATIVE PRICE HISTORY'}</span><h2>{view.symbol} / {quoteAsset}</h2></div><span className="chart-price">{tokenPrice(currentPrice)} <span className={change >= 0 ? 'positive' : 'negative'}>{change >= 0 ? '+' : ''}{change.toFixed(1)}%</span></span></div><div className="token-chart"><CandlestickChart size={32}/>{view.live ? <LiveSparkline points={view.candles}/> : <Spark seed={view.name.length} large/>}</div><p className="chart-caption">{view.live ? (detail.freshness ? `Indexed through block ${detail.freshness.indexedBlock} (lag ${detail.freshness.lagBlocks}).` : 'Indexer history temporarily unavailable; on-chain state is live.') : 'Illustrative fixture only. No indexed price feed or live Kuru market is connected.'}</p></div><div className="panel launch-progress"><div className="section-title"><h2>Launch progress</h2><span>{lifecycle.replaceAll('_', ' ')}</span></div><div className="progress-track"><span style={{ width: `${progress}%` }}/></div><div className="progress-values"><strong>{progress}%</strong><span>{tokenValue(view.liquidity)} quote {view.live ? 'reserve' : `/ ${compact(43_000)} target`}</span></div><p>{lifecycleCopy(lifecycle, view.live)}</p></div><div className="panel token-tabs"><Segments label="Token detail sections" values={['Overview', 'Trades', 'Holders', 'Protocol']} value={tab} onChange={setTab}/>{tab === 'Overview' && <dl className="detail-list"><dt>Launch kind</dt><dd>{stock ? 'Stock-paired normal token' : 'Crypto normal token'}</dd><dt>Primary venue</dt><dd>{view.primaryVenue}{view.live ? '' : ' · DEMO'}</dd><dt>Mature venue</dt><dd>{view.matureVenue} · {view.live ? (view.market ? `market ${shortAddress(view.market)}` : lifecycle === 'GRADUATED' ? 'see coordinator receipt' : 'after graduation') : 'planned / no adapter'}</dd><dt>Pair asset</dt><dd>{quoteAsset} · {view.live ? 'quote registry admitted' : 'DEMO'}</dd><dt>Lifecycle</dt><dd>{lifecycle}</dd></dl>}{tab === 'Trades' && (view.live ? (view.trades.length ? <table className="detail-trades"><thead><tr><th>Side</th><th>Price</th><th>Size</th><th>Time</th></tr></thead><tbody>{view.trades.map((trade, index) => <tr key={index}><td className={trade.side === 'buy' ? 'positive' : 'negative'}>{trade.side}</td><td>{trade.price}</td><td>{trade.size}</td><td>{trade.time}</td></tr>)}</tbody></table> : <p className="empty-copy">No indexed trades for this launch yet.</p>) : <p className="empty-copy">No live trades are available. The 24h count above is illustrative fixture data.</p>)}{tab === 'Holders' && (view.live ? <p className="empty-copy">{view.holders === null ? 'Holder count is not indexed yet.' : `${view.holders} indexed holders (from Transfer events).`}</p> : <p className="empty-copy">Holder data requires an admitted indexer; no holders are fabricated in this demo.</p>)}{tab === 'Protocol' && <div className="notice"><Info size={16}/><span>{view.live ? `Curve fee ${view.feeBps ?? '—'} bps · creator tax ${view.taxBps ?? '—'} bps · sellable ${(Number('remaining' in view.onchain ? view.onchain.remaining : 0n) / 1e18).toLocaleString()} tokens. State read directly from the deployed contracts.` : 'Token deployment, curve parameters, fees and any Kuru listing must come from reviewed configuration. This screen does not provide execution.'}</span></div>}</div></section><aside className="rail desktop-ticket">{view.live && detail.launch && Number(detail.launch.ledger.phase) === 2 && detail.kuru && view.market ? <KuruTicket market={view.market as `0x${string}` as never} token={id as never} tokenSymbol={view.symbol} initialQuoteBalance={detail.kuru.quoteBalance} initialBaseBalance={detail.kuru.baseBalance} reload={reload}/> : view.live && detail.launch ? <LiveTicket onchain={detail.launch} quoteSymbol={quoteAsset} reload={reload} graduateReady={detail.readyToGraduate} phase={lifecycle}/> : <div className="panel token-trade-ticket"><h2>Trade <small>Demo only</small></h2><Segments label="Trade side" values={['Buy', 'Sell']} value={side} onChange={setSide}/><label className="field"><span>You {side === 'Buy' ? 'pay' : 'sell'}</span><input inputMode="decimal" value={amount} onChange={(event) => setAmount(event.target.value)} placeholder="0"/><small>{side === 'Buy' ? quoteAsset : view.symbol}</small></label><dl className="quote-lines"><div><span>Estimated receive</span><strong>{preview ?? '—'}</strong></div><div><span>Price</span><strong>{tokenPrice(currentPrice)}</strong></div><div><span>Fees</span><strong>Protocol configured</strong></div><div><span>Slippage / price impact</span><strong>Unavailable</strong></div></dl><button className="btn primary full" disabled>{side} unavailable</button><p className="ticket-note">A verified wallet and venue adapter are required before any real trade can be shown.</p></div>}</aside></div><div className="mobile-trade"><span>{tokenPrice(currentPrice)} · {quoteAsset}</span>{view.live && detail.launch && Number(detail.launch.ledger.phase) === 0 ? <span>Open the trade panel above</span> : <button className="btn primary" disabled>Trade unavailable</button>}</div></div>;
+  return DATA_MODE === 'live' ? <LiveTokenRoute key={id.toLowerCase()} id={id}/> : <DemoTokenRoute id={id}/>;
 }

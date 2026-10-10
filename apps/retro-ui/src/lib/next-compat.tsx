@@ -1,9 +1,5 @@
-// Minimal navigation compatibility layer for the ported apps/web feature code.
-// apps/web runs on the Next App Router; this SPA reproduces exactly the three
-// hooks its features use (usePathname, useSearchParams, useRouter) over the
-// History API. Anchor navigation keeps using SafeLink full page loads, so the
-// URL stays the single source of truth, matching apps/web behavior.
 import { useMemo, useSyncExternalStore } from 'react';
+import { markStage } from '@/lib/live/performance';
 
 const LOCATION_EVENT = 'retropick:location';
 
@@ -21,8 +17,15 @@ if (typeof window !== 'undefined') {
 }
 
 function applyHistory(method: 'pushState' | 'replaceState', url: string): void {
+  const destination = new URL(url, window.location.href);
+  if (destination.origin !== window.location.origin) { window.location.assign(destination.href); return; }
+  markStage('route:navigation');
   window.history[method]({}, '', url);
   window.dispatchEvent(new Event(LOCATION_EVENT));
+}
+
+export function navigate(url: string, replace = false): void {
+  applyHistory(replace ? 'replaceState' : 'pushState', url);
 }
 
 export function usePathname(): string {

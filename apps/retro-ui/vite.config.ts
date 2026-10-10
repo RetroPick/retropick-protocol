@@ -12,6 +12,7 @@ export default defineConfig(() => {
       },
     },
     server: {
+      proxy: { '/api/referrals': { target: 'http://127.0.0.1:8788', changeOrigin: false } },
       // HMR is disabled when editing through agents to avoid flicker.
       hmr: process.env.DISABLE_HMR !== 'true',
       watch: process.env.DISABLE_HMR === 'true' ? null : {},

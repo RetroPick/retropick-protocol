@@ -8,6 +8,9 @@ import { Routes } from '@/routes';
 import { chooseDataMode } from '@/lib/liquidity/registry';
 import { useTheme } from '@/lib/theme';
 import { WalletProvider } from '@/wallet/provider';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { queryClient } from '@/lib/live/queries';
+import { markStage } from '@/lib/live/performance';
 import './index.css';
 
 // Fail-closed data-mode guard, identical contract to apps/web's root layout:
@@ -31,12 +34,15 @@ function ThemedToaster() {
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
+    <QueryClientProvider client={queryClient}>
     <DemoProvider>
       <WalletProvider>
-        <WebMCP/>
+        {dataMode !== 'live' && <WebMCP/>}
         <Shell><Routes/></Shell>
         <ThemedToaster/>
       </WalletProvider>
     </DemoProvider>
+    </QueryClientProvider>
   </StrictMode>
 );
+requestAnimationFrame(() => markStage('shell:paint'));

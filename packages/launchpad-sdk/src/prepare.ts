@@ -1,8 +1,18 @@
 import { zeroAddress, type Abi, type Address, parseAbi } from 'viem';
 import { addresses, release, type ChainClient } from './chain.ts';
-import { coordinatorAbi, curveAbi, factoryAbi, kuruAbi, kuruEnvironmentAbi, marginAbi, routerAbi, tokenAbi } from './abi.ts';
-import { retroPickBuybackVaultV2Abi, retroPickFeeEscrowV2Abi } from '@retropick/abi/abi';
-import { readLaunch } from './model.ts';
+import { coordinatorAbi } from './abis/coordinatorAbi.ts';
+import { curveAbi } from './abis/curveAbi.ts';
+import { factoryAbi } from './abis/factoryAbi.ts';
+import { kuruAbi } from './abis/kuruAbi.ts';
+import { kuruEnvironmentAbi } from './abis/kuruEnvironmentAbi.ts';
+import { marginAbi } from './abis/marginAbi.ts';
+import { routerAbi } from './abis/routerAbi.ts';
+import { tokenAbi } from './abis/tokenAbi.ts';
+import { retroPickBuybackVaultV2Abi } from './abis/retroPickBuybackVaultV2Abi.ts';
+import { retroPickFeeEscrowV2Abi } from './abis/retroPickFeeEscrowV2Abi.ts';
+import { readTradeLaunch as readLaunch } from './model.ts';
+import { readKuruOrder } from './orders.ts';
+import { memeHookAbi } from './abis/memeHookAbi.ts';
 import { buyQuote, minOutput, sellQuote } from './math.ts';
 import { VENUE, readLaunchPreconditions, readBuybackReleasable, readFeeEscrowCredit, type VenueId } from './registry.ts';
 
@@ -65,33 +75,35 @@ export type LaunchTokenInput = {
 
 export async function prepareLaunchToken(chain: ChainClient, account: Address, input: LaunchTokenInput): Promise<PreparedWrite> {
   const checks: string[] = [];
+  const blockNumber = await chain.getBlockNumber({ cacheTime: 0 });
+  const byteLength = (text: string) => new TextEncoder().encode(text).length;
+  if (byteLength(input.name) > 64 || byteLength(input.symbol) > 16 || byteLength(input.logo) > 512 || byteLength(input.description) > 2048 || Object.values(input.socials).some(value => byteLength(value ?? "") > 256)) fail("Token metadata exceeds the deployed byte limits.");
   if (!input.name.trim() || !input.symbol.trim()) fail('Token name and symbol are required.');
   const [preconditions, economics, feePolicy] = await Promise.all([
-    readLaunchPreconditions(chain, account),
+    readLaunchPreconditions(chain, account, blockNumber),
     chain.readContract({
       address: addresses.factory,
       abi: factoryAbi,
       functionName: 'previewVenueEconomics',
-      args: [input.launchConfigId, input.pairToken, input.venue],
+      args: [input.launchConfigId, input.pairToken, input.venue], blockNumber,
     }),
     // Hook fee leg of the deployed combined-fee check (factory _launchToken).
     chain.readContract({
-      address: addresses.factory,
-      abi: factoryAbi,
-      functionName: 'getLaunchFeePolicy',
-      args: [input.pairToken],
-    }).catch(() => undefined),
+      address: addresses.hook,
+      abi: memeHookAbi,
+      functionName: 'currentFeePolicy', blockNumber,
+    }),
   ]);
   if (preconditions.canLaunch === false) fail('This wallet is not authorized to launch. Launches may be whitelist-only right now.');
   const config = preconditions.configs.find((entry) => entry.id === input.launchConfigId);
   if (!config) fail('Unknown launch configuration.');
   if (!config.enabled) fail('This launch configuration is disabled.');
-  if (input.creatorTaxBps > preconditions.maxCreatorTaxBps) {
+  if (input.creatorTaxBps < 0n || input.creatorTaxBps > preconditions.maxCreatorTaxBps) {
     fail(`Creator tax ${input.creatorTaxBps} bps exceeds the ${preconditions.maxCreatorTaxBps} bps limit.`);
   }
   if (config.curveFeeBps + input.creatorTaxBps > 2000n) fail('Combined curve fee and creator tax exceeds the 2000 bps protocol limit.');
   const policyTuple = feePolicy as unknown as { hookFeeBps?: bigint | number } | [unknown, unknown, bigint | number, number] | undefined;
-  const rawHookFee = Array.isArray(policyTuple) ? policyTuple[2] : policyTuple?.hookFeeBps;
+  const rawHookFee = Array.isArray(policyTuple) ? policyTuple[3] : policyTuple?.hookFeeBps;
   const hookFeeBps = rawHookFee === undefined ? undefined : BigInt(rawHookFee);
   if (hookFeeBps !== undefined && hookFeeBps + input.creatorTaxBps > 2000n) {
     fail('Combined hook fee and creator tax exceeds the 2000 bps protocol limit.');
@@ -285,8 +297,8 @@ export type KuruMarketParams = {
   makerFeeBps: bigint;
 };
 
-export async function readMarketParams(chain: ChainClient, market: Address): Promise<KuruMarketParams> {
-  const raw = await chain.readContract({ address: market, abi: kuruAbi, functionName: 'getMarketParams' });
+export async function readMarketParams(chain: ChainClient, market: Address, blockNumber?: bigint): Promise<KuruMarketParams> {
+  const raw = await chain.readContract({ address: market, abi: kuruAbi, functionName: 'getMarketParams', blockNumber });
   const [pricePrecision, sizePrecision, baseAsset, baseDecimals, quoteAsset, quoteDecimals, tickSize, minSize, maxSize, takerFeeBps, makerFeeBps] = raw as unknown as [bigint, bigint, Address, bigint, Address, bigint, bigint, bigint, bigint, bigint, bigint];
   // Normalize scalar decodings (viem may hand back numbers for small uints).
   return { pricePrecision: BigInt(pricePrecision), sizePrecision: BigInt(sizePrecision), baseAsset, baseDecimals: BigInt(baseDecimals), quoteAsset, quoteDecimals: BigInt(quoteDecimals), tickSize: BigInt(tickSize), minSize: BigInt(minSize), maxSize: BigInt(maxSize), takerFeeBps: BigInt(takerFeeBps), makerFeeBps: BigInt(makerFeeBps) };
@@ -415,7 +427,8 @@ export type KuruLimitOrderInput = {
 
 /** Resting limit order; funds are held in the Kuru margin account. */
 export async function prepareKuruLimitOrder(chain: ChainClient, account: Address, input: KuruLimitOrderInput): Promise<PreparedWrite> {
-  const params = await assertKuruMarketIdentity(chain, input.market, input.token);
+  const blockNumber = await chain.getBlockNumber({ cacheTime: 0 });
+  const params = await assertKuruMarketIdentity(chain, input.market, input.token, blockNumber);
   const priceUnits = kuruGrid.priceToUnits(input.priceRaw, params, input.side);
   if (priceUnits % params.tickSize !== 0n) fail('Price is not on this market\'s tick grid.');
   const sizeUnits = kuruGrid.sizeToUnits(input.sizeRaw, params);
@@ -424,12 +437,12 @@ export async function prepareKuruLimitOrder(chain: ChainClient, account: Address
   if (input.side === 'buy') {
     const cost = kuruGrid.quoteCostBuy(priceUnits, sizeUnits, params);
     const balance = await chain.readContract({
-      address: marginAddress, abi: marginAbi, functionName: 'getBalance', args: [account, params.quoteAsset],
+      address: marginAddress, abi: marginAbi, functionName: 'getBalance', args: [account, params.quoteAsset], blockNumber,
     });
     if (balance < cost) fail('Insufficient quote balance in the Kuru margin account for this order.');
   } else {
     const balance = await chain.readContract({
-      address: marginAddress, abi: marginAbi, functionName: 'getBalance', args: [account, params.baseAsset],
+      address: marginAddress, abi: marginAbi, functionName: 'getBalance', args: [account, params.baseAsset], blockNumber,
     });
     if (balance < input.sizeRaw) fail('Insufficient token balance in the Kuru margin account for this order.');
   }
@@ -457,14 +470,15 @@ export type KuruMarketOrderInput = {
   side: 'buy' | 'sell';
   /** Buy: quote amount raw. Sell: base amount raw. */
   amountRaw: bigint;
-  /** Expected outcome used for the exact-minimum slippage bound. */
+  /** Optional explicit minimum; the SDK also derives a fresh quoted slippage bound. */
   minOutcomeRaw: bigint;
   slippageBps?: bigint;
 };
 
 /** Immediate fill-or-kill market order against the book, funded from the margin account. */
 export async function prepareKuruMarketOrder(chain: ChainClient, account: Address, input: KuruMarketOrderInput): Promise<PreparedWrite> {
-  const params = await assertKuruMarketIdentity(chain, input.market, input.token);
+  const blockNumber = await chain.getBlockNumber({ cacheTime: 0 });
+  const params = await assertKuruMarketIdentity(chain, input.market, input.token, blockNumber);
   const isBuy = input.side === 'buy';
   const units = isBuy
     // _quoteSize is denominated in quote grid units: raw * pricePrecision / 10^quoteDecimals
@@ -472,19 +486,26 @@ export async function prepareKuruMarketOrder(chain: ChainClient, account: Addres
     : kuruGrid.sizeToUnits(input.amountRaw, params);
   const balanceAsset = isBuy ? params.quoteAsset : params.baseAsset;
   const balance = await chain.readContract({
-    address: marginAddress, abi: marginAbi, functionName: 'getBalance', args: [account, balanceAsset],
+    address: marginAddress, abi: marginAbi, functionName: 'getBalance', args: [account, balanceAsset], blockNumber,
   });
   if (balance < input.amountRaw) fail(`Insufficient ${isBuy ? 'quote' : 'token'} balance in the Kuru margin account.`);
+  if (units <= 0n || units >= 2n ** 96n) fail('Market amount is outside the uint96 grid.');
+  const quoted = await chain.simulateContract({ address: input.market, abi: kuruAbi, functionName: isBuy ? 'placeAndExecuteMarketBuy' : 'placeAndExecuteMarketSell', args: [units, 0n, true, true], account: zeroAddress, blockNumber });
+  const expected = BigInt(quoted.result);
+  if (expected <= 0n) fail('This market order has no executable liquidity.');
+  const quotedMinimum = minOutput(expected, input.slippageBps ?? 50n);
+  const minimum = quotedMinimum > input.minOutcomeRaw ? quotedMinimum : input.minOutcomeRaw;
+  if (minimum <= 0n) fail('Market output is below the supported precision.');
   return {
     to: input.market,
     abi: kuruAbi,
     functionName: isBuy ? 'placeAndExecuteMarketBuy' : 'placeAndExecuteMarketSell',
-    args: [units, minOutput(input.minOutcomeRaw, input.slippageBps ?? 50n), true, true],
+    args: [units, minimum, true, true],
     value: 0n,
     account,
     approvals: [],
     label: `${isBuy ? 'Buy' : 'Sell'} market order`,
-    checks: ['margin-funded, fill-or-kill', `min outcome ${input.minOutcomeRaw}`],
+    checks: ['margin-funded, fill-or-kill', `expected output ${expected}; minimum ${minimum} raw`],
   };
 }
 
@@ -492,7 +513,14 @@ export async function prepareKuruMarketOrder(chain: ChainClient, account: Addres
  * NoRevert variant skips already-filled/cancelled ids instead of reverting. */
 export async function prepareKuruCancel(chain: ChainClient, market: Address, account: Address, orderIds: number[]): Promise<PreparedWrite> {
   if (orderIds.length === 0) fail('No orders selected.');
-  void chain;
+  const blockNumber = await chain.getBlockNumber({ cacheTime: 0 });
+  const params = await readMarketParams(chain, market, blockNumber);
+  await assertKuruMarketIdentity(chain, market, params.baseAsset, blockNumber);
+  for (const id of orderIds) {
+    if (!Number.isSafeInteger(id) || id <= 0 || id >= 2 ** 40) fail('Invalid event-derived order id.');
+    const {order, active} = await readKuruOrder(chain, market, id, blockNumber);
+    if (active && order[1] > 0n && order[0].toLowerCase() !== account.toLowerCase()) fail('This order belongs to another wallet.');
+  }
   return {
     to: market,
     abi: kuruAbi,
@@ -525,24 +553,26 @@ export async function prepareBatchWithdrawMax(chain: ChainClient, account: Addre
 
 /** Verify a caller-supplied market is the verified RetroPick Kuru deployment
  * for this base token before any order is prepared against it. */
-export async function assertKuruMarketIdentity(chain: ChainClient, market: Address, token: Address): Promise<KuruMarketParams> {
-  await chain.readContract({ address: addresses.kuruEnvironment, abi: kuruEnvironmentAbi, functionName: 'validate' });
+export async function assertKuruMarketIdentity(chain: ChainClient, market: Address, token: Address, targetBlock?: bigint): Promise<KuruMarketParams> {
+  const blockNumber = targetBlock ?? await chain.getBlockNumber({ cacheTime: 0 });
   const router = release.kuruEnvironment.router as Address;
-  const [params, margin, orderImpl, vaultImpl, registered] = await Promise.all([
-    chain.readContract({ address: market, abi: kuruAbi, functionName: 'getMarketParams' }),
-    chain.readContract({ address: router, abi: routerAbi, functionName: 'marginAccountAddress' }),
-    chain.readContract({ address: router, abi: routerAbi, functionName: 'orderBookImplementation' }),
-    chain.readContract({ address: router, abi: routerAbi, functionName: 'kuruAmmVaultImplementation' }),
-    chain.readContract({ address: router, abi: routerAbi, functionName: 'verifiedMarket', args: [market] }),
+  const [params, margin, orderImpl, vaultImpl, registered, receipt, ledger, packet] = await Promise.all([
+    chain.readContract({ address: market, abi: kuruAbi, functionName: 'getMarketParams', blockNumber }),
+    chain.readContract({ address: router, abi: routerAbi, functionName: 'marginAccountAddress', blockNumber }),
+    chain.readContract({ address: router, abi: routerAbi, functionName: 'orderBookImplementation', blockNumber }),
+    chain.readContract({ address: router, abi: routerAbi, functionName: 'kuruAmmVaultImplementation', blockNumber }),
+    chain.readContract({ address: router, abi: routerAbi, functionName: 'verifiedMarket', args: [market], blockNumber }),
+    chain.readContract({ address: addresses.coordinator, abi: coordinatorAbi, functionName: 'receipt', args: [token], blockNumber }),
+    chain.readContract({ address: addresses.coordinator, abi: coordinatorAbi, functionName: 'ledger', args: [token], blockNumber }),
+    chain.readContract({ address: addresses.coordinator, abi: coordinatorAbi, functionName: 'packet', args: [token], blockNumber }),
+    chain.readContract({ address: addresses.kuruEnvironment, abi: kuruEnvironmentAbi, functionName: 'validate', blockNumber }),
   ]);
   const typed = params as unknown as [bigint, bigint, Address, bigint, Address, bigint, bigint, bigint, bigint, bigint, bigint];
   const lower = (value: unknown) => String(value).toLowerCase();
-  if (registered.some((value, index) => lower(value) !== lower(typed[index])) || lower(typed[2]) !== lower(token)
-    || lower(margin) !== lower(release.kuruEnvironment.marginAccount)
-    || lower(orderImpl) !== lower(release.kuruEnvironment.orderBookImplementation)
-    || lower(vaultImpl) !== lower(release.kuruEnvironment.vaultImplementation)) {
-    fail('This market is not the verified RetroPick Kuru deployment for that token.');
-  }
+  if (ledger.phase !== 2 || packet.venue !== VENUE.KURU || lower(packet.token) !== lower(token) || lower(receipt.market) !== lower(market)
+    || lower(packet.quoteAsset) !== lower(typed[4]) || registered.some((value, index) => lower(value) !== lower(typed[index])) || lower(typed[2]) !== lower(token)
+    || lower(margin) !== lower(release.kuruEnvironment.marginAccount) || lower(orderImpl) !== lower(release.kuruEnvironment.orderBookImplementation)
+    || lower(vaultImpl) !== lower(release.kuruEnvironment.vaultImplementation)) fail('This market is not the verified RetroPick Kuru deployment for that token.');
   return { pricePrecision: BigInt(typed[0]), sizePrecision: BigInt(typed[1]), baseAsset: typed[2], baseDecimals: BigInt(typed[3]), quoteAsset: typed[4], quoteDecimals: BigInt(typed[5]), tickSize: BigInt(typed[6]), minSize: BigInt(typed[7]), maxSize: BigInt(typed[8]), takerFeeBps: BigInt(typed[9]), makerFeeBps: BigInt(typed[10]) };
 }
 
@@ -570,7 +600,9 @@ export async function prepareFeeClaim(chain: ChainClient, account: Address): Pro
 /** Release vested buyback proceeds for a launched token. The vault pays the
  * creator share as FeeEscrow *token* credit — pair with prepareFeeClaimToken. */
 export async function prepareBuybackRelease(chain: ChainClient, token: Address, account: Address): Promise<PreparedWrite> {
-  const releasable = await readBuybackReleasable(chain, token);
+  const blockNumber = await chain.getBlockNumber({ cacheTime: 0 });
+  const [releasable, terms] = await Promise.all([readBuybackReleasable(chain, token, blockNumber), chain.readContract({ address: addresses.buybackVault, abi: retroPickBuybackVaultV2Abi, functionName: 'vestingTerms', args: [token], blockNumber })]);
+  if (terms[0].toLowerCase() !== account.toLowerCase() && terms[1].toLowerCase() !== account.toLowerCase()) fail('Only a current vest beneficiary can release this token.');
   if (releasable <= 0n) fail('Nothing is currently releasable for this launch.');
   return {
     to: addresses.buybackVault,
@@ -591,7 +623,7 @@ export async function prepareFeeClaimToken(chain: ChainClient, account: Address,
     address: addresses.feeEscrow,
     abi: retroPickFeeEscrowV2Abi as never,
     functionName: 'balanceOfToken',
-    args: [token, account],
+    args: [account, token],
   });
   if (credit <= 0n) fail('No claimable token fees for this asset yet.');
   return {

@@ -1,0 +1,25 @@
+.rp-hub { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; min-width: 0 }
+.rp-hub > * { min-width: 0 }
+.rp-hub-head h1 { margin: 0; font-size: 26px; letter-spacing: -.5px; display: flex; align-items: center; gap: 10px }
+.rp-hub-head p { margin: 4px 0 0; color: var(--text-3); font-size: 13.5px; max-width: 80ch }
+.rp-hub-nav { display: flex; gap: 6px; flex-wrap: wrap }
+.rp-hub-nav a { min-height: 36px; display: inline-flex; align-items: center; padding: 0 12px; border-radius: 8px; border: 1px solid var(--border-soft); color: var(--text-3); font-size: 13px; font-weight: 600 }
+.rp-hub-nav a:hover { color: var(--text); border-color: var(--accent) }
+.rp-hub-hero { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; padding: 20px; border-radius: var(--rp-radius); border: 1px solid var(--border-soft); background: var(--panel) }
+.rp-hub-hero p { margin: 6px 0 0; color: var(--text-3); font-size: 12.5px; max-width: 60ch }
+.rp-hub-label { font-family: var(--rp-mono); font-size: 10.5px; letter-spacing: .6px; text-transform: uppercase; color: var(--text-3) }
+.rp-hub-total { display: block; font-size: 36px; font-weight: 750; letter-spacing: -1px; margin-top: 4px }
+.rp-hub-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px }
+.rp-hub-card { display: grid; gap: 4px; padding: 14px; border-radius: var(--rp-radius); border: 1px solid var(--border-soft); background: var(--panel) }
+.rp-hub-card > span { color: var(--text-2); font-size: 13px; font-weight: 600; display: flex; align-items: center }
+.rp-hub-card strong { font-size: 18px } .rp-hub-card small { color: var(--text-3); font-size: 11.5px }
+.rp-hub-section { display: grid; gap: 8px; scroll-margin-top: 16px }
+.rp-hub-section > h2, .rp-hub-row h2 { margin: 0; font-size: 16px; display: flex; gap: 8px; align-items: center }
+.rp-hub-row { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap }
+.rp-ref { display: flex; gap: 8px; align-items: center; flex-wrap: wrap }
+.rp-ref input { flex: 1 1 260px; min-width: 0; min-height: 40px; padding: 0 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--inset); color: var(--text); font-family: var(--rp-mono); font-size: 12.5px }
+.rp-hub-send h3 { display: flex; gap: 6px; align-items: center; margin: 12px 0 0; font-size: 14px }
+/* Legacy earn panels and tables must not widen the page on phones. */
+.rp-hub .detail-trades, .rp-hub .data-table { display: block; overflow-x: auto; max-width: 100% }
+.rp-hub .cashout-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) }
+.rp-hub-embed { min-width: 0; max-width: 100%; overflow-x: auto }

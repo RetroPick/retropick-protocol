@@ -1,56 +1,33 @@
-import type { IndexedCandle, IndexedLaunch, IndexedTrade, IndexEnvelope, IndexFreshness } from '@retropick/launchpad-sdk/read-model';
-
-export type { IndexedCandle, IndexedLaunch, IndexedTrade, IndexEnvelope, IndexFreshness };
-
-/** Indexer lag (blocks) beyond which live data is presented as stale, never fresh. */
+import type { IndexedCandle, IndexedLaunch, IndexedTrade, IndexEnvelope, IndexFreshness, IndexedHolder } from '@retropick/launchpad-sdk/read-model';
+import { measureStage } from './performance';
+export type { IndexedCandle, IndexedLaunch, IndexedTrade, IndexEnvelope, IndexFreshness, IndexedHolder };
 export const STALE_LAG_BLOCKS = 64;
-
+export type QueryParams = Record<string, string | number | undefined>;
 export class IndexerUnavailableError extends Error {
-  constructor(message: string, readonly cause?: unknown) {
-    super(message);
-    this.name = 'IndexerUnavailableError';
-  }
+  constructor(message: string, readonly status?: number, readonly cause?: unknown) { super(message); this.name = 'IndexerUnavailableError'; }
 }
-
-async function request<T>(baseUrl: string, path: string, timeoutMs = 10_000): Promise<IndexEnvelope<T>> {
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), timeoutMs);
-  try {
-    const response = await fetch(`${baseUrl}${path}`, {
-      signal: controller.signal,
-      headers: { accept: 'application/json' },
-    });
-    if (response.status === 404) throw new IndexerUnavailableError(`Not indexed: ${path}`);
-    if (!response.ok) throw new IndexerUnavailableError(`Indexer HTTP ${response.status} for ${path}`);
-    const body = (await response.json()) as IndexEnvelope<T>;
-    if (!body || !('data' in body) || !body.freshness || body.freshness.chainId !== 10143 || body.freshness.source !== 'MONAD_EVENT_INDEXER') {
-      throw new IndexerUnavailableError(`Malformed indexer envelope for ${path}`);
-    }
-    return body;
-  } catch (error) {
-    if (error instanceof IndexerUnavailableError) throw error;
-    throw new IndexerUnavailableError(`Indexer unreachable for ${path}`, error);
-  } finally {
-    clearTimeout(timer);
-  }
+export async function request<T>(base: string, path: string, signal?: AbortSignal): Promise<IndexEnvelope<T>> {
+  const finish = measureStage('indexer:response');
+  const response = await fetch(base + path, { signal: signal ? AbortSignal.any([signal, AbortSignal.timeout(8000)]) : AbortSignal.timeout(8000), headers: { accept: 'application/json' } });
+  if (!response.ok) throw new IndexerUnavailableError(response.status === 404 ? 'Awaiting indexer confirmation.' : 'Indexer HTTP ' + response.status, response.status);
+  const payload = await response.text();
+  const body = JSON.parse(payload) as IndexEnvelope<T>;
+  if (!body || !('data' in body) || body.freshness?.chainId !== 10143 || body.freshness.source !== 'MONAD_EVENT_INDEXER') throw new IndexerUnavailableError('Invalid indexer freshness envelope.');
+  finish({ bytes: new TextEncoder().encode(payload).length, count: 1 });
+  return body;
 }
-
-export function isStale(freshness: IndexFreshness): boolean {
-  return Boolean(freshness.error) || freshness.lagBlocks > STALE_LAG_BLOCKS;
+export function queryPath(path: string, params: QueryParams): string {
+  const query = new URLSearchParams();
+  for (const [key, value] of Object.entries(params)) if (value !== undefined && value !== '') query.set(key, String(value));
+  return path + (query.size ? '?' + query : '');
 }
-
-export async function fetchLaunches(baseUrl: string): Promise<IndexEnvelope<IndexedLaunch[]>> {
-  return request<IndexedLaunch[]>(baseUrl, '/v1/launches?limit=100');
-}
-
-export async function fetchLaunch(baseUrl: string, token: string): Promise<IndexEnvelope<IndexedLaunch>> {
-  return request<IndexedLaunch>(baseUrl, `/v1/launches/${token}`);
-}
-
-export async function fetchTrades(baseUrl: string, token: string, limit = 50): Promise<IndexEnvelope<IndexedTrade[]>> {
-  return request<IndexedTrade[]>(baseUrl, `/v1/launches/${token}/trades?limit=${limit}`);
-}
-
-export async function fetchCandles(baseUrl: string, token: string, limit = 120): Promise<IndexEnvelope<IndexedCandle[]>> {
-  return request<IndexedCandle[]>(baseUrl, `/v1/launches/${token}/candles?limit=${limit}`);
-}
+export const isStale = (freshness: IndexFreshness) => Boolean(freshness.error) || freshness.lagBlocks > STALE_LAG_BLOCKS;
+export const fetchLaunches = (base: string, params: QueryParams = {}, signal?: AbortSignal) => request<IndexedLaunch[]>(base, queryPath('/v1/launches', { limit: 50, ...params }), signal);
+export const fetchLaunch = (base: string, token: string, signal?: AbortSignal) => request<IndexedLaunch>(base, '/v1/launches/' + token, signal);
+export const fetchTrades = (base: string, token: string, params: QueryParams | number = {}, signal?: AbortSignal) => request<IndexedTrade[]>(base, queryPath('/v1/launches/' + token + '/trades', { limit: 50, ...(typeof params === 'number' ? { limit: params } : params) }), signal);
+export const fetchCandles = (base: string, token: string, params: QueryParams | number = {}, signal?: AbortSignal) => request<IndexedCandle[]>(base, queryPath('/v1/launches/' + token + '/candles', { resolution: '5m', range: '24h', ...(typeof params === 'number' ? { limit: params } : params) }), signal);
+export const fetchHolders = (base: string, token: string, params: QueryParams = {}, signal?: AbortSignal) => request<IndexedHolder[]>(base, queryPath('/v1/launches/' + token + '/holders', { limit: 50, ...params }), signal);
+export const fetchSearch = (base: string, q: string, signal?: AbortSignal) => request<IndexedLaunch[]>(base, queryPath('/v1/search', { q, limit: 20 }), signal);
+export interface IndexedPair { quoteAsset: string; symbol: string; decimals: number; launchCount?: number }
+export const fetchPairs = (base: string, signal?: AbortSignal) => request<IndexedPair[]>(base, '/v1/pairs', signal);
+export const fetchWalletResource = <T>(base: string, wallet: string, resource: 'assets' | 'orders' | 'claims' | 'buybacks', params: QueryParams = {}, signal?: AbortSignal) => request<T[]>(base, queryPath('/v1/wallets/' + wallet + '/' + resource, { limit: 100, ...params }), signal);

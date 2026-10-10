@@ -8,3 +8,5 @@ The root MIT license covers original RetroPick project source. It does not relic
 - Kuru integration interfaces are narrow observable interfaces; external Kuru contracts are not owned or relicensed by RetroPick. The deployment uses the environment recorded in the manifest.
 
 For reproducibility, initialize recursive Git submodules and install from the frozen lockfile. Review third-party licensing and issuer/venue conditions independently before any production use.
+
+- Charts: [TradingView Lightweight Charts](https://www.tradingview.com/) v5.2.1, Apache-2.0. Copyright TradingView, Inc. The official package NOTICE and license remain distributed with the dependency. The chart keeps TradingView's attribution logo and links to TradingView.

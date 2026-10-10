@@ -26,7 +26,7 @@ export function indexedLaunchToInstrument(launch: IndexedLaunch): LaunchInstrume
     name: launch.name || launch.symbol || launch.token,
     symbol: launch.symbol,
     icon: '◈',
-    color: '#7ef0c0',
+    color: '#836ef9',
     description: launch.description || undefined,
     creator: launch.creator,
     createdAt: launch.createdAt,

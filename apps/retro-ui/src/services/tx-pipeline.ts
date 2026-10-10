@@ -6,6 +6,9 @@ import type { ChainClient } from '@retropick/launchpad-sdk/chain';
 import type { EvmWallet } from '@retropick/launchpad-sdk/wallet';
 import { classifyError, decodeEvents, type DecodedEvent } from '@retropick/launchpad-sdk/decode';
 import { missingApprovals, type PreparedWrite } from '@retropick/launchpad-sdk/prepare';
+import { markStage, measureStage } from '@/lib/live/performance';
+import { queryClient, launchKeys } from '@/lib/live/queries';
+import { simulateTransfer, type PreparedTransfer } from '@retropick/launchpad-sdk/transfer';
 
 export type TxPhase =
   | { kind: 'preparing' }
@@ -36,7 +39,7 @@ const approveAbi = parseAbi(['function approve(address spender, uint256 amount) 
 export async function executePreparedWrite(
   chain: ChainClient,
   wallet: EvmWallet,
-  prepared: PreparedWrite,
+  prepared: PreparedWrite | PreparedTransfer,
   options: ExecuteOptions = {},
 ): Promise<Extract<TxPhase, { kind: 'success' | 'failed' }>> {
   const emit = (phase: TxPhase) => options.onPhase?.(phase);
@@ -46,11 +49,17 @@ export async function executePreparedWrite(
     return phase;
   };
 
+  const timingId = `retropick:tx:${Date.now()}`;
+  const mark = (stage: string) => { performance.mark(`${timingId}:${stage}`); markStage(`transaction.${stage}`); };
+  const completed = measureStage('transaction.total');
+  mark('preflight');
   emit({ kind: 'preparing' });
   let stage: 'approval' | 'simulate' | 'sign' | 'receipt' = 'simulate';
   try {
     // 1. Allowance freshness: approvals missing at execution time go first.
-    const pending = await missingApprovals(chain, prepared);
+    if (await wallet.getChainId() !== 10143 || (await wallet.getAddresses())[0]?.toLowerCase() !== prepared.account.toLowerCase()) return fail('Wallet account or network changed. Prepare this action again.', 'unknown');
+    const transfer = 'kind' in prepared && prepared.kind === 'transfer';
+    const pending = transfer ? [] : await missingApprovals(chain, prepared as PreparedWrite);
     for (const approval of pending) {
       stage = 'approval';
       emit({ kind: 'approving', token: approval.token, amount: approval.amount });
@@ -67,30 +76,40 @@ export async function executePreparedWrite(
     // 2. Simulate the exact call before asking for a signature.
     stage = 'simulate';
     emit({ kind: 'simulating' });
-    await chain.simulateContract({
+    mark('simulation');
+    if (transfer) await simulateTransfer(chain, prepared as PreparedTransfer);
+    else await chain.simulateContract({
       address: prepared.to,
-      abi: prepared.abi as unknown as Parameters<typeof chain.simulateContract>[0]['abi'],
-      functionName: prepared.functionName,
-      args: prepared.args as unknown as Parameters<typeof chain.simulateContract>[0]['args'],
+      abi: (prepared as PreparedWrite).abi as unknown as Parameters<typeof chain.simulateContract>[0]['abi'],
+      functionName: (prepared as PreparedWrite).functionName,
+      args: (prepared as PreparedWrite).args as unknown as Parameters<typeof chain.simulateContract>[0]['args'],
       ...(prepared.value ? { value: prepared.value } : {}),
       account: prepared.account,
     } as Parameters<typeof chain.simulateContract>[0]);
 
     // 3. Sign + broadcast through the wallet (EIP-1193 eth_sendTransaction).
     stage = 'sign';
+    if (await wallet.getChainId() !== 10143 || (await wallet.getAddresses())[0]?.toLowerCase() !== prepared.account.toLowerCase()) return fail('Wallet account or network changed before signing.', 'unknown');
+    mark('wallet-prompt');
     emit({ kind: 'awaiting-signature' });
     const hash = await wallet.sendTransaction({
       to: prepared.to,
-      data: encodeFunctionData({ abi: prepared.abi as unknown as Parameters<typeof encodeFunctionData>[0]['abi'], functionName: prepared.functionName, args: prepared.args as unknown as never[] }),
+      data: transfer ? (prepared as PreparedTransfer).data : encodeFunctionData({ abi: (prepared as PreparedWrite).abi as unknown as Parameters<typeof encodeFunctionData>[0]['abi'], functionName: (prepared as PreparedWrite).functionName, args: (prepared as PreparedWrite).args as unknown as never[] }),
       ...(prepared.value ? { value: prepared.value } : {}),
     });
 
+    mark('broadcast');
     stage = 'receipt';
     emit({ kind: 'broadcasting', hash });
     emit({ kind: 'confirming', hash });
     const receipt = await chain.waitForTransactionReceipt({ hash, confirmations: options.confirmations ?? 1 });
     if (receipt.status !== 'success') return fail('The transaction reverted on chain.', 'revert');
+    mark('receipt');
+    performance.measure('retropick:tx:wallet-to-receipt', `${timingId}:wallet-prompt`, `${timingId}:receipt`);
     const events = decodeEvents(receipt.logs);
+    mark('reconciliation');
+    void queryClient.invalidateQueries({queryKey:launchKeys.all});
+    completed();
     const success = { kind: 'success', hash, receipt, events } as const;
     emit(success);
     return success;

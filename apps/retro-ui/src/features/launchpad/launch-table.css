@@ -1,0 +1,51 @@
+.rp-disc { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; min-width: 0 }
+.rp-disc > * { min-width: 0 }
+.rp-disc-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap }
+.rp-disc-head h1 { margin: 0; font-size: 26px; letter-spacing: -.5px }
+.rp-disc-head p { margin: 4px 0 0; color: var(--text-3); font-size: 13.5px }
+.rp-disc-controls { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap }
+.rp-disc-right { display: flex; gap: 8px; align-items: center }
+.rp-select select { min-height: 40px; padding: 0 30px 0 12px; border-radius: 8px; border: 1px solid var(--border-soft); background: var(--inset); color: var(--text); font: inherit; font-size: 13px }
+.rp-category { display: flex; gap: 6px; flex-wrap: wrap }
+.rp-category a { min-height: 36px; display: inline-flex; align-items: center; padding: 0 12px; border-radius: 8px; border: 1px solid var(--border-soft); color: var(--text-3); font-size: 13px; font-weight: 600 }
+.rp-category a[aria-current='page'] { color: var(--text); border-color: var(--accent); background: var(--accent-dim) }
+.rp-launch-table td { vertical-align: middle }
+.rp-row-link { color: inherit; display: block }
+.rp-row-meta { display: flex; gap: 6px; align-items: center; margin-top: 3px; color: var(--text-3); font-size: 11.5px }
+.rp-unit { color: var(--text-3); font-family: var(--rp-mono); font-size: 11px }
+.rp-spark { display: block }
+.rp-grid-cards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px }
+.rp-card { display: grid; gap: 10px; padding: 12px; border-radius: var(--rp-radius); border: 1px solid var(--border-soft); background: var(--panel); color: inherit }
+.rp-card:hover, .rp-card:focus-visible { border-color: var(--accent) }
+.rp-card-top, .rp-card-mid, .rp-card-foot { display: flex; justify-content: space-between; align-items: center; gap: 8px }
+.rp-card-mid small { display: block; color: var(--text-3); font-size: 11px }
+.rp-card-mid strong { font-size: 16px }
+.rp-card-foot { font-size: 12px; color: var(--text-2) }
+.rp-disc-foot { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; font-size: 12px; color: var(--text-3) }
+.rp-modules { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px }
+.rp-module { display: grid; gap: 6px; padding: 14px; border: 1px solid var(--border-soft); border-radius: var(--rp-radius); background: var(--panel); color: inherit }
+.rp-module:hover { border-color: var(--accent) }
+.rp-module h3 { margin: 0; font-size: 15px } .rp-module p { margin: 0; font-size: 12.5px; color: var(--text-3) }
+@media (max-width: 1180px) { .rp-launch-table .rp-p3 { display: none } }
+@media (max-width: 767px) {
+  .rp-disc-controls > .rp-seg { width: 100%; overflow-x: auto; scrollbar-width: none }
+  .rp-launch-table tr { grid-template-columns: 1fr 1fr }
+  .rp-launch-table td[data-label='Token'] { grid-column: 1 / -1 }
+  .rp-launch-table td[data-label='Token']::before { display: none }
+}
+
+/* Command palette */
+.rp-palette { padding: 0 !important; max-width: 560px !important; overflow: hidden }
+.rp-palette-input { display: flex; align-items: center; gap: 10px; padding: 14px 16px; border-bottom: 1px solid var(--border-soft) }
+.rp-palette-input input { flex: 1; border: 0; outline: 0; background: transparent; color: var(--text); font-size: 15px }
+.rp-palette-list { list-style: none; margin: 0; padding: 6px; max-height: min(60vh, 420px); overflow-y: auto }
+.rp-palette-group { padding: 8px 10px 4px; font-family: var(--rp-mono); font-size: 10.5px; letter-spacing: .5px; text-transform: uppercase; color: var(--text-dim) }
+.rp-palette-opt { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 8px 10px; border-radius: 8px; cursor: pointer; min-height: 44px }
+.rp-palette-opt[aria-selected='true'] { background: var(--hover); outline: 1px solid var(--border) }
+.rp-palette-opt small { color: var(--text-3); font-size: 11.5px }
+.rp-palette-note { padding: 14px 16px; color: var(--text-3); font-size: 13px; margin: 0 }
+.rp-palette-foot { display: flex; gap: 12px; padding: 8px 16px; border-top: 1px solid var(--border-soft); color: var(--text-dim); font-size: 11px; font-family: var(--rp-mono) }
+/* Create wizard: unsupported options stay visible but clearly unavailable */
+.fee-option.unsupported { opacity: .55; cursor: not-allowed; border-style: dashed }
+.fee-option.unsupported strong::after { content: ' · Not supported'; font-weight: 500; color: var(--text-3); font-size: 12px }
+.review-list dd { overflow-wrap: anywhere }

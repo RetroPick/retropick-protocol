@@ -27,9 +27,16 @@ export interface WalletState {
   disconnect: () => void;
   switchChain: () => Promise<void>;
   wallet: EvmWallet | null;
+  /** Human name of the connected wallet (from its EIP-6963 metadata). */
+  walletName: string | null;
+  /** Re-run EIP-6963 discovery (late-announcing extensions). */
+  refreshAnnouncements: () => void;
 }
 
 const WalletContext = createContext<WalletState | null>(null);
+
+const RDNS_KEY = 'retropick-wallet-rdns';
+const NAME_KEY = 'retropick-wallet-name';
 
 export const MONAD_TESTNET = 10143;
 
@@ -45,11 +52,17 @@ export function WalletProvider({ children }: { children: ReactNode }) {
   const [chainId, setChainId] = useState<number | null>(null);
   const [status, setStatus] = useState<WalletStatus>('disconnected');
   const [error, setError] = useState<string | null>(null);
+  const [walletName, setWalletName] = useState<string | null>(null);
   const providerRef = useRef<Eip1193Provider | null>(null);
 
-  useEffect(() => {
+  const refreshAnnouncements = useCallback(() => {
     void discoverEip6963().then(setAnnouncements);
   }, []);
+
+  useEffect(() => {
+    refreshAnnouncements();
+    try { setWalletName(localStorage.getItem(NAME_KEY)); } catch { /* ignore */ }
+  }, [refreshAnnouncements]);
 
   const watch = useCallback((connected: Eip1193Provider) => {
     connected.on?.('accountsChanged', ((accounts: string[]) => {
@@ -72,8 +85,26 @@ export function WalletProvider({ children }: { children: ReactNode }) {
     setStatus('connecting');
     setError(null);
     try {
-      const selected = announcement?.provider ?? announcements[0]?.provider ?? injectedProvider();
-      if (!selected) throw Error('No wallet found. Install MetaMask or another EIP-1193 wallet.');
+      let selected = announcement?.provider;
+      let chosenName = announcement?.info.name;
+      if (!selected) {
+        let remembered: Eip6963Announcement | undefined;
+        try { const rdns = localStorage.getItem(RDNS_KEY); remembered = announcements.find((entry) => entry.info.rdns === rdns); } catch { /* ignore */ }
+        const ordered = remembered ? [remembered, ...announcements.filter((entry) => entry !== remembered)] : announcements;
+        if (ordered.length > 1) throw Error('WALLET_PICKER_REQUIRED: choose which wallet to use.');
+        const first = ordered[0];
+        if (first) { selected = first.provider; chosenName = first.info.name; }
+        else { selected = injectedProvider(); chosenName = 'Browser wallet'; }
+      }
+      if (!selected) throw Error('No wallet found. Install Rabby, MetaMask or another EIP-1193 wallet.');
+      if (announcement) {
+        try {
+          localStorage.setItem(RDNS_KEY, announcement.info.rdns);
+          localStorage.setItem(NAME_KEY, announcement.info.name);
+        } catch { /* ignore */ }
+        setWalletName(announcement.info.name);
+      }
+      void chosenName;
       const accounts = await requestAccounts(selected);
       if (!accounts.length) throw Error('Wallet returned no accounts.');
       const id = await ensureMonadTestnet(selected);
@@ -116,8 +147,8 @@ export function WalletProvider({ children }: { children: ReactNode }) {
   const wallet = useMemo(() => (provider && account && chainId === MONAD_TESTNET ? createEvmWallet(provider, account) : null), [provider, account, chainId]);
 
   const value = useMemo<WalletState>(() => ({
-    status, account, chainId, announcements, provider, error, connect, disconnect, switchChain, wallet,
-  }), [status, account, chainId, announcements, provider, error, connect, disconnect, switchChain, wallet]);
+    status, account, chainId, announcements, provider, error, connect, disconnect, switchChain, wallet, walletName, refreshAnnouncements,
+  }), [status, account, chainId, announcements, provider, error, connect, disconnect, switchChain, wallet, walletName, refreshAnnouncements]);
 
   return <WalletContext.Provider value={value}>{children}</WalletContext.Provider>;
 }

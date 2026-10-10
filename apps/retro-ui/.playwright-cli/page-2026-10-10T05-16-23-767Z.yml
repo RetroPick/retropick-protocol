@@ -1,0 +1,514 @@
+- generic:
+  - generic:
+    - link [aria-hidden]:
+      - /url: "#main"
+      - text: Skip to content
+    - complementary [aria-hidden]:
+      - generic:
+        - generic:
+          - link:
+            - /url: /launchpad
+            - generic: Retro
+          - button
+        - button:
+          - generic: Search
+          - generic: ⌘K
+        - navigation:
+          - link:
+            - /url: /launchpad
+            - generic: Home
+          - link:
+            - /url: /earn
+            - generic: Earn
+        - link:
+          - /url: /launchpad/create
+          - generic: Launch
+      - generic:
+        - button:
+          - generic: Connect wallet
+        - button:
+          - generic: Light theme
+        - link:
+          - /url: /docs
+          - generic: Docs
+    - generic [aria-hidden]:
+      - generic:
+        - generic: LIVE
+        - generic: Monad Testnet 10143 · real funds at test · prediction/PRISM modules remain demo fixtures.
+        - link:
+          - /url: /docs
+          - text: How it works
+      - main:
+        - generic:
+          - generic:
+            - heading [level=1]: Launch tokens. Trade what's next.
+            - paragraph: Crypto, stock-paired and prediction launches.
+          - link:
+            - /url: /launchpad/create
+            - text: Launch token
+        - generic:
+          - generic:
+            - heading [level=2]: Featured launches
+          - generic:
+            - article:
+              - generic:
+                - generic: Crypto
+                - generic: MON PAIR
+              - generic:
+                - generic [aria-hidden]: ◈
+                - link:
+                  - /url: /launchpad/token/0x9bae085e25c940ed311d15d423c602b1c5d3ccf5
+                  - heading [level=3]: RetroPick Metropolis E2E
+              - generic:
+                - generic:
+                  - generic: $0.00400
+                  - generic: +229.7% 24h
+                  - generic: Launch token price
+              - generic:
+                - link:
+                  - /url: /launchpad/token/0x9bae085e25c940ed311d15d423c602b1c5d3ccf5
+                  - text: Open token
+                  - strong: MON
+                - link:
+                  - /url: /docs
+                  - text: Read disclosure
+              - generic:
+                - generic: $1.04 vol.
+                - generic: Curve 100%
+            - article:
+              - generic:
+                - generic: PRISM
+                - generic: STRUCTURED
+              - heading [level=3]: One position. More possibilities.
+              - paragraph: Combine event outcomes into a fully backed basket.
+              - generic:
+                - generic:
+                  - generic: FED YES
+                  - strong: 60%
+                - generic:
+                  - generic: BTC NO
+                  - strong: 40%
+              - link:
+                - /url: /prism/pfedbtc
+                - text: Explore PRISM
+        - generic:
+          - generic:
+            - heading [level=2]:
+              - text: Explore
+              - generic: "13"
+            - generic:
+              - button [pressed]
+              - button
+          - generic:
+            - generic:
+              - generic:
+                - tablist:
+                  - tab [selected]: All
+                  - tab: Prediction
+                  - tab: Crypto
+                  - tab: Stocks
+            - generic:
+              - button: Trending
+              - button: Vol 24h
+              - button: New
+              - button: Liquidity
+          - generic:
+            - generic:
+              - generic:
+                - table:
+                  - rowgroup:
+                    - row:
+                      - columnheader: Token
+                      - columnheader: Price
+                      - columnheader: 24h change
+                      - columnheader: Volume 24h
+                      - columnheader: Liquidity
+                      - columnheader: Trade
+                  - rowgroup:
+                    - row:
+                      - cell:
+                        - generic:
+                          - link:
+                            - /url: /launchpad/prediction/btc-150k
+                            - generic [aria-hidden]: ₿
+                            - generic:
+                              - strong: Will Bitcoin close above $150,000 in 2026?
+                              - generic:
+                                - generic: Prediction
+                                - text: resolves Dec 31, 2026
+                          - button
+                      - cell:
+                        - generic:
+                          - generic: Y 64¢
+                          - generic: N 37.5¢
+                      - cell:
+                        - generic: +5.2¢
+                      - cell:
+                        - generic:
+                          - strong: $1.25M
+                      - cell:
+                        - generic:
+                          - strong: $84.2K
+                      - cell:
+                        - link:
+                          - /url: /launchpad/prediction/btc-150k
+                          - text: Trade
+                    - row:
+                      - cell:
+                        - generic:
+                          - link:
+                            - /url: /launchpad/prediction/fed-cut
+                            - generic [aria-hidden]: ▥
+                            - generic:
+                              - strong: Will the Fed cut rates in December?
+                              - generic:
+                                - generic: Prediction
+                                - text: resolves Dec 9, 2026
+                          - button
+                      - cell:
+                        - generic:
+                          - generic: Y 78¢
+                          - generic: N 23.0¢
+                      - cell:
+                        - generic: +2.8¢
+                      - cell:
+                        - generic:
+                          - strong: $986.4K
+                      - cell:
+                        - generic:
+                          - strong: $68.5K
+                      - cell:
+                        - link:
+                          - /url: /launchpad/prediction/fed-cut
+                          - text: Trade
+                    - row:
+                      - cell:
+                        - generic:
+                          - link:
+                            - /url: /launchpad/prediction/eth-5k
+                            - generic [aria-hidden]: Ξ
+                            - generic:
+                              - strong: Will Ethereum reach $5,000 by year end?
+                              - generic:
+                                - generic: Prediction
+                                - text: resolves Dec 31, 2026
+                          - button
+                      - cell:
+                        - generic:
+                          - generic: Y 42¢
+                          - generic: N 59.0¢
+                      - cell:
+                        - generic: "-1.6¢"
+                      - cell:
+                        - generic:
+                          - strong: $742.8K
+                      - cell:
+                        - generic:
+                          - strong: $52.7K
+                      - cell:
+                        - link:
+                          - /url: /launchpad/prediction/eth-5k
+                          - text: Trade
+                    - row:
+                      - cell:
+                        - generic:
+                          - link:
+                            - /url: /launchpad/prediction/spacex-flight
+                            - generic [aria-hidden]: ↗
+                            - generic:
+                              - strong: Will Starship reach orbit before 2027?
+                              - generic:
+                                - generic: Prediction
+                                - text: resolves Dec 31, 2026
+                          - button
+                      - cell:
+                        - generic:
+                          - generic: Y 71¢
+                          - generic: N 30.0¢
+                      - cell:
+                        - generic: +4.1¢
+                      - cell:
+                        - generic:
+                          - strong: $428.6K
+                      - cell:
+                        - generic:
+                          - strong: $36.2K
+                      - cell:
+                        - link:
+                          - /url: /launchpad/prediction/spacex-flight
+                          - text: Trade
+                    - row:
+                      - cell:
+                        - generic:
+                          - link:
+                            - /url: /launchpad/prediction/monad-tvl
+                            - generic [aria-hidden]: ◈
+                            - generic:
+                              - strong: Will Monad TVL exceed $1B this year?
+                              - generic:
+                                - generic: Prediction
+                                - text: resolves Dec 31, 2026
+                          - button
+                      - cell:
+                        - generic:
+                          - generic: Y 56¢
+                          - generic: N 45.5¢
+                      - cell:
+                        - generic: +7.4¢
+                      - cell:
+                        - generic:
+                          - strong: $385.2K
+                      - cell:
+                        - generic:
+                          - strong: $28.4K
+                      - cell:
+                        - link:
+                          - /url: /launchpad/prediction/monad-tvl
+                          - text: Trade
+                    - row:
+                      - cell:
+                        - generic:
+                          - link:
+                            - /url: /launchpad/prediction/inflation
+                            - generic [aria-hidden]: ％
+                            - generic:
+                              - strong: Will US inflation fall below 2.5% in October?
+                              - generic:
+                                - generic: Prediction
+                                - text: resolves Nov 10, 2026
+                          - button
+                      - cell:
+                        - generic:
+                          - generic: Y 61¢
+                          - generic: N 40.0¢
+                      - cell:
+                        - generic: "-0.9¢"
+                      - cell:
+                        - generic:
+                          - strong: $267.8K
+                      - cell:
+                        - generic:
+                          - strong: $19.3K
+                      - cell:
+                        - link:
+                          - /url: /launchpad/prediction/inflation
+                          - text: Trade
+                    - row:
+                      - cell:
+                        - generic:
+                          - link:
+                            - /url: /launchpad/prediction/ai-model
+                            - generic [aria-hidden]: ✳
+                            - generic:
+                              - strong: Will an open AI model lead the year-end benchmark?
+                              - generic:
+                                - generic: Prediction
+                                - text: resolves Dec 31, 2026
+                          - button
+                      - cell:
+                        - generic:
+                          - generic: Y 35¢
+                          - generic: N 66.5¢
+                      - cell:
+                        - generic: +1.3¢
+                      - cell:
+                        - generic:
+                          - strong: $164.5K
+                      - cell:
+                        - generic:
+                          - strong: $12.4K
+                      - cell:
+                        - link:
+                          - /url: /launchpad/prediction/ai-model
+                          - text: Trade
+                    - row:
+                      - cell:
+                        - generic:
+                          - link:
+                            - /url: /launchpad/prediction/rate-september
+                            - generic [aria-hidden]: ▥
+                            - generic:
+                              - strong: "September rate decision: a 25bp cut?"
+                              - generic:
+                                - generic: Prediction
+                                - text: resolves Sep 16, 2026
+                          - button
+                      - cell:
+                        - generic:
+                          - generic: Y 100¢
+                          - generic: N 0.0¢
+                      - cell:
+                        - generic: +0.0¢
+                      - cell:
+                        - generic:
+                          - strong: $108.3K
+                      - cell:
+                        - generic:
+                          - strong: $0
+                      - cell:
+                        - link:
+                          - /url: /launchpad/prediction/rate-september
+                          - text: Trade
+                    - row:
+                      - cell:
+                        - generic:
+                          - link:
+                            - /url: /launchpad/token/0x9bae085e25c940ed311d15d423c602b1c5d3ccf5
+                            - generic [aria-hidden]: ◈
+                            - generic:
+                              - strong:
+                                - text: RetroPick Metropolis E2E
+                                - emphasis: RPE2E
+                              - generic:
+                                - generic: Crypto
+                                - text: MON · just now
+                      - cell:
+                        - strong: $0.00400
+                      - cell:
+                        - generic: +229.7%
+                      - cell:
+                        - generic:
+                          - strong: $1.04
+                      - cell:
+                        - generic:
+                          - strong: $1
+                      - cell:
+                        - link:
+                          - /url: /launchpad/token/0x9bae085e25c940ed311d15d423c602b1c5d3ccf5
+                          - text: Trade
+                    - row:
+                      - cell:
+                        - generic:
+                          - link:
+                            - /url: /launchpad/token/0x43e7e9b1b7d9a143573307b13d14b51580c18f15
+                            - generic [aria-hidden]: ◈
+                            - generic:
+                              - strong:
+                                - text: RetroPick V2 MON testnet
+                                - emphasis: RPV2M
+                              - generic:
+                                - generic: Crypto
+                                - text: MON · just now
+                      - cell:
+                        - strong: $0.00400
+                      - cell:
+                        - generic: +258.5%
+                      - cell:
+                        - generic:
+                          - strong: $1.01
+                      - cell:
+                        - generic:
+                          - strong: $1
+                      - cell:
+                        - link:
+                          - /url: /launchpad/token/0x43e7e9b1b7d9a143573307b13d14b51580c18f15
+                          - text: Trade
+                    - row:
+                      - cell:
+                        - generic:
+                          - link:
+                            - /url: /launchpad/token/0x30ccb65006665022dfc97bb5c1985610503fd1cf
+                            - generic [aria-hidden]: ◈
+                            - generic:
+                              - strong:
+                                - text: Retro Live 43916
+                                - emphasis: RTL916
+                              - generic:
+                                - generic: Crypto
+                                - text: MON · just now
+                      - cell:
+                        - strong: $0.00400
+                      - cell:
+                        - generic: +101.4%
+                      - cell:
+                        - generic:
+                          - strong: $1.01
+                      - cell:
+                        - generic:
+                          - strong: $1
+                      - cell:
+                        - link:
+                          - /url: /launchpad/token/0x30ccb65006665022dfc97bb5c1985610503fd1cf
+                          - text: Trade
+                    - row:
+                      - cell:
+                        - generic:
+                          - link:
+                            - /url: /launchpad/token/0xd7b2ce2ebbf672255d339006f046c4ef7025d609
+                            - generic [aria-hidden]: ◈
+                            - generic:
+                              - strong:
+                                - text: RetroPick Original App E2E
+                                - emphasis: RPAPP
+                              - generic:
+                                - generic: Crypto
+                                - text: MON · just now
+                      - cell:
+                        - strong: $0.00100
+                      - cell:
+                        - generic: "-1.9%"
+                      - cell:
+                        - generic:
+                          - strong: $0
+                      - cell:
+                        - generic:
+                          - strong: $0
+                      - cell:
+                        - link:
+                          - /url: /launchpad/token/0xd7b2ce2ebbf672255d339006f046c4ef7025d609
+                          - text: Trade
+                    - row:
+                      - cell:
+                        - generic:
+                          - link:
+                            - /url: /prism/pfedbtc
+                            - generic [aria-hidden]: ◇
+                            - generic:
+                              - strong:
+                                - text: pFEDBTC
+                                - emphasis: pFEDBTC
+                              - generic:
+                                - generic: PRISM
+                                - text: USDC · demo
+                      - cell:
+                        - strong: $0.62
+                      - cell:
+                        - generic: —
+                      - cell:
+                        - generic:
+                          - strong: —
+                      - cell:
+                        - generic:
+                          - strong: —
+                      - cell:
+                        - link:
+                          - /url: /prism/pfedbtc
+                          - text: Trade
+          - generic:
+            - generic:
+              - text: Showing 13 listings · 4 live on Monad 10143 · indexer ready (lag 8 blocks) ·
+              - button: refresh
+        - generic:
+          - generic: Live launches are read from the deployed RetroPick V2 contracts on Monad Testnet (chain 10143). Prediction and PRISM modules remain demo fixtures.
+          - link:
+            - /url: /docs
+            - text: How it works
+      - contentinfo:
+        - generic:
+          - generic: RetroPick
+          - generic: Demo snapshot · Sep 17, 2026
+        - generic:
+          - link:
+            - /url: /docs
+            - text: Docs
+          - link:
+            - /url: https://github.com/RetroPick/retropick-protocol
+            - text: GitHub
+    - region "Notifications alt+T"
+  - dialog [ref=f2e595]:
+    - heading "Connect a wallet" [level=2] [ref=f2e596]
+    - paragraph [ref=f2e597]: Choose which wallet to use for this session.
+    - list [ref=f2e598]:
+      - listitem [active] [ref=f2e599] [cursor=pointer]:
+        - generic [ref=f2e600]: RetroPick Session Bridge (E2E)
+    - button "Close" [ref=f2e601] [cursor=pointer]

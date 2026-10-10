@@ -43,5 +43,11 @@ export function installSessionBridge(baseUrl: string): void {
   };
   root.ethereum = provider;
   const detail = { info: { uuid: 'retropick-session-bridge', name: 'RetroPick Session Bridge (E2E)', icon: 'data:,', rdns: 'retropick.e2e.bridge' }, provider };
+  // Announce now AND on every discovery request (providers must respond to
+  // eip6963:requestProvider; a one-shot load-time announcement is missed by
+  // listeners that mount later).
+  globalThis.addEventListener('eip6963:requestProvider', () => {
+    globalThis.dispatchEvent(new CustomEvent('eip6963:announceProvider', { detail }));
+  });
   globalThis.dispatchEvent(new CustomEvent('eip6963:announceProvider', { detail }));
 }

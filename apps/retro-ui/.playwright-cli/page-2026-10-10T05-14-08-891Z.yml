@@ -1,0 +1,365 @@
+- generic [ref=e2]:
+  - link "Skip to content" [ref=e3] [cursor=pointer]:
+    - /url: "#main"
+  - complementary [ref=e4]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - link "RetroPick Launchpad home" [ref=e7] [cursor=pointer]:
+          - /url: /launchpad
+          - generic [ref=e11]: Retro
+        - button "Collapse sidebar" [ref=e12] [cursor=pointer]
+      - button "Search tokens and markets" [ref=e16] [cursor=pointer]:
+        - generic [ref=e20]: Search
+        - generic [ref=e21]: ⌘K
+      - navigation "Primary navigation" [ref=e22]:
+        - link "Home" [ref=e23] [cursor=pointer]:
+          - /url: /launchpad
+        - link "Earn" [ref=e28] [cursor=pointer]:
+          - /url: /earn
+      - link "Launch" [ref=e35] [cursor=pointer]:
+        - /url: /launchpad/create
+    - generic [ref=e38]:
+      - button "Connect wallet" [ref=e39] [cursor=pointer]
+      - button "Switch to light theme" [ref=e44] [cursor=pointer]:
+        - generic [ref=e51]: Light theme
+      - link "Docs" [ref=e52] [cursor=pointer]:
+        - /url: /docs
+  - generic [ref=e57]:
+    - generic [ref=e58]:
+      - generic [ref=e59]: LIVE
+      - generic [ref=e60]: Monad Testnet 10143 · real funds at test · prediction/PRISM modules remain demo fixtures.
+      - link "How it works" [ref=e61] [cursor=pointer]:
+        - /url: /docs
+    - main [ref=e65]:
+      - generic [ref=e66]:
+        - generic [ref=e67]:
+          - heading "Launch tokens. Trade what's next." [level=1] [ref=e68]: Launch tokens.Trade what's next.
+          - paragraph [ref=e69]: Crypto, stock-paired and prediction launches.
+        - link "Launch token" [ref=e70] [cursor=pointer]:
+          - /url: /launchpad/create
+      - generic [ref=e72]:
+        - heading "Featured launches" [level=2] [ref=e74]
+        - article [ref=e78]:
+          - generic [ref=e79]:
+            - generic [ref=e80]: PRISM
+            - generic [ref=e85]: STRUCTURED
+          - heading "One position. More possibilities." [level=3] [ref=e86]: One position.More possibilities.
+          - paragraph [ref=e87]: Combine event outcomes into a fully backed basket.
+          - generic [ref=e88]:
+            - generic [ref=e89]:
+              - generic [ref=e90]: FED YES
+              - strong [ref=e91]: 60%
+            - generic [ref=e92]:
+              - generic [ref=e93]: BTC NO
+              - strong [ref=e94]: 40%
+          - link "Explore PRISM" [ref=e97] [cursor=pointer]:
+            - /url: /prism/pfedbtc
+      - generic [ref=e101]:
+        - generic [ref=e102]:
+          - heading "Explore 9" [level=2] [ref=e103]:
+            - text: Explore
+            - generic [ref=e104]: "9"
+          - generic [ref=e105]:
+            - button "Table view" [pressed] [ref=e106] [cursor=pointer]
+            - button "Card view" [ref=e108] [cursor=pointer]
+        - generic [ref=e114]:
+          - tablist "Launchpad type" [ref=e117]:
+            - tab "All" [selected] [ref=e118] [cursor=pointer]
+            - tab "Prediction" [ref=e119] [cursor=pointer]
+            - tab "Crypto" [ref=e120] [cursor=pointer]
+            - tab "Stocks" [ref=e121] [cursor=pointer]
+          - generic "Sort launchpad feed" [ref=e122]:
+            - button "Trending" [ref=e123] [cursor=pointer]
+            - button "Vol 24h" [ref=e126] [cursor=pointer]
+            - button "New" [ref=e130] [cursor=pointer]
+            - button "Liquidity" [ref=e134] [cursor=pointer]
+        - table [ref=e141]:
+          - rowgroup [ref=e142]:
+            - row [ref=e143]:
+              - columnheader "Token" [ref=e144]
+              - columnheader "Price" [ref=e145]
+              - columnheader "24h change" [ref=e146]
+              - columnheader "Volume 24h" [ref=e147]
+              - columnheader "Liquidity" [ref=e148]
+              - columnheader "Trade" [ref=e149]
+          - rowgroup [ref=e150]:
+            - row [ref=e151]:
+              - cell [ref=e152]:
+                - generic [ref=e153]:
+                  - link "Will Bitcoin close above $150,000 in 2026? Prediction resolves Dec 31, 2026" [ref=e154] [cursor=pointer]:
+                    - /url: /launchpad/prediction/btc-150k
+                    - generic [aria-hidden] [ref=e155]: ₿
+                    - generic [ref=e156]:
+                      - strong [ref=e157]:
+                        - text: Will Bitcoin close above $150,000 in 2026?
+                        - emphasis
+                      - generic [ref=e158]:
+                        - generic [ref=e159]: Prediction
+                        - text: resolves Dec 31, 2026
+                  - button "Watch BTC150" [ref=e160] [cursor=pointer]
+              - cell "Y 64¢ N 37.5¢" [ref=e163]:
+                - generic [ref=e164]:
+                  - generic [ref=e165]: Y 64¢
+                  - generic [ref=e166]: N 37.5¢
+              - cell "+5.2¢ Illustrative price history" [ref=e167]:
+                - generic [ref=e168]:
+                  - generic [ref=e169]: +5.2¢
+                  - img "Illustrative price history" [ref=e170]
+              - cell [ref=e172]:
+                - strong [ref=e174]: $1.25M
+              - cell [ref=e175]:
+                - strong [ref=e177]: $84.2K
+              - cell [ref=e178]:
+                - link "Trade BTC150" [ref=e179] [cursor=pointer]:
+                  - /url: /launchpad/prediction/btc-150k
+                  - text: Trade
+            - row [ref=e183]:
+              - cell [ref=e184]:
+                - generic [ref=e185]:
+                  - link "Will the Fed cut rates in December? Prediction resolves Dec 9, 2026" [ref=e186] [cursor=pointer]:
+                    - /url: /launchpad/prediction/fed-cut
+                    - generic [aria-hidden] [ref=e187]: ▥
+                    - generic [ref=e188]:
+                      - strong [ref=e189]:
+                        - text: Will the Fed cut rates in December?
+                        - emphasis
+                      - generic [ref=e190]:
+                        - generic [ref=e191]: Prediction
+                        - text: resolves Dec 9, 2026
+                  - button "Watch FEDCUT" [ref=e192] [cursor=pointer]
+              - cell "Y 78¢ N 23.0¢" [ref=e195]:
+                - generic [ref=e196]:
+                  - generic [ref=e197]: Y 78¢
+                  - generic [ref=e198]: N 23.0¢
+              - cell "+2.8¢ Illustrative price history" [ref=e199]:
+                - generic [ref=e200]:
+                  - generic [ref=e201]: +2.8¢
+                  - img "Illustrative price history" [ref=e202]
+              - cell [ref=e204]:
+                - strong [ref=e206]: $986.4K
+              - cell [ref=e207]:
+                - strong [ref=e209]: $68.5K
+              - cell [ref=e210]:
+                - link "Trade FEDCUT" [ref=e211] [cursor=pointer]:
+                  - /url: /launchpad/prediction/fed-cut
+                  - text: Trade
+            - row [ref=e215]:
+              - cell [ref=e216]:
+                - generic [ref=e217]:
+                  - link "Will Ethereum reach $5,000 by year end? Prediction resolves Dec 31, 2026" [ref=e218] [cursor=pointer]:
+                    - /url: /launchpad/prediction/eth-5k
+                    - generic [aria-hidden] [ref=e219]: Ξ
+                    - generic [ref=e220]:
+                      - strong [ref=e221]:
+                        - text: Will Ethereum reach $5,000 by year end?
+                        - emphasis
+                      - generic [ref=e222]:
+                        - generic [ref=e223]: Prediction
+                        - text: resolves Dec 31, 2026
+                  - button "Watch ETH5K" [ref=e224] [cursor=pointer]
+              - cell "Y 42¢ N 59.0¢" [ref=e227]:
+                - generic [ref=e228]:
+                  - generic [ref=e229]: Y 42¢
+                  - generic [ref=e230]: N 59.0¢
+              - cell "-1.6¢ Illustrative price history" [ref=e231]:
+                - generic [ref=e232]:
+                  - generic [ref=e233]: "-1.6¢"
+                  - img "Illustrative price history" [ref=e234]
+              - cell [ref=e236]:
+                - strong [ref=e238]: $742.8K
+              - cell [ref=e239]:
+                - strong [ref=e241]: $52.7K
+              - cell [ref=e242]:
+                - link "Trade ETH5K" [ref=e243] [cursor=pointer]:
+                  - /url: /launchpad/prediction/eth-5k
+                  - text: Trade
+            - row [ref=e247]:
+              - cell [ref=e248]:
+                - generic [ref=e249]:
+                  - link "Will Starship reach orbit before 2027? Prediction resolves Dec 31, 2026" [ref=e250] [cursor=pointer]:
+                    - /url: /launchpad/prediction/spacex-flight
+                    - generic [aria-hidden] [ref=e251]: ↗
+                    - generic [ref=e252]:
+                      - strong [ref=e253]:
+                        - text: Will Starship reach orbit before 2027?
+                        - emphasis
+                      - generic [ref=e254]:
+                        - generic [ref=e255]: Prediction
+                        - text: resolves Dec 31, 2026
+                  - button "Watch ORBIT" [ref=e256] [cursor=pointer]
+              - cell "Y 71¢ N 30.0¢" [ref=e259]:
+                - generic [ref=e260]:
+                  - generic [ref=e261]: Y 71¢
+                  - generic [ref=e262]: N 30.0¢
+              - cell "+4.1¢ Illustrative price history" [ref=e263]:
+                - generic [ref=e264]:
+                  - generic [ref=e265]: +4.1¢
+                  - img "Illustrative price history" [ref=e266]
+              - cell [ref=e268]:
+                - strong [ref=e270]: $428.6K
+              - cell [ref=e271]:
+                - strong [ref=e273]: $36.2K
+              - cell [ref=e274]:
+                - link "Trade ORBIT" [ref=e275] [cursor=pointer]:
+                  - /url: /launchpad/prediction/spacex-flight
+                  - text: Trade
+            - row [ref=e279]:
+              - cell [ref=e280]:
+                - generic [ref=e281]:
+                  - link "Will Monad TVL exceed $1B this year? Prediction resolves Dec 31, 2026" [ref=e282] [cursor=pointer]:
+                    - /url: /launchpad/prediction/monad-tvl
+                    - generic [aria-hidden] [ref=e283]: ◈
+                    - generic [ref=e284]:
+                      - strong [ref=e285]:
+                        - text: Will Monad TVL exceed $1B this year?
+                        - emphasis
+                      - generic [ref=e286]:
+                        - generic [ref=e287]: Prediction
+                        - text: resolves Dec 31, 2026
+                  - button "Watch MONTVL" [ref=e288] [cursor=pointer]
+              - cell "Y 56¢ N 45.5¢" [ref=e291]:
+                - generic [ref=e292]:
+                  - generic [ref=e293]: Y 56¢
+                  - generic [ref=e294]: N 45.5¢
+              - cell "+7.4¢ Illustrative price history" [ref=e295]:
+                - generic [ref=e296]:
+                  - generic [ref=e297]: +7.4¢
+                  - img "Illustrative price history" [ref=e298]
+              - cell [ref=e300]:
+                - strong [ref=e302]: $385.2K
+              - cell [ref=e303]:
+                - strong [ref=e305]: $28.4K
+              - cell [ref=e306]:
+                - link "Trade MONTVL" [ref=e307] [cursor=pointer]:
+                  - /url: /launchpad/prediction/monad-tvl
+                  - text: Trade
+            - row [ref=e311]:
+              - cell [ref=e312]:
+                - generic [ref=e313]:
+                  - link "Will US inflation fall below 2.5% in October? Prediction resolves Nov 10, 2026" [ref=e314] [cursor=pointer]:
+                    - /url: /launchpad/prediction/inflation
+                    - generic [aria-hidden] [ref=e315]: ％
+                    - generic [ref=e316]:
+                      - strong [ref=e317]:
+                        - text: Will US inflation fall below 2.5% in October?
+                        - emphasis
+                      - generic [ref=e318]:
+                        - generic [ref=e319]: Prediction
+                        - text: resolves Nov 10, 2026
+                  - button "Watch CPI25" [ref=e320] [cursor=pointer]
+              - cell "Y 61¢ N 40.0¢" [ref=e323]:
+                - generic [ref=e324]:
+                  - generic [ref=e325]: Y 61¢
+                  - generic [ref=e326]: N 40.0¢
+              - cell "-0.9¢ Illustrative price history" [ref=e327]:
+                - generic [ref=e328]:
+                  - generic [ref=e329]: "-0.9¢"
+                  - img "Illustrative price history" [ref=e330]
+              - cell [ref=e332]:
+                - strong [ref=e334]: $267.8K
+              - cell [ref=e335]:
+                - strong [ref=e337]: $19.3K
+              - cell [ref=e338]:
+                - link "Trade CPI25" [ref=e339] [cursor=pointer]:
+                  - /url: /launchpad/prediction/inflation
+                  - text: Trade
+            - row [ref=e343]:
+              - cell [ref=e344]:
+                - generic [ref=e345]:
+                  - link "Will an open AI model lead the year-end benchmark? Prediction resolves Dec 31, 2026" [ref=e346] [cursor=pointer]:
+                    - /url: /launchpad/prediction/ai-model
+                    - generic [aria-hidden] [ref=e347]: ✳
+                    - generic [ref=e348]:
+                      - strong [ref=e349]:
+                        - text: Will an open AI model lead the year-end benchmark?
+                        - emphasis
+                      - generic [ref=e350]:
+                        - generic [ref=e351]: Prediction
+                        - text: resolves Dec 31, 2026
+                  - button "Watch OPENAI" [ref=e352] [cursor=pointer]
+              - cell "Y 35¢ N 66.5¢" [ref=e355]:
+                - generic [ref=e356]:
+                  - generic [ref=e357]: Y 35¢
+                  - generic [ref=e358]: N 66.5¢
+              - cell "+1.3¢ Illustrative price history" [ref=e359]:
+                - generic [ref=e360]:
+                  - generic [ref=e361]: +1.3¢
+                  - img "Illustrative price history" [ref=e362]
+              - cell [ref=e364]:
+                - strong [ref=e366]: $164.5K
+              - cell [ref=e367]:
+                - strong [ref=e369]: $12.4K
+              - cell [ref=e370]:
+                - link "Trade OPENAI" [ref=e371] [cursor=pointer]:
+                  - /url: /launchpad/prediction/ai-model
+                  - text: Trade
+            - row [ref=e375]:
+              - cell [ref=e376]:
+                - generic [ref=e377]:
+                  - 'link "September rate decision: a 25bp cut? Prediction resolves Sep 16, 2026" [ref=e378] [cursor=pointer]':
+                    - /url: /launchpad/prediction/rate-september
+                    - generic [aria-hidden] [ref=e379]: ▥
+                    - generic [ref=e380]:
+                      - strong [ref=e381]:
+                        - text: "September rate decision: a 25bp cut?"
+                        - emphasis
+                      - generic [ref=e382]:
+                        - generic [ref=e383]: Prediction
+                        - text: resolves Sep 16, 2026
+                  - button "Watch SEP25" [ref=e384] [cursor=pointer]
+              - cell "Y 100¢ N 0.0¢" [ref=e387]:
+                - generic [ref=e388]:
+                  - generic [ref=e389]: Y 100¢
+                  - generic [ref=e390]: N 0.0¢
+              - cell "+0.0¢ Illustrative price history" [ref=e391]:
+                - generic [ref=e392]:
+                  - generic [ref=e393]: +0.0¢
+                  - img "Illustrative price history" [ref=e394]
+              - cell [ref=e396]:
+                - strong [ref=e398]: $108.3K
+              - cell [ref=e399]:
+                - strong [ref=e401]: $0
+              - cell [ref=e402]:
+                - link "Trade SEP25" [ref=e403] [cursor=pointer]:
+                  - /url: /launchpad/prediction/rate-september
+                  - text: Trade
+            - row [ref=e407]:
+              - cell [ref=e408]:
+                - link "pFEDBTC pFEDBTC PRISM USDC · demo" [ref=e410] [cursor=pointer]:
+                  - /url: /prism/pfedbtc
+                  - generic [aria-hidden] [ref=e411]: ◇
+                  - generic [ref=e412]:
+                    - strong [ref=e413]:
+                      - text: pFEDBTC
+                      - emphasis [ref=e414]: pFEDBTC
+                    - generic [ref=e415]:
+                      - generic [ref=e416]: PRISM
+                      - text: USDC · demo
+              - cell [ref=e417]:
+                - strong [ref=e418]: $0.62
+              - cell "—" [ref=e419]
+              - cell [ref=e422]:
+                - strong [ref=e424]: —
+              - cell [ref=e425]:
+                - strong [ref=e427]: —
+              - cell [ref=e428]:
+                - link "Trade pFEDBTC" [ref=e429] [cursor=pointer]:
+                  - /url: /prism/pfedbtc
+                  - text: Trade
+        - generic [ref=e434]:
+          - text: Showing 9 listings · 0 live on Monad 10143 · indexer loading ·
+          - button "refresh" [ref=e435] [cursor=pointer]
+      - generic [ref=e436]:
+        - generic [ref=e440]: Live launches are read from the deployed RetroPick V2 contracts on Monad Testnet (chain 10143). Prediction and PRISM modules remain demo fixtures.
+        - link "How it works" [ref=e441] [cursor=pointer]:
+          - /url: /docs
+    - contentinfo [ref=e444]:
+      - generic [ref=e445]:
+        - generic [ref=e446]: RetroPick
+        - generic [ref=e447]: Demo snapshot · Sep 17, 2026
+      - generic [ref=e448]:
+        - link "Docs" [ref=e449] [cursor=pointer]:
+          - /url: /docs
+        - link "GitHub" [ref=e450] [cursor=pointer]:
+          - /url: https://github.com/RetroPick/retropick-protocol
+  - region "Notifications alt+T"

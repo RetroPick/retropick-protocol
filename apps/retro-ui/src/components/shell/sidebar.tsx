@@ -17,6 +17,8 @@ import { RetroLogo } from '@/components/Icons';
 import { usePathname } from '@/lib/next-compat';
 import { useDemo } from '@/components/product/provider';
 import { useWallet } from '@/wallet/provider';
+import { WalletPickerDialog } from '@/wallet/wallet-picker';
+import { useState } from 'react';
 import { DATA_MODE } from '@/lib/live/env';
 import { toggleTheme, useTheme } from '@/lib/theme';
 
@@ -105,6 +107,7 @@ function WalletButton({ isCollapsed }: { isCollapsed: boolean }) {
   const demo = useDemo();
   const live = DATA_MODE === 'live';
   const wallet = useWallet();
+  const [pickerOpen, setPickerOpen] = useState(false);
   if (!live) {
     return <button className="side-action side-wallet" onClick={() => demo.setConnected(!demo.connected)} aria-label={demo.connected ? 'Demo wallet' : 'Connect wallet'} title={demo.connected ? 'Demo wallet' : 'Connect wallet'}>
       <Wallet className="w-5 h-5"/>
@@ -115,8 +118,11 @@ function WalletButton({ isCollapsed }: { isCollapsed: boolean }) {
     : wallet.status === 'wrong-chain' ? 'Wrong chain'
     : wallet.status === 'connecting' ? 'Connecting…'
     : 'Connect wallet';
-  return <button className="side-action side-wallet" onClick={() => (wallet.status === 'disconnected' ? void wallet.connect().catch(() => {}) : wallet.status === 'wrong-chain' ? void wallet.switchChain() : wallet.disconnect())} aria-label={label} title={label} data-wallet-status={wallet.status}>
-    <Wallet className="w-5 h-5"/>
-    {!isCollapsed && <span className="side-label">{label}</span>}
-  </button>;
+  return <>
+    <button className="side-action side-wallet" onClick={() => (wallet.status === 'disconnected' ? setPickerOpen(true) : wallet.status === 'wrong-chain' ? void wallet.switchChain() : wallet.disconnect())} aria-label={label} title={wallet.walletName ? `${wallet.walletName} · ${label}` : label} data-wallet-status={wallet.status}>
+      <Wallet className="w-5 h-5"/>
+      {!isCollapsed && <span className="side-label">{label}</span>}
+    </button>
+    <WalletPickerDialog open={pickerOpen} onOpenChange={setPickerOpen}/>
+  </>;
 }

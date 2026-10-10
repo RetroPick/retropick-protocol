@@ -6,6 +6,8 @@ import { dirname, join } from 'node:path';
 import { encodeFunctionData, encodeAbiParameters, keccak256, toEventSignature, encodeErrorResult, type Address, type Hex } from 'viem';
 import { curveAbi, factoryAbi, kuruAbi, marginAbi } from '../src/abi.ts';
 import { kuruGrid, randomSalt, type KuruMarketParams } from '../src/prepare.ts';
+import { retroPickFeeEscrowV2Abi } from '@retropick/abi/abi';
+const feeEscrow = '0xb0312b0412c3BAa11895A6c4FeeC7CD9A01c2D96' as Address;
 import { decodeEvents, decodeOrderCreated, buildErrorSelectorMap, decodeRevertData, classifyError } from '../src/decode.ts';
 
 const actor = '0xB505cBaab3ACdF287af1366b9B1229404757913b' as Address;
@@ -43,6 +45,21 @@ test('orderbook addBuyOrder calldata matches cast ground truth', () => {
 test('orderbook batchCancelOrders calldata matches cast ground truth', () => {
   const data = encodeFunctionData({ abi: kuruAbi, functionName: 'batchCancelOrders', args: [[3, 7, 9]] });
   assert.equal(data, fixture.batchCancelOrders);
+});
+
+test('orderbook batchCancelOrdersNoRevert calldata matches cast ground truth', () => {
+  const data = encodeFunctionData({ abi: kuruAbi, functionName: 'batchCancelOrdersNoRevert', args: [[3, 7]] });
+  assert.equal(data, fixture.batchCancelOrdersNoRevert);
+});
+
+test('fee escrow claimToken calldata matches cast ground truth', () => {
+  const data = encodeFunctionData({ abi: retroPickFeeEscrowV2Abi as unknown as Parameters<typeof encodeFunctionData>[0]['abi'], functionName: 'claimToken', args: [feeEscrow] });
+  assert.equal(data, fixture.claimToken);
+});
+
+test('margin batchWithdrawMaxTokens calldata matches cast ground truth', () => {
+  const data = encodeFunctionData({ abi: marginAbi, functionName: 'batchWithdrawMaxTokens', args: [[zero, '0x43e7e9b1b7d9A143573307b13D14B51580c18f15' as Address]] });
+  assert.equal(data, fixture.batchWithdrawMaxTokens);
 });
 
 test('launchToken venue overload selects a distinct selector from the 3-arg overload', () => {

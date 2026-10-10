@@ -1,6 +1,6 @@
 import { zeroAddress, type Abi, type Address, parseAbi } from 'viem';
 import { addresses, release, type ChainClient } from './chain.ts';
-import { coordinatorAbi, curveAbi, factoryAbi, kuruAbi, marginAbi, tokenAbi } from './abi.ts';
+import { coordinatorAbi, curveAbi, factoryAbi, kuruAbi, kuruEnvironmentAbi, marginAbi, routerAbi, tokenAbi } from './abi.ts';
 import { retroPickBuybackVaultV2Abi, retroPickFeeEscrowV2Abi } from '@retropick/abi/abi';
 import { readLaunch } from './model.ts';
 import { buyQuote, minOutput, sellQuote } from './math.ts';
@@ -66,7 +66,7 @@ export type LaunchTokenInput = {
 export async function prepareLaunchToken(chain: ChainClient, account: Address, input: LaunchTokenInput): Promise<PreparedWrite> {
   const checks: string[] = [];
   if (!input.name.trim() || !input.symbol.trim()) fail('Token name and symbol are required.');
-  const [preconditions, economics] = await Promise.all([
+  const [preconditions, economics, feePolicy] = await Promise.all([
     readLaunchPreconditions(chain, account),
     chain.readContract({
       address: addresses.factory,
@@ -74,6 +74,13 @@ export async function prepareLaunchToken(chain: ChainClient, account: Address, i
       functionName: 'previewVenueEconomics',
       args: [input.launchConfigId, input.pairToken, input.venue],
     }),
+    // Hook fee leg of the deployed combined-fee check (factory _launchToken).
+    chain.readContract({
+      address: addresses.factory,
+      abi: factoryAbi,
+      functionName: 'getLaunchFeePolicy',
+      args: [input.pairToken],
+    }).catch(() => undefined),
   ]);
   if (preconditions.canLaunch === false) fail('This wallet is not authorized to launch. Launches may be whitelist-only right now.');
   const config = preconditions.configs.find((entry) => entry.id === input.launchConfigId);
@@ -83,6 +90,10 @@ export async function prepareLaunchToken(chain: ChainClient, account: Address, i
     fail(`Creator tax ${input.creatorTaxBps} bps exceeds the ${preconditions.maxCreatorTaxBps} bps limit.`);
   }
   if (config.curveFeeBps + input.creatorTaxBps > 2000n) fail('Combined curve fee and creator tax exceeds the 2000 bps protocol limit.');
+  const hookFeeBps = (feePolicy as { hookFeeBps?: bigint } | undefined)?.hookFeeBps;
+  if (hookFeeBps !== undefined && hookFeeBps + input.creatorTaxBps > 2000n) {
+    fail('Combined hook fee and creator tax exceeds the 2000 bps protocol limit.');
+  }
   const admitted = preconditions.quotes.some((quote) => quote.venue === input.venue && quote.address.toLowerCase() === input.pairToken.toLowerCase());
   if (!admitted) fail('This quote asset is not admitted for the selected graduation venue.');
   checks.push(`launchFee ${preconditions.launchFee} wei exact`);
@@ -204,7 +215,7 @@ export async function prepareCurveSell(
 // Flow C — graduation
 // ---------------------------------------------------------------------------
 
-/** Qualified pathway: factory.graduate(token) once the curve reached completion. */
+/** Qualified pathway: factory.graduate(token) once the curve reports readiness. */
 export async function prepareFactoryGraduate(chain: ChainClient, token: Address, account: Address): Promise<PreparedWrite> {
   const launch = await readLaunch(chain, token);
   if (Number(launch.ledger.phase) !== 0) fail('Graduation has already started for this launch.');
@@ -215,9 +226,15 @@ export async function prepareFactoryGraduate(chain: ChainClient, token: Address,
     blockNumber: launch.blockNumber,
   });
   if (graduated) fail('This curve has already graduated.');
-  const [quoteNeeded] = launch.completion;
-  const [quoteReserve] = launch.reserves;
-  if (quoteReserve < quoteNeeded) fail('Bonding curve has not reached the graduation threshold yet.');
+  // Binding readiness signal from the deployed curve: sellable supply exhausted
+  // (comparing virtual reserves against terminalQuote is NOT the condition).
+  const ready = await chain.readContract({
+    address: launch.packet.curve,
+    abi: curveAbi,
+    functionName: 'readyToGraduate',
+    blockNumber: launch.blockNumber,
+  });
+  if (!ready) fail('The bonding curve has not reached its completion threshold yet.');
   return {
     to: addresses.factory,
     abi: factoryAbi,
@@ -227,7 +244,7 @@ export async function prepareFactoryGraduate(chain: ChainClient, token: Address,
     account,
     approvals: [],
     label: 'Graduate launch',
-    checks: ['coordinator phase NONE', `quote reserve ${quoteReserve} ≥ completion ${quoteNeeded}`],
+    checks: ['coordinator phase NONE', 'curve readyToGraduate'],
   };
 }
 
@@ -379,6 +396,8 @@ export async function prepareMarginWithdraw(
 
 export type KuruLimitOrderInput = {
   market: Address;
+  /** Launch token (base asset) — used for market identity verification. */
+  token: Address;
   side: 'buy' | 'sell';
   /** Desired price in quote-raw per one whole base token. */
   priceRaw: bigint;
@@ -389,7 +408,7 @@ export type KuruLimitOrderInput = {
 
 /** Resting limit order; funds are held in the Kuru margin account. */
 export async function prepareKuruLimitOrder(chain: ChainClient, account: Address, input: KuruLimitOrderInput): Promise<PreparedWrite> {
-  const params = await readMarketParams(chain, input.market);
+  const params = await assertKuruMarketIdentity(chain, input.market, input.token);
   const priceUnits = kuruGrid.priceToUnits(input.priceRaw, params, input.side);
   if (priceUnits % params.tickSize !== 0n) fail('Price is not on this market\'s tick grid.');
   const sizeUnits = kuruGrid.sizeToUnits(input.sizeRaw, params);
@@ -426,6 +445,8 @@ export async function prepareKuruLimitOrder(chain: ChainClient, account: Address
 
 export type KuruMarketOrderInput = {
   market: Address;
+  /** Launch token (base asset) — used for market identity verification. */
+  token: Address;
   side: 'buy' | 'sell';
   /** Buy: quote amount raw. Sell: base amount raw. */
   amountRaw: bigint;
@@ -436,7 +457,7 @@ export type KuruMarketOrderInput = {
 
 /** Immediate fill-or-kill market order against the book, funded from the margin account. */
 export async function prepareKuruMarketOrder(chain: ChainClient, account: Address, input: KuruMarketOrderInput): Promise<PreparedWrite> {
-  const params = await readMarketParams(chain, input.market);
+  const params = await assertKuruMarketIdentity(chain, input.market, input.token);
   const isBuy = input.side === 'buy';
   const units = isBuy
     // _quoteSize is denominated in quote grid units: raw * pricePrecision / 10^quoteDecimals
@@ -460,20 +481,62 @@ export async function prepareKuruMarketOrder(chain: ChainClient, account: Addres
   };
 }
 
-/** Cancel resting orders by id (ids come from OrderCreated logs). */
+/** Cancel resting orders by id (ids come from OrderCreated logs); the
+ * NoRevert variant skips already-filled/cancelled ids instead of reverting. */
 export async function prepareKuruCancel(chain: ChainClient, market: Address, account: Address, orderIds: number[]): Promise<PreparedWrite> {
   if (orderIds.length === 0) fail('No orders selected.');
+  void chain;
   return {
     to: market,
     abi: kuruAbi,
-    functionName: 'batchCancelOrders',
+    functionName: 'batchCancelOrdersNoRevert',
     args: [orderIds],
     value: 0n,
     account,
     approvals: [],
     label: 'Cancel orders',
-    checks: [`${orderIds.length} order(s)`],
+    checks: [`${orderIds.length} order(s)`, 'already-gone ids skipped'],
   };
+}
+
+/** Withdraw every token balance held in the margin account. */
+export async function prepareBatchWithdrawMax(chain: ChainClient, account: Address, tokens: Address[]): Promise<PreparedWrite> {
+  if (tokens.length === 0) fail('No tokens selected.');
+  void chain;
+  return {
+    to: marginAddress,
+    abi: marginAbi,
+    functionName: 'batchWithdrawMaxTokens',
+    args: [tokens],
+    value: 0n,
+    account,
+    approvals: [],
+    label: 'Withdraw all margin balances',
+    checks: [`${tokens.length} token(s)`],
+  };
+}
+
+/** Verify a caller-supplied market is the verified RetroPick Kuru deployment
+ * for this base token before any order is prepared against it. */
+export async function assertKuruMarketIdentity(chain: ChainClient, market: Address, token: Address): Promise<KuruMarketParams> {
+  await chain.readContract({ address: addresses.kuruEnvironment, abi: kuruEnvironmentAbi, functionName: 'validate' });
+  const router = release.kuruEnvironment.router as Address;
+  const [params, margin, orderImpl, vaultImpl, registered] = await Promise.all([
+    chain.readContract({ address: market, abi: kuruAbi, functionName: 'getMarketParams' }),
+    chain.readContract({ address: router, abi: routerAbi, functionName: 'marginAccountAddress' }),
+    chain.readContract({ address: router, abi: routerAbi, functionName: 'orderBookImplementation' }),
+    chain.readContract({ address: router, abi: routerAbi, functionName: 'kuruAmmVaultImplementation' }),
+    chain.readContract({ address: router, abi: routerAbi, functionName: 'verifiedMarket', args: [market] }),
+  ]);
+  const typed = params as unknown as [bigint, bigint, Address, bigint, Address, bigint, bigint, bigint, bigint, bigint, bigint];
+  const lower = (value: unknown) => String(value).toLowerCase();
+  if (registered.some((value, index) => lower(value) !== lower(typed[index])) || lower(typed[2]) !== lower(token)
+    || lower(margin) !== lower(release.kuruEnvironment.marginAccount)
+    || lower(orderImpl) !== lower(release.kuruEnvironment.orderBookImplementation)
+    || lower(vaultImpl) !== lower(release.kuruEnvironment.vaultImplementation)) {
+    fail('This market is not the verified RetroPick Kuru deployment for that token.');
+  }
+  return { pricePrecision: typed[0], sizePrecision: typed[1], baseAsset: typed[2], baseDecimals: typed[3], quoteAsset: typed[4], quoteDecimals: typed[5], tickSize: typed[6], minSize: typed[7], maxSize: typed[8], takerFeeBps: typed[9], makerFeeBps: typed[10] };
 }
 
 // ---------------------------------------------------------------------------
@@ -497,7 +560,8 @@ export async function prepareFeeClaim(chain: ChainClient, account: Address): Pro
   };
 }
 
-/** Release vested buyback proceeds for a launched token. */
+/** Release vested buyback proceeds for a launched token. The vault pays the
+ * creator share as FeeEscrow *token* credit — pair with prepareFeeClaimToken. */
 export async function prepareBuybackRelease(chain: ChainClient, token: Address, account: Address): Promise<PreparedWrite> {
   const releasable = await readBuybackReleasable(chain, token);
   if (releasable <= 0n) fail('Nothing is currently releasable for this launch.');
@@ -510,7 +574,29 @@ export async function prepareBuybackRelease(chain: ChainClient, token: Address, 
     account,
     approvals: [],
     label: 'Release buyback proceeds',
-    checks: [`releasable ${releasable}`],
+    checks: [`releasable ${releasable}`, 'proceeds land as FeeEscrow token credit'],
+  };
+}
+
+/** Claim escrowed ERC-20 fees (including released buyback credit) for `token`. */
+export async function prepareFeeClaimToken(chain: ChainClient, account: Address, token: Address): Promise<PreparedWrite> {
+  const credit = await chain.readContract({
+    address: addresses.feeEscrow,
+    abi: retroPickFeeEscrowV2Abi as never,
+    functionName: 'balanceOfToken',
+    args: [token, account],
+  });
+  if (credit <= 0n) fail('No claimable token fees for this asset yet.');
+  return {
+    to: addresses.feeEscrow,
+    abi: retroPickFeeEscrowV2Abi as unknown as readonly unknown[],
+    functionName: 'claimToken',
+    args: [token],
+    value: 0n,
+    account,
+    approvals: [],
+    label: 'Claim token fees',
+    checks: [`escrow credit ${credit}`],
   };
 }
 

@@ -15,7 +15,7 @@ Baseline: `41df325` on `codex/v2-abi-catalog-verification`; integration branch `
 | Frontend reverse map | `docs/frontend/RETRO_UI_REVERSE_MAP.md` | P2 | DONE (8d8650a, H2) |
 | Create-form ABI map | `docs/frontend/CREATE_FORM_ABI_MAP.md` | P2 | DONE (8d8650a, H2) |
 | ABI screen map | `docs/frontend/ABI_SCREEN_MAP.md` | P2 | DONE (8d8650a, H2) |
-| Frontend write allowlist (security) | `development/fullstack-integration/write-allowlist.md` | P3/P7 | PENDING |
+| Frontend write allowlist (security) | `development/fullstack-integration/write-allowlist.md` | P3/P7 | P3 DONE (H3: 17 APPROVED / 3 APPROVED-WITH-CONDITIONS / 0 REJECTED; SDK conditions C-1..C-9); P7 re-verify PENDING |
 | Specialist handoffs | `development/fullstack-integration/handoffs/` | all | PENDING |
 | Final campaign report | `development/fullstack-integration/FINAL_REPORT.md` | P9 | PENDING |
 
@@ -27,7 +27,7 @@ Evidence lives in `evidence/launchpad/fullstack-integration/`.
 |---|---|---|---|---|---|
 | MONAD_DEVELOPMENT | chain-monad | orchestrator | chain 10143 config, RPC identity, receipts | readiness.json | PENDING |
 | SOLIDITY_FOUNDRY | evm-foundry, solidity-foundry, contract-verification | CONTRACT_AGENT | ABI semantics, overload regression, fork sim | P1/P7/P8 | PENDING |
-| SMART_CONTRACT_SECURITY | smart-contract-security, evm-security | SECURITY_AGENT | write allowlist, trust boundaries | P3/P7 | PENDING |
+| SMART_CONTRACT_SECURITY | smart-contract-security, evm-security | SECURITY_AGENT | write allowlist, trust boundaries | H3 + write-allowlist.md | IN_PROGRESS — P3 allowlist decision done vs deployed source pin f0363249 (17/3/0 verdicts, exclusion list, max-payable/approval matrix, SDK defects C-1 prepare.ts:218-220 & C-6 decode.ts:77); PASS awaits P7 gate-close re-verification |
 | FULLSTACK_SDK | backend-engineering-edho-ferdian | SDK_AGENT | write boundary + tx engine | P3/P5 | PENDING |
 | REACT_FRONTEND | frontend-engineering-edho-ferdian | FRONTEND_AGENT | live reads + flows | P4/P6 | IN_PROGRESS — P2 reverse-mapping/ABI maps + baselines done (H2); PASS awaits P4/P6 |
 | RADIX_ACCESSIBILITY | frontend-engineering-edho-ferdian | FRONTEND_AGENT | dialog/select/sheet correctness | P6/P8 | IN_PROGRESS — P2 inventory of Radix surfaces done (H2); PASS awaits P6/P8 |

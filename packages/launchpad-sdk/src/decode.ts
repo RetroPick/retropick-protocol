@@ -74,7 +74,7 @@ export function decodeKuruFills(logs: Parameters<typeof decodeEvents>[0]) {
 }
 
 export function decodeEscrowClaim(logs: Parameters<typeof decodeEvents>[0]) {
-  return decodeEvents(logs, [retroPickFeeEscrowV2Abi as unknown as Abi], ['FeesClaimed', 'Claimed', 'TokenFeesClaimed']);
+  return decodeEvents(logs, [retroPickFeeEscrowV2Abi as unknown as Abi], ['NativeClaimed', 'TokenClaimed']);
 }
 
 export function decodeBuybackRelease(logs: Parameters<typeof decodeEvents>[0]) {

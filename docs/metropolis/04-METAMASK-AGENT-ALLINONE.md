@@ -54,3 +54,53 @@ Disable only this sponsor's feature flag, revert its isolated UI/adapter PR, ret
 
 ## Official starting points
 https://docs.metamask.io/agent-wallet/ (plugin examples and version >=6.2.0)
+
+
+---
+## 2026-10-11 verified MetaMask plugin architecture, official skills and safety
+**SOURCE-VERIFIED:** https://github.com/MetaMask/agent-wallet-plugin-examples , especially `plugins/sample/package.json` and `plugins/sample/src/commands/demo/submit.ts`. This is a genuine **oclif CLI plugin**, not a standalone agent `SKILL.md` pretending to be installed. Plugin manifest has `mm.schemaVersion:1`, `mm.minCliVersion:"^6.2.0"`, per-command `capabilities` such as `wallet-read`, `wallet-submit`, dataAccess scopes and oclif command entries. First-party plugin sample only obtains `this.ctx.walletExecutor(io,this.pluginCommandId)`; it does NOT demonstrate a completed arbitrary write transaction. Inspect the returned executor's TypeScript methods before implementing write calls. https://docs.metamask.io/agent-wallet/troubleshooting/ requires Node >=22.18 and `mm doctor`.
+
+### Agent-aware installation and docs
+```bash
+node --version                        # >=22.18
+npm install -g @metamask/agent-wallet@latest
+npx skills add MetaMask/agent-skills  # official CLI skill, inspect its skill target version
+mm --version
+mm doctor
+mm chains list --json
+mm config get
+# After human permission review in isolated development only:
+mm config set experimentalPlugins true
+mm config set experimentalAllowUnverifiedInstalls true
+# clone official examples and inspect plugins/sample/package.json before using local plugin install
+# mm plugins install file:<local-plugin-directory>  (interactive consent)
+```
+MetaMask official agent skill lives at https://github.com/MetaMask/agent-skills/blob/main/skills/metamask-agent-wallet/SKILL.md ; currently targets CLI v7.0.0 in frontmatter, but versions move. Do not blindly accept its version as installed. `mm plugins` is oclif and uses different flag handling from standard `mm` commands. Never use `--accept-permissions` before inspecting EVERY command ID, `capabilities`, and `dataAccess`. Testnet availability must come from `mm chains list --json`.
+
+### Plugin skeleton verified by upstream (not a complete write execution)
+```ts
+import { type CommandIO, PluginCommand } from "@metamask/agent-wallet/plugin";
+export default class RetroPickOrder extends PluginCommand<{ walletSubmit:"granted" }> {
+  static override requiresAuth = true;
+  protected readonly pluginCommandId = "retropick:order";
+  async execute(io: CommandIO) {
+    const executor = await this.ctx.walletExecutor(io, this.pluginCommandId);
+    // inspect current executor methods, build simulation + explicit policy flow,
+    // then use ONLY supported wallet-submit API: no private-key signing.
+    void executor;
+    return { walletSubmit: "granted" as const };
+  }
+}
+```
+Mirror sample `package.json#mm.commands` entry `{id:"retropick:order",capabilities:["wallet-submit"],dataAccess:[]}`, oclif manifest build and reviewed install. Add `skills/retropick-trader/SKILL.md` as an agent instruction **in addition** to the plugin, not instead of it. Pin the plugin's CLI dependency and test against exactly the installed CLI.
+
+### RetroPick-specific safe execution path
+1. User requests order size, side and market. Plugin fetches canonical `getMarketParams`, `getL2Book`, verified market identity and margin, as used in `apps/web/lib/live/kuru.ts`.
+2. Convert price+size into Kuru tick/size **bigint** precision (real deployed example uses 1e8; do not reuse for all market creations), check outstanding collateral, wallet policy budget, allowance and expiry.
+3. Return a **reviewable quote** with worst-case notional/fees and explicit `ALLOW/DENY/REQUIRE_MFA`. UI and plugin must both reject stale books. Never allow arbitrary contract address from an LLM prompt.
+4. The user approves plugin permissions and wallet operation; invoke only supported MetaMask executor for simulation/submission (read the type declarations). Wait for tx receipt and decode `OrderCreated` / `Trade`. Cancel only if `s_orders(orderId).owner == agent wallet account`.
+5. Replay protection: durable intent ID and receipt reconciliation on restart; don't submit twice because the CLI timed out, or route around MFA. `AWAITING_MFA` is pending, not failure.
+6. Evidence: plugin install, command call, exact approved policy, negative denial, order/receipt and cancel receipt on chain 10143. A `walletSubmit:"granted"` return **alone is not a bounty win**.
+
+### Sponsor-winning innovation — **Controlled Autopilot, Not Unbounded Arb**
+A first-order guardrailed "market-maker copilot": monitor Kuru spreads read-only, propose maker orders under preapproved risk budget, request wallet policy/MFA for placement, offer single-command cancel and automatically STOP on stale quotes/chain drift. Display transaction and risk trace, not LLM prose. Avoid autonomous parity arbitrage claims until outcome-token YES/NO books actually exist and both legs are provably executable.

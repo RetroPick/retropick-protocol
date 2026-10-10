@@ -54,3 +54,32 @@ Disable only this sponsor's feature flag, revert its isolated UI/adapter PR, ret
 
 ## Official starting points
 https://docs.intents.aurora.dev/
+
+
+---
+## 2026-10-11 verified integration supplement — REAL destination delivery, not widget-only
+**SOURCE-VERIFIED:** Aurora publishes a maintained Next.js example at https://github.com/aurora-is-near/hypercore-deposits-demo . It uses `@aurora-is-near/intents-swap-widget-standalone` exports `Widget`, `WidgetConfigProvider`, `useAppKitWallet`, plus the widget stylesheet, and renders only after mounting. The example config has `sendAddress`, `defaultTargetToken`, `allowedChainsList`, `showTransactionHistory`, and `showConversionPreview`. It is a **Hypercore** demo and does NOT prove an order to **Monad Testnet** is supported. https://intents.near.org/overview lists Monad but does not promise chain 10143 or native MON delivery. Verify the exact quote before integrating. A separate generated API client `@aurora-is-near/intents-connect-sdk` exists; inspect package type declarations and OpenAPI, not copied constructor examples (npm documentation is inconsistent). https://www.npmjs.com/package/@aurora-is-near/intents-connect-sdk .
+
+### Proposed files and adapter boundary
+```
+apps/web/features/fund-and-trade/route-picker.tsx        # UX: source token, source chain, route estimate, failure recovery
+apps/web/lib/integrations/aurora/route-schema.ts          # strict per-chain quote assets, max input, min output, expiry
+apps/web/lib/integrations/aurora/intent-state.ts          # durable state machine with request-id
+apps/web/app/api/integrations/aurora/route.ts             # optional server adapter ONLY after SDK/API auth inspection
+evidence/hackathon/metropolis/sponsors/aurora/*          # quote, source proof, destination proof, Kuru tx
+```
+Existing `apps/web/lib/live/client.ts` targets Monad 10143, `lib/live/model.ts` rejects non-native-MON quote V2 launches, and `features/live/kuru.tsx` deposits native MON into the verified Kuru MarginAccount. Hence **Base USDC → Monad USDC is not sufficient** for the current MON-quoted live Kuru orderbook. Either prove an Aurora route that outputs native MON to the user, or integrate a separately verified conversion. If only Monad **mainnet 143** is supported, DO NOT point the production widget at Monad testnet 10143.
+
+### Fastest safe spike (max 4 engineer-hours)
+1. Read official widget source and installed npm package exports, document version, chain config and recipient binding. The example's hardcoded demo `apiKey` and sample recipient must NEVER be reused.
+2. Inspect source chain availability, supported destination network and precise *asset identifier* from live provider/API. Query source→destination quote and record expiry, minimum output, route/solver fees and refund semantics. STOP if chainId 10143 + a usable quote asset is unavailable.
+3. On a funded tiny-value real route, require source tx hash, provider signed quote/reference, destination chain transfer logs and wallet balance change. Preserve the quote and data needed for refunds server-side with no secrets.
+4. Only after confirmed arrival, call existing wallet-mediated Kuru deposit, simulate order with `readKuru`, and record order tx. The bridge MUST NOT sign Kuru orders or receive user's order-control keys.
+5. Expose `source confirmed` → `solver pending` → `destination confirmed` → `Kuru margin funded` → `order accepted/filled` separately; optional user execution on destination is a SECOND user-approved transaction unless atomic deposit-and-execute is proven by provider API.
+6. Document unavailable routes with a disabled UI and honest `NOT_SUPPORTED_ON_THIS_NETWORK` rather than a fabricated demo.
+
+### High-signal innovation — **Intents to First Order**
+Persist only non-sensitive intent provenance and provide a one-screen audit timeline. Prove conversion of externally held assets into *real executable Kuru liquidity* and display a link to BOTH source/destination receipts, exact realized output versus quote, and explicit refund status. This is stronger than embedding a bridge page because the core user benefit is getting to a completed first trade.
+
+### Security tests / acceptance
+Wrong recipient; quote substitution; expired quote; token symbols with different addresses/decimals; source reorg; destination delayed; partial solver settlement; refund; duplicate status callback; source funds delivered to wallet but not MarginAccount; insufficient native MON for destination gas. **Evidence gate:** one externally funded transfer actually arrives on Monad and is consumed in a RetroPick action. Otherwise **bounty NOT QUALIFIED**.

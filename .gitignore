@@ -29,3 +29,6 @@ apps/indexer/.data/
 *.sqlite
 *.sqlite-shm
 *.sqlite-wal
+
+# browser-automation artifacts
+.playwright-cli/

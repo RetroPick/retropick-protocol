@@ -54,3 +54,54 @@ Disable only this sponsor's feature flag, revert its isolated UI/adapter PR, ret
 
 ## Official starting points
 https://mera.category.xyz/concepts/passkeys-and-prf/ and https://mera.category.xyz/concepts/secret-vaults/
+
+
+---
+## 2026-10-11 verified Mera SDK recipe — avoid writing custom cryptography
+**FIRST-PARTY exact APIs**: https://github.com/category-labs/mera/tree/main/docs/src/content/docs/reference
+`createSecretVaultWithNewPasskey`, `createSecretVaultWithExistingPasskey`, `parseSecretVault`, `decryptSecretVaultWithPasskey` from `@category-labs/mera`. Mera vaults already use AES-256-GCM, fresh random **32-byte PRF salt**, and JSON-safe `{version,credential,prfSalt,nonce,ciphertext}`. Do **not** duplicate KDF/AES implementation or re-use account seed/private key. First-party docs explicitly say vault storage, sync and recovery are application responsibilities. Library is preview; pin exact package version.
+
+### Confirmed SDK usage (illustrative app variable values; compile against installed version)
+```ts
+import {
+  createSecretVaultWithNewPasskey, createSecretVaultWithExistingPasskey,
+  decryptSecretVaultWithPasskey, parseSecretVault,
+} from "@category-labs/mera";
+
+// On stable HTTPS app origin with a matching rpId; never use a changing Vercel preview
+const rpId = "YOUR_STABLE_RP_ID";
+const secret = new TextEncoder().encode(JSON.stringify({version:1,purpose:"retropick.private-strategy",riskBudget:"..."}));
+try {
+  const vault = await createSecretVaultWithNewPasskey({
+    rp:{id:rpId,name:"RetroPick Strategy Vault"},
+    user:{name:"your-user-id",displayName:"RetroPick user"},
+    secret,
+  });
+  // store vault JSON only in per-user ciphertext storage; never store secret
+  const storedJson = JSON.stringify(vault);
+  const parsed = parseSecretVault(storedJson);
+  const plain = await decryptSecretVaultWithPasskey({rpId,vault:parsed});
+  try { /* parse and use strategy briefly in memory, not logs */ }
+  finally {plain.fill(0)}
+} finally {secret.fill(0)}
+```
+For additional secret under SAME passkey, use `createSecretVaultWithExistingPasskey({rpId,credential:existing.credential,secret})`. Each call has a fresh random salt, so distinct vaults remain independently encrypted. Treat purpose/version inside encrypted structured payload as authenticated data, and/or derive separate stable namespaces only through a reviewed Mera-approved API.
+
+### Implementation
+```
+apps/web/lib/integrations/mera/secret-vault.ts
+apps/web/features/private-strategy/vault-panel.tsx
+apps/web/features/private-strategy/strategy-schema.ts
+(optional) apps/web/app/api/private-vault/route.ts  # ciphertext only; auth+access control required
+```
+A **non-wallet** benefit is essential: encrypted draft market thesis, private watchlists, agent execution limits, backtest recipe. User controls which data is revealed for an agent action; no automatic sharing of plaintext across network.
+
+### Runtime blockers, recovery, security
+- WebAuthn RP ID binds a passkey to a domain. Localhost, `retropick-metropolis.vercel.app`, another production domain, and random preview domains are not automatically interchangeable. Record canonical RP ID BEFORE creating passkeys.
+- PRF requires authenticators with PRF support; synced credential and PRF portability must be proven on two real devices/fresh profile, not assumed from docs. Handle `PRF_UNAVAILABLE`, `PASSKEY_OPERATION_FAILED`, `CRYPTO_UNAVAILABLE`, `VAULT_FORMAT_INVALID`, `DECRYPT_FAILED` with explicit recovery guidance.
+- Passkey lost + ciphertext only = potential permanent vault loss. Offer user export of ciphertext and separate optional recovery strategy; do not promise access after losing all passkeys.
+- Device compromise, XSS, malicious extensions, rollback to old ciphertext, untrusted JSON and lost-key risks remain. Enforce CSP, size limits, request nonce/revision, browser secure context and user re-verification. Avoid `localStorage` plaintext; encrypted localStorage is acceptable for a small demo but is **not multi-device sync**.
+- Separate from `apps/web/lib/live/wallet.tsx`: user wallet remains existing EIP-1193 flow. Avoid changing global auth to satisfy this non-wallet bounty.
+
+### Sponsor-winning innovation — **Confidential Trader Intent**
+Show a creator write a trading thesis with a private budget, save only ciphertext, reopen via passkey on another compatible synced device, then selectively reveal one bounded risk rule to a trading assistant. Demonstrate wrong-device refusal, vault tamper rejection, no key storage and reproducible recovery. This proves *many keys* beyond wallet login, and makes a real privacy feature useful for market makers.

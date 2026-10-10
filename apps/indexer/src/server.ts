@@ -7,9 +7,10 @@ import {Store} from './store.ts';
 import {Indexer} from './sync.ts';
 const url=process.env.MONAD_TESTNET_RPC_URL;
 if(!url)throw Error('MONAD_TESTNET_RPC_URL is required');
+const fallbackUrl=process.env.MONAD_TESTNET_RPC_FALLBACK_URL;
 const file=resolve(process.env.INDEXER_DB??'.data/monad-testnet.sqlite');
 mkdirSync(dirname(file),{recursive:true});
-const store=new Store(file);const indexer=new Indexer(store,url);
+const store=new Store(file);const indexer=new Indexer(store,fallbackUrl?[url,fallbackUrl]:url);
 type Snapshot={launches:IndexedLaunch[];trades:IndexedTrade[];holders:Record<string,{address:string;balanceRaw:string}[]>};
 const server=createServer((req,res)=>{
  res.setHeader('Content-Type','application/json');res.setHeader('Cache-Control','no-store');

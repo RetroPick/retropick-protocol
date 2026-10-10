@@ -16,6 +16,8 @@ import Link from '@/components/product/safe-link';
 import { RetroLogo } from '@/components/Icons';
 import { usePathname } from '@/lib/next-compat';
 import { useDemo } from '@/components/product/provider';
+import { useWallet } from '@/wallet/provider';
+import { DATA_MODE } from '@/lib/live/env';
 import { toggleTheme, useTheme } from '@/lib/theme';
 
 interface SidebarProps {
@@ -84,10 +86,7 @@ export function Sidebar({ isCollapsed, onToggleCollapse, onOpenSearch }: Sidebar
       </div>
 
       <div className="side-bottom">
-        <button className="side-action side-wallet" onClick={() => demo.setConnected(!demo.connected)} aria-label={demo.connected ? 'Demo wallet' : 'Connect wallet'} title={demo.connected ? 'Demo wallet' : 'Connect wallet'}>
-          <Wallet className="w-5 h-5"/>
-          {!isCollapsed && <span className="side-label">{demo.connected ? 'Demo wallet' : 'Connect wallet'}</span>}
-        </button>
+        <WalletButton isCollapsed={isCollapsed}/>
         <button className="side-action" onClick={toggleTheme} aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`} title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}>
           {theme === 'dark' ? <Sun className="w-5 h-5"/> : <Moon className="w-5 h-5"/>}
           {!isCollapsed && <span className="side-label">{theme === 'dark' ? 'Light theme' : 'Dark theme'}</span>}
@@ -99,4 +98,25 @@ export function Sidebar({ isCollapsed, onToggleCollapse, onOpenSearch }: Sidebar
       </div>
     </aside>
   );
+}
+
+/** Live mode connects a real EIP-1193 wallet; mock mode keeps the demo wallet. */
+function WalletButton({ isCollapsed }: { isCollapsed: boolean }) {
+  const demo = useDemo();
+  const live = DATA_MODE === 'live';
+  const wallet = useWallet();
+  if (!live) {
+    return <button className="side-action side-wallet" onClick={() => demo.setConnected(!demo.connected)} aria-label={demo.connected ? 'Demo wallet' : 'Connect wallet'} title={demo.connected ? 'Demo wallet' : 'Connect wallet'}>
+      <Wallet className="w-5 h-5"/>
+      {!isCollapsed && <span className="side-label">{demo.connected ? 'Demo wallet' : 'Connect wallet'}</span>}
+    </button>;
+  }
+  const label = wallet.status === 'connected' ? `${wallet.account?.slice(0, 6)}…${wallet.account?.slice(-4)}`
+    : wallet.status === 'wrong-chain' ? 'Wrong chain'
+    : wallet.status === 'connecting' ? 'Connecting…'
+    : 'Connect wallet';
+  return <button className="side-action side-wallet" onClick={() => (wallet.status === 'disconnected' ? void wallet.connect().catch(() => {}) : wallet.status === 'wrong-chain' ? void wallet.switchChain() : wallet.disconnect())} aria-label={label} title={label} data-wallet-status={wallet.status}>
+    <Wallet className="w-5 h-5"/>
+    {!isCollapsed && <span className="side-label">{label}</span>}
+  </button>;
 }

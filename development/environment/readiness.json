@@ -1,0 +1,129 @@
+{
+  "recordedAt": "2026-10-10T01:05:00Z",
+  "branch": "codex/v2-abi-catalog-verification",
+  "baseSHA": "8a5fc1f",
+  "priorHeadSHA": "dd17927",
+  "gstack": {
+    "canonicalPath": "/home/ubuntu/.claude/skills/gstack",
+    "version": "1.91.12.0",
+    "origin": "https://github.com/garrytan/gstack.git",
+    "secondaryCheckout": "/home/ubuntu/gstack @ 1.87.4.0 (older, untouched)",
+    "mirrorBinary": "/home/ubuntu/.agents/skills/gstack/browse/dist/browse (symlink -> canonical)"
+  },
+  "network": {
+    "chainId": 10143,
+    "rpc": "https://testnet-rpc.monad.xyz",
+    "sourcifyPublic": "https://sourcify.dev/server/",
+    "sourcifyBlockvision": "https://sourcify-api-monad.blockvision.org/",
+    "monadscanUi": "BLOCKED_EXTERNAL (Cloudflare)"
+  },
+  "publicationRecheck": {
+    "source": "evidence/launchpad/v2-monad-testnet/source-verification-foundry.json + live queries, no resubmission",
+    "exactBothStores": 18,
+    "exactFull": 15,
+    "exactRuntimeOnly": 3,
+    "runtimeOnlyContracts": [
+      "KuruLiquidityLockV2(demo)",
+      "RetroPickMemeHookV2",
+      "RetroPickGraduationGuardV2/ExecutorDonationLockV2 at BlockVision store level"
+    ]
+  },
+  "gates": {
+    "FOUNDRY_BUILD": {
+      "status": "PASS",
+      "evidence": "forge 1.8.4 (50af4ef); forge build exit 0, pinned settings 0.8.26+commit.8a97fa7a optimizer/200 viaIR cancun"
+    },
+    "MONAD_RPC": {
+      "status": "PASS",
+      "evidence": "cast block-number @ https://testnet-rpc.monad.xyz -> 69600854"
+    },
+    "CONTRACT_BYTECODE_IDENTITY": {
+      "status": "PASS",
+      "evidence": "18/18 runtime bytecode match (immutable-masked) + 18/18 Sourcify exact runtime; evidence/launchpad/v2-monad-testnet/source-verification-foundry.{md,json}"
+    },
+    "SOURCIFY_PUBLICATION": {
+      "status": "PASS",
+      "evidence": "2026-10-10 recheck, no resubmission: 18/18 exact runtime on sourcify.dev/server and sourcify-api-monad.blockvision.org; 15 EXACT_MATCH_FULL + 3 EXACT_MATCH_RUNTIME_ONLY; sources retrievable (factory: 78 files)"
+    },
+    "MONADSCAN_UI": {
+      "status": "BLOCKED",
+      "rootCause": "External Cloudflare bot gate: turnstile passes but site never serves content in this environment",
+      "correctiveAction": "Use Sourcify v2 APIs as authoritative publication evidence",
+      "developerBlocked": false,
+      "userInteractionRequired": false
+    },
+    "ABI_CATALOG": {
+      "status": "PASS",
+      "evidence": "apps/abi: 27 ABI JSONs + abi.ts barrel + manifest v2; SHA-256/counts/role-coverage/barrel-parity audit PASS"
+    },
+    "ABI_REGENERATION": {
+      "status": "PASS",
+      "evidence": "export_abi_catalog.py double-run byte-stable; fixed stale-cleanup deleting apps/abi/package.json (root cause of missing workspace manifest in commit 6d9038a)"
+    },
+    "SDK_TYPECHECK": {
+      "status": "PASS",
+      "evidence": "apps/indexer tsc --noEmit exit 0 (covers SDK sources); SDK abi.ts 11/11 exports byte-identical to catalog"
+    },
+    "RETRO_UI_TESTS": {
+      "status": "PASS",
+      "evidence": "test-frontend.mjs 17/17"
+    },
+    "RETRO_UI_BUILD": {
+      "status": "PASS",
+      "evidence": "vite build exit 0"
+    },
+    "INDEXER_TESTS": {
+      "status": "PASS",
+      "evidence": "4/4 tests, typecheck exit 0 (engines node>=24 vs 22.23.2 warning only)"
+    },
+    "MONAD_SKILLS": {
+      "status": "PASS",
+      "evidence": "chain-monad discoverable"
+    },
+    "SOLIDITY_SKILLS": {
+      "status": "PASS",
+      "evidence": "evm-foundry, solidity-foundry, contract-verification, evm-security, smart-contract-security discoverable"
+    },
+    "FULLSTACK_SKILLS": {
+      "status": "PASS",
+      "evidence": "frontend/backend-engineering + test-authoring discoverable; pnpm workspace resolves 6 projects"
+    },
+    "GSTACK_INSTALLATION": {
+      "status": "PASS",
+      "evidence": "canonical ~/.claude/skills/gstack v1.91.12.0 (origin garrytan/gstack), setup --status ready; .agents mirror browse/dist symlinked to canonical binary; ZCode unsupported as --host (workaround recorded); upstream 1.91.13.0 available, not applied"
+    },
+    "GSTACK_BROWSER": {
+      "status": "PASS",
+      "evidence": "7/7: launch, navigate public pages, content read, screenshot, persistence across invocations (same daemon PID)"
+    },
+    "COOKIE_IMPORT": {
+      "status": "BLOCKED",
+      "rootCause": "Picker link (http://127.0.0.1:15493/cookie-picker, Chrome detected) expired unused; requires user selection of profile+domains",
+      "correctiveAction": "User reruns cookie-import-browser and completes the five-minute one-use picker",
+      "developerBlocked": false,
+      "userInteractionRequired": true
+    },
+    "BROWSER_AUTH": {
+      "status": "NOT_CHECKED",
+      "evidence": "No import/login completed; handoff (headed sign-in, WSLg) available as fallback",
+      "userInteractionRequired": true
+    },
+    "ZCODE_SKILL_DISCOVERY": {
+      "status": "PASS",
+      "evidence": "~/.agents/skills (gstack family), ~/.zcode/skills (chain/engineering packs) and plugin skills all visible in-session"
+    }
+  },
+  "outcomes": {
+    "CORE_DEV_ENV_READY": "PASS",
+    "BROWSER_DEV_ENV_READY": "BLOCKED",
+    "EXPLORER_PUBLICATION_READY": "PASS",
+    "FULL_DEV_ENV_READY": "NO (BROWSER_DEV_ENV_READY blocked on user interaction)"
+  },
+  "defectsFixedThisCampaign": [
+    "export_abi_catalog.py stale-cleanup deleted apps/abi/package.json; caused ERR_PNPM_WORKSPACE_PKG_NOT_FOUND on fresh install (file missing from commit 6d9038a while lockfile referenced it). Fixed: cleanup exempts package.json/manifest.json; file restored and committed; indexer gate re-run green."
+  ],
+  "remainingManualActions": [
+    "User completes cookie picker: ~/.claude/skills/gstack/browse/dist/browse cookie-import-browser (five-minute one-use link; loopback, safe under WSL2 localhost forwarding) for hackathon.monad.xyz, github.com, testnet.monadvision.com",
+    "Optional gstack upgrade 1.91.12.0 -> 1.91.13.0 with user consent"
+  ]
+}

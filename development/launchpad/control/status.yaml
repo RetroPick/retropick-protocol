@@ -51,7 +51,7 @@ blockers:
   - id: BLOCK-ARCH-ADRS
     reason: Full-stack workspace, backend, indexer, auth, storage, admin, upgradeability and V4-retirement choices are PROPOSED rather than accepted.
     next_owner: launchpad-planner
-  - id: BLOCK-FULLSTACK
+  - id: BLOCK-FULLSTACK-RESOLVED-BY-V2-FULLSTACK-INTEGRATION
     reason: apps/web now has a public wallet-direct MON launch/buy/sell/secure/Kuru graduation flow; secondary-order UI qualification is continuing. A production API/indexer/shared SDK and full operational stack remain unimplemented.
     next_owner: launchpad-planner
 

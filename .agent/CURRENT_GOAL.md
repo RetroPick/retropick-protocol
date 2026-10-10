@@ -13,6 +13,16 @@ goals/active/RETROPICK-PLATFORM-RESEARCH-AND-PRODUCTION-OS-V2.md
 research/production/README.md
 docs/platform/README.md
 
+## V2 Fullstack Integration — active execution campaign
+
+**Goal:** RETROPICK-V2-FULLSTACK-INTEGRATION
+**Status:** ACTIVE (opened 2026-10-10, baseline `41df325`, branch `codex/v2-fullstack-integration`)
+**Scope:** make the canonical frontend `apps/retro-ui` operate the deployed Monad Testnet V2 launchpad (discover → create → curve buy/sell → graduation → Kuru → portfolio/claims) with a security-approved write allowlist. ABI catalog, verification and environment readiness already landed on the baseline branch; this goal owns ABI capability mapping, frontend reverse mapping, the SDK write boundary, live reads, wallet/tx engine, flows A–F and validation gates 1–7.
+
+See:
+goals/active/RETROPICK-V2-FULLSTACK-INTEGRATION.md
+development/fullstack-integration/
+
 ## Metropolis delivery — current testnet override
 
 Solidity V2 is deployed and in HACKATHON_FREEZE. Native MON graduation and two-actor Kuru usability PASS; Circle live BLOCKED_FUNDING. Current work: release reproducibility, live frontend, judge evidence, required videos and founder-approved submission. No staging/mainnet gates are promoted. See `docs/hackathon/SUBMISSION_CHECKLIST.md` and `deployments/monad-testnet/v2.json`. Older qualification goals below remain historical context.

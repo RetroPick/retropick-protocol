@@ -19,9 +19,9 @@
       "current_runtime": {
         "contracts": "V2_MONAD_TESTNET_DEPLOYED",
         "kuru": "MON_GRADUATION_AND_TWO_ACTOR_SMOKE_PASS",
-        "web": "APPS_WEB_HISTORICAL_DEMO_RETRO_UI_INTEGRATION_IN_PROGRESS",
+        "web": "RETRO_UI_LIVE_FULLSTACK_INTEGRATION_PASS",
         "api": "TESTNET_READ_ONLY_CANDIDATE_UNQUALIFIED",
-        "indexer": "TESTNET_EVENT_JOURNAL_CANDIDATE_UNQUALIFIED",
+        "indexer": "TESTNET_EVENT_JOURNAL_CANDIDATE_LIVE_SYNCHRONIZED",
         "canonical_frontend": "apps/retro-ui"
       },
       "blockers": [

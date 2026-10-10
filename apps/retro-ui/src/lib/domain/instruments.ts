@@ -77,7 +77,8 @@ export interface LaunchInstrument {
   creator?: string;
   createdAt: string | null;
   updatedAt: string | null;
-  provenance: 'DEMO';
+  /** LIVE instruments carry verified deployed-contract state; DEMO remain fixtures. */
+  provenance: 'DEMO' | 'LIVE';
   price: number | bigint | null;
   change24h: number | null;
   liquidity: number | bigint | null;

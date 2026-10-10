@@ -6,6 +6,8 @@ import { Banknote, Check, Copy, Rocket, Share2, Wallet } from 'lucide-react';
 import { Segments } from '@/components/product/ui';
 import { money } from '@/lib/domain/fixtures';
 import Portfolio from '@/features/portfolio/portfolio';
+import { LiveEarn } from '@/features/earn/live-earn';
+import { DATA_MODE } from '@/lib/live/env';
 
 // Local demo snapshot. No claim, revenue or cash-out surface is connected —
 // every value is presentation-only and nothing here moves funds.
@@ -101,7 +103,10 @@ export default function EarnPage() {
   return <>
     <div className="page-heading"><div><h1>Earn</h1><p>Everything you&apos;ve earned on Bags, in one place.</p></div><span className="tag">DEMO</span></div>
     <Segments values={['Earnings', 'Portfolio']} value={view} onChange={setView} label="Earn sections"/>
-    {view === 'Portfolio' ? <div style={{ marginTop: 22 }}><Portfolio/></div> : <>
+    {view === 'Portfolio' ? <div style={{ marginTop: 22 }}><Portfolio/></div> : DATA_MODE === 'live' ? <>
+      <div style={{ marginTop: 22 }}><LiveEarn/></div>
+      <div className="notice" style={{ marginTop: 20 }}>Live earnings on Monad Testnet: creator fees accrue to your fee-escrow as your launches trade, and vested buyback proceeds release here. Referral and deployer-revenue programs are not part of the deployed V2 contracts.</div>
+    </> : <>
       <section className="earn-hero panel" aria-label="Available to claim">
         <div>
           <span className="earn-label">Available to claim</span>

@@ -90,7 +90,9 @@ export async function prepareLaunchToken(chain: ChainClient, account: Address, i
     fail(`Creator tax ${input.creatorTaxBps} bps exceeds the ${preconditions.maxCreatorTaxBps} bps limit.`);
   }
   if (config.curveFeeBps + input.creatorTaxBps > 2000n) fail('Combined curve fee and creator tax exceeds the 2000 bps protocol limit.');
-  const hookFeeBps = (feePolicy as { hookFeeBps?: bigint } | undefined)?.hookFeeBps;
+  const policyTuple = feePolicy as unknown as { hookFeeBps?: bigint | number } | [unknown, unknown, bigint | number, number] | undefined;
+  const rawHookFee = Array.isArray(policyTuple) ? policyTuple[2] : policyTuple?.hookFeeBps;
+  const hookFeeBps = rawHookFee === undefined ? undefined : BigInt(rawHookFee);
   if (hookFeeBps !== undefined && hookFeeBps + input.creatorTaxBps > 2000n) {
     fail('Combined hook fee and creator tax exceeds the 2000 bps protocol limit.');
   }

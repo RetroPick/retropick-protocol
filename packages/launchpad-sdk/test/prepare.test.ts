@@ -101,21 +101,26 @@ test('grid: sub-precision size is rejected, not rounded', () => {
   assert.throws(() => kuruGrid.sizeToUnits(1n, params), /finer/);
 });
 
-test('grid: price snaps down to tick for buys and up for sells', () => {
-  const priceRaw = 12345n * 10n ** 18n / 10n; // 1234.5 quote per token
-  const buy = kuruGrid.priceToUnits(priceRaw, params, 'buy');
-  const sell = kuruGrid.priceToUnits(priceRaw, params, 'sell');
-  assert.equal(buy, 1200n);
-  assert.equal(sell, 1300n);
-  assert.equal(buy % params.tickSize, 0n);
-  assert.equal(sell % params.tickSize, 0n);
+test('grid: price snaps to tick away from crossing (pricePrecision-scaled per token)', () => {
+  // fixture precision is 1e6: 1234.5 quote per token → 1234500000 units; tick 1 keeps it exact
+  const priceRaw = 12345n * 10n ** 17n;
+  assert.equal(kuruGrid.priceToUnits(priceRaw, params, 'buy'), 1234500000n);
+  assert.equal(kuruGrid.priceToUnits(priceRaw, params, 'sell'), 1234500000n);
+  // real-market precision (1e8): 0.004 MON/token → 400000 units
+  const real: KuruMarketParams = { ...params, pricePrecision: 100000000n, sizePrecision: 100000000n, tickSize: 1n };
+  assert.equal(kuruGrid.priceToUnits(4n * 10n ** 15n, real, 'buy'), 400000n);
+  // sub-tick prices snap down (buy) / up (sell): 123.454545 → units 123454545, tick 100
+  const ticked: KuruMarketParams = { ...params, tickSize: 100n };
+  assert.equal(kuruGrid.priceToUnits(123454545n * 10n ** 12n, ticked, 'buy'), 123454500n);
+  assert.equal(kuruGrid.priceToUnits(123454545n * 10n ** 12n, ticked, 'sell'), 123454600n);
 });
 
-test('grid: resting buy quote cost is exact and rounds up when inexact', () => {
-  assert.equal(kuruGrid.quoteCostBuy(1000n, 15n, params), 15000000000000000n);
-  const odd: KuruMarketParams = { ...params, pricePrecision: 7n };
-  // 1*1*1e18/7 = 142857142857142857.14... → ceil 142857142857142858
-  assert.equal(kuruGrid.quoteCostBuy(1n, 1n, odd), 142857142857142858n);
+test('grid: resting buy quote cost mirrors the book (ceil then scale)', () => {
+  // fixture sP=1e6, pP=1e6: ceil(1000*15/1e6)=1 → 1e18/1e6 = 1e12
+  assert.equal(kuruGrid.quoteCostBuy(1000n, 15n, params), 10n ** 12n);
+  // real-market scale (1e8): 0.004 MON/token (4e5 units) × 0.1 token (1e7 units) → 0.0004 MON
+  const real: KuruMarketParams = { ...params, pricePrecision: 100000000n, sizePrecision: 100000000n, tickSize: 1n };
+  assert.equal(kuruGrid.quoteCostBuy(400000n, 10_000_000n, real), 4n * 10n ** 14n);
 });
 
 test('grid: market-buy quote units use price precision', () => {

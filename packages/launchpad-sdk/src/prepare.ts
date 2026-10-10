@@ -286,7 +286,8 @@ export type KuruMarketParams = {
 export async function readMarketParams(chain: ChainClient, market: Address): Promise<KuruMarketParams> {
   const raw = await chain.readContract({ address: market, abi: kuruAbi, functionName: 'getMarketParams' });
   const [pricePrecision, sizePrecision, baseAsset, baseDecimals, quoteAsset, quoteDecimals, tickSize, minSize, maxSize, takerFeeBps, makerFeeBps] = raw as unknown as [bigint, bigint, Address, bigint, Address, bigint, bigint, bigint, bigint, bigint, bigint];
-  return { pricePrecision, sizePrecision, baseAsset, baseDecimals, quoteAsset, quoteDecimals, tickSize, minSize, maxSize, takerFeeBps, makerFeeBps };
+  // Normalize scalar decodings (viem may hand back numbers for small uints).
+  return { pricePrecision: BigInt(pricePrecision), sizePrecision: BigInt(sizePrecision), baseAsset, baseDecimals: BigInt(baseDecimals), quoteAsset, quoteDecimals: BigInt(quoteDecimals), tickSize: BigInt(tickSize), minSize: BigInt(minSize), maxSize: BigInt(maxSize), takerFeeBps: BigInt(takerFeeBps), makerFeeBps: BigInt(makerFeeBps) };
 }
 
 /** Grid math: real amounts ↔ Kuru uint32 price / uint96 size units. */
@@ -302,21 +303,24 @@ export const kuruGrid = {
   unitsToSize(units: bigint, params: KuruMarketParams): bigint {
     return units * 10n ** params.baseDecimals / params.sizePrecision;
   },
-  /** price units for a quote-per-whole-token price, rounded to tick. */
+  /**
+   * Price units are pricePrecision-scaled quote per whole token
+   * (OrderBook: quote = ceil(price*size/sizePrecision) * 10^qD / pricePrecision).
+   * Snapped to tick away from crossing: down for buys, up for sells.
+   */
   priceToUnits(priceRaw: bigint, params: KuruMarketParams, side: 'buy' | 'sell'): bigint {
     const numerator = priceRaw * params.pricePrecision;
-    const denominator = 10n ** params.quoteDecimals * params.sizePrecision;
+    const denominator = 10n ** params.quoteDecimals;
     let units = numerator / denominator;
-    // snap to tick away from crossing: down for buys, up for sells
-    const remainder = numerator % denominator;
-    if (side === 'sell' && remainder !== 0n) units += 1n;
-    if (side === 'buy') units = units / params.tickSize * params.tickSize;
-    else units = (units + params.tickSize - 1n) / params.tickSize * params.tickSize;
+    if (side === 'sell' && numerator % denominator !== 0n) units += 1n;
+    units = side === 'buy'
+      ? units / params.tickSize * params.tickSize
+      : (units + params.tickSize - 1n) / params.tickSize * params.tickSize;
     if (units <= 0n || units >= 2n ** 32n) fail('Price is outside this market\'s grid.');
     return units;
   },
   unitsToPriceRaw(units: bigint, params: KuruMarketParams): bigint {
-    return units * 10n ** params.quoteDecimals * params.sizePrecision / params.pricePrecision;
+    return units * 10n ** params.quoteDecimals / params.pricePrecision;
   },
   /** quote grid units for a raw quote amount (market-buy sizing). */
   quoteToUnits(quoteRaw: bigint, params: KuruMarketParams): bigint {
@@ -324,10 +328,11 @@ export const kuruGrid = {
     if (units <= 0n) fail('Amount is below this market\'s quote precision.');
     return units;
   },
-  /** Quote raw consumed by a resting buy (rounded up, mirroring the book). */
+  /** Quote raw debited by a resting buy: mulDivUp(price,size,sizePrecision)
+   * then × 10^qD / pricePrecision, mirroring the deployed book exactly. */
   quoteCostBuy(priceUnits: bigint, sizeUnits: bigint, params: KuruMarketParams): bigint {
-    const numerator = priceUnits * sizeUnits * 10n ** params.quoteDecimals;
-    return (numerator + params.pricePrecision - 1n) / params.pricePrecision;
+    const intermediate = (priceUnits * sizeUnits + params.sizePrecision - 1n) / params.sizePrecision;
+    return intermediate * 10n ** params.quoteDecimals / params.pricePrecision;
   },
 };
 
@@ -536,7 +541,7 @@ export async function assertKuruMarketIdentity(chain: ChainClient, market: Addre
     || lower(vaultImpl) !== lower(release.kuruEnvironment.vaultImplementation)) {
     fail('This market is not the verified RetroPick Kuru deployment for that token.');
   }
-  return { pricePrecision: typed[0], sizePrecision: typed[1], baseAsset: typed[2], baseDecimals: typed[3], quoteAsset: typed[4], quoteDecimals: typed[5], tickSize: typed[6], minSize: typed[7], maxSize: typed[8], takerFeeBps: typed[9], makerFeeBps: typed[10] };
+  return { pricePrecision: BigInt(typed[0]), sizePrecision: BigInt(typed[1]), baseAsset: typed[2], baseDecimals: BigInt(typed[3]), quoteAsset: typed[4], quoteDecimals: BigInt(typed[5]), tickSize: BigInt(typed[6]), minSize: BigInt(typed[7]), maxSize: BigInt(typed[8]), takerFeeBps: BigInt(typed[9]), makerFeeBps: BigInt(typed[10]) };
 }
 
 // ---------------------------------------------------------------------------

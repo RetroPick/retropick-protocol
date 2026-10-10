@@ -82,3 +82,21 @@ A bounty is complete only if (1) exact track eligibility, (2) core integration n
 
 ## Useful existing docs
 `HACKATHON.md`, `docs/hackathon/KURU_BOUNTY.md`, `docs/hackathon/EVIDENCE_MAP.md`, `docs/prism/05-hackathon/MVP.md`, `docs/prism/protocol/PRISM_PROTOCOL_SPEC.md`, `docs/prism/05-hackathon/PHASE_GATES.md`.
+
+
+---
+## Current 2026-10-11 agent bootstrap supplements
+The verified source ledger `10-VERIFIED-SOURCES.md` is mandatory before using external SDK method names. The release/testing runbook `11-EXECUTION-RUNBOOK.md` is mandatory before code changes. Product innovations and disqualification traps are in `12-SPONSOR-INNOVATION.md`.
+
+**Preflight every worktree:** record base and `git status`; examine `apps/web/package.json` against old `apps/web/README.md`, and inspect actual app routing before modifying frontend. Do not classify `apps/web/features/create-market/wizard.tsx` or `apps/web/features/prism/prism.tsx` as live deployed flows. Inspect `research/contract-kernels/src/hackathon/**` and tests before assigning another Prediction/PRISM contract implementation.
+
+**Agent self-learning first-party instructions:**
+- Envio: https://docs.envio.dev/docs/HyperIndex/quickstart-with-ai , `pnpx envio init` → `envio skills update`, `envio tools search-docs`, generated `createTestIndexer()` tests. Official documentation has `llms.txt` and markdown pages.
+- MetaMask: https://github.com/MetaMask/agent-skills/blob/main/skills/metamask-agent-wallet/SKILL.md plus https://github.com/MetaMask/agent-wallet-plugin-examples ; install skill with `npx skills add MetaMask/agent-skills`, then `mm doctor`, `mm chains list --json`, inspect manifest before permission grant. Sample plugin v6.2 does not prove compatibility with latest v7 CLI; pin and test.
+- Mera: https://github.com/category-labs/mera/tree/main/docs/src/content/docs/reference ; use published vault API methods, not handwritten derivation.
+- Kuru: https://docs.kuru.io/sdk/deploy-market ; validate own SDK version, Router type and real market parameters. Repo's existing verified viem ABIs take precedence over older ethers demo samples.
+- Aurora: https://github.com/aurora-is-near/hypercore-deposits-demo ; example is for Hypercore, do not copy example recipient/API key or claim supported Monad 10143.
+- CRE: https://docs.chain.link/cre ; CLI v1.30+ supports testnet simulation only as independently documented.
+- Nansen: https://docs.nansen.ai/guides/redistribution-guide ; licensing gate before any public UI output.
+
+**Branch ownership & prompts:** Scope one sponsor per branch/worktree; agent must provide source URLs, exact installed versions, capability test, file diff, expected receipts, negatives, and rollback. Finish the package by proving actual user-facing changes on the live route, not `npm install` or `walletSubmit:granted` alone. No sponsor code was implemented by these documentation updates.

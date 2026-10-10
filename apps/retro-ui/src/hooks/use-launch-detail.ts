@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import type { Address } from 'viem';
 import { readLaunch } from '@retropick/launchpad-sdk/model';
+import { curveAbi } from '@retropick/launchpad-sdk/abi';
 import { readKuru } from '@retropick/launchpad-sdk/kuru';
 import type { LiveLaunch } from '@retropick/launchpad-sdk/model';
 import type { KuruState } from '@retropick/launchpad-sdk/kuru';
@@ -17,6 +18,8 @@ export interface LaunchDetail {
   freshness: IndexFreshness | null;
   /** Authoritative on-chain economic state via the SDK read model. */
   launch: LiveLaunch | null;
+  /** Curve readiness signal while the launch is still bonding. */
+  readyToGraduate: boolean;
   /** Kuru market state when the launch graduated to the Kuru venue. */
   kuru: KuruState | null;
   trades: IndexedTrade[];
@@ -34,7 +37,7 @@ export interface LaunchDetail {
  */
 export function useLaunchDetail(token: string | null, account?: Address): LaunchDetail {
   const [detail, setDetail] = useState<LaunchDetail>({
-    indexed: null, freshness: null, launch: null, kuru: null,
+    indexed: null, freshness: null, launch: null, readyToGraduate: false, kuru: null,
     trades: [], candles: [], status: 'loading', error: null, reload: () => {},
   });
   const [tick, setTick] = useState(0);
@@ -49,11 +52,19 @@ export function useLaunchDetail(token: string | null, account?: Address): Launch
     const address = token as `0x${string}` as Address;
     const load = async () => {
       setDetail((prev) => ({ ...prev, status: prev.launch ? prev.status : 'loading' }));
-      const next: LaunchDetail = { indexed: null, freshness: null, launch: null, kuru: null, trades: [], candles: [], status: 'loading', error: null, reload };
+      const next: LaunchDetail = { indexed: null, freshness: null, launch: null, readyToGraduate: false, kuru: null, trades: [], candles: [], status: 'loading', error: null, reload };
       try {
         const onchain = await readLaunch(publicClient, address, account);
         if (!alive) return;
         next.launch = onchain;
+        if (Number(onchain.ledger.phase) === 0) {
+          next.readyToGraduate = Boolean(await publicClient.readContract({
+            address: onchain.packet.curve,
+            abi: curveAbi,
+            functionName: 'readyToGraduate',
+            blockNumber: onchain.blockNumber,
+          }).catch(() => false));
+        }
         // Kuru identity/state only when graduated with a market receipt.
         const receiptMarket = onchain.receipt.market;
         const market: string | null = next.indexed?.market ?? (Number(onchain.ledger.phase) === 2 && receiptMarket && receiptMarket !== '0x0000000000000000000000000000000000000000' ? receiptMarket : null);

@@ -18,7 +18,7 @@ export function installSessionBridge(baseUrl: string): void {
       body: JSON.stringify({ method, params }),
     }).then(async (response) => {
       const body = await response.json() as { result?: unknown; error?: { message: string } };
-      if (body.error) throw Object.assign(Error(body.error.message), { code: 4900 });
+      if (body.error) throw Object.assign(Error(body.error.message), { code: -32000 }); // server error, not disconnection
       return body.result;
     });
   const provider: Eip1193Provider = {

@@ -38,16 +38,29 @@ async function account() {
   return cachedAccount;
 }
 
+// Standard read/estimate methods proxy straight to the RPC endpoint.
+const RPC_PASSTHROUGH = new Set(['eth_estimateGas', 'eth_gasPrice', 'eth_maxPriorityFeePerGas', 'eth_getTransactionCount', 'eth_blockNumber', 'eth_getBalance', 'net_version']);
+async function rpcCall(method, params) {
+  const response = await fetch(rpc, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ jsonrpc: '2.0', id: 1, method, params }),
+  });
+  const body = await response.json();
+  if (body.error) throw new Error(body.error.message ?? 'rpc error');
+  return body.result;
+}
+
 async function dispatch(method, params) {
+  console.log('bridge <-', method);
   if (method === 'eth_accounts' || method === 'eth_requestAccounts') return [await account()];
   if (method === 'eth_chainId') return '0x279f'; // 10143
+  if (RPC_PASSTHROUGH.has(method)) return rpcCall(method, params ?? []);
   if (method === 'eth_sendTransaction') {
     const tx = (Array.isArray(params) ? params[0] : params) ?? {};
-    if (!tx.to || String(tx.to).toLowerCase() !== (await account()).toLowerCase()) {
-      if (!tx.to) throw new Error('missing to');
-      // The pipeline only sends from the connected account; anything else is a bug.
-      throw new Error('from mismatch');
-    }
+    if (!tx.to) throw new Error('missing to');
+    // The pipeline only sends from the connected account; anything else is a bug.
+    if (tx.from && String(tx.from).toLowerCase() !== (await account()).toLowerCase()) throw new Error('from mismatch');
     const args = [
       'send', tx.to,
       '--keystore', keystore, '--password-file', passwordFile,
@@ -58,6 +71,7 @@ async function dispatch(method, params) {
     const out = await cast(args);
     const receipt = JSON.parse(out);
     if (!receipt.transactionHash) throw new Error('broadcast failed');
+    console.log('bridge -> tx', receipt.transactionHash, 'status', receipt.status);
     return receipt.transactionHash;
   }
   throw new Error(`unsupported method ${method}`);
@@ -79,7 +93,7 @@ createServer((req, res) => {
     try { ({ method, params } = JSON.parse(body)); } catch { res.end(JSON.stringify({ error: { message: 'bad request' } })); return; }
     dispatch(method, params)
       .then((result) => res.end(JSON.stringify({ result })))
-      .catch((error) => { res.statusCode = 200; res.end(JSON.stringify({ error: { message: String(error.message ?? error) } })); });
+      .catch((error) => { console.error('bridge error', method, String(error.message ?? error)); res.statusCode = 200; res.end(JSON.stringify({ error: { message: String(error.message ?? error) } })); });
   });
 }).listen(port, '127.0.0.1', () => {
   console.log(`wallet-bridge listening on 127.0.0.1:${port} (keystore ${keystore.split('/').pop()})`);

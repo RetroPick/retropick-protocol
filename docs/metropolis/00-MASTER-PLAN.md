@@ -80,3 +80,26 @@ https://docs.chain.link/cre
 https://docs.nansen.ai/
 https://docs.intents.aurora.dev/
 https://mera.category.xyz/concepts/passkeys-and-prf/
+
+
+---
+## 2026-10-11 integration re-validation update (supersedes tentative SDK assumptions)
+**Start here:** [Navigation](README.md), [officially verified sources](10-VERIFIED-SOURCES.md), [agent execution runbook](11-EXECUTION-RUNBOOK.md), [bounty innovation matrix](12-SPONSOR-INNOVATION.md). The original effort estimates above are *planning ranges*, not measured integration durations.
+
+### Material corrections
+1. **Research P0 is not blank:** `research/contract-kernels/src/hackathon/PredictionFactoryP0.sol` and `PredictionMarketP0.sol` already exist alongside tests; `research/hackathon-p0/PRISM_P0_SPEC.md` is an exact-lot, in-kind redemption specification and excludes final cash settlement. Reuse/review, do not start by cloning the V2 factory.
+2. **Live V2 versus illustrative UI:** `apps/web/features/create-market/wizard.tsx` writes an explicitly labeled local demo draft; `features/prism/prism.tsx` is illustrative research UI. `features/live/kuru.tsx` does perform real wallet-mediated Kuru testnet actions. Verify the current deployment commit before promising a unified launch/PRISM app.
+3. **Envio** has official direct HyperSync for Monad 10143 (`https://10143.hypersync.xyz`). Fastest toolchain: `pnpx envio init` local ABI import → generated config/schema/handlers → `envio skills update` → `createTestIndexer()` → GraphQL reconciliation. Local/self-hosted HyperSync requires `ENVIO_API_TOKEN`.
+4. **Mera** already has published secret-vault APIs; avoid custom PRF/HKDF/AES unless implementing something beyond the provided primitive. Stable RP ID and physical cross-device test are key.
+5. **MetaMask** bounty is a real oclif plugin with manifest capabilities and separate agent skill; sample `wallet-submit` permission acquisition does not constitute actual execution. Inspect v7 CLI compatibility with sample v6.2 peer dependency.
+6. **Aurora** supported Monad in general is not evidence of a route to **Monad Testnet 10143** or output **native MON** to the live V2 Kuru quote. Runtime proof first, otherwise defer.
+7. **Chainlink** CRE CLI v1.30.0 supports **Monad Testnet simulation**; testnet production write is NOT established by this fact.
+8. **Nansen** allowed `monad` API chain denotes available data coverage but not new hackathon testnet tokens; some Smart Money endpoints cannot legally be redistributed. Public UX must be endpoint-license gated.
+
+### Redesigned 72-hour ordering based on sponsor constraints
+- **0–4h:** run G0 baseline and separate sponsor capability spikes (Aurora supported route, MetaMask CLI/plugin, Mera RP/PRF, Envio API token, Nansen key, CRE CLI).
+- **4–24h:** parallel safe lanes: (A) Kuru Consumer proof, (B) Envio P0 known-address indexer, (C) Mera secret vault, (D) MetaMask plugin scaffold+policy, (E) Aurora actual small quote/transfer if possible, (F) P0 kernel tests only.
+- **24–48h:** finish one real core feature per selected sponsor, reconcile onchain proof, mobile Playwright and contract tests. New outcome asset must have separate deployed receipt+venue fill, else remain research.
+- **48–64h:** integration QA, user evidence, demo capture, sponsor submission answers, PR review.
+- **Final >=8h:** freeze, submit and confirm public judging access. Drop unproven bounties rather than showing mocked sponsor logos.
+**Agent success metric:** proportion of selected sponsor requirements backed by inspectable proof, not number of package installs.

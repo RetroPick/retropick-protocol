@@ -54,3 +54,40 @@ Disable only this sponsor's feature flag, revert its isolated UI/adapter PR, ret
 
 ## Official starting points
 https://docs.envio.dev/docs/HyperIndex/overview
+
+
+---
+## 2026-10-11 validated Envio V3 / Monad / agent-skills implementation
+**SOURCE-VERIFIED:** https://docs.envio.dev/docs/HyperIndex/supported-networks lists Monad mainnet 143 and **Monad Testnet 10143**, with native HyperSync `https://10143.hypersync.xyz` and HyperRPC `https://10143.rpc.hypersync.xyz`. This is a real low-risk sponsor integration, not a conjectural port. https://docs.envio.dev/docs/HyperIndex/overview documents native GraphQL, reorg handling and dynamic factory contracts; https://docs.envio.dev/docs/HyperIndex/quickstart-with-ai documents AI workflows, `envio skills update`, `envio tools search-docs` and generated test infrastructure.
+
+### Fast path using OFFICIAL Envio CLI
+```bash
+node --version                          # recommended >=22
+cd integrations
+mkdir -p envio && cd envio
+pnpx envio init                         # choose Contract Import > Local ABI if explorer unsupported
+# Copy verified ABI(s) from ../../deployments/monad-testnet/abi/
+# Fill actual deployed Factory/Coordinator address, chainId=10143 and reasonable deployment start block.
+# Set ENVIO_API_TOKEN in ignored .env (local HyperSync requires it, not Git tracked).
+envio tools search-docs                 # use installed CLI if supported by pinned version
+envio skills update                     # load current agent-specific guidance if installed
+pnpm test                               # generated createTestIndexer() harness after init
+```
+The docs say local/self-hosted **HyperSync** requires a token from https://envio.dev/app/api-tokens, while Envio Cloud gets special access. A raw external-RPC-only datasource can operate without HyperSync token but then you MUST prove you meaningfully integrated an actual Envio product. Envio's AI quickstart recommends TDD with `createTestIndexer()` and a generated `config.yaml`, `schema.graphql`, `src/handlers` project. Pin exact CLI and config syntax after initialization rather than inventing a V3 schema from memory.
+
+### Exact index scope (initial snapshot before dynamic market support)
+- Factory `RetroPickLaunchFactoryV2` emitted `TokenLaunched` (verify signature from ABI).
+- Coordinator `GraduationCoordinatorV2`: `LaunchCommitted`, `GraduationSecured`, `GraduationCompleted`.
+- Live Kuru verified market `0x1F5dE72616a7fe645Cf45aC66dfce8Ac7452C57F`: `OrderCreated`, `Trade`, `OrdersCanceled`, from `apps/web/lib/live/kuru.ts` ABI.
+- Candidate derived entities: `Launch` (phase, token, curve, creator), `Graduation` (secured/completed block, verified market), `MarketTrade` (tx+log unique key, maker/taker, exact base size, quote), `MarketQuality` (elapsed time from graduation, last finalized trade, trade count/volume and data freshness).
+- Kuru trade events are not necessarily price times size in human units; compare `Trade.price`, `filledSize`, market decimals, contract precision and maker/taker flags to actual transaction receipts before defining notional.
+- `apps/indexer/src/project.ts` already has an independent TS projection, so Envio may serve as an **auditable separate derived read-model**. Do not dub it authoritative ledger state or double-count volumes.
+
+### Dynamic factory-created markets
+First get known deployed market indexing working. Then use official Envio documented **dynamic contract registration** to register future market addresses from `GraduationCompleted`. Handler must avoid duplicate registration and survive reorg. If dynamic registration isn't validated within 4h, deliver static real deployed market with a clear scale-out roadmap, not a broken factory indexer. Explicit chain `start_block` avoids unnecessary historical scanning; never assume current head and deployment block are interchangeable.
+
+### High-signal innovation — **Graduation Health / Market Quality Radar**
+Visualize same launch's progression from bonding secure→actual Kuru market→first executable trade. Provide linked source transaction and an Envio derived time-to-first-trade, spread/depth from directly verified reads (depth is NOT available solely from `Trade` logs), and stale indexing warning. This addresses a REAL user trust problem: a launch token isn't useful until traders can execute. Show that Envio data changes a core market card rather than making a decorative explorer page.
+
+### Hard acceptance
+Official generated indexer deploys to a public GraphQL endpoint; at least three real historical event entities reconcile exactly with chainId/txHash/logIndex; one actual live UI metric reads GraphQL and has `indexedBlock`/staleness; unit snapshot and duplicate/reorg tests pass. Envio token is not exposed in frontend. Include endpoint URL and test log in evidence.

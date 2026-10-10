@@ -54,3 +54,34 @@ Disable only this sponsor's feature flag, revert its isolated UI/adapter PR, ret
 
 ## Official starting points
 https://docs.kuru.io/contracts/OrderBook
+
+
+---
+## 2026-10-11 validated consumer Kuru integration and measurable UX edge
+**SOURCE-VERIFIED:** https://docs.kuru.io/sdk/deploy-market differentiates `MonadDeployer` from Kuru Router and describes market-specific precision, liquidity and vault seeding. https://docs.kuru.io/contracts/OrderBook documents orderbook mechanics. **REPO-VERIFIED:** `apps/web/features/live/kuru.tsx` already places `addBuyOrder` and `addSellOrder` and cancels `batchCancelOrders`; `apps/web/lib/live/kuru.ts` checks Router registration, market/quote token, MarginAccount, vault and implementations, obtains L2 book and recent trades (100 blocks). This is closer to the sponsor bar than a new trading frontend mock.
+
+### Build from actual code, not from figma fixtures
+```
+apps/web/features/live/kuru.tsx          # real Kuru limit order, margin deposit/withdraw, cancel
+apps/web/lib/live/kuru.ts                # readKuru, getMarketParams, bestBidAsk, getL2Book, event decode
+apps/web/lib/live/wallet.tsx             # EIP1193 provider, simulates before signature and receipt
+apps/web/lib/live/model.ts              # V2 launch + graduation custody and native MON quote
+apps/web/features/launchpad/token-detail.tsx  # reconcile discoverability and real trading entry
+apps/web/features/create-market/wizard.tsx    # DEMO DRAFT ONLY, not contract creation
+apps/web/features/prism/prism.tsx              # ILLUSTRATIVE, not live trading
+```
+The current `apps/web/README.md` is fixture-oriented and may be stale; the code has both live V2 components and simulated prediction/PRISM presentation. Inspect actual routing and `NEXT_PUBLIC_DATA_MODE` before claims. A beautifully rendered illustrative PRISM book does NOT qualify as a live Kuru trading experience.
+
+### Most valuable 1-day improvements
+1. Add a **trade readiness panel** showing `chainId`, verified market/quote, wallet/MarginAccount balances, market phase, indexed last trade, observed block/freshness, min/max size, tick and actual maker/taker fee.
+2. Quote maker order preview using deterministic integer arithmetic, avoid `Number` except for ABI types proven safe (< uint32), cap input and enforce tick precision. Explain a post-only order can revert if executable immediately; show error and recommended alternative.
+3. Clearly distinguish *best bid/ask including Kuru AMM* from *resting L2 limit depth*. Never label no resting orders as "zero liquidity" if AMM best price is present. Defer market execution until verified SDK or contract method/simulation supports it.
+4. Add order status reconciler: `SUBMITTED` → `PLACED` → `PARTIALLY_FILLED` → `FILLED` or `CANCELLED`. A mined order transaction is not the same as executed fill. Use owner and orderId from receipts, not browser-local assumptions. Handle page refresh.
+5. Run Playwright against the actual deployed V2 route on Chromium/mobile Android viewport with touch, wallet connect/switch, deposit, order, reject, cancel and back-navigation. Don't regress existing UIs.
+6. Gather real human trader feedback and funnel signals (consented 5+ first-time journeys). Founder-reported waiting list and social reach are interest indicators, not retention proof.
+
+### Bounty-winning innovation — **"Bond to Book" continuous trading**
+A single visual asset provenance panel displays bonding curve history, graduation ledger, protected LP proof and live Kuru orderbook execution. It makes a trust-first retail trading terminal for degen creators and market makers without the AMM-only slippage story. Judge demo proves an actual two-wallet order/match/cancel and an understandable trade status lifecycle, not a promo feed.
+
+### Non-negotiable evidence
+One live mobile-responsive route, actual wallet-signed testnet order and fill (two independent actors), verified vault/lock proof, price/tick/fee check, rejection tests, screenshot/video and specific market evidence. Describe it as an **unaudited Monad Testnet candidate**, not a finished mainnet CEX.

@@ -54,3 +54,36 @@ Disable only this sponsor's feature flag, revert its isolated UI/adapter PR, ret
 
 ## Official starting points
 https://docs.nansen.ai/
+
+
+---
+## 2026-10-11 verified Nansen endpoint/redistribution integration
+**SOURCE-VERIFIED:** https://docs.nansen.ai/api/token-god-mode/holders documents `POST https://api.nansen.ai/api/v1/tgm/holders`, header **`apiKey`**, JSON `chain:"monad"`, `token_address`, pagination and holder filters. https://docs.nansen.ai/api/smart-money lists Monad among chains. But coverage is not a guarantee for **Monad Testnet 10143** or newly created test tokens. https://docs.nansen.ai/guides/redistribution-guide expressly restricts or prohibits several endpoints:
+- **Allowed with attribution:** `tgm/flow-intelligence`, `tgm/flows`, `tgm/who-bought-sold`, `tgm/token-screener`, `tgm/transfers` (subject to latest terms).
+- **Restricted; approval + significant modification:** `tgm/holders` with Smart Money filter.
+- **Prohibited for public redistribution:** `smart-money/holdings`, `smart-money/dex-trades`, `tgm/pnl-leaderboard`, Smart Money labels, and other listed feeds. Raw use can be permitted privately, but publicly displaying even an "elite wallet" label can violate licensing. Recheck live licensing before each public feature.
+
+### Fast working server-only proof
+```bash
+# Set NANSEN_API_KEY in server environment, never paste it into logs or client bundle.
+curl -sS -X POST 'https://api.nansen.ai/api/v1/tgm/holders' \
+  -H "apiKey: ${NANSEN_API_KEY}" \
+  -H 'Content-Type: application/json' \
+  -d '{"chain":"monad","token_address":"0xVERIFIED_MAINNET_TOKEN","pagination":{"page":1,"per_page":10}}'
+```
+**Important:** example placeholder must be replaced with a verified real Monad **mainnet** token, not an arbitrary 10143 asset. Test status, API entitlement, per-request credits and data freshness before public deployment. API docs say all API endpoints use POST with JSON; don't copy old GET/querystring examples. Add request timeout, caching within current license, 429 backoff and quota circuit breaker.
+
+### Product architecture
+```
+apps/web/app/api/integrations/nansen/route.ts       # private key auth + endpoint allowlist, rate limiting
+apps/web/lib/integrations/nansen/validate.ts        # Zod response/error/freshness and chain map
+apps/web/features/market-intelligence/risk.tsx       # explanatory combined risk, Nansen attribution
+apps/indexer/src/project.ts                         # existing independent onchain projections
+```
+Never expose Nansen API key or raw prohibited Smart Money data to client, screenshots, CSV downloads, logs or public GraphQL. Server model must annotate `network:mainnet` and `dataAvailable:false` explicitly when the testnet token is missing. Separate independently computed V2 testnet holder concentration from Nansen mainnet signal; do not combine incomparable networks into one "live" score.
+
+### Sponsor-winning innovation — **Risk Before Ape**
+A trader sees provenance-aware red flags (concentration from RetroPick's indexed holder snapshot, thin executable Kuru depth, high creator allocation, unusual *permitted* Nansen flows on supported mainnet comparables) with explainable calculations and timestamps. A naive "Smart Money is bullish" badge is less defensible and may redistribute prohibited data. Show Nansen contribution as a genuinely **decision-changing** feature: a pre-trade risk explainer that can recommend reduce-size or postpone based on actual metrics.
+
+### Eligibility test and cutoff
+If no API key, paid entitlement or testnet asset coverage, Nansen-specific user flow remains disabled. If only unrelated mainnet data is accessible, a labeled comparative research feature may be useful but does NOT justify saying Nansen monitors the live Monad Testnet token. Capture request endpoint, redacted response schema, license attribution screenshot, calculated metric and user-facing changed decision. An opaque AI score with no grounded components is insufficient.

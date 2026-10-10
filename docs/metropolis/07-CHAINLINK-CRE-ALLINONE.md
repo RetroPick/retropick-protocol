@@ -54,3 +54,34 @@ Disable only this sponsor's feature flag, revert its isolated UI/adapter PR, ret
 
 ## Official starting points
 https://docs.chain.link/cre
+
+
+---
+## 2026-10-11 Chainlink CRE platform correction and runnable acceptance path
+**SOURCE-VERIFIED** by first-party Chainlink changelog: https://docs.chain.link/changelog/cre-cli-v1-30-0--new-testnet-support-for-simulation-09dd0 states **CRE CLI v1.30.0** adds **Monad Testnet simulation** via `cre workflow simulate`. v1.29.0 previously added Monad **mainnet** simulation and live onchain writes. Treat **testnet simulation** and **production onchain write** as SEPARATE. Read https://docs.chain.link/cre and current generated CLI help. Do NOT promise that the CRE DON will automatically write on chain 10143 just because the simulator can run against it.
+
+### Practical sponsor-satisfying workflow WITHOUT unsafe new outcome resolution
+Name: `RetroPickGraduationSafetyWorkflow`.
+- Trigger: operator-invoked HTTP or suitable supported scheduled/log trigger from documented CRE CLI.
+- Onchain read: `GraduationCoordinatorV2.ledger(token)`, `receipt(token)`, underlying Kuru market identity and phase.
+- Independent external HTTP input: supported public market metadata/risk evidence with timestamp; retain raw hash/reference and enforce request timeout. For initial MVP, a public verifiable data endpoint with stable schema is better than an LLM "decision".
+- Compute: **Graduation Health Attestation** `{chainId,token,graduationPhase,market,blockNumber,externalEvidenceHash,checkedAt,result,version}` with deterministic rules (market exists and verified, custody receipt, stale sources fail closed).
+- Output: structured workflow report captured in CRE simulation, optionally an authorized **separate** append-only risk attestation contract **only if** writing is actually supported/validated. Never send arbitrary oracle resolutions or modify existing V2 Factory/Coordinator/Locker.
+
+### Agent commands and architecture
+```bash
+cre --version          # must support testnet simulation (v1.30+), inspect actual installed version
+cre init               # follow official project scaffolding, choose supported TS/Go SDK
+cre workflow simulate --help
+# Fill exact workflow/environment config and run 'cre workflow simulate' with actual flags shown by help.
+```
+Proposed isolated module `integrations/cre/workflows/graduation-health/` contains immutable input schema, chain config 10143, source allowlists, timeout, encoder, tests and proof. Avoid inventing CRE SDK syntax in advance; agent should use CLI scaffold and examples for current version. `CRE_ETH_PRIVATE_KEY` or deployed gateway secrets must remain excluded from Git, logs and simulated summaries.
+
+### Adversarial tests
+Coordinator reports secured but market is not deployed → FAIL; Kuru router mismatch → FAIL; stale or conflicting API data → BLOCKED; repeated trigger → same idempotent attestation; chain 143 vs 10143 mismatch → abort; external API 500 → degraded no attestation; simulator passes but live write unsupported → label **SIMULATED**, not delivered. Onchain read and external API must BOTH contribute meaningfully to workflow output.
+
+### Winning innovation — **Independent Market Safety Oracle**
+Most hackathon oracle uses are price feeds. Here CRE automates the **operational trust boundary** between issuance and mature execution: were funds actually graduated, did the CLOB appear, and is the protected liquidity receipt consistent? This augments the existing V2 launchpad and creates value for market makers. Future legitimate prediction resolution can reuse the orchestration pattern only after `ResolutionSpec`, approved adapters and separate P0 contract gates are qualified.
+
+### Acceptance and evidence
+Committed workflow source+config, reproducible `cre workflow simulate` console output, testnet onchain read trace, external source evidence, negative failure result, <=2-minute video. Live-chain state mutation is optional ONLY if official sponsor allows simulation; do not claim it was achieved without a deployed receipt.

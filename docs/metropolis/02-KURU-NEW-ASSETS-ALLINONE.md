@@ -54,3 +54,35 @@ Disable only this sponsor's feature flag, revert its isolated UI/adapter PR, ret
 
 ## Official starting points
 https://kuru-testnet-docs.mintlify.site/ and https://docs.kuru.io/
+
+
+---
+## 2026-10-11 verified integration supplement — reuse existing P0 research kernels
+**REPO-VERIFIED, not deployed:** `research/contract-kernels/src/hackathon/PredictionFactoryP0.sol` already implements an admissible-market factory and `createMarket(resolver,resolutionSpecHash,yesName,yesSymbol,noName,noSymbol)`; `PredictionMarketP0.sol` and `OutcomeTokenP0.sol` are the native binary-claim kernels; `research/contract-kernels/test/hackathon/PredictionP0.t.sol` includes full-collateral split tests, fee-on-transfer rejection, boundary and adverse callback cases. `research/hackathon-p0/PRISM_P0_SPEC.md` already defines **exact-lot, long-only, in-kind redeemable** structured series. Its explicit exclusions are **final cash settlement**, shared backing reservation vault, and full PRISM production settlement. Never claim those are implemented. See https://github.com/RetroPick/retropick-protocol/tree/main/research/hackathon-p0 and https://github.com/RetroPick/retropick-protocol/tree/main/research/contract-kernels/src/hackathon .
+
+**SOURCE-VERIFIED Kuru:** https://docs.kuru.io/sdk/deploy-market . For *existing* tokens, `ParamCreator` and **Kuru Router** deploy a market. `NO_NATIVE=0` when YES/quote and NO/quote are ERC20/ERC20. `NATIVE_IN_QUOTE=2` for a MON-quoted ERC20 market. The docs expose `ParamCreator.calculatePrecisions` and `deployMarket`, but sample uses **ethers** and demonstrates passing parameters; RetroPick current web uses **viem**. Pin tested version and avoid silent ethers v5/v6 mismatch. Router deployment only instantiates venue — **seed/quote sufficient actual liquidity**, record first trades.
+
+### Implementation reuse plan (do NOT modify existing V2 graduation contracts)
+1. Freeze P0 kernel commit, run its OWN Foundry suite and compare to `research/hackathon-p0/PRISM_P0_SPEC.md`; make a requirement-to-contract-function matrix (split, merge, close, resolve, redeem, invalid handling, supply/collateral).
+2. Audit `PredictionMarketP0` for who can call close/resolve, what `resolutionSpecHash` commits to and whether a creator can choose a malicious resolver. Restrict demo to curated markets and deterministic test resolution; no misleading public financial claim.
+3. Choose a testnet collateral with VERIFIED address, code, decimals and balances. Canonical Circle-USDC live smoke for existing V2 is **BLOCKED_FUNDING**. An arbitrary 6-decimal mock is acceptable for an explicitly labeled P0 prototype, not a claim of Circle/live USDC readiness.
+4. Create one factory + market + YES/NO ERC20 pairs on Monad 10143 under a **separate deployment manifest**. Enforce exact invariant: before resolution `YES_supply == NO_supply == collateralLocked` for simple complete sets, and actual vault holdings cover payouts. Verify merge, terminal redemption and refunded invalid markets.
+5. For each side, deploy Kuru Router type 0 if quote ERC20, fetch returned market and vault, verify router registration, ABI, decimals, tick, min/max sizes and vault contents. Fund maker inventory and quote from **separate capital**; never re-use claim collateral or existing V2 protected LP.
+6. Execute actual YES/quote or NO/quote order/fill/cancel and record price/size/spread/depth. A fabricated probability curve or newly minted token symbol alone does not demonstrate a novel asset class.
+7. Only after that, optionally qualify an existing **PrismSeriesP0** exact-backed, 1–4 component basket, with `q % lotSizeRaw == 0` and `B_i >= S*x_i` and a demonstrable in-kind redemption. No speculative State Liquidity Engine or full terminal cash settlement before the deadline.
+
+### Critical financial/market tests
+```text
+Deposit 100 collateral -> supply 100 YES + 100 NO; vault >= 100.
+Merge 30 YES + 30 NO -> release 30 collateral, remaining liabilities 70.
+After correct resolution: winners redeem at policy-defined amount, losing outcome cannot claim.
+Wrong resolver, double redemption, reentrancy, nonstandard fee-on-transfer collateral,
+delayed/invalid event, cancellation, zero supply, max supply, wrong decimals, empty Kuru depth.
+PRISM P0: fractional weights exact-lot, component allowlist, no double use of backing;
+counterexample AND payoff not representable by long-only basket -> REJECT.
+```
+Do not infer trading price is a true probability if the YES and NO books are dislocated; bid/ask and executable parity matter.
+
+### Sponsor-winning innovation — **Tradable, redeemable complete sets**
+Show BOTH issuance and reversal, *then* Kuru spot execution with a unified payoff/solvency explorer. The asset class is a collateral-backed state-contingent bearer claim, not a rebranded community coin. Measure executable parity opportunity net of spread, gas and fees; always show unavailable fills and non-guaranteed arbitrage. Judges can inspect one claim's full life from collateral→ERC20→Kuru→redemption.
+**STOP:** if P0 security/math/execution gates cannot pass, submit honest V2 market-origination infrastructure but acknowledge asset-class novelty risk.

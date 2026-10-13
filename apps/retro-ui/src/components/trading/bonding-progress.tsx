@@ -11,5 +11,5 @@ export function BondingProgress({ progressBps, goalRaw, decimals, symbol, gradua
 }
 export function DiscoveryBondingProgress({ row }: { row: DiscoveryRow }) {
   const goal = useQuery({ queryKey: ['launchpad', 10143, 'graduation-goal', row.id], enabled: row.dataMode === 'live' && !!row.quote.address, queryFn: () => readGraduationGoal(publicClient, row.id as `0x${string}`, row.quote.address as `0x${string}`), staleTime: Infinity, retry: 1 });
-  return <BondingProgress progressBps={row.dataMode === 'live' ? goal.data && row.quoteReserveRaw ? bondingProgressBps(BigInt(row.quoteReserveRaw), goal.data) : null : row.bondingProgressBps} goalRaw={goal.data?.toString()} decimals={row.quote.decimals} symbol={row.quote.symbol} graduated={row.lifecycle === 'GRADUATED'} loading={row.dataMode === 'live' && goal.isPending}/>;
+  return <BondingProgress progressBps={row.dataMode === 'live' ? goal.data && row.quoteReserveRaw ? bondingProgressBps(BigInt(row.quoteReserveRaw), goal.data) : null : row.bondingProgressBps} goalRaw={goal.data?.toString()} decimals={row.quote.decimals} symbol={row.quote.symbol} graduated={['GRADUATION_READY', 'GRADUATING', 'GRADUATED'].includes(row.lifecycle)} loading={row.dataMode === 'live' && goal.isPending}/>;
 }

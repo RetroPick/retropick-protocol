@@ -72,7 +72,7 @@ export function TokenTerminal({ vm, data, chart, ticket, depth, tab, onTab, trad
 
     {(vm.sync.indexer === 'stale' || vm.sync.indexer === 'unavailable') && <div className="rp-banner" role="status"><FreshnessIndicator freshness={vm.freshness} demo={demo}/><span>{vm.sync.message ?? 'Indexed history may be behind. Trading reads current on-chain state.'}</span>{onRetry && <button className="rp-link" onClick={onRetry}>Retry</button>}</div>}
 
-    <BondingProgress progressBps={vm.bondingProgressBps} goalRaw={vm.economics.graduationThresholdRaw} decimals={vm.quote.decimals} symbol={q} graduated={vm.lifecycle === 'GRADUATED'}/>
+    <BondingProgress progressBps={vm.bondingProgressBps} goalRaw={vm.economics.graduationThresholdRaw} decimals={vm.quote.decimals} symbol={q} graduated={['GRADUATION_READY', 'GRADUATING', 'GRADUATED'].includes(vm.lifecycle)}/>
     {vm.lifecycle === 'GRADUATED' && !kuruOrders && <p className="rp-note">This market graduated to Uniswap V4. An AMM venue has no resting orderbook; this release supports orderbook trading on Kuru.</p>}
     <div className="rp-grid">
       <section className="rp-chart-panel" aria-label="Price chart">

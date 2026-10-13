@@ -75,7 +75,7 @@ export const quoteAssetData = [
     "issuer": null,
     "source": "https://bitcoin.org/",
     "reference": {
-      "network": "Bitcoin source network",
+      "network": "Bitcoin",
       "address": null
     },
     "monadTestnetAddress": null,
@@ -104,7 +104,7 @@ export const quoteAssetData = [
     "issuer": null,
     "source": "https://wbtc.network/",
     "reference": {
-      "network": "Wrapped Bitcoin source network",
+      "network": "Ethereum (reference contract unverified)",
       "address": null
     },
     "monadTestnetAddress": null,
@@ -133,7 +133,7 @@ export const quoteAssetData = [
     "issuer": null,
     "source": "https://ethereum.org/",
     "reference": {
-      "network": "Ethereum source network",
+      "network": "Ethereum",
       "address": null
     },
     "monadTestnetAddress": null,
@@ -162,7 +162,7 @@ export const quoteAssetData = [
     "issuer": null,
     "source": "https://ethereum.org/",
     "reference": {
-      "network": "Wrapped Ether source network",
+      "network": "Ethereum (reference contract unverified)",
       "address": null
     },
     "monadTestnetAddress": null,
@@ -191,7 +191,7 @@ export const quoteAssetData = [
     "issuer": null,
     "source": "https://solana.com/",
     "reference": {
-      "network": "Solana source network",
+      "network": "Solana",
       "address": null
     },
     "monadTestnetAddress": null,
@@ -220,7 +220,7 @@ export const quoteAssetData = [
     "issuer": null,
     "source": "https://z.cash/",
     "reference": {
-      "network": "Zcash source network",
+      "network": "Zcash",
       "address": null
     },
     "monadTestnetAddress": null,
@@ -249,7 +249,7 @@ export const quoteAssetData = [
     "issuer": null,
     "source": "https://hyperliquid.xyz/",
     "reference": {
-      "network": "Hyperliquid source network",
+      "network": "Hyperliquid",
       "address": null
     },
     "monadTestnetAddress": null,
@@ -278,7 +278,7 @@ export const quoteAssetData = [
     "issuer": null,
     "source": "https://dogecoin.com/",
     "reference": {
-      "network": "Dogecoin source network",
+      "network": "Dogecoin",
       "address": null
     },
     "monadTestnetAddress": null,
@@ -307,7 +307,7 @@ export const quoteAssetData = [
     "issuer": null,
     "source": "https://www.pepe.vip/",
     "reference": {
-      "network": "Pepe source network",
+      "network": "Ethereum (reference contract unverified)",
       "address": null
     },
     "monadTestnetAddress": null,
@@ -336,7 +336,7 @@ export const quoteAssetData = [
     "issuer": null,
     "source": "https://shib.io/",
     "reference": {
-      "network": "Shiba Inu source network",
+      "network": "Ethereum (reference contract unverified)",
       "address": null
     },
     "monadTestnetAddress": null,
@@ -365,7 +365,7 @@ export const quoteAssetData = [
     "issuer": null,
     "source": "https://xrpl.org/",
     "reference": {
-      "network": "XRP source network",
+      "network": "XRP Ledger",
       "address": null
     },
     "monadTestnetAddress": null,
@@ -394,7 +394,7 @@ export const quoteAssetData = [
     "issuer": null,
     "source": "https://avax.network/",
     "reference": {
-      "network": "Avalanche source network",
+      "network": "Avalanche",
       "address": null
     },
     "monadTestnetAddress": null,
@@ -423,7 +423,7 @@ export const quoteAssetData = [
     "issuer": null,
     "source": "https://bnbchain.org/",
     "reference": {
-      "network": "BNB source network",
+      "network": "BNB Smart Chain",
       "address": null
     },
     "monadTestnetAddress": null,
@@ -452,7 +452,7 @@ export const quoteAssetData = [
     "issuer": null,
     "source": "https://chain.link/",
     "reference": {
-      "network": "Chainlink source network",
+      "network": "Ethereum (reference contract unverified)",
       "address": null
     },
     "monadTestnetAddress": null,
@@ -481,7 +481,7 @@ export const quoteAssetData = [
     "issuer": null,
     "source": "https://arbitrum.io/",
     "reference": {
-      "network": "Arbitrum source network",
+      "network": "Arbitrum One (reference contract unverified)",
       "address": null
     },
     "monadTestnetAddress": null,
@@ -510,7 +510,7 @@ export const quoteAssetData = [
     "issuer": null,
     "source": "https://optimism.io/",
     "reference": {
-      "network": "Optimism source network",
+      "network": "Optimism (reference contract unverified)",
       "address": null
     },
     "monadTestnetAddress": null,
@@ -539,7 +539,7 @@ export const quoteAssetData = [
     "issuer": null,
     "source": "https://sui.io/",
     "reference": {
-      "network": "Sui source network",
+      "network": "Sui",
       "address": null
     },
     "monadTestnetAddress": null,
@@ -568,7 +568,7 @@ export const quoteAssetData = [
     "issuer": null,
     "source": "https://ton.org/",
     "reference": {
-      "network": "Toncoin source network",
+      "network": "TON",
       "address": null
     },
     "monadTestnetAddress": null,
@@ -597,7 +597,7 @@ export const quoteAssetData = [
     "issuer": null,
     "source": "https://near.org/",
     "reference": {
-      "network": "NEAR source network",
+      "network": "NEAR",
       "address": null
     },
     "monadTestnetAddress": null,
@@ -626,7 +626,7 @@ export const quoteAssetData = [
     "issuer": null,
     "source": "https://aave.com/",
     "reference": {
-      "network": "Aave source network",
+      "network": "Ethereum (reference contract unverified)",
       "address": null
     },
     "monadTestnetAddress": null,
@@ -655,7 +655,7 @@ export const quoteAssetData = [
     "issuer": null,
     "source": "https://uniswap.org/",
     "reference": {
-      "network": "Uniswap source network",
+      "network": "Ethereum (reference contract unverified)",
       "address": null
     },
     "monadTestnetAddress": null,
@@ -684,7 +684,7 @@ export const quoteAssetData = [
     "issuer": null,
     "source": "https://pendle.finance/",
     "reference": {
-      "network": "Pendle source network",
+      "network": "Ethereum (reference contract unverified)",
       "address": null
     },
     "monadTestnetAddress": null,
@@ -713,7 +713,7 @@ export const quoteAssetData = [
     "issuer": null,
     "source": "https://ethena.fi/",
     "reference": {
-      "network": "Ethena source network",
+      "network": "Ethereum (reference contract unverified)",
       "address": null
     },
     "monadTestnetAddress": null,
@@ -742,7 +742,7 @@ export const quoteAssetData = [
     "issuer": null,
     "source": "https://cardano.org/",
     "reference": {
-      "network": "Cardano source network",
+      "network": "Cardano",
       "address": null
     },
     "monadTestnetAddress": null,
@@ -771,7 +771,7 @@ export const quoteAssetData = [
     "issuer": null,
     "source": "https://polkadot.com/",
     "reference": {
-      "network": "Polkadot source network",
+      "network": "Polkadot",
       "address": null
     },
     "monadTestnetAddress": null,
@@ -800,7 +800,7 @@ export const quoteAssetData = [
     "issuer": null,
     "source": "https://litecoin.org/",
     "reference": {
-      "network": "Litecoin source network",
+      "network": "Litecoin",
       "address": null
     },
     "monadTestnetAddress": null,
@@ -829,7 +829,7 @@ export const quoteAssetData = [
     "issuer": null,
     "source": "https://bitcoincash.org/",
     "reference": {
-      "network": "Bitcoin Cash source network",
+      "network": "Bitcoin Cash",
       "address": null
     },
     "monadTestnetAddress": null,
@@ -858,7 +858,7 @@ export const quoteAssetData = [
     "issuer": null,
     "source": "https://cosmos.network/",
     "reference": {
-      "network": "Cosmos source network",
+      "network": "Cosmos Hub",
       "address": null
     },
     "monadTestnetAddress": null,
@@ -887,7 +887,7 @@ export const quoteAssetData = [
     "issuer": null,
     "source": "https://tron.network/",
     "reference": {
-      "network": "TRON source network",
+      "network": "TRON",
       "address": null
     },
     "monadTestnetAddress": null,
@@ -916,7 +916,7 @@ export const quoteAssetData = [
     "issuer": null,
     "source": "https://stellar.org/",
     "reference": {
-      "network": "Stellar source network",
+      "network": "Stellar",
       "address": null
     },
     "monadTestnetAddress": null,
@@ -945,7 +945,7 @@ export const quoteAssetData = [
     "issuer": null,
     "source": "https://polygon.technology/",
     "reference": {
-      "network": "Polygon source network",
+      "network": "Polygon",
       "address": null
     },
     "monadTestnetAddress": null,
@@ -974,7 +974,7 @@ export const quoteAssetData = [
     "issuer": null,
     "source": "https://jup.ag/",
     "reference": {
-      "network": "Jupiter source network",
+      "network": "Solana (mint unverified)",
       "address": null
     },
     "monadTestnetAddress": null,
@@ -1003,7 +1003,7 @@ export const quoteAssetData = [
     "issuer": null,
     "source": "https://bonkcoin.com/",
     "reference": {
-      "network": "Bonk source network",
+      "network": "Solana (mint unverified)",
       "address": null
     },
     "monadTestnetAddress": null,
@@ -1957,7 +1957,7 @@ export const quoteAssetData = [
       "license": "CC0-1.0; trademark rights excluded",
       "attribution": "cryptocurrency-icons contributors"
     },
-    "issuer": null,
+    "issuer": "Circle (testnet issuance)",
     "source": "https://www.circle.com/multi-chain-usdc/monad",
     "reference": {
       "network": "Monad Testnet",
@@ -1989,10 +1989,10 @@ export const quoteAssetData = [
       "license": "CC0-1.0; trademark rights excluded",
       "attribution": "cryptocurrency-icons contributors"
     },
-    "issuer": null,
+    "issuer": "Tether",
     "source": "https://tether.to/",
     "reference": {
-      "network": "Tether USD source network",
+      "network": "Issuer reference \u00b7 deployment network unqualified",
       "address": null
     },
     "monadTestnetAddress": null,
@@ -2018,10 +2018,10 @@ export const quoteAssetData = [
       "license": "MIT; trademark rights remain with owners",
       "attribution": "web3icons contributors"
     },
-    "issuer": null,
+    "issuer": "Circle",
     "source": "https://www.circle.com/eurc",
     "reference": {
-      "network": "Euro Coin source network",
+      "network": "Issuer reference \u00b7 deployment network unqualified",
       "address": null
     },
     "monadTestnetAddress": null,
@@ -2047,10 +2047,10 @@ export const quoteAssetData = [
       "license": "CC0-1.0; trademark rights excluded",
       "attribution": "cryptocurrency-icons contributors"
     },
-    "issuer": null,
+    "issuer": "Sky ecosystem",
     "source": "https://sky.money/",
     "reference": {
-      "network": "Dai source network",
+      "network": "Issuer reference \u00b7 deployment network unqualified",
       "address": null
     },
     "monadTestnetAddress": null,
@@ -2076,10 +2076,10 @@ export const quoteAssetData = [
       "license": "MIT; trademark rights remain with owners",
       "attribution": "web3icons contributors"
     },
-    "issuer": null,
+    "issuer": "Paxos / PayPal",
     "source": "https://www.paypal.com/us/digital-wallet/manage-money/crypto/pyusd",
     "reference": {
-      "network": "PayPal USD source network",
+      "network": "Issuer reference \u00b7 deployment network unqualified",
       "address": null
     },
     "monadTestnetAddress": null,
@@ -2105,10 +2105,10 @@ export const quoteAssetData = [
       "license": "Original text fallback; no third-party artwork",
       "attribution": "RetroPick"
     },
-    "issuer": null,
+    "issuer": "Ethena",
     "source": "https://ethena.fi/",
     "reference": {
-      "network": "Ethena USDe source network",
+      "network": "Issuer reference \u00b7 deployment network unqualified",
       "address": null
     },
     "monadTestnetAddress": null,
@@ -2134,10 +2134,10 @@ export const quoteAssetData = [
       "license": "MIT; trademark rights remain with owners",
       "attribution": "web3icons contributors"
     },
-    "issuer": null,
+    "issuer": "Frax Finance",
     "source": "https://frax.finance/",
     "reference": {
-      "network": "Frax source network",
+      "network": "Issuer reference \u00b7 deployment network unqualified",
       "address": null
     },
     "monadTestnetAddress": null,
@@ -2163,10 +2163,10 @@ export const quoteAssetData = [
       "license": "Original text fallback; no third-party artwork",
       "attribution": "RetroPick"
     },
-    "issuer": null,
+    "issuer": "Sky ecosystem",
     "source": "https://sky.money/",
     "reference": {
-      "network": "Sky Dollar source network",
+      "network": "Issuer reference \u00b7 deployment network unqualified",
       "address": null
     },
     "monadTestnetAddress": null,
@@ -2192,10 +2192,10 @@ export const quoteAssetData = [
       "license": "Original text fallback; no third-party artwork",
       "attribution": "RetroPick"
     },
-    "issuer": null,
+    "issuer": "Ripple",
     "source": "https://ripple.com/solutions/stablecoin/",
     "reference": {
-      "network": "Ripple USD source network",
+      "network": "Issuer reference \u00b7 deployment network unqualified",
       "address": null
     },
     "monadTestnetAddress": null,
@@ -2221,10 +2221,10 @@ export const quoteAssetData = [
       "license": "CC0-1.0; trademark rights excluded",
       "attribution": "cryptocurrency-icons contributors"
     },
-    "issuer": null,
+    "issuer": "Gemini",
     "source": "https://www.gemini.com/dollar",
     "reference": {
-      "network": "Gemini Dollar source network",
+      "network": "Issuer reference \u00b7 deployment network unqualified",
       "address": null
     },
     "monadTestnetAddress": null,
@@ -2250,10 +2250,10 @@ export const quoteAssetData = [
       "license": "CC0-1.0; trademark rights excluded",
       "attribution": "cryptocurrency-icons contributors"
     },
-    "issuer": null,
+    "issuer": "Paxos",
     "source": "https://www.paxos.com/paxgold",
     "reference": {
-      "network": "PAX Gold source network",
+      "network": "Issuer reference \u00b7 deployment network unqualified",
       "address": null
     },
     "monadTestnetAddress": null,
@@ -2279,10 +2279,10 @@ export const quoteAssetData = [
       "license": "MIT; trademark rights remain with owners",
       "attribution": "web3icons contributors"
     },
-    "issuer": null,
+    "issuer": "Tether Gold",
     "source": "https://gold.tether.to/",
     "reference": {
-      "network": "Tether Gold source network",
+      "network": "Issuer reference \u00b7 deployment network unqualified",
       "address": null
     },
     "monadTestnetAddress": null,

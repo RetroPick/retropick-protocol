@@ -5,10 +5,16 @@ import {RetroPickBondingCurveV2} from "../../../src/v2/RetroPickBondingCurveV2.s
 import {RetroPickLaunchFactoryV2} from "../../../src/v2/RetroPickLaunchFactoryV2.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {IERC20Metadata} from "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
-interface IQualificationWrapper { function deposit() external payable; function withdraw(uint256) external; }
+
+interface IQualificationWrapper {
+    function deposit() external payable;
+    function withdraw(uint256) external;
+}
+
 /// Local fork only: permissions and launches exist solely in this test's new fixture deployment.
 contract WMONQuoteQualificationForkTest is KuruV2EndToEndForkTest {
     address constant WRAPPER = 0xff437B117Ec17a79a3b24Da4B5047dca4da9D0a2;
+
     function testWMONExistingWrapperAndRealKuruGraduation() public {
         assertGt(WRAPPER.code.length, 0);
         assertEq(IERC20Metadata(WRAPPER).decimals(), 18);
@@ -31,7 +37,9 @@ contract WMONQuoteQualificationForkTest is KuruV2EndToEndForkTest {
         p.creatorTaxBps = 0;
         vm.prank(creator);
         (bool ok, bytes memory result) = address(factory).call(this.encodeLaunch(p, WRAPPER));
-        if (!ok) { assembly ("memory-safe") { revert(add(result, 32), mload(result)) } }
+        if (!ok) {
+            assembly ("memory-safe") { revert(add(result, 32), mload(result)) }
+        }
         (address token, address curveAddress) = abi.decode(result, (address, address));
         RetroPickBondingCurveV2 curve = RetroPickBondingCurveV2(curveAddress);
         vm.startPrank(creator);

@@ -6,9 +6,11 @@ The Radar joins launch, commitment, protected-graduation and Kuru orderbook even
 
 ## Current qualification
 
-Verified 2026-10-14 GMT+7: the existing public Envio pipeline is live, but its old aggregation has incorrect Kuru unit normalization and double-counts overlapping cancellation events. The corrected aggregation version 4 passed **35/35 tests** and an isolated real HyperSync catch-up with **lag 0, canonical anchor verified**. Production backend upgrade is **PENDING_ACCESS**, because the configured VPS SSH routes reject their keys. Do not represent the corrected backend as already deployed.
+Verified 2026-10-14 GMT+7: corrected aggregation version 4 is **live on https://retropick.xyz**. The corrected pipeline passed **35/35 tests**, real HyperSync catch-up, canonical-anchor checks and anonymous desktop/mobile frontend checks. The frontend production build is SHA `3728ce516df74954fc829211921632f7c830f36d`, Vercel deployment `dpl_54nQgxwmf2iTJR1scSaxDUZeB1F8`. Both viewport checks observed cursor lag 0 and the corrected historical quantities and cancellation counts.
 
-Evidence is under `evidence/hackathon/metropolis/submission-20261014/radar-correction/`: `live-candidate.json`, `live-candidate-health.json`, `apex-before-upgrade.json` and `envio-redeploy-readiness.json`. Current production responses are available through `/api/radar/health` and `/api/radar/radar` on the public product. Verify `aggregationVersion: 4` before relying on normalized amounts. The matching frontend correction treats legacy or unverified amounts as unavailable.
+Evidence is under `evidence/hackathon/metropolis/submission-20261014/radar-correction/apex-v4/`: `verification.json`, deployment identity, public API responses and desktop/mobile screenshots. Production responses are available through `/api/radar/health` and `/api/radar/radar`. Verify `aggregationVersion: 4` before relying on normalized amounts. The frontend treats legacy or unverified amounts as unavailable.
+
+Known team test receipts reconcile to 0.1 RPV2M and 0.000398019 MON, and 1 RPE2E and 0.00399 MON. The panel intentionally truncates display amounts to four decimal places; the API retains exact integer units. Cancellation counts are 2 and 1 respectively, with overlapping individual/batch cancellation events deduplicated. These historical test transactions are not organic demand evidence.
 
 ## Correctness and recovery
 

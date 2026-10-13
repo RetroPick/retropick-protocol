@@ -1,0 +1,417 @@
+[
+  {
+    "id": "crypto-mon",
+    "url": "https://www.monad.xyz/",
+    "result": 200
+  },
+  {
+    "id": "crypto-wmon",
+    "url": "https://www.monad.xyz/",
+    "result": 200
+  },
+  {
+    "id": "crypto-btc",
+    "url": "https://bitcoin.org/",
+    "result": 200
+  },
+  {
+    "id": "crypto-wbtc",
+    "url": "https://wbtc.network/",
+    "result": 200
+  },
+  {
+    "id": "crypto-eth",
+    "url": "https://ethereum.org/",
+    "result": 200
+  },
+  {
+    "id": "crypto-weth",
+    "url": "https://ethereum.org/",
+    "result": 200
+  },
+  {
+    "id": "crypto-sol",
+    "url": "https://solana.com/",
+    "result": 200
+  },
+  {
+    "id": "crypto-zec",
+    "url": "https://z.cash/",
+    "result": 200
+  },
+  {
+    "id": "crypto-hype",
+    "url": "https://hyperliquid.xyz/",
+    "result": 200
+  },
+  {
+    "id": "crypto-doge",
+    "url": "https://dogecoin.com/",
+    "result": 200
+  },
+  {
+    "id": "crypto-pepe",
+    "url": "https://www.pepe.vip/",
+    "result": 200
+  },
+  {
+    "id": "crypto-shib",
+    "url": "https://shib.io/",
+    "result": 200
+  },
+  {
+    "id": "crypto-xrp",
+    "url": "https://xrpl.org/",
+    "result": 200
+  },
+  {
+    "id": "crypto-avax",
+    "url": "https://avax.network/",
+    "result": 200
+  },
+  {
+    "id": "crypto-bnb",
+    "url": "https://bnbchain.org/",
+    "result": 200
+  },
+  {
+    "id": "crypto-link",
+    "url": "https://chain.link/",
+    "result": 200
+  },
+  {
+    "id": "crypto-arb",
+    "url": "https://arbitrum.io/",
+    "result": "HTTP Error 403: Forbidden"
+  },
+  {
+    "id": "crypto-op",
+    "url": "https://optimism.io/",
+    "result": 200
+  },
+  {
+    "id": "crypto-sui",
+    "url": "https://sui.io/",
+    "result": 200
+  },
+  {
+    "id": "crypto-ton",
+    "url": "https://ton.org/",
+    "result": 200
+  },
+  {
+    "id": "crypto-near",
+    "url": "https://near.org/",
+    "result": 200
+  },
+  {
+    "id": "crypto-aave",
+    "url": "https://aave.com/",
+    "result": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'aave.com'. (_ssl.c:1000)>"
+  },
+  {
+    "id": "crypto-uni",
+    "url": "https://uniswap.org/",
+    "result": 200
+  },
+  {
+    "id": "crypto-pendle",
+    "url": "https://pendle.finance/",
+    "result": 200
+  },
+  {
+    "id": "crypto-ena",
+    "url": "https://ethena.fi/",
+    "result": 200
+  },
+  {
+    "id": "crypto-ada",
+    "url": "https://cardano.org/",
+    "result": 200
+  },
+  {
+    "id": "crypto-dot",
+    "url": "https://polkadot.com/",
+    "result": 200
+  },
+  {
+    "id": "crypto-ltc",
+    "url": "https://litecoin.org/",
+    "result": 200
+  },
+  {
+    "id": "crypto-bch",
+    "url": "https://bitcoincash.org/",
+    "result": 200
+  },
+  {
+    "id": "crypto-atom",
+    "url": "https://cosmos.network/",
+    "result": 200
+  },
+  {
+    "id": "crypto-trx",
+    "url": "https://tron.network/",
+    "result": 200
+  },
+  {
+    "id": "crypto-xlm",
+    "url": "https://stellar.org/",
+    "result": 200
+  },
+  {
+    "id": "crypto-pol",
+    "url": "https://polygon.technology/",
+    "result": 200
+  },
+  {
+    "id": "crypto-jup",
+    "url": "https://jup.ag/",
+    "result": 200
+  },
+  {
+    "id": "crypto-bonk",
+    "url": "https://bonkcoin.com/",
+    "result": 200
+  },
+  {
+    "id": "stocks-spyx",
+    "url": "https://xstocks-metadata.backed.fi/tokens/Solana/SPYx/metadata.json",
+    "result": 200
+  },
+  {
+    "id": "stocks-nvdax",
+    "url": "https://xstocks-metadata.backed.fi/tokens/Solana/NVDAx/metadata.json",
+    "result": 200
+  },
+  {
+    "id": "stocks-qqqx",
+    "url": "https://xstocks-metadata.backed.fi/tokens/Solana/QQQx/metadata.json",
+    "result": 200
+  },
+  {
+    "id": "stocks-tslax",
+    "url": "https://xstocks-metadata.backed.fi/tokens/Solana/TSLAx/metadata.json",
+    "result": 200
+  },
+  {
+    "id": "stocks-googlx",
+    "url": "https://xstocks-metadata.backed.fi/tokens/Solana/GOOGLx/metadata.json",
+    "result": 200
+  },
+  {
+    "id": "stocks-aaplx",
+    "url": "https://xstocks-metadata.backed.fi/tokens/Solana/AAPLx/metadata.json",
+    "result": 200
+  },
+  {
+    "id": "stocks-amznx",
+    "url": "https://xstocks-metadata.backed.fi/tokens/Solana/AMZNx/metadata.json",
+    "result": 200
+  },
+  {
+    "id": "stocks-metax",
+    "url": "https://xstocks-metadata.backed.fi/tokens/Solana/METAx/metadata.json",
+    "result": 200
+  },
+  {
+    "id": "stocks-msftx",
+    "url": "https://xstocks-metadata.backed.fi/tokens/Solana/MSFTx/metadata.json",
+    "result": 200
+  },
+  {
+    "id": "stocks-coinx",
+    "url": "https://xstocks-metadata.backed.fi/tokens/Solana/COINx/metadata.json",
+    "result": 200
+  },
+  {
+    "id": "stocks-mstrx",
+    "url": "https://xstocks-metadata.backed.fi/tokens/Solana/MSTRx/metadata.json",
+    "result": 200
+  },
+  {
+    "id": "stocks-hoodx",
+    "url": "https://xstocks-metadata.backed.fi/tokens/Solana/HOODx/metadata.json",
+    "result": 200
+  },
+  {
+    "id": "stocks-pltrx",
+    "url": "https://xstocks-metadata.backed.fi/tokens/Solana/PLTRx/metadata.json",
+    "result": 200
+  },
+  {
+    "id": "stocks-crclx",
+    "url": "https://xstocks-metadata.backed.fi/tokens/Solana/CRCLx/metadata.json",
+    "result": 200
+  },
+  {
+    "id": "stocks-gldx",
+    "url": "https://xstocks-metadata.backed.fi/tokens/Solana/GLDx/metadata.json",
+    "result": 200
+  },
+  {
+    "id": "stocks-nflxx",
+    "url": "https://xstocks-metadata.backed.fi/tokens/Solana/NFLXx/metadata.json",
+    "result": 200
+  },
+  {
+    "id": "stocks-amdx",
+    "url": "https://xstocks-metadata.backed.fi/tokens/Solana/AMDx/metadata.json",
+    "result": 200
+  },
+  {
+    "id": "stocks-avgox",
+    "url": "https://xstocks-metadata.backed.fi/tokens/Solana/AVGOx/metadata.json",
+    "result": 200
+  },
+  {
+    "id": "stocks-orclx",
+    "url": "https://xstocks-metadata.backed.fi/tokens/Solana/ORCLx/metadata.json",
+    "result": 200
+  },
+  {
+    "id": "stocks-jpmx",
+    "url": "https://xstocks-metadata.backed.fi/tokens/Solana/JPMx/metadata.json",
+    "result": 200
+  },
+  {
+    "id": "stocks-vx",
+    "url": "https://xstocks-metadata.backed.fi/tokens/Solana/Vx/metadata.json",
+    "result": 200
+  },
+  {
+    "id": "stocks-max",
+    "url": "https://xstocks-metadata.backed.fi/tokens/Solana/MAx/metadata.json",
+    "result": 200
+  },
+  {
+    "id": "stocks-costx",
+    "url": "https://xstocks-metadata.backed.fi/tokens/Solana/COSTx/metadata.json",
+    "result": 200
+  },
+  {
+    "id": "stocks-xomx",
+    "url": "https://xstocks-metadata.backed.fi/tokens/Solana/XOMx/metadata.json",
+    "result": 200
+  },
+  {
+    "id": "private-anthropic",
+    "url": "https://www.anthropic.com/",
+    "result": 200
+  },
+  {
+    "id": "private-openai",
+    "url": "https://openai.com/",
+    "result": "HTTP Error 403: Forbidden"
+  },
+  {
+    "id": "private-anduril",
+    "url": "https://www.anduril.com/",
+    "result": 200
+  },
+  {
+    "id": "private-polymarket",
+    "url": "https://polymarket.com/",
+    "result": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'polymarket.com'. (_ssl.c:1000)>"
+  },
+  {
+    "id": "private-kalshi",
+    "url": "https://kalshi.com/",
+    "result": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'kalshi.com'. (_ssl.c:1000)>"
+  },
+  {
+    "id": "private-neuralink",
+    "url": "https://neuralink.com/",
+    "result": 200
+  },
+  {
+    "id": "private-figure",
+    "url": "https://www.figure.ai/",
+    "result": 200
+  },
+  {
+    "id": "private-oura",
+    "url": "https://ouraring.com/",
+    "result": 200
+  },
+  {
+    "id": "currencies-usdc",
+    "url": "https://www.circle.com/multi-chain-usdc/monad",
+    "result": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'www.circle.com'. (_ssl.c:1000)>"
+  },
+  {
+    "id": "currencies-usdt",
+    "url": "https://tether.to/",
+    "result": 200
+  },
+  {
+    "id": "currencies-eurc",
+    "url": "https://www.circle.com/eurc",
+    "result": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'www.circle.com'. (_ssl.c:1000)>"
+  },
+  {
+    "id": "currencies-dai",
+    "url": "https://sky.money/",
+    "result": 200
+  },
+  {
+    "id": "currencies-pyusd",
+    "url": "https://www.paypal.com/us/digital-wallet/manage-money/crypto/pyusd",
+    "result": 200
+  },
+  {
+    "id": "currencies-usde",
+    "url": "https://ethena.fi/",
+    "result": 200
+  },
+  {
+    "id": "currencies-frax",
+    "url": "https://frax.finance/",
+    "result": 200
+  },
+  {
+    "id": "currencies-usds",
+    "url": "https://sky.money/",
+    "result": 200
+  },
+  {
+    "id": "currencies-rlusd",
+    "url": "https://ripple.com/solutions/stablecoin/",
+    "result": 200
+  },
+  {
+    "id": "currencies-gusd",
+    "url": "https://www.gemini.com/dollar",
+    "result": "<urlopen error [Errno 104] Connection reset by peer>"
+  },
+  {
+    "id": "commodities-paxg",
+    "url": "https://www.paxos.com/paxgold",
+    "result": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'www.paxos.com'. (_ssl.c:1000)>"
+  },
+  {
+    "id": "commodities-xaut",
+    "url": "https://gold.tether.to/",
+    "result": 200
+  },
+  {
+    "id": "commodities-xau",
+    "url": "https://www.lbma.org.uk/prices-and-data/precious-metal-prices",
+    "result": 200
+  },
+  {
+    "id": "commodities-xag",
+    "url": "https://www.lbma.org.uk/prices-and-data/precious-metal-prices",
+    "result": 200
+  },
+  {
+    "id": "commodities-wti",
+    "url": "https://www.cmegroup.com/markets/energy/crude-oil/light-sweet-crude.html",
+    "result": "HTTP Error 403: Forbidden"
+  },
+  {
+    "id": "commodities-brent",
+    "url": "https://www.ice.com/products/219/Brent-Crude-Futures",
+    "result": 200
+  }
+]

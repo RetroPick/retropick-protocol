@@ -90,4 +90,15 @@ contract QuoteAssetRegistryV2Test is Test {
         vm.expectRevert(RetroPickQuoteAssetRegistryV2.WrongChain.selector);
         new RetroPickQuoteAssetRegistryV2(address(this));
     }
+    function testEOANativeDecimalsAndUnboundedThresholdCannotBeAdmitted() public {
+        vm.expectRevert(RetroPickQuoteAssetRegistryV2.InvalidQuoteConfig.selector);
+        registry.configure(address(0x1234), config(6));
+        vm.expectRevert(RetroPickQuoteAssetRegistryV2.InvalidQuoteConfig.selector);
+        registry.configure(address(0), config(6));
+        QuoteAssetConfig memory c = config(18);
+        c.graduationQuoteCeiling = c.graduationThreshold - 1;
+        vm.expectRevert(RetroPickQuoteAssetRegistryV2.InvalidQuoteConfig.selector);
+        registry.configure(address(0), c);
+    }
+
 }

@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './protected-test';
 import { join } from 'node:path';
 import { mkdirSync } from 'node:fs';
 const evidence = process.env.E2E_EVIDENCE_DIR ?? '/tmp/retropick-multi-asset-evidence';
@@ -33,4 +33,21 @@ test('graduated live terminal uses the SDK orderbook and shows completed bonding
  await expect(page.locator('[data-logo-kind="quote"]').first()).toBeVisible();await snap(page,'graduated-orderbook');
  if(test.info().project.name.includes('mobile')) {await page.getByRole('button',{name:'Trade',exact:true}).click();await expect(page.getByTestId('pair-identity').last()).toBeVisible();await snap(page,'mobile-ticket');}
  expect(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth)).toBe(false);
+});
+test('admitted USDC keeps its verified address, venue and exact economics through review; WMON remains preview',async({page})=>{
+ test.setTimeout(90000);
+ await page.goto('/launchpad/create');await page.getByPlaceholder('Retro Coin',{exact:true}).fill('Admission Check');await page.getByPlaceholder('RETRO',{exact:true}).fill('QCHK');await page.getByRole('button',{name:'Continue',exact:true}).click();
+ await page.getByRole('button',{name:/Currencies 10/}).click();await page.getByRole('radio',{name:/USDC/}).click();
+ await expect(page.getByText('Currently admitted for this venue on Monad Testnet.')).toBeVisible({timeout:60000});
+ // Wait for the pinned economics call as well as registry admission.
+ await expect.poll(async()=>{await page.getByRole('button',{name:'Review',exact:true}).click();return await page.getByTestId('launch-review').count();},{timeout:30000}).toBe(1);
+ const review=page.getByTestId('launch-review');await expect(review).toContainText('0x534b2f3A21130d7a60830c2Df862319e593943A3');await expect(review).toContainText('6 decimals');await expect(review).toContainText('1 USDC');await expect(review).toContainText('Kuru orderbook');await expect(page.getByRole('button',{name:'Connect wallet to launch'})).toBeVisible();await snap(page,'usdc-review');
+ await page.getByRole('button',{name:'Back',exact:true}).click();await page.getByRole('button',{name:/Crypto 35/}).click();await page.getByLabel('Search quote assets').fill('WMON');await page.getByRole('radio',{name:/WMON/}).click();await page.getByRole('button',{name:'Review',exact:true}).click();await expect(page.getByTestId('launch-review')).toContainText('WMON');await expect(page.getByRole('button',{name:'Save local preview'})).toBeVisible();await expect(page.getByRole('button',{name:'Connect wallet to launch'})).toHaveCount(0);
+ expect(await page.evaluate(()=>(window as any).__quoteSigningCalls.filter((m:string)=>/send|sign/i.test(m)))).toEqual([]);
+});
+test('base artwork and catalog quote artwork render independently and quote failures keep layout stable',async({page})=>{
+ await page.goto('/launchpad/token/0xf8f17922599136b44e175eec9a43123c000f3366');await expect(page.getByTestId('token-terminal')).toBeVisible({timeout:45000});
+ const base=page.locator('.rp-head [data-logo-kind="base"] img'),quote=page.locator('.rp-head [data-logo-kind="quote"] img');
+ await expect.poll(()=>base.evaluate((img:HTMLImageElement)=>img.naturalWidth),{timeout:30000}).toBeGreaterThan(0);await expect.poll(()=>quote.evaluate((img:HTMLImageElement)=>img.naturalWidth),{timeout:15000}).toBeGreaterThan(0);
+ const before=await page.locator('.rp-head .rp-pair-avatars').boundingBox();await page.route('**/quote-assets/mon.png',route=>route.abort());await page.reload();await expect(page.getByRole('img',{name:'MON quote logo fallback'}).first()).toBeVisible({timeout:30000});const after=await page.locator('.rp-head .rp-pair-avatars').boundingBox();expect(after?.width).toBe(before?.width);await expect.poll(()=>page.locator('.rp-head [data-logo-kind="base"] img').evaluate((img:HTMLImageElement)=>img.naturalWidth)).toBeGreaterThan(0);
 });

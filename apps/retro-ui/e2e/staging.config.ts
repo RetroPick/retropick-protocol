@@ -17,7 +17,7 @@ export default defineConfig({
   reporter: [['list']],
   use: {
     baseURL: stagingUrl,
-    trace: 'retain-on-failure',
+    trace: process.env.VERCEL_AUTOMATION_BYPASS_SECRET ? 'off' : 'retain-on-failure',
     screenshot: 'only-on-failure',
   },
   projects: [

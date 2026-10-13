@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './protected-test';
 
 // Read-only checks against the PUBLIC staging deployment. Live mode only: no wallet,
 // no signing, no /api writes. Asserts real data (not fixtures), SPA deep links, the

@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "project": {
+    "name": "retropick-protocol",
+    "productType": null,
+    "stack": [
+      "React 19",
+      "Vite 8",
+      "TypeScript",
+      "Tailwind CSS 4",
+      "Radix UI"
+    ]
+  },
+  "sources": {
+    "tokens": [],
+    "components": [
+      "apps/retro-ui/src/components/trading/primitives.tsx"
+    ],
+    "assets": [],
+    "instructions": [
+      "AGENTS.md"
+    ]
+  },
+  "design": {
+    "colorMode": "dark",
+    "colors": {
+      "accent": "#836ef9",
+      "background": "#101016",
+      "border": "#302c3b"
+    },
+    "typography": {
+      "source": "apps/retro-ui/src/components/trading/trading.css"
+    },
+    "spacing": {},
+    "radius": {},
+    "shadows": {},
+    "motion": {},
+    "density": "compact"
+  },
+  "components": {
+    "installed": [],
+    "preferredPrimitives": [],
+    "patterns": []
+  },
+  "constraints": {
+    "must": [
+      "Preserve RetroPick typography, spacing, layout and dark violet identity",
+      "Separate catalog metadata from onchain permission",
+      "Original launch artwork beside quote artwork"
+    ],
+    "avoid": [
+      "Unrelated redesign",
+      "Unverified market data or USD pricing",
+      "Copying competitor artwork"
+    ]
+  },
+  "decisions": [],
+  "evidence": [
+    {
+      "fact": "project.instructions",
+      "source": "AGENTS.md"
+    }
+  ],
+  "generatedAt": "2026-10-13T14:22:21.459Z"
+}

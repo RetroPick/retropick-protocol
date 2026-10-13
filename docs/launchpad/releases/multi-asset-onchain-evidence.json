@@ -1,0 +1,97 @@
+{
+  "checkedAt": "2026-10-13T14:48:28.980Z",
+  "chainId": 10143,
+  "block": "70709403",
+  "terms": {
+    "blockNumber": "70709403",
+    "launchEnabled": true,
+    "canLaunch": null,
+    "launchFee": "0",
+    "maxCreatorTaxBps": "1000",
+    "currentHookFeeBps": "100",
+    "snipeTaxSeconds": "15",
+    "snipeTaxStartBps": "0",
+    "configs": [
+      {
+        "id": "0",
+        "supply": "1000000000000000000000",
+        "curveFeeBps": "100",
+        "phantomQuote": "1000000000000000000",
+        "graduationThreshold": "1000000000000000000",
+        "poolFee": 0,
+        "tickSpacing": 60,
+        "enabled": true
+      }
+    ],
+    "quotes": [
+      {
+        "venue": 0,
+        "address": "0x0000000000000000000000000000000000000000",
+        "symbol": "MON",
+        "decimals": 18,
+        "phantomQuote": "1000000000000000000",
+        "graduationThreshold": "1000000000000000000",
+        "graduationQuoteCeiling": "50000000000000000000",
+        "policyVersion": 1,
+        "policyHash": "0x11dc7a03a457860be9736edb4f3faf0810c98368cc3467c45a47e13cdb602464",
+        "assetId": "0x3736c40ffe29d9bda417b2e546205e5b41d3b3d83af24c07fcc7776453329095"
+      },
+      {
+        "venue": 0,
+        "address": "0x534b2f3A21130d7a60830c2Df862319e593943A3",
+        "symbol": "USDC",
+        "decimals": 6,
+        "phantomQuote": "1000000",
+        "graduationThreshold": "1000000",
+        "graduationQuoteCeiling": "50000000",
+        "policyVersion": 1,
+        "policyHash": "0xc41497b008b8ccc1a94d7785092ebab9d682b2a4889eb2ae9ccd0884f0b50499",
+        "assetId": "0x97a5025a6514ff49537e9e8c5b75e7842f5552c4a6a727cf21c4c76b037ff680"
+      },
+      {
+        "venue": 1,
+        "address": "0x0000000000000000000000000000000000000000",
+        "symbol": "MON",
+        "decimals": 18,
+        "phantomQuote": "1000000000000000000",
+        "graduationThreshold": "1000000000000000000",
+        "graduationQuoteCeiling": "50000000000000000000",
+        "policyVersion": 1,
+        "policyHash": "0x11dc7a03a457860be9736edb4f3faf0810c98368cc3467c45a47e13cdb602464",
+        "assetId": "0x3736c40ffe29d9bda417b2e546205e5b41d3b3d83af24c07fcc7776453329095"
+      },
+      {
+        "venue": 1,
+        "address": "0x534b2f3A21130d7a60830c2Df862319e593943A3",
+        "symbol": "USDC",
+        "decimals": 6,
+        "phantomQuote": "1000000",
+        "graduationThreshold": "1000000",
+        "graduationQuoteCeiling": "50000000",
+        "policyVersion": 1,
+        "policyHash": "0xc41497b008b8ccc1a94d7785092ebab9d682b2a4889eb2ae9ccd0884f0b50499",
+        "assetId": "0x97a5025a6514ff49537e9e8c5b75e7842f5552c4a6a727cf21c4c76b037ff680"
+      }
+    ]
+  },
+  "wrapper": {
+    "address": "0xff437B117Ec17a79a3b24Da4B5047dca4da9D0a2",
+    "name": "Wrapped Ether",
+    "symbol": "WETH",
+    "decimals": 18,
+    "codeBytes": 2833,
+    "codeHash": "0xd78783c3e995334692fbc293d78dabcfeca985e0958beaecc2d34c6a3637aecf",
+    "config": {
+      "enabled": false,
+      "decimals": 0,
+      "venueMask": 0,
+      "policyVersion": 0,
+      "phantomQuote": "0",
+      "graduationThreshold": "0",
+      "graduationQuoteCeiling": "0",
+      "assetId": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "policyHash": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    }
+  },
+  "gasPriceWei": "102000000000"
+}

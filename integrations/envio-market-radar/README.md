@@ -1,43 +1,33 @@
-# @retropick/envio-market-radar
+# Envio Market Quality Radar
 
-Envio HyperSync-powered Market Quality Radar for RetroPick (Monad Testnet, chain 10143).
-Streams launch-lifecycle events (TokenLaunched / LaunchCommitted / GraduationSecured /
-GraduationCompleted) and Kuru orderbook events (OrderCreated / OrderCanceled /
-OrdersCanceled / Trade) from Envio's HyperSync endpoint and serves exact-integer
-aggregates: lifecycle counts, active-on-curve, per-token graduation latency, per-market
-trade counts / filled volume / order churn / staleness.
+RetroPick uses Envio HyperSync on Monad Testnet (chain 10143) to power the Market Quality Radar in the canonical `apps/retro-ui` token terminal. The public product is https://retropick.xyz. This integration is a standalone package; installing its dependencies does not alter the legacy frontend.
 
-Standalone package (NOT a pnpm workspace member, by design): installing it never
-triggers a root-wide workspace install, so nothing can write into `apps/web`.
+The Radar joins launch, commitment, protected-graduation and Kuru orderbook events. It turns those logs into lifecycle phase, graduation latency, time to first Kuru trade, historical filled base amount, gross MON trading volume, created orders, deduplicated cancellations and last-trade age. These measures help a trader distinguish a graduated market from a recently active market. They are historical observations; live executable orderbook depth comes from direct verified contract reads.
 
-## Status: BLOCKED_EXTERNAL for live data (verified 2026-10-11)
+## Current qualification
 
-- `envio` CLI 3.14.0 works via npx; Docker 29.8.2 available.
-- `@envio-dev/hypersync-client` 1.4.1 installs, but **constructing the client requires
-  `apiToken`** (`Missing field apiToken`) and `https://10143.hypersync.xyz` answers
-  HTTP 401 to anonymous requests — Envio's endpoint policy is token-gated.
-- No `ENVIO_API_TOKEN` exists in this environment. Live streaming + the retro-ui
-  consumption panel are therefore **not claimed as working**.
+Verified 2026-10-14 GMT+7: the existing public Envio pipeline is live, but its old aggregation has incorrect Kuru unit normalization and double-counts overlapping cancellation events. The corrected aggregation version 4 passed **35/35 tests** and an isolated real HyperSync catch-up with **lag 0, canonical anchor verified**. Production backend upgrade is **PENDING_ACCESS**, because the configured VPS SSH routes reject their keys. Do not represent the corrected backend as already deployed.
 
-## What IS done and verified
+Evidence is under `evidence/hackathon/metropolis/submission-20261014/radar-correction/`: `live-candidate.json`, `live-candidate-health.json`, `apex-before-upgrade.json` and `envio-redeploy-readiness.json`. Current production responses are available through `/api/radar/health` and `/api/radar/radar` on the public product. Verify `aggregationVersion: 4` before relying on normalized amounts. The matching frontend correction treats legacy or unverified amounts as unavailable.
 
-- Pure aggregation core (`src/radar.ts`): 8/8 unit tests — lifecycle latency math,
-  duplicate-delivery idempotence, exact-bigint Kuru volume (18-dec normalized), out-of-order
-  tolerance, market→token mapping, staleness semantics, bigint-safe wire format.
-- Stream + server wired to the real client API (token-gated, fail-closed exit code 2
-  with a pointer to EXTERNAL-BLOCKERS when the token is absent).
+## Correctness and recovery
 
-## To go live (operator, ~15 min once a token exists)
+- Exact integer arithmetic uses the market's verified `sizePrecision`, token decimals and native MON quote. Market parameters, Router registration and Kuru environment validation are read at the same block; unavailable or unsupported parameters leave amounts **null**, never invented zero.
+- Gross quote volume is `sum(price × filledSize) / sizePrecision`; base units are `sum(filledSize) × 10^baseDecimals / sizePrecision`. It is gross traded amount, not guaranteed net settlement or fee-adjusted proceeds.
+- Raw logs are journaled durably. Version 3 snapshots migrate through preserved raw-journal replay to schema 4. Cursor advancement, crash recovery, delivery deduplication, cancellation semantic deduplication, canonical anchors and reorg replay are tested.
+- Pipeline freshness and market activity freshness are separate. A current cursor can coexist with a market whose last trade was days ago. These testnet events do not prove organic users or production liquidity.
+- The service has no signing key or financial write method. Indexer data never replaces onchain economic authority.
 
-1. Create an Envio API token (envio.dev dashboard).
-2. `cd integrations/envio-market-radar && npm install`
-3. `ENVIO_API_TOKEN=… npm start` (port 8791; `RADAR_MARKET_TOKENS='{"0x1f5de…":"0x43e7…"}'`
-   to join markets to tokens).
-4. retro-ui consumption panel behind `VITE_ENVIO_RADAR_URL` (next action — small fetch
-   adapter + Earn/Launchpad panel; fail-closed to the existing indexer).
+## Run and validate
 
-## Anti-goals honored
+```sh
+cd integrations/envio-market-radar
+npm ci
+npm test
+# Supply ENVIO_API_TOKEN through the existing protected environment file.
+node --experimental-strip-types src/server.ts
+```
 
-Does not replace the existing indexer; orderbook depth/spread for trading decisions
-still comes from direct verified on-chain reads (Stage 1 depth panel), never from past
-trade logs.
+Node 24+ is required. The HTTP server binds loopback port 8791. Configure `RADAR_CHAIN_ID`, `RADAR_FACTORY`, `RADAR_COORDINATOR`, `RADAR_FROM_BLOCK`, `RADAR_STATE_DIR` and read-only `RADAR_RPC_URL` to match the deployed release. An optional `RADAR_MARKET_TOKENS` mapping bootstraps historical markets; `GraduationCompleted` supplies authoritative lifecycle joins. Preserve protected credentials and the existing raw journal during upgrades. The endpoint is token-gated and free-plan request limits can delay catch-up; no credentials are returned by the API.
+
+This project uses the **HyperSync client** path allowed by the Envio bounty, rather than claiming a HyperIndex deployment. The public client code and event aggregation are `src/stream.ts`, `src/radar.ts`, `src/journal.ts` and `src/market-params.ts`. The frontend consumer is `apps/retro-ui/src/lib/live/radar-client.ts` and `apps/retro-ui/src/features/launchpad/terminal/market-radar.tsx`.

@@ -1,0 +1,32 @@
+Compiling 140 files with Solc 0.8.26
+Solc 0.8.26 finished in 259.75s
+Compiler run successful with warnings:
+Warning (5159): "selfdestruct" has been deprecated. Note that, starting from the Cancun hard fork, the underlying opcode no longer deletes the code and data associated with an account and only transfers its Ether to the beneficiary, unless executed in the same transaction in which the contract was created (see EIP-6780). Any use in newly deployed contracts is strongly discouraged even if the new behavior is taken into account. Future changes to the EVM might further reduce the functionality of the opcode.
+   --> test/v2/integration/KuruV2EndToEndFork.t.sol:276:9:
+    |
+276 |         selfdestruct(receiver);
+    |         ^^^^^^^^^^^^
+
+Warning (2018): Function state mutability can be restricted to view
+   --> src/v1/RetroPickBondingCurveV1.sol:815:5:
+    |
+815 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to view
+   --> src/v2/RetroPickBondingCurveV2.sol:861:5:
+    |
+861 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 1 test for test/v2/integration/WMONQuoteQualificationFork.t.sol:WMONQuoteQualificationForkTest
+[PASS] testWMONExistingWrapperAndRealKuruGraduation() (gas: 8790099)
+Logs:
+  fresh_monad_kuru_fork_block: 70709403
+  WMON_completion_buy_gas: 742678
+  WMON_graduation_test_segment_gas: 3123132
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 9.63s (4.65s CPU time)
+
+Ran 1 test suite in 9.67s (9.63s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

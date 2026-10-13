@@ -1,0 +1,10 @@
+✔ canonical launch transaction replays and decodes TokenLaunched (731.782137ms)
+✔ demo launch reads back GRADUATED via the SDK read model (749.327504ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2256.61098

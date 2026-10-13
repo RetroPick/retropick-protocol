@@ -1,0 +1,16 @@
+$ node --test tests/vault.test.mjs
+✔ encode/decode roundtrip preserves entries exactly (4.658054ms)
+✔ decode rejects malformed payloads fail-closed (2.68447ms)
+✔ validateEntry accepts boundary values (1.585508ms)
+✔ newEntryId matches the id pattern and is unique (9.89672ms)
+✔ storage roundtrip: save then load returns the same vault; clear removes it (1.731451ms)
+✔ tampered stored vault is detected at read (mera parser) (1.741274ms)
+✔ describeVaultError maps mera codes to actionable text (0.69964ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 306.949677

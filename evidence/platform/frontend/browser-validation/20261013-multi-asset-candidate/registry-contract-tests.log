@@ -1,0 +1,12 @@
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 4.86s
+Compiler run successful!
+
+Ran 4 tests for test/v2/unit/QuoteAssetRegistryV2.t.sol:QuoteAssetRegistryV2Test
+[PASS] testAdmissionVersionAndVenueSnapshot() (gas: 356710)
+[PASS] testChainAndPolicyHashFailClosed() (gas: 284242)
+[PASS] testEOANativeDecimalsAndUnboundedThresholdCannotBeAdmitted() (gas: 164818)
+[PASS] testExactIdentityAndOwnerAdmissionRequired() (gas: 920616)
+Suite result: ok. 4 passed; 0 failed; 0 skipped; finished in 14.79ms (14.41ms CPU time)
+
+Ran 1 test suite in 85.14ms (14.79ms CPU time): 4 tests passed, 0 failed, 0 skipped (4 total tests)

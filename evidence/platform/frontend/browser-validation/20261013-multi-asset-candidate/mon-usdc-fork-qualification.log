@@ -1,0 +1,14 @@
+No files changed, compilation skipped
+
+Ran 2 tests for test/v2/integration/KuruV2EndToEndFork.t.sol:KuruV2EndToEndForkTest
+[PASS] testFreshCircleProductionGraduationCustodyReplay() (gas: 9016290)
+Logs:
+  fresh_monad_kuru_fork_block: 70709403
+
+[PASS] testFreshNativeProductionGraduationCustodyReplay() (gas: 7607304)
+Logs:
+  fresh_monad_kuru_fork_block: 70709403
+
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 6.31s (6.77s CPU time)
+
+Ran 1 test suite in 6.32s (6.31s CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)

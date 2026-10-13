@@ -28,7 +28,7 @@ See `multi-asset-onchain-evidence.json` for block 70,709,403. MON and Circle-lis
 
 The existing wrapper `0xff437B117Ec17a79a3b24Da4B5047dca4da9D0a2` has 18 decimals, nonempty code, `Wrapped Ether`/`WETH` metadata and disabled version-zero registry config. Its source wraps native MON; it is not an ETH-backed asset. A local-fork test exercises wrapping/unwrapping, exact transfers/approval, curve completion, real Kuru graduation, permanent locks, custody and replay protection using newly deployed local fixture contracts. Live admission remains blocked pending operator review and explicit transaction approval.
 
-A separate unbacked `rpTestWBTC` proposal remains **not deployed**, with no address assigned. Suggested test-only identity: "RetroPick Test Bitcoin representation", symbol `rpWBTC`, eight decimals, fixed transparent mint policy; no Bitcoin reserves, redemption, issuer backing or official WBTC affiliation. Before admission: review exact runtime/issuance powers, transfer/approve compatibility and freeze/rebase/fee behavior; qualify phantom/threshold/ceiling and both requested venues on a pinned fork; prove Kuru grid/seed/fill compatibility, LP/excess locks, creator fees and two-actor trading; fund operator/test wallets; estimate gas against then-current RPC gas price. No permission or financial parameters are proposed as approved by this report.
+A separate unbacked `rpTestWBTC` proposal remains **not deployed**, with no address assigned. Suggested test-only identity: "RetroPick Test Bitcoin representation", symbol `rpWBTC`, fixed transparent mint policy; no Bitcoin reserves, redemption, issuer backing or official WBTC affiliation. The unchanged deployed Kuru policy accepts only six or 18 decimals, supply 1,000 tokens, phantom = threshold = one quote unit, and ceiling = 50 quote units. An eight-decimal representation fails that policy. A clearly unbacked 18-decimal representation could be investigated without changing the policy, but has no qualification evidence yet. Before admission: review exact runtime/issuance powers, transfer/approve compatibility and freeze/rebase/fee behavior; qualify phantom/threshold/ceiling and both requested venues on a pinned fork; prove Kuru grid/seed/fill compatibility, LP/excess locks, creator fees and two-actor trading; fund operator/test wallets; estimate gas against then-current RPC gas price. No permission or financial parameters are proposed as approved by this report.
 
 ## Demo narratives and limitations
 
@@ -36,4 +36,41 @@ A separate unbacked `rpTestWBTC` proposal remains **not deployed**, with no addr
 2. USDC: select the verified Circle address and review admitted economics. Wallet funding and a fresh live USDC launch/graduation must be separately evidenced; prior qualification reports marked funding blocked.
 3. WMON: explain native wrapper identity and preview while permission is absent. Only after operator approval and complete compatibility evidence may it become executable. `rpTestWBTC` is a distinct later proposal, not a replacement or alias for this wrapper.
 
-Validation results, candidate URL/SHA, screenshots and remaining blockers are appended after candidate testing.
+## Verified candidate release
+
+Candidate: https://retropick-metropolis-retro-ui-staging-icq0n7tne-asyams-projects.vercel.app (existing Vercel access protection applies).
+
+Exact deployed and browser-tested source: `ea031e58428b9ddfee313de597928f0465a1bc5b`. Subsequent branch commits record evidence and test assertions only. Candidate is unpromoted. Production release was reread after testing and still identifies `e7188395db7ce84ab1fcae29df017b74f6582f9e`; the existing staging alias also remained on deployment `dpl_87KN562TwXxRh87dBPe4Y1AS15h6`. No deployment protection settings were changed. Browser authentication used the existing automation credential in memory, scoped to the candidate origin; secret-bearing traces were disabled.
+
+### Validation
+
+| Check | Result |
+| --- | --- |
+| Latest candidate Playwright, desktop and mobile | 32 passed, no retries |
+| SDK unit suite | 62 passed; two network cases intentionally skipped |
+| SDK read-only Monad network replay | Both network cases passed separately |
+| SDK/frontend typechecks and UI production build | Passed |
+| Frontend / product / terminal unit suites | 17 / 3 / 14 passed |
+| Media / indexed-record / vault regression suites | 5 / 6 / 7 passed |
+| Existing fixture browser matrix | 91 passed directly, one passed on retry, ten intentional device skips |
+| Bonding lifecycle assertions, both themes and viewports | 16 passed |
+| Registry contract unit tests | Four passed |
+| Pinned-fork WMON wrap/transfer/Kuru graduation qualification | One passed |
+| Pinned-fork native MON and Circle USDC graduation | Two passed |
+| UI review | Four files reviewed, zero findings |
+
+All fork actions used local fixture contracts at block 70,709,403; no live transactions were broadcast. The candidate browser suite covers real indexed Monad listings (11 MON-paired launches at inspection), quote identity and review economics, reference previews without signing, independent logos/fallbacks, filters, SDK orderbook, responsive layouts, wallet picker, Mera/Earn, referral routing and console/overflow checks. Error recovery uses explicitly routed test responses; no fixture launch is inserted into live discovery.
+
+Evidence and [changed-file inventory](../../../evidence/platform/frontend/browser-validation/20261013-multi-asset-candidate/CHANGED_FILES.txt) are retained under `evidence/platform/frontend/browser-validation/20261013-multi-asset-candidate/`. Representative screenshots: [desktop picker](../../../evidence/platform/frontend/browser-validation/20261013-multi-asset-candidate/screenshots/staging-desktop-1440-quote-picker.png), [mobile picker](../../../evidence/platform/frontend/browser-validation/20261013-multi-asset-candidate/screenshots/staging-mobile-390-quote-picker.png), [discovery](../../../evidence/platform/frontend/browser-validation/20261013-multi-asset-candidate/screenshots/staging-desktop-1440-discovery.png), [USDC review](../../../evidence/platform/frontend/browser-validation/20261013-multi-asset-candidate/screenshots/staging-desktop-1440-usdc-review.png), [graduated orderbook](../../../evidence/platform/frontend/browser-validation/20261013-multi-asset-candidate/screenshots/staging-desktop-1440-graduated-orderbook.png), [mobile trading ticket](../../../evidence/platform/frontend/browser-validation/20261013-multi-asset-candidate/screenshots/staging-mobile-390-mobile-ticket.png).
+
+### Metadata evidence and limits
+
+The catalog has 66 sourced logo slots (WMON shares the native logo) and 17 stable text fallbacks. The source-check log records 73 HTTP successes and ten transport/access failures across 83 source requests; all 24 stock metadata requests succeeded. A successful source fetch verifies reference identity, not a token deployment or integration. Supplemental primary sources for affected references include [ARB](https://docs.arbitrum.foundation/concepts/arb-token), [AAVE](https://www.aave.com/docs/ecosystem/aave), [OpenAI](https://openai.com/about), [Polymarket](https://help.polymarket.com/en/articles/13364060-what-is-polymarket), [Kalshi](https://kalshi.com/about), [EURC](https://www.circle.com/eurc), [GUSD](https://www.gemini.com/dollar) and [PAXG](https://docs.paxos.com/guides/stablecoin/paxg). Reference contracts/mints, decimals and quote/USD feeds remain unverified unless explicitly populated. Custom addresses are unverified reference metadata until independent contract-backed admission succeeds.
+
+### Proposed onchain next steps — approval required
+
+[WMON_UNSIGNED_PROPOSAL.json](WMON_UNSIGNED_PROPOSAL.json) contains a read-only estimate for a **Kuru-only** admission proposal at block 70,715,398. Proposed version-one policy uses 18 decimals, phantom/threshold one unit and ceiling 50 units, retaining the existing 1,000-token profile. The estimate was 161,279 gas at 102 gwei, approximately **0.016450458 MON**; it is time-bound and must be refreshed. The manifest/registry operator wallet held approximately 9.236 MON and zero Circle USDC at that block. Wallet funding evidence covers that wallet only. WMON can be funded by wrapping native MON after separate approval; no wrapping or funding action occurred here.
+
+Remaining WMON gates: two-actor trading, creator-fee/buyback variants, fresh identity/version and funding checks, and operator review of the final transaction. Uniswap V4 remains unqualified for WMON, so no two-venue permission is proposed. Existing fork results support the minimum Kuru profile, not comprehensive security certification. Local fork test gas (including assertions) is not a live transaction estimate.
+
+The third onchain demo remains blocked by these qualification gates and explicit approval. USDC is admitted, but funding and a new signed live USDC demo remain pending. Stock/private/company/commodity references have no executable Monad support. No quote/USD source is configured; financial values retain their quote units. Promotion of this candidate and any registry/token transaction require separate explicit user approval.

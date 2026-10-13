@@ -22,6 +22,7 @@ for (const theme of ['dark', 'light'] as const) {
         await expect(page.getByTestId('token-price')).not.toHaveText('—');
         await expect(page.getByTestId('token-price')).not.toContainText('$');
         await expect(terminal).toContainText(symbol);
+        if (state !== 'ACTIVE') { await expect(page.getByTestId('bonding-progress')).toContainText('100%'); await expect(page.getByRole('progressbar', { name: /Bonding progress/ })).toHaveAttribute('aria-valuenow', '100'); }
         await expect(page.locator('[data-chart-mode="Line"] canvas').first()).toBeVisible();
         // Never a blocking full-page loader.
         await expect(page.getByText('Loading launch…')).toHaveCount(0);

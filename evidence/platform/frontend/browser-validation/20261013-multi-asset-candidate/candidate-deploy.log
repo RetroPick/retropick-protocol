@@ -1,0 +1,6 @@
+tunnel: https://api-staging.retropick.xyz
+origin: https://retropick-metropolis-retro-ui-stagi.vercel.app
+source sha: ea031e58428b9ddfee313de597928f0465a1bc5b
+candidate: https://retropick-metropolis-retro-ui-staging-icq0n7tne-asyams-projects.vercel.app
+source sha: ea031e58428b9ddfee313de597928f0465a1bc5b
+existing domains retained

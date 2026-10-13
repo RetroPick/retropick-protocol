@@ -1,0 +1,38 @@
+{
+  "label": "UNSIGNED PROPOSAL — NOT APPROVED OR BROADCAST",
+  "chainId": 10143,
+  "block": "70715398",
+  "checkedAt": "2026-10-13T15:18:55.489Z",
+  "owner": "0xB505cBaab3ACdF287af1366b9B1229404757913b",
+  "quote": "0xff437B117Ec17a79a3b24Da4B5047dca4da9D0a2",
+  "currentVenueProposal": "KURU only; Uniswap V4 remains unqualified",
+  "configurationProposal": {
+    "enabled": true,
+    "decimals": 18,
+    "venueMask": 2,
+    "policyVersion": 1,
+    "phantomQuote": "1000000000000000000",
+    "graduationThreshold": "1000000000000000000",
+    "graduationQuoteCeiling": "50000000000000000000",
+    "assetId": "0x909fabc16ce20f65ea88a139e40e12c1ffcc22d51618d3a4470c7614de0e2acd",
+    "policyHash": "0x0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "estimateGas": "161279",
+  "estimateError": null,
+  "gasPriceWei": "102000000000",
+  "estimatedConfigurationCostMon": "0.016450458",
+  "fundingEvidence": {
+    "wallet": "0xB505cBaab3ACdF287af1366b9B1229404757913b",
+    "nativeBalanceWei": "9236068993762673161",
+    "circleUsdcBalanceRaw": "0",
+    "circleUsdcDecimals": 6,
+    "scope": "Manifest/registry operator wallet only. No custody keys or funding actions."
+  },
+  "remainingGates": [
+    "Operator review and explicit transaction approval",
+    "Two-actor live-compatible trading qualification",
+    "Creator fee / buyback variants",
+    "Uniswap V4 qualification before requesting venueMask 3",
+    "Fresh identity and policy-version reread immediately before approval"
+  ]
+}

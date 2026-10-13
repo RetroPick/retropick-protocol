@@ -25,5 +25,48 @@
       "sha256": "18a5511c85fd78c202942b1b6caa595524c02410d1d8501e23709174bd928ed2"
     }
   ],
-  "build": "bun build src/commands/retropick/markets.ts src/commands/retropick/market/inspect.ts src/commands/retropick/market/risk.ts --outdir dist/commands/retropick --root src/commands/retropick --target node --external @metamask/agent-wallet/plugin --external @oclif/core --external viem"
+  "build": "bun build src/commands/retropick/markets.ts src/commands/retropick/market/inspect.ts src/commands/retropick/market/risk.ts --outdir dist/commands/retropick --root src/commands/retropick --target node --external @metamask/agent-wallet/plugin --external @oclif/core --external viem",
+  "corrections": [
+    "Public read commands use supported requiresAuth:false and requiresInit:false; host plugin consent/beta gates remain.",
+    "Named Coordinator tuple parsing fixes phase NaN/null and validates graduated receipt market.",
+    "Shared getMarketParams ABI matches deployed 11-output tuple; quote command remains excluded/unverified.",
+    "Risk history and staleness are unknown, not guessed zero/false; quoted prices may include vault/AMM."
+  ],
+  "distributionFiles": [
+    {
+      "path": "src/context.ts",
+      "sha256": "a361d0f89613a31aaece6f236293e7eea47dc312b0d02e5a0585db93010260c8"
+    },
+    {
+      "path": "src/policy.ts",
+      "sha256": "656ca8c101d180743687145ef31d33fe9f9c0064efbc053d42bab1296fa91f9b"
+    },
+    {
+      "path": "src/commands/retropick/markets.ts",
+      "sha256": "423909bb527f0952360bf16a51426ffd2817ec203de801263e5e3ed932001052"
+    },
+    {
+      "path": "src/commands/retropick/market/inspect.ts",
+      "sha256": "d65587e0a87816f74a170aaaee46231a1ceae4688662f3d0038e64749453348a"
+    },
+    {
+      "path": "src/commands/retropick/market/risk.ts",
+      "sha256": "106b10733deed08f03b08cb3d55e85c94ae49a64a69eadab0e54e0fc4d70885f"
+    }
+  ],
+  "verification": {
+    "cli": "6.2.1",
+    "node": "22.23.2",
+    "readOnlyCommands": 3,
+    "publicReadExitCodes": [
+      0,
+      0,
+      0
+    ],
+    "observedAt": "2026-10-13T23:16:54Z–23:17:07Z",
+    "observedHead": "70809470",
+    "tradeHistory": "not queried",
+    "staleness": null,
+    "writeExecution": "NOT_IMPLEMENTED"
+  }
 }

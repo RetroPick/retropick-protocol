@@ -4,7 +4,9 @@ import { assessRisk } from '../../../policy.ts';
 import { RETROPICK, abis, monadClient, policyOf } from '../../../context.ts';
 
 /** `mm retropick market risk <market>` — explainable pre-entry risk read (never a score without factors). */
-export default class MarketRiskCommand extends PluginCommand<{ spreadBps: string | null; oneSided: boolean; staleBook: boolean; notes: string[] }> {
+export default class MarketRiskCommand extends PluginCommand<{ spreadBps: string | null; oneSided: boolean; staleBook: null; tradeHistoryQueried: false; quoteSource: string; notes: string[] }> {
+  static override requiresAuth = false;
+  static override requiresInit = false;
   static override description = 'Explainable risk factors for a market before entering a position';
   static override args = { market: Args.string({ required: true }) };
   protected readonly pluginCommandId = 'retropick market risk';
@@ -20,8 +22,10 @@ export default class MarketRiskCommand extends PluginCommand<{ spreadBps: string
     ])) as unknown as [readonly bigint[], bigint];
     const mid = best[0] + best[1] > 0n ? (best[0] + best[1]) / 2n : 0n;
     const risk = assessRisk(policyOf(), { bestBidX18: best[0], bestAskX18: best[1], midX18: mid, lastTradeBlock: null, headBlock: Number(headBlock) });
-    for (const note of risk.notes) io.emit(`risk: ${note}`);
+    const notes = risk.notes.map((note) => note === 'no observed trades yet' ? 'trade history not queried; activity and staleness are unknown' : note);
+    notes.push('bestBidAsk may include indicative vault/AMM quotes; resting order depth and execution are not proven');
+    for (const note of notes) io.emit(`risk: ${note}`);
     if (risk.caution) io.emit('Risk: reducing intended order size may be prudent.');
-    return { spreadBps: risk.spreadBps?.toString() ?? null, oneSided: risk.oneSided, staleBook: risk.staleBook, notes: risk.notes };
+    return { spreadBps: risk.spreadBps?.toString() ?? null, oneSided: risk.oneSided, staleBook: null, tradeHistoryQueried: false, quoteSource: 'Kuru bestBidAsk (may include vault/AMM)', notes };
   }
 }

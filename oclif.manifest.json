@@ -46,8 +46,8 @@
       "pluginType": "core",
       "strict": true,
       "enableJsonFlag": false,
-      "requiresAuth": true,
-      "requiresInit": true,
+      "requiresAuth": false,
+      "requiresInit": false,
       "requiresFees": false,
       "byokPasswordFlags": {
         "password": {
@@ -129,8 +129,8 @@
       "pluginType": "core",
       "strict": true,
       "enableJsonFlag": false,
-      "requiresAuth": true,
-      "requiresInit": true,
+      "requiresAuth": false,
+      "requiresInit": false,
       "requiresFees": false,
       "byokPasswordFlags": {
         "password": {
@@ -212,8 +212,8 @@
       "pluginType": "core",
       "strict": true,
       "enableJsonFlag": false,
-      "requiresAuth": true,
-      "requiresInit": true,
+      "requiresAuth": false,
+      "requiresInit": false,
       "requiresFees": false,
       "byokPasswordFlags": {
         "password": {

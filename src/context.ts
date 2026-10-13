@@ -25,8 +25,8 @@ const COORDINATOR_ABI = [
 const KURU_ABI = [
   { type: 'function', name: 'bestBidAsk', inputs: [], outputs: [{ name: '', type: 'uint256' }, { name: '', type: 'uint256' }], stateMutability: 'view' } as const,
   { type: 'function', name: 'getMarketParams', inputs: [], outputs: [
-    { name: '', type: 'uint32' }, { name: '', type: 'uint96' }, { name: '', type: 'address' }, { name: '', type: 'uint256' }, { name: '', type: 'address' }, { name: '', type: 'address' },
-    { name: '', type: 'uint256' }, { name: '', type: 'uint32' }, { name: '', type: 'uint96' }, { name: '', type: 'uint96' }, { name: '', type: 'uint256' }, { name: '', type: 'uint256' },
+    { name: '', type: 'uint32' }, { name: '', type: 'uint96' }, { name: '', type: 'address' }, { name: '', type: 'uint256' }, { name: '', type: 'address' }, { name: '', type: 'uint256' },
+    { name: '', type: 'uint32' }, { name: '', type: 'uint96' }, { name: '', type: 'uint96' }, { name: '', type: 'uint256' }, { name: '', type: 'uint256' },
   ], stateMutability: 'view' } as const,
 ];
 
@@ -45,6 +45,23 @@ export const RETROPICK = {
 } as const;
 
 export const abis = { coordinator: COORDINATOR_ABI, kuru: KURU_ABI, margin: MARGIN_ABI };
+
+// viem decodes named Solidity tuple components into an object, not positional
+// array slots. Validate the observed value before reporting lifecycle state.
+export function graduationPhase(ledger: unknown): number {
+  const phase = ledger && typeof ledger === 'object' ? (ledger as { phase?: unknown }).phase : undefined;
+  if (typeof phase !== 'number' && typeof phase !== 'bigint') throw new Error('Coordinator ledger phase unavailable');
+  const value = Number(phase);
+  if (!Number.isInteger(value) || value < 0 || value > 255) throw new Error('Invalid Coordinator ledger phase');
+  return value;
+}
+
+export function graduatedMarket(receipt: unknown, expectedMarket: string): string {
+  const market = receipt && typeof receipt === 'object' ? (receipt as { market?: unknown }).market : undefined;
+  if (typeof market !== 'string' || !/^0x[0-9a-fA-F]{40}$/.test(market)) throw new Error('Coordinator receipt market unavailable');
+  if (market.toLowerCase() !== expectedMarket.toLowerCase()) throw new Error('Coordinator receipt market differs from configured verified market');
+  return market;
+}
 
 export function monadClient(): PublicClient {
   return createPublicClient({ transport: http('https://testnet-rpc.monad.xyz') }) as unknown as PublicClient;

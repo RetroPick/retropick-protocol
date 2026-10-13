@@ -77,7 +77,6 @@ var KURU_ABI = [
     { name: "", type: "address" },
     { name: "", type: "uint256" },
     { name: "", type: "address" },
-    { name: "", type: "address" },
     { name: "", type: "uint256" },
     { name: "", type: "uint32" },
     { name: "", type: "uint96" },
@@ -98,6 +97,23 @@ var RETROPICK = {
   tokens: [{ token: "0x43e7e9b1b7d9A143573307b13D14B51580c18f15", market: "0x1F5dE72616a7fe645Cf45aC66dfce8Ac7452C57F", vault: "0xc88DED06eB0081430Ff02d124C22b532e122CbE7" }]
 };
 var abis = { coordinator: COORDINATOR_ABI, kuru: KURU_ABI, margin: MARGIN_ABI };
+function graduationPhase(ledger) {
+  const phase = ledger && typeof ledger === "object" ? ledger.phase : undefined;
+  if (typeof phase !== "number" && typeof phase !== "bigint")
+    throw new Error("Coordinator ledger phase unavailable");
+  const value = Number(phase);
+  if (!Number.isInteger(value) || value < 0 || value > 255)
+    throw new Error("Invalid Coordinator ledger phase");
+  return value;
+}
+function graduatedMarket(receipt, expectedMarket) {
+  const market = receipt && typeof receipt === "object" ? receipt.market : undefined;
+  if (typeof market !== "string" || !/^0x[0-9a-fA-F]{40}$/.test(market))
+    throw new Error("Coordinator receipt market unavailable");
+  if (market.toLowerCase() !== expectedMarket.toLowerCase())
+    throw new Error("Coordinator receipt market differs from configured verified market");
+  return market;
+}
 function monadClient() {
   return createPublicClient({ transport: http("https://testnet-rpc.monad.xyz") });
 }
@@ -107,6 +123,8 @@ function policyOf() {
 
 // src/commands/retropick/market/inspect.ts
 class MarketInspectCommand extends PluginCommand {
+  static requiresAuth = false;
+  static requiresInit = false;
   static description = "Inspect a RetroPick launch: graduation ledger + Kuru best bid/ask";
   static args = { token: Args.string({ required: true, description: "launch token address" }) };
   pluginCommandId = "retropick market inspect";
@@ -121,7 +139,7 @@ class MarketInspectCommand extends PluginCommand {
       client.readContract({ abi: abis.kuru, functionName: "bestBidAsk", address: entry.market }),
       client.getBlockNumber()
     ]);
-    const phase = Number(ledger[0]);
+    const phase = graduationPhase(ledger);
     io.emit(`phase=${phase} bestBid=${best[0]} bestAsk=${best[1]} head=${headBlock}`);
     return { token: entry.token, phase, market: entry.market, bestBidX18: best[0].toString(), bestAskX18: best[1].toString(), headBlock: headBlock.toString() };
   }

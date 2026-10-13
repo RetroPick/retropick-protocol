@@ -75,7 +75,6 @@ var KURU_ABI = [
     { name: "", type: "address" },
     { name: "", type: "uint256" },
     { name: "", type: "address" },
-    { name: "", type: "address" },
     { name: "", type: "uint256" },
     { name: "", type: "uint32" },
     { name: "", type: "uint96" },
@@ -96,6 +95,23 @@ var RETROPICK = {
   tokens: [{ token: "0x43e7e9b1b7d9A143573307b13D14B51580c18f15", market: "0x1F5dE72616a7fe645Cf45aC66dfce8Ac7452C57F", vault: "0xc88DED06eB0081430Ff02d124C22b532e122CbE7" }]
 };
 var abis = { coordinator: COORDINATOR_ABI, kuru: KURU_ABI, margin: MARGIN_ABI };
+function graduationPhase(ledger) {
+  const phase = ledger && typeof ledger === "object" ? ledger.phase : undefined;
+  if (typeof phase !== "number" && typeof phase !== "bigint")
+    throw new Error("Coordinator ledger phase unavailable");
+  const value = Number(phase);
+  if (!Number.isInteger(value) || value < 0 || value > 255)
+    throw new Error("Invalid Coordinator ledger phase");
+  return value;
+}
+function graduatedMarket(receipt, expectedMarket) {
+  const market = receipt && typeof receipt === "object" ? receipt.market : undefined;
+  if (typeof market !== "string" || !/^0x[0-9a-fA-F]{40}$/.test(market))
+    throw new Error("Coordinator receipt market unavailable");
+  if (market.toLowerCase() !== expectedMarket.toLowerCase())
+    throw new Error("Coordinator receipt market differs from configured verified market");
+  return market;
+}
 function monadClient() {
   return createPublicClient({ transport: http("https://testnet-rpc.monad.xyz") });
 }
@@ -105,6 +121,8 @@ function policyOf() {
 
 // src/commands/retropick/market/risk.ts
 class MarketRiskCommand extends PluginCommand {
+  static requiresAuth = false;
+  static requiresInit = false;
   static description = "Explainable risk factors for a market before entering a position";
   static args = { market: Args.string({ required: true }) };
   pluginCommandId = "retropick market risk";
@@ -120,11 +138,13 @@ class MarketRiskCommand extends PluginCommand {
     ]);
     const mid = best[0] + best[1] > 0n ? (best[0] + best[1]) / 2n : 0n;
     const risk = assessRisk(policyOf(), { bestBidX18: best[0], bestAskX18: best[1], midX18: mid, lastTradeBlock: null, headBlock: Number(headBlock) });
-    for (const note of risk.notes)
+    const notes = risk.notes.map((note) => note === "no observed trades yet" ? "trade history not queried; activity and staleness are unknown" : note);
+    notes.push("bestBidAsk may include indicative vault/AMM quotes; resting order depth and execution are not proven");
+    for (const note of notes)
       io.emit(`risk: ${note}`);
     if (risk.caution)
       io.emit("Risk: reducing intended order size may be prudent.");
-    return { spreadBps: risk.spreadBps?.toString() ?? null, oneSided: risk.oneSided, staleBook: risk.staleBook, notes: risk.notes };
+    return { spreadBps: risk.spreadBps?.toString() ?? null, oneSided: risk.oneSided, staleBook: null, tradeHistoryQueried: false, quoteSource: "Kuru bestBidAsk (may include vault/AMM)", notes };
   }
 }
 export {

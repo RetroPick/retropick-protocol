@@ -9,7 +9,8 @@
     "oclif.manifest.json",
     "skills",
     "README.md",
-    "SOURCE-PROVENANCE.json"
+    "SOURCE-PROVENANCE.json",
+    "scripts"
   ],
   "engines": {
     "node": ">=22.18"

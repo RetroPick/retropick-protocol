@@ -76,7 +76,6 @@ var KURU_ABI = [
     { name: "", type: "address" },
     { name: "", type: "uint256" },
     { name: "", type: "address" },
-    { name: "", type: "address" },
     { name: "", type: "uint256" },
     { name: "", type: "uint32" },
     { name: "", type: "uint96" },
@@ -97,6 +96,23 @@ var RETROPICK = {
   tokens: [{ token: "0x43e7e9b1b7d9A143573307b13D14B51580c18f15", market: "0x1F5dE72616a7fe645Cf45aC66dfce8Ac7452C57F", vault: "0xc88DED06eB0081430Ff02d124C22b532e122CbE7" }]
 };
 var abis = { coordinator: COORDINATOR_ABI, kuru: KURU_ABI, margin: MARGIN_ABI };
+function graduationPhase(ledger) {
+  const phase = ledger && typeof ledger === "object" ? ledger.phase : undefined;
+  if (typeof phase !== "number" && typeof phase !== "bigint")
+    throw new Error("Coordinator ledger phase unavailable");
+  const value = Number(phase);
+  if (!Number.isInteger(value) || value < 0 || value > 255)
+    throw new Error("Invalid Coordinator ledger phase");
+  return value;
+}
+function graduatedMarket(receipt, expectedMarket) {
+  const market = receipt && typeof receipt === "object" ? receipt.market : undefined;
+  if (typeof market !== "string" || !/^0x[0-9a-fA-F]{40}$/.test(market))
+    throw new Error("Coordinator receipt market unavailable");
+  if (market.toLowerCase() !== expectedMarket.toLowerCase())
+    throw new Error("Coordinator receipt market differs from configured verified market");
+  return market;
+}
 function monadClient() {
   return createPublicClient({ transport: http("https://testnet-rpc.monad.xyz") });
 }
@@ -106,6 +122,8 @@ function policyOf() {
 
 // src/commands/retropick/markets.ts
 class MarketsCommand extends PluginCommand {
+  static requiresAuth = false;
+  static requiresInit = false;
   static description = "List verified RetroPick launches with lifecycle phase and Kuru market";
   pluginCommandId = "retropick markets";
   async execute(io) {
@@ -114,10 +132,10 @@ class MarketsCommand extends PluginCommand {
     for (const entry of RETROPICK.tokens) {
       const ledger = await client.readContract({ abi: abis.coordinator, functionName: "ledger", address: RETROPICK.coordinator, args: [entry.token] });
       const receipt = await client.readContract({ abi: abis.coordinator, functionName: "receipt", address: RETROPICK.coordinator, args: [entry.token] });
-      const phase = Number(ledger[0]);
-      const market = phase === 2 ? String(receipt[2]) : null;
+      const phase = graduationPhase(ledger);
+      const market = phase === 2 ? graduatedMarket(receipt, entry.market) : null;
       out.push({ token: entry.token, phase, market });
-      io.emit(`${entry.token} phase=${phase} (${phase === 2 ? `graduated → Kuru ${market}` : "on curve"})`);
+      io.emit(`${entry.token} phase=${phase} (${phase === 2 ? `graduated → Kuru ${market}` : "lifecycle observed; execution not inferred"})`);
     }
     return out;
   }

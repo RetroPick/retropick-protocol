@@ -1,9 +1,11 @@
 import { Args } from '@oclif/core';
 import { type CommandIO, PluginCommand } from '@metamask/agent-wallet/plugin';
-import { RETROPICK, abis, monadClient } from '../../../context.ts';
+import { RETROPICK, abis, monadClient, graduationPhase } from '../../../context.ts';
 
 /** `mm retropick market inspect <token>` — lifecycle + live orderbook state (read-only). */
 export default class MarketInspectCommand extends PluginCommand<{ token: string; phase: number; market: string; bestBidX18: string; bestAskX18: string; headBlock: string }> {
+  static override requiresAuth = false;
+  static override requiresInit = false;
   static override description = 'Inspect a RetroPick launch: graduation ledger + Kuru best bid/ask';
   static override args = { token: Args.string({ required: true, description: 'launch token address' }) };
   protected readonly pluginCommandId = 'retropick market inspect';
@@ -18,7 +20,7 @@ export default class MarketInspectCommand extends PluginCommand<{ token: string;
       client.readContract({ abi: abis.kuru, functionName: 'bestBidAsk', address: entry.market as `0x${string}` }),
       client.getBlockNumber(),
     ])) as unknown as [readonly bigint[], readonly bigint[], bigint];
-    const phase = Number(ledger[0]);
+    const phase = graduationPhase(ledger);
     io.emit(`phase=${phase} bestBid=${best[0]} bestAsk=${best[1]} head=${headBlock}`);
     return { token: entry.token, phase, market: entry.market, bestBidX18: best[0].toString(), bestAskX18: best[1].toString(), headBlock: headBlock.toString() };
   }

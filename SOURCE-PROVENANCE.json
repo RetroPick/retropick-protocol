@@ -1,0 +1,29 @@
+{
+  "sourceRepository": "https://github.com/RetroPick/retropick-protocol",
+  "sourceSha": "8f5f022fb53e763a3ebb2b9c54abfb1cccf00d61",
+  "canonicalPath": "integrations/metamask-agent-retropick",
+  "scope": "Three copied read commands only; no financial execution",
+  "sourceFiles": [
+    {
+      "source": "src/context.ts",
+      "sha256": "362de0e37dce470d72f8426509dc8ab70fd9ae28c10aadd08b34b1ebd20a78d2"
+    },
+    {
+      "source": "src/policy.ts",
+      "sha256": "656ca8c101d180743687145ef31d33fe9f9c0064efbc053d42bab1296fa91f9b"
+    },
+    {
+      "source": "src/commands/retropick/markets.ts",
+      "sha256": "64ef617961c885c237a30fde9bf1f76ec2eef02fb4b6b42959aab5acef67b7b4"
+    },
+    {
+      "source": "src/commands/retropick/market/inspect.ts",
+      "sha256": "aa261d80378921c36bdf0d0b85da433aef91b37aa79c0e8b7c051ea59d37fd28"
+    },
+    {
+      "source": "src/commands/retropick/market/risk.ts",
+      "sha256": "18a5511c85fd78c202942b1b6caa595524c02410d1d8501e23709174bd928ed2"
+    }
+  ],
+  "build": "bun build src/commands/retropick/markets.ts src/commands/retropick/market/inspect.ts src/commands/retropick/market/risk.ts --outdir dist/commands/retropick --root src/commands/retropick --target node --external @metamask/agent-wallet/plugin --external @oclif/core --external viem"
+}

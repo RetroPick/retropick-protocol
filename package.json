@@ -1,0 +1,55 @@
+{
+  "name": "@retropick/mm-plugin-readonly",
+  "version": "0.1.0",
+  "description": "Read-only RetroPick market inspection for MetaMask Agent Wallet",
+  "license": "MIT",
+  "type": "module",
+  "files": [
+    "dist",
+    "oclif.manifest.json",
+    "skills",
+    "README.md",
+    "SOURCE-PROVENANCE.json"
+  ],
+  "engines": {
+    "node": ">=22.18"
+  },
+  "oclif": {
+    "bin": "mm",
+    "commands": "./dist/commands",
+    "topicSeparator": " "
+  },
+  "mm": {
+    "schemaVersion": 1,
+    "minCliVersion": "^6.2.0",
+    "capabilities": [],
+    "commands": [
+      {
+        "id": "retropick markets",
+        "capabilities": [],
+        "dataAccess": []
+      },
+      {
+        "id": "retropick market inspect",
+        "capabilities": [],
+        "dataAccess": []
+      },
+      {
+        "id": "retropick market risk",
+        "capabilities": [],
+        "dataAccess": []
+      }
+    ]
+  },
+  "peerDependencies": {
+    "@metamask/agent-wallet": "6.2.1"
+  },
+  "dependencies": {
+    "@oclif/core": "4.14.0",
+    "viem": "2.57.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RetroPick/retropick-protocol.git"
+  }
+}

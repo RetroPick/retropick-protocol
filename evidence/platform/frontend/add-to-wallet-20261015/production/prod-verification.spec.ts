@@ -56,5 +56,5 @@ test('Add to Wallet click sends the exact on-chain payload to the wallet', async
   expect(String(calls[0].params.options.address).toLowerCase()).toBe(CIS);
   expect(calls[0].params.options.symbol).toBe('CIS');
   expect(calls[0].params.options.decimals).toBe(18);
-  expect(String(calls[0].params.options.image)).toBe(`https://gateway.pinata.cloud/ipfs/${CIS_LOGO_CID}`);
+  expect(String(calls[0].params.options.image)).toBe('https://retropick.xyz/wallet/416b0da3cf5de37a329f941291a19230f6d7a45ee9572e858e6b7dc46d84f9fb.png');
 });

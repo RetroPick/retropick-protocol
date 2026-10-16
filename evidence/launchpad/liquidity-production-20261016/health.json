@@ -1,0 +1,58 @@
+{
+  "capturedAt": "2026-10-16T01:58:20.717683+00:00",
+  "url": "https://retropick.xyz/health",
+  "status": 200,
+  "cacheControl": "no-store",
+  "body": {
+    "freshness": {
+      "chainId": 10143,
+      "indexedBlock": 71412420,
+      "indexedBlockHash": "0x6007a69df79eae05f9f9cde08dda975158e4641837895abd2255889ad0380012",
+      "headBlock": 71412428,
+      "confirmations": 8,
+      "lagBlocks": 8,
+      "indexedAt": "2026-10-16T01:58:21.554Z",
+      "syncing": false,
+      "error": null,
+      "source": "MONAD_EVENT_INDEXER",
+      "projectionVersion": 3,
+      "reorgRevision": 0,
+      "beneficiaryIndexedBlock": 71412420
+    },
+    "ready": true,
+    "projection": {
+      "expected": 3,
+      "published": 3
+    },
+    "progress": {
+      "passes": 10,
+      "passStartedAt": "2026-10-16T01:58:07.395Z",
+      "passTarget": 71412420,
+      "headTarget": 71412420,
+      "lastSyncedAt": "2026-10-16T01:58:21.846Z",
+      "lastPassMs": 14451,
+      "lastPassBlocks": 50,
+      "blocksPerSecond": 3,
+      "lastError": null,
+      "catchingUp": false,
+      "cursors": {
+        "root": 71412420,
+        "dynamic": 71412420,
+        "beneficiary": 71412420
+      }
+    },
+    "providers": [
+      {
+        "endpoint": "testnet-rpc.monad.xyz",
+        "state": "healthy",
+        "chainId": 10143,
+        "requests": 1142,
+        "failures": 0,
+        "lastFailure": null,
+        "lastFailureMessage": null,
+        "retryAt": null,
+        "latencyMs": 92
+      }
+    ]
+  }
+}

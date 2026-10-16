@@ -2,6 +2,8 @@
 
 Branch: `codex/v2-production-liquidity`
 
+Production continuation (2026-10-16): PR #38 was merged as `464dca136e9765d638e742a810ab58af0e911376`; the user subsequently authorized deployment. The public frontend and projection-3 backend are live. Historical replay remains pending. See [current deployment evidence](../../../evidence/launchpad/liquidity-production-20261016/DEPLOYMENT.md); the original verification/approval statements below describe the earlier handoff.
+
 Commits:
 
 - `91ff16e2ae0ccf4c80a1eec61c01a8221be16191` — qualified SDK reader/indexer/API/Liquidity UI/maker workspace/toolkit/CI.

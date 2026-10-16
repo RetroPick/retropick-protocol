@@ -1,6 +1,6 @@
 # Liquidity projection-3 migration runbook
 
-Status: executable plan; live cutover is `BLOCKED_APPROVAL`.
+Status: the user authorized the public-site/backend rollout on 2026-10-16 after merging PR #38. Projection 3 is live; historical replay and final supply reconciliation remain `PARTIAL`. See [deployment evidence](../../../evidence/launchpad/liquidity-production-20261016/DEPLOYMENT.md) for exact source, backups, runtime configuration and limitations. The sequence below remains the qualification procedure; deployment alone does not satisfy historical completion.
 
 ## Preconditions
 

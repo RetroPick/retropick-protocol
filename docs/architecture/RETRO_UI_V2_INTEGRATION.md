@@ -2,6 +2,16 @@
 
 Status: testnet implementation in progress; Solidity remains HACKATHON_FREEZE.
 
+> **Scope note (2026-10-29):** the "No sidebar/layout/theme/flow redesign"
+> delta below scoped this 2026-10-10 integration campaign, whose objective was
+> data/wallet correctness under a frozen UI. The user-directed visual
+> renovation goal
+> [`RETROPICK-RETRO-UI-EXAMPLE-INTEGRATION-V1`](../../goals/active/RETROPICK-RETRO-UI-EXAMPLE-INTEGRATION-V1.md)
+> now owns UI/UX changes to `apps/retro-ui` and supersedes that clause for its
+> own scope only. This document's data-authority, wallet-write and
+> contract-boundary rules remain binding. The integration text is otherwise
+> unchanged.
+
 ## Current / target / delta
 
 Current: `apps/retro-ui` is the user's Vite/React app with its own sidebar, mobile navigation, theme, compact feed and two-step creation form. Its records and actions are mocks. Earlier apps/web integration is historical qualification, not the intended product frontend.

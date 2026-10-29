@@ -25,6 +25,7 @@ Node services (indexer / media-service / referral-service run TypeScript directl
 | `media-service/` | `@retropick/media-service` | Token-logo upload (one image per launch; URI written onchain) — Pinata IPFS or local store | Canonical shared boundary | 8790 |
 | `referral-service/` | `@retropick/referral-service` | Offchain referral ownership (signature challenge) + confirmed-event attribution | Canonical shared boundary | 8788 |
 | `retro-ui/` | `@retropick/retro-ui` | **Main product frontend** (Vite + React 19 SPA) | **Canonical** | 3000 dev · 4317 e2e:fixture · 4318 e2e:live |
+| `example-ui-ux/` | `@retropick/example-ui-ux` | Design donor snapshot for the retro-ui terminal renovation (goal `RETROPICK-RETRO-UI-EXAMPLE-INTEGRATION-V1`) — visual reference only; contains intentionally fabricated demo economics that must never be ported to live surfaces | Read-only design reference (no product status) | — |
 | `web/` | `@retropick/web` | Legacy Next.js prototype — integration/testing example only | Read-only historical (zero-write guard) | — |
 
 ## Chain & integrations

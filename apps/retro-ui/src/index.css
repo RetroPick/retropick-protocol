@@ -14,45 +14,56 @@
 }
 
 /* ── Theme tokens ──────────────────────────────────────────────────────────
-   Dark (default): near-black purple canvas, Monad Purple #836ef9 accent,
-   Electric Ice #5feddf for up/positive, Monad Blue #200052 anchors hero
-   gradients, lavender kept for PRISM. Light: off-white purple-tinted canvas,
-   deepened purple #6a4fd0 for text contrast; fills stay Monad Purple. Token
-   names follow the shadcn convention so the ported components/ui primitives
-   style themselves unchanged. */
+   RetroPick Terminal (goal RETROPICK-RETRO-UI-EXAMPLE-INTEGRATION-V1).
+   Dark (default): midnight-charcoal canvas with a violet undertone, crisp
+   slate typography, white-alpha hairline borders. Monad Purple #836ef9 is the
+   single brand accent and stays SCARCE (primary actions, active state, focus);
+   Electric Ice #5feddf marks positive deltas, coral #ff8fa3 negative, amber
+   warns stale/risk. Semantic trios use alpha tints so panels stay neutral.
+   Light: off-white purple-tinted canvas, deepened purple #6a4fd0 for text
+   contrast; fills stay Monad Purple. Token names follow the shadcn convention
+   so the ported components/ui primitives style themselves unchanged.
+   Layering: primitives (raw surfaces/type) → semantics (pos/neg/warn/accent
+   roles) → shadcn bridge → component classes below. Edit semantics here,
+   never hex values in components. */
 :root {
-  --bg: #000000;
-  --bg-raise: #06030f;
-  --panel: #0e0a1c;
-  --panel-2: #0c0819;
-  --inset: #090615;
-  --border: #241e42;
-  --border-soft: #1b1732;
-  --text: #e9e6f5;
-  --text-2: #b9b2ce;
-  --text-3: #8b84a3;
-  --text-dim: #615a78;
-  --hover: rgba(131, 110, 249, .06);
+  /* surfaces — midnight charcoal, violet undertone */
+  --bg: #0a0a13;
+  --bg-raise: #101019;
+  --panel: #14141f;
+  --panel-2: #191926;
+  --inset: #0d0d16;
+  --border: rgba(255, 255, 255, .08);
+  --border-soft: rgba(255, 255, 255, .05);
+  /* type — slate scale, violet-tinted to sit next to the purple accent */
+  --text: #f1f0f7;
+  --text-2: #c3c1d1;
+  --text-3: #918da4;
+  --text-dim: #67617f;
+  --hover: rgba(131, 110, 249, .07);
+  /* brand accent — Monad Purple, scarce by design */
   --accent: #836ef9;
   --accent-fill: #836ef9;
   --accent-ink: #ffffff;
-  --accent-dim: #1c1440;
-  --accent-glow: rgba(131, 110, 249, .5);
+  --accent-dim: rgba(131, 110, 249, .14);
+  --accent-glow: rgba(131, 110, 249, .38);
+  /* market semantics — mint up, coral down, amber attention */
   --pos: #5feddf;
-  --pos-bg: #0c2622;
-  --pos-border: #1f4a45;
+  --pos-bg: rgba(95, 237, 223, .1);
+  --pos-border: rgba(95, 237, 223, .24);
   --neg: #ff8fa3;
-  --neg-bg: #271820;
-  --neg-border: #452833;
-  --warn-bg: #1d180d;
-  --warn-border: #4c4128;
-  --warn-text: #dccb9d;
-  --popover: #100b20;
-  --grid-line: #191336;
-  --grad-a: #200052;
-  --grad-b: #0d0720;
+  --neg-bg: rgba(255, 143, 163, .1);
+  --neg-border: rgba(255, 143, 163, .24);
+  --warn-bg: rgba(245, 158, 11, .1);
+  --warn-border: rgba(245, 158, 11, .25);
+  --warn-text: #fbbf24;
+  /* overlays, grids, hero wash */
+  --popover: #16161f;
+  --grid-line: rgba(255, 255, 255, .05);
+  --grad-a: #150f33;
+  --grad-b: #0c0b17;
   --violet: #b09cfa;
-  --shadow-soft: 0 14px 44px rgba(0, 0, 0, .5);
+  --shadow-soft: 0 14px 44px rgba(0, 0, 0, .55);
   /* shadcn token bridge */
   --background: var(--bg);
   --foreground: var(--text);
@@ -67,15 +78,15 @@
   --muted-foreground: var(--text-3);
   --accent-foreground: var(--text);
   --destructive: var(--neg);
-  --input: #292349;
+  --input: rgba(255, 255, 255, .09);
   --ring: var(--accent);
   --chart-1: var(--pos);
   --chart-2: var(--neg);
   --chart-3: var(--violet);
   --chart-4: #e5c88f;
   --chart-5: #5feddf;
-  --radius: 0.625rem;
-  --sidebar: var(--panel);
+  --radius: 0.75rem;
+  --sidebar: var(--bg-raise);
   --sidebar-foreground: var(--text);
   --sidebar-primary: var(--accent);
   --sidebar-primary-foreground: var(--accent-ink);
@@ -197,7 +208,9 @@ input::-webkit-inner-spin-button { appearance: none }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 9999px }
 ::-webkit-scrollbar-thumb:hover { background: var(--accent) }
 
-/* ── Sidebar (primary navigation — desktop) ─────────────────────────────── */
+/* ── Sidebar (primary navigation — ≥1024px desktop) ────────────────────────
+   Below 1024px the top navbar carries primary nav (768–1023 tablet band) and
+   the bottom mobile-nav covers <768 — never leave a band without navigation. */
 .sidebar {
   position: fixed;
   top: 0;
@@ -207,14 +220,14 @@ input::-webkit-inner-spin-button { appearance: none }
   display: none;
   flex-direction: column;
   justify-content: space-between;
-  background: var(--bg);
+  background: var(--sidebar);
   border-right: 1px solid var(--border);
-  width: 240px;
-  transition: width .2s;
+  width: 260px;
+  transition: width .25s cubic-bezier(0.4, 0, 0.2, 1);
   user-select: none;
 }
-@media (min-width: 768px) { .sidebar { display: flex } }
-.sidebar.collapsed { width: 72px }
+@media (min-width: 1024px) { .sidebar { display: flex } }
+.sidebar.collapsed { width: 76px }
 .side-top { padding: 16px; display: flex; flex-direction: column }
 .side-brand { display: flex; align-items: center; justify-content: space-between; margin-bottom: 26px }
 .side-brand-link { display: flex; align-items: center; gap: 12px }

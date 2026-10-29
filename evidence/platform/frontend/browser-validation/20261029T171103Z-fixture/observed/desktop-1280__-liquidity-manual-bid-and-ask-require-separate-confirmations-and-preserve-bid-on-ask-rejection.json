@@ -1,0 +1,12 @@
+{
+  "test": "fixture/liquidity.spec.ts > @liquidity manual bid and ask require separate confirmations and preserve bid on ask rejection",
+  "project": "desktop-1280",
+  "status": "passed",
+  "appConsoleErrors": [],
+  "console": [],
+  "pageErrors": [],
+  "failedRequests": [],
+  "guardViolations": [],
+  "blockedExternal": [],
+  "requestCount": 54
+}

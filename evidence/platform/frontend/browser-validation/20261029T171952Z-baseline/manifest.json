@@ -1,0 +1,512 @@
+{
+  "target": "fixture",
+  "port": 4390,
+  "generatedAt": "2026-10-29T17:22:14.459Z",
+  "shots": [
+    {
+      "viewport": "desktop-1440",
+      "theme": "dark",
+      "route": "/launchpad",
+      "file": "desktop-1440-dark-launchpad.png"
+    },
+    {
+      "viewport": "desktop-1440",
+      "theme": "dark",
+      "route": "/launchpad/token/demo-active",
+      "file": "desktop-1440-dark-token-active.png"
+    },
+    {
+      "viewport": "desktop-1440",
+      "theme": "dark",
+      "route": "/launchpad/token/demo-graduated",
+      "file": "desktop-1440-dark-token-graduated.png"
+    },
+    {
+      "viewport": "desktop-1440",
+      "theme": "dark",
+      "route": "/launchpad/create",
+      "file": "desktop-1440-dark-create.png"
+    },
+    {
+      "viewport": "desktop-1440",
+      "theme": "dark",
+      "route": "/liquidity",
+      "file": "desktop-1440-dark-liquidity.png"
+    },
+    {
+      "viewport": "desktop-1440",
+      "theme": "dark",
+      "route": "/liquidity/market-making",
+      "file": "desktop-1440-dark-market-making.png"
+    },
+    {
+      "viewport": "desktop-1440",
+      "theme": "dark",
+      "route": "/earn",
+      "file": "desktop-1440-dark-earn.png"
+    },
+    {
+      "viewport": "desktop-1440",
+      "theme": "light",
+      "route": "/launchpad",
+      "file": "desktop-1440-light-launchpad.png"
+    },
+    {
+      "viewport": "desktop-1440",
+      "theme": "light",
+      "route": "/launchpad/token/demo-active",
+      "file": "desktop-1440-light-token-active.png"
+    },
+    {
+      "viewport": "desktop-1440",
+      "theme": "light",
+      "route": "/launchpad/token/demo-graduated",
+      "file": "desktop-1440-light-token-graduated.png"
+    },
+    {
+      "viewport": "desktop-1440",
+      "theme": "light",
+      "route": "/launchpad/create",
+      "file": "desktop-1440-light-create.png"
+    },
+    {
+      "viewport": "desktop-1440",
+      "theme": "light",
+      "route": "/liquidity",
+      "file": "desktop-1440-light-liquidity.png"
+    },
+    {
+      "viewport": "desktop-1440",
+      "theme": "light",
+      "route": "/liquidity/market-making",
+      "file": "desktop-1440-light-market-making.png"
+    },
+    {
+      "viewport": "desktop-1440",
+      "theme": "light",
+      "route": "/earn",
+      "file": "desktop-1440-light-earn.png"
+    },
+    {
+      "viewport": "desktop-1280",
+      "theme": "dark",
+      "route": "/launchpad",
+      "file": "desktop-1280-dark-launchpad.png"
+    },
+    {
+      "viewport": "desktop-1280",
+      "theme": "dark",
+      "route": "/launchpad/token/demo-active",
+      "file": "desktop-1280-dark-token-active.png"
+    },
+    {
+      "viewport": "desktop-1280",
+      "theme": "dark",
+      "route": "/launchpad/token/demo-graduated",
+      "file": "desktop-1280-dark-token-graduated.png"
+    },
+    {
+      "viewport": "desktop-1280",
+      "theme": "dark",
+      "route": "/launchpad/create",
+      "file": "desktop-1280-dark-create.png"
+    },
+    {
+      "viewport": "desktop-1280",
+      "theme": "dark",
+      "route": "/liquidity",
+      "file": "desktop-1280-dark-liquidity.png"
+    },
+    {
+      "viewport": "desktop-1280",
+      "theme": "dark",
+      "route": "/liquidity/market-making",
+      "file": "desktop-1280-dark-market-making.png"
+    },
+    {
+      "viewport": "desktop-1280",
+      "theme": "dark",
+      "route": "/earn",
+      "file": "desktop-1280-dark-earn.png"
+    },
+    {
+      "viewport": "desktop-1280",
+      "theme": "light",
+      "route": "/launchpad",
+      "file": "desktop-1280-light-launchpad.png"
+    },
+    {
+      "viewport": "desktop-1280",
+      "theme": "light",
+      "route": "/launchpad/token/demo-active",
+      "file": "desktop-1280-light-token-active.png"
+    },
+    {
+      "viewport": "desktop-1280",
+      "theme": "light",
+      "route": "/launchpad/token/demo-graduated",
+      "file": "desktop-1280-light-token-graduated.png"
+    },
+    {
+      "viewport": "desktop-1280",
+      "theme": "light",
+      "route": "/launchpad/create",
+      "file": "desktop-1280-light-create.png"
+    },
+    {
+      "viewport": "desktop-1280",
+      "theme": "light",
+      "route": "/liquidity",
+      "file": "desktop-1280-light-liquidity.png"
+    },
+    {
+      "viewport": "desktop-1280",
+      "theme": "light",
+      "route": "/liquidity/market-making",
+      "file": "desktop-1280-light-market-making.png"
+    },
+    {
+      "viewport": "desktop-1280",
+      "theme": "light",
+      "route": "/earn",
+      "file": "desktop-1280-light-earn.png"
+    },
+    {
+      "viewport": "tablet-834",
+      "theme": "dark",
+      "route": "/launchpad",
+      "file": "tablet-834-dark-launchpad.png"
+    },
+    {
+      "viewport": "tablet-834",
+      "theme": "dark",
+      "route": "/launchpad/token/demo-active",
+      "file": "tablet-834-dark-token-active.png"
+    },
+    {
+      "viewport": "tablet-834",
+      "theme": "dark",
+      "route": "/launchpad/token/demo-graduated",
+      "file": "tablet-834-dark-token-graduated.png"
+    },
+    {
+      "viewport": "tablet-834",
+      "theme": "dark",
+      "route": "/launchpad/create",
+      "file": "tablet-834-dark-create.png"
+    },
+    {
+      "viewport": "tablet-834",
+      "theme": "dark",
+      "route": "/liquidity",
+      "file": "tablet-834-dark-liquidity.png"
+    },
+    {
+      "viewport": "tablet-834",
+      "theme": "dark",
+      "route": "/liquidity/market-making",
+      "file": "tablet-834-dark-market-making.png"
+    },
+    {
+      "viewport": "tablet-834",
+      "theme": "dark",
+      "route": "/earn",
+      "file": "tablet-834-dark-earn.png"
+    },
+    {
+      "viewport": "tablet-834",
+      "theme": "light",
+      "route": "/launchpad",
+      "file": "tablet-834-light-launchpad.png"
+    },
+    {
+      "viewport": "tablet-834",
+      "theme": "light",
+      "route": "/launchpad/token/demo-active",
+      "file": "tablet-834-light-token-active.png"
+    },
+    {
+      "viewport": "tablet-834",
+      "theme": "light",
+      "route": "/launchpad/token/demo-graduated",
+      "file": "tablet-834-light-token-graduated.png"
+    },
+    {
+      "viewport": "tablet-834",
+      "theme": "light",
+      "route": "/launchpad/create",
+      "file": "tablet-834-light-create.png"
+    },
+    {
+      "viewport": "tablet-834",
+      "theme": "light",
+      "route": "/liquidity",
+      "file": "tablet-834-light-liquidity.png"
+    },
+    {
+      "viewport": "tablet-834",
+      "theme": "light",
+      "route": "/liquidity/market-making",
+      "file": "tablet-834-light-market-making.png"
+    },
+    {
+      "viewport": "tablet-834",
+      "theme": "light",
+      "route": "/earn",
+      "file": "tablet-834-light-earn.png"
+    },
+    {
+      "viewport": "tablet-768",
+      "theme": "dark",
+      "route": "/launchpad",
+      "file": "tablet-768-dark-launchpad.png"
+    },
+    {
+      "viewport": "tablet-768",
+      "theme": "dark",
+      "route": "/launchpad/token/demo-active",
+      "file": "tablet-768-dark-token-active.png"
+    },
+    {
+      "viewport": "tablet-768",
+      "theme": "dark",
+      "route": "/launchpad/token/demo-graduated",
+      "file": "tablet-768-dark-token-graduated.png"
+    },
+    {
+      "viewport": "tablet-768",
+      "theme": "dark",
+      "route": "/launchpad/create",
+      "file": "tablet-768-dark-create.png"
+    },
+    {
+      "viewport": "tablet-768",
+      "theme": "dark",
+      "route": "/liquidity",
+      "file": "tablet-768-dark-liquidity.png"
+    },
+    {
+      "viewport": "tablet-768",
+      "theme": "dark",
+      "route": "/liquidity/market-making",
+      "file": "tablet-768-dark-market-making.png"
+    },
+    {
+      "viewport": "tablet-768",
+      "theme": "dark",
+      "route": "/earn",
+      "file": "tablet-768-dark-earn.png"
+    },
+    {
+      "viewport": "tablet-768",
+      "theme": "light",
+      "route": "/launchpad",
+      "file": "tablet-768-light-launchpad.png"
+    },
+    {
+      "viewport": "tablet-768",
+      "theme": "light",
+      "route": "/launchpad/token/demo-active",
+      "file": "tablet-768-light-token-active.png"
+    },
+    {
+      "viewport": "tablet-768",
+      "theme": "light",
+      "route": "/launchpad/token/demo-graduated",
+      "file": "tablet-768-light-token-graduated.png"
+    },
+    {
+      "viewport": "tablet-768",
+      "theme": "light",
+      "route": "/launchpad/create",
+      "file": "tablet-768-light-create.png"
+    },
+    {
+      "viewport": "tablet-768",
+      "theme": "light",
+      "route": "/liquidity",
+      "file": "tablet-768-light-liquidity.png"
+    },
+    {
+      "viewport": "tablet-768",
+      "theme": "light",
+      "route": "/liquidity/market-making",
+      "file": "tablet-768-light-market-making.png"
+    },
+    {
+      "viewport": "tablet-768",
+      "theme": "light",
+      "route": "/earn",
+      "file": "tablet-768-light-earn.png"
+    },
+    {
+      "viewport": "mobile-390",
+      "theme": "dark",
+      "route": "/launchpad",
+      "file": "mobile-390-dark-launchpad.png"
+    },
+    {
+      "viewport": "mobile-390",
+      "theme": "dark",
+      "route": "/launchpad/token/demo-active",
+      "file": "mobile-390-dark-token-active.png"
+    },
+    {
+      "viewport": "mobile-390",
+      "theme": "dark",
+      "route": "/launchpad/token/demo-graduated",
+      "file": "mobile-390-dark-token-graduated.png"
+    },
+    {
+      "viewport": "mobile-390",
+      "theme": "dark",
+      "route": "/launchpad/create",
+      "file": "mobile-390-dark-create.png"
+    },
+    {
+      "viewport": "mobile-390",
+      "theme": "dark",
+      "route": "/liquidity",
+      "file": "mobile-390-dark-liquidity.png"
+    },
+    {
+      "viewport": "mobile-390",
+      "theme": "dark",
+      "route": "/liquidity/market-making",
+      "file": "mobile-390-dark-market-making.png"
+    },
+    {
+      "viewport": "mobile-390",
+      "theme": "dark",
+      "route": "/earn",
+      "file": "mobile-390-dark-earn.png"
+    },
+    {
+      "viewport": "mobile-390",
+      "theme": "light",
+      "route": "/launchpad",
+      "file": "mobile-390-light-launchpad.png"
+    },
+    {
+      "viewport": "mobile-390",
+      "theme": "light",
+      "route": "/launchpad/token/demo-active",
+      "file": "mobile-390-light-token-active.png"
+    },
+    {
+      "viewport": "mobile-390",
+      "theme": "light",
+      "route": "/launchpad/token/demo-graduated",
+      "file": "mobile-390-light-token-graduated.png"
+    },
+    {
+      "viewport": "mobile-390",
+      "theme": "light",
+      "route": "/launchpad/create",
+      "file": "mobile-390-light-create.png"
+    },
+    {
+      "viewport": "mobile-390",
+      "theme": "light",
+      "route": "/liquidity",
+      "file": "mobile-390-light-liquidity.png"
+    },
+    {
+      "viewport": "mobile-390",
+      "theme": "light",
+      "route": "/liquidity/market-making",
+      "file": "mobile-390-light-market-making.png"
+    },
+    {
+      "viewport": "mobile-390",
+      "theme": "light",
+      "route": "/earn",
+      "file": "mobile-390-light-earn.png"
+    },
+    {
+      "viewport": "mobile-375",
+      "theme": "dark",
+      "route": "/launchpad",
+      "file": "mobile-375-dark-launchpad.png"
+    },
+    {
+      "viewport": "mobile-375",
+      "theme": "dark",
+      "route": "/launchpad/token/demo-active",
+      "file": "mobile-375-dark-token-active.png"
+    },
+    {
+      "viewport": "mobile-375",
+      "theme": "dark",
+      "route": "/launchpad/token/demo-graduated",
+      "file": "mobile-375-dark-token-graduated.png"
+    },
+    {
+      "viewport": "mobile-375",
+      "theme": "dark",
+      "route": "/launchpad/create",
+      "file": "mobile-375-dark-create.png"
+    },
+    {
+      "viewport": "mobile-375",
+      "theme": "dark",
+      "route": "/liquidity",
+      "file": "mobile-375-dark-liquidity.png"
+    },
+    {
+      "viewport": "mobile-375",
+      "theme": "dark",
+      "route": "/liquidity/market-making",
+      "file": "mobile-375-dark-market-making.png"
+    },
+    {
+      "viewport": "mobile-375",
+      "theme": "dark",
+      "route": "/earn",
+      "file": "mobile-375-dark-earn.png"
+    },
+    {
+      "viewport": "mobile-375",
+      "theme": "light",
+      "route": "/launchpad",
+      "file": "mobile-375-light-launchpad.png"
+    },
+    {
+      "viewport": "mobile-375",
+      "theme": "light",
+      "route": "/launchpad/token/demo-active",
+      "file": "mobile-375-light-token-active.png"
+    },
+    {
+      "viewport": "mobile-375",
+      "theme": "light",
+      "route": "/launchpad/token/demo-graduated",
+      "file": "mobile-375-light-token-graduated.png"
+    },
+    {
+      "viewport": "mobile-375",
+      "theme": "light",
+      "route": "/launchpad/create",
+      "file": "mobile-375-light-create.png"
+    },
+    {
+      "viewport": "mobile-375",
+      "theme": "light",
+      "route": "/liquidity",
+      "file": "mobile-375-light-liquidity.png"
+    },
+    {
+      "viewport": "mobile-375",
+      "theme": "light",
+      "route": "/liquidity/market-making",
+      "file": "mobile-375-light-market-making.png"
+    },
+    {
+      "viewport": "mobile-375",
+      "theme": "light",
+      "route": "/earn",
+      "file": "mobile-375-light-earn.png"
+    }
+  ],
+  "consoleErrors": []
+}

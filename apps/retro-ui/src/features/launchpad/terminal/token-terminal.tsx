@@ -44,10 +44,9 @@ export function TokenTerminal({ vm, data, chart, ticket, depth, liquidityPanel, 
   const kuruOrders = vm.lifecycle === 'GRADUATED' && vm.venue === 'KURU';
   const tabs: Array<{ value: TerminalTab; disabled?: string }> = [{ value: 'Trades' }, { value: 'Holders' }, { value: 'Protocol' }, { value: 'Orders', disabled: kuruOrders ? undefined : 'Orders are available after graduation to Kuru.' }];
   useEffect(() => { if (tab === 'Orders' && !kuruOrders) onTab('Trades'); }, [tab, kuruOrders, onTab]);
+  const bondingPct = vm.bondingProgressBps !== null ? Math.min(100, Math.round(vm.bondingProgressBps / 100)) : null;
 
   return <div className="rp-terminal" data-testid="token-terminal" data-data-mode={vm.dataMode} data-lifecycle={vm.lifecycle} data-fixture-version={vm.fixtureVersion}>
-    <Link className="rp-back" href={backHref}><ArrowLeft size={14} aria-hidden/>Launches</Link>
-
     <header className="rp-head">
       <TokenIdentity name={vm.name} symbol={vm.symbol} icon={vm.icon} logo={vm.logo} quote={{ address: vm.addresses.quoteAsset, symbol: q }} size="lg">
         <div className="rp-meta">
@@ -60,22 +59,42 @@ export function TokenTerminal({ vm, data, chart, ticket, depth, liquidityPanel, 
           {headActions}
         </div>
       </TokenIdentity>
-      <div className="rp-price" aria-live="off">
-        <div className="rp-price-label">Price{demo && ' · SIMULATED'}</div>
-        <div className="rp-price-main" data-testid="token-price">{vm.price.x18 ? <>{formatPriceX18(vm.price.x18)}<span className="rp-price-unit">{q}</span></> : <span className="rp-muted">—</span>}</div>
-        <div className="rp-price-sub">
-          <span className={cx('rp-change', `rp-${dir}`)} data-testid="token-change">{dir === 'up' ? <ArrowUpRight size={14} aria-hidden/> : dir === 'down' ? <ArrowDownRight size={14} aria-hidden/> : null}{dir === 'none' ? '—' : formatBps(vm.change24hBps, true)}<span className="rp-sr">{dir === 'up' ? ' increase' : dir === 'down' ? ' decrease' : ''}</span> <small>24h</small></span>
-          <span className="rp-mcap">MCap <strong>{formatRawCompact(vm.marketCapRaw, vm.quote.decimals)}</strong> {vm.marketCapRaw ? q : ''}</span>
-        </div>
-        <small className="rp-muted">{vm.price.source}</small>
-      </div>
     </header>
+
+    {/* Market ribbon: one strip of decision metrics. All values real; unavailable renders —. */}
+    <div className="rp-ribbon" aria-label="Market summary">
+      <Link className="rp-ribbon-back" href={backHref} title="Back to launches"><ArrowLeft size={15} aria-hidden/><span className="rp-sr">Back to launches</span></Link>
+      <span className="rp-ribbon-pair">{vm.symbol}<span aria-hidden>/</span>{q}</span>
+      <div className="rp-ribbon-metric rp-ribbon-price" aria-live="off">
+        <small>Price{demo && ' · SIMULATED'}</small>
+        <strong data-testid="token-price">{vm.price.x18 ? <>{formatPriceX18(vm.price.x18)}<span className="rp-price-unit"> {q}</span></> : <span className="rp-muted">—</span>}</strong>
+      </div>
+      <div className="rp-ribbon-metric">
+        <small>24h change</small>
+        <span className={cx('rp-change', `rp-${dir}`)} data-testid="token-change">{dir === 'up' ? <ArrowUpRight size={13} aria-hidden/> : dir === 'down' ? <ArrowDownRight size={13} aria-hidden/> : null}{dir === 'none' ? '—' : formatBps(vm.change24hBps, true)}<span className="rp-sr">{dir === 'up' ? ' increase' : dir === 'down' ? ' decrease' : ''}</span></span>
+      </div>
+      <div className="rp-ribbon-metric rp-hide-sm">
+        <small>Volume 24h</small>
+        <span>{formatRawCompact(vm.volume24hRaw, vm.quote.decimals)} {q}</span>
+      </div>
+      <div className="rp-ribbon-metric rp-hide-md">
+        <small>Market cap</small>
+        <span>{formatRawCompact(vm.marketCapRaw, vm.quote.decimals)} {q}</span>
+      </div>
+      {bondingPct !== null && <div className="rp-ribbon-metric rp-ribbon-bond rp-hide-md">
+        <small>{vm.lifecycle === 'GRADUATED' ? 'Bonding' : 'Bonding curve'}</small>
+        <span className="rp-ribbon-bond-meter"><i style={{ width: `${bondingPct}%` }} aria-hidden="true"/><strong>{vm.lifecycle === 'GRADUATED' ? 'Complete' : `${bondingPct}%`}</strong></span>
+      </div>}
+      <span className="rp-ribbon-src" title={vm.price.source}>{vm.price.source}</span>
+    </div>
 
     {(vm.sync.indexer === 'stale' || vm.sync.indexer === 'unavailable') && <div className="rp-banner" role="status"><FreshnessIndicator freshness={vm.freshness} demo={demo}/><span>{vm.sync.message ?? 'Indexed history may be behind. Trading reads current on-chain state.'}</span>{onRetry && <button className="rp-link" onClick={onRetry}>Retry</button>}</div>}
 
     <BondingProgress progressBps={vm.bondingProgressBps} goalRaw={vm.economics.graduationThresholdRaw} decimals={vm.quote.decimals} symbol={q} graduated={vm.lifecycle === 'GRADUATED'}/>
     {vm.lifecycle === 'GRADUATED' && !kuruOrders && <p className="rp-note">This market graduated to Uniswap V4. An AMM venue has no resting orderbook; this release supports orderbook trading on Kuru.</p>}
-    <div className="rp-grid">
+
+    {/* Workspace: chart-dominant; depth only when a Kuru book exists (never a fake syncing panel); ticket rail fixed width. */}
+    <div className={cx('rp-workspace', !kuruOrders && 'rp-workspace-2col')}>
       <section className="rp-chart-panel" aria-label="Price chart">
         <ChartToolbar chart={chart} truncated={data.candles.nextCursor !== null}/>
         <div className="rp-chart-box">
@@ -87,7 +106,8 @@ export function TokenTerminal({ vm, data, chart, ticket, depth, liquidityPanel, 
         </div>
         <div className="rp-chart-foot"><FreshnessIndicator freshness={vm.freshness} demo={demo}/><span>{demo ? 'SIMULATED candles from a deterministic fixture.' : 'Candles from confirmed executed trades.'}</span></div>
       </section>
-      {!mobile && <aside className="rp-rail" aria-label="Trade">{kuruOrders && <MarketDepth vm={vm} depth={depth ?? null}/>}<div className="rp-ticket-pair"><PairIdentity name={vm.name} symbol={vm.symbol} logo={vm.logo} quoteAddress={vm.addresses.quoteAsset} quoteSymbol={q} compact/></div>{ticket}</aside>}
+      {!mobile && kuruOrders && <div className="rp-depth-col"><MarketDepth vm={vm} depth={depth ?? null}/></div>}
+      {!mobile && <aside className="rp-rail" aria-label="Trade"><div className="rp-ticket-pair"><PairIdentity name={vm.name} symbol={vm.symbol} logo={vm.logo} quoteAddress={vm.addresses.quoteAsset} quoteSymbol={q} compact/></div>{ticket}</aside>}
     </div>
 
     {mobile && kuruOrders && <MarketDepth vm={vm} depth={depth ?? null}/>}

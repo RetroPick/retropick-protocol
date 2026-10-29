@@ -143,18 +143,35 @@
 /* Terminal layout */
 .rp-terminal { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--rp-gap); min-width: 0 }
 .rp-back { display: inline-flex; align-items: center; gap: 6px; color: var(--text-3); font-family: var(--rp-mono); font-size: 11.5px; width: fit-content }
-.rp-back:hover { color: var(--accent) }
 .rp-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; flex-wrap: wrap }
-.rp-price { text-align: right; display: grid; gap: 2px; justify-items: end }
-.rp-price-label { font-family: var(--rp-mono); font-size: 10.5px; letter-spacing: .6px; text-transform: uppercase; color: var(--text-3) }
-.rp-price-main { font-size: clamp(28px, 3.4vw, 40px); font-weight: 750; letter-spacing: -1px; font-variant-numeric: tabular-nums; line-height: 1.05 }
-.rp-price-unit { font-size: 15px; font-weight: 600; color: var(--text-3); margin-left: 8px; letter-spacing: 0 }
-.rp-price-sub { display: flex; gap: 14px; align-items: baseline; font-size: 14px }
+.rp-price-unit { font-size: .72em; font-weight: 600; color: var(--text-3); margin-left: 4px; letter-spacing: 0 }
 .rp-change { display: inline-flex; align-items: center; gap: 2px; font-weight: 700; font-variant-numeric: tabular-nums }
 .rp-change small { color: var(--text-3); font-weight: 500 }
-.rp-mcap { color: var(--text-3) } .rp-mcap strong { color: var(--text-2) }
-.rp-grid { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: var(--rp-gap); align-items: start }
-.rp-rail { position: sticky; top: 16px; min-width: 0 }
+
+/* ── Market ribbon: single strip of decision metrics ─────────────────────── */
+.rp-ribbon { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; padding: 10px 14px; border: 1px solid var(--border-soft); border-radius: var(--rp-radius-lg); background: var(--panel); min-width: 0 }
+.rp-ribbon-back { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 9px; color: var(--text-3); flex-shrink: 0 }
+.rp-ribbon-back:hover { color: var(--text); background: var(--hover) }
+.rp-ribbon-pair { font-family: var(--rp-mono); font-size: 13.5px; font-weight: 700; color: var(--text); white-space: nowrap }
+.rp-ribbon-pair span { color: var(--text-dim); padding: 0 1px }
+.rp-ribbon-metric { display: flex; flex-direction: column; gap: 2px; min-width: 0 }
+.rp-ribbon-metric small { font-family: var(--rp-mono); font-size: 9.5px; letter-spacing: .7px; text-transform: uppercase; color: var(--text-dim); white-space: nowrap }
+.rp-ribbon-metric > span, .rp-ribbon-metric > strong { font-family: var(--rp-mono); font-size: 13px; font-weight: 650; color: var(--text); font-variant-numeric: tabular-nums; white-space: nowrap }
+.rp-ribbon-price strong { font-size: 19px; font-weight: 750; letter-spacing: -.3px; line-height: 1.1 }
+.rp-ribbon-bond-meter { display: inline-flex; align-items: center; gap: 8px }
+.rp-ribbon-bond-meter i { display: block; height: 4px; width: 64px; border-radius: 2px; background: var(--pos); overflow: hidden }
+.rp-ribbon-src { margin-left: auto; font-family: var(--rp-mono); font-size: 10px; color: var(--text-dim); white-space: nowrap }
+@media (max-width: 899px) { .rp-hide-md { display: none } }
+@media (max-width: 639px) { .rp-hide-sm { display: none } .rp-ribbon { gap: 12px } }
+
+/* ── Workspace: chart-dominant grid; depth column only for real Kuru books ── */
+.rp-workspace { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: var(--rp-gap); align-items: start; min-width: 0 }
+.rp-workspace .rp-depth-col { grid-column: 1 / -1; min-width: 0 }
+.rp-rail { position: sticky; top: 72px; min-width: 0 }
+@media (min-width: 1280px) {
+  .rp-workspace:not(.rp-workspace-2col) { grid-template-columns: minmax(0, 1fr) 248px 340px }
+  .rp-workspace:not(.rp-workspace-2col) .rp-depth-col { grid-column: auto }
+}
 .rp-chart-panel { border: 1px solid var(--border-soft); border-radius: var(--rp-radius); background: var(--panel); padding: 12px; min-width: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; overflow: hidden }
 .rp-chart-toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center }
 .rp-chart-box { position: relative; min-height: 0 }
@@ -244,9 +261,9 @@
 .rp-sheet { max-height: 92dvh; overflow-y: auto; border-radius: 16px 16px 0 0; padding: 8px 4px calc(12px + env(safe-area-inset-bottom)) }
 .rp-sheet .rp-ticket { border: 0 }
 
-@media (max-width: 1180px) { .rp-grid { grid-template-columns: minmax(0, 1fr) 320px } }
-@media (max-width: 960px) {
-  .rp-grid { grid-template-columns: 1fr }
+@media (max-width: 1279px) { .rp-workspace { grid-template-columns: minmax(0, 1fr) 320px } }
+@media (max-width: 1023px) {
+  .rp-workspace { grid-template-columns: 1fr }
   .rp-rail { position: static }
   .rp-contracts { grid-template-columns: 1fr 1fr }
   .rp-table .rp-p3 { display: none }

@@ -9,6 +9,7 @@ import datetime as dt
 import hashlib
 import json
 import os
+from collections import deque
 from pathlib import Path
 import subprocess
 import sys
@@ -58,6 +59,14 @@ def main():
         results.append({'name': name, 'command': command, 'cwd': str(cwd.relative_to(ROOT)), 'environmentOverrides': overrides, 'startedAt': started, 'finishedAt': dt.datetime.now(dt.timezone.utc).isoformat(), 'exitCode': code, 'log': log.name, 'logSHA256': hashlib.sha256(log.read_bytes()).hexdigest()})
         (output / 'commands.json').write_text(json.dumps({'head': head, 'dirtyPathsAtStart': dirty, 'checks': results}, indent=2) + '\n')
         print(f'{name}: {"PASS" if code == 0 else "FAIL"} ({code})', flush=True)
+        if code != 0:
+            # Surface the failing check's own output tail in the runner log so
+            # CI failures are diagnosable without the (ephemeral) evidence dir.
+            tail = deque(log.read_text(errors='replace').splitlines(), maxlen=80)
+            print(f'--- {name} log tail (last 80 lines) ---', flush=True)
+            for line in tail:
+                print(line, flush=True)
+            print(f'--- end {name} log tail ---', flush=True)
     return int(any(row['exitCode'] != 0 for row in results))
 
 

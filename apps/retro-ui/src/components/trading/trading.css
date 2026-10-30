@@ -321,7 +321,7 @@
 .rp-depth-row[data-side='ask'] .rp-depth-price { color: var(--neg) }
 .rp-depth-row[data-side='bid'] .rp-depth-price { color: var(--pos) }
 .rp-depth-size, .rp-depth-total { color: var(--text-3) }
-.rp-depth-spread { margin: 0; padding: 6px; border-block: 1px solid var(--border-soft); font-size: 12px; color: var(--text-3); text-align: center }
+.rp-depth-spread { margin: 2px 0; padding: 8px 6px; border-block: 1px solid var(--border-soft); font-size: 12px; color: var(--text-3); text-align: center; display: flex; justify-content: center; gap: 6px; flex-wrap: wrap }
 .rp-depth-spread strong { color: var(--text) }
 .rp-check { display: flex; gap: 8px; align-items: flex-start; font-size: 13px; cursor: pointer; padding: 4px 0 6px }
 .rp-check input { width: 16px; height: 16px; margin: 2px 0 0; accent-color: var(--accent); flex: none }

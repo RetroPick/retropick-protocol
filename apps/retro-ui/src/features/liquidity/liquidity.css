@@ -12,7 +12,7 @@
 .rp-liquidity-tabs { flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none; padding:3px; border:1px solid var(--border-soft); border-radius:12px; background:var(--panel); width:fit-content; max-width:100% }
 .rp-liquidity-tabs a { padding:8px 16px; border-radius:9px; border:none; background:transparent; font-size:13px; font-weight:600; min-height:36px; color:var(--text-3); white-space:nowrap }
 .rp-liquidity-tabs a:hover { color:var(--text) }
-.rp-liquidity-tabs a[aria-current=page] { background:var(--accent-dim); color:var(--text) }
+.rp-liquidity-tabs a[aria-current=page] { background:var(--panel-2); color:var(--text); box-shadow:inset 0 -2px 0 var(--accent) }
 .rp-liquidity-quotes { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin:14px 0 }
 .rp-liquidity-quotes dt { font-size:12px; color:var(--text-dim); margin-bottom:4px }
 .rp-liquidity-quotes dd { margin:0; font-size:13px; font-family:'JetBrains Mono',monospace; overflow-wrap:anywhere }
@@ -26,5 +26,7 @@
 .rp-liquidity-table { min-width:0; overflow-x:auto }
 .rp-liquidity .rp-metric-strip { grid-template-columns:repeat(auto-fit,minmax(145px,1fr)) }
 .rp-liquidity-actions { margin-top:14px }
+.rp-link-sub { color: var(--text-3); font-weight: 600 }
+.rp-link-sub:hover { color: var(--text); text-decoration: underline }
 @media(max-width:900px) { .rp-maker-grid { grid-template-columns:minmax(0,1fr) } }
 @media(max-width:480px) { .rp-liquidity-card { padding:13px }.rp-liquidity-quotes { grid-template-columns:minmax(0,1fr) }.rp-maker-drafts { grid-template-columns:minmax(0,1fr) } }

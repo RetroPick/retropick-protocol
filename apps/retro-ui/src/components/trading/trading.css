@@ -66,6 +66,10 @@
 .rp-seg-item { flex: 1 1 0; min-height: 34px; padding: 0 12px; border: 0; border-radius: 7px; background: transparent; color: var(--text-3); font-weight: 650; font-size: 13px; cursor: pointer; white-space: nowrap; transition: background .15s, color .15s }
 .rp-seg-sm .rp-seg-item { min-height: 28px; padding: 0 9px; font-size: 11.5px; font-family: var(--rp-mono); font-weight: 600 }
 .rp-seg-item:hover:not([aria-disabled]) { color: var(--text) }
+/* Inactive Buy/Sell stay visibly available: tone-tinted rather than flat gray,
+   which read as disabled next to the filled active side. */
+.rp-seg-item[data-tone='buy']:not(.is-selected) { color: color-mix(in srgb, var(--buy) 68%, var(--text-3)) }
+.rp-seg-item[data-tone='sell']:not(.is-selected) { color: color-mix(in srgb, var(--sell) 68%, var(--text-3)) }
 .rp-seg-item.is-selected { background: var(--panel); color: var(--text); box-shadow: 0 1px 0 var(--border) }
 .rp-seg-item.is-selected[data-tone='buy'] { background: var(--buy); color: var(--buy-ink) }
 .rp-seg-item.is-selected[data-tone='sell'] { background: var(--sell); color: var(--sell-ink) }

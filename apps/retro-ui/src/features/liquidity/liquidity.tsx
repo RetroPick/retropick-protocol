@@ -50,7 +50,7 @@ function Pools() {
       { key: 'base', header: 'AMM base assets', align: 'right', cell: row => row.baseAssetsRaw === null ? 'Unavailable' : `${formatRaw(row.baseAssetsRaw, row.baseDecimals)} ${row.baseSymbol}` },
       { key: 'quote', header: 'AMM quote assets', align: 'right', cell: row => row.quoteAssetsRaw === null ? 'Unavailable' : `${formatRaw(row.quoteAssetsRaw, row.quoteDecimals)} ${row.quoteSymbol}` },
       { key: 'state', header: 'Snapshot', cell: row => row.status === 'UNAVAILABLE' ? 'Unavailable' : row.historyComplete ? 'Indexed' : 'History backfill pending' },
-      { key: 'action', header: 'Actions', cell: row => <div className="rp-liquidity-actions"><Link className="rp-link" href={`/launchpad/token/${row.token}`}>Trade</Link><Link className="rp-link" href={`/liquidity/market-making?token=${row.token}`}>Make markets</Link></div> },
+      { key: 'action', header: 'Actions', cell: row => <div className="rp-liquidity-actions"><Link className="rp-link" href={`/launchpad/token/${row.token}`}>Trade</Link><Link className="rp-link-sub" href={`/liquidity/market-making?token=${row.token}`}>Make markets</Link></div> },
     ]}/>}
     {live && !q.isError && q.data && <PageLinks cursor={cursor} next={q.data.nextCursor} onCursor={setCursor}/>}
   </section>;

@@ -66,7 +66,7 @@ export function TokenTerminal({ vm, data, chart, ticket, depth, liquidityPanel, 
       <Link className="rp-ribbon-back" href={backHref} title="Back to launches"><ArrowLeft size={15} aria-hidden/><span className="rp-sr">Back to launches</span></Link>
       <span className="rp-ribbon-pair">{vm.symbol}<span aria-hidden>/</span>{q}</span>
       <div className="rp-ribbon-metric rp-ribbon-price" aria-live="off">
-        <small>Price{demo && ' · SIMULATED'}</small>
+        <small>Price</small>
         <strong data-testid="token-price">{vm.price.x18 ? <>{formatPriceX18(vm.price.x18)}<span className="rp-price-unit"> {q}</span></> : <span className="rp-muted">—</span>}</strong>
       </div>
       <div className="rp-ribbon-metric">

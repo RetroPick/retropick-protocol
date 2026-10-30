@@ -3,19 +3,23 @@
 import {
   Home,
   Coins,
-  FileText,
   ChevronsLeft,
   ChevronsRight,
   Plus,
   Search,
-  Layers,
   Droplets,
   FlaskConical,
-  BarChart3,
+  Sun,
+  Moon,
+  Wallet,
+  ArrowUpRight,
 } from 'lucide-react';
 import Link from '@/components/product/safe-link';
 import { usePathname } from '@/lib/next-compat';
+import { useDemo } from '@/components/product/provider';
+import { useWallet } from '@/wallet/provider';
 import { DATA_MODE } from '@/lib/live/env';
+import { toggleTheme, useTheme } from '@/lib/theme';
 
 interface SidebarProps {
   isCollapsed: boolean;
@@ -23,12 +27,15 @@ interface SidebarProps {
   onOpenSearch: () => void;
 }
 
-// Primary navigation for >=1024px. Wallet, network and theme moved to the top
-// navbar; this rail owns navigation and Launch. Research modules (Prediction,
-// PRISM) have no live financial data, so they appear here in mock mode only —
-// never as live product destinations.
+// Primary navigation rail (>=768px). Carries everything the removed top
+// navbar held: search, chain-state pill (derived from wallet status — never
+// decorative), wallet, theme, and the LIVE/DEMO indicator with chain copy and
+// the docs ("How it works") link. Research modules have no live financial
+// data, so they appear in mock mode only.
 export function Sidebar({ isCollapsed, onToggleCollapse, onOpenSearch }: SidebarProps) {
   const pathname = usePathname();
+  const theme = useTheme();
+  const live = DATA_MODE === 'live';
   const isActive = (id: 'home' | 'earn' | 'liquidity') => {
     if (id === 'liquidity') return pathname.startsWith('/liquidity');
     if (id === 'earn') return pathname.startsWith('/earn') || pathname.startsWith('/portfolio');
@@ -40,12 +47,7 @@ export function Sidebar({ isCollapsed, onToggleCollapse, onOpenSearch }: Sidebar
     { id: 'liquidity' as const, label: 'Liquidity', icon: Droplets, href: '/liquidity' },
     { id: 'earn' as const, label: 'Earn', icon: Coins, href: '/earn' },
   ];
-  const shortcuts = [
-    { label: 'My positions', icon: Layers, href: '/liquidity?tab=positions' },
-    { label: 'Market making', icon: BarChart3, href: '/liquidity/market-making' },
-    { label: 'Docs', icon: FileText, href: '/docs' },
-  ];
-  const research = DATA_MODE === 'live' ? [] : [
+  const research = live ? [] : [
     { label: 'Prediction', href: '/markets' },
     { label: 'PRISM', href: '/prism' },
   ];
@@ -92,19 +94,6 @@ export function Sidebar({ isCollapsed, onToggleCollapse, onOpenSearch }: Sidebar
           {!isCollapsed && <span>Launch</span>}
         </Link>
 
-        {!isCollapsed && <div className="side-group-label" aria-hidden="true">Shortcuts</div>}
-        <div className="side-nav side-nav-sub">
-          {shortcuts.map((item) => {
-            const IconComponent = item.icon;
-            return (
-              <Link key={item.label} href={item.href} className="side-link side-link-sub" title={isCollapsed ? item.label : undefined}>
-                <IconComponent className="w-4.5 h-4.5"/>
-                {!isCollapsed && <span>{item.label}</span>}
-              </Link>
-            );
-          })}
-        </div>
-
         {research.length > 0 && <>
           {!isCollapsed && <div className="side-group-label" aria-hidden="true">Research · demo</div>}
           <div className="side-nav side-nav-sub">
@@ -119,8 +108,64 @@ export function Sidebar({ isCollapsed, onToggleCollapse, onOpenSearch }: Sidebar
       </div>
 
       <div className="side-bottom">
-        <p className="side-foot" aria-hidden="true">{DATA_MODE === 'live' ? 'Monad Testnet · 10143' : 'Demo mode'}</p>
+        <NetworkPill isCollapsed={isCollapsed}/>
+        <WalletButton isCollapsed={isCollapsed}/>
+        <button className="side-action" onClick={toggleTheme} aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`} title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}>
+          {theme === 'dark' ? <Sun className="w-5 h-5"/> : <Moon className="w-5 h-5"/>}
+          {!isCollapsed && <span className="side-label">{theme === 'dark' ? 'Light theme' : 'Dark theme'}</span>}
+        </button>
+        <div className="side-mode" data-mode={live ? 'live' : 'demo'}>
+          {live
+            ? <>{!isCollapsed && <><span className="side-mode-pill">LIVE</span><span className="side-mode-copy">Monad Testnet · chain 10143 · test assets.</span><Link className="side-mode-link" href="/docs">How it works <ArrowUpRight size={10} aria-hidden/></Link></>}</>
+            : <>{!isCollapsed && <><span className="side-mode-pill">DEMO</span><span className="side-mode-copy">Illustrative data — no real funds.</span><Link className="side-mode-link" href="/docs">How it works <ArrowUpRight size={10} aria-hidden/></Link></>}</>}
+        </div>
       </div>
     </aside>
   );
+}
+
+/** Chain state is derived from the wallet context — the pill never fakes a connection. */
+function NetworkPill({ isCollapsed }: { isCollapsed: boolean }) {
+  const live = DATA_MODE === 'live';
+  const wallet = useWallet();
+  if (!live) return null;
+  const state = wallet.status === 'connected' ? 'is-live'
+    : wallet.status === 'wrong-chain' ? 'is-warn'
+    : wallet.status === 'connecting' ? 'is-off' : 'is-off';
+  const label = wallet.status === 'connected' ? 'Monad Testnet'
+    : wallet.status === 'wrong-chain' ? 'Wrong chain'
+    : wallet.status === 'connecting' ? 'Connecting…' : 'Testnet 10143';
+  const title = wallet.status === 'connected' ? 'Connected · Monad Testnet · chain 10143'
+    : wallet.status === 'wrong-chain' ? 'Wallet is on the wrong network — click to switch to Monad Testnet (10143)'
+    : wallet.status === 'connecting' ? 'Connecting wallet…' : 'Monad Testnet · chain 10143 · wallet not connected';
+  return <button
+    className={`side-net ${state}`}
+    onClick={wallet.status === 'wrong-chain' ? () => void wallet.switchChain() : undefined}
+    aria-label={title}
+    title={title}
+  >
+    <span className="side-net-dot" aria-hidden="true"/>
+    {!isCollapsed && <span className="side-label">{label}</span>}
+  </button>;
+}
+
+/** Live mode connects a real EIP-1193 wallet; mock mode keeps the demo wallet. */
+function WalletButton({ isCollapsed }: { isCollapsed: boolean }) {
+  const demo = useDemo();
+  const live = DATA_MODE === 'live';
+  const wallet = useWallet();
+  if (!live) {
+    return <button className="side-action side-wallet" onClick={() => demo.setConnected(!demo.connected)} aria-label={demo.connected ? 'Demo wallet' : 'Connect wallet'} title={demo.connected ? 'Demo wallet' : 'Connect wallet'}>
+      <Wallet className="w-5 h-5"/>
+      {!isCollapsed && <span className="side-label">{demo.connected ? 'Demo wallet' : 'Connect wallet'}</span>}
+    </button>;
+  }
+  const label = wallet.status === 'connected' ? `${wallet.account?.slice(0, 6)}…${wallet.account?.slice(-4)}`
+    : wallet.status === 'wrong-chain' ? 'Wrong chain'
+    : wallet.status === 'connecting' ? 'Connecting…'
+    : 'Connect wallet';
+  return <button className="side-action side-wallet" onClick={() => (wallet.status === 'disconnected' ? void wallet.connect() : wallet.status === 'wrong-chain' ? void wallet.switchChain() : wallet.disconnect())} aria-label={label} title={wallet.walletName ? `${wallet.walletName} · ${label}` : label} data-wallet-status={wallet.status}>
+    <Wallet className="w-5 h-5"/>
+    {!isCollapsed && <span className="side-label">{label}</span>}
+  </button>;
 }

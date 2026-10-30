@@ -1,0 +1,120 @@
+{
+  "test": "fixture/a11y.spec.ts > theme dark > @theme dark matrix: key routes render with theme-specific chart palette, no overflow",
+  "project": "desktop-1280",
+  "status": "passed",
+  "appConsoleErrors": [],
+  "console": [
+    {
+      "type": "error",
+      "text": "Failed to load resource: net::ERR_NETWORK_CHANGED",
+      "url": "https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2",
+      "classification": "environment"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: net::ERR_NETWORK_CHANGED",
+      "url": "http://127.0.0.1:4317/brand/retropick.png",
+      "classification": "environment"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: net::ERR_NETWORK_CHANGED",
+      "url": "http://127.0.0.1:4317/assets/chevron-down-D_CZD7Si.js",
+      "classification": "environment"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: net::ERR_NETWORK_CHANGED",
+      "url": "http://127.0.0.1:4317/assets/select-DyBGzV9s.js",
+      "classification": "environment"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: net::ERR_NETWORK_CHANGED",
+      "url": "http://127.0.0.1:4317/assets/layers-CrtSlXxU.js",
+      "classification": "environment"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: net::ERR_NETWORK_CHANGED",
+      "url": "http://127.0.0.1:4317/assets/send-spvCEVZY.js",
+      "classification": "environment"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: net::ERR_NETWORK_CHANGED",
+      "url": "http://127.0.0.1:4317/assets/shield-check-C-yeE1Hb.js",
+      "classification": "environment"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: net::ERR_NETWORK_CHANGED",
+      "url": "http://127.0.0.1:4317/assets/launch-table-CdZwSP1w.js",
+      "classification": "environment"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: net::ERR_NETWORK_CHANGED",
+      "url": "http://127.0.0.1:4317/assets/star-hvq5kdKA.js",
+      "classification": "environment"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: net::ERR_NETWORK_CHANGED",
+      "url": "http://127.0.0.1:4317/assets/bonding-progress-Ywfi5ZPC.js",
+      "classification": "environment"
+    },
+    {
+      "type": "error",
+      "text": "TypeError: Failed to fetch dynamically imported module: http://127.0.0.1:4317/assets/earn-DTti3zBR.js",
+      "url": "http://127.0.0.1:4317/assets/index-CYfyIa-R.js",
+      "classification": "provider-rpc"
+    }
+  ],
+  "pageErrors": [],
+  "failedRequests": [
+    {
+      "url": "https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2",
+      "failure": "net::ERR_NETWORK_CHANGED"
+    },
+    {
+      "url": "http://127.0.0.1:4317/brand/retropick.png",
+      "failure": "net::ERR_NETWORK_CHANGED"
+    },
+    {
+      "url": "http://127.0.0.1:4317/assets/chevron-down-D_CZD7Si.js",
+      "failure": "net::ERR_NETWORK_CHANGED"
+    },
+    {
+      "url": "http://127.0.0.1:4317/assets/select-DyBGzV9s.js",
+      "failure": "net::ERR_NETWORK_CHANGED"
+    },
+    {
+      "url": "http://127.0.0.1:4317/assets/layers-CrtSlXxU.js",
+      "failure": "net::ERR_NETWORK_CHANGED"
+    },
+    {
+      "url": "http://127.0.0.1:4317/assets/send-spvCEVZY.js",
+      "failure": "net::ERR_NETWORK_CHANGED"
+    },
+    {
+      "url": "http://127.0.0.1:4317/assets/shield-check-C-yeE1Hb.js",
+      "failure": "net::ERR_NETWORK_CHANGED"
+    },
+    {
+      "url": "http://127.0.0.1:4317/assets/launch-table-CdZwSP1w.js",
+      "failure": "net::ERR_NETWORK_CHANGED"
+    },
+    {
+      "url": "http://127.0.0.1:4317/assets/star-hvq5kdKA.js",
+      "failure": "net::ERR_NETWORK_CHANGED"
+    },
+    {
+      "url": "http://127.0.0.1:4317/assets/bonding-progress-Ywfi5ZPC.js",
+      "failure": "net::ERR_NETWORK_CHANGED"
+    }
+  ],
+  "guardViolations": [],
+  "blockedExternal": [],
+  "requestCount": 535
+}

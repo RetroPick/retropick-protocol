@@ -59,3 +59,35 @@ test('@liquidity manual bid and ask require separate confirmations and preserve 
   await expectNoHorizontalOverflow(page);
   expectClean(observed);
 });
+
+test('@liquidity donor overview: vault cards, pools table honesty, add-liquidity modal is explicitly not-enabled', async ({ page, observed }) => {
+  await page.goto('/liquidity');
+  // Vault cards render from the real demo pool with a status chip — no APR badge, no $ values.
+  await expect(page.getByRole('button', { name: /vault details/i })).toBeVisible();
+  const section = page.locator('.rp-pools-section');
+  await expect(section).toContainText('CIS / MON');
+  await expect(section).toContainText('Fee and yield statistics');
+  const bodyText = await page.locator('[data-testid="liquidity-page"]').innerText();
+  expect(bodyText, 'no fabricated APR or USD values on the pools page (the absence footnote may name APR)').not.toMatch(/\\$\\d|536\\.4|\\d+(\\.\\d+)?% APR/);
+
+  // Add-liquidity modal opens with the donor flow but an honest disabled CTA + real route.
+  await page.getByRole('button', { name: /Add liquidity to CIS \/ MON/i }).click();
+  const dialog = page.getByRole('dialog', { name: /Add liquidity to CIS \/ MON/i });
+  await expect(dialog).toBeVisible();
+  await dialog.getByRole('tab', { name: /Range & deposit/ }).click();
+  const cta = dialog.getByRole('button', { name: 'Public LP deposits not enabled' });
+  await expect(cta).toBeDisabled();
+  await expect(dialog.getByRole('link', { name: /Provide liquidity via Market Making/ })).toHaveAttribute('href', /\/liquidity\/market-making\?token=/);
+  await expect(dialog).toContainText('Graduation LP shares are permanently protocol-protected');
+  await page.keyboard.press('Escape');
+  await expect(dialog).toHaveCount(0);
+
+  // Vault detail modal shows real snapshot facts, never an APR or projected-return figure.
+  await page.getByRole('button', { name: /vault details/i }).click();
+  const vaultDialog = page.getByRole('dialog', { name: /vault details/i });
+  await expect(vaultDialog).toContainText(/Demo fixture vault|no verified source exists/);
+  const vaultText = await vaultDialog.innerText();
+  expect(vaultText, 'no APR/yield language in vault sheet').not.toMatch(/APR|Annual Percentage Rate|projected/i);
+  await page.keyboard.press('Escape');
+  expectClean(observed);
+});

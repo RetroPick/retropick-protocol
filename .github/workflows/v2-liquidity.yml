@@ -25,6 +25,13 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm --filter @retropick/retro-ui exec playwright install --with-deps chromium
       - run: python3 scripts/launchpad/verify_liquidity.py --browser --evidence /tmp/v2-liquidity-ci
+      - name: Retain qualification evidence on failure
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: v2-liquidity-ci-evidence
+          path: /tmp/v2-liquidity-ci
+          retention-days: 7
 
   solidity-v2:
     runs-on: ubuntu-latest

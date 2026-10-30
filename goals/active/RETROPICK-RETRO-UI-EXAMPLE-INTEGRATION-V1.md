@@ -1,6 +1,6 @@
 # Goal RETROPICK-RETRO-UI-EXAMPLE-INTEGRATION-V1
 
-Status: ACTIVE
+Status: COMPLETE (implementation + verification; awaiting operator PR review/merge — see Evidence)
 
 ## Objective
 

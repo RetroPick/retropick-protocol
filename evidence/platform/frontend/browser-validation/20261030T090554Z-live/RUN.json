@@ -1,0 +1,7 @@
+{
+  "target": "live",
+  "label": "",
+  "startedAt": "2026-10-30T09:05:54.076Z",
+  "command": "pnpm exec playwright test --config playwright.config.ts",
+  "cwd": "apps/retro-ui"
+}

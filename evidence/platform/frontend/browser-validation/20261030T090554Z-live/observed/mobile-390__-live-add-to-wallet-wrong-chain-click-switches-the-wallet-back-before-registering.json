@@ -1,0 +1,12 @@
+{
+  "test": "live/add-to-wallet.spec.ts > @live add to wallet: wrong-chain click switches the wallet back before registering",
+  "project": "mobile-390",
+  "status": "skipped",
+  "appConsoleErrors": [],
+  "console": [],
+  "pageErrors": [],
+  "failedRequests": [],
+  "guardViolations": [],
+  "blockedExternal": [],
+  "requestCount": 0
+}

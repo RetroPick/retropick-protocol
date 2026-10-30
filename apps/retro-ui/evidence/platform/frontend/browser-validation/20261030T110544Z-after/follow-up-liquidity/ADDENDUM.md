@@ -16,3 +16,17 @@
 - e2e:fixture FULL: **313 passed / 0 failed / 1 flaky-retry / 40 skipped** (was 308 pre-follow-up; +5 new donor-honesty spec projects).
 - Defect caught & fixed during verification: my liquidity.css leaked a global `.rp-btn-primary { min-height:38px }` shrinking the ticket CTA below the 40px touch-target gate — namespaced to `.rp-mbtn-*`; touch-target spec green again on mobile.
 - Vision critique: liquidity 7.6/10 desktop after fixes (tables clean at all widths, maker card FIXED); remaining: light-mode contrast nits (DEMO banner tint, faint borders) — documented, non-blocking.
+
+## CI fix (2026-10-30, PR #40 browser-fixture failure)
+Root causes of the failing CI/local runs (20261030T152637Z: 309/2):
+1. DETERMINISTIC — my ≤640px tier hid the whole Actions column, removing the
+   Add-liquidity button on phones (donor spec timed out clicking it at 375/390;
+   also a genuine UX regression). Fix: the affordance never hides — ≤640px it
+   collapses to an icon button with the same accessible name; the AMM-quote
+   column yields its width instead (table still clip-free 375–1440, verified).
+2. TRANSIENT — tablet-768 'paused'/'prediction renders' failed with an EMPTY
+   #root, zero console/page errors, zero failed requests, and passed on retry:
+   a vite-preview stall under parallel load. Fix: CI retries 1→2
+   (local stays 1); comment documents the class.
+Verified: donor spec 24/24 at mobile-375/390 + tablet-768; full suite
+20261030T154448Z-fixture: 313 passed / 0 unexpected / 1 flaky / 40 skipped.

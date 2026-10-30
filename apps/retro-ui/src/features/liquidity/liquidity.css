@@ -248,7 +248,7 @@
 /* Column tiers: fit without clipping; vault cards already carry volume/status. */
 @media(max-width:1024px) { .rp-pt1 { display:none } }
 @media(max-width:800px) { .rp-pt2 { display:none } }
-@media(max-width:640px) { .rp-pt3 { display:none } }
+@media(max-width:640px) { .rp-pt5 { display:none } }
 @media(max-width:900px) { .rp-kuru-table .rp-action-link { display:none } }
 @media(max-width:900px) { .rp-pt4 { display:none } }
 @media(max-width:900px) { .rp-maker-grid { grid-template-columns:minmax(0,1fr) } }
@@ -273,3 +273,12 @@
 :root[data-theme='light'] .rp-market-id { color: var(--text-3) }
 :root[data-theme='light'] .rp-metric-label, :root[data-theme='light'] .rp-ml-badge-tag { color: var(--text-3) }
 :root[data-theme='light'] .rp-kuru-table td { border-top-color: var(--border) }
+
+/* The Add-liquidity affordance is NEVER hidden: <=640px it collapses to an icon
+   (same accessible name) and the AMM-quote column yields its width instead. */
+.rp-add-icon { display:none }
+@media(max-width:640px) {
+  .rp-add-label { display:none }
+  .rp-add-icon { display:inline-flex }
+  .rp-btn-add-liquidity { padding:0 10px; width:36px; justify-content:center }
+}

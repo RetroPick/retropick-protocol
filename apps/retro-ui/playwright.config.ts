@@ -29,8 +29,9 @@ export default defineConfig({
   outputDir: join(evidence, 'test-output'),
   fullyParallel: true,
   workers: process.env.CI ? 2 : 4,
-  // One retry absorbs host network-interface events (net::ERR_NETWORK_CHANGED); retried passes are reported as "flaky".
-  retries: 1,
+  // Retries absorb host network-interface events (net::ERR_NETWORK_CHANGED) and the rare
+  // zero-error preview-server stall (page boots empty, passes on retry); retried passes are reported as "flaky".
+  retries: process.env.CI ? 2 : 1,
   timeout: target === 'fixture' ? 45_000 : 90_000,
   expect: { timeout: target === 'fixture' ? 8_000 : 30_000 },
   reporter: [['list'], ['json', { outputFile: join(evidence, 'results.json') }], ['html', { outputFolder: join(evidence, 'html-report'), open: 'never' }]],

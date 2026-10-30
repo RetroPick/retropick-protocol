@@ -2,7 +2,7 @@ import { useState, type ReactNode } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import type { IndexedLiquidityPool, IndexedLPPosition, IndexFreshness } from '@retropick/launchpad-sdk/read-model';
 import type { Address } from 'viem';
-import { Droplets, Search } from 'lucide-react';
+import { Droplets, Plus, Search } from 'lucide-react';
 import Link from '@/components/product/safe-link';
 import { usePathname, useSearchParams } from '@/lib/next-compat';
 import { DATA_MODE, INDEXER_URL } from '@/lib/live/env';
@@ -122,20 +122,20 @@ function PoolsOverview({ initialTab }: { initialTab: 'explore' | 'positions' }) 
               <thead><tr>
                 <th scope="col" className="th-market">Market</th>
                 <th scope="col" className="th-num rp-pt4">AMM base</th>
-                <th scope="col" className="th-num">AMM quote</th>
+                <th scope="col" className="th-num rp-pt5">AMM quote</th>
                 <th scope="col" className="th-num rp-pt1">Volume 24h</th>
                 <th scope="col" className="rp-pt2">Snapshot</th>
-                <th scope="col" className="th-action rp-pt3">Actions</th>
+                <th scope="col" className="th-action">Actions</th>
               </tr></thead>
               <tbody>
                 {filtered.map((row) => <tr key={row.token} className="rp-pool-row">
                   <td className="td-market"><span className="rp-market-cell"><PairDots base={row.baseSymbol} quote={row.quoteSymbol}/><span className="rp-market-name-wrap"><Link className="rp-market-name" href={`/liquidity/pools/${row.token}`}>{row.baseSymbol} / {row.quoteSymbol}</Link><span className="rp-market-id" title={row.token}>{row.token}</span></span></span></td>
                   <td className="td-num rp-pt4">{row.baseAssetsRaw === null ? <span className="rp-muted">Unavailable</span> : <>{formatRaw(row.baseAssetsRaw, row.baseDecimals)} <span className="rp-unit">{row.baseSymbol}</span></>}</td>
-                  <td className="td-num">{row.quoteAssetsRaw === null ? <span className="rp-muted">Unavailable</span> : <>{formatRaw(row.quoteAssetsRaw, row.quoteDecimals)} <span className="rp-unit">{row.quoteSymbol}</span></>}</td>
+                  <td className="td-num rp-pt5">{row.quoteAssetsRaw === null ? <span className="rp-muted">Unavailable</span> : <>{formatRaw(row.quoteAssetsRaw, row.quoteDecimals)} <span className="rp-unit">{row.quoteSymbol}</span></>}</td>
                   <td className="td-num rp-pt1">{volumeFor(row)}</td>
                   <td className="rp-pt2"><PoolStatusChip pool={row}/></td>
-                  <td className="td-action rp-pt3"><span className="rp-row-actions">
-                    <button type="button" className="rp-btn-add-liquidity" onClick={() => setAddPool(row)} aria-label={`Add liquidity to ${row.baseSymbol} / ${row.quoteSymbol}`}>Add liquidity</button>
+                  <td className="td-action"><span className="rp-row-actions">
+                    <button type="button" className="rp-btn-add-liquidity" onClick={() => setAddPool(row)} aria-label={`Add liquidity to ${row.baseSymbol} / ${row.quoteSymbol}`}><Plus size={13} className="rp-add-icon" aria-hidden/><span className="rp-add-label">Add liquidity</span></button>
                     <Link className="rp-action-link" href={`/launchpad/token/${row.token}`}>Trade</Link>
                   </span></td>
                 </tr>)}

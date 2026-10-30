@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import type { IndexedLiquidityPool, IndexedLPPosition, IndexFreshness } from '@retropick/launchpad-sdk/read-model';
 import type { Address } from 'viem';
-import { Droplets } from 'lucide-react';
+import { Droplets, Search } from 'lucide-react';
 import Link from '@/components/product/safe-link';
 import { usePathname, useSearchParams } from '@/lib/next-compat';
 import { DATA_MODE, INDEXER_URL } from '@/lib/live/env';
@@ -10,11 +10,13 @@ import { launchKeys } from '@/lib/live/queries';
 import { isStale } from '@/lib/live/indexer-client';
 import { useWallet } from '@/wallet/provider';
 import { useKuruLiquidity } from '@/hooks/use-kuru-liquidity';
+import { useLaunchStats } from '@/hooks/use-launch-stats';
 import { AddressChip, DataTable, DemoBadge, EmptyState, ErrorState, FreshnessIndicator } from '@/components/trading/primitives';
-import { formatRaw } from '@/lib/view-models/token-terminal';
+import { formatPriceX18, formatRaw, formatRawCompact } from '@/lib/view-models/token-terminal';
 import { demoLiquidityView, liquidityView } from '@/lib/view-models/liquidity';
 import { LiveMarketLiquidity, MarketLiquidity, StateValue } from './market-liquidity';
 import { demoPool, demoPoolEvents, fetchLPPositions, fetchPool, fetchPoolEvents, fetchPools } from './liquidity-data';
+import { AddLiquidityModal, VaultDetailModal } from './liquidity-modals';
 import { MarketMaking } from './market-making';
 import './liquidity.css';
 
@@ -35,25 +37,121 @@ export default function Liquidity({ token, maker = false }: { token?: string; ma
   return <div className="rp-liquidity" data-testid="liquidity-page" data-data-mode={live ? 'live' : 'demo'}>
     <header><h1><Droplets size={25} aria-hidden/> Liquidity</h1><p className="rp-note">Pools, protected protocol liquidity and manual market making on Monad Testnet.</p>{!live && <DemoBadge/>}</header>
     <nav className="rp-liquidity-tabs" aria-label="Liquidity sections"><Link href="/liquidity" aria-current={!positions && !maker ? 'page' : undefined}>Pools</Link><Link href="/liquidity?tab=positions" aria-current={positions ? 'page' : undefined}>My Positions</Link><Link href="/liquidity/market-making" aria-current={pathname.includes('/market-making') ? 'page' : undefined}>Market Making</Link></nav>
-    {maker ? <MarketMaking/> : token ? <PoolDetails key={token} token={token}/> : positions ? <LPPositions/> : <Pools/>}
+    {maker ? <MarketMaking/> : token ? <PoolDetails key={token} token={token}/> : <PoolsOverview initialTab={positions ? 'positions' : 'explore'}/>}
   </div>;
 }
 
-function Pools() {
+/** Donor-style status chip backed by the real pool snapshot state. */
+function PoolStatusChip({ pool }: { pool: IndexedLiquidityPool }) {
+  const state = pool.status === 'UNAVAILABLE' ? 'unavailable' : pool.historyComplete ? 'ready' : 'backfill';
+  const label = state === 'ready' ? 'Ready' : state === 'backfill' ? 'Backfill pending' : 'Unavailable';
+  return <span className={`rp-status-chip ${state}`} title={state === 'backfill' ? 'Vault event history is still backfilling; aggregates may be incomplete.' : state === 'unavailable' ? 'The vault read failed at snapshot time; this does not establish zero balances.' : 'Vault snapshot read at index time.'}>{label}</span>;
+}
+
+function PairDots({ base, quote }: { base: string; quote: string }) {
+  return <span className="rp-pair-icons" aria-hidden="true"><span className="rp-token-dot">{base[0] ?? '?'}</span><span className="rp-token-dot">{quote[0] ?? '?'}</span></span>;
+}
+
+function VaultCard({ pool, volume, onOpen }: { pool: IndexedLiquidityPool; volume: ReactNode; onOpen: () => void }) {
+  return <button type="button" className="rp-vault-card" onClick={onOpen} aria-label={`${pool.baseSymbol} / ${pool.quoteSymbol} vault details`}>
+    <span className="rp-vault-card-header">
+      <span className="rp-pair-identity"><PairDots base={pool.baseSymbol} quote={pool.quoteSymbol}/><span className="rp-pair-symbol">{pool.baseSymbol}/{pool.quoteSymbol}</span></span>
+      <PoolStatusChip pool={pool}/>
+    </span>
+    <span className="rp-vault-card-footer">
+      <span className="rp-metric-item"><span className="rp-metric-label">AMM {pool.baseSymbol}</span><span className="rp-metric-value">{pool.baseAssetsRaw !== null ? formatRawCompact(pool.baseAssetsRaw, pool.baseDecimals) : '—'}</span></span>
+      <span className="rp-metric-item"><span className="rp-metric-label">AMM {pool.quoteSymbol}</span><span className="rp-metric-value">{pool.quoteAssetsRaw !== null ? formatRawCompact(pool.quoteAssetsRaw, pool.quoteDecimals) : '—'}</span></span>
+      <span className="rp-metric-item"><span className="rp-metric-label">Vol 24h</span><span className="rp-metric-value">{volume}</span></span>
+    </span>
+  </button>;
+}
+
+/**
+ * Donor (example-ui-ux) liquidity overview rebuilt on real data: vault cards
+ * from indexed pools, pools table with quote/base-denominated inventory, and
+ * wallet-owned LP positions verified on-chain. Fee/APR/USD columns are not
+ * shown — no verified source exists on testnet.
+ */
+function PoolsOverview({ initialTab }: { initialTab: 'explore' | 'positions' }) {
   const [cursor, setCursor] = useState<string>();
+  const [sub, setSub] = useState<'explore' | 'positions'>(initialTab);
+  const [search, setSearch] = useState('');
+  const [addPool, setAddPool] = useState<IndexedLiquidityPool | null>(null);
+  const [vaultPool, setVaultPool] = useState<IndexedLiquidityPool | null>(null);
   const q = useQuery({ queryKey: launchKeys.resource('all', 'liquidity-pools', { cursor }), enabled: live && !!INDEXER_URL, queryFn: ({ signal }) => fetchPools(INDEXER_URL!, cursor, signal), refetchInterval: cursor ? false : 15_000 });
-  const rows = live ? q.data?.data ?? [] : [demoPool];
-  return <section className="rp-liquidity-card" aria-label="Liquidity pools"><div className="rp-liquidity-header"><h2>Pools</h2>{live && <LiquidityFreshness freshness={q.data?.freshness}/>}</div>
-    <p className="rp-note">Base and quote inventory are shown separately. Inventory does not guarantee execution for a particular order size.</p>
-    {live && q.isError ? <ErrorState title="Pool discovery unavailable" text={q.error.message} onRetry={() => void q.refetch()}/> : <DataTable caption="Kuru liquidity pools" rows={rows} rowKey={row => row.token} empty={<EmptyState title={live && q.isPending ? 'Loading pools…' : 'No indexed Kuru pools'} text="Only graduated RetroPick Kuru markets appear here."/>} columns={[
-      { key: 'pool', header: 'Pool', cell: row => <Link className="rp-link" href={`/liquidity/pools/${row.token}`}>{row.baseSymbol} / {row.quoteSymbol}</Link> },
-      { key: 'base', header: 'AMM base assets', align: 'right', cell: row => row.baseAssetsRaw === null ? 'Unavailable' : `${formatRaw(row.baseAssetsRaw, row.baseDecimals)} ${row.baseSymbol}` },
-      { key: 'quote', header: 'AMM quote assets', align: 'right', cell: row => row.quoteAssetsRaw === null ? 'Unavailable' : `${formatRaw(row.quoteAssetsRaw, row.quoteDecimals)} ${row.quoteSymbol}` },
-      { key: 'state', header: 'Snapshot', cell: row => row.status === 'UNAVAILABLE' ? 'Unavailable' : row.historyComplete ? 'Indexed' : 'History backfill pending' },
-      { key: 'action', header: 'Actions', cell: row => <div className="rp-liquidity-actions"><Link className="rp-link" href={`/launchpad/token/${row.token}`}>Trade</Link><Link className="rp-link-sub" href={`/liquidity/market-making?token=${row.token}`}>Make markets</Link></div> },
-    ]}/>}
-    {live && !q.isError && q.data && <PageLinks cursor={cursor} next={q.data.nextCursor} onCursor={setCursor}/>}
-  </section>;
+  const { stats } = useLaunchStats();
+  const wallet = useWallet(), account = wallet.account;
+  const positionsCount = useQuery({ queryKey: launchKeys.wallet(account ?? 'disconnected', 'lp-positions:count'), enabled: live && !!account && !!INDEXER_URL, queryFn: ({ signal }) => fetchLPPositions(INDEXER_URL!, account!, undefined, signal), refetchInterval: 30_000 });
+
+  const pools = live ? q.data?.data ?? [] : [demoPool];
+  const term = search.trim().toLowerCase();
+  const filtered = term ? pools.filter((p) => `${p.baseSymbol} ${p.quoteSymbol} ${p.token}`.toLowerCase().includes(term)) : pools;
+  const volumeFor = (p: IndexedLiquidityPool) => {
+    const s = stats[p.token];
+    if (!s || s.volume24hRaw === null) return <span className="rp-muted">—</span>;
+    return <>{formatRawCompact(s.volume24hRaw, s.quoteDecimals)} <span className="rp-unit">{s.quoteSymbol}</span></>;
+  };
+  const currentPriceFor = (p: IndexedLiquidityPool): number | null => {
+    const s = stats[p.token];
+    if (!s || !s.priceX18) return null;
+    return Number(formatPriceX18(s.priceX18));
+  };
+
+  return <>
+    <section className="rp-vaults-section" aria-label="Vault markets">
+      <h2 className="rp-section-title">Explore vaults</h2>
+      <p className="rp-note">Each graduated market runs an automated Kuru order-book vault holding permanently protected protocol liquidity. Values are chain inventory in each asset's own units — no USD conversion exists on testnet.</p>
+      {live && q.isError ? <ErrorState title="Pool discovery unavailable" text={q.error.message} onRetry={() => void q.refetch()}/>
+      : <div className="rp-vaults-grid">{filtered.slice(0, 6).map((p) => <VaultCard key={p.token} pool={p} volume={volumeFor(p)} onOpen={() => setVaultPool(p)}/>)}
+        {!filtered.length && <EmptyState title={live && q.isPending ? 'Loading vault markets…' : 'No indexed Kuru vaults'} text="Only graduated RetroPick Kuru markets appear here."/>}</div>}
+    </section>
+
+    <section className="rp-pools-section" aria-label="Pools and positions">
+      <div className="rp-pools-header-row">
+        <div className="rp-subtabs-wrap" role="tablist" aria-label="Liquidity sections">
+          <button type="button" role="tab" className={`rp-subtab-btn${sub === 'explore' ? ' active' : ''}`} aria-selected={sub === 'explore'} onClick={() => setSub('explore')}>Explore pools{sub === 'explore' && <span className="rp-subtab-indicator" aria-hidden="true"/>}</button>
+          <button type="button" role="tab" className={`rp-subtab-btn${sub === 'positions' ? ' active' : ''}`} aria-selected={sub === 'positions'} onClick={() => setSub('positions')}>Your positions{sub === 'positions' && <span className="rp-subtab-indicator" aria-hidden="true"/>}{live && positionsCount.data?.data.length ? <span className="rp-positions-counter" title={positionsCount.data.nextCursor ? 'First page count — more positions exist' : undefined}>{positionsCount.data.data.length}</span> : null}</button>
+        </div>
+        {sub === 'explore' && <div className="rp-search-wrap"><span className="rp-search-icon" aria-hidden="true"><Search size={13}/></span><input className="rp-search-input" aria-label="Search pools by symbol or token" placeholder="Search pools" value={search} onChange={(e) => setSearch(e.target.value)}/></div>}
+      </div>
+
+      {sub === 'positions' ? <LPPositions/> : <>
+        <div className="rp-pools-table-card">
+          <div className="rp-table-responsive">
+            <table className="rp-kuru-table" aria-label="Kuru liquidity pools">
+              <thead><tr>
+                <th scope="col" className="th-market">Market</th>
+                <th scope="col" className="th-num rp-pt4">AMM base</th>
+                <th scope="col" className="th-num">AMM quote</th>
+                <th scope="col" className="th-num rp-pt1">Volume 24h</th>
+                <th scope="col" className="rp-pt2">Snapshot</th>
+                <th scope="col" className="th-action rp-pt3">Actions</th>
+              </tr></thead>
+              <tbody>
+                {filtered.map((row) => <tr key={row.token} className="rp-pool-row">
+                  <td className="td-market"><span className="rp-market-cell"><PairDots base={row.baseSymbol} quote={row.quoteSymbol}/><span className="rp-market-name-wrap"><Link className="rp-market-name" href={`/liquidity/pools/${row.token}`}>{row.baseSymbol} / {row.quoteSymbol}</Link><span className="rp-market-id" title={row.token}>{row.token}</span></span></span></td>
+                  <td className="td-num rp-pt4">{row.baseAssetsRaw === null ? <span className="rp-muted">Unavailable</span> : <>{formatRaw(row.baseAssetsRaw, row.baseDecimals)} <span className="rp-unit">{row.baseSymbol}</span></>}</td>
+                  <td className="td-num">{row.quoteAssetsRaw === null ? <span className="rp-muted">Unavailable</span> : <>{formatRaw(row.quoteAssetsRaw, row.quoteDecimals)} <span className="rp-unit">{row.quoteSymbol}</span></>}</td>
+                  <td className="td-num rp-pt1">{volumeFor(row)}</td>
+                  <td className="rp-pt2"><PoolStatusChip pool={row}/></td>
+                  <td className="td-action rp-pt3"><span className="rp-row-actions">
+                    <button type="button" className="rp-btn-add-liquidity" onClick={() => setAddPool(row)} aria-label={`Add liquidity to ${row.baseSymbol} / ${row.quoteSymbol}`}>Add liquidity</button>
+                    <Link className="rp-action-link" href={`/launchpad/token/${row.token}`}>Trade</Link>
+                  </span></td>
+                </tr>)}
+                {!filtered.length && <tr><td colSpan={6}><div className="rp-empty-pools">{live && q.isPending ? 'Loading pools…' : `No pools matching “${search}”`}</div></td></tr>}
+              </tbody>
+            </table>
+          </div>
+          <p className="rp-note rp-pools-footnote">Fee and yield statistics (fees 24h, pool APR) are not shown: no verified source exists. Base and quote inventory are shown separately — inventory does not guarantee execution for a particular order size.</p>
+        </div>
+        {live && !q.isError && q.data && <PageLinks cursor={cursor} next={q.data.nextCursor} onCursor={setCursor}/>}
+      </>}
+    </section>
+
+    {addPool && <AddLiquidityModal pool={addPool} currentPrice={currentPriceFor(addPool)} isOpen onClose={() => setAddPool(null)}/>}
+    {vaultPool && <VaultDetailModal pool={vaultPool} isOpen onClose={() => setVaultPool(null)}/>}
+  </>;
 }
 
 function PoolDetails({ token }: { token: string }) {
@@ -93,16 +191,41 @@ function LPPositions() {
   const q = useQuery({ queryKey: launchKeys.wallet(account ?? 'disconnected', `lp-positions:${cursor ?? ''}`), enabled: live && !!account && !!INDEXER_URL, queryFn: ({ signal }) => fetchLPPositions(INDEXER_URL!, account!, cursor, signal), refetchInterval: cursor ? false : 15_000 });
   if (live && !account) return <EmptyState title="Connect a wallet to see LP positions" text="LP shares are distinct from Kuru trading margin." action={<button className="rp-btn rp-btn-primary" onClick={() => void wallet.connect().catch(() => {})}>Connect wallet</button>}/>;
   const rows: IndexedLPPosition[] = live ? q.data?.data ?? [] : [];
-  return <section className="rp-liquidity-card" aria-label="Your LP positions"><div className="rp-liquidity-header"><h2>My Positions</h2>{live && <LiquidityFreshness freshness={q.data?.freshness}/>}</div><p className="rp-note">Read-only wallet-owned LP shares. Protected graduation shares belong to the protocol lock. Trading capital and open orders remain separate.</p>
-    {live && q.isError ? <ErrorState title="LP positions unavailable" text="Position history is unavailable or still syncing. This does not establish a zero share balance." onRetry={() => void q.refetch()}/> : rows.length ? rows.map(row => <VerifiedPosition key={`${row.vault}:${row.wallet}`} row={row} account={account!}/>) : <EmptyState title={live && q.isPending ? 'Loading LP positions…' : 'No indexed LP positions on this page'} text={live ? 'Only verified, indexed Kuru vault positions appear here.' : 'The demo wallet has no LP shares. Demo margin balances are trading capital, not LP ownership.'}/>}
+  return <div>
+    <p className="rp-note">Read-only wallet-owned LP shares. Protected graduation shares belong to the protocol lock. Trading capital and open orders remain separate.</p>
+    {live && q.isError ? <ErrorState title="LP positions unavailable" text="Position history is unavailable or still syncing. This does not establish a zero share balance." onRetry={() => void q.refetch()}/> : rows.length ? <div className="rp-positions-list">{rows.map(row => <VerifiedPosition key={`${row.vault}:${row.wallet}`} row={row} account={account!}/>)}</div> : <div className="rp-positions-empty">
+      <p className="rp-empty-title">{live && q.isPending ? 'Loading LP positions…' : 'No indexed LP positions on this page'}</p>
+      <p className="rp-note">{live ? 'Only verified, indexed Kuru vault positions appear here.' : 'The demo wallet has no LP shares. Demo margin balances are trading capital, not LP ownership.'}</p>
+    </div>}
     {live && !q.isError && q.data && <PageLinks cursor={cursor} next={q.data.nextCursor} onCursor={setCursor}/>}
-  </section>;
+  </div>;
 }
+
+const ROLE_TAG: Record<IndexedLPPosition['role'], string> = { PROTECTED: 'Protected protocol', INFRASTRUCTURE: 'Infrastructure', WALLET: 'Wallet' };
 
 function VerifiedPosition({ row, account }: { row: IndexedLPPosition; account: Address }) {
   const q = useKuruLiquidity(row.token, account);
   const view = liquidityView(row.token, q.data, { loading: q.isPending, error: q.isError ? q.error.message : null, stale: !!q.data && (q.isError || Date.now() - q.dataUpdatedAt >= 20_000) });
-  return <article className="rp-liquidity-card"><h3><Link className="rp-link" href={`/liquidity/pools/${row.token}`}>View pool</Link> <AddressChip value={row.token} label="position token"/></h3><p className="rp-note">{row.role === 'PROTECTED' ? 'Protected protocol position' : row.role === 'INFRASTRUCTURE' ? 'Infrastructure position' : 'Wallet position'} · {view.block ? `chain block ${view.block}` : 'Chain confirmation unavailable'}</p>
-    <dl className="rp-liquidity-quotes"><div><dt>Current shares</dt><dd><StateValue status={view.position.status}>{view.shareDecimals === null ? `${view.position.sharesRaw ?? '—'} atomic shares` : formatRaw(view.position.sharesRaw, view.shareDecimals)}</StateValue></dd></div><div><dt>Underlying preview · base / quote</dt><dd><StateValue status={view.position.status}>{formatRaw(view.position.baseRaw, view.baseDecimals)} / {formatRaw(view.position.quoteRaw, view.quoteDecimals)}</StateValue></dd></div></dl><p className="rp-note">Underlying values are the current vault withdrawal preview; they are not guaranteed withdrawal proceeds.</p>
+  const poolShares = view.vaultState.sharesRaw;
+  const sharePct = poolShares && BigInt(poolShares) > 0n && view.position.sharesRaw ? BigInt(view.position.sharesRaw) * 10_000n / BigInt(poolShares) : null;
+  return <article className="rp-position-card" aria-label={`LP position in ${row.token}`}>
+    <header className="rp-pos-header">
+      <span className="rp-pos-title-wrap">
+        <h3><Link className="rp-link" href={`/liquidity/pools/${row.token}`}>{ROLE_TAG[row.role]} position</Link></h3>
+        <span className={`rp-pos-type-tag${row.role === 'WALLET' ? '' : ' is-protocol'}`}>{ROLE_TAG[row.role]}</span>
+        <span className="rp-pos-status-badge" title={view.block ? `Verified on-chain at block ${view.block}` : 'Chain confirmation unavailable'}><span className="dot" aria-hidden="true"/>{view.block ? `Block ${view.block}` : 'Unverified'}</span>
+      </span>
+      <span className="rp-pos-actions"><AddressChip value={row.token} label="position token"/></span>
+    </header>
+    <dl className="rp-pos-stats-grid">
+      <div><dt>Current shares</dt><dd><StateValue status={view.position.status}>{view.shareDecimals === null ? `${view.position.sharesRaw ?? '—'} atomic shares` : formatRaw(view.position.sharesRaw, view.shareDecimals)}</StateValue></dd></div>
+      <div><dt>Share of pool</dt><dd><StateValue status={view.position.status}>{sharePct !== null ? `${Number(sharePct) / 100}%` : '—'}</StateValue></dd></div>
+      <div><dt>Underlying preview · base / quote</dt><dd><StateValue status={view.position.status}>{formatRaw(view.position.baseRaw, view.baseDecimals)} / {formatRaw(view.position.quoteRaw, view.quoteDecimals)}</StateValue></dd></div>
+      <div><dt>Earned fees</dt><dd title="No fee-earnings source exists: Kuru trade events carry no fee field and the indexer aggregates none."><span className="rp-muted">—</span></dd></div>
+    </dl>
+    <footer className="rp-pos-foot">
+      <button className="rp-btn-withdraw" disabled title="LP withdrawals are not enabled on RetroPick. Graduation LP shares are permanently protocol-protected.">Withdraw</button>
+      <p className="rp-note">Underlying values are the current vault withdrawal preview; they are not guaranteed withdrawal proceeds.</p>
+    </footer>
   </article>;
 }

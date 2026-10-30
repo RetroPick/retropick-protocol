@@ -159,7 +159,7 @@
 .rp-ribbon-pair { font-family: var(--rp-mono); font-size: 13.5px; font-weight: 700; color: var(--text); white-space: nowrap }
 .rp-ribbon-pair span { color: var(--text-dim); padding: 0 1px }
 .rp-ribbon-metric { display: flex; flex-direction: column; gap: 2px; min-width: 0 }
-.rp-ribbon-metric small { font-family: var(--rp-mono); font-size: 9.5px; letter-spacing: .7px; text-transform: uppercase; color: var(--text-dim); white-space: nowrap }
+.rp-ribbon-metric small { font-family: var(--rp-mono); font-size: 10px; letter-spacing: .7px; text-transform: uppercase; color: var(--text-3); white-space: nowrap }
 .rp-ribbon-metric > span, .rp-ribbon-metric > strong { font-family: var(--rp-mono); font-size: 13px; font-weight: 650; color: var(--text); font-variant-numeric: tabular-nums; white-space: nowrap }
 .rp-ribbon-price strong { font-size: 19px; font-weight: 750; letter-spacing: -.3px; line-height: 1.1 }
 .rp-ribbon-bond-meter { display: inline-flex; align-items: center; gap: 8px }
@@ -221,6 +221,8 @@
 .rp-protocol-group dl, .rp-quote { margin: 0; display: grid; gap: 2px }
 .rp-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 30px; font-size: 13px }
 .rp-row dt { color: var(--text-3); display: flex; align-items: center } .rp-row dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; min-width: 0; overflow-wrap: anywhere }
+/* Primary ticket numbers (price, receive, totals) render at full contrast — they are the decision data. */
+.rp-quote dd, .rp-ticket .rp-row dd { color: var(--text); font-weight: 650 }
 
 /* Ticket */
 .rp-ticket { border: 1px solid var(--border-soft); border-radius: var(--rp-radius); background: var(--panel); padding: 14px; display: grid; gap: 12px }

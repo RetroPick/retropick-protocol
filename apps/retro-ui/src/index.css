@@ -268,7 +268,7 @@ input::-webkit-inner-spin-button { appearance: none }
   color: var(--text-3);
 }
 .side-link:hover { color: var(--text); background: var(--hover) }
-.side-link.active { color: var(--text); background: var(--accent-dim) }
+.side-link.active { color: var(--text); background: var(--accent-dim); box-shadow: inset 2px 0 0 var(--accent) }
 .side-link.active svg { color: var(--accent) }
 .sidebar.collapsed .side-link, .sidebar.collapsed .side-search { justify-content: center; padding-left: 0; padding-right: 0 }
 .launch-btn {

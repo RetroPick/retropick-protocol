@@ -20,7 +20,7 @@
 .rp-trending-head { display: flex; align-items: baseline; gap: 8px; padding: 13px 16px; border-bottom: 1px solid var(--border-soft) }
 .rp-trending-head h2 { display: inline-flex; align-items: center; gap: 7px; margin: 0; font-size: 14.5px }
 .rp-trending-head h2 svg { color: var(--accent) }
-.rp-trending-sub { color: var(--text-dim); font-family: var(--rp-mono); font-size: 10px; letter-spacing: .6px; text-transform: uppercase }
+.rp-trending-sub { color: var(--text-dim); font-family: var(--rp-mono); font-size: 10.5px; letter-spacing: .6px; text-transform: uppercase }
 .rp-trending ol { list-style: none; margin: 0; padding: 0; flex: 1 }
 .rp-trending-row { display: flex; align-items: center; gap: 10px; padding: 11px 14px; border-bottom: 1px solid var(--border-soft); color: inherit }
 .rp-trending-row:last-child { border-bottom: 0 }

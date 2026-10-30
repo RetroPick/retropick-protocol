@@ -4,6 +4,7 @@ import { curveAbi } from './abis/curveAbi.ts';
 import { factoryAbi } from './abis/factoryAbi.ts';
 import { kuruAbi } from './abis/kuruAbi.ts';
 import { marginAbi } from './abis/marginAbi.ts';
+import { kuruVaultAbi } from './abis/kuruVaultAbi.ts';
 import { tokenAbi } from './abis/tokenAbi.ts';
 import { retroPickBuybackVaultV2Abi } from './abis/retroPickBuybackVaultV2Abi.ts';
 import { retroPickFeeEscrowV2Abi } from './abis/retroPickFeeEscrowV2Abi.ts';
@@ -15,6 +16,7 @@ export const decodeAbis = [
   curveAbi,
   tokenAbi,
   kuruAbi,
+  kuruVaultAbi,
   marginAbi,
   retroPickFeeEscrowV2Abi,
   retroPickBuybackVaultV2Abi,
@@ -77,6 +79,25 @@ export function decodeOrderCancellations(logs: Parameters<typeof decodeEvents>[0
 
 export function decodeKuruFills(logs: Parameters<typeof decodeEvents>[0]) {
   return decodeEvents(logs, [kuruAbi as unknown as Abi], ['Trade']);
+}
+
+/** Vault LP lifecycle: deposit/withdraw carry the RECEIVER as userAddress (not msg.sender). */
+export function decodeVaultDeposit(logs: Parameters<typeof decodeEvents>[0]) {
+  return decodeEvents(logs, [kuruVaultAbi as unknown as Abi], ['KuruVaultDeposit']).map((event) => ({
+    baseRaw: event.args.amount1 as bigint,
+    quoteRaw: event.args.amount2 as bigint,
+    shares: event.args.shares as bigint,
+    receiver: event.args.userAddress as Address,
+  }));
+}
+
+export function decodeVaultWithdraw(logs: Parameters<typeof decodeEvents>[0]) {
+  return decodeEvents(logs, [kuruVaultAbi as unknown as Abi], ['KuruVaultWithdraw']).map((event) => ({
+    baseRaw: event.args.amount1 as bigint,
+    quoteRaw: event.args.amount2 as bigint,
+    shares: event.args.shares as bigint,
+    owner: event.args.userAddress as Address,
+  }));
 }
 
 export function decodeEscrowClaim(logs: Parameters<typeof decodeEvents>[0]) {

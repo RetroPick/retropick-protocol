@@ -1,0 +1,4389 @@
+{
+  "baseline": "28a4744dcc8005da285f9e924ba7841073daee0b",
+  "head": "28a4744dcc8005da285f9e924ba7841073daee0b",
+  "branch": "research/community-economy-v2-20261031",
+  "protected_changed": [],
+  "protected_untracked": [],
+  "pairs": [
+    {
+      "path": "GraduationCoordinatorV2.sol",
+      "canonical_exists": true,
+      "experiment_exists": true,
+      "canonical_sha256": "7823fba50e8890facd20e1df30df60f02628574ef5d9236991cf38f755274f4a",
+      "experiment_sha256": "7823fba50e8890facd20e1df30df60f02628574ef5d9236991cf38f755274f4a",
+      "identical": true
+    },
+    {
+      "path": "KuruEnvironmentV2.sol",
+      "canonical_exists": true,
+      "experiment_exists": true,
+      "canonical_sha256": "aa915a37dbdf2b439983d4b8791bbbc61d64730aee879e44a322b4148ab7c99f",
+      "experiment_sha256": "aa915a37dbdf2b439983d4b8791bbbc61d64730aee879e44a322b4148ab7c99f",
+      "identical": true
+    },
+    {
+      "path": "KuruGraduationExecutorV2.sol",
+      "canonical_exists": true,
+      "experiment_exists": true,
+      "canonical_sha256": "8d3212f6d12580cab1e928afdcf28519145b50e97b05ffd311c4a2dee200217c",
+      "experiment_sha256": "8d3212f6d12580cab1e928afdcf28519145b50e97b05ffd311c4a2dee200217c",
+      "identical": true
+    },
+    {
+      "path": "KuruLiquidityLockV2.sol",
+      "canonical_exists": true,
+      "experiment_exists": true,
+      "canonical_sha256": "fdb8ada56145a8418d277131bd834444273bc5ce81736d61b941c760431b19c1",
+      "experiment_sha256": "fdb8ada56145a8418d277131bd834444273bc5ce81736d61b941c760431b19c1",
+      "identical": true
+    },
+    {
+      "path": "RetroPickBondingCurveV2.sol",
+      "canonical_exists": true,
+      "experiment_exists": true,
+      "canonical_sha256": "e14fb74942526ebcce27b2c5f7ed2312c549ecaad9434eafa8e3e96b53c73054",
+      "experiment_sha256": "e14fb74942526ebcce27b2c5f7ed2312c549ecaad9434eafa8e3e96b53c73054",
+      "identical": true
+    },
+    {
+      "path": "RetroPickBuybackVaultV2.sol",
+      "canonical_exists": true,
+      "experiment_exists": true,
+      "canonical_sha256": "2a387e80ddd1b24b8b381bcc6aed982e1c16fcf2d6d16325483989eaa85f60be",
+      "experiment_sha256": "2a387e80ddd1b24b8b381bcc6aed982e1c16fcf2d6d16325483989eaa85f60be",
+      "identical": true
+    },
+    {
+      "path": "RetroPickDoorwayV2.sol",
+      "canonical_exists": true,
+      "experiment_exists": true,
+      "canonical_sha256": "6204d891680b4516f59f16adee64b45ca6a106bdbc03881d6183316a917e7fa0",
+      "experiment_sha256": "6204d891680b4516f59f16adee64b45ca6a106bdbc03881d6183316a917e7fa0",
+      "identical": true
+    },
+    {
+      "path": "RetroPickFeeEscrowV2.sol",
+      "canonical_exists": true,
+      "experiment_exists": true,
+      "canonical_sha256": "41183cf76e94c1a51fca4754d0a885e81997b5aeb41ed7101f6e3e71f040cf88",
+      "experiment_sha256": "41183cf76e94c1a51fca4754d0a885e81997b5aeb41ed7101f6e3e71f040cf88",
+      "identical": true
+    },
+    {
+      "path": "RetroPickGraduationGuardV2.sol",
+      "canonical_exists": true,
+      "experiment_exists": true,
+      "canonical_sha256": "3b96b08ae957260617c671a60cf85c8cab11c1b4cfee0db6c102b01f945d3b3c",
+      "experiment_sha256": "3b96b08ae957260617c671a60cf85c8cab11c1b4cfee0db6c102b01f945d3b3c",
+      "identical": true
+    },
+    {
+      "path": "RetroPickHookDeployerV2.sol",
+      "canonical_exists": true,
+      "experiment_exists": true,
+      "canonical_sha256": "012bd068abf797e79dea255e7c4ebed999ef60b00b2e34237e0de135d972ae4f",
+      "experiment_sha256": "012bd068abf797e79dea255e7c4ebed999ef60b00b2e34237e0de135d972ae4f",
+      "identical": true
+    },
+    {
+      "path": "RetroPickLaunchDeployerV2.sol",
+      "canonical_exists": true,
+      "experiment_exists": true,
+      "canonical_sha256": "a8e67cf25071c477b617ea84f00ea0f02c4f7d00c70450bd843d8ee83041a4a0",
+      "experiment_sha256": "a8e67cf25071c477b617ea84f00ea0f02c4f7d00c70450bd843d8ee83041a4a0",
+      "identical": true
+    },
+    {
+      "path": "RetroPickLaunchFactoryV2.sol",
+      "canonical_exists": true,
+      "experiment_exists": true,
+      "canonical_sha256": "18fbf064773b6d2515752b63a22ee329b2210d632b3dc1935678783049f91615",
+      "experiment_sha256": "18fbf064773b6d2515752b63a22ee329b2210d632b3dc1935678783049f91615",
+      "identical": true
+    },
+    {
+      "path": "RetroPickLaunchLockerV2.sol",
+      "canonical_exists": true,
+      "experiment_exists": true,
+      "canonical_sha256": "389779b3db7251dd14bbb8eb216c3056c858a071e85700aff5a7d25516b2a794",
+      "experiment_sha256": "389779b3db7251dd14bbb8eb216c3056c858a071e85700aff5a7d25516b2a794",
+      "identical": true
+    },
+    {
+      "path": "RetroPickLauncherTokenV2.sol",
+      "canonical_exists": true,
+      "experiment_exists": true,
+      "canonical_sha256": "6218554cf72090fa443da6650ff446c8965fec8ecd6fcce6a6daaf853ad68f33",
+      "experiment_sha256": "6218554cf72090fa443da6650ff446c8965fec8ecd6fcce6a6daaf853ad68f33",
+      "identical": true
+    },
+    {
+      "path": "RetroPickQuoteAssetPolicyV2.sol",
+      "canonical_exists": true,
+      "experiment_exists": true,
+      "canonical_sha256": "00a1d6b50ec3736ec4ea347964dc2bc0cb71bf05047937bc030b30026d6ab90e",
+      "experiment_sha256": "00a1d6b50ec3736ec4ea347964dc2bc0cb71bf05047937bc030b30026d6ab90e",
+      "identical": true
+    },
+    {
+      "path": "RetroPickQuoteAssetRegistryV2.sol",
+      "canonical_exists": true,
+      "experiment_exists": true,
+      "canonical_sha256": "7032fbb85717c8077ff46a48dc1fc6733795c8d7a8afdc964c4de85962fa909c",
+      "experiment_sha256": "7032fbb85717c8077ff46a48dc1fc6733795c8d7a8afdc964c4de85962fa909c",
+      "identical": true
+    },
+    {
+      "path": "UniswapV4GraduationExecutorV2.sol",
+      "canonical_exists": true,
+      "experiment_exists": true,
+      "canonical_sha256": "b8a74240e1d9103c65728795ac52576dd792f3ff7e568b95e4559d36fe65ff74",
+      "experiment_sha256": "b8a74240e1d9103c65728795ac52576dd792f3ff7e568b95e4559d36fe65ff74",
+      "identical": true
+    },
+    {
+      "path": "hooks/RetroPickMemeHookV2.sol",
+      "canonical_exists": true,
+      "experiment_exists": true,
+      "canonical_sha256": "30730479a25e133fbea08e8d27167e25a622d6e368e24c2ac159ea90d81b1a2e",
+      "experiment_sha256": "30730479a25e133fbea08e8d27167e25a622d6e368e24c2ac159ea90d81b1a2e",
+      "identical": true
+    },
+    {
+      "path": "interfaces/IGraduationExecutorV2.sol",
+      "canonical_exists": true,
+      "experiment_exists": true,
+      "canonical_sha256": "f2120b5edf7c34d5229eb7fb4fb20adfac48af3469368205d34d1e1f9e28d6fd",
+      "experiment_sha256": "f2120b5edf7c34d5229eb7fb4fb20adfac48af3469368205d34d1e1f9e28d6fd",
+      "identical": true
+    },
+    {
+      "path": "interfaces/IKuruV2.sol",
+      "canonical_exists": true,
+      "experiment_exists": true,
+      "canonical_sha256": "8cd18dd7032a8b9a7ca2b54ae88eef17c055e6b9a92996cae87b7c9996dedeb2",
+      "experiment_sha256": "3c6180c9cf333d3b6b3e1e4af1ba84d3da50d30f022c11315ae070e4d4ad3dc1",
+      "identical": false,
+      "diff": [
+        "--- \n",
+        "+++ \n",
+        "@@ -61,4 +61,3 @@\n",
+        " ",
+        "     function marketState() external view returns (MarketState);",
+        " }",
+        "-"
+      ]
+    },
+    {
+      "path": "interfaces/IRetroPickDoorwayV2.sol",
+      "canonical_exists": true,
+      "experiment_exists": true,
+      "canonical_sha256": "982c27ef54f2add603c8e171083298a7948cf3659b7be8ed2bed16196dbc2d79",
+      "experiment_sha256": "982c27ef54f2add603c8e171083298a7948cf3659b7be8ed2bed16196dbc2d79",
+      "identical": true
+    },
+    {
+      "path": "interfaces/IRetroPickGraduationV2.sol",
+      "canonical_exists": true,
+      "experiment_exists": true,
+      "canonical_sha256": "8c145b9e43ae84b00664769306c8267b47b2a300f4d554e5af2d8187ab166ff0",
+      "experiment_sha256": "8c145b9e43ae84b00664769306c8267b47b2a300f4d554e5af2d8187ab166ff0",
+      "identical": true
+    },
+    {
+      "path": "interfaces/IRetroPickLaunchpadV2.sol",
+      "canonical_exists": true,
+      "experiment_exists": true,
+      "canonical_sha256": "707b07a77d0c2a5805032aa949a926dd241efb6aa4b951e58f27cd9a4b79f831",
+      "experiment_sha256": "707b07a77d0c2a5805032aa949a926dd241efb6aa4b951e58f27cd9a4b79f831",
+      "identical": true
+    },
+    {
+      "path": "interfaces/IRetroPickQuoteAssetPolicyV2.sol",
+      "canonical_exists": true,
+      "experiment_exists": true,
+      "canonical_sha256": "403fa51050f584318330fbe236acb870cf09c298306745229dc69fd4ae5074d1",
+      "experiment_sha256": "403fa51050f584318330fbe236acb870cf09c298306745229dc69fd4ae5074d1",
+      "identical": true
+    },
+    {
+      "path": "interfaces/IVenueLaunchV2.sol",
+      "canonical_exists": true,
+      "experiment_exists": true,
+      "canonical_sha256": "c9cd43a33118899de7ec5b17852d175c3d445af20931dd8693334406012c0e86",
+      "experiment_sha256": "c9cd43a33118899de7ec5b17852d175c3d445af20931dd8693334406012c0e86",
+      "identical": true
+    },
+    {
+      "path": "libraries/CompletionQuoteMathV2.sol",
+      "canonical_exists": true,
+      "experiment_exists": true,
+      "canonical_sha256": "0501bd4cd506f68ff073187c8cf2f018a9e32e0c92686f99d080db771a99461c",
+      "experiment_sha256": "0501bd4cd506f68ff073187c8cf2f018a9e32e0c92686f99d080db771a99461c",
+      "identical": true
+    },
+    {
+      "path": "libraries/ExactAssetV2.sol",
+      "canonical_exists": true,
+      "experiment_exists": true,
+      "canonical_sha256": "55b86794fa8a1545ed247c4035dffdf05515d9c5a2a27b49f335102eeeede28e",
+      "experiment_sha256": "55b86794fa8a1545ed247c4035dffdf05515d9c5a2a27b49f335102eeeede28e",
+      "identical": true
+    },
+    {
+      "path": "libraries/ExecutorDonationsV2.sol",
+      "canonical_exists": true,
+      "experiment_exists": true,
+      "canonical_sha256": "47661cb3dda1c80ddca62ae708881c49af4cc3c3be383a23173f19c9b0da130a",
+      "experiment_sha256": "47661cb3dda1c80ddca62ae708881c49af4cc3c3be383a23173f19c9b0da130a",
+      "identical": true
+    },
+    {
+      "path": "libraries/KuruParameterPolicyV2.sol",
+      "canonical_exists": true,
+      "experiment_exists": true,
+      "canonical_sha256": "f0979f764111c2fb537caf3f4d6a34cad6419b66da4f5279d6bfbe373c857750",
+      "experiment_sha256": "f0979f764111c2fb537caf3f4d6a34cad6419b66da4f5279d6bfbe373c857750",
+      "identical": true
+    },
+    {
+      "path": "libraries/RetroPickBondingCurveMathV2.sol",
+      "canonical_exists": true,
+      "experiment_exists": true,
+      "canonical_sha256": "2576c4601ca9f516d156cc5652a66400f05e1974c6e2e0fec815a171d669066b",
+      "experiment_sha256": "2576c4601ca9f516d156cc5652a66400f05e1974c6e2e0fec815a171d669066b",
+      "identical": true
+    },
+    {
+      "path": "libraries/RetroPickGraduationMathV2.sol",
+      "canonical_exists": true,
+      "experiment_exists": true,
+      "canonical_sha256": "f9cf285edf8aac15ef3266d42c454ec14f42b6e8a9ce618019a5e9d3d2886c3a",
+      "experiment_sha256": "f9cf285edf8aac15ef3266d42c454ec14f42b6e8a9ce618019a5e9d3d2886c3a",
+      "identical": true
+    }
+  ],
+  "inventory": [
+    {
+      "lane": "canonical",
+      "path": "contracts/src/v2/GraduationCoordinatorV2.sol",
+      "sha256": "7823fba50e8890facd20e1df30df60f02628574ef5d9236991cf38f755274f4a",
+      "lines": 263,
+      "declarations": [
+        {
+          "line": 23,
+          "declaration": "struct GraduationLaunchConfigV2"
+        },
+        {
+          "line": 34,
+          "declaration": "function getLaunchConfig(uint256 id) external view returns (GraduationLaunchConfigV2 memory)"
+        },
+        {
+          "line": 35,
+          "declaration": "function memeHook() external view returns (IRetroPickFeePolicyV2)"
+        },
+        {
+          "line": 36,
+          "declaration": "function quoteRegistry() external view returns (RetroPickQuoteAssetRegistryV2)"
+        },
+        {
+          "line": 37,
+          "declaration": "function getLaunchFeePolicy(address token) external view returns (FeePolicySnapshot memory)"
+        },
+        {
+          "line": 58,
+          "declaration": "event FactoryBound(address indexed factory)"
+        },
+        {
+          "line": 59,
+          "declaration": "event ExecutorConfigured(GraduationVenue indexed venue, address indexed executor)"
+        },
+        {
+          "line": 60,
+          "declaration": "event LaunchCommitted(address indexed token, GraduationVenue indexed venue, bytes32 packetHash)"
+        },
+        {
+          "line": 61,
+          "declaration": "event GraduationSecured(address indexed token, uint256 quote, uint256 launchTokens)"
+        },
+        {
+          "line": 62,
+          "declaration": "event GraduationCompleted(address indexed token, bytes32 indexed destination, bytes32 receiptHash)"
+        },
+        {
+          "line": 64,
+          "declaration": "constructor(address owner_) Ownable(owner_)"
+        },
+        {
+          "line": 65,
+          "declaration": "modifier onlyFactory()"
+        },
+        {
+          "line": 70,
+          "declaration": "function bindFactory(address factory_) external onlyOwner"
+        },
+        {
+          "line": 77,
+          "declaration": "function configureExecutor(GraduationVenue venue, address executor) external onlyFactory"
+        },
+        {
+          "line": 86,
+          "declaration": "function packet(address token) external view returns (GraduationPacket memory)"
+        },
+        {
+          "line": 90,
+          "declaration": "function ledger(address token) external view returns (GraduationLedger memory)"
+        },
+        {
+          "line": 94,
+          "declaration": "function receipt(address token) external view returns (GraduationReceipt memory)"
+        },
+        {
+          "line": 98,
+          "declaration": "function available(address token) external view returns (uint256 quote, uint256 launchTokens)"
+        },
+        {
+          "line": 103,
+          "declaration": "function previewEconomics(uint256 id, address quote, GraduationVenue venue) external view returns (bytes32)"
+        },
+        {
+          "line": 128,
+          "declaration": "function registerLaunch( address token, address curveAddress, GraduationVenue venue, uint24 poolFee, int24 tickSpacing ) external onlyFactory"
+        },
+        {
+          "line": 178,
+          "declaration": "function secure(address token) external onlyFactory nonReentrant"
+        },
+        {
+          "line": 206,
+          "declaration": "function complete(address token) external nonReentrant returns (GraduationReceipt memory r)"
+        },
+        {
+          "line": 252,
+          "declaration": "function _approveExact(address token, address spender, uint256 amount) private"
+        },
+        {
+          "line": 258,
+          "declaration": "function _clearAllowance(address token, address spender) private"
+        }
+      ]
+    },
+    {
+      "lane": "experiment",
+      "path": "contracts/src/v2-research-experiment/GraduationCoordinatorV2.sol",
+      "sha256": "7823fba50e8890facd20e1df30df60f02628574ef5d9236991cf38f755274f4a",
+      "lines": 263,
+      "declarations": [
+        {
+          "line": 23,
+          "declaration": "struct GraduationLaunchConfigV2"
+        },
+        {
+          "line": 34,
+          "declaration": "function getLaunchConfig(uint256 id) external view returns (GraduationLaunchConfigV2 memory)"
+        },
+        {
+          "line": 35,
+          "declaration": "function memeHook() external view returns (IRetroPickFeePolicyV2)"
+        },
+        {
+          "line": 36,
+          "declaration": "function quoteRegistry() external view returns (RetroPickQuoteAssetRegistryV2)"
+        },
+        {
+          "line": 37,
+          "declaration": "function getLaunchFeePolicy(address token) external view returns (FeePolicySnapshot memory)"
+        },
+        {
+          "line": 58,
+          "declaration": "event FactoryBound(address indexed factory)"
+        },
+        {
+          "line": 59,
+          "declaration": "event ExecutorConfigured(GraduationVenue indexed venue, address indexed executor)"
+        },
+        {
+          "line": 60,
+          "declaration": "event LaunchCommitted(address indexed token, GraduationVenue indexed venue, bytes32 packetHash)"
+        },
+        {
+          "line": 61,
+          "declaration": "event GraduationSecured(address indexed token, uint256 quote, uint256 launchTokens)"
+        },
+        {
+          "line": 62,
+          "declaration": "event GraduationCompleted(address indexed token, bytes32 indexed destination, bytes32 receiptHash)"
+        },
+        {
+          "line": 64,
+          "declaration": "constructor(address owner_) Ownable(owner_)"
+        },
+        {
+          "line": 65,
+          "declaration": "modifier onlyFactory()"
+        },
+        {
+          "line": 70,
+          "declaration": "function bindFactory(address factory_) external onlyOwner"
+        },
+        {
+          "line": 77,
+          "declaration": "function configureExecutor(GraduationVenue venue, address executor) external onlyFactory"
+        },
+        {
+          "line": 86,
+          "declaration": "function packet(address token) external view returns (GraduationPacket memory)"
+        },
+        {
+          "line": 90,
+          "declaration": "function ledger(address token) external view returns (GraduationLedger memory)"
+        },
+        {
+          "line": 94,
+          "declaration": "function receipt(address token) external view returns (GraduationReceipt memory)"
+        },
+        {
+          "line": 98,
+          "declaration": "function available(address token) external view returns (uint256 quote, uint256 launchTokens)"
+        },
+        {
+          "line": 103,
+          "declaration": "function previewEconomics(uint256 id, address quote, GraduationVenue venue) external view returns (bytes32)"
+        },
+        {
+          "line": 128,
+          "declaration": "function registerLaunch( address token, address curveAddress, GraduationVenue venue, uint24 poolFee, int24 tickSpacing ) external onlyFactory"
+        },
+        {
+          "line": 178,
+          "declaration": "function secure(address token) external onlyFactory nonReentrant"
+        },
+        {
+          "line": 206,
+          "declaration": "function complete(address token) external nonReentrant returns (GraduationReceipt memory r)"
+        },
+        {
+          "line": 252,
+          "declaration": "function _approveExact(address token, address spender, uint256 amount) private"
+        },
+        {
+          "line": 258,
+          "declaration": "function _clearAllowance(address token, address spender) private"
+        }
+      ]
+    },
+    {
+      "lane": "canonical",
+      "path": "contracts/src/v2/KuruEnvironmentV2.sol",
+      "sha256": "aa915a37dbdf2b439983d4b8791bbbc61d64730aee879e44a322b4148ab7c99f",
+      "lines": 29,
+      "declarations": [
+        {
+          "line": 20,
+          "declaration": "function validate() external view"
+        }
+      ]
+    },
+    {
+      "lane": "experiment",
+      "path": "contracts/src/v2-research-experiment/KuruEnvironmentV2.sol",
+      "sha256": "aa915a37dbdf2b439983d4b8791bbbc61d64730aee879e44a322b4148ab7c99f",
+      "lines": 29,
+      "declarations": [
+        {
+          "line": 20,
+          "declaration": "function validate() external view"
+        }
+      ]
+    },
+    {
+      "lane": "canonical",
+      "path": "contracts/src/v2/KuruGraduationExecutorV2.sol",
+      "sha256": "8d3212f6d12580cab1e928afdcf28519145b50e97b05ffd311c4a2dee200217c",
+      "lines": 326,
+      "declarations": [
+        {
+          "line": 33,
+          "declaration": "constructor(address coordinator_, KuruEnvironmentV2 environment_)"
+        },
+        {
+          "line": 47,
+          "declaration": "modifier onlyCoordinator()"
+        },
+        {
+          "line": 52,
+          "declaration": "function validateLaunch(GraduationPacket calldata p, uint256 supply) external view"
+        },
+        {
+          "line": 64,
+          "declaration": "function previewReceiver(GraduationPacket calldata p) external view returns (address)"
+        },
+        {
+          "line": 70,
+          "declaration": "function execute(GraduationPacket calldata p, uint256 quoteAmount, uint256 tokenAmount) external payable onlyCoordinator nonReentrant returns (GraduationReceipt memory r)"
+        },
+        {
+          "line": 125,
+          "declaration": "function verifyReceipt(GraduationPacket calldata p, GraduationReceipt calldata r) external view"
+        },
+        {
+          "line": 143,
+          "declaration": "function _validatePacket(GraduationPacket calldata p) private view"
+        },
+        {
+          "line": 150,
+          "declaration": "function _destination(GraduationPacket calldata p) private view returns (address market, address vault)"
+        },
+        {
+          "line": 169,
+          "declaration": "function _deployMarket(GraduationPacket calldata p) private returns (address market, address vault)"
+        },
+        {
+          "line": 190,
+          "declaration": "function _verifyMarket(GraduationPacket calldata p, address market, address vault) private view"
+        },
+        {
+          "line": 224,
+          "declaration": "function _deposit( GraduationPacket calldata p, address market, address vault, address receiver, uint256 quoteAmount, uint256 baseSeed, uint256 terminalTokens ) private returns (uint256 shares)"
+        },
+        {
+          "line": 265,
+          "declaration": "function _verifyOpening( GraduationPacket calldata p, address market, address vault, uint256 quoteAmount, uint256 baseSeed, uint256 terminalTokens ) private view"
+        },
+        {
+          "line": 294,
+          "declaration": "function _tickTolerance(uint256 tick, uint256 referencePrice) private pure"
+        },
+        {
+          "line": 301,
+          "declaration": "function _salt(GraduationPacket calldata p) private pure returns (bytes32)"
+        },
+        {
+          "line": 305,
+          "declaration": "function _lockAddress(GraduationPacket calldata p, address market, address vault) private view returns (address)"
+        }
+      ]
+    },
+    {
+      "lane": "experiment",
+      "path": "contracts/src/v2-research-experiment/KuruGraduationExecutorV2.sol",
+      "sha256": "8d3212f6d12580cab1e928afdcf28519145b50e97b05ffd311c4a2dee200217c",
+      "lines": 326,
+      "declarations": [
+        {
+          "line": 33,
+          "declaration": "constructor(address coordinator_, KuruEnvironmentV2 environment_)"
+        },
+        {
+          "line": 47,
+          "declaration": "modifier onlyCoordinator()"
+        },
+        {
+          "line": 52,
+          "declaration": "function validateLaunch(GraduationPacket calldata p, uint256 supply) external view"
+        },
+        {
+          "line": 64,
+          "declaration": "function previewReceiver(GraduationPacket calldata p) external view returns (address)"
+        },
+        {
+          "line": 70,
+          "declaration": "function execute(GraduationPacket calldata p, uint256 quoteAmount, uint256 tokenAmount) external payable onlyCoordinator nonReentrant returns (GraduationReceipt memory r)"
+        },
+        {
+          "line": 125,
+          "declaration": "function verifyReceipt(GraduationPacket calldata p, GraduationReceipt calldata r) external view"
+        },
+        {
+          "line": 143,
+          "declaration": "function _validatePacket(GraduationPacket calldata p) private view"
+        },
+        {
+          "line": 150,
+          "declaration": "function _destination(GraduationPacket calldata p) private view returns (address market, address vault)"
+        },
+        {
+          "line": 169,
+          "declaration": "function _deployMarket(GraduationPacket calldata p) private returns (address market, address vault)"
+        },
+        {
+          "line": 190,
+          "declaration": "function _verifyMarket(GraduationPacket calldata p, address market, address vault) private view"
+        },
+        {
+          "line": 224,
+          "declaration": "function _deposit( GraduationPacket calldata p, address market, address vault, address receiver, uint256 quoteAmount, uint256 baseSeed, uint256 terminalTokens ) private returns (uint256 shares)"
+        },
+        {
+          "line": 265,
+          "declaration": "function _verifyOpening( GraduationPacket calldata p, address market, address vault, uint256 quoteAmount, uint256 baseSeed, uint256 terminalTokens ) private view"
+        },
+        {
+          "line": 294,
+          "declaration": "function _tickTolerance(uint256 tick, uint256 referencePrice) private pure"
+        },
+        {
+          "line": 301,
+          "declaration": "function _salt(GraduationPacket calldata p) private pure returns (bytes32)"
+        },
+        {
+          "line": 305,
+          "declaration": "function _lockAddress(GraduationPacket calldata p, address market, address vault) private view returns (address)"
+        }
+      ]
+    },
+    {
+      "lane": "canonical",
+      "path": "contracts/src/v2/KuruLiquidityLockV2.sol",
+      "sha256": "fdb8ada56145a8418d277131bd834444273bc5ce81736d61b941c760431b19c1",
+      "lines": 24,
+      "declarations": [
+        {
+          "line": 13,
+          "declaration": "constructor(address launchToken_, address quoteToken_, address market_, address vault_)"
+        },
+        {
+          "line": 21,
+          "declaration": "function protectedBalances() external view returns (uint256 lpShares, uint256 excessLaunchTokens)"
+        }
+      ]
+    },
+    {
+      "lane": "experiment",
+      "path": "contracts/src/v2-research-experiment/KuruLiquidityLockV2.sol",
+      "sha256": "fdb8ada56145a8418d277131bd834444273bc5ce81736d61b941c760431b19c1",
+      "lines": 24,
+      "declarations": [
+        {
+          "line": 13,
+          "declaration": "constructor(address launchToken_, address quoteToken_, address market_, address vault_)"
+        },
+        {
+          "line": 21,
+          "declaration": "function protectedBalances() external view returns (uint256 lpShares, uint256 excessLaunchTokens)"
+        }
+      ]
+    },
+    {
+      "lane": "canonical",
+      "path": "contracts/src/v2/RetroPickBondingCurveV2.sol",
+      "sha256": "e14fb74942526ebcce27b2c5f7ed2312c549ecaad9434eafa8e3e96b53c73054",
+      "lines": 899,
+      "declarations": [
+        {
+          "line": 61,
+          "declaration": "event CurveBuy( address indexed buyer, address indexed recipient, uint256 quoteIn, uint256 tokensOut, uint256 fee, uint256 tax )"
+        },
+        {
+          "line": 64,
+          "declaration": "event CurveBuyRefunded(address indexed buyer, uint256 refund)"
+        },
+        {
+          "line": 65,
+          "declaration": "event CurveSell( address indexed seller, address indexed recipient, uint256 tokensIn, uint256 quoteOut, uint256 fee, uint256 tax )"
+        },
+        {
+          "line": 68,
+          "declaration": "event FeesSwept(uint256 protocolAmount, uint256 buybackAmount, uint256 creatorAmount)"
+        },
+        {
+          "line": 69,
+          "declaration": "event FeesRescued( address indexed protocolRecipient, address indexed creatorRecipient, uint256 protocolAmount, uint256 creatorAmount )"
+        },
+        {
+          "line": 75,
+          "declaration": "event BuybackLocked(uint256 quoteSpent, uint256 tokensLocked)"
+        },
+        {
+          "line": 76,
+          "declaration": "event CurveCompleted(address recipient, uint256 quoteOut, uint256 tokenOut)"
+        },
+        {
+          "line": 77,
+          "declaration": "event Initialized(address token)"
+        },
+        {
+          "line": 78,
+          "declaration": "event CreatorFeeRecipientUpdated(address indexed previousRecipient, address indexed newRecipient)"
+        },
+        {
+          "line": 79,
+          "declaration": "event BuybackEnabledUpdated(bool enabled)"
+        },
+        {
+          "line": 80,
+          "declaration": "event AutoGraduationFailed(address indexed token, uint256 gasRemaining)"
+        },
+        {
+          "line": 150,
+          "declaration": "modifier onlyFactory()"
+        },
+        {
+          "line": 155,
+          "declaration": "modifier onlyInitialized()"
+        },
+        {
+          "line": 174,
+          "declaration": "constructor( address pairToken_, address deployer_, address factory_, IRetroPickFeePolicyV2 feePolicy_, FeePolicySnapshot memory policy_, IRetroPickFeeEscrowV2 feeEscrow_, RetroPickBuybackVaultV2 buybackVault_, uint256 phantomQuote_, uint256 feeBps_, uint256 creatorTaxBps_, bool buybackEnabled_, uint256 graduationThreshold_, uint256 graduationQuoteCeiling_ )"
+        },
+        {
+          "line": 233,
+          "declaration": "function isNativeQuote() public view returns (bool)"
+        },
+        {
+          "line": 253,
+          "declaration": "function initialize(address token_) external onlyFactory"
+        },
+        {
+          "line": 278,
+          "declaration": "function sellableTokens() public view returns (uint256)"
+        },
+        {
+          "line": 289,
+          "declaration": "function setCreatorFeeRecipient(address newRecipient) external onlyFactory"
+        },
+        {
+          "line": 306,
+          "declaration": "function setBuybackEnabled(bool enabled) external onlyFactory"
+        },
+        {
+          "line": 315,
+          "declaration": "function getReserves() public view returns (uint256 quoteReserve_, uint256 tokenReserve_)"
+        },
+        {
+          "line": 324,
+          "declaration": "function quoteReserve() external view returns (uint256 quoteReserve_)"
+        },
+        {
+          "line": 332,
+          "declaration": "function realQuoteReserve() public view returns (uint256)"
+        },
+        {
+          "line": 340,
+          "declaration": "function tokenReserve() external view returns (uint256 tokenReserve_)"
+        },
+        {
+          "line": 352,
+          "declaration": "function readyToGraduate() public view returns (bool)"
+        },
+        {
+          "line": 381,
+          "declaration": "function buy(uint256 quoteIn, uint256 minTokensOut, address recipient) external payable nonReentrant onlyInitialized returns (uint256 tokensOut)"
+        },
+        {
+          "line": 468,
+          "declaration": "function sell(uint256 tokensIn, uint256 minQuoteOut, address recipient) external nonReentrant onlyInitialized returns (uint256 quoteOut)"
+        },
+        {
+          "line": 511,
+          "declaration": "function sweepFees(uint256 minBuybackTokensOut) external nonReentrant"
+        },
+        {
+          "line": 531,
+          "declaration": "function graduate(address recipient) external onlyFactory returns (uint256 quoteOut, uint256 tokenOut)"
+        },
+        {
+          "line": 582,
+          "declaration": "function _receiveQuote(uint256 amount) private returns (uint256)"
+        },
+        {
+          "line": 608,
+          "declaration": "function _sendQuote(address recipient, uint256 amount) private"
+        },
+        {
+          "line": 634,
+          "declaration": "function _creditQuote(address recipient, uint256 amount) private"
+        },
+        {
+          "line": 664,
+          "declaration": "function _tryAutoGraduate() private"
+        },
+        {
+          "line": 681,
+          "declaration": "function _accrueFees(uint256 fee, uint256 tax) private"
+        },
+        {
+          "line": 695,
+          "declaration": "function _requiresTrustedOperator() private view returns (bool)"
+        },
+        {
+          "line": 711,
+          "declaration": "function _sweepFees(uint256 minBuybackTokensOut, bool executeBuyback) private"
+        },
+        {
+          "line": 827,
+          "declaration": "function rescueFees() external onlyFactory returns (uint256 protocolAmount, uint256 creatorAmount)"
+        },
+        {
+          "line": 861,
+          "declaration": "function exemptFromSnipeTax(address exemptAddress) external onlyFactory"
+        },
+        {
+          "line": 867,
+          "declaration": "function _requireQuoteBacking() private view"
+        },
+        {
+          "line": 873,
+          "declaration": "function completionQuote() public view onlyInitialized returns (uint256 terminalQuote, uint256 grossInput)"
+        },
+        {
+          "line": 889,
+          "declaration": "function completionTerminalQuote() external view returns (uint256 terminalQuote)"
+        },
+        {
+          "line": 893,
+          "declaration": "function _requireCompletionLiveness() private view"
+        }
+      ]
+    },
+    {
+      "lane": "experiment",
+      "path": "contracts/src/v2-research-experiment/RetroPickBondingCurveV2.sol",
+      "sha256": "e14fb74942526ebcce27b2c5f7ed2312c549ecaad9434eafa8e3e96b53c73054",
+      "lines": 899,
+      "declarations": [
+        {
+          "line": 61,
+          "declaration": "event CurveBuy( address indexed buyer, address indexed recipient, uint256 quoteIn, uint256 tokensOut, uint256 fee, uint256 tax )"
+        },
+        {
+          "line": 64,
+          "declaration": "event CurveBuyRefunded(address indexed buyer, uint256 refund)"
+        },
+        {
+          "line": 65,
+          "declaration": "event CurveSell( address indexed seller, address indexed recipient, uint256 tokensIn, uint256 quoteOut, uint256 fee, uint256 tax )"
+        },
+        {
+          "line": 68,
+          "declaration": "event FeesSwept(uint256 protocolAmount, uint256 buybackAmount, uint256 creatorAmount)"
+        },
+        {
+          "line": 69,
+          "declaration": "event FeesRescued( address indexed protocolRecipient, address indexed creatorRecipient, uint256 protocolAmount, uint256 creatorAmount )"
+        },
+        {
+          "line": 75,
+          "declaration": "event BuybackLocked(uint256 quoteSpent, uint256 tokensLocked)"
+        },
+        {
+          "line": 76,
+          "declaration": "event CurveCompleted(address recipient, uint256 quoteOut, uint256 tokenOut)"
+        },
+        {
+          "line": 77,
+          "declaration": "event Initialized(address token)"
+        },
+        {
+          "line": 78,
+          "declaration": "event CreatorFeeRecipientUpdated(address indexed previousRecipient, address indexed newRecipient)"
+        },
+        {
+          "line": 79,
+          "declaration": "event BuybackEnabledUpdated(bool enabled)"
+        },
+        {
+          "line": 80,
+          "declaration": "event AutoGraduationFailed(address indexed token, uint256 gasRemaining)"
+        },
+        {
+          "line": 150,
+          "declaration": "modifier onlyFactory()"
+        },
+        {
+          "line": 155,
+          "declaration": "modifier onlyInitialized()"
+        },
+        {
+          "line": 174,
+          "declaration": "constructor( address pairToken_, address deployer_, address factory_, IRetroPickFeePolicyV2 feePolicy_, FeePolicySnapshot memory policy_, IRetroPickFeeEscrowV2 feeEscrow_, RetroPickBuybackVaultV2 buybackVault_, uint256 phantomQuote_, uint256 feeBps_, uint256 creatorTaxBps_, bool buybackEnabled_, uint256 graduationThreshold_, uint256 graduationQuoteCeiling_ )"
+        },
+        {
+          "line": 233,
+          "declaration": "function isNativeQuote() public view returns (bool)"
+        },
+        {
+          "line": 253,
+          "declaration": "function initialize(address token_) external onlyFactory"
+        },
+        {
+          "line": 278,
+          "declaration": "function sellableTokens() public view returns (uint256)"
+        },
+        {
+          "line": 289,
+          "declaration": "function setCreatorFeeRecipient(address newRecipient) external onlyFactory"
+        },
+        {
+          "line": 306,
+          "declaration": "function setBuybackEnabled(bool enabled) external onlyFactory"
+        },
+        {
+          "line": 315,
+          "declaration": "function getReserves() public view returns (uint256 quoteReserve_, uint256 tokenReserve_)"
+        },
+        {
+          "line": 324,
+          "declaration": "function quoteReserve() external view returns (uint256 quoteReserve_)"
+        },
+        {
+          "line": 332,
+          "declaration": "function realQuoteReserve() public view returns (uint256)"
+        },
+        {
+          "line": 340,
+          "declaration": "function tokenReserve() external view returns (uint256 tokenReserve_)"
+        },
+        {
+          "line": 352,
+          "declaration": "function readyToGraduate() public view returns (bool)"
+        },
+        {
+          "line": 381,
+          "declaration": "function buy(uint256 quoteIn, uint256 minTokensOut, address recipient) external payable nonReentrant onlyInitialized returns (uint256 tokensOut)"
+        },
+        {
+          "line": 468,
+          "declaration": "function sell(uint256 tokensIn, uint256 minQuoteOut, address recipient) external nonReentrant onlyInitialized returns (uint256 quoteOut)"
+        },
+        {
+          "line": 511,
+          "declaration": "function sweepFees(uint256 minBuybackTokensOut) external nonReentrant"
+        },
+        {
+          "line": 531,
+          "declaration": "function graduate(address recipient) external onlyFactory returns (uint256 quoteOut, uint256 tokenOut)"
+        },
+        {
+          "line": 582,
+          "declaration": "function _receiveQuote(uint256 amount) private returns (uint256)"
+        },
+        {
+          "line": 608,
+          "declaration": "function _sendQuote(address recipient, uint256 amount) private"
+        },
+        {
+          "line": 634,
+          "declaration": "function _creditQuote(address recipient, uint256 amount) private"
+        },
+        {
+          "line": 664,
+          "declaration": "function _tryAutoGraduate() private"
+        },
+        {
+          "line": 681,
+          "declaration": "function _accrueFees(uint256 fee, uint256 tax) private"
+        },
+        {
+          "line": 695,
+          "declaration": "function _requiresTrustedOperator() private view returns (bool)"
+        },
+        {
+          "line": 711,
+          "declaration": "function _sweepFees(uint256 minBuybackTokensOut, bool executeBuyback) private"
+        },
+        {
+          "line": 827,
+          "declaration": "function rescueFees() external onlyFactory returns (uint256 protocolAmount, uint256 creatorAmount)"
+        },
+        {
+          "line": 861,
+          "declaration": "function exemptFromSnipeTax(address exemptAddress) external onlyFactory"
+        },
+        {
+          "line": 867,
+          "declaration": "function _requireQuoteBacking() private view"
+        },
+        {
+          "line": 873,
+          "declaration": "function completionQuote() public view onlyInitialized returns (uint256 terminalQuote, uint256 grossInput)"
+        },
+        {
+          "line": 889,
+          "declaration": "function completionTerminalQuote() external view returns (uint256 terminalQuote)"
+        },
+        {
+          "line": 893,
+          "declaration": "function _requireCompletionLiveness() private view"
+        }
+      ]
+    },
+    {
+      "lane": "canonical",
+      "path": "contracts/src/v2/RetroPickBuybackVaultV2.sol",
+      "sha256": "2a387e80ddd1b24b8b381bcc6aed982e1c16fcf2d6d16325483989eaa85f60be",
+      "lines": 367,
+      "declarations": [
+        {
+          "line": 43,
+          "declaration": "struct LaunchVest"
+        },
+        {
+          "line": 68,
+          "declaration": "event FactorySet(address factory)"
+        },
+        {
+          "line": 69,
+          "declaration": "event Locked(address indexed token, address indexed depositor, uint256 amount, uint256 newVestingStart)"
+        },
+        {
+          "line": 70,
+          "declaration": "event VestingTermsSnapshotted( address indexed token, address indexed creatorRecipient, address indexed protocolRecipient, uint256 protocolFeeShareBps )"
+        },
+        {
+          "line": 76,
+          "declaration": "event Released(address indexed token, uint256 creatorAmount, uint256 protocolAmount)"
+        },
+        {
+          "line": 77,
+          "declaration": "event CreatorRecipientUpdated( address indexed token, address indexed previousRecipient, address indexed newRecipient )"
+        },
+        {
+          "line": 92,
+          "declaration": "constructor(address initialOwner, IRetroPickFeePolicyV2 feePolicy_, IRetroPickFeeEscrowV2 feeEscrow_) Ownable(initialOwner)"
+        },
+        {
+          "line": 104,
+          "declaration": "function setFactory(address factory_) external onlyOwner"
+        },
+        {
+          "line": 116,
+          "declaration": "function renounceOwnership() public pure override"
+        },
+        {
+          "line": 127,
+          "declaration": "function lock( address token, uint256 amount, address creatorRecipient, address protocolRecipient, uint16 protocolFeeShareBps ) external nonReentrant"
+        },
+        {
+          "line": 184,
+          "declaration": "function release(address token) external nonReentrant returns (uint256 released)"
+        },
+        {
+          "line": 220,
+          "declaration": "function updateCreatorRecipient(address token, address newRecipient) external"
+        },
+        {
+          "line": 234,
+          "declaration": "function totalLocked(address token) external view returns (uint256)"
+        },
+        {
+          "line": 241,
+          "declaration": "function totalReleased(address token) external view returns (uint256)"
+        },
+        {
+          "line": 254,
+          "declaration": "function vestingStart(address token) external view returns (uint256)"
+        },
+        {
+          "line": 261,
+          "declaration": "function vestedAmount(address token) external view returns (uint256)"
+        },
+        {
+          "line": 268,
+          "declaration": "function releasable(address token) external view returns (uint256)"
+        },
+        {
+          "line": 276,
+          "declaration": "function vestingTerms(address token) external view returns (address creatorRecipient, address protocolRecipient, uint16 protocolFeeShareBps)"
+        },
+        {
+          "line": 289,
+          "declaration": "function _vestedAmount(LaunchVest storage v) private view returns (uint256)"
+        },
+        {
+          "line": 297,
+          "declaration": "function _checkpoint(LaunchVest storage v, uint256 nowTs) private"
+        },
+        {
+          "line": 309,
+          "declaration": "function _previewNewlyVested(LaunchVest storage v, uint256 nowTs) private view returns (uint256)"
+        },
+        {
+          "line": 323,
+          "declaration": "function _setOrValidateVestingTerms( LaunchVest storage v, address token, address creatorRecipient, address protocolRecipient, uint16 protocolFeeShareBps ) private"
+        },
+        {
+          "line": 362,
+          "declaration": "function _isAuthorizedLocker(address token, address caller) private view returns (bool)"
+        }
+      ]
+    },
+    {
+      "lane": "experiment",
+      "path": "contracts/src/v2-research-experiment/RetroPickBuybackVaultV2.sol",
+      "sha256": "2a387e80ddd1b24b8b381bcc6aed982e1c16fcf2d6d16325483989eaa85f60be",
+      "lines": 367,
+      "declarations": [
+        {
+          "line": 43,
+          "declaration": "struct LaunchVest"
+        },
+        {
+          "line": 68,
+          "declaration": "event FactorySet(address factory)"
+        },
+        {
+          "line": 69,
+          "declaration": "event Locked(address indexed token, address indexed depositor, uint256 amount, uint256 newVestingStart)"
+        },
+        {
+          "line": 70,
+          "declaration": "event VestingTermsSnapshotted( address indexed token, address indexed creatorRecipient, address indexed protocolRecipient, uint256 protocolFeeShareBps )"
+        },
+        {
+          "line": 76,
+          "declaration": "event Released(address indexed token, uint256 creatorAmount, uint256 protocolAmount)"
+        },
+        {
+          "line": 77,
+          "declaration": "event CreatorRecipientUpdated( address indexed token, address indexed previousRecipient, address indexed newRecipient )"
+        },
+        {
+          "line": 92,
+          "declaration": "constructor(address initialOwner, IRetroPickFeePolicyV2 feePolicy_, IRetroPickFeeEscrowV2 feeEscrow_) Ownable(initialOwner)"
+        },
+        {
+          "line": 104,
+          "declaration": "function setFactory(address factory_) external onlyOwner"
+        },
+        {
+          "line": 116,
+          "declaration": "function renounceOwnership() public pure override"
+        },
+        {
+          "line": 127,
+          "declaration": "function lock( address token, uint256 amount, address creatorRecipient, address protocolRecipient, uint16 protocolFeeShareBps ) external nonReentrant"
+        },
+        {
+          "line": 184,
+          "declaration": "function release(address token) external nonReentrant returns (uint256 released)"
+        },
+        {
+          "line": 220,
+          "declaration": "function updateCreatorRecipient(address token, address newRecipient) external"
+        },
+        {
+          "line": 234,
+          "declaration": "function totalLocked(address token) external view returns (uint256)"
+        },
+        {
+          "line": 241,
+          "declaration": "function totalReleased(address token) external view returns (uint256)"
+        },
+        {
+          "line": 254,
+          "declaration": "function vestingStart(address token) external view returns (uint256)"
+        },
+        {
+          "line": 261,
+          "declaration": "function vestedAmount(address token) external view returns (uint256)"
+        },
+        {
+          "line": 268,
+          "declaration": "function releasable(address token) external view returns (uint256)"
+        },
+        {
+          "line": 276,
+          "declaration": "function vestingTerms(address token) external view returns (address creatorRecipient, address protocolRecipient, uint16 protocolFeeShareBps)"
+        },
+        {
+          "line": 289,
+          "declaration": "function _vestedAmount(LaunchVest storage v) private view returns (uint256)"
+        },
+        {
+          "line": 297,
+          "declaration": "function _checkpoint(LaunchVest storage v, uint256 nowTs) private"
+        },
+        {
+          "line": 309,
+          "declaration": "function _previewNewlyVested(LaunchVest storage v, uint256 nowTs) private view returns (uint256)"
+        },
+        {
+          "line": 323,
+          "declaration": "function _setOrValidateVestingTerms( LaunchVest storage v, address token, address creatorRecipient, address protocolRecipient, uint16 protocolFeeShareBps ) private"
+        },
+        {
+          "line": 362,
+          "declaration": "function _isAuthorizedLocker(address token, address caller) private view returns (bool)"
+        }
+      ]
+    },
+    {
+      "lane": "canonical",
+      "path": "contracts/src/v2/RetroPickDoorwayV2.sol",
+      "sha256": "6204d891680b4516f59f16adee64b45ca6a106bdbc03881d6183316a917e7fa0",
+      "lines": 467,
+      "declarations": [
+        {
+          "line": 97,
+          "declaration": "modifier onlyOwner()"
+        },
+        {
+          "line": 102,
+          "declaration": "modifier onlyRelayer()"
+        },
+        {
+          "line": 107,
+          "declaration": "modifier onlyGuardian()"
+        },
+        {
+          "line": 112,
+          "declaration": "modifier doorwayOpen()"
+        },
+        {
+          "line": 121,
+          "declaration": "constructor(address _treasury, address _relayer, address _guardian)"
+        },
+        {
+          "line": 144,
+          "declaration": "function migrateToSolana( address token, bytes32 solanaMint, bytes32 solanaRecipient, uint256 amount, uint256 minAmountOut ) external doorwayOpen returns (bytes32 migrationId)"
+        },
+        {
+          "line": 212,
+          "declaration": "function requestFromSolana( bytes32 solanaMint, bytes32 solanaSender, address monadToken, address monadRecipient, uint256 amount, uint256 sourceNonce, bytes32 sourceTxHash ) external onlyRelayer doorwayOpen returns (bytes32 migrationId)"
+        },
+        {
+          "line": 292,
+          "declaration": "function attestMigration(Attestation calldata attestation) external onlyGuardian"
+        },
+        {
+          "line": 323,
+          "declaration": "function executeMigration(bytes32 migrationId, bytes32 destinationTxHash) external onlyRelayer doorwayOpen"
+        },
+        {
+          "line": 361,
+          "declaration": "function cancelMigration(bytes32 migrationId) external"
+        },
+        {
+          "line": 384,
+          "declaration": "function getMigration(bytes32 migrationId) external view returns (Migration memory)"
+        },
+        {
+          "line": 388,
+          "declaration": "function migrationExists(bytes32 migrationId) external view returns (bool)"
+        },
+        {
+          "line": 392,
+          "declaration": "function calculateFee(uint256 amount) public view returns (uint256)"
+        },
+        {
+          "line": 396,
+          "declaration": "function calculateNetAmount(uint256 amount) external view returns (uint256)"
+        },
+        {
+          "line": 400,
+          "declaration": "function isMonadTokenSupported(address token) external view returns (bool)"
+        },
+        {
+          "line": 404,
+          "declaration": "function isSolanaMintSupported(bytes32 mint) external view returns (bool)"
+        },
+        {
+          "line": 412,
+          "declaration": "function setMonadToken(address token, bool enabled) external onlyOwner"
+        },
+        {
+          "line": 418,
+          "declaration": "function setSolanaMint(bytes32 mint, bool enabled) external onlyOwner"
+        },
+        {
+          "line": 424,
+          "declaration": "function setRelayer(address newRelayer) external onlyOwner"
+        },
+        {
+          "line": 434,
+          "declaration": "function setGuardian(address newGuardian) external onlyOwner"
+        },
+        {
+          "line": 444,
+          "declaration": "function setFee(uint256 newFeeBps) external onlyOwner"
+        },
+        {
+          "line": 454,
+          "declaration": "function setDoorwayActive(bool active) external onlyOwner"
+        },
+        {
+          "line": 458,
+          "declaration": "function transferOwnership(address newOwner) external onlyOwner"
+        }
+      ]
+    },
+    {
+      "lane": "experiment",
+      "path": "contracts/src/v2-research-experiment/RetroPickDoorwayV2.sol",
+      "sha256": "6204d891680b4516f59f16adee64b45ca6a106bdbc03881d6183316a917e7fa0",
+      "lines": 467,
+      "declarations": [
+        {
+          "line": 97,
+          "declaration": "modifier onlyOwner()"
+        },
+        {
+          "line": 102,
+          "declaration": "modifier onlyRelayer()"
+        },
+        {
+          "line": 107,
+          "declaration": "modifier onlyGuardian()"
+        },
+        {
+          "line": 112,
+          "declaration": "modifier doorwayOpen()"
+        },
+        {
+          "line": 121,
+          "declaration": "constructor(address _treasury, address _relayer, address _guardian)"
+        },
+        {
+          "line": 144,
+          "declaration": "function migrateToSolana( address token, bytes32 solanaMint, bytes32 solanaRecipient, uint256 amount, uint256 minAmountOut ) external doorwayOpen returns (bytes32 migrationId)"
+        },
+        {
+          "line": 212,
+          "declaration": "function requestFromSolana( bytes32 solanaMint, bytes32 solanaSender, address monadToken, address monadRecipient, uint256 amount, uint256 sourceNonce, bytes32 sourceTxHash ) external onlyRelayer doorwayOpen returns (bytes32 migrationId)"
+        },
+        {
+          "line": 292,
+          "declaration": "function attestMigration(Attestation calldata attestation) external onlyGuardian"
+        },
+        {
+          "line": 323,
+          "declaration": "function executeMigration(bytes32 migrationId, bytes32 destinationTxHash) external onlyRelayer doorwayOpen"
+        },
+        {
+          "line": 361,
+          "declaration": "function cancelMigration(bytes32 migrationId) external"
+        },
+        {
+          "line": 384,
+          "declaration": "function getMigration(bytes32 migrationId) external view returns (Migration memory)"
+        },
+        {
+          "line": 388,
+          "declaration": "function migrationExists(bytes32 migrationId) external view returns (bool)"
+        },
+        {
+          "line": 392,
+          "declaration": "function calculateFee(uint256 amount) public view returns (uint256)"
+        },
+        {
+          "line": 396,
+          "declaration": "function calculateNetAmount(uint256 amount) external view returns (uint256)"
+        },
+        {
+          "line": 400,
+          "declaration": "function isMonadTokenSupported(address token) external view returns (bool)"
+        },
+        {
+          "line": 404,
+          "declaration": "function isSolanaMintSupported(bytes32 mint) external view returns (bool)"
+        },
+        {
+          "line": 412,
+          "declaration": "function setMonadToken(address token, bool enabled) external onlyOwner"
+        },
+        {
+          "line": 418,
+          "declaration": "function setSolanaMint(bytes32 mint, bool enabled) external onlyOwner"
+        },
+        {
+          "line": 424,
+          "declaration": "function setRelayer(address newRelayer) external onlyOwner"
+        },
+        {
+          "line": 434,
+          "declaration": "function setGuardian(address newGuardian) external onlyOwner"
+        },
+        {
+          "line": 444,
+          "declaration": "function setFee(uint256 newFeeBps) external onlyOwner"
+        },
+        {
+          "line": 454,
+          "declaration": "function setDoorwayActive(bool active) external onlyOwner"
+        },
+        {
+          "line": 458,
+          "declaration": "function transferOwnership(address newOwner) external onlyOwner"
+        }
+      ]
+    },
+    {
+      "lane": "canonical",
+      "path": "contracts/src/v2/RetroPickFeeEscrowV2.sol",
+      "sha256": "41183cf76e94c1a51fca4754d0a885e81997b5aeb41ed7101f6e3e71f040cf88",
+      "lines": 125,
+      "declarations": [
+        {
+          "line": 22,
+          "declaration": "event NativeCredited(address indexed payer, address indexed recipient, uint256 amount)"
+        },
+        {
+          "line": 23,
+          "declaration": "event TokenCredited(address indexed payer, address indexed recipient, address indexed token, uint256 amount)"
+        },
+        {
+          "line": 24,
+          "declaration": "event NativeClaimed(address indexed recipient, uint256 amount)"
+        },
+        {
+          "line": 25,
+          "declaration": "event TokenClaimed(address indexed recipient, address indexed token, uint256 amount)"
+        },
+        {
+          "line": 34,
+          "declaration": "function credit(address recipient) external payable override nonReentrant"
+        },
+        {
+          "line": 42,
+          "declaration": "function creditToken(address recipient, address token, uint256 amount) external override nonReentrant"
+        },
+        {
+          "line": 63,
+          "declaration": "function claim() external override nonReentrant returns (uint256 amount)"
+        },
+        {
+          "line": 68,
+          "declaration": "function claim(uint256 amount) external override nonReentrant returns (uint256)"
+        },
+        {
+          "line": 73,
+          "declaration": "function claimToken(address token) external override nonReentrant returns (uint256 amount)"
+        },
+        {
+          "line": 78,
+          "declaration": "function claimToken(address token, uint256 amount) external override nonReentrant returns (uint256)"
+        },
+        {
+          "line": 83,
+          "declaration": "function _claimNative(uint256 amount) private"
+        },
+        {
+          "line": 96,
+          "declaration": "function _claimToken(address token, uint256 amount) private"
+        },
+        {
+          "line": 121,
+          "declaration": "function _requireTokenBacking(address token, uint256 physical) private view"
+        }
+      ]
+    },
+    {
+      "lane": "experiment",
+      "path": "contracts/src/v2-research-experiment/RetroPickFeeEscrowV2.sol",
+      "sha256": "41183cf76e94c1a51fca4754d0a885e81997b5aeb41ed7101f6e3e71f040cf88",
+      "lines": 125,
+      "declarations": [
+        {
+          "line": 22,
+          "declaration": "event NativeCredited(address indexed payer, address indexed recipient, uint256 amount)"
+        },
+        {
+          "line": 23,
+          "declaration": "event TokenCredited(address indexed payer, address indexed recipient, address indexed token, uint256 amount)"
+        },
+        {
+          "line": 24,
+          "declaration": "event NativeClaimed(address indexed recipient, uint256 amount)"
+        },
+        {
+          "line": 25,
+          "declaration": "event TokenClaimed(address indexed recipient, address indexed token, uint256 amount)"
+        },
+        {
+          "line": 34,
+          "declaration": "function credit(address recipient) external payable override nonReentrant"
+        },
+        {
+          "line": 42,
+          "declaration": "function creditToken(address recipient, address token, uint256 amount) external override nonReentrant"
+        },
+        {
+          "line": 63,
+          "declaration": "function claim() external override nonReentrant returns (uint256 amount)"
+        },
+        {
+          "line": 68,
+          "declaration": "function claim(uint256 amount) external override nonReentrant returns (uint256)"
+        },
+        {
+          "line": 73,
+          "declaration": "function claimToken(address token) external override nonReentrant returns (uint256 amount)"
+        },
+        {
+          "line": 78,
+          "declaration": "function claimToken(address token, uint256 amount) external override nonReentrant returns (uint256)"
+        },
+        {
+          "line": 83,
+          "declaration": "function _claimNative(uint256 amount) private"
+        },
+        {
+          "line": 96,
+          "declaration": "function _claimToken(address token, uint256 amount) private"
+        },
+        {
+          "line": 121,
+          "declaration": "function _requireTokenBacking(address token, uint256 physical) private view"
+        }
+      ]
+    },
+    {
+      "lane": "canonical",
+      "path": "contracts/src/v2/RetroPickGraduationGuardV2.sol",
+      "sha256": "3b96b08ae957260617c671a60cf85c8cab11c1b4cfee0db6c102b01f945d3b3c",
+      "lines": 127,
+      "declarations": [
+        {
+          "line": 50,
+          "declaration": "function assertSeedable( address token, address pairToken, int24 tickSpacing, uint256 quoteAmount, uint256 tokenAmount ) external pure"
+        },
+        {
+          "line": 81,
+          "declaration": "function assertSeedableEitherOrdering(int24 tickSpacing, uint256 quoteAmount, uint256 tokenAmount) external pure"
+        },
+        {
+          "line": 93,
+          "declaration": "function _assertSeedable(int24 tickSpacing, uint256 amount0, uint256 amount1) private pure"
+        },
+        {
+          "line": 120,
+          "declaration": "function _fullRangeTicks(int24 tickSpacing) private pure returns (int24 tickLower, int24 tickUpper)"
+        }
+      ]
+    },
+    {
+      "lane": "experiment",
+      "path": "contracts/src/v2-research-experiment/RetroPickGraduationGuardV2.sol",
+      "sha256": "3b96b08ae957260617c671a60cf85c8cab11c1b4cfee0db6c102b01f945d3b3c",
+      "lines": 127,
+      "declarations": [
+        {
+          "line": 50,
+          "declaration": "function assertSeedable( address token, address pairToken, int24 tickSpacing, uint256 quoteAmount, uint256 tokenAmount ) external pure"
+        },
+        {
+          "line": 81,
+          "declaration": "function assertSeedableEitherOrdering(int24 tickSpacing, uint256 quoteAmount, uint256 tokenAmount) external pure"
+        },
+        {
+          "line": 93,
+          "declaration": "function _assertSeedable(int24 tickSpacing, uint256 amount0, uint256 amount1) private pure"
+        },
+        {
+          "line": 120,
+          "declaration": "function _fullRangeTicks(int24 tickSpacing) private pure returns (int24 tickLower, int24 tickUpper)"
+        }
+      ]
+    },
+    {
+      "lane": "canonical",
+      "path": "contracts/src/v2/RetroPickHookDeployerV2.sol",
+      "sha256": "012bd068abf797e79dea255e7c4ebed999ef60b00b2e34237e0de135d972ae4f",
+      "lines": 23,
+      "declarations": [
+        {
+          "line": 12,
+          "declaration": "constructor(address owner_)"
+        },
+        {
+          "line": 16,
+          "declaration": "function deploy(bytes32 salt, IPoolManager manager, IRetroPickFeeEscrowV2 escrow, address treasury) external returns (RetroPickMemeHookV2 hook)"
+        }
+      ]
+    },
+    {
+      "lane": "experiment",
+      "path": "contracts/src/v2-research-experiment/RetroPickHookDeployerV2.sol",
+      "sha256": "012bd068abf797e79dea255e7c4ebed999ef60b00b2e34237e0de135d972ae4f",
+      "lines": 23,
+      "declarations": [
+        {
+          "line": 12,
+          "declaration": "constructor(address owner_)"
+        },
+        {
+          "line": 16,
+          "declaration": "function deploy(bytes32 salt, IPoolManager manager, IRetroPickFeeEscrowV2 escrow, address treasury) external returns (RetroPickMemeHookV2 hook)"
+        }
+      ]
+    },
+    {
+      "lane": "canonical",
+      "path": "contracts/src/v2/RetroPickLaunchDeployerV2.sol",
+      "sha256": "a8e67cf25071c477b617ea84f00ea0f02c4f7d00c70450bd843d8ee83041a4a0",
+      "lines": 143,
+      "declarations": [
+        {
+          "line": 15,
+          "declaration": "struct LaunchDeployment"
+        },
+        {
+          "line": 65,
+          "declaration": "modifier onlyFactory()"
+        },
+        {
+          "line": 70,
+          "declaration": "constructor(address factory_)"
+        },
+        {
+          "line": 81,
+          "declaration": "function deployLaunch(LaunchDeployment calldata params) external onlyFactory returns (address token, address curve)"
+        },
+        {
+          "line": 125,
+          "declaration": "function _requireMetadataWithinLimits(LaunchDeployment calldata params) private pure"
+        }
+      ]
+    },
+    {
+      "lane": "experiment",
+      "path": "contracts/src/v2-research-experiment/RetroPickLaunchDeployerV2.sol",
+      "sha256": "a8e67cf25071c477b617ea84f00ea0f02c4f7d00c70450bd843d8ee83041a4a0",
+      "lines": 143,
+      "declarations": [
+        {
+          "line": 15,
+          "declaration": "struct LaunchDeployment"
+        },
+        {
+          "line": 65,
+          "declaration": "modifier onlyFactory()"
+        },
+        {
+          "line": 70,
+          "declaration": "constructor(address factory_)"
+        },
+        {
+          "line": 81,
+          "declaration": "function deployLaunch(LaunchDeployment calldata params) external onlyFactory returns (address token, address curve)"
+        },
+        {
+          "line": 125,
+          "declaration": "function _requireMetadataWithinLimits(LaunchDeployment calldata params) private pure"
+        }
+      ]
+    },
+    {
+      "lane": "canonical",
+      "path": "contracts/src/v2/RetroPickLaunchFactoryV2.sol",
+      "sha256": "18fbf064773b6d2515752b63a22ee329b2210d632b3dc1935678783049f91615",
+      "lines": 1146,
+      "declarations": [
+        {
+          "line": 106,
+          "declaration": "struct TokenParams"
+        },
+        {
+          "line": 163,
+          "declaration": "struct LaunchConfig"
+        },
+        {
+          "line": 185,
+          "declaration": "struct PairTokenEconomics"
+        },
+        {
+          "line": 196,
+          "declaration": "struct LaunchRecord"
+        },
+        {
+          "line": 211,
+          "declaration": "struct PendingCreatorFeeRecipient"
+        },
+        {
+          "line": 261,
+          "declaration": "event TokenLaunched( address indexed token, address indexed curve, address indexed deployer, address pairToken, uint256 launchConfigId, uint256 graduationThreshold )"
+        },
+        {
+          "line": 269,
+          "declaration": "event LaunchSwept(address indexed token, uint256 quoteOut, uint256 tokenOut)"
+        },
+        {
+          "line": 270,
+          "declaration": "event LaunchForceSwept(address indexed token)"
+        },
+        {
+          "line": 271,
+          "declaration": "event CreatorFeeRecipientUpdated( address indexed token, address indexed previousRecipient, address indexed newRecipient )"
+        },
+        {
+          "line": 274,
+          "declaration": "event CreatorFeeRecipientChangeProposed( address indexed token, address indexed currentRecipient, address indexed proposedRecipient, uint256 effectiveAt, uint256 expiresAt )"
+        },
+        {
+          "line": 281,
+          "declaration": "event CreatorFeeRecipientChangeCancelled(address indexed token, address indexed proposedRecipient)"
+        },
+        {
+          "line": 282,
+          "declaration": "event PoolGraduated(address indexed token, uint256 positionId, uint256 tokenAmount, uint256 pairTokenAmount)"
+        },
+        {
+          "line": 283,
+          "declaration": "event LaunchConfigAdded(uint256 indexed id)"
+        },
+        {
+          "line": 284,
+          "declaration": "event LaunchConfigUpdated(uint256 indexed id)"
+        },
+        {
+          "line": 285,
+          "declaration": "event LaunchFeeUpdated(uint256 launchFee)"
+        },
+        {
+          "line": 286,
+          "declaration": "event LaunchEnabledUpdated(bool enabled)"
+        },
+        {
+          "line": 287,
+          "declaration": "event WhitelistedLauncherUpdated(address indexed launcher, bool enabled)"
+        },
+        {
+          "line": 288,
+          "declaration": "event MaxCreatorTaxUpdated(uint256 bps)"
+        },
+        {
+          "line": 289,
+          "declaration": "event SnipeTaxStartBpsUpdated(uint256 bps)"
+        },
+        {
+          "line": 290,
+          "declaration": "event SnipeTaxSecondsUpdated(uint256 secondsWindow)"
+        },
+        {
+          "line": 291,
+          "declaration": "event GraduationExecutorSet(address executor)"
+        },
+        {
+          "line": 292,
+          "declaration": "event LaunchDeployerSet(address deployer)"
+        },
+        {
+          "line": 293,
+          "declaration": "event LaunchForwarderSet(address forwarder)"
+        },
+        {
+          "line": 294,
+          "declaration": "event PairTokenApprovalUpdated(address indexed pairToken, bool approved)"
+        },
+        {
+          "line": 295,
+          "declaration": "event PairTokenEconomicsUpdated( address indexed pairToken, uint256 phantomQuote, uint256 graduationThreshold, uint8 decimals )"
+        },
+        {
+          "line": 298,
+          "declaration": "event BuybackEnabledUpdated(address indexed token, bool enabled, address indexed controller)"
+        },
+        {
+          "line": 299,
+          "declaration": "event GraduationTokensPermanentlyLocked(address indexed token, uint256 amount)"
+        },
+        {
+          "line": 300,
+          "declaration": "event LaunchGraduationRescued( address indexed token, address indexed recipient, uint256 quoteAmount, uint256 tokenAmount )"
+        },
+        {
+          "line": 346,
+          "declaration": "constructor( address initialOwner, IPoolManager poolManager_, IPositionManager positionManager_, IAllowanceTransfer permit2_, RetroPickLaunchLockerV2 locker_, RetroPickMemeHookV2 memeHook_, IRetroPickFeeEscrowV2 feeEscrow_, RetroPickBuybackVaultV2 buybackVault_, RetroPickQuoteAssetRegistryV2 quoteAssetPolicy_, GraduationCoordinatorV2 coordinator_, uint256 initialLaunchFee ) Ownable(initialOwner)"
+        },
+        {
+          "line": 394,
+          "declaration": "function launchConfigCount() external view returns (uint256)"
+        },
+        {
+          "line": 401,
+          "declaration": "function getLaunchConfig(uint256 id) external view returns (LaunchConfig memory)"
+        },
+        {
+          "line": 409,
+          "declaration": "function getLaunchedToken(address token) external view override returns (LaunchedToken memory)"
+        },
+        {
+          "line": 436,
+          "declaration": "function getLaunchFeePolicy(address token) external view returns (FeePolicySnapshot memory)"
+        },
+        {
+          "line": 447,
+          "declaration": "function addLaunchConfig(LaunchConfig calldata config) external onlyOwner returns (uint256 id)"
+        },
+        {
+          "line": 458,
+          "declaration": "function updateLaunchConfig(uint256 id, LaunchConfig calldata config) external onlyOwner"
+        },
+        {
+          "line": 468,
+          "declaration": "function setLaunchFee(uint256 newLaunchFee) external onlyOwner"
+        },
+        {
+          "line": 476,
+          "declaration": "function setLaunchEnabled(bool enabled) external onlyOwner"
+        },
+        {
+          "line": 484,
+          "declaration": "function setWhitelistedLauncher(address launcher, bool enabled) external onlyOwner"
+        },
+        {
+          "line": 497,
+          "declaration": "function canLaunch(address launcher) public view returns (bool)"
+        },
+        {
+          "line": 506,
+          "declaration": "function setMaxCreatorTaxBps(uint256 bps) external onlyOwner"
+        },
+        {
+          "line": 520,
+          "declaration": "function setSnipeTaxStartBps(uint256 bps) external onlyOwner"
+        },
+        {
+          "line": 535,
+          "declaration": "function setSnipeTaxSeconds(uint256 secondsWindow) external onlyOwner"
+        },
+        {
+          "line": 546,
+          "declaration": "function configureVenueExecutor(GraduationVenue venue, address executor) external onlyOwner"
+        },
+        {
+          "line": 550,
+          "declaration": "function previewVenueEconomics(uint256 id, address quote, GraduationVenue venue) public view returns (bytes32)"
+        },
+        {
+          "line": 554,
+          "declaration": "function launchToken(TokenParams calldata params, uint256 id, address quote, GraduationVenue venue) external payable nonReentrant returns (address token, address curve)"
+        },
+        {
+          "line": 563,
+          "declaration": "function setLaunchDeployer(RetroPickLaunchDeployerV2 deployer) external onlyOwner"
+        },
+        {
+          "line": 579,
+          "declaration": "function setLaunchForwarder(address forwarder) external onlyOwner"
+        },
+        {
+          "line": 591,
+          "declaration": "function renounceOwnership() public pure override"
+        },
+        {
+          "line": 607,
+          "declaration": "function previewLaunchEconomics(uint256 id, address quote) external view returns (bytes32)"
+        },
+        {
+          "line": 631,
+          "declaration": "function launchToken(TokenParams calldata params, uint256 launchConfigId, address pairToken) external payable nonReentrant returns (address token, address curve)"
+        },
+        {
+          "line": 648,
+          "declaration": "function launchToken( TokenParams calldata params, uint256 launchConfigId, address pairToken, address[] calldata snipeTaxExemptions ) external payable nonReentrant returns (address token, address curve)"
+        },
+        {
+          "line": 665,
+          "declaration": "function launchTokenFor( TokenParams calldata params, uint256 launchConfigId, address pairToken, address originalDeployer, address[] calldata snipeTaxExemptions ) external payable nonReentrant returns (address token, address curve)"
+        },
+        {
+          "line": 681,
+          "declaration": "function _exemptFromSnipeTax(address curve, address[] calldata snipeTaxExemptions) private"
+        },
+        {
+          "line": 696,
+          "declaration": "function _launchToken( TokenParams calldata params, uint256 launchConfigId, address pairToken, address originalDeployer, GraduationVenue venue ) private returns (address token, address curve)"
+        },
+        {
+          "line": 785,
+          "declaration": "function _deployPair( TokenParams calldata params, LaunchConfig memory config, QuoteAssetConfig memory q, address quote, address originalDeployer, address creatorFeeRecipient, FeePolicySnapshot memory policy ) private returns (address token, address curve)"
+        },
+        {
+          "line": 830,
+          "declaration": "function transferCreatorFeeRecipient(address token, address newRecipient) external"
+        },
+        {
+          "line": 846,
+          "declaration": "function setBuybackEnabled(address token, bool enabled) external"
+        },
+        {
+          "line": 892,
+          "declaration": "function setCreatorFeeRecipient(address token, address newRecipient) external onlyOwner"
+        },
+        {
+          "line": 910,
+          "declaration": "function executeCreatorFeeRecipientChange(address token) external"
+        },
+        {
+          "line": 930,
+          "declaration": "function cancelCreatorFeeRecipientChange(address token) external onlyOwner"
+        },
+        {
+          "line": 939,
+          "declaration": "function _setCreatorFeeRecipient(address token, LaunchRecord storage launch, address newRecipient) private"
+        },
+        {
+          "line": 968,
+          "declaration": "function _cancelPendingCreatorFeeRecipientChange(address token) private returns (bool cancelled)"
+        },
+        {
+          "line": 982,
+          "declaration": "function _requireLaunchDependenciesWired() private view"
+        },
+        {
+          "line": 997,
+          "declaration": "function _poolIdFor(address token, LaunchRecord storage launch) private view returns (PoolId)"
+        },
+        {
+          "line": 1019,
+          "declaration": "function graduate(address token) external nonReentrant"
+        },
+        {
+          "line": 1032,
+          "declaration": "function secureCurve(address token) external returns (uint256 quoteOut, uint256 tokenOut)"
+        },
+        {
+          "line": 1058,
+          "declaration": "function createGraduatedPool(address token) external returns (uint256 positionId)"
+        },
+        {
+          "line": 1073,
+          "declaration": "function rescueCurveFees(address token) external nonReentrant onlyOwner"
+        },
+        {
+          "line": 1083,
+          "declaration": "function _payLaunchFee() private"
+        },
+        {
+          "line": 1094,
+          "declaration": "function _sortCurrencies(address memecoin, address pairToken) private pure returns (Currency currency0, Currency currency1, bool memecoinIsCurrency0)"
+        },
+        {
+          "line": 1109,
+          "declaration": "function _validateLaunchConfig(LaunchConfig calldata config) private pure"
+        },
+        {
+          "line": 1134,
+          "declaration": "function _requireQuotable(uint256 phantomQuote, uint256 supply, uint256 curveFeeBps) private pure"
+        }
+      ]
+    },
+    {
+      "lane": "experiment",
+      "path": "contracts/src/v2-research-experiment/RetroPickLaunchFactoryV2.sol",
+      "sha256": "18fbf064773b6d2515752b63a22ee329b2210d632b3dc1935678783049f91615",
+      "lines": 1146,
+      "declarations": [
+        {
+          "line": 106,
+          "declaration": "struct TokenParams"
+        },
+        {
+          "line": 163,
+          "declaration": "struct LaunchConfig"
+        },
+        {
+          "line": 185,
+          "declaration": "struct PairTokenEconomics"
+        },
+        {
+          "line": 196,
+          "declaration": "struct LaunchRecord"
+        },
+        {
+          "line": 211,
+          "declaration": "struct PendingCreatorFeeRecipient"
+        },
+        {
+          "line": 261,
+          "declaration": "event TokenLaunched( address indexed token, address indexed curve, address indexed deployer, address pairToken, uint256 launchConfigId, uint256 graduationThreshold )"
+        },
+        {
+          "line": 269,
+          "declaration": "event LaunchSwept(address indexed token, uint256 quoteOut, uint256 tokenOut)"
+        },
+        {
+          "line": 270,
+          "declaration": "event LaunchForceSwept(address indexed token)"
+        },
+        {
+          "line": 271,
+          "declaration": "event CreatorFeeRecipientUpdated( address indexed token, address indexed previousRecipient, address indexed newRecipient )"
+        },
+        {
+          "line": 274,
+          "declaration": "event CreatorFeeRecipientChangeProposed( address indexed token, address indexed currentRecipient, address indexed proposedRecipient, uint256 effectiveAt, uint256 expiresAt )"
+        },
+        {
+          "line": 281,
+          "declaration": "event CreatorFeeRecipientChangeCancelled(address indexed token, address indexed proposedRecipient)"
+        },
+        {
+          "line": 282,
+          "declaration": "event PoolGraduated(address indexed token, uint256 positionId, uint256 tokenAmount, uint256 pairTokenAmount)"
+        },
+        {
+          "line": 283,
+          "declaration": "event LaunchConfigAdded(uint256 indexed id)"
+        },
+        {
+          "line": 284,
+          "declaration": "event LaunchConfigUpdated(uint256 indexed id)"
+        },
+        {
+          "line": 285,
+          "declaration": "event LaunchFeeUpdated(uint256 launchFee)"
+        },
+        {
+          "line": 286,
+          "declaration": "event LaunchEnabledUpdated(bool enabled)"
+        },
+        {
+          "line": 287,
+          "declaration": "event WhitelistedLauncherUpdated(address indexed launcher, bool enabled)"
+        },
+        {
+          "line": 288,
+          "declaration": "event MaxCreatorTaxUpdated(uint256 bps)"
+        },
+        {
+          "line": 289,
+          "declaration": "event SnipeTaxStartBpsUpdated(uint256 bps)"
+        },
+        {
+          "line": 290,
+          "declaration": "event SnipeTaxSecondsUpdated(uint256 secondsWindow)"
+        },
+        {
+          "line": 291,
+          "declaration": "event GraduationExecutorSet(address executor)"
+        },
+        {
+          "line": 292,
+          "declaration": "event LaunchDeployerSet(address deployer)"
+        },
+        {
+          "line": 293,
+          "declaration": "event LaunchForwarderSet(address forwarder)"
+        },
+        {
+          "line": 294,
+          "declaration": "event PairTokenApprovalUpdated(address indexed pairToken, bool approved)"
+        },
+        {
+          "line": 295,
+          "declaration": "event PairTokenEconomicsUpdated( address indexed pairToken, uint256 phantomQuote, uint256 graduationThreshold, uint8 decimals )"
+        },
+        {
+          "line": 298,
+          "declaration": "event BuybackEnabledUpdated(address indexed token, bool enabled, address indexed controller)"
+        },
+        {
+          "line": 299,
+          "declaration": "event GraduationTokensPermanentlyLocked(address indexed token, uint256 amount)"
+        },
+        {
+          "line": 300,
+          "declaration": "event LaunchGraduationRescued( address indexed token, address indexed recipient, uint256 quoteAmount, uint256 tokenAmount )"
+        },
+        {
+          "line": 346,
+          "declaration": "constructor( address initialOwner, IPoolManager poolManager_, IPositionManager positionManager_, IAllowanceTransfer permit2_, RetroPickLaunchLockerV2 locker_, RetroPickMemeHookV2 memeHook_, IRetroPickFeeEscrowV2 feeEscrow_, RetroPickBuybackVaultV2 buybackVault_, RetroPickQuoteAssetRegistryV2 quoteAssetPolicy_, GraduationCoordinatorV2 coordinator_, uint256 initialLaunchFee ) Ownable(initialOwner)"
+        },
+        {
+          "line": 394,
+          "declaration": "function launchConfigCount() external view returns (uint256)"
+        },
+        {
+          "line": 401,
+          "declaration": "function getLaunchConfig(uint256 id) external view returns (LaunchConfig memory)"
+        },
+        {
+          "line": 409,
+          "declaration": "function getLaunchedToken(address token) external view override returns (LaunchedToken memory)"
+        },
+        {
+          "line": 436,
+          "declaration": "function getLaunchFeePolicy(address token) external view returns (FeePolicySnapshot memory)"
+        },
+        {
+          "line": 447,
+          "declaration": "function addLaunchConfig(LaunchConfig calldata config) external onlyOwner returns (uint256 id)"
+        },
+        {
+          "line": 458,
+          "declaration": "function updateLaunchConfig(uint256 id, LaunchConfig calldata config) external onlyOwner"
+        },
+        {
+          "line": 468,
+          "declaration": "function setLaunchFee(uint256 newLaunchFee) external onlyOwner"
+        },
+        {
+          "line": 476,
+          "declaration": "function setLaunchEnabled(bool enabled) external onlyOwner"
+        },
+        {
+          "line": 484,
+          "declaration": "function setWhitelistedLauncher(address launcher, bool enabled) external onlyOwner"
+        },
+        {
+          "line": 497,
+          "declaration": "function canLaunch(address launcher) public view returns (bool)"
+        },
+        {
+          "line": 506,
+          "declaration": "function setMaxCreatorTaxBps(uint256 bps) external onlyOwner"
+        },
+        {
+          "line": 520,
+          "declaration": "function setSnipeTaxStartBps(uint256 bps) external onlyOwner"
+        },
+        {
+          "line": 535,
+          "declaration": "function setSnipeTaxSeconds(uint256 secondsWindow) external onlyOwner"
+        },
+        {
+          "line": 546,
+          "declaration": "function configureVenueExecutor(GraduationVenue venue, address executor) external onlyOwner"
+        },
+        {
+          "line": 550,
+          "declaration": "function previewVenueEconomics(uint256 id, address quote, GraduationVenue venue) public view returns (bytes32)"
+        },
+        {
+          "line": 554,
+          "declaration": "function launchToken(TokenParams calldata params, uint256 id, address quote, GraduationVenue venue) external payable nonReentrant returns (address token, address curve)"
+        },
+        {
+          "line": 563,
+          "declaration": "function setLaunchDeployer(RetroPickLaunchDeployerV2 deployer) external onlyOwner"
+        },
+        {
+          "line": 579,
+          "declaration": "function setLaunchForwarder(address forwarder) external onlyOwner"
+        },
+        {
+          "line": 591,
+          "declaration": "function renounceOwnership() public pure override"
+        },
+        {
+          "line": 607,
+          "declaration": "function previewLaunchEconomics(uint256 id, address quote) external view returns (bytes32)"
+        },
+        {
+          "line": 631,
+          "declaration": "function launchToken(TokenParams calldata params, uint256 launchConfigId, address pairToken) external payable nonReentrant returns (address token, address curve)"
+        },
+        {
+          "line": 648,
+          "declaration": "function launchToken( TokenParams calldata params, uint256 launchConfigId, address pairToken, address[] calldata snipeTaxExemptions ) external payable nonReentrant returns (address token, address curve)"
+        },
+        {
+          "line": 665,
+          "declaration": "function launchTokenFor( TokenParams calldata params, uint256 launchConfigId, address pairToken, address originalDeployer, address[] calldata snipeTaxExemptions ) external payable nonReentrant returns (address token, address curve)"
+        },
+        {
+          "line": 681,
+          "declaration": "function _exemptFromSnipeTax(address curve, address[] calldata snipeTaxExemptions) private"
+        },
+        {
+          "line": 696,
+          "declaration": "function _launchToken( TokenParams calldata params, uint256 launchConfigId, address pairToken, address originalDeployer, GraduationVenue venue ) private returns (address token, address curve)"
+        },
+        {
+          "line": 785,
+          "declaration": "function _deployPair( TokenParams calldata params, LaunchConfig memory config, QuoteAssetConfig memory q, address quote, address originalDeployer, address creatorFeeRecipient, FeePolicySnapshot memory policy ) private returns (address token, address curve)"
+        },
+        {
+          "line": 830,
+          "declaration": "function transferCreatorFeeRecipient(address token, address newRecipient) external"
+        },
+        {
+          "line": 846,
+          "declaration": "function setBuybackEnabled(address token, bool enabled) external"
+        },
+        {
+          "line": 892,
+          "declaration": "function setCreatorFeeRecipient(address token, address newRecipient) external onlyOwner"
+        },
+        {
+          "line": 910,
+          "declaration": "function executeCreatorFeeRecipientChange(address token) external"
+        },
+        {
+          "line": 930,
+          "declaration": "function cancelCreatorFeeRecipientChange(address token) external onlyOwner"
+        },
+        {
+          "line": 939,
+          "declaration": "function _setCreatorFeeRecipient(address token, LaunchRecord storage launch, address newRecipient) private"
+        },
+        {
+          "line": 968,
+          "declaration": "function _cancelPendingCreatorFeeRecipientChange(address token) private returns (bool cancelled)"
+        },
+        {
+          "line": 982,
+          "declaration": "function _requireLaunchDependenciesWired() private view"
+        },
+        {
+          "line": 997,
+          "declaration": "function _poolIdFor(address token, LaunchRecord storage launch) private view returns (PoolId)"
+        },
+        {
+          "line": 1019,
+          "declaration": "function graduate(address token) external nonReentrant"
+        },
+        {
+          "line": 1032,
+          "declaration": "function secureCurve(address token) external returns (uint256 quoteOut, uint256 tokenOut)"
+        },
+        {
+          "line": 1058,
+          "declaration": "function createGraduatedPool(address token) external returns (uint256 positionId)"
+        },
+        {
+          "line": 1073,
+          "declaration": "function rescueCurveFees(address token) external nonReentrant onlyOwner"
+        },
+        {
+          "line": 1083,
+          "declaration": "function _payLaunchFee() private"
+        },
+        {
+          "line": 1094,
+          "declaration": "function _sortCurrencies(address memecoin, address pairToken) private pure returns (Currency currency0, Currency currency1, bool memecoinIsCurrency0)"
+        },
+        {
+          "line": 1109,
+          "declaration": "function _validateLaunchConfig(LaunchConfig calldata config) private pure"
+        },
+        {
+          "line": 1134,
+          "declaration": "function _requireQuotable(uint256 phantomQuote, uint256 supply, uint256 curveFeeBps) private pure"
+        }
+      ]
+    },
+    {
+      "lane": "canonical",
+      "path": "contracts/src/v2/RetroPickLaunchLockerV2.sol",
+      "sha256": "389779b3db7251dd14bbb8eb216c3056c858a071e85700aff5a7d25516b2a794",
+      "lines": 131,
+      "declarations": [
+        {
+          "line": 33,
+          "declaration": "event FactorySet(address factory)"
+        },
+        {
+          "line": 34,
+          "declaration": "event PositionLocked(address indexed token, uint256 indexed tokenId)"
+        },
+        {
+          "line": 35,
+          "declaration": "event TokenSupplyLocked(address indexed token, uint256 amount)"
+        },
+        {
+          "line": 49,
+          "declaration": "constructor(address initialOwner, address positionManager_) Ownable(initialOwner)"
+        },
+        {
+          "line": 54,
+          "declaration": "modifier onlyExecutor()"
+        },
+        {
+          "line": 62,
+          "declaration": "function setGraduationExecutor(address executor) external onlyOwner"
+        },
+        {
+          "line": 68,
+          "declaration": "function setFactory(address factory_) external onlyOwner"
+        },
+        {
+          "line": 80,
+          "declaration": "function renounceOwnership() public pure override"
+        },
+        {
+          "line": 94,
+          "declaration": "function onERC721Received(address, address, uint256, bytes calldata) external view returns (bytes4)"
+        },
+        {
+          "line": 104,
+          "declaration": "function lockPosition(address token, uint256 tokenId) external onlyExecutor"
+        },
+        {
+          "line": 117,
+          "declaration": "function lockTokenSupply(address token, uint256 amount) external onlyExecutor"
+        },
+        {
+          "line": 128,
+          "declaration": "function isLocked(address token) external view returns (bool)"
+        }
+      ]
+    },
+    {
+      "lane": "experiment",
+      "path": "contracts/src/v2-research-experiment/RetroPickLaunchLockerV2.sol",
+      "sha256": "389779b3db7251dd14bbb8eb216c3056c858a071e85700aff5a7d25516b2a794",
+      "lines": 131,
+      "declarations": [
+        {
+          "line": 33,
+          "declaration": "event FactorySet(address factory)"
+        },
+        {
+          "line": 34,
+          "declaration": "event PositionLocked(address indexed token, uint256 indexed tokenId)"
+        },
+        {
+          "line": 35,
+          "declaration": "event TokenSupplyLocked(address indexed token, uint256 amount)"
+        },
+        {
+          "line": 49,
+          "declaration": "constructor(address initialOwner, address positionManager_) Ownable(initialOwner)"
+        },
+        {
+          "line": 54,
+          "declaration": "modifier onlyExecutor()"
+        },
+        {
+          "line": 62,
+          "declaration": "function setGraduationExecutor(address executor) external onlyOwner"
+        },
+        {
+          "line": 68,
+          "declaration": "function setFactory(address factory_) external onlyOwner"
+        },
+        {
+          "line": 80,
+          "declaration": "function renounceOwnership() public pure override"
+        },
+        {
+          "line": 94,
+          "declaration": "function onERC721Received(address, address, uint256, bytes calldata) external view returns (bytes4)"
+        },
+        {
+          "line": 104,
+          "declaration": "function lockPosition(address token, uint256 tokenId) external onlyExecutor"
+        },
+        {
+          "line": 117,
+          "declaration": "function lockTokenSupply(address token, uint256 amount) external onlyExecutor"
+        },
+        {
+          "line": 128,
+          "declaration": "function isLocked(address token) external view returns (bool)"
+        }
+      ]
+    },
+    {
+      "lane": "canonical",
+      "path": "contracts/src/v2/RetroPickLauncherTokenV2.sol",
+      "sha256": "6218554cf72090fa443da6650ff446c8965fec8ecd6fcce6a6daaf853ad68f33",
+      "lines": 106,
+      "declarations": [
+        {
+          "line": 22,
+          "declaration": "struct Socials"
+        },
+        {
+          "line": 44,
+          "declaration": "constructor( string memory name_, string memory symbol_, string memory logo_, string memory description_, Socials memory socials_, address deployer_, address curve_, address launchFactory_, uint256 supply_ ) ERC20(name_, symbol_)"
+        },
+        {
+          "line": 76,
+          "declaration": "function socials() external view returns ( string memory twitter, string memory telegram, string memory discord, string memory website, string memory farcaster )"
+        },
+        {
+          "line": 94,
+          "declaration": "function getTokenInfo() external view returns ( address tokenDeployer, string memory tokenLogo, string memory tokenDescription, Socials memory tokenSocials )"
+        }
+      ]
+    },
+    {
+      "lane": "experiment",
+      "path": "contracts/src/v2-research-experiment/RetroPickLauncherTokenV2.sol",
+      "sha256": "6218554cf72090fa443da6650ff446c8965fec8ecd6fcce6a6daaf853ad68f33",
+      "lines": 106,
+      "declarations": [
+        {
+          "line": 22,
+          "declaration": "struct Socials"
+        },
+        {
+          "line": 44,
+          "declaration": "constructor( string memory name_, string memory symbol_, string memory logo_, string memory description_, Socials memory socials_, address deployer_, address curve_, address launchFactory_, uint256 supply_ ) ERC20(name_, symbol_)"
+        },
+        {
+          "line": 76,
+          "declaration": "function socials() external view returns ( string memory twitter, string memory telegram, string memory discord, string memory website, string memory farcaster )"
+        },
+        {
+          "line": 94,
+          "declaration": "function getTokenInfo() external view returns ( address tokenDeployer, string memory tokenLogo, string memory tokenDescription, Socials memory tokenSocials )"
+        }
+      ]
+    },
+    {
+      "lane": "canonical",
+      "path": "contracts/src/v2/RetroPickQuoteAssetPolicyV2.sol",
+      "sha256": "00a1d6b50ec3736ec4ea347964dc2bc0cb71bf05047937bc030b30026d6ab90e",
+      "lines": 32,
+      "declarations": [
+        {
+          "line": 19,
+          "declaration": "function isSupportedQuote(address quote) external view returns (bool)"
+        },
+        {
+          "line": 23,
+          "declaration": "function validateQuote(address quote, uint8 expectedDecimals) external view"
+        }
+      ]
+    },
+    {
+      "lane": "experiment",
+      "path": "contracts/src/v2-research-experiment/RetroPickQuoteAssetPolicyV2.sol",
+      "sha256": "00a1d6b50ec3736ec4ea347964dc2bc0cb71bf05047937bc030b30026d6ab90e",
+      "lines": 32,
+      "declarations": [
+        {
+          "line": 19,
+          "declaration": "function isSupportedQuote(address quote) external view returns (bool)"
+        },
+        {
+          "line": 23,
+          "declaration": "function validateQuote(address quote, uint8 expectedDecimals) external view"
+        }
+      ]
+    },
+    {
+      "lane": "canonical",
+      "path": "contracts/src/v2/RetroPickQuoteAssetRegistryV2.sol",
+      "sha256": "7032fbb85717c8077ff46a48dc1fc6733795c8d7a8afdc964c4de85962fa909c",
+      "lines": 90,
+      "declarations": [
+        {
+          "line": 20,
+          "declaration": "event QuoteAssetConfigured(address indexed quote, uint32 indexed version, bytes32 policyHash, bool enabled)"
+        },
+        {
+          "line": 22,
+          "declaration": "constructor(address owner_) Ownable(owner_)"
+        },
+        {
+          "line": 26,
+          "declaration": "function configure(address quote, QuoteAssetConfig calldata proposed) external onlyOwner"
+        },
+        {
+          "line": 55,
+          "declaration": "function getConfig(address quote) external view returns (QuoteAssetConfig memory)"
+        },
+        {
+          "line": 59,
+          "declaration": "function admitted(address quote, GraduationVenue venue) external view returns (QuoteAssetConfig memory config)"
+        },
+        {
+          "line": 67,
+          "declaration": "function isSupportedQuote(address quote) external view returns (bool)"
+        },
+        {
+          "line": 71,
+          "declaration": "function validateQuote(address quote, uint8 expectedDecimals) external view"
+        },
+        {
+          "line": 78,
+          "declaration": "function _validateIdentity(address quote, uint8 expectedDecimals) private view"
+        }
+      ]
+    },
+    {
+      "lane": "experiment",
+      "path": "contracts/src/v2-research-experiment/RetroPickQuoteAssetRegistryV2.sol",
+      "sha256": "7032fbb85717c8077ff46a48dc1fc6733795c8d7a8afdc964c4de85962fa909c",
+      "lines": 90,
+      "declarations": [
+        {
+          "line": 20,
+          "declaration": "event QuoteAssetConfigured(address indexed quote, uint32 indexed version, bytes32 policyHash, bool enabled)"
+        },
+        {
+          "line": 22,
+          "declaration": "constructor(address owner_) Ownable(owner_)"
+        },
+        {
+          "line": 26,
+          "declaration": "function configure(address quote, QuoteAssetConfig calldata proposed) external onlyOwner"
+        },
+        {
+          "line": 55,
+          "declaration": "function getConfig(address quote) external view returns (QuoteAssetConfig memory)"
+        },
+        {
+          "line": 59,
+          "declaration": "function admitted(address quote, GraduationVenue venue) external view returns (QuoteAssetConfig memory config)"
+        },
+        {
+          "line": 67,
+          "declaration": "function isSupportedQuote(address quote) external view returns (bool)"
+        },
+        {
+          "line": 71,
+          "declaration": "function validateQuote(address quote, uint8 expectedDecimals) external view"
+        },
+        {
+          "line": 78,
+          "declaration": "function _validateIdentity(address quote, uint8 expectedDecimals) private view"
+        }
+      ]
+    },
+    {
+      "lane": "canonical",
+      "path": "contracts/src/v2/UniswapV4GraduationExecutorV2.sol",
+      "sha256": "b8a74240e1d9103c65728795ac52576dd792f3ff7e568b95e4559d36fe65ff74",
+      "lines": 276,
+      "declarations": [
+        {
+          "line": 53,
+          "declaration": "constructor( address coordinator_, IPoolManager poolManager_, IPositionManager positionManager_, IAllowanceTransfer permit2_, RetroPickLaunchLockerV2 locker_, RetroPickMemeHookV2 hook_, IRetroPickFeeEscrowV2 escrow_ )"
+        },
+        {
+          "line": 90,
+          "declaration": "modifier onlyCoordinator()"
+        },
+        {
+          "line": 95,
+          "declaration": "function previewReceiver(GraduationPacket calldata) external view returns (address)"
+        },
+        {
+          "line": 99,
+          "declaration": "function validateLaunch(GraduationPacket calldata p, uint256 supply) external view"
+        },
+        {
+          "line": 114,
+          "declaration": "function _validate(GraduationPacket calldata p) private view"
+        },
+        {
+          "line": 125,
+          "declaration": "function execute(GraduationPacket calldata p, uint256 quoteAmount, uint256 tokenAmount) external payable onlyCoordinator nonReentrant returns (GraduationReceipt memory r)"
+        },
+        {
+          "line": 191,
+          "declaration": "function verifyReceipt(GraduationPacket calldata p, GraduationReceipt calldata r) external view"
+        },
+        {
+          "line": 208,
+          "declaration": "function _key(GraduationPacket calldata p) private view returns (PoolKey memory key, bool quoteIs0)"
+        },
+        {
+          "line": 219,
+          "declaration": "function _mint(PoolKey memory key, uint160 price, uint256 amount0, uint256 amount1) private returns (uint128 liquidity)"
+        },
+        {
+          "line": 249,
+          "declaration": "function _approve(address asset, uint256 amount) private"
+        },
+        {
+          "line": 257,
+          "declaration": "function _clear(address asset) private"
+        },
+        {
+          "line": 264,
+          "declaration": "function _creditResidual(address asset, address beneficiary, uint256 amount) private"
+        }
+      ]
+    },
+    {
+      "lane": "experiment",
+      "path": "contracts/src/v2-research-experiment/UniswapV4GraduationExecutorV2.sol",
+      "sha256": "b8a74240e1d9103c65728795ac52576dd792f3ff7e568b95e4559d36fe65ff74",
+      "lines": 276,
+      "declarations": [
+        {
+          "line": 53,
+          "declaration": "constructor( address coordinator_, IPoolManager poolManager_, IPositionManager positionManager_, IAllowanceTransfer permit2_, RetroPickLaunchLockerV2 locker_, RetroPickMemeHookV2 hook_, IRetroPickFeeEscrowV2 escrow_ )"
+        },
+        {
+          "line": 90,
+          "declaration": "modifier onlyCoordinator()"
+        },
+        {
+          "line": 95,
+          "declaration": "function previewReceiver(GraduationPacket calldata) external view returns (address)"
+        },
+        {
+          "line": 99,
+          "declaration": "function validateLaunch(GraduationPacket calldata p, uint256 supply) external view"
+        },
+        {
+          "line": 114,
+          "declaration": "function _validate(GraduationPacket calldata p) private view"
+        },
+        {
+          "line": 125,
+          "declaration": "function execute(GraduationPacket calldata p, uint256 quoteAmount, uint256 tokenAmount) external payable onlyCoordinator nonReentrant returns (GraduationReceipt memory r)"
+        },
+        {
+          "line": 191,
+          "declaration": "function verifyReceipt(GraduationPacket calldata p, GraduationReceipt calldata r) external view"
+        },
+        {
+          "line": 208,
+          "declaration": "function _key(GraduationPacket calldata p) private view returns (PoolKey memory key, bool quoteIs0)"
+        },
+        {
+          "line": 219,
+          "declaration": "function _mint(PoolKey memory key, uint160 price, uint256 amount0, uint256 amount1) private returns (uint128 liquidity)"
+        },
+        {
+          "line": 249,
+          "declaration": "function _approve(address asset, uint256 amount) private"
+        },
+        {
+          "line": 257,
+          "declaration": "function _clear(address asset) private"
+        },
+        {
+          "line": 264,
+          "declaration": "function _creditResidual(address asset, address beneficiary, uint256 amount) private"
+        }
+      ]
+    },
+    {
+      "lane": "canonical",
+      "path": "contracts/src/v2/hooks/RetroPickMemeHookV2.sol",
+      "sha256": "30730479a25e133fbea08e8d27167e25a622d6e368e24c2ac159ea90d81b1a2e",
+      "lines": 940,
+      "declarations": [
+        {
+          "line": 43,
+          "declaration": "enum SwapDirection"
+        },
+        {
+          "line": 48,
+          "declaration": "struct LaunchInfo"
+        },
+        {
+          "line": 91,
+          "declaration": "event FactorySet(address factory)"
+        },
+        {
+          "line": 92,
+          "declaration": "event PoolRegistered(PoolId indexed poolId, address memecoin, address quoteToken, address creator)"
+        },
+        {
+          "line": 93,
+          "declaration": "event CreatorFeeRecipientUpdated( PoolId indexed poolId, address indexed previousRecipient, address indexed newRecipient )"
+        },
+        {
+          "line": 99,
+          "declaration": "event HookFeeCollected(PoolId indexed poolId, address currency, uint256 feeAmount, uint256 taxAmount)"
+        },
+        {
+          "line": 100,
+          "declaration": "event PoolFeesSwept( PoolId indexed poolId, uint256 protocolAmount, uint256 buybackAmount, uint256 creatorAmount, uint256 tokensLocked )"
+        },
+        {
+          "line": 107,
+          "declaration": "event PoolFeesRescued( PoolId indexed poolId, address indexed quoteToken, uint256 protocolAmount, uint256 creatorAmount )"
+        },
+        {
+          "line": 110,
+          "declaration": "event PoolBuybackSkipped(PoolId indexed poolId, uint256 foldedBackQuote)"
+        },
+        {
+          "line": 111,
+          "declaration": "event PoolConversionSkipped(PoolId indexed poolId, uint256 retainedMemecoin)"
+        },
+        {
+          "line": 112,
+          "declaration": "event BuybackVaultSet(address vault)"
+        },
+        {
+          "line": 113,
+          "declaration": "event ProtocolFeeShareUpdated(uint256 bps)"
+        },
+        {
+          "line": 114,
+          "declaration": "event BuybackBurnBpsUpdated(uint256 bps)"
+        },
+        {
+          "line": 115,
+          "declaration": "event HookFeeBpsUpdated(uint256 bps)"
+        },
+        {
+          "line": 116,
+          "declaration": "event MaxInternalPriceImpactUpdated(uint256 bps)"
+        },
+        {
+          "line": 117,
+          "declaration": "event ProtocolFeeRecipientUpdated(address recipient)"
+        },
+        {
+          "line": 118,
+          "declaration": "event FeeSweepOperatorUpdated(address operator)"
+        },
+        {
+          "line": 119,
+          "declaration": "event BuybackEnabledUpdated(PoolId indexed poolId, bool enabled)"
+        },
+        {
+          "line": 150,
+          "declaration": "modifier onlyFactory()"
+        },
+        {
+          "line": 161,
+          "declaration": "constructor( IPoolManager poolManager_, IRetroPickFeeEscrowV2 feeEscrow_, address protocolFeeRecipient_, address initialOwner_ ) BaseHook(poolManager_) Ownable(initialOwner_)"
+        },
+        {
+          "line": 186,
+          "declaration": "function getHookPermissions() public pure override returns (Hooks.Permissions memory)"
+        },
+        {
+          "line": 213,
+          "declaration": "function setGraduationExecutor(address executor) external onlyOwner"
+        },
+        {
+          "line": 219,
+          "declaration": "function setFactory(address factory_) external onlyOwner"
+        },
+        {
+          "line": 231,
+          "declaration": "function setBuybackVault(RetroPickBuybackVaultV2 buybackVault_) external onlyOwner"
+        },
+        {
+          "line": 243,
+          "declaration": "function renounceOwnership() public pure override"
+        },
+        {
+          "line": 247,
+          "declaration": "function setProtocolFeeShareBps(uint256 bps) external onlyOwner"
+        },
+        {
+          "line": 253,
+          "declaration": "function setBuybackBurnBps(uint256 bps) external onlyOwner"
+        },
+        {
+          "line": 259,
+          "declaration": "function setHookFeeBps(uint256 bps) external onlyOwner"
+        },
+        {
+          "line": 265,
+          "declaration": "function setMaxInternalPriceImpactBps(uint256 bps) external onlyOwner"
+        },
+        {
+          "line": 271,
+          "declaration": "function setProtocolFeeRecipient(address recipient) external onlyOwner"
+        },
+        {
+          "line": 282,
+          "declaration": "function setFeeSweepOperator(address operator) external onlyOwner"
+        },
+        {
+          "line": 291,
+          "declaration": "function currentFeePolicy() external view override returns (FeePolicySnapshot memory)"
+        },
+        {
+          "line": 295,
+          "declaration": "function _currentFeePolicy() private view returns (FeePolicySnapshot memory)"
+        },
+        {
+          "line": 329,
+          "declaration": "function registerPool( PoolKey calldata key, address memecoin, address creator, address buybackCreatorRecipient, uint16 creatorTaxBps, bool buybackEnabled, FeePolicySnapshot calldata policy ) external"
+        },
+        {
+          "line": 342,
+          "declaration": "function _registerPool( PoolKey calldata key, address memecoin, address creator, address buybackCreatorRecipient, uint16 creatorTaxBps, bool buybackEnabled, FeePolicySnapshot memory policy ) private"
+        },
+        {
+          "line": 407,
+          "declaration": "function setCreatorFeeRecipient(PoolId poolId, address newRecipient) external onlyFactory"
+        },
+        {
+          "line": 426,
+          "declaration": "function setBuybackEnabled(PoolId poolId, bool enabled) external onlyFactory"
+        },
+        {
+          "line": 446,
+          "declaration": "function _beforeInitialize(address sender, PoolKey calldata, uint160) internal view override returns (bytes4)"
+        },
+        {
+          "line": 461,
+          "declaration": "function _afterSwap(address, PoolKey calldata key, SwapParams calldata params, BalanceDelta delta, bytes calldata) internal override returns (bytes4, int128)"
+        },
+        {
+          "line": 533,
+          "declaration": "function sweepPoolFees(PoolId poolId, uint256 minConversionQuoteOut, uint256 minBuybackTokensOut) external nonReentrant"
+        },
+        {
+          "line": 588,
+          "declaration": "function rescuePoolFees(PoolId poolId) external nonReentrant onlyOwner returns (uint256 protocolAmount, uint256 creatorAmount)"
+        },
+        {
+          "line": 613,
+          "declaration": "function _rescueCurrency(PoolId poolId, LaunchInfo memory info, address currency) private returns (uint256 protocolAmount, uint256 creatorAmount)"
+        },
+        {
+          "line": 644,
+          "declaration": "function _requiresTrustedOperator(PoolId poolId, LaunchInfo memory info) private view returns (bool)"
+        },
+        {
+          "line": 660,
+          "declaration": "function _convertPendingMemecoin(PoolId poolId, LaunchInfo memory info, uint256 minConversionQuoteOut) private returns (uint256 feeQuoteOut, uint256 taxQuoteOut, uint256 buybackQuoteOut, bool converted)"
+        },
+        {
+          "line": 719,
+          "declaration": "function _distribute( PoolId poolId, LaunchInfo memory info, uint256 totalQuote, uint256 taxQuote, uint256 buybackQuote, uint256 minBuybackTokensOut ) private"
+        },
+        {
+          "line": 782,
+          "declaration": "function _payOut(address recipient, address quoteToken, uint256 amount) private"
+        },
+        {
+          "line": 809,
+          "declaration": "function _executeInternalSwap(PoolId poolId, SwapDirection direction, uint256 amountIn) private returns (uint256 amountInConsumed, uint256 amountOut)"
+        },
+        {
+          "line": 819,
+          "declaration": "function unlockCallback(bytes calldata data) external returns (bytes memory)"
+        },
+        {
+          "line": 851,
+          "declaration": "function _settleCurrency(Currency currency, int128 amount) private"
+        },
+        {
+          "line": 898,
+          "declaration": "function _takeExact(Currency currency, address token, uint256 amount) private"
+        },
+        {
+          "line": 918,
+          "declaration": "function _priceLimit(uint160 sqrtPriceX96, bool zeroForOne, uint256 maxPriceImpactBps) private pure returns (uint160)"
+        }
+      ]
+    },
+    {
+      "lane": "experiment",
+      "path": "contracts/src/v2-research-experiment/hooks/RetroPickMemeHookV2.sol",
+      "sha256": "30730479a25e133fbea08e8d27167e25a622d6e368e24c2ac159ea90d81b1a2e",
+      "lines": 940,
+      "declarations": [
+        {
+          "line": 43,
+          "declaration": "enum SwapDirection"
+        },
+        {
+          "line": 48,
+          "declaration": "struct LaunchInfo"
+        },
+        {
+          "line": 91,
+          "declaration": "event FactorySet(address factory)"
+        },
+        {
+          "line": 92,
+          "declaration": "event PoolRegistered(PoolId indexed poolId, address memecoin, address quoteToken, address creator)"
+        },
+        {
+          "line": 93,
+          "declaration": "event CreatorFeeRecipientUpdated( PoolId indexed poolId, address indexed previousRecipient, address indexed newRecipient )"
+        },
+        {
+          "line": 99,
+          "declaration": "event HookFeeCollected(PoolId indexed poolId, address currency, uint256 feeAmount, uint256 taxAmount)"
+        },
+        {
+          "line": 100,
+          "declaration": "event PoolFeesSwept( PoolId indexed poolId, uint256 protocolAmount, uint256 buybackAmount, uint256 creatorAmount, uint256 tokensLocked )"
+        },
+        {
+          "line": 107,
+          "declaration": "event PoolFeesRescued( PoolId indexed poolId, address indexed quoteToken, uint256 protocolAmount, uint256 creatorAmount )"
+        },
+        {
+          "line": 110,
+          "declaration": "event PoolBuybackSkipped(PoolId indexed poolId, uint256 foldedBackQuote)"
+        },
+        {
+          "line": 111,
+          "declaration": "event PoolConversionSkipped(PoolId indexed poolId, uint256 retainedMemecoin)"
+        },
+        {
+          "line": 112,
+          "declaration": "event BuybackVaultSet(address vault)"
+        },
+        {
+          "line": 113,
+          "declaration": "event ProtocolFeeShareUpdated(uint256 bps)"
+        },
+        {
+          "line": 114,
+          "declaration": "event BuybackBurnBpsUpdated(uint256 bps)"
+        },
+        {
+          "line": 115,
+          "declaration": "event HookFeeBpsUpdated(uint256 bps)"
+        },
+        {
+          "line": 116,
+          "declaration": "event MaxInternalPriceImpactUpdated(uint256 bps)"
+        },
+        {
+          "line": 117,
+          "declaration": "event ProtocolFeeRecipientUpdated(address recipient)"
+        },
+        {
+          "line": 118,
+          "declaration": "event FeeSweepOperatorUpdated(address operator)"
+        },
+        {
+          "line": 119,
+          "declaration": "event BuybackEnabledUpdated(PoolId indexed poolId, bool enabled)"
+        },
+        {
+          "line": 150,
+          "declaration": "modifier onlyFactory()"
+        },
+        {
+          "line": 161,
+          "declaration": "constructor( IPoolManager poolManager_, IRetroPickFeeEscrowV2 feeEscrow_, address protocolFeeRecipient_, address initialOwner_ ) BaseHook(poolManager_) Ownable(initialOwner_)"
+        },
+        {
+          "line": 186,
+          "declaration": "function getHookPermissions() public pure override returns (Hooks.Permissions memory)"
+        },
+        {
+          "line": 213,
+          "declaration": "function setGraduationExecutor(address executor) external onlyOwner"
+        },
+        {
+          "line": 219,
+          "declaration": "function setFactory(address factory_) external onlyOwner"
+        },
+        {
+          "line": 231,
+          "declaration": "function setBuybackVault(RetroPickBuybackVaultV2 buybackVault_) external onlyOwner"
+        },
+        {
+          "line": 243,
+          "declaration": "function renounceOwnership() public pure override"
+        },
+        {
+          "line": 247,
+          "declaration": "function setProtocolFeeShareBps(uint256 bps) external onlyOwner"
+        },
+        {
+          "line": 253,
+          "declaration": "function setBuybackBurnBps(uint256 bps) external onlyOwner"
+        },
+        {
+          "line": 259,
+          "declaration": "function setHookFeeBps(uint256 bps) external onlyOwner"
+        },
+        {
+          "line": 265,
+          "declaration": "function setMaxInternalPriceImpactBps(uint256 bps) external onlyOwner"
+        },
+        {
+          "line": 271,
+          "declaration": "function setProtocolFeeRecipient(address recipient) external onlyOwner"
+        },
+        {
+          "line": 282,
+          "declaration": "function setFeeSweepOperator(address operator) external onlyOwner"
+        },
+        {
+          "line": 291,
+          "declaration": "function currentFeePolicy() external view override returns (FeePolicySnapshot memory)"
+        },
+        {
+          "line": 295,
+          "declaration": "function _currentFeePolicy() private view returns (FeePolicySnapshot memory)"
+        },
+        {
+          "line": 329,
+          "declaration": "function registerPool( PoolKey calldata key, address memecoin, address creator, address buybackCreatorRecipient, uint16 creatorTaxBps, bool buybackEnabled, FeePolicySnapshot calldata policy ) external"
+        },
+        {
+          "line": 342,
+          "declaration": "function _registerPool( PoolKey calldata key, address memecoin, address creator, address buybackCreatorRecipient, uint16 creatorTaxBps, bool buybackEnabled, FeePolicySnapshot memory policy ) private"
+        },
+        {
+          "line": 407,
+          "declaration": "function setCreatorFeeRecipient(PoolId poolId, address newRecipient) external onlyFactory"
+        },
+        {
+          "line": 426,
+          "declaration": "function setBuybackEnabled(PoolId poolId, bool enabled) external onlyFactory"
+        },
+        {
+          "line": 446,
+          "declaration": "function _beforeInitialize(address sender, PoolKey calldata, uint160) internal view override returns (bytes4)"
+        },
+        {
+          "line": 461,
+          "declaration": "function _afterSwap(address, PoolKey calldata key, SwapParams calldata params, BalanceDelta delta, bytes calldata) internal override returns (bytes4, int128)"
+        },
+        {
+          "line": 533,
+          "declaration": "function sweepPoolFees(PoolId poolId, uint256 minConversionQuoteOut, uint256 minBuybackTokensOut) external nonReentrant"
+        },
+        {
+          "line": 588,
+          "declaration": "function rescuePoolFees(PoolId poolId) external nonReentrant onlyOwner returns (uint256 protocolAmount, uint256 creatorAmount)"
+        },
+        {
+          "line": 613,
+          "declaration": "function _rescueCurrency(PoolId poolId, LaunchInfo memory info, address currency) private returns (uint256 protocolAmount, uint256 creatorAmount)"
+        },
+        {
+          "line": 644,
+          "declaration": "function _requiresTrustedOperator(PoolId poolId, LaunchInfo memory info) private view returns (bool)"
+        },
+        {
+          "line": 660,
+          "declaration": "function _convertPendingMemecoin(PoolId poolId, LaunchInfo memory info, uint256 minConversionQuoteOut) private returns (uint256 feeQuoteOut, uint256 taxQuoteOut, uint256 buybackQuoteOut, bool converted)"
+        },
+        {
+          "line": 719,
+          "declaration": "function _distribute( PoolId poolId, LaunchInfo memory info, uint256 totalQuote, uint256 taxQuote, uint256 buybackQuote, uint256 minBuybackTokensOut ) private"
+        },
+        {
+          "line": 782,
+          "declaration": "function _payOut(address recipient, address quoteToken, uint256 amount) private"
+        },
+        {
+          "line": 809,
+          "declaration": "function _executeInternalSwap(PoolId poolId, SwapDirection direction, uint256 amountIn) private returns (uint256 amountInConsumed, uint256 amountOut)"
+        },
+        {
+          "line": 819,
+          "declaration": "function unlockCallback(bytes calldata data) external returns (bytes memory)"
+        },
+        {
+          "line": 851,
+          "declaration": "function _settleCurrency(Currency currency, int128 amount) private"
+        },
+        {
+          "line": 898,
+          "declaration": "function _takeExact(Currency currency, address token, uint256 amount) private"
+        },
+        {
+          "line": 918,
+          "declaration": "function _priceLimit(uint160 sqrtPriceX96, bool zeroForOne, uint256 maxPriceImpactBps) private pure returns (uint160)"
+        }
+      ]
+    },
+    {
+      "lane": "canonical",
+      "path": "contracts/src/v2/interfaces/IGraduationExecutorV2.sol",
+      "sha256": "f2120b5edf7c34d5229eb7fb4fb20adfac48af3469368205d34d1e1f9e28d6fd",
+      "lines": 107,
+      "declarations": [
+        {
+          "line": 6,
+          "declaration": "enum GraduationVenue"
+        },
+        {
+          "line": 10,
+          "declaration": "enum GraduationState"
+        },
+        {
+          "line": 16,
+          "declaration": "struct QuoteAssetConfig"
+        },
+        {
+          "line": 29,
+          "declaration": "struct GraduationPacket"
+        },
+        {
+          "line": 50,
+          "declaration": "struct GraduationLedger"
+        },
+        {
+          "line": 65,
+          "declaration": "struct GraduationReceipt"
+        },
+        {
+          "line": 83,
+          "declaration": "function coordinator() external view returns (address)"
+        },
+        {
+          "line": 84,
+          "declaration": "function policyHash() external view returns (bytes32)"
+        },
+        {
+          "line": 86,
+          "declaration": "function previewReceiver(GraduationPacket calldata packet) external view returns (address)"
+        },
+        {
+          "line": 87,
+          "declaration": "function validateLaunch(GraduationPacket calldata packet, uint256 supply) external view"
+        },
+        {
+          "line": 88,
+          "declaration": "function execute(GraduationPacket calldata packet, uint256 quoteAmount, uint256 tokenAmount) external payable returns (GraduationReceipt memory)"
+        },
+        {
+          "line": 92,
+          "declaration": "function verifyReceipt(GraduationPacket calldata packet, GraduationReceipt calldata receipt) external view"
+        },
+        {
+          "line": 96,
+          "declaration": "function secureCurve(address token) external returns (uint256 quoteOut, uint256 tokenOut)"
+        },
+        {
+          "line": 100,
+          "declaration": "function factory() external view returns (address)"
+        },
+        {
+          "line": 101,
+          "declaration": "function registerLaunch(address token, address curve, GraduationVenue venue, uint24 poolFee, int24 tickSpacing) external"
+        },
+        {
+          "line": 103,
+          "declaration": "function packet(address token) external view returns (GraduationPacket memory)"
+        },
+        {
+          "line": 104,
+          "declaration": "function ledger(address token) external view returns (GraduationLedger memory)"
+        },
+        {
+          "line": 105,
+          "declaration": "function secure(address token) external"
+        },
+        {
+          "line": 106,
+          "declaration": "function complete(address token) external returns (GraduationReceipt memory)"
+        }
+      ]
+    },
+    {
+      "lane": "experiment",
+      "path": "contracts/src/v2-research-experiment/interfaces/IGraduationExecutorV2.sol",
+      "sha256": "f2120b5edf7c34d5229eb7fb4fb20adfac48af3469368205d34d1e1f9e28d6fd",
+      "lines": 107,
+      "declarations": [
+        {
+          "line": 6,
+          "declaration": "enum GraduationVenue"
+        },
+        {
+          "line": 10,
+          "declaration": "enum GraduationState"
+        },
+        {
+          "line": 16,
+          "declaration": "struct QuoteAssetConfig"
+        },
+        {
+          "line": 29,
+          "declaration": "struct GraduationPacket"
+        },
+        {
+          "line": 50,
+          "declaration": "struct GraduationLedger"
+        },
+        {
+          "line": 65,
+          "declaration": "struct GraduationReceipt"
+        },
+        {
+          "line": 83,
+          "declaration": "function coordinator() external view returns (address)"
+        },
+        {
+          "line": 84,
+          "declaration": "function policyHash() external view returns (bytes32)"
+        },
+        {
+          "line": 86,
+          "declaration": "function previewReceiver(GraduationPacket calldata packet) external view returns (address)"
+        },
+        {
+          "line": 87,
+          "declaration": "function validateLaunch(GraduationPacket calldata packet, uint256 supply) external view"
+        },
+        {
+          "line": 88,
+          "declaration": "function execute(GraduationPacket calldata packet, uint256 quoteAmount, uint256 tokenAmount) external payable returns (GraduationReceipt memory)"
+        },
+        {
+          "line": 92,
+          "declaration": "function verifyReceipt(GraduationPacket calldata packet, GraduationReceipt calldata receipt) external view"
+        },
+        {
+          "line": 96,
+          "declaration": "function secureCurve(address token) external returns (uint256 quoteOut, uint256 tokenOut)"
+        },
+        {
+          "line": 100,
+          "declaration": "function factory() external view returns (address)"
+        },
+        {
+          "line": 101,
+          "declaration": "function registerLaunch(address token, address curve, GraduationVenue venue, uint24 poolFee, int24 tickSpacing) external"
+        },
+        {
+          "line": 103,
+          "declaration": "function packet(address token) external view returns (GraduationPacket memory)"
+        },
+        {
+          "line": 104,
+          "declaration": "function ledger(address token) external view returns (GraduationLedger memory)"
+        },
+        {
+          "line": 105,
+          "declaration": "function secure(address token) external"
+        },
+        {
+          "line": 106,
+          "declaration": "function complete(address token) external returns (GraduationReceipt memory)"
+        }
+      ]
+    },
+    {
+      "lane": "canonical",
+      "path": "contracts/src/v2/interfaces/IKuruV2.sol",
+      "sha256": "8cd18dd7032a8b9a7ca2b54ae88eef17c055e6b9a92996cae87b7c9996dedeb2",
+      "lines": 64,
+      "declarations": [
+        {
+          "line": 6,
+          "declaration": "function marginAccountAddress() external view returns (address)"
+        },
+        {
+          "line": 7,
+          "declaration": "function orderBookImplementation() external view returns (address)"
+        },
+        {
+          "line": 8,
+          "declaration": "function kuruAmmVaultImplementation() external view returns (address)"
+        },
+        {
+          "line": 9,
+          "declaration": "function computeAddress( address, address, uint96, uint32, uint32, uint96, uint96, uint256, uint256, uint96, address, bool ) external view returns (address)"
+        },
+        {
+          "line": 23,
+          "declaration": "function computeVaultAddress(address, address, bool) external view returns (address)"
+        },
+        {
+          "line": 24,
+          "declaration": "function deployProxy(uint8, address, address, uint96, uint32, uint32, uint96, uint96, uint256, uint256, uint96) external returns (address)"
+        },
+        {
+          "line": 27,
+          "declaration": "function verifiedMarket(address) external view returns (uint32, uint96, address, uint256, address, uint256, uint32, uint96, uint96, uint256, uint256)"
+        },
+        {
+          "line": 34,
+          "declaration": "function getMarketParams() external view returns (uint32, uint96, address, uint256, address, uint256, uint32, uint96, uint96, uint256, uint256)"
+        },
+        {
+          "line": 38,
+          "declaration": "function getVaultParams() external view returns (address, uint256, uint96, uint256, uint96, uint96, uint96, uint96)"
+        },
+        {
+          "line": 39,
+          "declaration": "function bestBidAsk() external view returns (uint256, uint256)"
+        },
+        {
+          "line": 43,
+          "declaration": "function deposit(uint256, uint256, uint256, address) external payable returns (uint256)"
+        },
+        {
+          "line": 44,
+          "declaration": "function balanceOf(address) external view returns (uint256)"
+        },
+        {
+          "line": 45,
+          "declaration": "function totalAssets() external view returns (uint256, uint256)"
+        },
+        {
+          "line": 46,
+          "declaration": "function token1() external view returns (address)"
+        },
+        {
+          "line": 47,
+          "declaration": "function token2() external view returns (address)"
+        },
+        {
+          "line": 48,
+          "declaration": "function market() external view returns (address)"
+        },
+        {
+          "line": 49,
+          "declaration": "function marginAccount() external view returns (address)"
+        },
+        {
+          "line": 50,
+          "declaration": "function SPREAD_CONSTANT() external view returns (uint96)"
+        },
+        {
+          "line": 51,
+          "declaration": "function owner() external view returns (address)"
+        },
+        {
+          "line": 52,
+          "declaration": "function withdraw(uint256, address, address) external returns (uint256, uint256)"
+        },
+        {
+          "line": 56,
+          "declaration": "enum MarketState"
+        },
+        {
+          "line": 62,
+          "declaration": "function marketState() external view returns (MarketState)"
+        }
+      ]
+    },
+    {
+      "lane": "experiment",
+      "path": "contracts/src/v2-research-experiment/interfaces/IKuruV2.sol",
+      "sha256": "3c6180c9cf333d3b6b3e1e4af1ba84d3da50d30f022c11315ae070e4d4ad3dc1",
+      "lines": 63,
+      "declarations": [
+        {
+          "line": 6,
+          "declaration": "function marginAccountAddress() external view returns (address)"
+        },
+        {
+          "line": 7,
+          "declaration": "function orderBookImplementation() external view returns (address)"
+        },
+        {
+          "line": 8,
+          "declaration": "function kuruAmmVaultImplementation() external view returns (address)"
+        },
+        {
+          "line": 9,
+          "declaration": "function computeAddress( address, address, uint96, uint32, uint32, uint96, uint96, uint256, uint256, uint96, address, bool ) external view returns (address)"
+        },
+        {
+          "line": 23,
+          "declaration": "function computeVaultAddress(address, address, bool) external view returns (address)"
+        },
+        {
+          "line": 24,
+          "declaration": "function deployProxy(uint8, address, address, uint96, uint32, uint32, uint96, uint96, uint256, uint256, uint96) external returns (address)"
+        },
+        {
+          "line": 27,
+          "declaration": "function verifiedMarket(address) external view returns (uint32, uint96, address, uint256, address, uint256, uint32, uint96, uint96, uint256, uint256)"
+        },
+        {
+          "line": 34,
+          "declaration": "function getMarketParams() external view returns (uint32, uint96, address, uint256, address, uint256, uint32, uint96, uint96, uint256, uint256)"
+        },
+        {
+          "line": 38,
+          "declaration": "function getVaultParams() external view returns (address, uint256, uint96, uint256, uint96, uint96, uint96, uint96)"
+        },
+        {
+          "line": 39,
+          "declaration": "function bestBidAsk() external view returns (uint256, uint256)"
+        },
+        {
+          "line": 43,
+          "declaration": "function deposit(uint256, uint256, uint256, address) external payable returns (uint256)"
+        },
+        {
+          "line": 44,
+          "declaration": "function balanceOf(address) external view returns (uint256)"
+        },
+        {
+          "line": 45,
+          "declaration": "function totalAssets() external view returns (uint256, uint256)"
+        },
+        {
+          "line": 46,
+          "declaration": "function token1() external view returns (address)"
+        },
+        {
+          "line": 47,
+          "declaration": "function token2() external view returns (address)"
+        },
+        {
+          "line": 48,
+          "declaration": "function market() external view returns (address)"
+        },
+        {
+          "line": 49,
+          "declaration": "function marginAccount() external view returns (address)"
+        },
+        {
+          "line": 50,
+          "declaration": "function SPREAD_CONSTANT() external view returns (uint96)"
+        },
+        {
+          "line": 51,
+          "declaration": "function owner() external view returns (address)"
+        },
+        {
+          "line": 52,
+          "declaration": "function withdraw(uint256, address, address) external returns (uint256, uint256)"
+        },
+        {
+          "line": 56,
+          "declaration": "enum MarketState"
+        },
+        {
+          "line": 62,
+          "declaration": "function marketState() external view returns (MarketState)"
+        }
+      ]
+    },
+    {
+      "lane": "canonical",
+      "path": "contracts/src/v2/interfaces/IRetroPickDoorwayV2.sol",
+      "sha256": "982c27ef54f2add603c8e171083298a7948cf3659b7be8ed2bed16196dbc2d79",
+      "lines": 176,
+      "declarations": [
+        {
+          "line": 23,
+          "declaration": "enum MigrationDirection"
+        },
+        {
+          "line": 31,
+          "declaration": "enum MigrationStatus"
+        },
+        {
+          "line": 44,
+          "declaration": "struct Migration"
+        },
+        {
+          "line": 65,
+          "declaration": "struct Attestation"
+        },
+        {
+          "line": 77,
+          "declaration": "event MigrationRequested( bytes32 indexed migrationId, MigrationDirection indexed direction, address indexed initiator, address monadToken, bytes32 solanaMint, bytes32 destination, uint256 amount, uint256 fee, uint256 nonce )"
+        },
+        {
+          "line": 89,
+          "declaration": "event MigrationAttested( bytes32 indexed migrationId, bytes32 indexed sourceTxHash, uint256 amount, uint256 timestamp )"
+        },
+        {
+          "line": 93,
+          "declaration": "event MigrationExecutionStarted(bytes32 indexed migrationId)"
+        },
+        {
+          "line": 95,
+          "declaration": "event MigrationCompleted(bytes32 indexed migrationId, bytes32 indexed destinationTxHash, uint256 amount)"
+        },
+        {
+          "line": 97,
+          "declaration": "event MigrationCancelled(bytes32 indexed migrationId)"
+        },
+        {
+          "line": 99,
+          "declaration": "event TokenSupportUpdated(address indexed token, bool supported)"
+        },
+        {
+          "line": 101,
+          "declaration": "event SolanaMintSupportUpdated(bytes32 indexed mint, bool supported)"
+        },
+        {
+          "line": 103,
+          "declaration": "event RelayerUpdated(address indexed oldRelayer, address indexed newRelayer)"
+        },
+        {
+          "line": 105,
+          "declaration": "event GuardianUpdated(address indexed oldGuardian, address indexed newGuardian)"
+        },
+        {
+          "line": 107,
+          "declaration": "event FeeUpdated(uint256 oldFeeBps, uint256 newFeeBps)"
+        },
+        {
+          "line": 109,
+          "declaration": "event OwnershipTransferred(address indexed previousOwner, address indexed newOwner)"
+        },
+        {
+          "line": 111,
+          "declaration": "function migrateToSolana( address token, bytes32 solanaMint, bytes32 solanaRecipient, uint256 amount, uint256 minAmountOut ) external returns (bytes32 migrationId)"
+        },
+        {
+          "line": 119,
+          "declaration": "function requestFromSolana( bytes32 solanaMint, bytes32 solanaSender, address monadToken, address monadRecipient, uint256 amount, uint256 sourceNonce, bytes32 sourceTxHash ) external returns (bytes32 migrationId)"
+        },
+        {
+          "line": 129,
+          "declaration": "function attestMigration(Attestation calldata attestation) external"
+        },
+        {
+          "line": 131,
+          "declaration": "function executeMigration(bytes32 migrationId, bytes32 destinationTxHash) external"
+        },
+        {
+          "line": 133,
+          "declaration": "function cancelMigration(bytes32 migrationId) external"
+        },
+        {
+          "line": 135,
+          "declaration": "function getMigration(bytes32 migrationId) external view returns (Migration memory)"
+        },
+        {
+          "line": 137,
+          "declaration": "function migrationExists(bytes32 migrationId) external view returns (bool)"
+        },
+        {
+          "line": 139,
+          "declaration": "function calculateFee(uint256 amount) external view returns (uint256)"
+        },
+        {
+          "line": 141,
+          "declaration": "function calculateNetAmount(uint256 amount) external view returns (uint256)"
+        },
+        {
+          "line": 150,
+          "declaration": "function setMonadToken(address token, bool enabled) external"
+        },
+        {
+          "line": 151,
+          "declaration": "function setSolanaMint(bytes32 mint, bool enabled) external"
+        },
+        {
+          "line": 152,
+          "declaration": "function isMonadTokenSupported(address token) external view returns (bool)"
+        },
+        {
+          "line": 153,
+          "declaration": "function isSolanaMintSupported(bytes32 mint) external view returns (bool)"
+        },
+        {
+          "line": 162,
+          "declaration": "function tokenLiquidity(address token) external view returns (uint256)"
+        },
+        {
+          "line": 163,
+          "declaration": "function solanaLiquidity(bytes32 mint) external view returns (uint256)"
+        },
+        {
+          "line": 164,
+          "declaration": "function pendingFees(address token) external view returns (uint256)"
+        },
+        {
+          "line": 172,
+          "declaration": "function stake(uint256 amount) external"
+        },
+        {
+          "line": 173,
+          "declaration": "function unstake(uint256 amount) external"
+        },
+        {
+          "line": 174,
+          "declaration": "function slash(address relayer, uint256 amount, bytes32 migrationId) external"
+        },
+        {
+          "line": 175,
+          "declaration": "function bondedBalance(address relayer) external view returns (uint256)"
+        }
+      ]
+    },
+    {
+      "lane": "experiment",
+      "path": "contracts/src/v2-research-experiment/interfaces/IRetroPickDoorwayV2.sol",
+      "sha256": "982c27ef54f2add603c8e171083298a7948cf3659b7be8ed2bed16196dbc2d79",
+      "lines": 176,
+      "declarations": [
+        {
+          "line": 23,
+          "declaration": "enum MigrationDirection"
+        },
+        {
+          "line": 31,
+          "declaration": "enum MigrationStatus"
+        },
+        {
+          "line": 44,
+          "declaration": "struct Migration"
+        },
+        {
+          "line": 65,
+          "declaration": "struct Attestation"
+        },
+        {
+          "line": 77,
+          "declaration": "event MigrationRequested( bytes32 indexed migrationId, MigrationDirection indexed direction, address indexed initiator, address monadToken, bytes32 solanaMint, bytes32 destination, uint256 amount, uint256 fee, uint256 nonce )"
+        },
+        {
+          "line": 89,
+          "declaration": "event MigrationAttested( bytes32 indexed migrationId, bytes32 indexed sourceTxHash, uint256 amount, uint256 timestamp )"
+        },
+        {
+          "line": 93,
+          "declaration": "event MigrationExecutionStarted(bytes32 indexed migrationId)"
+        },
+        {
+          "line": 95,
+          "declaration": "event MigrationCompleted(bytes32 indexed migrationId, bytes32 indexed destinationTxHash, uint256 amount)"
+        },
+        {
+          "line": 97,
+          "declaration": "event MigrationCancelled(bytes32 indexed migrationId)"
+        },
+        {
+          "line": 99,
+          "declaration": "event TokenSupportUpdated(address indexed token, bool supported)"
+        },
+        {
+          "line": 101,
+          "declaration": "event SolanaMintSupportUpdated(bytes32 indexed mint, bool supported)"
+        },
+        {
+          "line": 103,
+          "declaration": "event RelayerUpdated(address indexed oldRelayer, address indexed newRelayer)"
+        },
+        {
+          "line": 105,
+          "declaration": "event GuardianUpdated(address indexed oldGuardian, address indexed newGuardian)"
+        },
+        {
+          "line": 107,
+          "declaration": "event FeeUpdated(uint256 oldFeeBps, uint256 newFeeBps)"
+        },
+        {
+          "line": 109,
+          "declaration": "event OwnershipTransferred(address indexed previousOwner, address indexed newOwner)"
+        },
+        {
+          "line": 111,
+          "declaration": "function migrateToSolana( address token, bytes32 solanaMint, bytes32 solanaRecipient, uint256 amount, uint256 minAmountOut ) external returns (bytes32 migrationId)"
+        },
+        {
+          "line": 119,
+          "declaration": "function requestFromSolana( bytes32 solanaMint, bytes32 solanaSender, address monadToken, address monadRecipient, uint256 amount, uint256 sourceNonce, bytes32 sourceTxHash ) external returns (bytes32 migrationId)"
+        },
+        {
+          "line": 129,
+          "declaration": "function attestMigration(Attestation calldata attestation) external"
+        },
+        {
+          "line": 131,
+          "declaration": "function executeMigration(bytes32 migrationId, bytes32 destinationTxHash) external"
+        },
+        {
+          "line": 133,
+          "declaration": "function cancelMigration(bytes32 migrationId) external"
+        },
+        {
+          "line": 135,
+          "declaration": "function getMigration(bytes32 migrationId) external view returns (Migration memory)"
+        },
+        {
+          "line": 137,
+          "declaration": "function migrationExists(bytes32 migrationId) external view returns (bool)"
+        },
+        {
+          "line": 139,
+          "declaration": "function calculateFee(uint256 amount) external view returns (uint256)"
+        },
+        {
+          "line": 141,
+          "declaration": "function calculateNetAmount(uint256 amount) external view returns (uint256)"
+        },
+        {
+          "line": 150,
+          "declaration": "function setMonadToken(address token, bool enabled) external"
+        },
+        {
+          "line": 151,
+          "declaration": "function setSolanaMint(bytes32 mint, bool enabled) external"
+        },
+        {
+          "line": 152,
+          "declaration": "function isMonadTokenSupported(address token) external view returns (bool)"
+        },
+        {
+          "line": 153,
+          "declaration": "function isSolanaMintSupported(bytes32 mint) external view returns (bool)"
+        },
+        {
+          "line": 162,
+          "declaration": "function tokenLiquidity(address token) external view returns (uint256)"
+        },
+        {
+          "line": 163,
+          "declaration": "function solanaLiquidity(bytes32 mint) external view returns (uint256)"
+        },
+        {
+          "line": 164,
+          "declaration": "function pendingFees(address token) external view returns (uint256)"
+        },
+        {
+          "line": 172,
+          "declaration": "function stake(uint256 amount) external"
+        },
+        {
+          "line": 173,
+          "declaration": "function unstake(uint256 amount) external"
+        },
+        {
+          "line": 174,
+          "declaration": "function slash(address relayer, uint256 amount, bytes32 migrationId) external"
+        },
+        {
+          "line": 175,
+          "declaration": "function bondedBalance(address relayer) external view returns (uint256)"
+        }
+      ]
+    },
+    {
+      "lane": "canonical",
+      "path": "contracts/src/v2/interfaces/IRetroPickGraduationV2.sol",
+      "sha256": "8c145b9e43ae84b00664769306c8267b47b2a300f4d554e5af2d8187ab166ff0",
+      "lines": 12,
+      "declarations": [
+        {
+          "line": 11,
+          "declaration": "function graduate(address token) external"
+        }
+      ]
+    },
+    {
+      "lane": "experiment",
+      "path": "contracts/src/v2-research-experiment/interfaces/IRetroPickGraduationV2.sol",
+      "sha256": "8c145b9e43ae84b00664769306c8267b47b2a300f4d554e5af2d8187ab166ff0",
+      "lines": 12,
+      "declarations": [
+        {
+          "line": 11,
+          "declaration": "function graduate(address token) external"
+        }
+      ]
+    },
+    {
+      "lane": "canonical",
+      "path": "contracts/src/v2/interfaces/IRetroPickLaunchpadV2.sol",
+      "sha256": "707b07a77d0c2a5805032aa949a926dd241efb6aa4b951e58f27cd9a4b79f831",
+      "lines": 139,
+      "declarations": [
+        {
+          "line": 21,
+          "declaration": "function credit(address recipient) external payable"
+        },
+        {
+          "line": 22,
+          "declaration": "function creditToken(address recipient, address token, uint256 amount) external"
+        },
+        {
+          "line": 23,
+          "declaration": "function claim() external returns (uint256 amount)"
+        },
+        {
+          "line": 24,
+          "declaration": "function claim(uint256 amount) external returns (uint256)"
+        },
+        {
+          "line": 25,
+          "declaration": "function claimToken(address token) external returns (uint256 amount)"
+        },
+        {
+          "line": 26,
+          "declaration": "function claimToken(address token, uint256 amount) external returns (uint256)"
+        },
+        {
+          "line": 27,
+          "declaration": "function balanceOf(address recipient) external view returns (uint256)"
+        },
+        {
+          "line": 28,
+          "declaration": "function balanceOfToken(address recipient, address token) external view returns (uint256)"
+        },
+        {
+          "line": 36,
+          "declaration": "struct FeePolicySnapshot"
+        },
+        {
+          "line": 50,
+          "declaration": "function protocolFeeShareBps() external view returns (uint256)"
+        },
+        {
+          "line": 51,
+          "declaration": "function buybackBurnBps() external view returns (uint256)"
+        },
+        {
+          "line": 52,
+          "declaration": "function protocolFeeRecipient() external view returns (address)"
+        },
+        {
+          "line": 53,
+          "declaration": "function feeEscrow() external view returns (IRetroPickFeeEscrowV2)"
+        },
+        {
+          "line": 58,
+          "declaration": "function maxInternalPriceImpactBps() external view returns (uint256)"
+        },
+        {
+          "line": 59,
+          "declaration": "function feeSweepOperator() external view returns (address)"
+        },
+        {
+          "line": 60,
+          "declaration": "function currentFeePolicy() external view returns (FeePolicySnapshot memory)"
+        },
+        {
+          "line": 68,
+          "declaration": "function onERC721Received(address operator, address from, uint256 tokenId, bytes calldata data) external returns (bytes4)"
+        },
+        {
+          "line": 86,
+          "declaration": "enum GraduationPhase"
+        },
+        {
+          "line": 98,
+          "declaration": "struct LaunchedToken"
+        },
+        {
+          "line": 121,
+          "declaration": "function getLaunchedToken(address token) external view returns (LaunchedToken memory)"
+        },
+        {
+          "line": 129,
+          "declaration": "function token() external view returns (address)"
+        },
+        {
+          "line": 130,
+          "declaration": "function pairToken() external view returns (address)"
+        },
+        {
+          "line": 131,
+          "declaration": "function graduationThreshold() external view returns (uint256)"
+        },
+        {
+          "line": 132,
+          "declaration": "function graduated() external view returns (bool)"
+        },
+        {
+          "line": 133,
+          "declaration": "function quoteReserve() external view returns (uint256)"
+        },
+        {
+          "line": 134,
+          "declaration": "function realQuoteReserve() external view returns (uint256)"
+        },
+        {
+          "line": 135,
+          "declaration": "function tokenReserve() external view returns (uint256)"
+        },
+        {
+          "line": 136,
+          "declaration": "function readyToGraduate() external view returns (bool)"
+        },
+        {
+          "line": 137,
+          "declaration": "function sweepFees(uint256 minBuybackTokensOut) external"
+        },
+        {
+          "line": 138,
+          "declaration": "function graduate(address recipient) external returns (uint256 ethOut, uint256 tokenOut)"
+        }
+      ]
+    },
+    {
+      "lane": "experiment",
+      "path": "contracts/src/v2-research-experiment/interfaces/IRetroPickLaunchpadV2.sol",
+      "sha256": "707b07a77d0c2a5805032aa949a926dd241efb6aa4b951e58f27cd9a4b79f831",
+      "lines": 139,
+      "declarations": [
+        {
+          "line": 21,
+          "declaration": "function credit(address recipient) external payable"
+        },
+        {
+          "line": 22,
+          "declaration": "function creditToken(address recipient, address token, uint256 amount) external"
+        },
+        {
+          "line": 23,
+          "declaration": "function claim() external returns (uint256 amount)"
+        },
+        {
+          "line": 24,
+          "declaration": "function claim(uint256 amount) external returns (uint256)"
+        },
+        {
+          "line": 25,
+          "declaration": "function claimToken(address token) external returns (uint256 amount)"
+        },
+        {
+          "line": 26,
+          "declaration": "function claimToken(address token, uint256 amount) external returns (uint256)"
+        },
+        {
+          "line": 27,
+          "declaration": "function balanceOf(address recipient) external view returns (uint256)"
+        },
+        {
+          "line": 28,
+          "declaration": "function balanceOfToken(address recipient, address token) external view returns (uint256)"
+        },
+        {
+          "line": 36,
+          "declaration": "struct FeePolicySnapshot"
+        },
+        {
+          "line": 50,
+          "declaration": "function protocolFeeShareBps() external view returns (uint256)"
+        },
+        {
+          "line": 51,
+          "declaration": "function buybackBurnBps() external view returns (uint256)"
+        },
+        {
+          "line": 52,
+          "declaration": "function protocolFeeRecipient() external view returns (address)"
+        },
+        {
+          "line": 53,
+          "declaration": "function feeEscrow() external view returns (IRetroPickFeeEscrowV2)"
+        },
+        {
+          "line": 58,
+          "declaration": "function maxInternalPriceImpactBps() external view returns (uint256)"
+        },
+        {
+          "line": 59,
+          "declaration": "function feeSweepOperator() external view returns (address)"
+        },
+        {
+          "line": 60,
+          "declaration": "function currentFeePolicy() external view returns (FeePolicySnapshot memory)"
+        },
+        {
+          "line": 68,
+          "declaration": "function onERC721Received(address operator, address from, uint256 tokenId, bytes calldata data) external returns (bytes4)"
+        },
+        {
+          "line": 86,
+          "declaration": "enum GraduationPhase"
+        },
+        {
+          "line": 98,
+          "declaration": "struct LaunchedToken"
+        },
+        {
+          "line": 121,
+          "declaration": "function getLaunchedToken(address token) external view returns (LaunchedToken memory)"
+        },
+        {
+          "line": 129,
+          "declaration": "function token() external view returns (address)"
+        },
+        {
+          "line": 130,
+          "declaration": "function pairToken() external view returns (address)"
+        },
+        {
+          "line": 131,
+          "declaration": "function graduationThreshold() external view returns (uint256)"
+        },
+        {
+          "line": 132,
+          "declaration": "function graduated() external view returns (bool)"
+        },
+        {
+          "line": 133,
+          "declaration": "function quoteReserve() external view returns (uint256)"
+        },
+        {
+          "line": 134,
+          "declaration": "function realQuoteReserve() external view returns (uint256)"
+        },
+        {
+          "line": 135,
+          "declaration": "function tokenReserve() external view returns (uint256)"
+        },
+        {
+          "line": 136,
+          "declaration": "function readyToGraduate() external view returns (bool)"
+        },
+        {
+          "line": 137,
+          "declaration": "function sweepFees(uint256 minBuybackTokensOut) external"
+        },
+        {
+          "line": 138,
+          "declaration": "function graduate(address recipient) external returns (uint256 ethOut, uint256 tokenOut)"
+        }
+      ]
+    },
+    {
+      "lane": "canonical",
+      "path": "contracts/src/v2/interfaces/IRetroPickQuoteAssetPolicyV2.sol",
+      "sha256": "403fa51050f584318330fbe236acb870cf09c298306745229dc69fd4ae5074d1",
+      "lines": 7,
+      "declarations": [
+        {
+          "line": 5,
+          "declaration": "function isSupportedQuote(address quote) external view returns (bool)"
+        },
+        {
+          "line": 6,
+          "declaration": "function validateQuote(address quote, uint8 expectedDecimals) external view"
+        }
+      ]
+    },
+    {
+      "lane": "experiment",
+      "path": "contracts/src/v2-research-experiment/interfaces/IRetroPickQuoteAssetPolicyV2.sol",
+      "sha256": "403fa51050f584318330fbe236acb870cf09c298306745229dc69fd4ae5074d1",
+      "lines": 7,
+      "declarations": [
+        {
+          "line": 5,
+          "declaration": "function isSupportedQuote(address quote) external view returns (bool)"
+        },
+        {
+          "line": 6,
+          "declaration": "function validateQuote(address quote, uint8 expectedDecimals) external view"
+        }
+      ]
+    },
+    {
+      "lane": "canonical",
+      "path": "contracts/src/v2/interfaces/IVenueLaunchV2.sol",
+      "sha256": "c9cd43a33118899de7ec5b17852d175c3d445af20931dd8693334406012c0e86",
+      "lines": 14,
+      "declarations": [
+        {
+          "line": 8,
+          "declaration": "function launchToken( RetroPickLaunchFactoryV2.TokenParams calldata params, uint256 configId, address quote, GraduationVenue venue ) external payable returns (address token, address curve)"
+        }
+      ]
+    },
+    {
+      "lane": "experiment",
+      "path": "contracts/src/v2-research-experiment/interfaces/IVenueLaunchV2.sol",
+      "sha256": "c9cd43a33118899de7ec5b17852d175c3d445af20931dd8693334406012c0e86",
+      "lines": 14,
+      "declarations": [
+        {
+          "line": 8,
+          "declaration": "function launchToken( RetroPickLaunchFactoryV2.TokenParams calldata params, uint256 configId, address quote, GraduationVenue venue ) external payable returns (address token, address curve)"
+        }
+      ]
+    },
+    {
+      "lane": "canonical",
+      "path": "contracts/src/v2/libraries/CompletionQuoteMathV2.sol",
+      "sha256": "0501bd4cd506f68ff073187c8cf2f018a9e32e0c92686f99d080db771a99461c",
+      "lines": 50,
+      "declarations": [
+        {
+          "line": 8,
+          "declaration": "struct State"
+        },
+        {
+          "line": 21,
+          "declaration": "function calculate(State memory s) internal pure returns (uint256 terminalQuote, uint256 grossInput)"
+        },
+        {
+          "line": 47,
+          "declaration": "function _checkAdd(uint256 a, uint256 b) private pure"
+        }
+      ]
+    },
+    {
+      "lane": "experiment",
+      "path": "contracts/src/v2-research-experiment/libraries/CompletionQuoteMathV2.sol",
+      "sha256": "0501bd4cd506f68ff073187c8cf2f018a9e32e0c92686f99d080db771a99461c",
+      "lines": 50,
+      "declarations": [
+        {
+          "line": 8,
+          "declaration": "struct State"
+        },
+        {
+          "line": 21,
+          "declaration": "function calculate(State memory s) internal pure returns (uint256 terminalQuote, uint256 grossInput)"
+        },
+        {
+          "line": 47,
+          "declaration": "function _checkAdd(uint256 a, uint256 b) private pure"
+        }
+      ]
+    },
+    {
+      "lane": "canonical",
+      "path": "contracts/src/v2/libraries/ExactAssetV2.sol",
+      "sha256": "55b86794fa8a1545ed247c4035dffdf05515d9c5a2a27b49f335102eeeede28e",
+      "lines": 34,
+      "declarations": [
+        {
+          "line": 10,
+          "declaration": "function pull(address asset, address from, address to, uint256 amount) internal"
+        },
+        {
+          "line": 20,
+          "declaration": "function send(address asset, address to, uint256 amount) internal"
+        },
+        {
+          "line": 31,
+          "declaration": "function balance(address asset, address holder) internal view returns (uint256)"
+        }
+      ]
+    },
+    {
+      "lane": "experiment",
+      "path": "contracts/src/v2-research-experiment/libraries/ExactAssetV2.sol",
+      "sha256": "55b86794fa8a1545ed247c4035dffdf05515d9c5a2a27b49f335102eeeede28e",
+      "lines": 34,
+      "declarations": [
+        {
+          "line": 10,
+          "declaration": "function pull(address asset, address from, address to, uint256 amount) internal"
+        },
+        {
+          "line": 20,
+          "declaration": "function send(address asset, address to, uint256 amount) internal"
+        },
+        {
+          "line": 31,
+          "declaration": "function balance(address asset, address holder) internal view returns (uint256)"
+        }
+      ]
+    },
+    {
+      "lane": "canonical",
+      "path": "contracts/src/v2/libraries/ExecutorDonationsV2.sol",
+      "sha256": "47661cb3dda1c80ddca62ae708881c49af4cc3c3be383a23173f19c9b0da130a",
+      "lines": 39,
+      "declarations": [
+        {
+          "line": 10,
+          "declaration": "constructor(address executor_)"
+        },
+        {
+          "line": 17,
+          "declaration": "event UnsolicitedAssetsLocked(address indexed asset, address indexed receiver, uint256 amount)"
+        },
+        {
+          "line": 20,
+          "declaration": "function quarantine(address launchToken, address quoteAsset, uint256 nativeInput, address receiver) internal"
+        },
+        {
+          "line": 32,
+          "declaration": "function _token(address asset, address receiver) private"
+        }
+      ]
+    },
+    {
+      "lane": "experiment",
+      "path": "contracts/src/v2-research-experiment/libraries/ExecutorDonationsV2.sol",
+      "sha256": "47661cb3dda1c80ddca62ae708881c49af4cc3c3be383a23173f19c9b0da130a",
+      "lines": 39,
+      "declarations": [
+        {
+          "line": 10,
+          "declaration": "constructor(address executor_)"
+        },
+        {
+          "line": 17,
+          "declaration": "event UnsolicitedAssetsLocked(address indexed asset, address indexed receiver, uint256 amount)"
+        },
+        {
+          "line": 20,
+          "declaration": "function quarantine(address launchToken, address quoteAsset, uint256 nativeInput, address receiver) internal"
+        },
+        {
+          "line": 32,
+          "declaration": "function _token(address asset, address receiver) private"
+        }
+      ]
+    },
+    {
+      "lane": "canonical",
+      "path": "contracts/src/v2/libraries/KuruParameterPolicyV2.sol",
+      "sha256": "f0979f764111c2fb537caf3f4d6a34cad6419b66da4f5279d6bfbe373c857750",
+      "lines": 58,
+      "declarations": [
+        {
+          "line": 21,
+          "declaration": "function validate(uint256 supply, uint8 decimals, uint256 phantom, uint256 threshold, uint256 ceiling) internal pure"
+        },
+        {
+          "line": 31,
+          "declaration": "function seed(uint256 terminalTokens, uint256 quote, uint256 phantom) internal pure returns (uint256 base)"
+        },
+        {
+          "line": 36,
+          "declaration": "function referencePrice(uint256 terminalTokens, uint256 quote, uint256 phantom, uint8 decimals) internal pure returns (uint256)"
+        },
+        {
+          "line": 44,
+          "declaration": "function opening(uint256 baseSeed, uint256 quote, uint8 decimals) internal pure returns (uint256 bid, uint256 ask, uint256 bidSize, uint256 askSize)"
+        }
+      ]
+    },
+    {
+      "lane": "experiment",
+      "path": "contracts/src/v2-research-experiment/libraries/KuruParameterPolicyV2.sol",
+      "sha256": "f0979f764111c2fb537caf3f4d6a34cad6419b66da4f5279d6bfbe373c857750",
+      "lines": 58,
+      "declarations": [
+        {
+          "line": 21,
+          "declaration": "function validate(uint256 supply, uint8 decimals, uint256 phantom, uint256 threshold, uint256 ceiling) internal pure"
+        },
+        {
+          "line": 31,
+          "declaration": "function seed(uint256 terminalTokens, uint256 quote, uint256 phantom) internal pure returns (uint256 base)"
+        },
+        {
+          "line": 36,
+          "declaration": "function referencePrice(uint256 terminalTokens, uint256 quote, uint256 phantom, uint8 decimals) internal pure returns (uint256)"
+        },
+        {
+          "line": 44,
+          "declaration": "function opening(uint256 baseSeed, uint256 quote, uint8 decimals) internal pure returns (uint256 bid, uint256 ask, uint256 bidSize, uint256 askSize)"
+        }
+      ]
+    },
+    {
+      "lane": "canonical",
+      "path": "contracts/src/v2/libraries/RetroPickBondingCurveMathV2.sol",
+      "sha256": "2576c4601ca9f516d156cc5652a66400f05e1974c6e2e0fec815a171d669066b",
+      "lines": 88,
+      "declarations": [
+        {
+          "line": 25,
+          "declaration": "function getAmountOut(uint256 amountIn, uint256 reserveIn, uint256 reserveOut, uint256 feeBps) internal pure returns (uint256 amountOut)"
+        },
+        {
+          "line": 46,
+          "declaration": "function quoteAmountOut(uint256 amountIn, uint256 reserveIn, uint256 reserveOut, uint256 feeBps) internal pure returns (uint256 amountOut)"
+        },
+        {
+          "line": 55,
+          "declaration": "function _amountOut(uint256 amountIn, uint256 reserveIn, uint256 reserveOut, uint256 feeBps) private pure returns (uint256)"
+        },
+        {
+          "line": 73,
+          "declaration": "function getAmountIn(uint256 amountOut, uint256 reserveIn, uint256 reserveOut, uint256 feeBps) internal pure returns (uint256 amountIn)"
+        }
+      ]
+    },
+    {
+      "lane": "experiment",
+      "path": "contracts/src/v2-research-experiment/libraries/RetroPickBondingCurveMathV2.sol",
+      "sha256": "2576c4601ca9f516d156cc5652a66400f05e1974c6e2e0fec815a171d669066b",
+      "lines": 88,
+      "declarations": [
+        {
+          "line": 25,
+          "declaration": "function getAmountOut(uint256 amountIn, uint256 reserveIn, uint256 reserveOut, uint256 feeBps) internal pure returns (uint256 amountOut)"
+        },
+        {
+          "line": 46,
+          "declaration": "function quoteAmountOut(uint256 amountIn, uint256 reserveIn, uint256 reserveOut, uint256 feeBps) internal pure returns (uint256 amountOut)"
+        },
+        {
+          "line": 55,
+          "declaration": "function _amountOut(uint256 amountIn, uint256 reserveIn, uint256 reserveOut, uint256 feeBps) private pure returns (uint256)"
+        },
+        {
+          "line": 73,
+          "declaration": "function getAmountIn(uint256 amountOut, uint256 reserveIn, uint256 reserveOut, uint256 feeBps) internal pure returns (uint256 amountIn)"
+        }
+      ]
+    },
+    {
+      "lane": "canonical",
+      "path": "contracts/src/v2/libraries/RetroPickGraduationMathV2.sol",
+      "sha256": "f9cf285edf8aac15ef3266d42c454ec14f42b6e8a9ce618019a5e9d3d2886c3a",
+      "lines": 63,
+      "declarations": [
+        {
+          "line": 26,
+          "declaration": "function sqrtPriceX96FromAmounts(uint256 amount0, uint256 amount1) internal pure returns (uint160)"
+        },
+        {
+          "line": 51,
+          "declaration": "function _fitsQ192(uint256 amount0, uint256 amount1) private pure returns (bool)"
+        },
+        {
+          "line": 59,
+          "declaration": "function _fitsQ128(uint256 amount0, uint256 amount1) private pure returns (bool)"
+        }
+      ]
+    },
+    {
+      "lane": "experiment",
+      "path": "contracts/src/v2-research-experiment/libraries/RetroPickGraduationMathV2.sol",
+      "sha256": "f9cf285edf8aac15ef3266d42c454ec14f42b6e8a9ce618019a5e9d3d2886c3a",
+      "lines": 63,
+      "declarations": [
+        {
+          "line": 26,
+          "declaration": "function sqrtPriceX96FromAmounts(uint256 amount0, uint256 amount1) internal pure returns (uint160)"
+        },
+        {
+          "line": 51,
+          "declaration": "function _fitsQ192(uint256 amount0, uint256 amount1) private pure returns (bool)"
+        },
+        {
+          "line": 59,
+          "declaration": "function _fitsQ128(uint256 amount0, uint256 amount1) private pure returns (bool)"
+        }
+      ]
+    }
+  ],
+  "original_tests_changed": [],
+  "tests": [
+    "contracts/test/v2/integration/DEV4GraduationExtractionResearch.t.sol",
+    "contracts/test/v2/integration/FullV4StackV2Fork.t.sol",
+    "contracts/test/v2/integration/KuruAtomicResearch.t.sol",
+    "contracts/test/v2/integration/KuruForkResearch.t.sol",
+    "contracts/test/v2/integration/KuruV2EndToEndFork.t.sol",
+    "contracts/test/v2/integration/RetroPickFactoryLaunchV2Qualification.t.sol",
+    "contracts/test/v2/integration/RetroPickV4GraduationBehavior.t.sol",
+    "contracts/test/v2/invariant/GraduationCoordinatorV2Invariant.t.sol",
+    "contracts/test/v2/invariant/RetroPickCurrentCurveV2Invariant.t.sol",
+    "contracts/test/v2/unit/CompletionQuoteOracleV2.t.sol",
+    "contracts/test/v2/unit/GraduationCoordinatorV2Authority.t.sol",
+    "contracts/test/v2/unit/KuruPolicyAndLockV2.t.sol",
+    "contracts/test/v2/unit/QuoteAssetRegistryV2.t.sol",
+    "contracts/test/v2/unit/RetroPickBondingCurveMathV2Qualification.t.sol",
+    "contracts/test/v2/unit/RetroPickCurrentCurveStateV2Qualification.t.sol",
+    "contracts/test/v2/unit/RetroPickFeeEscrowV2Qualification.t.sol",
+    "contracts/test/v2/unit/RetroPickLaunchDeployerV2Qualification.t.sol"
+  ],
+  "scripts": [
+    "contracts/script/DeployV2MonadTestnet.s.sol",
+    "contracts/script/README_V2_MONAD_TESTNET.md",
+    "contracts/script/SmokeV2MonadTestnet.s.sol",
+    "contracts/script/TradeV2KuruTestnet.s.sol",
+    "contracts/script/qualify_metropolis.py",
+    "contracts/script/release_v2_monad.py"
+  ],
+  "consumers": [
+    "apps/README.md",
+    "apps/abi/RetroPickHookDeployerV2.json",
+    "apps/abi/RetroPickLaunchFactoryV2.json",
+    "apps/abi/UniswapV4GraduationExecutorV2.json",
+    "apps/abi/abi.ts",
+    "apps/abi/manifest.json",
+    "apps/web/lib/live/abi.ts",
+    "contracts/script/DeployV2MonadTestnet.s.sol",
+    "contracts/script/SmokeV2MonadTestnet.s.sol",
+    "contracts/script/TradeV2KuruTestnet.s.sol",
+    "contracts/script/qualify_metropolis.py",
+    "contracts/script/release_v2_monad.py",
+    "contracts/test/v2/integration/DEV4GraduationExtractionResearch.t.sol",
+    "contracts/test/v2/integration/FullV4StackV2Fork.t.sol",
+    "contracts/test/v2/integration/KuruAtomicResearch.t.sol",
+    "contracts/test/v2/integration/KuruForkResearch.t.sol",
+    "contracts/test/v2/integration/KuruV2EndToEndFork.t.sol",
+    "contracts/test/v2/integration/RetroPickFactoryLaunchV2Qualification.t.sol",
+    "contracts/test/v2/integration/RetroPickV4GraduationBehavior.t.sol",
+    "contracts/test/v2/invariant/GraduationCoordinatorV2Invariant.t.sol",
+    "contracts/test/v2/invariant/RetroPickCurrentCurveV2Invariant.t.sol",
+    "contracts/test/v2/tools/generate_completion_vectors.py",
+    "contracts/test/v2/unit/CompletionQuoteOracleV2.t.sol",
+    "contracts/test/v2/unit/GraduationCoordinatorV2Authority.t.sol",
+    "contracts/test/v2/unit/KuruPolicyAndLockV2.t.sol",
+    "contracts/test/v2/unit/QuoteAssetRegistryV2.t.sol",
+    "contracts/test/v2/unit/RetroPickBondingCurveMathV2Qualification.t.sol",
+    "contracts/test/v2/unit/RetroPickCurrentCurveStateV2Qualification.t.sol",
+    "contracts/test/v2/unit/RetroPickFeeEscrowV2Qualification.t.sol",
+    "contracts/test/v2/unit/RetroPickLaunchDeployerV2Qualification.t.sol",
+    "packages/launchpad-sdk/src/abis/factoryAbi.ts"
+  ],
+  "limits": [
+    "Declarations are lexical review aids; compiler ABI reconciliation remains required.",
+    "Source presence does not establish fork verification or deployed identity."
+  ]
+}

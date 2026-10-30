@@ -1,0 +1,39 @@
+{
+  "baseline": "28a4744dcc8005da285f9e924ba7841073daee0b",
+  "status": "PARTIAL",
+  "runs": [
+    {
+      "id": "protection-tests",
+      "command": "PYTHONDONTWRITEBYTECODE=1 python3 research/launchpad/community-economy-v2/tools/test_baseline.py",
+      "exit_code": 0,
+      "passed": 4,
+      "failed": 0,
+      "log": "protection-tests.log"
+    },
+    {
+      "id": "canonical-exclusion-attempt",
+      "command": "forge test --skip v2-research-experiment --match-contract (GraduationCoordinatorV2AuthorityTest|GraduationCoordinatorV2InvariantTest) --chain-id 10143 --code-size-limit 1048576 --out <fresh-temp>/out --cache-path <fresh-temp>/cache",
+      "exit_code": 1,
+      "passed": 0,
+      "failed": 2,
+      "log": "canonical-graduation.log",
+      "classification": "SETUP_FAILURE"
+    },
+    {
+      "id": "canonical-scoped-graduation",
+      "command": "forge test --contracts src/v2 --match-contract (GraduationCoordinatorV2AuthorityTest|GraduationCoordinatorV2InvariantTest) --chain-id 10143 --code-size-limit 1048576 --out <fresh-temp>/out --cache-path <fresh-temp>/cache",
+      "exit_code": 0,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "invariant_properties": 2,
+      "invariant_runs": 64,
+      "handler_calls": 4096,
+      "log": "canonical-scoped-graduation.log",
+      "classification": "MEASURED_LOCAL",
+      "limit": "Mocked destination; no live Kuru/fork qualification"
+    }
+  ],
+  "no_deployment": true,
+  "community_solidity_implemented": false
+}

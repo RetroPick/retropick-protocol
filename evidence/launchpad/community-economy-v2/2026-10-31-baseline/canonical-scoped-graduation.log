@@ -1,0 +1,43 @@
+Compiling 125 files with Solc 0.8.26
+Solc 0.8.26 finished in 79.99s
+Compiler run successful with warnings:
+Warning (2018): Function state mutability can be restricted to view
+   --> src/v2/RetroPickBondingCurveV2.sol:861:5:
+    |
+861 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 2 tests for test/v2/unit/GraduationCoordinatorV2Authority.t.sol:GraduationCoordinatorV2AuthorityTest
+[PASS] testInexactSecureReportCannotCreateDurableLedgerThenExactHandoffRetries() (gas: 5138390)
+[PASS] testOnlyFactoryCanConfigureRegisterOrSecureAndBindingIsOneTime() (gas: 204013)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 10.88ms (5.28ms CPU time)
+
+Ran 1 test for test/v2/invariant/GraduationCoordinatorV2Invariant.t.sol:GraduationCoordinatorV2InvariantTest
+[PASS]
+GraduationCoordinatorV2InvariantTest invariants:
+[PASS] invariantNoCompletionDeadlockReplayOrProtectedExit
+[PASS] invariantOneLedgerPhysicalBackingImmutableVenueAndDestination
+ GraduationCoordinatorV2InvariantTest invariants (runs: 64, calls: 4096, reverts: 0)
+
+╭----------------------+------------------------+-------+---------+----------╮
+| Contract             | Selector               | Calls | Reverts | Discards |
++============================================================================+
+| CoordinatorHandlerV2 | attemptProtectedEscape | 592   | 0       | 0        |
+|----------------------+------------------------+-------+---------+----------|
+| CoordinatorHandlerV2 | buy                    | 627   | 0       | 0        |
+|----------------------+------------------------+-------+---------+----------|
+| CoordinatorHandlerV2 | complete               | 540   | 0       | 0        |
+|----------------------+------------------------+-------+---------+----------|
+| CoordinatorHandlerV2 | finish                 | 581   | 0       | 0        |
+|----------------------+------------------------+-------+---------+----------|
+| CoordinatorHandlerV2 | launch                 | 550   | 0       | 0        |
+|----------------------+------------------------+-------+---------+----------|
+| CoordinatorHandlerV2 | sell                   | 604   | 0       | 0        |
+|----------------------+------------------------+-------+---------+----------|
+| CoordinatorHandlerV2 | sweep                  | 602   | 0       | 0        |
+╰----------------------+------------------------+-------+---------+----------╯
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 3.55s (3.53s CPU time)
+
+Ran 2 test suites in 3.55s (3.56s CPU time): 3 tests passed, 0 failed, 0 skipped (3 total tests)

@@ -1,0 +1,27 @@
+{
+  "iteration": "000-baseline",
+  "status": "PARTIAL",
+  "baseline": "28a4744dcc8005da285f9e924ba7841073daee0b",
+  "workflow": [
+    "question",
+    "current-source",
+    "claim",
+    "experiment",
+    "evidence",
+    "analysis",
+    "decision"
+  ],
+  "question": "What does the current V2 implementation actually support?",
+  "implemented": [
+    "isolated worktree",
+    "input provenance",
+    "source inventory",
+    "protected-path guard"
+  ],
+  "pending": [
+    "manual security review",
+    "compiler ABI reconciliation",
+    "complete baseline campaign"
+  ],
+  "next_dependency": "Phase 0 and adversarial accounting specification before Solidity"
+}

@@ -50,6 +50,8 @@
 .rp-btn:active:not(:disabled) { transform: translateY(1px) }
 .rp-btn:disabled { opacity: .5; cursor: not-allowed }
 .rp-btn-primary { background: var(--accent-fill); color: var(--accent-ink); border-color: transparent }
+/* A disabled primary stays legible: muted accent tint + readable text, never a washed-out fill. */
+.rp-btn-primary:disabled { background: var(--accent-dim); color: var(--text-2); opacity: 1 }
 .rp-btn[data-tone='buy'] { background: var(--buy); color: var(--buy-ink); border-color: transparent }
 .rp-btn[data-tone='sell'] { background: var(--sell); color: var(--sell-ink); border-color: transparent }
 .rp-btn-ghost { background: transparent }

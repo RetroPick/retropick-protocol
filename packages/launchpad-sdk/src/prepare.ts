@@ -6,6 +6,7 @@ import { factoryAbi } from './abis/factoryAbi.ts';
 import { kuruAbi } from './abis/kuruAbi.ts';
 import { kuruEnvironmentAbi } from './abis/kuruEnvironmentAbi.ts';
 import { marginAbi } from './abis/marginAbi.ts';
+import { kuruVaultAbi } from './abis/kuruVaultAbi.ts';
 import { routerAbi } from './abis/routerAbi.ts';
 import { tokenAbi } from './abis/tokenAbi.ts';
 import { retroPickBuybackVaultV2Abi } from './abis/retroPickBuybackVaultV2Abi.ts';
@@ -15,6 +16,7 @@ import { readKuruOrder } from './orders.ts';
 import { memeHookAbi } from './abis/memeHookAbi.ts';
 import { buyQuote, minOutput, sellQuote } from './math.ts';
 import { VENUE, readLaunchPreconditions, readBuybackReleasable, readFeeEscrowCredit, type VenueId } from './registry.ts';
+import { readKuruLiquidity } from './liquidity.ts';
 
 const marginAddress = release.kuruEnvironment.marginAccount as Address;
 
@@ -592,6 +594,191 @@ export async function assertKuruMarketIdentity(chain: ChainClient, market: Addre
 // ---------------------------------------------------------------------------
 
 /** Claim all native creator fees escrowed for the account. */
+// ---------------------------------------------------------------------------
+// Flow D4 — public Kuru vault LP (deposit / withdraw)
+// ---------------------------------------------------------------------------
+// Operator-approved 2026-10-30 per evidence/launchpad/liquidity-production-20261015
+// SECURITY_REVIEW.md: passive-LP enablement conditioned on identity, pause,
+// native exact-value, ERC20-allowance, quote-consumption slippage, dust-size,
+// preview and implementation-drift proofs — all re-verified fresh per prepare.
+// The graduation lock's shares are NOT touchable here: only wallet-kind
+// positions (vault.balanceOf of the connected account) can be withdrawn.
+
+/** ceil(a*b/c) for raw positive bigints. */
+function mulDivUp(a: bigint, b: bigint, c: bigint): bigint {
+  return (a * b + c - 1n) / c;
+}
+
+export type VaultDepositPreview = {
+  /** Vault shares previewDeposit expects at the block-pinned ask (floor; not a minimum). */
+  expectedSharesRaw: bigint;
+  /** Quote the vault will consume for baseDeposit at the current vault ask — exactly the contract's recomputation. */
+  expectedQuoteConsumedRaw: bigint;
+  /** Live vault ask (x18) the preview was computed at. */
+  askX18: bigint;
+  /** Share-of-pool the deposit would represent (already scaled to 4 dp). */
+  shareOfPoolBps: bigint;
+};
+
+export type VaultDepositInput = {
+  /** Launch token (vault token1 / market base asset). */
+  token: Address;
+  /** Raw base (launch-token) amount to deposit. */
+  baseDeposit: bigint;
+  /** Raw quote CEILING: the vault recomputes consumption from the live ask and
+   *  pulls at most this much (InsufficientQuoteToken if the ask moved past it). */
+  quoteDeposit: bigint;
+  /** Slippage bound on quote consumption in bps (default 100 = 1%). Consumed
+   *  quote below expected*(1-slip) reverts InsufficientQuoteUsed onchain. */
+  slippageBps?: bigint;
+  /** Share receiver; defaults to the connected account. */
+  receiver?: Address;
+};
+
+export type PreparedVaultWrite = PreparedWrite & { preview: VaultDepositPreview };
+
+/** Add two-sided liquidity to a graduated market's Kuru AMM vault.
+ *  Identity, wiring, implementation pins and pause state are re-verified via
+ *  the same read path as the liquidity UI (readKuruLiquidity); native-MON
+ *  quotes pay msg.value exactly; ERC20 legs approve THE VAULT (never margin). */
+export async function prepareVaultDeposit(
+  chain: ChainClient,
+  account: Address,
+  input: VaultDepositInput,
+): Promise<PreparedVaultWrite> {
+  if (!isAddress(account)) fail('Invalid account address.');
+  if (!isAddress(input.token)) fail('Invalid launch token address.');
+  if (input.baseDeposit <= 0n) fail('Enter a base deposit amount.');
+  if (input.quoteDeposit <= 0n) fail('Enter a quote deposit amount.');
+  const slippageBps = input.slippageBps ?? 100n;
+  if (slippageBps < 0n || slippageBps > 5000n) fail('Slippage tolerance must be between 0 and 50%.');
+  const blockNumber = await chain.getBlockNumber({ cacheTime: 0 });
+  // Full identity + pause + vault-state revalidation (throws with taxonomy on mismatch).
+  const state = await readKuruLiquidity(chain, input.token, { blockNumber });
+  const identity = state.identity;
+  const best = state.bestExecutable.data;
+  if (!best) fail('Vault market quoting is unavailable; try again shortly.');
+  if (best.marketState !== 0) fail('This market is paused; deposits are temporarily blocked.');
+  const vault = identity.vault;
+  const nativeQuote = identity.quoteAsset === zeroAddress;
+
+  // Mirror the contract's quote-consumption math exactly (vaultBestAsk at this block).
+  const ask = BigInt(await chain.readContract({ address: identity.market, abi: kuruAbi, functionName: 'vaultBestAsk', blockNumber }));
+  if (ask <= 0n) fail('Vault ask is unavailable; try again shortly.');
+  const baseScale = 10n ** BigInt(identity.baseDecimals);
+  const quoteScale = 10n ** BigInt(identity.quoteDecimals);
+  const expectedQuoteConsumedRaw = mulDivUp(input.baseDeposit, ask, 10n ** 18n) * quoteScale / baseScale;
+  if (input.quoteDeposit < expectedQuoteConsumedRaw) {
+    fail('Quote ceiling is below the amount this deposit consumes at the current ask. Increase the quote amount or add slippage room.');
+  }
+  const minQuoteConsumed = expectedQuoteConsumedRaw * (10_000n - slippageBps) / 10_000n;
+
+  // Dust floor: mirror updateVaultOrdSz size math so tiny deposits fail here, not onchain.
+  const spread = BigInt(await chain.readContract({ address: vault, abi: kuruVaultAbi, functionName: 'SPREAD_CONSTANT', blockNumber }));
+  const spreadScaled = spread * identity.sizePrecision;
+  const askSize = spreadScaled * input.baseDeposit / ((20_000n + spread) * baseScale);
+  const bidSize = spreadScaled * input.baseDeposit / (20_000n * baseScale);
+  if (askSize === 0n || bidSize === 0n) fail('Deposit is too small for this vault\'s minimum quoting size.');
+
+  // Exact share preview at the pinned block.
+  const expectedSharesRaw = BigInt(await chain.readContract({
+    address: vault, abi: kuruVaultAbi, functionName: 'previewDeposit',
+    args: [input.baseDeposit, input.quoteDeposit], blockNumber,
+  }));
+  if (expectedSharesRaw <= 0n) fail('This deposit would mint zero vault shares.');
+  const totalShares = state.vault.data?.totalSharesRaw;
+  if (!totalShares) fail('Vault share supply is unavailable; try again shortly.');
+  const shareOfPoolBps = totalShares > 0n ? expectedSharesRaw * 10_000n * 10_000n / (totalShares + expectedSharesRaw) / 10_000n : 0n;
+
+  // Balances + approvals. ERC20 legs approve THE VAULT; native quote pays exact value.
+  const approvals: Approval[] = [];
+  const baseBalance = BigInt(await chain.readContract({ address: input.token, abi: tokenAbi, functionName: 'balanceOf', args: [account], blockNumber }));
+  if (baseBalance < input.baseDeposit) fail('Insufficient token balance for the base leg.');
+  approvals.push({ token: input.token, spender: vault, amount: input.baseDeposit, label: 'Approve launch token for the vault' });
+  if (nativeQuote) {
+    const monBalance = await chain.getBalance({ address: account, blockNumber });
+    if (monBalance < input.quoteDeposit) fail('Insufficient MON balance for the quote leg.');
+  } else {
+    const quoteBalance = BigInt(await chain.readContract({ address: identity.quoteAsset, abi: tokenAbi, functionName: 'balanceOf', args: [account], blockNumber }));
+    if (quoteBalance < input.quoteDeposit) fail('Insufficient quote balance for the quote leg.');
+    approvals.push({ token: identity.quoteAsset, spender: vault, amount: input.quoteDeposit, label: 'Approve quote asset for the vault' });
+  }
+
+  const receiver = input.receiver ?? account;
+  return {
+    to: vault,
+    abi: kuruVaultAbi,
+    functionName: 'deposit',
+    args: [input.baseDeposit, input.quoteDeposit, minQuoteConsumed, receiver],
+    value: nativeQuote ? input.quoteDeposit : 0n,
+    account,
+    approvals,
+    label: 'Add vault liquidity',
+    checks: [
+      `expect ≈${expectedSharesRaw} vault shares (${Number(shareOfPoolBps) / 100}% of pool)`,
+      `consumes ≈${expectedQuoteConsumedRaw} quote at the pinned ask (ceiling ${input.quoteDeposit})`,
+      `minQuoteConsumed ${minQuoteConsumed} (slippage ${Number(slippageBps) / 100}%)`,
+      nativeQuote ? 'native MON: value = quote ceiling; excess refunded by the vault' : 'ERC20: approve base + quote, then deposit',
+      'market active, identity + implementation pins verified',
+    ],
+    preview: { expectedSharesRaw, expectedQuoteConsumedRaw, askX18: ask, shareOfPoolBps },
+  };
+}
+
+export type VaultWithdrawInput = {
+  /** Launch token identifying the graduated market/vault. */
+  token: Address;
+  /** Raw vault shares to burn. */
+  shares: bigint;
+  /** Underlying receiver; defaults to the connected account. */
+  receiver?: Address;
+};
+
+export type PreparedVaultWithdraw = PreparedWrite & {
+  preview: { expectedBaseRaw: bigint; expectedQuoteRaw: bigint; shareDecimals: number };
+};
+
+/** Burn wallet-owned vault shares for the underlying base + quote (paid to the
+ *  wallet, not margin). Protocol-locked graduation shares cannot reach this
+ *  path: balanceOf is the connected account's own wallet-kind balance. */
+export async function prepareVaultWithdraw(
+  chain: ChainClient,
+  account: Address,
+  input: VaultWithdrawInput,
+): Promise<PreparedVaultWithdraw> {
+  if (!isAddress(account)) fail('Invalid account address.');
+  if (!isAddress(input.token)) fail('Invalid launch token address.');
+  if (input.shares <= 0n) fail('Enter a share amount to withdraw.');
+  const blockNumber = await chain.getBlockNumber({ cacheTime: 0 });
+  const state = await readKuruLiquidity(chain, input.token, { blockNumber, account });
+  const best = state.bestExecutable.data;
+  if (best && best.marketState !== 0) fail('This market is paused; withdrawals are temporarily blocked.');
+  const position = state.position.data;
+  if (!position) fail('Vault position read is unavailable; try again shortly.');
+  if (position.kind !== 'wallet') fail('Only wallet-owned vault shares can be withdrawn here.');
+  if (position.sharesRaw < input.shares) fail('Amount exceeds your vault share balance.');
+  const preview = input.shares === 0n ? [0n, 0n] as const : await chain.readContract({
+    address: state.identity.vault, abi: kuruVaultAbi, functionName: 'previewWithdraw', args: [input.shares], blockNumber,
+  }) as unknown as readonly [bigint, bigint];
+  const receiver = input.receiver ?? account;
+  return {
+    to: state.identity.vault,
+    abi: kuruVaultAbi,
+    functionName: 'withdraw',
+    args: [input.shares, receiver, account],
+    value: 0n,
+    account,
+    approvals: [],
+    label: 'Withdraw vault liquidity',
+    checks: [
+      `burn ${input.shares} shares`,
+      `expect ≈${preview[0]} base + ${preview[1]} quote to your wallet`,
+      'preview is partial-fill aware; not guaranteed proceeds',
+    ],
+    preview: { expectedBaseRaw: preview[0], expectedQuoteRaw: preview[1], shareDecimals: state.vault.data?.shareDecimals ?? 18 },
+  };
+}
+
 export async function prepareFeeClaim(chain: ChainClient, account: Address): Promise<PreparedWrite> {
   const credit = await readFeeEscrowCredit(chain, account);
   if (credit <= 0n) fail('No claimable creator fees.');

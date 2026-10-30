@@ -1,0 +1,12 @@
+{
+  "test": "fixture/liquidity.spec.ts > @liquidity donor overview: vault cards, pools table honesty, add-liquidity modal is explicitly not-enabled",
+  "project": "tablet-834",
+  "status": "passed",
+  "appConsoleErrors": [],
+  "console": [],
+  "pageErrors": [],
+  "failedRequests": [],
+  "guardViolations": [],
+  "blockedExternal": [],
+  "requestCount": 56
+}

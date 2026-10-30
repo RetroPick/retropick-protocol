@@ -1,0 +1,1054 @@
+{
+  "config": {
+    "argv": [
+      "/home/ubuntu/.nvm/versions/node/v22.23.2/bin/node",
+      "/home/ubuntu/project/retropick/retropick-protocol/apps/retro-ui/node_modules/@playwright/test/cli.js",
+      "test",
+      "e2e/fixture/liquidity.spec.ts",
+      "--project=mobile-375",
+      "--project=mobile-390",
+      "--project=tablet-768"
+    ],
+    "configFile": "/home/ubuntu/project/retropick/retropick-protocol/apps/retro-ui/playwright.config.ts",
+    "rootDir": "/home/ubuntu/project/retropick/retropick-protocol/apps/retro-ui/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 4
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/home/ubuntu/project/retropick/retropick-protocol/evidence/platform/frontend/browser-validation/adhoc/test-output",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {
+          "actualWorkers": 4
+        },
+        "id": "desktop-1440",
+        "name": "desktop-1440",
+        "testDir": "/home/ubuntu/project/retropick/retropick-protocol/apps/retro-ui/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "fixture/**/*.spec.ts"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "/home/ubuntu/project/retropick/retropick-protocol/evidence/platform/frontend/browser-validation/adhoc/test-output",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {
+          "actualWorkers": 4
+        },
+        "id": "desktop-1280",
+        "name": "desktop-1280",
+        "testDir": "/home/ubuntu/project/retropick/retropick-protocol/apps/retro-ui/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "fixture/**/*.spec.ts"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "/home/ubuntu/project/retropick/retropick-protocol/evidence/platform/frontend/browser-validation/adhoc/test-output",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {
+          "actualWorkers": 4
+        },
+        "id": "tablet-834",
+        "name": "tablet-834",
+        "testDir": "/home/ubuntu/project/retropick/retropick-protocol/apps/retro-ui/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "fixture/**/*.spec.ts"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "/home/ubuntu/project/retropick/retropick-protocol/evidence/platform/frontend/browser-validation/adhoc/test-output",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {
+          "actualWorkers": 4
+        },
+        "id": "tablet-768",
+        "name": "tablet-768",
+        "testDir": "/home/ubuntu/project/retropick/retropick-protocol/apps/retro-ui/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "fixture/**/*.spec.ts"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "/home/ubuntu/project/retropick/retropick-protocol/evidence/platform/frontend/browser-validation/adhoc/test-output",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {
+          "actualWorkers": 4
+        },
+        "id": "mobile-390",
+        "name": "mobile-390",
+        "testDir": "/home/ubuntu/project/retropick/retropick-protocol/apps/retro-ui/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "fixture/**/*.spec.ts"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "/home/ubuntu/project/retropick/retropick-protocol/evidence/platform/frontend/browser-validation/adhoc/test-output",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {
+          "actualWorkers": 4
+        },
+        "id": "mobile-375",
+        "name": "mobile-375",
+        "testDir": "/home/ubuntu/project/retropick/retropick-protocol/apps/retro-ui/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "fixture/**/*.spec.ts"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "/home/ubuntu/project/retropick/retropick-protocol/evidence/platform/frontend/browser-validation/adhoc/results.json"
+        }
+      ],
+      [
+        "html",
+        {
+          "outputFolder": "/home/ubuntu/project/retropick/retropick-protocol/evidence/platform/frontend/browser-validation/adhoc/html-report",
+          "open": "never"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.62.1",
+    "workers": 4,
+    "webServer": {
+      "command": "pnpm exec vite build --outDir /tmp/retro-ui-e2e-fixture-dist --emptyOutDir --logLevel warn && pnpm exec vite preview --outDir /tmp/retro-ui-e2e-fixture-dist --port 4317 --strictPort --host 127.0.0.1",
+      "url": "http://127.0.0.1:4317/launchpad",
+      "reuseExistingServer": false,
+      "timeout": 240000,
+      "env": {
+        "VITE_DATA_MODE": "mock",
+        "VITE_INDEXER_URL": "",
+        "VITE_WALLET_BRIDGE_URL": "",
+        "VITE_E2E_FIXTURE": "1",
+        "DISABLE_HMR": "true"
+      },
+      "stdout": "ignore",
+      "stderr": "pipe"
+    }
+  },
+  "suites": [
+    {
+      "title": "fixture/liquidity.spec.ts",
+      "file": "fixture/liquidity.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "@liquidity navigation, pool detail, read-only positions and mobile overflow",
+          "ok": true,
+          "tags": [
+            "liquidity"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "tablet-768",
+              "projectName": "tablet-768",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3206,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T15:43:44.348Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f3ef200daf67d34cac28-834e8e6db41af4f73303",
+          "file": "fixture/liquidity.spec.ts",
+          "line": 3,
+          "column": 1
+        },
+        {
+          "title": "@liquidity empty CLOB retains separately labelled AMM assets and no execution claim",
+          "ok": true,
+          "tags": [
+            "liquidity"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "tablet-768",
+              "projectName": "tablet-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 3168,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T15:43:44.338Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f3ef200daf67d34cac28-dd6270e26f546a677218",
+          "file": "fixture/liquidity.spec.ts",
+          "line": 17,
+          "column": 1
+        },
+        {
+          "title": "@liquidity rpc-error is distinct from zero inventory",
+          "ok": true,
+          "tags": [
+            "liquidity"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "tablet-768",
+              "projectName": "tablet-768",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 2,
+                  "status": "passed",
+                  "duration": 2437,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T15:43:44.394Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f3ef200daf67d34cac28-3f18256616675a21bdff",
+          "file": "fixture/liquidity.spec.ts",
+          "line": 29,
+          "column": 3
+        },
+        {
+          "title": "@liquidity stale is distinct from zero inventory",
+          "ok": true,
+          "tags": [
+            "liquidity"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "tablet-768",
+              "projectName": "tablet-768",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 3,
+                  "status": "passed",
+                  "duration": 2431,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T15:43:44.341Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f3ef200daf67d34cac28-516798e1d1d53153b1ec",
+          "file": "fixture/liquidity.spec.ts",
+          "line": 29,
+          "column": 3
+        },
+        {
+          "title": "@liquidity paused is distinct from zero inventory",
+          "ok": true,
+          "tags": [
+            "liquidity"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "tablet-768",
+              "projectName": "tablet-768",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 3,
+                  "status": "passed",
+                  "duration": 1490,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T15:43:47.093Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f3ef200daf67d34cac28-e1a5f89f5ed64604280b",
+          "file": "fixture/liquidity.spec.ts",
+          "line": 29,
+          "column": 3
+        },
+        {
+          "title": "@liquidity both-empty is distinct from zero inventory",
+          "ok": true,
+          "tags": [
+            "liquidity"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "tablet-768",
+              "projectName": "tablet-768",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 2,
+                  "status": "passed",
+                  "duration": 1569,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T15:43:47.111Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f3ef200daf67d34cac28-dde4b8edd342ba2c6f06",
+          "file": "fixture/liquidity.spec.ts",
+          "line": 29,
+          "column": 3
+        },
+        {
+          "title": "@liquidity manual bid and ask require separate confirmations and preserve bid on ask rejection",
+          "ok": true,
+          "tags": [
+            "liquidity"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "tablet-768",
+              "projectName": "tablet-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 3098,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T15:43:47.802Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f3ef200daf67d34cac28-87f9b4b202c8a41ef519",
+          "file": "fixture/liquidity.spec.ts",
+          "line": 40,
+          "column": 1
+        },
+        {
+          "title": "@liquidity donor overview: vault cards, pools table honesty, add-liquidity modal is explicitly not-enabled",
+          "ok": true,
+          "tags": [
+            "liquidity"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "tablet-768",
+              "projectName": "tablet-768",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3357,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T15:43:47.863Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f3ef200daf67d34cac28-2d6ca322e1340be64905",
+          "file": "fixture/liquidity.spec.ts",
+          "line": 63,
+          "column": 1
+        },
+        {
+          "title": "@liquidity navigation, pool detail, read-only positions and mobile overflow",
+          "ok": true,
+          "tags": [
+            "liquidity"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile-390",
+              "projectName": "mobile-390",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 3,
+                  "status": "passed",
+                  "duration": 2470,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T15:43:50.015Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f3ef200daf67d34cac28-cb00d5b8eaa4ab2f31e1",
+          "file": "fixture/liquidity.spec.ts",
+          "line": 3,
+          "column": 1
+        },
+        {
+          "title": "@liquidity empty CLOB retains separately labelled AMM assets and no execution claim",
+          "ok": true,
+          "tags": [
+            "liquidity"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile-390",
+              "projectName": "mobile-390",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 2,
+                  "status": "passed",
+                  "duration": 2771,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T15:43:50.042Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f3ef200daf67d34cac28-cd8718fb21bebc773a7e",
+          "file": "fixture/liquidity.spec.ts",
+          "line": 17,
+          "column": 1
+        },
+        {
+          "title": "@liquidity rpc-error is distinct from zero inventory",
+          "ok": true,
+          "tags": [
+            "liquidity"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile-390",
+              "projectName": "mobile-390",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 2374,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T15:43:52.284Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f3ef200daf67d34cac28-4f6a3913b5d168f53143",
+          "file": "fixture/liquidity.spec.ts",
+          "line": 29,
+          "column": 3
+        },
+        {
+          "title": "@liquidity stale is distinct from zero inventory",
+          "ok": true,
+          "tags": [
+            "liquidity"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile-390",
+              "projectName": "mobile-390",
+              "results": [
+                {
+                  "workerIndex": 7,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2403,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T15:43:52.547Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f3ef200daf67d34cac28-0afdd9cf62c4477d4ea7",
+          "file": "fixture/liquidity.spec.ts",
+          "line": 29,
+          "column": 3
+        },
+        {
+          "title": "@liquidity paused is distinct from zero inventory",
+          "ok": true,
+          "tags": [
+            "liquidity"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile-390",
+              "projectName": "mobile-390",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 3,
+                  "status": "passed",
+                  "duration": 2078,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T15:43:52.757Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f3ef200daf67d34cac28-a742bd4dd3b00d2ed083",
+          "file": "fixture/liquidity.spec.ts",
+          "line": 29,
+          "column": 3
+        },
+        {
+          "title": "@liquidity both-empty is distinct from zero inventory",
+          "ok": true,
+          "tags": [
+            "liquidity"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile-390",
+              "projectName": "mobile-390",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 2,
+                  "status": "passed",
+                  "duration": 2024,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T15:43:53.116Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f3ef200daf67d34cac28-485e3d4da1a86637ceaa",
+          "file": "fixture/liquidity.spec.ts",
+          "line": 29,
+          "column": 3
+        },
+        {
+          "title": "@liquidity manual bid and ask require separate confirmations and preserve bid on ask rejection",
+          "ok": true,
+          "tags": [
+            "liquidity"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile-390",
+              "projectName": "mobile-390",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 3,
+                  "status": "passed",
+                  "duration": 4463,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T15:43:54.875Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f3ef200daf67d34cac28-2729731ac02fa917f146",
+          "file": "fixture/liquidity.spec.ts",
+          "line": 40,
+          "column": 1
+        },
+        {
+          "title": "@liquidity donor overview: vault cards, pools table honesty, add-liquidity modal is explicitly not-enabled",
+          "ok": true,
+          "tags": [
+            "liquidity"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile-390",
+              "projectName": "mobile-390",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 3180,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T15:43:54.948Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f3ef200daf67d34cac28-edfb149bd93358bae180",
+          "file": "fixture/liquidity.spec.ts",
+          "line": 63,
+          "column": 1
+        },
+        {
+          "title": "@liquidity navigation, pool detail, read-only positions and mobile overflow",
+          "ok": true,
+          "tags": [
+            "liquidity"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile-375",
+              "projectName": "mobile-375",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 2,
+                  "status": "passed",
+                  "duration": 3970,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T15:43:56.607Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f3ef200daf67d34cac28-0cc281488b4ecc20e26f",
+          "file": "fixture/liquidity.spec.ts",
+          "line": 3,
+          "column": 1
+        },
+        {
+          "title": "@liquidity empty CLOB retains separately labelled AMM assets and no execution claim",
+          "ok": true,
+          "tags": [
+            "liquidity"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile-375",
+              "projectName": "mobile-375",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2656,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T15:43:56.714Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f3ef200daf67d34cac28-cce8125dea65508aec29",
+          "file": "fixture/liquidity.spec.ts",
+          "line": 17,
+          "column": 1
+        },
+        {
+          "title": "@liquidity rpc-error is distinct from zero inventory",
+          "ok": true,
+          "tags": [
+            "liquidity"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile-375",
+              "projectName": "mobile-375",
+              "results": [
+                {
+                  "workerIndex": 10,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 2172,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T15:43:59.534Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f3ef200daf67d34cac28-9f2e1a01cf5a9ac75996",
+          "file": "fixture/liquidity.spec.ts",
+          "line": 29,
+          "column": 3
+        },
+        {
+          "title": "@liquidity stale is distinct from zero inventory",
+          "ok": true,
+          "tags": [
+            "liquidity"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile-375",
+              "projectName": "mobile-375",
+              "results": [
+                {
+                  "workerIndex": 11,
+                  "parallelIndex": 3,
+                  "status": "passed",
+                  "duration": 2691,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T15:44:00.912Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f3ef200daf67d34cac28-67a281632839603954ba",
+          "file": "fixture/liquidity.spec.ts",
+          "line": 29,
+          "column": 3
+        },
+        {
+          "title": "@liquidity paused is distinct from zero inventory",
+          "ok": true,
+          "tags": [
+            "liquidity"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile-375",
+              "projectName": "mobile-375",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1851,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T15:43:59.743Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f3ef200daf67d34cac28-da817efb37932c5dcf46",
+          "file": "fixture/liquidity.spec.ts",
+          "line": 29,
+          "column": 3
+        },
+        {
+          "title": "@liquidity both-empty is distinct from zero inventory",
+          "ok": true,
+          "tags": [
+            "liquidity"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile-375",
+              "projectName": "mobile-375",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 2,
+                  "status": "passed",
+                  "duration": 2548,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T15:44:00.936Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f3ef200daf67d34cac28-94e0745488f6c88ac454",
+          "file": "fixture/liquidity.spec.ts",
+          "line": 29,
+          "column": 3
+        },
+        {
+          "title": "@liquidity manual bid and ask require separate confirmations and preserve bid on ask rejection",
+          "ok": true,
+          "tags": [
+            "liquidity"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile-375",
+              "projectName": "mobile-375",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5171,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T15:44:01.651Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f3ef200daf67d34cac28-26eeb870adc25a9dbbf7",
+          "file": "fixture/liquidity.spec.ts",
+          "line": 40,
+          "column": 1
+        },
+        {
+          "title": "@liquidity donor overview: vault cards, pools table honesty, add-liquidity modal is explicitly not-enabled",
+          "ok": true,
+          "tags": [
+            "liquidity"
+          ],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile-375",
+              "projectName": "mobile-375",
+              "results": [
+                {
+                  "workerIndex": 10,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 4264,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-30T15:44:02.015Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f3ef200daf67d34cac28-bb25baea696b1a6689eb",
+          "file": "fixture/liquidity.spec.ts",
+          "line": 63,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-30T15:43:38.686Z",
+    "duration": 28267.592,
+    "expected": 24,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

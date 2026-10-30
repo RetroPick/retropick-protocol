@@ -8,6 +8,8 @@ Native MON → Kuru and two-actor order/fill/cancel: **PASS** in the recorded li
 
 ## Architecture and release identity
 
+`src/v2-research-experiment/` contains research and experimental V2 contracts only. Verify experiments there first, then implement accepted, verified changes in `src/v2/` under the applicable protocol and release gates. Experimental code is not a qualified release or deployment target. See [contract agent instructions](AGENTS.md).
+
 Factory → LaunchDeployer → Token/Curve; Factory → Coordinator → Kuru/V4 executor. The Coordinator is lifecycle and ledger authority; executors perform venue work. Historical Factory runtime: 23,423 bytes, below EIP-170 and the 23.5KB extraction target.
 
 Deployed source: `f0363249f4b74e58dde37d1241742ca5a92bcfe3`. Repository release commits can differ because of frontend/docs/reproducibility fixes. Explorer source verification must use exact deployed source/settings, not assume a current checkout is the same bytecode.

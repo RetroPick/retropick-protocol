@@ -208,9 +208,10 @@ input::-webkit-inner-spin-button { appearance: none }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 9999px }
 ::-webkit-scrollbar-thumb:hover { background: var(--accent) }
 
-/* ── Sidebar (primary navigation — ≥1024px desktop) ────────────────────────
-   Below 1024px the top navbar carries primary nav (768–1023 tablet band) and
-   the bottom mobile-nav covers <768 — never leave a band without navigation. */
+/* ── Sidebar (primary navigation — ≥768px) ──────────────────────────────────
+   The sidebar carries everything: search, nav, Launch, chain state, wallet,
+   theme and the LIVE/DEMO indicator. Phones (<768px) get the slim mobile bar
+   plus the bottom nav. */
 .sidebar {
   position: fixed;
   top: 0;
@@ -226,7 +227,7 @@ input::-webkit-inner-spin-button { appearance: none }
   transition: width .25s cubic-bezier(0.4, 0, 0.2, 1);
   user-select: none;
 }
-@media (min-width: 1024px) { .sidebar { display: flex } }
+@media (min-width: 768px) { .sidebar { display: flex } }
 .sidebar.collapsed { width: 76px }
 .side-top { padding: 16px; display: flex; flex-direction: column }
 .side-brand { display: flex; align-items: center; justify-content: space-between; margin-bottom: 26px }
@@ -336,133 +337,67 @@ input::-webkit-inner-spin-button { appearance: none }
 }
 .sidebar.collapsed .side-foot { display: none }
 
-/* ── Top navbar (universal chrome: search, chain state, wallet, theme) ──── */
-.navbar {
-  position: sticky;
-  top: 0;
-  z-index: 30;
+/* ── Sidebar bottom: chain state, wallet, theme, LIVE/DEMO indicator ───── */
+.side-net {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 9px 14px;
+  border-radius: 12px;
+  background: none;
+  border: none;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-3);
+  text-align: left;
+}
+.side-net:hover { color: var(--text); background: var(--hover) }
+.side-net-dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; flex-shrink: 0 }
+.side-net.is-live { color: var(--pos) }
+.side-net.is-warn { color: var(--warn-text) }
+.side-net.is-warn:hover { background: var(--warn-bg) }
+.sidebar.collapsed .side-net { justify-content: center; padding-left: 0; padding-right: 0 }
+.side-mode { border-top: 1px solid var(--border-soft); margin-top: 6px; padding-top: 10px; display: grid; gap: 5px }
+.side-mode-pill { justify-self: start; display: inline-flex; padding: 2px 9px; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: .8px }
+.side-mode[data-mode='live'] .side-mode-pill { color: var(--pos); border: 1px solid var(--pos-border); background: var(--pos-bg) }
+.side-mode[data-mode='demo'] .side-mode-pill { color: var(--violet); border: 1px solid var(--accent-dim) }
+.side-mode-copy { color: var(--text-dim); font-size: 10.5px; line-height: 1.45 }
+.side-mode-link { color: var(--text-3); font-size: 10.5px; font-weight: 600; display: inline-flex; align-items: center; gap: 3px }
+.side-mode-link:hover { color: var(--text) }
+
+/* ── Mobile bar (brand + mode pill + search + wallet — <768px) ───────────── */
+.mobilebar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 50px;
+  padding: 0 14px;
   background: color-mix(in srgb, var(--bg-raise) 88%, transparent);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 30;
 }
-.navbar-inner {
-  min-height: 56px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 0 14px;
-}
-@media (min-width: 768px) { .navbar-inner { padding: 0 20px } }
-@media (min-width: 1024px) { .navbar-inner { padding: 0 24px } }
-.navbar-left { display: flex; align-items: center; gap: 14px; min-width: 0 }
-.navbar-brand { display: flex; align-items: center; gap: 9px; flex-shrink: 0 }
-.navbar-brand-name { font-weight: 700; font-size: 15px; letter-spacing: -.3px; color: var(--text) }
-@media (min-width: 1024px) { .navbar-brand { display: none } }
-/* Tablet band 768–1023px: sidebar hidden, primary nav lives here. */
-.navbar-links { display: none; gap: 2px }
-@media (min-width: 768px) and (max-width: 1023px) { .navbar-links { display: flex } }
-.navbar-link {
-  padding: 7px 11px;
-  border-radius: 8px;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text-3);
-  white-space: nowrap;
-}
-.navbar-link:hover { color: var(--text); background: var(--hover) }
-.navbar-link.active { color: var(--text); background: var(--accent-dim) }
-/* Desktop breadcrumb context (sidebar shows the brand). */
-.navbar-crumb { display: none; align-items: center; gap: 7px; font-size: 12px; color: var(--text-dim); margin: 0; min-width: 0 }
-.navbar-crumb-page { color: var(--text-2); font-weight: 650; white-space: nowrap; overflow: hidden; text-overflow: ellipsis }
-@media (min-width: 1024px) { .navbar-crumb { display: flex } }
-.navbar-search {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  margin-left: auto;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  background: var(--panel);
-  color: var(--text-3);
-}
-.navbar-search:hover { border-color: var(--accent); color: var(--text-2) }
-@media (min-width: 1024px) { .navbar-search { display: none } }
-.navbar-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0 }
-.navbar-net {
-  display: none;
-  align-items: center;
-  gap: 7px;
-  height: 32px;
-  padding: 0 11px;
-  border-radius: 999px;
-  border: 1px solid var(--border);
-  background: var(--panel);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  letter-spacing: .2px;
-  color: var(--text-3);
-  white-space: nowrap;
-}
-@media (min-width: 768px) { .navbar-net { display: inline-flex } }
-.navbar-net-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor }
-.navbar-net.is-live { color: var(--pos); border-color: var(--pos-border); background: var(--pos-bg) }
-.navbar-net.is-warn { color: var(--warn-text); border-color: var(--warn-border); background: var(--warn-bg) }
-.navbar-net.is-demo { color: var(--violet); border-color: var(--accent-dim) }
-.navbar-net.is-warn:hover { filter: brightness(1.1) }
-.navbar-launch {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  height: 34px;
-  padding: 0 13px;
-  border-radius: 999px;
-  background: transparent;
-  color: var(--accent);
-  font-weight: 700;
-  font-size: 12.5px;
-  white-space: nowrap;
-  border: 1px solid var(--accent);
-}
-.navbar-launch:hover { background: var(--accent-dim) }
-.navbar-launch:active { transform: scale(.98) }
-@media (max-width: 639px) { .navbar-launch { display: none } }
-.navbar-wallet {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  height: 36px;
-  padding: 0 13px;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  background: var(--panel);
-  color: var(--text-2);
-  font-size: 12.5px;
-  font-weight: 600;
-  max-width: 46vw;
-}
-.navbar-wallet:hover { border-color: var(--accent) }
-.navbar-wallet[data-wallet-status='connected'] { color: var(--pos); border-color: var(--pos-border); font-family: 'JetBrains Mono', monospace }
-.navbar-wallet[data-wallet-status='wrong-chain'] { color: var(--warn-text); border-color: var(--warn-border) }
-.navbar-wallet-label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis }
-.navbar-icon {
+@media (min-width: 768px) { .mobilebar { display: none } }
+.mobilebar .spacer { margin-left: auto }
+.mobilebar-mode { display: inline-flex; padding: 2px 8px; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 9.5px; font-weight: 700; letter-spacing: .8px }
+.mobilebar-mode.is-live { color: var(--pos); border: 1px solid var(--pos-border); background: var(--pos-bg) }
+.mobilebar-mode.is-demo { color: var(--violet); border: 1px solid var(--accent-dim) }
+.icon-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 36px;
   height: 36px;
-  border-radius: 10px;
+  border-radius: 9px;
   color: var(--text-3);
   background: none;
   border: none;
 }
-.navbar-icon:hover { color: var(--text); background: var(--hover) }
-@media (max-width: 767px) {
-  .navbar-icon { width: 40px; height: 40px }
-  .navbar-search { width: 40px; height: 40px }
-}
+.icon-btn:hover { color: var(--text); background: var(--hover) }
 
 /* ── Mobile bottom nav ──────────────────────────────────────────────────── */
 .mnav {

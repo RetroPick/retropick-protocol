@@ -1,0 +1,12 @@
+{
+  "test": "fixture/liquidity.spec.ts > @liquidity navigation, pool detail, read-only positions and mobile overflow",
+  "project": "mobile-390",
+  "status": "passed",
+  "appConsoleErrors": [],
+  "console": [],
+  "pageErrors": [],
+  "failedRequests": [],
+  "guardViolations": [],
+  "blockedExternal": [],
+  "requestCount": 55
+}

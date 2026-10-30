@@ -9,31 +9,31 @@
 /* ── Hero money bar ─────────────────────────────────────────────────────── */
 .rp-hero {
   position: relative; overflow: hidden; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 22px; align-items: center;
-  padding: 22px; border-radius: 16px; border: 1px solid #2a1d55;
+  padding: 22px; border-radius: 16px; border: 1px solid var(--border);
   background:
     radial-gradient(130% 200% at 0% 0%, rgba(131, 110, 249, .32), transparent 52%),
     radial-gradient(90% 140% at 100% 100%, rgba(95, 237, 223, .1), transparent 55%),
-    linear-gradient(128deg, #200052 0%, #150a33 52%, #0d0720 100%);
+    linear-gradient(128deg, var(--grad-a) 0%, #110d29 52%, var(--grad-b) 100%);
 }
 .rp-hero-main { display: grid; gap: 6px; min-width: 0 }
 .rp-hero-label-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap }
-.rp-hub-label { font-family: var(--rp-mono); font-size: 10.5px; letter-spacing: .6px; text-transform: uppercase; color: #cdc5ee }
-.rp-live-chip { display: inline-flex; align-items: center; gap: 6px; font-size: 10.5px; font-weight: 700; letter-spacing: .4px; text-transform: uppercase; color: #5feddf; border: 1px solid rgba(95, 237, 223, .35); background: rgba(95, 237, 223, .08); border-radius: 999px; padding: 2px 9px }
+.rp-hub-label { font-family: var(--rp-mono); font-size: 10.5px; letter-spacing: .6px; text-transform: uppercase; color: var(--text-2) }
+.rp-live-chip { display: inline-flex; align-items: center; gap: 6px; font-size: 10.5px; font-weight: 700; letter-spacing: .4px; text-transform: uppercase; color: var(--pos); border: 1px solid rgba(95, 237, 223, .35); background: rgba(95, 237, 223, .08); border-radius: 999px; padding: 2px 9px }
 .rp-hero-extra { font-size: 11px; color: #b9b2ce; font-family: var(--rp-mono) }
 .rp-hero-amount { display: flex; align-items: baseline; gap: 8px; font-size: 42px; font-weight: 760; letter-spacing: -1.4px; line-height: 1.05; color: #ffffff; font-variant-numeric: tabular-nums }
 .rp-hero-unit { font-family: var(--rp-mono); font-size: 13px; letter-spacing: .5px; color: #b9a8ff; font-weight: 600 }
-.rp-hero-note { margin: 0; color: #a79fd0; font-size: 12px; max-width: 52ch }
+.rp-hero-note { margin: 0; color: var(--text-3); font-size: 12px; max-width: 52ch }
 .rp-hero-actions { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap }
 .rp-hero-side { position: relative; display: grid; gap: 12px; align-content: center; min-width: 0 }
-.rp-hero-eye { position: absolute; top: -4px; right: -4px; color: #b9b2ce }
+.rp-hero-eye { position: absolute; top: -4px; right: -4px; color: var(--text-2) }
 .rp-hero-eye:hover { color: #ffffff; background: rgba(131, 110, 249, .18) }
 .rp-hero-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 0 }
-.rp-hero-stat { display: grid; gap: 3px; align-content: start; padding: 12px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, .09); background: rgba(10, 5, 26, .45) }
-.rp-hero-stat dt { display: flex; align-items: center; gap: 5px; font-family: var(--rp-mono); font-size: 10px; letter-spacing: .5px; text-transform: uppercase; color: #a79fd0 }
-.rp-hero-stat dd { margin: 0; font-size: 17px; font-weight: 700; font-variant-numeric: tabular-nums; color: #f2effc; overflow: hidden; text-overflow: ellipsis; white-space: nowrap }
-.rp-hero-stat small { color: #8b84a3; font-size: 10.5px }
+.rp-hero-stat { display: grid; gap: 3px; align-content: start; padding: 12px; border-radius: 12px; border: 1px solid var(--border); background: var(--panel-2) }
+.rp-hero-stat dt { display: flex; align-items: center; gap: 5px; font-family: var(--rp-mono); font-size: 10.5px; letter-spacing: .5px; text-transform: uppercase; color: var(--text-3) }
+.rp-hero-stat dd { margin: 0; font-size: 17px; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap }
+.rp-hero-stat small { color: var(--text-3); font-size: 10.5px }
 .rp-dot { width: 6px; height: 6px; border-radius: 999px; background: currentColor; display: inline-block }
-.rp-dot-pulse { background: #5feddf; animation: rp-pulse 1.8s ease-out infinite }
+.rp-dot-pulse { background: var(--pos); animation: rp-pulse 1.8s ease-out infinite }
 @keyframes rp-pulse {
   0% { box-shadow: 0 0 0 0 rgba(95, 237, 223, .45) }
   70% { box-shadow: 0 0 0 8px rgba(95, 237, 223, 0) }
@@ -47,7 +47,7 @@
 .rp-hub-tabs { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; padding: 3px; border: 1px solid var(--border-soft); border-radius: 12px; background: var(--panel); width: fit-content; max-width: 100% }
 .rp-hub-tab { display: inline-flex; align-items: center; gap: 6px; min-height: 34px; padding: 0 13px; border-radius: 9px; border: 0; background: transparent; color: var(--text-3); font: inherit; font-size: 13px; font-weight: 600; white-space: nowrap; cursor: pointer; transition: background .15s, color .15s }
 .rp-hub-tab:hover { color: var(--text) }
-.rp-hub-tab[data-state='active'] { background: var(--accent-dim); color: var(--text); box-shadow: inset 0 0 0 1px rgba(131, 110, 249, .35) }
+.rp-hub-tab[data-state='active'] { background: var(--panel-2); color: var(--text); box-shadow: inset 0 -2px 0 var(--accent) }
 .rp-hub-tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px }
 .rp-hub-panel { padding-top: 4px; min-width: 0 }
 
@@ -134,7 +134,7 @@
 /* ── Tab interior cards (beautification pass) ───────────────────────────── */
 .rp-hub-card { display: grid; gap: 12px; padding: 18px; border-radius: 14px; border: 1px solid var(--border-soft); background: var(--panel); min-width: 0 }
 .rp-hub-card-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap }
-.rp-card-icon { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 9px; background: rgba(131, 110, 249, .14); color: #b9a8ff; flex-shrink: 0 }
+.rp-card-icon { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 9px; background: rgba(131, 110, 249, .14); color: var(--violet); flex-shrink: 0 }
 .rp-hub-card-head h3 { margin: 0; font-size: 14.5px; display: flex; align-items: center; gap: 8px }
 .rp-card-sub { color: var(--text-3); font-size: 12px; margin: 0 }
 .rp-card-aside { margin-left: auto; display: flex; gap: 8px; align-items: center }
@@ -152,7 +152,7 @@
 /* Designed empty panels */
 .rp-empty-panel { display: grid; gap: 13px; justify-items: center; text-align: center; padding: 34px 22px; border-radius: 14px; border: 1px dashed var(--border); background: radial-gradient(80% 120% at 50% 0%, rgba(131, 110, 249, .09), transparent 60%), var(--panel) }
 .rp-empty-panel.rp-empty-compact { padding: 22px; grid-template-columns: auto 1fr; justify-items: start; text-align: left; gap: 12px }
-.rp-empty-disc { display: grid; place-items: center; width: 54px; height: 54px; border-radius: 17px; background: linear-gradient(135deg, rgba(131, 110, 249, .26), rgba(95, 237, 223, .13)); color: #b9a8ff; border: 1px solid rgba(131, 110, 249, .3) }
+.rp-empty-disc { display: grid; place-items: center; width: 54px; height: 54px; border-radius: 17px; background: linear-gradient(135deg, rgba(131, 110, 249, .26), rgba(95, 237, 223, .13)); color: var(--violet); border: 1px solid rgba(131, 110, 249, .3) }
 .rp-empty-panel strong { font-size: 15.5px }
 .rp-empty-panel p { margin: 0; color: var(--text-3); font-size: 12.5px; max-width: 48ch; line-height: 1.65 }
 .rp-empty-actions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center }
@@ -182,7 +182,7 @@
 .rp-faucet strong { display: block; font-size: 14.5px }
 .rp-faucet small { color: var(--text-3); font-size: 12px }
 .rp-faucet .rp-card-icon { background: rgba(131, 110, 249, .22) }
-.rp-faucet-arrow { margin-left: auto; color: #b9a8ff }
+.rp-faucet-arrow { margin-left: auto; color: var(--violet) }
 
 /* Fund & send — provider rows inside the collapsible */
 .rp-provider-list { display: grid; gap: 8px }
@@ -265,7 +265,7 @@
 .rp-protect-mode-head strong { font-size: 13.5px }
 .rp-protect-mode p { margin: 0 0 6px; font-size: 12.5px; color: var(--text-2) }
 .rp-protect-honesty { color: var(--text-3) !important; font-size: 11.5px !important }
-.rp-badge-warn { background: color-mix(in srgb, #f5a623 24%, transparent); color: #f5a623; border-radius: 999px; padding: 1px 7px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .03em }
+.rp-badge-warn { background: color-mix(in srgb, var(--warn-text) 24%, transparent); color: var(--warn-text); border-radius: 999px; padding: 1px 7px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .03em }
 .rp-protect-signer, .rp-protect-handoff { border: 1px solid var(--border-soft); border-radius: var(--rp-radius); padding: 14px 16px; background: var(--panel) }
 .rp-protect-signer h3, .rp-protect-handoff h3 { display: flex; align-items: center; gap: 7px; font-size: 13.5px; margin: 0 0 6px }
 .rp-protect-addr { display: flex; flex-direction: column; gap: 2px; margin-top: 10px; font-size: 12px }

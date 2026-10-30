@@ -1,0 +1,12 @@
+{
+  "test": "fixture/liquidity.spec.ts > @liquidity empty CLOB retains separately labelled AMM assets and no execution claim",
+  "project": "tablet-834",
+  "status": "passed",
+  "appConsoleErrors": [],
+  "console": [],
+  "pageErrors": [],
+  "failedRequests": [],
+  "guardViolations": [],
+  "blockedExternal": [],
+  "requestCount": 60
+}

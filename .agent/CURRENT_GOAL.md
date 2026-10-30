@@ -23,6 +23,17 @@ See:
 goals/active/RETROPICK-V2-FULLSTACK-INTEGRATION.md
 development/fullstack-integration/
 
+## RetroPick retro-ui terminal renovation — active UI campaign
+
+**Goal:** RETROPICK-RETRO-UI-EXAMPLE-INTEGRATION-V1
+**Status:** ACTIVE (opened 2026-10-29, baseline `9f1be121`, branch `feat/retro-ui-terminal-renovation-v1`)
+**Scope:** visual/UX renovation of the canonical frontend `apps/retro-ui` using read-only design donor `apps/example-ui-ux`, de-fabricated onto canonical real-data hooks. No economic/contract/data-authority changes. Supersedes the older "no UI redesign" campaign clause for this goal's scope only (conflict recorded in the goal file).
+
+See:
+goals/active/RETROPICK-RETRO-UI-EXAMPLE-INTEGRATION-V1.md
+apps/retro-ui/DESIGN.md
+evidence/platform/frontend/browser-validation/
+
 ## Metropolis delivery — current testnet override
 
 Solidity V2 is deployed and in HACKATHON_FREEZE. Native MON graduation and two-actor Kuru usability PASS; Circle live BLOCKED_FUNDING. Current work: release reproducibility, live frontend, judge evidence, required videos and founder-approved submission. No staging/mainnet gates are promoted. See `docs/hackathon/SUBMISSION_CHECKLIST.md` and `deployments/monad-testnet/v2.json`. Older qualification goals below remain historical context.

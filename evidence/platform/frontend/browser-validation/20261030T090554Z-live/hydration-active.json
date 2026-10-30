@@ -1,0 +1,65 @@
+{
+  "phase": "ACTIVE",
+  "wallet": "absent; no wallet account or economic write requested",
+  "shellReady": true,
+  "ticketReady": false,
+  "boundMs": 75000,
+  "stages": [
+    {
+      "stage": "detail:essential",
+      "result": "PASS"
+    },
+    {
+      "stage": "detail:economic",
+      "result": "PASS"
+    },
+    {
+      "stage": "detail:trade-interactive",
+      "result": "PASS"
+    }
+  ],
+  "records": [
+    {
+      "stage": "detail:essential",
+      "at": 2714.899999999907,
+      "duration": 1712.8999999999069
+    },
+    {
+      "stage": "detail:economic",
+      "at": 2969.899999999907,
+      "duration": 241.79999999981374
+    },
+    {
+      "stage": "detail:trade-interactive",
+      "at": 2982.5
+    },
+    {
+      "stage": "detail:essential",
+      "at": 13066.899999999907,
+      "duration": 351
+    },
+    {
+      "stage": "detail:economic",
+      "at": 13934.399999999907,
+      "duration": 964
+    },
+    {
+      "stage": "detail:trade-interactive",
+      "at": 13939.200000000186
+    },
+    {
+      "stage": "detail:essential",
+      "at": 23432.200000000186,
+      "duration": 364.70000000018626
+    },
+    {
+      "stage": "detail:economic",
+      "at": 24321.5,
+      "duration": 386.29999999981374
+    },
+    {
+      "stage": "detail:trade-interactive",
+      "at": 24327.399999999907
+    }
+  ]
+}

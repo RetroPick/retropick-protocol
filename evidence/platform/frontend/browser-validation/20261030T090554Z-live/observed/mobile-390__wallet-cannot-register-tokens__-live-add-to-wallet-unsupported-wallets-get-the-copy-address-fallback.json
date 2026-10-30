@@ -1,0 +1,169 @@
+{
+  "test": "live/add-to-wallet.spec.ts > wallet cannot register tokens > @live add to wallet: unsupported wallets get the copy-address fallback",
+  "project": "mobile-390",
+  "status": "failed",
+  "appConsoleErrors": [
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "url": "http://127.0.0.1:8787/v1/launches/REDACTED",
+      "classification": "app"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "url": "http://127.0.0.1:8787/v1/launches/REDACTED/candles?resolution=15m&range=24h",
+      "classification": "app"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "url": "http://127.0.0.1:8787/v1/launches/REDACTED/trades?limit=50",
+      "classification": "app"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "url": "http://127.0.0.1:8787/v1/launches/REDACTED",
+      "classification": "app"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "url": "http://127.0.0.1:8787/v1/launches/REDACTED/candles?resolution=15m&range=24h",
+      "classification": "app"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "url": "http://127.0.0.1:8787/v1/launches/REDACTED/trades?limit=50",
+      "classification": "app"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "url": "http://127.0.0.1:8787/v1/launches/REDACTED",
+      "classification": "app"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "url": "http://127.0.0.1:8787/v1/launches/REDACTED/candles?resolution=15m&range=24h",
+      "classification": "app"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "url": "http://127.0.0.1:8787/v1/launches/REDACTED/trades?limit=50",
+      "classification": "app"
+    }
+  ],
+  "console": [
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "url": "http://127.0.0.1:8787/v1/launches/REDACTED",
+      "classification": "app"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "url": "http://127.0.0.1:8787/v1/launches/REDACTED/candles?resolution=15m&range=24h",
+      "classification": "app"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "url": "http://127.0.0.1:8787/v1/launches/REDACTED/trades?limit=50",
+      "classification": "app"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: net::ERR_NETWORK_CHANGED",
+      "url": "https://testnet-rpc.monad.xyz/",
+      "classification": "environment"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "url": "http://127.0.0.1:8787/v1/launches/REDACTED",
+      "classification": "app"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "url": "http://127.0.0.1:8787/v1/launches/REDACTED/candles?resolution=15m&range=24h",
+      "classification": "app"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "url": "http://127.0.0.1:8787/v1/launches/REDACTED/trades?limit=50",
+      "classification": "app"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "url": "http://127.0.0.1:8787/v1/launches/REDACTED",
+      "classification": "app"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "url": "http://127.0.0.1:8787/v1/launches/REDACTED/candles?resolution=15m&range=24h",
+      "classification": "app"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "url": "http://127.0.0.1:8787/v1/launches/REDACTED/trades?limit=50",
+      "classification": "app"
+    }
+  ],
+  "pageErrors": [],
+  "failedRequests": [
+    {
+      "url": "https://testnet-rpc.monad.xyz/",
+      "failure": "net::ERR_NETWORK_CHANGED"
+    },
+    {
+      "url": "http://127.0.0.1:8787/v1/launches/REDACTED",
+      "failure": "net::ERR_ABORTED"
+    },
+    {
+      "url": "http://127.0.0.1:8787/v1/launches/REDACTED/candles?resolution=15m&range=24h",
+      "failure": "net::ERR_ABORTED"
+    },
+    {
+      "url": "http://127.0.0.1:8787/v1/launches/REDACTED/trades?limit=50",
+      "failure": "net::ERR_ABORTED"
+    },
+    {
+      "url": "http://127.0.0.1:8787/v1/launches/REDACTED",
+      "failure": "net::ERR_ABORTED"
+    },
+    {
+      "url": "http://127.0.0.1:8787/v1/launches/REDACTED/candles?resolution=15m&range=24h",
+      "failure": "net::ERR_ABORTED"
+    },
+    {
+      "url": "http://127.0.0.1:8787/v1/launches/REDACTED/trades?limit=50",
+      "failure": "net::ERR_ABORTED"
+    },
+    {
+      "url": "http://127.0.0.1:8787/v1/launches/REDACTED",
+      "failure": "net::ERR_ABORTED"
+    },
+    {
+      "url": "http://127.0.0.1:8787/v1/launches/REDACTED/candles?resolution=15m&range=24h",
+      "failure": "net::ERR_ABORTED"
+    },
+    {
+      "url": "http://127.0.0.1:8787/v1/launches/REDACTED/trades?limit=50",
+      "failure": "net::ERR_ABORTED"
+    }
+  ],
+  "guardViolations": [],
+  "blockedExternal": [],
+  "requestCount": 71
+}

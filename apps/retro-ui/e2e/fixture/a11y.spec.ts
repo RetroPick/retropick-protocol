@@ -92,7 +92,7 @@ test('@resilience unknown route and unknown demo token keep the shell with a rec
   await page.goto('/launchpad/token/not-a-fixture');
   await expect(page.getByText('Token launch not found')).toBeVisible();
   await expect(page.getByRole('link', { name: 'Back to Launchpad' })).toBeVisible();
-  await expect(page.getByRole('complementary').or(page.locator('.mobilebar')).first()).toBeAttached();
+  await expect(page.getByRole('banner').or(page.getByRole('complementary')).first()).toBeAttached();
   // 0x addresses in demo mode never resolve to an on-chain read.
   await page.goto('/launchpad/token/0x0000000000000000000000000000000000000001');
   await expect(page.getByText('Token launch not found')).toBeVisible();

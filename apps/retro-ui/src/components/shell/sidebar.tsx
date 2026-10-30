@@ -8,18 +8,14 @@ import {
   ChevronsRight,
   Plus,
   Search,
-  Sun,
-  Moon,
-  Wallet,
+  Layers,
   Droplets,
+  FlaskConical,
+  BarChart3,
 } from 'lucide-react';
 import Link from '@/components/product/safe-link';
 import { usePathname } from '@/lib/next-compat';
-import { useDemo } from '@/components/product/provider';
-import { useWallet } from '@/wallet/provider';
-import { useState } from 'react';
 import { DATA_MODE } from '@/lib/live/env';
-import { toggleTheme, useTheme } from '@/lib/theme';
 
 interface SidebarProps {
   isCollapsed: boolean;
@@ -27,12 +23,12 @@ interface SidebarProps {
   onOpenSearch: () => void;
 }
 
-// Primary navigation lives entirely in the sidebar — there is no top navbar.
-// Home → /launchpad (includes all tradeable markets) · Earn → /earn
+// Primary navigation for >=1024px. Wallet, network and theme moved to the top
+// navbar; this rail owns navigation and Launch. Research modules (Prediction,
+// PRISM) have no live financial data, so they appear here in mock mode only —
+// never as live product destinations.
 export function Sidebar({ isCollapsed, onToggleCollapse, onOpenSearch }: SidebarProps) {
   const pathname = usePathname();
-  const theme = useTheme();
-  const demo = useDemo();
   const isActive = (id: 'home' | 'earn' | 'liquidity') => {
     if (id === 'liquidity') return pathname.startsWith('/liquidity');
     if (id === 'earn') return pathname.startsWith('/earn') || pathname.startsWith('/portfolio');
@@ -43,6 +39,15 @@ export function Sidebar({ isCollapsed, onToggleCollapse, onOpenSearch }: Sidebar
     { id: 'home' as const, label: 'Home', icon: Home, href: '/launchpad' },
     { id: 'liquidity' as const, label: 'Liquidity', icon: Droplets, href: '/liquidity' },
     { id: 'earn' as const, label: 'Earn', icon: Coins, href: '/earn' },
+  ];
+  const shortcuts = [
+    { label: 'My positions', icon: Layers, href: '/liquidity?tab=positions' },
+    { label: 'Market making', icon: BarChart3, href: '/liquidity/market-making' },
+    { label: 'Docs', icon: FileText, href: '/docs' },
+  ];
+  const research = DATA_MODE === 'live' ? [] : [
+    { label: 'Prediction', href: '/markets' },
+    { label: 'PRISM', href: '/prism' },
   ];
 
   return (
@@ -86,42 +91,36 @@ export function Sidebar({ isCollapsed, onToggleCollapse, onOpenSearch }: Sidebar
           <Plus className="w-4 h-4 stroke-[3]"/>
           {!isCollapsed && <span>Launch</span>}
         </Link>
+
+        {!isCollapsed && <div className="side-group-label" aria-hidden="true">Shortcuts</div>}
+        <div className="side-nav side-nav-sub">
+          {shortcuts.map((item) => {
+            const IconComponent = item.icon;
+            return (
+              <Link key={item.label} href={item.href} className="side-link side-link-sub" title={isCollapsed ? item.label : undefined}>
+                <IconComponent className="w-4.5 h-4.5"/>
+                {!isCollapsed && <span>{item.label}</span>}
+              </Link>
+            );
+          })}
+        </div>
+
+        {research.length > 0 && <>
+          {!isCollapsed && <div className="side-group-label" aria-hidden="true">Research · demo</div>}
+          <div className="side-nav side-nav-sub">
+            {research.map((item) => (
+              <Link key={item.label} href={item.href} className="side-link side-link-sub" title={isCollapsed ? `${item.label} (demo)` : undefined}>
+                <FlaskConical className="w-4.5 h-4.5"/>
+                {!isCollapsed && <span className="side-label">{item.label}</span>}
+              </Link>
+            ))}
+          </div>
+        </>}
       </div>
 
       <div className="side-bottom">
-        <WalletButton isCollapsed={isCollapsed}/>
-        <button className="side-action" onClick={toggleTheme} aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`} title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}>
-          {theme === 'dark' ? <Sun className="w-5 h-5"/> : <Moon className="w-5 h-5"/>}
-          {!isCollapsed && <span className="side-label">{theme === 'dark' ? 'Light theme' : 'Dark theme'}</span>}
-        </button>
-        <Link href="/docs" className="side-action" title="Docs">
-          <FileText className="w-5 h-5"/>
-          {!isCollapsed && <span className="side-label">Docs</span>}
-        </Link>
+        <p className="side-foot" aria-hidden="true">{DATA_MODE === 'live' ? 'Monad Testnet · 10143' : 'Demo mode'}</p>
       </div>
     </aside>
   );
-}
-
-/** Live mode connects a real EIP-1193 wallet; mock mode keeps the demo wallet. */
-function WalletButton({ isCollapsed }: { isCollapsed: boolean }) {
-  const demo = useDemo();
-  const live = DATA_MODE === 'live';
-  const wallet = useWallet();
-  if (!live) {
-    return <button className="side-action side-wallet" onClick={() => demo.setConnected(!demo.connected)} aria-label={demo.connected ? 'Demo wallet' : 'Connect wallet'} title={demo.connected ? 'Demo wallet' : 'Connect wallet'}>
-      <Wallet className="w-5 h-5"/>
-      {!isCollapsed && <span className="side-label">{demo.connected ? 'Demo wallet' : 'Connect wallet'}</span>}
-    </button>;
-  }
-  const label = wallet.status === 'connected' ? `${wallet.account?.slice(0, 6)}…${wallet.account?.slice(-4)}`
-    : wallet.status === 'wrong-chain' ? 'Wrong chain'
-    : wallet.status === 'connecting' ? 'Connecting…'
-    : 'Connect wallet';
-  return <>
-    <button className="side-action side-wallet" onClick={() => (wallet.status === 'disconnected' ? void wallet.connect() : wallet.status === 'wrong-chain' ? void wallet.switchChain() : wallet.disconnect())} aria-label={label} title={wallet.walletName ? `${wallet.walletName} · ${label}` : label} data-wallet-status={wallet.status}>
-      <Wallet className="w-5 h-5"/>
-      {!isCollapsed && <span className="side-label">{label}</span>}
-    </button>
-  </>;
 }

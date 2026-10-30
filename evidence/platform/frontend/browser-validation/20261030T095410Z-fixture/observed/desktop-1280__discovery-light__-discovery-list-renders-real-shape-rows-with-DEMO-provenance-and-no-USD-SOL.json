@@ -1,0 +1,24 @@
+{
+  "test": "fixture/discovery.spec.ts > discovery light > @discovery list renders real-shape rows with DEMO provenance and no USD/SOL",
+  "project": "desktop-1280",
+  "status": "passed",
+  "appConsoleErrors": [],
+  "console": [
+    {
+      "type": "error",
+      "text": "Failed to load resource: net::ERR_NETWORK_CHANGED",
+      "url": "https://fonts.gstatic.com/s/plusjakartasans/v12/LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2",
+      "classification": "environment"
+    }
+  ],
+  "pageErrors": [],
+  "failedRequests": [
+    {
+      "url": "https://fonts.gstatic.com/s/plusjakartasans/v12/LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2",
+      "failure": "net::ERR_NETWORK_CHANGED"
+    }
+  ],
+  "guardViolations": [],
+  "blockedExternal": [],
+  "requestCount": 54
+}

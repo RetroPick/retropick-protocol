@@ -1,0 +1,50 @@
+{
+  "test": "live/add-to-wallet.spec.ts > @live add to wallet: registers the token only on click, with the on-chain payload",
+  "project": "desktop-1280",
+  "status": "failed",
+  "appConsoleErrors": [
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "url": "http://127.0.0.1:8787/v1/launches/REDACTED",
+      "classification": "app"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "url": "http://127.0.0.1:8787/v1/launches/REDACTED/candles?resolution=15m&range=24h",
+      "classification": "app"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "url": "http://127.0.0.1:8787/v1/launches/REDACTED/trades?limit=50",
+      "classification": "app"
+    }
+  ],
+  "console": [
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "url": "http://127.0.0.1:8787/v1/launches/REDACTED",
+      "classification": "app"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "url": "http://127.0.0.1:8787/v1/launches/REDACTED/candles?resolution=15m&range=24h",
+      "classification": "app"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "url": "http://127.0.0.1:8787/v1/launches/REDACTED/trades?limit=50",
+      "classification": "app"
+    }
+  ],
+  "pageErrors": [],
+  "failedRequests": [],
+  "guardViolations": [],
+  "blockedExternal": [],
+  "requestCount": 83
+}

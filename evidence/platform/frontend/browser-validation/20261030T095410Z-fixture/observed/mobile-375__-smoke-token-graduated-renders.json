@@ -1,0 +1,24 @@
+{
+  "test": "fixture/smoke.spec.ts > @smoke token-graduated renders",
+  "project": "mobile-375",
+  "status": "passed",
+  "appConsoleErrors": [],
+  "console": [
+    {
+      "type": "error",
+      "text": "Failed to load resource: net::ERR_NETWORK_CHANGED",
+      "url": "https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwgknk-4.woff2",
+      "classification": "environment"
+    }
+  ],
+  "pageErrors": [],
+  "failedRequests": [
+    {
+      "url": "https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwgknk-4.woff2",
+      "failure": "net::ERR_NETWORK_CHANGED"
+    }
+  ],
+  "guardViolations": [],
+  "blockedExternal": [],
+  "requestCount": 61
+}

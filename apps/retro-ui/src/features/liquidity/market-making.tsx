@@ -97,8 +97,8 @@ function TradingCapital({ token, pools, enabled }: { token: string; pools: Index
   else if (!q.data) content = <p role="status">{enabled ? 'Reading trading capital…' : 'Qualify this market before reading trading capital.'}</p>;
   else content = <><p className="rp-note">Chain block {q.data.block.toString()}{Date.now() - q.dataUpdatedAt >= 20_000 ? ' · stale' : ''}</p><DataTable caption="Shared Kuru trading capital" rows={q.data.rows} rowKey={row => row.token} columns={[
     { key: 'asset', header: 'Asset', cell: row => row.symbol },
-    { key: 'wallet', header: 'Wallet', align: 'right', cell: row => row.walletRaw === null ? 'Unavailable' : formatRaw(row.walletRaw, row.decimals) },
-    { key: 'margin', header: 'Free margin', align: 'right', cell: row => row.marginRaw === null ? 'Unavailable' : formatRaw(row.marginRaw, row.decimals) },
+    { key: 'wallet', header: 'Wallet', align: 'right', cell: row => row.walletRaw === null ? 'Unavailable' : <>{formatRaw(row.walletRaw, row.decimals)} <span className="rp-unit">{row.symbol}</span></> },
+    { key: 'margin', header: 'Free margin', align: 'right', cell: row => row.marginRaw === null ? 'Unavailable' : <>{formatRaw(row.marginRaw, row.decimals)} <span className="rp-unit">{row.symbol}</span></> },
   ]}/></>;
   return <section className="rp-liquidity-card" aria-label="Shared trading capital"><h2>Trading capital</h2><p className="rp-note">Each asset is counted once across the loaded markets. Free margin excludes funds committed to orders. Other Kuru markets can use the same margin credit. Manage deposits and withdrawals in the order ticket.</p>{content}{live && <p className="rp-note">Open orders and remaining amounts for this market appear below. Cross-market histories are available in Earn → Portfolio; no combined economic exposure is inferred from an incomplete order list.</p>}</section>;
 }

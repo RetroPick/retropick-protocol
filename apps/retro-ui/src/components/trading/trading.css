@@ -50,6 +50,8 @@
 .rp-btn:active:not(:disabled) { transform: translateY(1px) }
 .rp-btn:disabled { opacity: .5; cursor: not-allowed }
 .rp-btn-primary { background: var(--accent-fill); color: var(--accent-ink); border-color: transparent }
+/* A disabled primary stays legible: muted accent tint + readable text, never a washed-out fill. */
+.rp-btn-primary:disabled { background: var(--accent-dim); color: var(--text-2); opacity: 1 }
 .rp-btn[data-tone='buy'] { background: var(--buy); color: var(--buy-ink); border-color: transparent }
 .rp-btn[data-tone='sell'] { background: var(--sell); color: var(--sell-ink); border-color: transparent }
 .rp-btn-ghost { background: transparent }
@@ -66,6 +68,10 @@
 .rp-seg-item { flex: 1 1 0; min-height: 34px; padding: 0 12px; border: 0; border-radius: 7px; background: transparent; color: var(--text-3); font-weight: 650; font-size: 13px; cursor: pointer; white-space: nowrap; transition: background .15s, color .15s }
 .rp-seg-sm .rp-seg-item { min-height: 28px; padding: 0 9px; font-size: 11.5px; font-family: var(--rp-mono); font-weight: 600 }
 .rp-seg-item:hover:not([aria-disabled]) { color: var(--text) }
+/* Inactive Buy/Sell stay visibly available: tone-tinted rather than flat gray,
+   which read as disabled next to the filled active side. */
+.rp-seg-item[data-tone='buy']:not(.is-selected) { color: color-mix(in srgb, var(--buy) 68%, var(--text-3)) }
+.rp-seg-item[data-tone='sell']:not(.is-selected) { color: color-mix(in srgb, var(--sell) 68%, var(--text-3)) }
 .rp-seg-item.is-selected { background: var(--panel); color: var(--text); box-shadow: 0 1px 0 var(--border) }
 .rp-seg-item.is-selected[data-tone='buy'] { background: var(--buy); color: var(--buy-ink) }
 .rp-seg-item.is-selected[data-tone='sell'] { background: var(--sell); color: var(--sell-ink) }
@@ -127,7 +133,7 @@
 .rp-banner { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 10px 14px; margin-bottom: var(--rp-gap); border-radius: var(--rp-radius); border: 1px solid var(--warn-border); background: var(--warn-bg); color: var(--warn-text); font-size: 13px }
 
 /* Table */
-.rp-table-wrap { width: 100%; overflow-x: auto }
+.rp-table-wrap { width: 100%; overflow-x: auto; scrollbar-width: thin }
 .rp-table { width: 100%; border-collapse: collapse; font-size: 13px; font-variant-numeric: tabular-nums }
 .rp-table th { text-align: left; font-family: var(--rp-mono); font-size: 10.5px; font-weight: 600; letter-spacing: .5px; text-transform: uppercase; color: var(--text-3); padding: 8px 10px; border-bottom: 1px solid var(--border-soft); white-space: nowrap }
 .rp-table td { padding: 8px 10px; border-bottom: 1px solid var(--border-soft); white-space: nowrap }
@@ -143,18 +149,35 @@
 /* Terminal layout */
 .rp-terminal { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--rp-gap); min-width: 0 }
 .rp-back { display: inline-flex; align-items: center; gap: 6px; color: var(--text-3); font-family: var(--rp-mono); font-size: 11.5px; width: fit-content }
-.rp-back:hover { color: var(--accent) }
 .rp-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; flex-wrap: wrap }
-.rp-price { text-align: right; display: grid; gap: 2px; justify-items: end }
-.rp-price-label { font-family: var(--rp-mono); font-size: 10.5px; letter-spacing: .6px; text-transform: uppercase; color: var(--text-3) }
-.rp-price-main { font-size: clamp(28px, 3.4vw, 40px); font-weight: 750; letter-spacing: -1px; font-variant-numeric: tabular-nums; line-height: 1.05 }
-.rp-price-unit { font-size: 15px; font-weight: 600; color: var(--text-3); margin-left: 8px; letter-spacing: 0 }
-.rp-price-sub { display: flex; gap: 14px; align-items: baseline; font-size: 14px }
+.rp-price-unit { font-size: .72em; font-weight: 600; color: var(--text-3); margin-left: 4px; letter-spacing: 0 }
 .rp-change { display: inline-flex; align-items: center; gap: 2px; font-weight: 700; font-variant-numeric: tabular-nums }
 .rp-change small { color: var(--text-3); font-weight: 500 }
-.rp-mcap { color: var(--text-3) } .rp-mcap strong { color: var(--text-2) }
-.rp-grid { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: var(--rp-gap); align-items: start }
-.rp-rail { position: sticky; top: 16px; min-width: 0 }
+
+/* ── Market ribbon: single strip of decision metrics ─────────────────────── */
+.rp-ribbon { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; padding: 10px 14px; border: 1px solid var(--border-soft); border-radius: var(--rp-radius-lg); background: var(--panel); min-width: 0 }
+.rp-ribbon-back { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 9px; color: var(--text-3); flex-shrink: 0 }
+.rp-ribbon-back:hover { color: var(--text); background: var(--hover) }
+.rp-ribbon-pair { font-family: var(--rp-mono); font-size: 13.5px; font-weight: 700; color: var(--text); white-space: nowrap }
+.rp-ribbon-pair span { color: var(--text-dim); padding: 0 1px }
+.rp-ribbon-metric { display: flex; flex-direction: column; gap: 2px; min-width: 0 }
+.rp-ribbon-metric small { font-family: var(--rp-mono); font-size: 10px; letter-spacing: .7px; text-transform: uppercase; color: var(--text-3); white-space: nowrap }
+.rp-ribbon-metric > span, .rp-ribbon-metric > strong { font-family: var(--rp-mono); font-size: 13px; font-weight: 650; color: var(--text); font-variant-numeric: tabular-nums; white-space: nowrap }
+.rp-ribbon-price strong { font-size: 19px; font-weight: 750; letter-spacing: -.3px; line-height: 1.1 }
+.rp-ribbon-bond-meter { display: inline-flex; align-items: center; gap: 8px }
+.rp-ribbon-bond-meter i { display: block; height: 4px; width: 64px; border-radius: 2px; background: var(--pos); overflow: hidden }
+.rp-ribbon-src { margin-left: auto; font-family: var(--rp-mono); font-size: 10px; color: var(--text-dim); white-space: nowrap }
+@media (max-width: 899px) { .rp-hide-md { display: none } }
+@media (max-width: 639px) { .rp-hide-sm { display: none } .rp-ribbon { gap: 12px } }
+
+/* ── Workspace: chart-dominant grid; depth column only for real Kuru books ── */
+.rp-workspace { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: var(--rp-gap); align-items: start; min-width: 0 }
+.rp-workspace .rp-depth-col { grid-column: 1 / -1; min-width: 0 }
+.rp-rail { position: sticky; top: 72px; min-width: 0 }
+@media (min-width: 1280px) {
+  .rp-workspace:not(.rp-workspace-2col) { grid-template-columns: minmax(0, 1fr) 248px 340px }
+  .rp-workspace:not(.rp-workspace-2col) .rp-depth-col { grid-column: auto }
+}
 .rp-chart-panel { border: 1px solid var(--border-soft); border-radius: var(--rp-radius); background: var(--panel); padding: 12px; min-width: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; overflow: hidden }
 .rp-chart-toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center }
 .rp-chart-box { position: relative; min-height: 0 }
@@ -200,6 +223,8 @@
 .rp-protocol-group dl, .rp-quote { margin: 0; display: grid; gap: 2px }
 .rp-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 30px; font-size: 13px }
 .rp-row dt { color: var(--text-3); display: flex; align-items: center } .rp-row dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; min-width: 0; overflow-wrap: anywhere }
+/* Primary ticket numbers (price, receive, totals) render at full contrast — they are the decision data. */
+.rp-quote dd, .rp-ticket .rp-row dd { color: var(--text); font-weight: 650 }
 
 /* Ticket */
 .rp-ticket { border: 1px solid var(--border-soft); border-radius: var(--rp-radius); background: var(--panel); padding: 14px; display: grid; gap: 12px }
@@ -244,9 +269,9 @@
 .rp-sheet { max-height: 92dvh; overflow-y: auto; border-radius: 16px 16px 0 0; padding: 8px 4px calc(12px + env(safe-area-inset-bottom)) }
 .rp-sheet .rp-ticket { border: 0 }
 
-@media (max-width: 1180px) { .rp-grid { grid-template-columns: minmax(0, 1fr) 320px } }
-@media (max-width: 960px) {
-  .rp-grid { grid-template-columns: 1fr }
+@media (max-width: 1279px) { .rp-workspace { grid-template-columns: minmax(0, 1fr) 320px } }
+@media (max-width: 1023px) {
+  .rp-workspace { grid-template-columns: 1fr }
   .rp-rail { position: static }
   .rp-contracts { grid-template-columns: 1fr 1fr }
   .rp-table .rp-p3 { display: none }
@@ -298,7 +323,7 @@
 .rp-depth-row[data-side='ask'] .rp-depth-price { color: var(--neg) }
 .rp-depth-row[data-side='bid'] .rp-depth-price { color: var(--pos) }
 .rp-depth-size, .rp-depth-total { color: var(--text-3) }
-.rp-depth-spread { margin: 0; padding: 6px; border-block: 1px solid var(--border-soft); font-size: 12px; color: var(--text-3); text-align: center }
+.rp-depth-spread { margin: 2px 0; padding: 8px 6px; border-block: 1px solid var(--border-soft); font-size: 12px; color: var(--text-3); text-align: center; display: flex; justify-content: center; gap: 6px; flex-wrap: wrap }
 .rp-depth-spread strong { color: var(--text) }
 .rp-check { display: flex; gap: 8px; align-items: flex-start; font-size: 13px; cursor: pointer; padding: 4px 0 6px }
 .rp-check input { width: 16px; height: 16px; margin: 2px 0 0; accent-color: var(--accent); flex: none }

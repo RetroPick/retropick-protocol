@@ -1,0 +1,26 @@
+{
+  "CommunityFeeRouterV2": {
+    "src/v2-research-experiment/CommunityFeeRouterV2.sol": "CommunityFeeRouterV2"
+  },
+  "CommunityPolicyRegistryV2": {
+    "src/v2-research-experiment/CommunityPolicyRegistryV2.sol": "CommunityPolicyRegistryV2"
+  },
+  "CommunityControllerV2": {
+    "src/v2-research-experiment/CommunityControllerV2.sol": "CommunityControllerV2"
+  },
+  "CommunityLaunchBuilderV2": {
+    "src/v2-research-experiment/CommunityLaunchBuilderV2.sol": "CommunityLaunchBuilderV2"
+  },
+  "RetroPickLaunchFactoryV2": {
+    "src/v2-research-experiment/RetroPickLaunchFactoryV2.sol": "RetroPickLaunchFactoryV2"
+  },
+  "RetroPickLaunchDeployerV2": {
+    "src/v2-research-experiment/RetroPickLaunchDeployerV2.sol": "RetroPickLaunchDeployerV2"
+  },
+  "RetroPickBondingCurveV2": {
+    "src/v2-research-experiment/RetroPickBondingCurveV2.sol": "RetroPickBondingCurveV2"
+  },
+  "UniswapV4GraduationExecutorV2": {
+    "src/v2-research-experiment/UniswapV4GraduationExecutorV2.sol": "UniswapV4GraduationExecutorV2"
+  }
+}

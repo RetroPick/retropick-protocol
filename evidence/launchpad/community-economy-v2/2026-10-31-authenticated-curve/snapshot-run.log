@@ -1,0 +1,22 @@
+No files changed, compilation skipped
+
+Ran 16 tests for test/v2/research-experiment/CommunityCurveFlow.t.sol:CommunityCurveFlowTest
+[PASS] testCEBeneficiaryRotationCannotReassignAccruedRights() (gas: 9307167)
+[PASS] testCEControllerHandoffPreservesOldClaims() (gas: 8554281)
+[PASS] testCEDonationsAndRepeatedSettlementDoNotCreateIncome() (gas: 8464417)
+[PASS] testCEExpiredRecoveryCanBeClearedWithoutGuardian() (gas: 8000218)
+[PASS] testCEFundingFailureAndDeficitFailAtomically() (gas: 9972866)
+[PASS] testCEGraduationSecuresOnlyReservesAndClaimsSurvive() (gas: 8723646)
+[PASS] testCELegacyRecipientAndBuybackBypassesRejected() (gas: 7751415)
+[PASS] testCENativeRealTradesPolicyAndClaims() (gas: 9998249)
+[PASS] testCEPolicyCallbackCannotActivateInsideTrade() (gas: 10283005)
+[PASS] testCEReentrantClaimCannotDoublePay() (gas: 8597696)
+[PASS] testCERejectsInexactAndFalseReturnQuoteBeforeAccounting() (gas: 9417855)
+[PASS] testCERevertingBeneficiaryDoesNotBlockTreasury() (gas: 8607607)
+[PASS] testCETwoLaunchAssetsCannotCoverEachOther() (gas: 18313715)
+[PASS] testCEUSDCRealTradesPolicyAndClaims() (gas: 11660802)
+[PASS] testCEUnauthorizedFundingReplayAndCrossLaunch() (gas: 8488271)
+[PASS] testFuzzCERealSettlementConservation(uint96) (runs: 256, μ: 8388016, ~: 8388949)
+Suite result: ok. 16 passed; 0 failed; 0 skipped; finished in 283.62ms (395.61ms CPU time)
+
+Ran 1 test suite in 285.63ms (283.62ms CPU time): 16 tests passed, 0 failed, 0 skipped (16 total tests)

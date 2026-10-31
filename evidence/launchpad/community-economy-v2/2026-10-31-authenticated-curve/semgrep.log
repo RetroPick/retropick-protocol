@@ -1,0 +1,27 @@
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 36 files tracked by git with 50 Code rules:
+  Scanning 36 files with 50 solidity rules.
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 123 (123 blocking)
+ • Rules run: 50
+ • Targets scanned: 36
+ • Parsed lines: ~100.0%
+ • Scan skipped: 
+   ◦ Not matching --include patterns: 1
+ • Scan was limited to files tracked by git
+ • For a detailed list of skipped files and lines, run semgrep with the --verbose flag
+Ran 50 rules on 36 files: 123 findings.
+
+A new version of Semgrep is available. See https://semgrep.dev/docs/upgrading
+
+📢 Too many findings? Try Semgrep Pro for more powerful queries and less noise.
+   See https://sg.run/false-positives.

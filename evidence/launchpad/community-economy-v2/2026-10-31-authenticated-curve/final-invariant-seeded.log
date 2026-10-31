@@ -1,0 +1,53 @@
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 142.50s
+Compiler run successful with warnings:
+Warning (2018): Function state mutability can be restricted to view
+   --> src/v2-research-experiment/RetroPickBondingCurveV2.sol:931:5:
+    |
+931 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 1 test for test/v2/research-experiment/CommunityAccountingInvariant.t.sol:CommunityAccountingInvariantTest
+[PASS] invariantCEConservationBackingAndRights() (runs: 256, calls: 32768, reverts: 0)
+
+╭----------------------------+-------------------+-------+---------+----------╮
+| Contract                   | Selector          | Calls | Reverts | Discards |
++=============================================================================+
+| CommunityAccountingHandler | activate          | 3236  | 0       | 0        |
+|----------------------------+-------------------+-------+---------+----------|
+| CommunityAccountingHandler | cancel            | 3279  | 0       | 0        |
+|----------------------------+-------------------+-------+---------+----------|
+| CommunityAccountingHandler | claim             | 3241  | 0       | 0        |
+|----------------------------+-------------------+-------+---------+----------|
+| CommunityAccountingHandler | donate            | 3284  | 0       | 0        |
+|----------------------------+-------------------+-------+---------+----------|
+| CommunityAccountingHandler | invalidSettlement | 3271  | 0       | 0        |
+|----------------------------+-------------------+-------+---------+----------|
+| CommunityAccountingHandler | propose           | 3309  | 0       | 0        |
+|----------------------------+-------------------+-------+---------+----------|
+| CommunityAccountingHandler | rotate            | 3338  | 0       | 0        |
+|----------------------------+-------------------+-------+---------+----------|
+| CommunityAccountingHandler | settle            | 3275  | 0       | 0        |
+|----------------------------+-------------------+-------+---------+----------|
+| CommunityAccountingHandler | trade             | 3312  | 0       | 0        |
+|----------------------------+-------------------+-------+---------+----------|
+| CommunityAccountingHandler | unauthorized      | 3223  | 0       | 0        |
+╰----------------------------+-------------------+-------+---------+----------╯
+
+Logs:
+  successful trades: 12
+  successful settlements: 14
+  successful claims: 22
+  successful proposals: 12
+  successful cancellations: 4
+  successful activations: 8
+  successful controller rotations: 12
+  donations: 11
+  unauthorized attempts: 17
+  invalid settlement attempts: 11
+  caught economic rejections: 18
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 16.22s (16.19s CPU time)
+
+Ran 1 test suite in 16.23s (16.22s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

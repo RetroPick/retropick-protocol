@@ -1,0 +1,30 @@
+[
+  {
+    "url": "https://github.com/pump-fun/pump-public-docs/blob/639b87fb45c3adeffa6f7c4a1bf0cb85e392bf22/docs/instructions/CREATOR_FEE_SHARING.md",
+    "kind": "primary documentation",
+    "checked": "2026-10-31"
+  },
+  {
+    "url": "https://pump.fun/docs/fees",
+    "pageUpdated": "2026-05-20",
+    "checked": "2026-10-31"
+  },
+  {
+    "url": "https://support.zora.co/en/articles/2509953",
+    "pageUpdated": "2026-08-12",
+    "checked": "2026-10-31"
+  },
+  {
+    "url": "https://arxiv.org/abs/2609.10246v1",
+    "submitted": "2026-09-09",
+    "scope": "abstract only, not independently replicated"
+  },
+  {
+    "url": "https://github.com/Kuru-Labs/Kuru-contracts-dex-public/tree/2060bb2736080c175d80d568bfdb6226bb5abd04",
+    "scope": "does not establish alleged approved-builder entitlement"
+  },
+  {
+    "url": "https://developers.uniswap.org/docs/protocols/v4/guides/custom-accounting",
+    "checked": "2026-10-31"
+  }
+]

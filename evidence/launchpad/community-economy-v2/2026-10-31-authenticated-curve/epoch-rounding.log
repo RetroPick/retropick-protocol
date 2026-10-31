@@ -1,0 +1,16 @@
+Compiling 130 files with Solc 0.8.26
+Solc 0.8.26 finished in 147.49s
+Compiler run successful with warnings:
+Warning (2018): Function state mutability can be restricted to view
+   --> src/v2-research-experiment/RetroPickBondingCurveV2.sol:931:5:
+    |
+931 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 2 tests for test/v2/research-experiment/CommunityEpochRounding.t.sol:CommunityEpochRoundingTest
+[PASS] testCEDustOneUnitNativeAndUSDC() (gas: 17917702)
+[PASS] testFuzzCEEpochRights(uint16,uint96) (runs: 10000, μ: 9270108, ~: 9271297)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 7.14s (7.14s CPU time)
+
+Ran 1 test suite in 7.14s (7.14s CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)

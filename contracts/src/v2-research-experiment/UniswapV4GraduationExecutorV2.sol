@@ -23,7 +23,11 @@ import {RetroPickBondingCurveV2} from "./RetroPickBondingCurveV2.sol";
 import {RetroPickGraduationMathV2} from "./libraries/RetroPickGraduationMathV2.sol";
 import {ExecutorDonationsV2, ExecutorDonationLockV2} from "./libraries/ExecutorDonationsV2.sol";
 import {ExactAssetV2} from "./libraries/ExactAssetV2.sol";
-import {IRetroPickFeeEscrowV2, IRetroPickLaunchFactoryV2} from "./interfaces/IRetroPickLaunchpadV2.sol";
+import {
+    IRetroPickFeeEscrowV2,
+    IRetroPickLaunchFactoryV2,
+    FeePolicySnapshot
+} from "./interfaces/IRetroPickLaunchpadV2.sol";
 import {
     IGraduationCoordinatorV2,
     IGraduationExecutorV2,
@@ -35,6 +39,7 @@ import {
 /// @notice Coordinator-authorized V4 worker. Every completion disposes of its own residuals atomically.
 contract UniswapV4GraduationExecutorV2 is IGraduationExecutorV2, ReentrancyGuard {
     using SafeERC20 for IERC20;
+    event CommunityVenueRevenueDisabled(address indexed token, address indexed router);
     address public immutable coordinator;
     address public immutable donationLock;
     IPoolManager public immutable poolManager;
@@ -146,14 +151,28 @@ contract UniswapV4GraduationExecutorV2 is IGraduationExecutorV2, ReentrancyGuard
         poolManager.initialize(key, price);
         IRetroPickLaunchFactoryV2.LaunchedToken memory launch =
             IRetroPickLaunchFactoryV2(IGraduationCoordinatorV2(coordinator).factory()).getLaunchedToken(p.token);
+        FeePolicySnapshot memory venueFees = p.feePolicy;
+        address creatorRecipient = launch.creatorFeeRecipient;
+        uint16 creatorTax = launch.creatorTaxBps;
+        bool buyback = launch.buybackEnabled;
+        address community = RetroPickBondingCurveV2(p.curve).communityRouter();
+        // Curve-only CE qualification: do not create a post-graduation fee stream outside its ledger.
+        // Pool LP fees are unchanged. Legacy launches retain the original hook policy.
+        if (community != address(0)) {
+            creatorRecipient = community;
+            creatorTax = 0;
+            buyback = false;
+            venueFees.hookFeeBps = 0;
+            emit CommunityVenueRevenueDisabled(p.token, community);
+        }
         memeHook.registerPool(
             key,
             p.token,
-            launch.creatorFeeRecipient,
+            creatorRecipient,
             RetroPickBondingCurveV2(p.curve).buybackCreatorRecipient(),
-            launch.creatorTaxBps,
-            launch.buybackEnabled,
-            p.feePolicy
+            creatorTax,
+            buyback,
+            venueFees
         );
         uint256 positionId = positionManager.nextTokenId();
         uint128 liquidity = _mint(key, price, amount0, amount1);

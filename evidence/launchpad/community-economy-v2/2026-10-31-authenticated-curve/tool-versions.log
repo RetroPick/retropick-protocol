@@ -1,0 +1,7 @@
+forge Version: 1.8.4
+Commit SHA: 50af4efe189dc64bad2b75ed6990b835de66c4ae
+Build Timestamp: 2026-10-01T14:08:28.191932892Z (1790863708)
+Build Profile: dist
+0.11.6
+solc, the solidity compiler commandline interface
+Version: 0.8.26+commit.8a97fa7a.Linux.g++

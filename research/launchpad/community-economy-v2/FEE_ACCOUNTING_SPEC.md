@@ -1,4 +1,20 @@
-# Candidate accounting specification — M1 boundary
+# Candidate accounting specification
+
+## Iteration 002 — implemented curve boundary
+
+The earlier M1-only discussion below is historical context, superseded for the experimental curve path by iterations/002-real-curve-accounting.md and V2_EXPERIMENT_ARCHITECTURE.md. Candidate ADR-CE01 remains PROPOSED. Broader G0/G1/G2, venue conversion and production economics authority are not declared complete.
+
+Entitlement accrues on each successful actual trade as F_i/T_i in the curve. These buckets can aggregate while the policy remains unchanged. The router receives only pre-separated C=F-floor(F*protocolShareBps/10000)+T; protocol P settles once to the original escrow. Trade fee BPS and allocation BPS are different denominators. Quote reserves exclude F/T both before and after settlement.
+
+Allocation at a settlement floors each bounded recipient share and credits all residual to the immutable treasury recipient. Claiming has no rounding. This preserves existing aggregate protocol rounding; it does not round protocol share separately for each trade. Every policy activation calls the real router checkpoint, which calls the immutable factory-registered curve under its operation guard, including apparent zero-pending states. It funds old epoch credits, then requires actual source pending zero. Any asset-transfer failure, controller-generation change or incomplete checkpoint reverts activation and all transfers. No arbitrary actor sets pending to zero.
+
+Source/launch/asset/epoch/sequence are validated; sequence advances only for nonzero funded settlements. Native msg.value must exactly match amount. ERC-20 sender and receiver deltas must exactly match. A donated surplus creates no attributed revenue or claim. Per-launch physical backing is checked before and after allocation/claim. Negative rebases fail closed; they are unsupported, not insured. There is no owner rescue, cross-launch subsidy or router-to-community-escrow duplication.
+
+Per asset: totalFunded=totalPaid+totalLiability; sum(original beneficiary credits)=totalLiability; balance>=totalLiability. totalFunded counts C only; P belongs to the separate protocol ledger. Pending source C is explicit unsettled allocation until funded; a funded claim remains payable after graduation or controller rotation. Zero pending settlement is a no-op, not a new settlement ID. Independent partial claims and claimTo retain claimant ownership. Failed recipient code rolls back only that transaction. No-staker/reward/strategy execution is outside this slice; unused earmarks cannot be redirected by a router owner because no such role exists.
+
+Factory seals CE mode and authentic source identity before returning launch. Creator administrative legacy paths cannot redirect CE funds. Operator downtime does not stop permissionless settlement or claims. Graduation first settles F/T and secures only net reserves. Subsequent empty settlement and outstanding claims continue; no unsupported venue revenue is invented.
+
+## Historical M1 boundary
 
 PROPOSED. Registry-only implementation is noncustodial; it does not close the full-system G2 gate or authorize a fee router integration.
 

@@ -1,5 +1,15 @@
 # Remaining-work ledger
 
+## Current dependency after iteration 002
+
+The older baseline/M1 queue below is historical. A real experimental factory/curve/router/controller vertical slice now exists; independent multi-recipient claims are integrated in the router rather than a second custody contract. See qualification evidence and invariant map for actual scope. Full G0/G1/G2 and M9 are not closed by a curve-only result.
+
+Next executable development unit: qualify a treasury-only timelock module and wire the fixed treasury recipient to that module in new test launches. The vendored OpenZeppelin subset lacks governance/TimelockController and AccessControl; importing a pinned, license-verified dependency subset requires an explicitly scoped dependency/ADR change before that implementation. Do not substitute an unaudited timelock merely to claim M4 complete. Current EOA treasury makes no timelock promise.
+
+Before later custody: complete controller recovery priority/cancellation/deadline sequences, a full old-beneficiary ghost ledger, policy-boundary fuzz, long-history gas, and all LP/CE property gaps listed in INVARIANT_TEST_MAP.md. Then real-fee-funded rewards with no-staker/late-staker handling, buybacks with independent execution bounds, actual venue adapters and fork qualification. Keep legacy buyback off in CE mode; unexecuted budgets retain their published beneficiary. Kuru remains BLOCKED_EXTERNAL_CAPABILITY. Factory runtime headroom is only 90 bytes; move future deployment work to helpers.
+
+Remaining research: source-backed demand/competitor matrix, complete product grill, calibrated four-archetype simulations, deployed venue identity/rights, and independent external audit. Current deterministic scenarios are illustrative, not economic qualification. No deployment is authorized.
+
 Overall status: PARTIAL. No community module is implemented. This is the handoff ledger required by the campaign, not a replacement for Beads when an active Beads workspace becomes available.
 
 | Order | Work | Acceptance / dependency |

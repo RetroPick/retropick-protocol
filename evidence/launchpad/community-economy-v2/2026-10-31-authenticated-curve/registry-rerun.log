@@ -1,0 +1,25 @@
+Compiling 129 files with Solc 0.8.26
+Solc 0.8.26 finished in 89.54s
+Compiler run successful with warnings:
+Warning (2018): Function state mutability can be restricted to view
+   --> src/v2-research-experiment/RetroPickBondingCurveV2.sol:931:5:
+    |
+931 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 11 tests for test/v2/research-experiment/CommunityPolicyRegistryV2.t.sol:CommunityPolicyRegistryV2Test
+[PASS] testFuzzRegistryCreatorCap(uint16) (runs: 10000, μ: 378372, ~: 440583)
+[PASS] testRegistryCancelConcurrentAndNonce() (gas: 802408)
+[PASS] testRegistryCheckpointFailureAndRetry() (gas: 727785)
+[PASS] testRegistryConstructionFeeCapAndDelay() (gas: 552637)
+[PASS] testRegistryControllerRoundTripDoesNotReviveProposal() (gas: 395416)
+[PASS] testRegistryDelayHistoryReplay() (gas: 578815)
+[PASS] testRegistryExpiryAndStaleController() (gas: 707350)
+[PASS] testRegistryInvalidAddressesAndShares() (gas: 178894)
+[PASS] testRegistryReentry() (gas: 513243)
+[PASS] testRegistryTreasuryFloorAndCardinality() (gas: 142669)
+[PASS] testRegistryUnauthorized() (gas: 320226)
+Suite result: ok. 11 passed; 0 failed; 0 skipped; finished in 571.56ms (583.49ms CPU time)
+
+Ran 1 test suite in 574.46ms (571.56ms CPU time): 11 tests passed, 0 failed, 0 skipped (11 total tests)

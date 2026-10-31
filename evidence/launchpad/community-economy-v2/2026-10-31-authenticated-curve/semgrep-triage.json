@@ -1,0 +1,863 @@
+[
+  {
+    "id": 1,
+    "check": "solidity.performance.non-payable-constructor.non-payable-constructor",
+    "path": "src/v2-research-experiment/CommunityControllerV2.sol",
+    "line": 20,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 2,
+    "check": "solidity.performance.use-nested-if.use-nested-if",
+    "path": "src/v2-research-experiment/CommunityControllerV2.sol",
+    "line": 28,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 3,
+    "check": "solidity.performance.use-nested-if.use-nested-if",
+    "path": "src/v2-research-experiment/CommunityControllerV2.sol",
+    "line": 32,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 4,
+    "check": "solidity.performance.non-payable-constructor.non-payable-constructor",
+    "path": "src/v2-research-experiment/CommunityFeeRouterV2.sol",
+    "line": 39,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 5,
+    "check": "solidity.performance.use-nested-if.use-nested-if",
+    "path": "src/v2-research-experiment/CommunityFeeRouterV2.sol",
+    "line": 46,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 6,
+    "check": "solidity.performance.inefficient-state-variable-increment.inefficient-state-variable-increment",
+    "path": "src/v2-research-experiment/CommunityFeeRouterV2.sol",
+    "line": 107,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 7,
+    "check": "solidity.performance.inefficient-state-variable-increment.inefficient-state-variable-increment",
+    "path": "src/v2-research-experiment/CommunityFeeRouterV2.sol",
+    "line": 108,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 8,
+    "check": "solidity.performance.array-length-outside-loop.array-length-outside-loop",
+    "path": "src/v2-research-experiment/CommunityFeeRouterV2.sol",
+    "line": 112,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 9,
+    "check": "solidity.performance.unnecessary-checked-arithmetic-in-loop.unnecessary-checked-arithmetic-in-loop",
+    "path": "src/v2-research-experiment/CommunityFeeRouterV2.sol",
+    "line": 112,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 10,
+    "check": "solidity.performance.state-variable-read-in-a-loop.state-variable-read-in-a-loop",
+    "path": "src/v2-research-experiment/CommunityFeeRouterV2.sol",
+    "line": 115,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 11,
+    "check": "solidity.performance.inefficient-state-variable-increment.inefficient-state-variable-increment",
+    "path": "src/v2-research-experiment/CommunityFeeRouterV2.sol",
+    "line": 141,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 12,
+    "check": "solidity.performance.non-payable-constructor.non-payable-constructor",
+    "path": "src/v2-research-experiment/CommunityLaunchBuilderV2.sol",
+    "line": 27,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 13,
+    "check": "solidity.performance.non-payable-constructor.non-payable-constructor",
+    "path": "src/v2-research-experiment/CommunityPolicyRegistryV2.sol",
+    "line": 67,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 14,
+    "check": "solidity.performance.unnecessary-checked-arithmetic-in-loop.unnecessary-checked-arithmetic-in-loop",
+    "path": "src/v2-research-experiment/CommunityPolicyRegistryV2.sol",
+    "line": 90,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 15,
+    "check": "solidity.performance.state-variable-read-in-a-loop.state-variable-read-in-a-loop",
+    "path": "src/v2-research-experiment/CommunityPolicyRegistryV2.sol",
+    "line": 91,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 16,
+    "check": "solidity.performance.array-length-outside-loop.array-length-outside-loop",
+    "path": "src/v2-research-experiment/CommunityPolicyRegistryV2.sol",
+    "line": 97,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 17,
+    "check": "solidity.performance.unnecessary-checked-arithmetic-in-loop.unnecessary-checked-arithmetic-in-loop",
+    "path": "src/v2-research-experiment/CommunityPolicyRegistryV2.sol",
+    "line": 97,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 18,
+    "check": "solidity.performance.state-variable-read-in-a-loop.state-variable-read-in-a-loop",
+    "path": "src/v2-research-experiment/CommunityPolicyRegistryV2.sol",
+    "line": 98,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 19,
+    "check": "solidity.performance.unnecessary-checked-arithmetic-in-loop.unnecessary-checked-arithmetic-in-loop",
+    "path": "src/v2-research-experiment/CommunityPolicyRegistryV2.sol",
+    "line": 125,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 20,
+    "check": "solidity.performance.state-variable-read-in-a-loop.state-variable-read-in-a-loop",
+    "path": "src/v2-research-experiment/CommunityPolicyRegistryV2.sol",
+    "line": 126,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 21,
+    "check": "solidity.performance.array-length-outside-loop.array-length-outside-loop",
+    "path": "src/v2-research-experiment/CommunityPolicyRegistryV2.sol",
+    "line": 159,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 22,
+    "check": "solidity.performance.unnecessary-checked-arithmetic-in-loop.unnecessary-checked-arithmetic-in-loop",
+    "path": "src/v2-research-experiment/CommunityPolicyRegistryV2.sol",
+    "line": 159,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 23,
+    "check": "solidity.performance.state-variable-read-in-a-loop.state-variable-read-in-a-loop",
+    "path": "src/v2-research-experiment/CommunityPolicyRegistryV2.sol",
+    "line": 160,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 24,
+    "check": "solidity.performance.state-variable-read-in-a-loop.state-variable-read-in-a-loop",
+    "path": "src/v2-research-experiment/CommunityPolicyRegistryV2.sol",
+    "line": 160,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 25,
+    "check": "solidity.performance.array-length-outside-loop.array-length-outside-loop",
+    "path": "src/v2-research-experiment/CommunityPolicyRegistryV2.sol",
+    "line": 172,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 26,
+    "check": "solidity.performance.unnecessary-checked-arithmetic-in-loop.unnecessary-checked-arithmetic-in-loop",
+    "path": "src/v2-research-experiment/CommunityPolicyRegistryV2.sol",
+    "line": 172,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 27,
+    "check": "solidity.performance.unnecessary-checked-arithmetic-in-loop.unnecessary-checked-arithmetic-in-loop",
+    "path": "src/v2-research-experiment/CommunityPolicyRegistryV2.sol",
+    "line": 174,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 28,
+    "check": "solidity.performance.use-nested-if.use-nested-if",
+    "path": "src/v2-research-experiment/CommunityPolicyRegistryV2.sol",
+    "line": 177,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 29,
+    "check": "solidity.performance.state-variable-read-in-a-loop.state-variable-read-in-a-loop",
+    "path": "src/v2-research-experiment/CommunityPolicyRegistryV2.sol",
+    "line": 177,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 30,
+    "check": "solidity.performance.state-variable-read-in-a-loop.state-variable-read-in-a-loop",
+    "path": "src/v2-research-experiment/CommunityPolicyRegistryV2.sol",
+    "line": 177,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 31,
+    "check": "solidity.performance.non-payable-constructor.non-payable-constructor",
+    "path": "src/v2-research-experiment/GraduationCoordinatorV2.sol",
+    "line": 64,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 32,
+    "check": "solidity.performance.use-nested-if.use-nested-if",
+    "path": "src/v2-research-experiment/GraduationCoordinatorV2.sol",
+    "line": 224,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 33,
+    "check": "solidity.performance.non-payable-constructor.non-payable-constructor",
+    "path": "src/v2-research-experiment/KuruGraduationExecutorV2.sol",
+    "line": 33,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 34,
+    "check": "solidity.performance.use-nested-if.use-nested-if",
+    "path": "src/v2-research-experiment/KuruGraduationExecutorV2.sol",
+    "line": 105,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 35,
+    "check": "solidity.performance.non-payable-constructor.non-payable-constructor",
+    "path": "src/v2-research-experiment/KuruLiquidityLockV2.sol",
+    "line": 13,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 36,
+    "check": "solidity.performance.use-nested-if.use-nested-if",
+    "path": "src/v2-research-experiment/RetroPickBondingCurveV2.sol",
+    "line": 130,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 37,
+    "check": "solidity.performance.non-payable-constructor.non-payable-constructor",
+    "path": "src/v2-research-experiment/RetroPickBondingCurveV2.sol",
+    "line": 234,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 38,
+    "check": "solidity.performance.use-nested-if.use-nested-if",
+    "path": "src/v2-research-experiment/RetroPickBondingCurveV2.sol",
+    "line": 370,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 39,
+    "check": "solidity.performance.inefficient-state-variable-increment.inefficient-state-variable-increment",
+    "path": "src/v2-research-experiment/RetroPickBondingCurveV2.sol",
+    "line": 492,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 40,
+    "check": "solidity.performance.inefficient-state-variable-increment.inefficient-state-variable-increment",
+    "path": "src/v2-research-experiment/RetroPickBondingCurveV2.sol",
+    "line": 553,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 41,
+    "check": "solidity.performance.use-nested-if.use-nested-if",
+    "path": "src/v2-research-experiment/RetroPickBondingCurveV2.sol",
+    "line": 577,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 42,
+    "check": "solidity.performance.use-nested-if.use-nested-if",
+    "path": "src/v2-research-experiment/RetroPickBondingCurveV2.sol",
+    "line": 580,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 43,
+    "check": "solidity.performance.inefficient-state-variable-increment.inefficient-state-variable-increment",
+    "path": "src/v2-research-experiment/RetroPickBondingCurveV2.sol",
+    "line": 744,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 44,
+    "check": "solidity.performance.inefficient-state-variable-increment.inefficient-state-variable-increment",
+    "path": "src/v2-research-experiment/RetroPickBondingCurveV2.sol",
+    "line": 745,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 45,
+    "check": "solidity.performance.use-nested-if.use-nested-if",
+    "path": "src/v2-research-experiment/RetroPickBondingCurveV2.sol",
+    "line": 746,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 46,
+    "check": "solidity.performance.inefficient-state-variable-increment.inefficient-state-variable-increment",
+    "path": "src/v2-research-experiment/RetroPickBondingCurveV2.sol",
+    "line": 748,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 47,
+    "check": "solidity.performance.use-nested-if.use-nested-if",
+    "path": "src/v2-research-experiment/RetroPickBondingCurveV2.sol",
+    "line": 780,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 48,
+    "check": "solidity.performance.use-nested-if.use-nested-if",
+    "path": "src/v2-research-experiment/RetroPickBondingCurveV2.sol",
+    "line": 812,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 49,
+    "check": "solidity.performance.use-nested-if.use-nested-if",
+    "path": "src/v2-research-experiment/RetroPickBondingCurveV2.sol",
+    "line": 901,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 50,
+    "check": "solidity.performance.use-nested-if.use-nested-if",
+    "path": "src/v2-research-experiment/RetroPickBondingCurveV2.sol",
+    "line": 940,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 51,
+    "check": "solidity.performance.non-payable-constructor.non-payable-constructor",
+    "path": "src/v2-research-experiment/RetroPickBuybackVaultV2.sol",
+    "line": 92,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 52,
+    "check": "solidity.performance.use-nested-if.use-nested-if",
+    "path": "src/v2-research-experiment/RetroPickBuybackVaultV2.sol",
+    "line": 188,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 53,
+    "check": "solidity.performance.use-custom-error-not-require.use-custom-error-not-require",
+    "path": "src/v2-research-experiment/RetroPickDoorwayV2.sol",
+    "line": 98,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 54,
+    "check": "solidity.performance.use-custom-error-not-require.use-custom-error-not-require",
+    "path": "src/v2-research-experiment/RetroPickDoorwayV2.sol",
+    "line": 103,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 55,
+    "check": "solidity.performance.use-custom-error-not-require.use-custom-error-not-require",
+    "path": "src/v2-research-experiment/RetroPickDoorwayV2.sol",
+    "line": 108,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 56,
+    "check": "solidity.performance.use-custom-error-not-require.use-custom-error-not-require",
+    "path": "src/v2-research-experiment/RetroPickDoorwayV2.sol",
+    "line": 113,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 57,
+    "check": "solidity.performance.non-payable-constructor.non-payable-constructor",
+    "path": "src/v2-research-experiment/RetroPickDoorwayV2.sol",
+    "line": 121,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 58,
+    "check": "solidity.performance.use-custom-error-not-require.use-custom-error-not-require",
+    "path": "src/v2-research-experiment/RetroPickDoorwayV2.sol",
+    "line": 122,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 59,
+    "check": "solidity.performance.use-short-revert-string.use-short-revert-string",
+    "path": "src/v2-research-experiment/RetroPickDoorwayV2.sol",
+    "line": 122,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 60,
+    "check": "solidity.performance.use-custom-error-not-require.use-custom-error-not-require",
+    "path": "src/v2-research-experiment/RetroPickDoorwayV2.sol",
+    "line": 123,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 61,
+    "check": "solidity.performance.use-custom-error-not-require.use-custom-error-not-require",
+    "path": "src/v2-research-experiment/RetroPickDoorwayV2.sol",
+    "line": 124,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 62,
+    "check": "solidity.performance.use-short-revert-string.use-short-revert-string",
+    "path": "src/v2-research-experiment/RetroPickDoorwayV2.sol",
+    "line": 124,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 63,
+    "check": "solidity.performance.use-custom-error-not-require.use-custom-error-not-require",
+    "path": "src/v2-research-experiment/RetroPickDoorwayV2.sol",
+    "line": 151,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 64,
+    "check": "solidity.performance.use-short-revert-string.use-short-revert-string",
+    "path": "src/v2-research-experiment/RetroPickDoorwayV2.sol",
+    "line": 151,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 65,
+    "check": "solidity.performance.use-custom-error-not-require.use-custom-error-not-require",
+    "path": "src/v2-research-experiment/RetroPickDoorwayV2.sol",
+    "line": 153,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 66,
+    "check": "solidity.performance.use-short-revert-string.use-short-revert-string",
+    "path": "src/v2-research-experiment/RetroPickDoorwayV2.sol",
+    "line": 153,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 67,
+    "check": "solidity.performance.use-custom-error-not-require.use-custom-error-not-require",
+    "path": "src/v2-research-experiment/RetroPickDoorwayV2.sol",
+    "line": 155,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 68,
+    "check": "solidity.performance.use-prefix-increment-not-postfix.use-prefix-increment-not-postfix",
+    "path": "src/v2-research-experiment/RetroPickDoorwayV2.sol",
+    "line": 160,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 69,
+    "check": "solidity.performance.use-custom-error-not-require.use-custom-error-not-require",
+    "path": "src/v2-research-experiment/RetroPickDoorwayV2.sol",
+    "line": 221,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 70,
+    "check": "solidity.performance.use-short-revert-string.use-short-revert-string",
+    "path": "src/v2-research-experiment/RetroPickDoorwayV2.sol",
+    "line": 221,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 71,
+    "check": "solidity.performance.use-custom-error-not-require.use-custom-error-not-require",
+    "path": "src/v2-research-experiment/RetroPickDoorwayV2.sol",
+    "line": 223,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 72,
+    "check": "solidity.performance.use-short-revert-string.use-short-revert-string",
+    "path": "src/v2-research-experiment/RetroPickDoorwayV2.sol",
+    "line": 223,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 73,
+    "check": "solidity.performance.use-custom-error-not-require.use-custom-error-not-require",
+    "path": "src/v2-research-experiment/RetroPickDoorwayV2.sol",
+    "line": 225,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 74,
+    "check": "solidity.performance.use-short-revert-string.use-short-revert-string",
+    "path": "src/v2-research-experiment/RetroPickDoorwayV2.sol",
+    "line": 225,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 75,
+    "check": "solidity.performance.use-custom-error-not-require.use-custom-error-not-require",
+    "path": "src/v2-research-experiment/RetroPickDoorwayV2.sol",
+    "line": 227,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 76,
+    "check": "solidity.performance.use-prefix-increment-not-postfix.use-prefix-increment-not-postfix",
+    "path": "src/v2-research-experiment/RetroPickDoorwayV2.sol",
+    "line": 234,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 77,
+    "check": "solidity.performance.use-custom-error-not-require.use-custom-error-not-require",
+    "path": "src/v2-research-experiment/RetroPickDoorwayV2.sol",
+    "line": 295,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 78,
+    "check": "solidity.performance.use-short-revert-string.use-short-revert-string",
+    "path": "src/v2-research-experiment/RetroPickDoorwayV2.sol",
+    "line": 295,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 79,
+    "check": "solidity.performance.use-custom-error-not-require.use-custom-error-not-require",
+    "path": "src/v2-research-experiment/RetroPickDoorwayV2.sol",
+    "line": 297,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 80,
+    "check": "solidity.performance.use-short-revert-string.use-short-revert-string",
+    "path": "src/v2-research-experiment/RetroPickDoorwayV2.sol",
+    "line": 297,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 81,
+    "check": "solidity.performance.use-custom-error-not-require.use-custom-error-not-require",
+    "path": "src/v2-research-experiment/RetroPickDoorwayV2.sol",
+    "line": 299,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 82,
+    "check": "solidity.performance.use-short-revert-string.use-short-revert-string",
+    "path": "src/v2-research-experiment/RetroPickDoorwayV2.sol",
+    "line": 299,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 83,
+    "check": "solidity.performance.use-custom-error-not-require.use-custom-error-not-require",
+    "path": "src/v2-research-experiment/RetroPickDoorwayV2.sol",
+    "line": 304,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 84,
+    "check": "solidity.performance.use-short-revert-string.use-short-revert-string",
+    "path": "src/v2-research-experiment/RetroPickDoorwayV2.sol",
+    "line": 304,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 85,
+    "check": "solidity.performance.use-custom-error-not-require.use-custom-error-not-require",
+    "path": "src/v2-research-experiment/RetroPickDoorwayV2.sol",
+    "line": 326,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 86,
+    "check": "solidity.performance.use-custom-error-not-require.use-custom-error-not-require",
+    "path": "src/v2-research-experiment/RetroPickDoorwayV2.sol",
+    "line": 364,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 87,
+    "check": "solidity.performance.use-short-revert-string.use-short-revert-string",
+    "path": "src/v2-research-experiment/RetroPickDoorwayV2.sol",
+    "line": 364,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 88,
+    "check": "solidity.performance.use-custom-error-not-require.use-custom-error-not-require",
+    "path": "src/v2-research-experiment/RetroPickDoorwayV2.sol",
+    "line": 366,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 89,
+    "check": "solidity.performance.use-short-revert-string.use-short-revert-string",
+    "path": "src/v2-research-experiment/RetroPickDoorwayV2.sol",
+    "line": 366,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 90,
+    "check": "solidity.performance.use-custom-error-not-require.use-custom-error-not-require",
+    "path": "src/v2-research-experiment/RetroPickDoorwayV2.sol",
+    "line": 373,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 91,
+    "check": "solidity.performance.use-short-revert-string.use-short-revert-string",
+    "path": "src/v2-research-experiment/RetroPickDoorwayV2.sol",
+    "line": 373,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 92,
+    "check": "solidity.performance.use-custom-error-not-require.use-custom-error-not-require",
+    "path": "src/v2-research-experiment/RetroPickDoorwayV2.sol",
+    "line": 425,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 93,
+    "check": "solidity.performance.use-custom-error-not-require.use-custom-error-not-require",
+    "path": "src/v2-research-experiment/RetroPickDoorwayV2.sol",
+    "line": 435,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 94,
+    "check": "solidity.performance.use-short-revert-string.use-short-revert-string",
+    "path": "src/v2-research-experiment/RetroPickDoorwayV2.sol",
+    "line": 435,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 95,
+    "check": "solidity.performance.use-custom-error-not-require.use-custom-error-not-require",
+    "path": "src/v2-research-experiment/RetroPickDoorwayV2.sol",
+    "line": 445,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 96,
+    "check": "solidity.performance.use-custom-error-not-require.use-custom-error-not-require",
+    "path": "src/v2-research-experiment/RetroPickDoorwayV2.sol",
+    "line": 459,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 97,
+    "check": "solidity.performance.inefficient-state-variable-increment.inefficient-state-variable-increment",
+    "path": "src/v2-research-experiment/RetroPickFeeEscrowV2.sol",
+    "line": 38,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 98,
+    "check": "solidity.performance.non-payable-constructor.non-payable-constructor",
+    "path": "src/v2-research-experiment/RetroPickHookDeployerV2.sol",
+    "line": 12,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 99,
+    "check": "solidity.performance.non-payable-constructor.non-payable-constructor",
+    "path": "src/v2-research-experiment/RetroPickLaunchDeployerV2.sol",
+    "line": 70,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 100,
+    "check": "solidity.performance.non-payable-constructor.non-payable-constructor",
+    "path": "src/v2-research-experiment/RetroPickLaunchFactoryV2.sol",
+    "line": 380,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 101,
+    "check": "solidity.performance.use-nested-if.use-nested-if",
+    "path": "src/v2-research-experiment/RetroPickLaunchFactoryV2.sol",
+    "line": 555,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 102,
+    "check": "solidity.performance.unnecessary-checked-arithmetic-in-loop.unnecessary-checked-arithmetic-in-loop",
+    "path": "src/v2-research-experiment/RetroPickLaunchFactoryV2.sol",
+    "line": 717,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 103,
+    "check": "solidity.performance.use-nested-if.use-nested-if",
+    "path": "src/v2-research-experiment/RetroPickLaunchFactoryV2.sol",
+    "line": 756,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 104,
+    "check": "solidity.performance.use-nested-if.use-nested-if",
+    "path": "src/v2-research-experiment/RetroPickLaunchFactoryV2.sol",
+    "line": 887,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 105,
+    "check": "solidity.performance.use-nested-if.use-nested-if",
+    "path": "src/v2-research-experiment/RetroPickLaunchFactoryV2.sol",
+    "line": 889,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 106,
+    "check": "solidity.performance.use-nested-if.use-nested-if",
+    "path": "src/v2-research-experiment/RetroPickLaunchFactoryV2.sol",
+    "line": 897,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 107,
+    "check": "solidity.performance.use-nested-if.use-nested-if",
+    "path": "src/v2-research-experiment/RetroPickLaunchFactoryV2.sol",
+    "line": 987,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 108,
+    "check": "solidity.performance.non-payable-constructor.non-payable-constructor",
+    "path": "src/v2-research-experiment/RetroPickLaunchLockerV2.sol",
+    "line": 49,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 109,
+    "check": "solidity.performance.non-payable-constructor.non-payable-constructor",
+    "path": "src/v2-research-experiment/RetroPickLauncherTokenV2.sol",
+    "line": 44,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 110,
+    "check": "solidity.performance.non-payable-constructor.non-payable-constructor",
+    "path": "src/v2-research-experiment/RetroPickQuoteAssetRegistryV2.sol",
+    "line": 22,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 111,
+    "check": "solidity.performance.use-nested-if.use-nested-if",
+    "path": "src/v2-research-experiment/RetroPickQuoteAssetRegistryV2.sol",
+    "line": 50,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 112,
+    "check": "solidity.performance.non-payable-constructor.non-payable-constructor",
+    "path": "src/v2-research-experiment/UniswapV4GraduationExecutorV2.sol",
+    "line": 58,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 113,
+    "check": "solidity.performance.non-payable-constructor.non-payable-constructor",
+    "path": "src/v2-research-experiment/hooks/RetroPickMemeHookV2.sol",
+    "line": 161,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 114,
+    "check": "solidity.performance.use-nested-if.use-nested-if",
+    "path": "src/v2-research-experiment/hooks/RetroPickMemeHookV2.sol",
+    "line": 377,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 115,
+    "check": "solidity.performance.use-nested-if.use-nested-if",
+    "path": "src/v2-research-experiment/hooks/RetroPickMemeHookV2.sol",
+    "line": 473,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 116,
+    "check": "solidity.performance.use-nested-if.use-nested-if",
+    "path": "src/v2-research-experiment/hooks/RetroPickMemeHookV2.sol",
+    "line": 540,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 117,
+    "check": "solidity.performance.use-nested-if.use-nested-if",
+    "path": "src/v2-research-experiment/hooks/RetroPickMemeHookV2.sol",
+    "line": 541,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 118,
+    "check": "solidity.performance.use-nested-if.use-nested-if",
+    "path": "src/v2-research-experiment/hooks/RetroPickMemeHookV2.sol",
+    "line": 551,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 119,
+    "check": "solidity.performance.use-nested-if.use-nested-if",
+    "path": "src/v2-research-experiment/hooks/RetroPickMemeHookV2.sol",
+    "line": 558,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 120,
+    "check": "solidity.performance.use-nested-if.use-nested-if",
+    "path": "src/v2-research-experiment/hooks/RetroPickMemeHookV2.sol",
+    "line": 602,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 121,
+    "check": "solidity.performance.use-nested-if.use-nested-if",
+    "path": "src/v2-research-experiment/hooks/RetroPickMemeHookV2.sol",
+    "line": 619,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 122,
+    "check": "solidity.performance.non-payable-constructor.non-payable-constructor",
+    "path": "src/v2-research-experiment/libraries/ExecutorDonationsV2.sol",
+    "line": 10,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  },
+  {
+    "id": 123,
+    "check": "solidity.performance.use-nested-if.use-nested-if",
+    "path": "src/v2-research-experiment/libraries/KuruParameterPolicyV2.sol",
+    "line": 25,
+    "disposition": "DEFERRED_GAS_SUGGESTION: performance-only rule; retain clear checked accounting and bounded loops; not a verified financial exploit."
+  }
+]

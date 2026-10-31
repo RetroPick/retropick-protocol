@@ -1,0 +1,6 @@
+{
+  "status": "NOT_RUN",
+  "rpcConfigured": false,
+  "pinnedBlockConfigured": false,
+  "reason": "No configured RPC/pinned verified deployment fork identity"
+}

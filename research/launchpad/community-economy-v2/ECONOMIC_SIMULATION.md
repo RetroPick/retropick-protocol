@@ -1,0 +1,13 @@
+# Deterministic economic scenarios
+
+PROPOSED illustrative inputs, not adoption evidence, forecasts, APY or implemented reward/LP strategies. Reproduce with `python3 research/launchpad/community-economy-v2/tools/economy_scenarios.py`. Captured JSON is in iteration 002 evidence.
+
+Four allocation archetypes cover creator-led, contributor collective, opt-in staker rewards and treasury/liquidity budgets at gross quote volume 100, 10,000 and 1,000,000. Model assumes $10 exact six-decimal quote trades, 100 BPS base fee, 50 BPS creator tax, protocol 30% of base. C=1.2% of gross in these exact integer vectors. These are scenario assumptions, not recommended rates or representative trade distributions. Every scenario asserts fees equal protocol plus community allocations including dust.
+
+At gross volume 100, collected base+tax=1.5 quote, protocol=0.3, C=1.2. A 60% creator earns 0.72, fixed treasury 0.48. The reward archetype allocates 0.48 to hypothetical stakers. Across 10,000 equal stakers that is 0.000048 each, below an illustrative 83,308-gas claim at 1 gwei and MON=$1 (0.000083308 quote). Network gas and MON prices are inputs, not verified market prices. Actual claim ranges appear in the gas log; claimTo permits receiver choice but does not eliminate gas economics.
+
+Reward concentration follows stake: a 50% staker captures 50% of allocated rewards in the simplified model. The model does not solve same-transaction staking, reward streaming or Sybil eligibility; those are mandatory M5 design gates. Wash trading that captures 30% of its own reward allocation remains fee-negative here before gas, spread, slippage and MEV. This limited rebate calculation does not prove resistance to external subsidy farming, wash-volume marketing, self-dealing contributor wallets or treasury capture.
+
+Liquidity-budget execution is unimplemented. The modeled constant-product clip impact is budget/(depth+budget), with hypothetical 10,000 quote depth. High activity can produce large market impact if the entire budget is executed at once. This is an execution-risk illustration, not the V2 curve price formula, actual user slippage or available live exit liquidity. Protected exit depth is held fixed in the scenario; it is not measured liquidity. No buyback price benefit or profitability is assumed.
+
+Real user slippage, venue depth, genuine versus manufactured trading, gas dispersion, participant arrival, policy-change behavioral effects, sandwich losses and retention are NOT CALIBRATED. The deterministic simulation is a starting artifact, not completion of M9 economic validation. Actual curve legacy equivalence is established by executable differential tests rather than this model.

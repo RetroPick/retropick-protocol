@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/home/ubuntu/project/retropick/retropick-community-economy-v2-20261031/research/launchpad/community-economy-v2/tools/qualify_artifacts.py", line 39, in <module>
+    print(json.dumps(qualify(parser.parse_args().out), indent=2))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/project/retropick/retropick-community-economy-v2-20261031/research/launchpad/community-economy-v2/tools/qualify_artifacts.py", line 24, in qualify
+    raise ValueError(f"Wrong artifact source identity: {name}: {target}")
+ValueError: Wrong artifact source identity: RetroPickBondingCurveV2: {'src/v2/RetroPickBondingCurveV2.sol': 'RetroPickBondingCurveV2'}

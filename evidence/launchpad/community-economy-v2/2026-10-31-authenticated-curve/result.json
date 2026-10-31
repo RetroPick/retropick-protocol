@@ -1,0 +1,61 @@
+{
+  "status": "PARTIAL_NOT_RELEASE_QUALIFIED",
+  "parent": "9a80398089b70498d8f8b5c41164a6d4c17b3cf5",
+  "canonicalBaseline": "28a4744dcc8005da285f9e924ba7841073daee0b",
+  "experiment": {
+    "passed": 22,
+    "failed": 0,
+    "skipped": 0,
+    "fuzzProperties": 2,
+    "casesPerProperty": 10000,
+    "seed": "0xce02",
+    "invariantRuns": 256,
+    "invariantDepth": 128,
+    "handlerCalls": 32768,
+    "outerHandlerReverts": 0
+  },
+  "registry": {
+    "passed": 11,
+    "failed": 0,
+    "skipped": 0,
+    "fuzzCases": 10000,
+    "seed": "0xce02"
+  },
+  "protectionRegressionTests": 4,
+  "canonicalFullReference": {
+    "passed": 64,
+    "failedMissingRPCSetup": 2,
+    "skipped": 10
+  },
+  "canonicalLocalReference": {
+    "passed": 64,
+    "failed": 0,
+    "skipped": 10
+  },
+  "failedMixedAttempt": {
+    "passed": 97,
+    "failed": 9,
+    "skipped": 2,
+    "qualification": false
+  },
+  "slither": {
+    "version": "0.11.6",
+    "exit": 255,
+    "detectors": 102,
+    "results": 49,
+    "scope": "router and dependencies; contextual triage, not audit"
+  },
+  "semgrep": {
+    "rules": 50,
+    "files": 36,
+    "findings": 123,
+    "parseErrors": 0,
+    "scope": "performance suggestions"
+  },
+  "fork": "NOT_RUN",
+  "deployments": 0,
+  "broadcasts": 0,
+  "canonicalProtected": true,
+  "candidateADR": "PROPOSED",
+  "mainDelivery": "experimental research only"
+}

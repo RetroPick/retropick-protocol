@@ -1,5 +1,21 @@
 # Current-source truth matrix
 
+Iteration 002 extends the frozen matrix below; its 31/31 count describes the original baseline, not today's experiment. Canonical files remain unchanged. Prior iteration compiler reconciliation covers 45 canonical contract/interface artifacts and archived/consumer ABI comparisons. The new scoped evidence contains compiler-derived experimental ABIs, source hashes and runtime identities. Exhaustive manual authority coverage of every venue and production release gates remains open.
+
+| Financial authority | Actual current experiment | Rights preserved / limitation |
+|---|---|---|
+| Factory owner | Once-only future builder choice; existing global defaults prospective | Community curve binding immutable; legacy recipient/buyback override rejected for CE launches |
+| Factory launch identity | token -> recorded curve; per-launch sealed CE flag | Arbitrary sender/token cannot register a fee source |
+| Curve | Custodies tracked quote, pending F/T and token reserves | Settlement reduces tracked quote by P+C; real reserves unchanged; net graduation reserves alone secured |
+| Protocol fee escrow | Original protocol P liability custody | Router does not allocate or custody P a second time |
+| Community router | One immutable launch/asset/source; actual C only | Original beneficiary credits immutable except their own withdrawal; no rescue role |
+| Policy registry | Delayed future allocation; immutable bounds/history/source | Source checkpoint authentic, atomic, guarded and checked before epoch changes |
+| Controller / guardian | Three-day handoff / seven-day recovery; controller generation | No balance custody; controller change invalidates pending policy, not old claims |
+| Treasury recipient | Fixed published module address, dust destination | EOA is allowed; no timelock guarantee until vault implementation qualifies |
+| CE v4 executor | Actual registration snapshots zero hook fee/tax and disabled buyback | LP fee rights remain independent; continuous CE fee adapter blocked |
+
+New API/event authority is in compiler-abis.json under evidence/launchpad/community-economy-v2/2026-10-31-authenticated-curve/. These are compiler evidence, not modified production ABI artifacts. Original deployment identities were not requalified.
+
 Baseline: 28a4744dcc8005da285f9e924ba7841073daee0b. Both lanes: 31 Solidity files; 30 identical pairs, one trailing blank-line difference in interfaces/IKuruV2.sol. Full SHA-256 pairs, declaration locations, test/script lists and tracked ABI-consumer candidates are in inventory.json. Declaration extraction is lexical and must be reconciled with compiler ABIs before Phase 0 closes.
 
 | Feature / supplied claim | Source result | Test evidence | Fork verified in this campaign | Deployment evidence | Gap |

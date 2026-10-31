@@ -1,0 +1,59 @@
+Compiling 138 files with Solc 0.8.26
+Solc 0.8.26 finished in 301.03s
+Compiler run successful with warnings:
+Warning (2018): Function state mutability can be restricted to view
+   --> src/v2-research-experiment/RetroPickBondingCurveV2.sol:929:5:
+    |
+929 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to view
+   --> src/v2/RetroPickBondingCurveV2.sol:861:5:
+    |
+861 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 1 test for test/v2/research-experiment/CommunityV4Registration.t.sol:CommunityV4RegistrationTest
+[PASS] testCEV4CompletionHasZeroCommunityHookFeesAndPermanentCustody() (gas: 13964729)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 38.27ms (22.33ms CPU time)
+
+Ran 17 tests for test/v2/research-experiment/CommunityLegacyDifferential.t.sol:CommunityLegacyDifferentialTest
+[PASS] testCEControllerHandoffPreservesOldClaims() (gas: 8554315)
+[PASS] testCEDonationsAndRepeatedSettlementDoNotCreateIncome() (gas: 8464369)
+[PASS] testCEExpiredRecoveryCanBeClearedWithoutGuardian() (gas: 8000244)
+[PASS] testCEFundingFailureAndDeficitFailAtomically() (gas: 9972964)
+[PASS] testCEGraduationSecuresOnlyReservesAndClaimsSurvive() (gas: 8723652)
+[PASS] testCELegacyRecipientAndBuybackBypassesRejected() (gas: 7751440)
+[PASS] testCENativeRealTradesPolicyAndClaims() (gas: 9998272)
+[PASS] testCEPolicyCallbackCannotActivateInsideTrade() (gas: 10283159)
+[PASS] testCEReentrantClaimCannotDoublePay() (gas: 8597700)
+[PASS] testCERejectsInexactAndFalseReturnQuoteBeforeAccounting() (gas: 9417905)
+[PASS] testCERevertingBeneficiaryDoesNotBlockTreasury() (gas: 8607612)
+[PASS] testCETwoLaunchAssetsCannotCoverEachOther() (gas: 18313760)
+[PASS] testCEUSDCRealTradesPolicyAndClaims() (gas: 11661007)
+[PASS] testCEUnauthorizedFundingReplayAndCrossLaunch() (gas: 8488274)
+[PASS] testFuzzCERealSettlementConservation(uint96) (runs: 10000, μ: 8387758, ~: 8388974)
+[PASS] testLegacyNativeTradeReserveFeeDifferential() (gas: 11327803)
+[PASS] testLegacyUSDCTradeReserveFeeDifferential() (gas: 14852809)
+Suite result: ok. 17 passed; 0 failed; 0 skipped; finished in 14.04s (14.31s CPU time)
+
+Ran 15 tests for test/v2/research-experiment/CommunityCurveFlow.t.sol:CommunityCurveFlowTest
+[PASS] testCEControllerHandoffPreservesOldClaims() (gas: 8554261)
+[PASS] testCEDonationsAndRepeatedSettlementDoNotCreateIncome() (gas: 8464397)
+[PASS] testCEExpiredRecoveryCanBeClearedWithoutGuardian() (gas: 8000197)
+[PASS] testCEFundingFailureAndDeficitFailAtomically() (gas: 9972788)
+[PASS] testCEGraduationSecuresOnlyReservesAndClaimsSurvive() (gas: 8723764)
+[PASS] testCELegacyRecipientAndBuybackBypassesRejected() (gas: 7751393)
+[PASS] testCENativeRealTradesPolicyAndClaims() (gas: 9998228)
+[PASS] testCEPolicyCallbackCannotActivateInsideTrade() (gas: 10283021)
+[PASS] testCEReentrantClaimCannotDoublePay() (gas: 8597675)
+[PASS] testCERejectsInexactAndFalseReturnQuoteBeforeAccounting() (gas: 9417666)
+[PASS] testCERevertingBeneficiaryDoesNotBlockTreasury() (gas: 8607651)
+[PASS] testCETwoLaunchAssetsCannotCoverEachOther() (gas: 18313558)
+[PASS] testCEUSDCRealTradesPolicyAndClaims() (gas: 11660781)
+[PASS] testCEUnauthorizedFundingReplayAndCrossLaunch() (gas: 8488249)
+[PASS] testFuzzCERealSettlementConservation(uint96) (runs: 10000, μ: 8387719, ~: 8388927)
+Suite result: ok. 15 passed; 0 failed; 0 skipped; finished in 14.04s (14.35s CPU time)
+
+Ran 3 test suites in 14.04s (28.11s CPU time): 33 tests passed, 0 failed, 0 skipped (33 total tests)

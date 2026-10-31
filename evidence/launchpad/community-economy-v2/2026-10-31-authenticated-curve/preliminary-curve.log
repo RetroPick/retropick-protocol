@@ -1,0 +1,26 @@
+Compiling 5 files with Solc 0.8.26
+Solc 0.8.26 finished in 96.12s
+Compiler run successful with warnings:
+Warning (2018): Function state mutability can be restricted to view
+   --> src/v2-research-experiment/RetroPickBondingCurveV2.sol:929:5:
+    |
+929 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 12 tests for test/v2/research-experiment/CommunityCurveFlow.t.sol:CommunityCurveFlowTest
+[PASS] testCEControllerHandoffPreservesOldClaims() (gas: 8520334)
+[PASS] testCEDonationsAndRepeatedSettlementDoNotCreateIncome() (gas: 8430514)
+[PASS] testCEFundingFailureAndDeficitFailAtomically() (gas: 9938861)
+[PASS] testCEGraduationSecuresOnlyReservesAndClaimsSurvive() (gas: 8689881)
+[PASS] testCELegacyRecipientAndBuybackBypassesRejected() (gas: 7717510)
+[PASS] testCENativeRealTradesPolicyAndClaims() (gas: 9964257)
+[PASS] testCEPolicyCallbackCannotActivateInsideTrade() (gas: 10248968)
+[PASS] testCEReentrantClaimCannotDoublePay() (gas: 8563729)
+[PASS] testCERevertingBeneficiaryDoesNotBlockTreasury() (gas: 8573756)
+[PASS] testCEUSDCRealTradesPolicyAndClaims() (gas: 11626819)
+[PASS] testCEUnauthorizedFundingReplayAndCrossLaunch() (gas: 8454307)
+[PASS] testFuzzCERealSettlementConservation(uint96) (runs: 10000, μ: 8353818, ~: 8355000)
+Suite result: ok. 12 passed; 0 failed; 0 skipped; finished in 6.46s (6.53s CPU time)
+
+Ran 1 test suite in 6.46s (6.46s CPU time): 12 tests passed, 0 failed, 0 skipped (12 total tests)

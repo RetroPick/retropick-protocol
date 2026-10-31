@@ -1,0 +1,281 @@
+Compiling 175 files with Solc 0.8.26
+Solc 0.8.26 finished in 726.66s
+Compiler run successful with warnings:
+Warning (5159): "selfdestruct" has been deprecated. Note that, starting from the Cancun hard fork, the underlying opcode no longer deletes the code and data associated with an account and only transfers its Ether to the beneficiary, unless executed in the same transaction in which the contract was created (see EIP-6780). Any use in newly deployed contracts is strongly discouraged even if the new behavior is taken into account. Future changes to the EVM might further reduce the functionality of the opcode.
+   --> test/v2/integration/KuruV2EndToEndFork.t.sol:276:9:
+    |
+276 |         selfdestruct(receiver);
+    |         ^^^^^^^^^^^^
+
+Warning (2018): Function state mutability can be restricted to view
+   --> src/v2/RetroPickBondingCurveV2.sol:861:5:
+    |
+861 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to view
+   --> src/v2-research-experiment/RetroPickBondingCurveV2.sol:931:5:
+    |
+931 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to pure
+  --> test/v2/integration/DEV4GraduationExtractionResearch.t.sol:41:5:
+   |
+41 |     function feeEscrow() external view returns (IRetroPickFeeEscrowV2) {
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 1 test for test/v2/integration/FullV4StackV2Fork.t.sol:FullV4StackV2ForkTest
+[FAIL: vm.envString: environment variable "MONAD_TESTNET_RPC_URL" not found] setUp() (gas: 0)
+Suite result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 1.73ms (0.00ns CPU time)
+
+Ran 1 test for test/v2/unit/CompletionQuoteOracleV2.t.sol:CompletionQuoteOracleV2Test
+[PASS] testDifferentialPythonOracle80States() (gas: 236831)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 4.54ms (3.51ms CPU time)
+
+Ran 1 test for test/v2/unit/GraduationCoordinatorV2Authority.t.sol:GraduationCoordinatorV2AuthorityTest
+[FAIL: vm.deployCode: multiple matching artifacts found] setUp() (gas: 0)
+Suite result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 8.46ms (0.00ns CPU time)
+
+Ran 3 tests for test/v2/unit/QuoteAssetRegistryV2.t.sol:QuoteAssetRegistryV2Test
+[PASS] testAdmissionVersionAndVenueSnapshot() (gas: 315058)
+[PASS] testChainAndPolicyHashFailClosed() (gas: 229355)
+[PASS] testExactIdentityAndOwnerAdmissionRequired() (gas: 835196)
+Suite result: ok. 3 passed; 0 failed; 0 skipped; finished in 9.48ms (2.27ms CPU time)
+
+Ran 1 test for test/v2/integration/KuruForkResearch.t.sol:KuruForkResearchTest
+[SKIP: skipped: research fork requires MONAD_TESTNET_RPC_URL] setUp() (gas: 0)
+Suite result: ok. 0 passed; 0 failed; 1 skipped; finished in 2.86ms (0.00ns CPU time)
+
+Ran 1 test for test/v2/integration/KuruAtomicResearch.t.sol:KuruAtomicResearchTest
+[SKIP: skipped: research fork requires MONAD_TESTNET_RPC_URL] setUp() (gas: 0)
+Suite result: ok. 0 passed; 0 failed; 1 skipped; finished in 3.40ms (0.00ns CPU time)
+
+Ran 8 tests for test/v2/unit/RetroPickFeeEscrowV2Qualification.t.sol:RetroPickFeeEscrowV2QualificationTest
+[PASS] testExactTokenCreditsAndClaimsAreAssetSegregated() (gas: 1335638)
+[PASS] testExternalBalanceLossStopsTokenClaimsWithoutCorruptingLedger() (gas: 870791)
+[PASS] testNativeCreditsClaimsAndDonationsRemainSeparate() (gas: 232073)
+[PASS] testNativeReceiverReentryCannotDoubleClaim() (gas: 397128)
+[PASS] testRejectedCallsPreserveState() (gas: 88313)
+[PASS] testRejectedTokenPayoutAndLateSenderSurchargePreserveCredit() (gas: 1160388)
+[PASS] testRepeatedCreditsPartialClaimsAndDoubleClaimRejection() (gas: 640083)
+[PASS] testSenderSurchargeCreditRevertsBeforeLiabilityIsCreated() (gas: 779815)
+Suite result: ok. 8 passed; 0 failed; 0 skipped; finished in 10.59ms (5.41ms CPU time)
+
+Ran 4 tests for test/v2/unit/RetroPickLaunchDeployerV2Qualification.t.sol:RetroPickLaunchDeployerV2QualificationTest
+[PASS] testDeploysFreshCurveAndTokenWithFactoryIdentity() (gas: 3421905)
+[PASS] testDifferentQuoteAddressIsPassedThroughNotAdmittedHere() (gas: 3269956)
+[PASS] testMetadataBoundsRejectOverlongNameAndSocial() (gas: 110311)
+[PASS] testUnauthorizedCallerCannotDeploy() (gas: 56585)
+Suite result: ok. 4 passed; 0 failed; 0 skipped; finished in 7.50ms (5.89ms CPU time)
+
+Ran 4 tests for test/v2/integration/DEV4GraduationExtractionResearch.t.sol:DEV4GraduationExtractionResearchTest
+[PASS] testNativeAutomaticHandoffFailureRetryReplayAndCustody() (gas: 5195291)
+[PASS] testQuoteAutomaticHandoffFailureRetryReplayAndCustody() (gas: 5421526)
+[PASS] testThinFactoryRuntimeIsResearchOnly() (gas: 7204)
+[PASS] testWrongExecutorCannotConsumeSecuredQuotePacket() (gas: 5538848)
+Suite result: ok. 4 passed; 0 failed; 0 skipped; finished in 16.90ms (10.26ms CPU time)
+
+Ran 1 test for test/v2/integration/KuruV2EndToEndFork.t.sol:KuruV2EndToEndForkTest
+[FAIL: vm.envString: environment variable "MONAD_TESTNET_RPC_URL" not found] setUp() (gas: 0)
+Suite result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 16.26ms (0.00ns CPU time)
+
+Ran 1 test for test/v2/integration/RetroPickV4GraduationBehavior.t.sol:RetroPickV4GraduationBehaviorTest
+[FAIL: vm.deployCode: multiple matching artifacts found] setUp() (gas: 0)
+Suite result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 5.84ms (0.00ns CPU time)
+
+Ran 1 test for test/v2/invariant/GraduationCoordinatorV2Invariant.t.sol:GraduationCoordinatorV2InvariantTest
+[FAIL: vm.deployCode: multiple matching artifacts found] setUp() (gas: 0)
+Suite result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 12.89ms (0.00ns CPU time)
+
+Ran 2 tests for test/v2/unit/KuruPolicyAndLockV2.t.sol:KuruPolicyAndLockV2Test
+[PASS] testPermanentBoundCustodyHasNoEscapeEntrypoints() (gas: 1907138)
+[PASS] testQualifiedTupleAndSeedsUseExactQuoteScale() (gas: 326392)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 16.04ms (3.07ms CPU time)
+
+Ran 1 test for test/v2/research-experiment/CommunityV4Registration.t.sol:CommunityV4RegistrationTest
+[PASS] testCEV4CompletionHasZeroCommunityHookFeesAndPermanentCustody() (gas: 13964729)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 33.71ms (19.19ms CPU time)
+
+Ran 1 test for test/v2/integration/RetroPickFactoryLaunchV2Qualification.t.sol:RetroPickFactoryLaunchV2QualificationTest
+[FAIL: vm.deployCode: multiple matching artifacts found] setUp() (gas: 0)
+Suite result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 24.39ms (0.00ns CPU time)
+
+Ran 1 test for test/v2/research-experiment/BaselineRightsConflict.t.sol:BaselineRightsConflictTest
+[FAIL: vm.deployCode: multiple matching artifacts found] setUp() (gas: 0)
+Suite result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 31.04ms (0.00ns CPU time)
+
+Ran 11 tests for test/v2/research-experiment/CommunityPolicyRegistryV2.t.sol:CommunityPolicyRegistryV2Test
+[PASS] testFuzzRegistryCreatorCap(uint16) (runs: 256, μ: 372778, ~: 440583)
+[PASS] testRegistryCancelConcurrentAndNonce() (gas: 802408)
+[PASS] testRegistryCheckpointFailureAndRetry() (gas: 727785)
+[PASS] testRegistryConstructionFeeCapAndDelay() (gas: 552637)
+[PASS] testRegistryControllerRoundTripDoesNotReviveProposal() (gas: 395416)
+[PASS] testRegistryDelayHistoryReplay() (gas: 578815)
+[PASS] testRegistryExpiryAndStaleController() (gas: 707350)
+[PASS] testRegistryInvalidAddressesAndShares() (gas: 178894)
+[PASS] testRegistryReentry() (gas: 513243)
+[PASS] testRegistryTreasuryFloorAndCardinality() (gas: 142669)
+[PASS] testRegistryUnauthorized() (gas: 320226)
+Suite result: ok. 11 passed; 0 failed; 0 skipped; finished in 426.54ms (433.73ms CPU time)
+
+Ran 7 tests for test/v2/unit/RetroPickCurrentCurveStateV2Qualification.t.sol:RetroPickCurrentCurveStateV2QualificationTest
+[PASS] testBuySellAndFeeBucketsReconcileWithPhysicalBalances() (gas: 452058)
+[PASS] testCompletionQuoteMatchesExecutableFinalBuyAfterMutations() (gas: 1151857)
+[PASS] testInitialSupplyWiringAndReserve() (gas: 87948)
+[PASS] testPlainFeeSweepLeavesTradingReserveIntact() (gas: 371359)
+[PASS] testSnipeExemptionIsCurrentlyNoOpForTradeTax() (gas: 196686)
+[PASS] testSweepDoesNotDoubleDeductBuybackEarmark() (gas: 329047)
+[PASS] testUnauthorizedAndFailedOperationsPreserveAccounting() (gas: 104162)
+Suite result: ok. 7 passed; 0 failed; 0 skipped; finished in 437.69ms (8.97ms CPU time)
+
+Ran 18 tests for test/v2/research-experiment/CommunityLegacyDifferential.t.sol:CommunityLegacyDifferentialTest
+[PASS] testCEBeneficiaryRotationCannotReassignAccruedRights() (gas: 9307142)
+[PASS] testCEControllerHandoffPreservesOldClaims() (gas: 8554387)
+[PASS] testCEDonationsAndRepeatedSettlementDoNotCreateIncome() (gas: 8464443)
+[PASS] testCEExpiredRecoveryCanBeClearedWithoutGuardian() (gas: 8000265)
+[PASS] testCEFundingFailureAndDeficitFailAtomically() (gas: 9973041)
+[PASS] testCEGraduationSecuresOnlyReservesAndClaimsSurvive() (gas: 8723809)
+[PASS] testCELegacyRecipientAndBuybackBypassesRejected() (gas: 7751462)
+[PASS] testCENativeRealTradesPolicyAndClaims() (gas: 9998293)
+[PASS] testCEPolicyCallbackCannotActivateInsideTrade() (gas: 10283218)
+[PASS] testCEReentrantClaimCannotDoublePay() (gas: 8597721)
+[PASS] testCERejectsInexactAndFalseReturnQuoteBeforeAccounting() (gas: 9418364)
+[PASS] testCERevertingBeneficiaryDoesNotBlockTreasury() (gas: 8607697)
+[PASS] testCETwoLaunchAssetsCannotCoverEachOther() (gas: 18313989)
+[PASS] testCEUSDCRealTradesPolicyAndClaims() (gas: 11661028)
+[PASS] testCEUnauthorizedFundingReplayAndCrossLaunch() (gas: 8488296)
+[PASS] testFuzzCERealSettlementConservation(uint96) (runs: 256, μ: 8388022, ~: 8388735)
+[PASS] testLegacyNativeTradeReserveFeeDifferential() (gas: 11802089)
+[PASS] testLegacyUSDCTradeReserveFeeDifferential() (gas: 15327138)
+Suite result: ok. 18 passed; 0 failed; 0 skipped; finished in 473.60ms (620.18ms CPU time)
+
+Ran 16 tests for test/v2/research-experiment/CommunityCurveFlow.t.sol:CommunityCurveFlowTest
+[PASS] testCEBeneficiaryRotationCannotReassignAccruedRights() (gas: 9307139)
+[PASS] testCEControllerHandoffPreservesOldClaims() (gas: 8554281)
+[PASS] testCEDonationsAndRepeatedSettlementDoNotCreateIncome() (gas: 8464417)
+[PASS] testCEExpiredRecoveryCanBeClearedWithoutGuardian() (gas: 8000218)
+[PASS] testCEFundingFailureAndDeficitFailAtomically() (gas: 9972809)
+[PASS] testCEGraduationSecuresOnlyReservesAndClaimsSurvive() (gas: 8723646)
+[PASS] testCELegacyRecipientAndBuybackBypassesRejected() (gas: 7751308)
+[PASS] testCENativeRealTradesPolicyAndClaims() (gas: 9998249)
+[PASS] testCEPolicyCallbackCannotActivateInsideTrade() (gas: 10283043)
+[PASS] testCEReentrantClaimCannotDoublePay() (gas: 8597696)
+[PASS] testCERejectsInexactAndFalseReturnQuoteBeforeAccounting() (gas: 9417676)
+[PASS] testCERevertingBeneficiaryDoesNotBlockTreasury() (gas: 8607672)
+[PASS] testCETwoLaunchAssetsCannotCoverEachOther() (gas: 18313579)
+[PASS] testCEUSDCRealTradesPolicyAndClaims() (gas: 11660802)
+[PASS] testCEUnauthorizedFundingReplayAndCrossLaunch() (gas: 8488271)
+[PASS] testFuzzCERealSettlementConservation(uint96) (runs: 256, μ: 8387917, ~: 8388682)
+Suite result: ok. 16 passed; 0 failed; 0 skipped; finished in 473.10ms (559.74ms CPU time)
+
+Ran 5 tests for test/v2/unit/RetroPickBondingCurveMathV2Qualification.t.sol:RetroPickBondingCurveMathV2QualificationTest
+[PASS] testFuzzAmountInExactIntegerFormula(uint256,uint256,uint256,uint16) (runs: 256, μ: 7853, ~: 7940)
+[PASS] testFuzzAmountOutExactIntegerFormula(uint256,uint256,uint256,uint16) (runs: 256, μ: 10704, ~: 11302)
+[PASS] testGoldenAmountInCurrentPlusOneRounding() (gas: 9678)
+[PASS] testGoldenAmountOutNoFee() (gas: 9730)
+[PASS] testZeroAndEmptyDomains() (gas: 37727)
+Suite result: ok. 5 passed; 0 failed; 0 skipped; finished in 464.60ms (482.13ms CPU time)
+
+Ran 17 tests for test/v2/research-experiment/CommunityAccountingInvariant.t.sol:CommunityAccountingInvariantTest
+[PASS] invariantCEConservationBackingAndRights() (runs: 64, calls: 4096, reverts: 0)
+
+╭----------------------------+-------------------+-------+---------+----------╮
+| Contract                   | Selector          | Calls | Reverts | Discards |
++=============================================================================+
+| CommunityAccountingHandler | activate          | 387   | 0       | 0        |
+|----------------------------+-------------------+-------+---------+----------|
+| CommunityAccountingHandler | cancel            | 371   | 0       | 0        |
+|----------------------------+-------------------+-------+---------+----------|
+| CommunityAccountingHandler | claim             | 417   | 0       | 0        |
+|----------------------------+-------------------+-------+---------+----------|
+| CommunityAccountingHandler | donate            | 425   | 0       | 0        |
+|----------------------------+-------------------+-------+---------+----------|
+| CommunityAccountingHandler | invalidSettlement | 390   | 0       | 0        |
+|----------------------------+-------------------+-------+---------+----------|
+| CommunityAccountingHandler | propose           | 444   | 0       | 0        |
+|----------------------------+-------------------+-------+---------+----------|
+| CommunityAccountingHandler | rotate            | 435   | 0       | 0        |
+|----------------------------+-------------------+-------+---------+----------|
+| CommunityAccountingHandler | settle            | 397   | 0       | 0        |
+|----------------------------+-------------------+-------+---------+----------|
+| CommunityAccountingHandler | trade             | 419   | 0       | 0        |
+|----------------------------+-------------------+-------+---------+----------|
+| CommunityAccountingHandler | unauthorized      | 411   | 0       | 0        |
+╰----------------------------+-------------------+-------+---------+----------╯
+
+[PASS] testCEBeneficiaryRotationCannotReassignAccruedRights() (gas: 9272991)
+[PASS] testCEControllerHandoffPreservesOldClaims() (gas: 8520115)
+[PASS] testCEDonationsAndRepeatedSettlementDoNotCreateIncome() (gas: 8430230)
+[PASS] testCEExpiredRecoveryCanBeClearedWithoutGuardian() (gas: 8000231)
+[PASS] testCEFundingFailureAndDeficitFailAtomically() (gas: 9972912)
+[PASS] testCEGraduationSecuresOnlyReservesAndClaimsSurvive() (gas: 8689451)
+[PASS] testCELegacyRecipientAndBuybackBypassesRejected() (gas: 7751308)
+[FAIL: assertion failed: 4529516753082573 != 4484741025449660] testCENativeRealTradesPolicyAndClaims() (gas: 8385740)
+[PASS] testCEPolicyCallbackCannotActivateInsideTrade() (gas: 10283039)
+[PASS] testCEReentrantClaimCannotDoublePay() (gas: 8563457)
+[PASS] testCERejectsInexactAndFalseReturnQuoteBeforeAccounting() (gas: 9417710)
+[PASS] testCERevertingBeneficiaryDoesNotBlockTreasury() (gas: 8573496)
+[PASS] testCETwoLaunchAssetsCannotCoverEachOther() (gas: 18313610)
+[PASS] testCEUSDCRealTradesPolicyAndClaims() (gas: 11660874)
+[PASS] testCEUnauthorizedFundingReplayAndCrossLaunch() (gas: 8454024)
+[FAIL: assertion failed: 44775728456246 != 823333; counterexample: calldata=0xcf205f4e000000000000000000000000000000000000000000000000000000000af5d308 args=[183882504 [1.838e8]]] testFuzzCERealSettlementConservation(uint96) (runs: 0, μ: 0, ~: 0)
+Suite result: FAILED. 15 passed; 2 failed; 0 skipped; finished in 2.40s (2.64s CPU time)
+
+Ran 2 tests for test/v2/invariant/RetroPickCurrentCurveV2Invariant.t.sol:RetroPickCurrentCurveV2InvariantTest
+[PASS]
+RetroPickCurrentCurveV2InvariantTest invariants:
+[PASS] invariantFixedSupplyAndNoUnauthorizedMutation
+[PASS] invariantPhysicalBalancesAndFeeBuckets
+ RetroPickCurrentCurveV2InvariantTest invariants (runs: 64, calls: 4096, reverts: 0)
+
+╭-----------------------+-----------------------------+-------+---------+----------╮
+| Contract              | Selector                    | Calls | Reverts | Discards |
++==================================================================================+
+| CurrentCurveV2Handler | attemptUnauthorizedMutation | 1005  | 0       | 0        |
+|-----------------------+-----------------------------+-------+---------+----------|
+| CurrentCurveV2Handler | buy                         | 1062  | 0       | 0        |
+|-----------------------+-----------------------------+-------+---------+----------|
+| CurrentCurveV2Handler | sell                        | 970   | 0       | 0        |
+|-----------------------+-----------------------------+-------+---------+----------|
+| CurrentCurveV2Handler | sweep                       | 1059  | 0       | 0        |
+╰-----------------------+-----------------------------+-------+---------+----------╯
+
+[PASS] testHandlerExercisesAcceptedAndRejectedBranches() (gas: 591841)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 2.85s (2.82s CPU time)
+
+Ran 23 test suites in 2.86s (7.73s CPU time): 97 tests passed, 9 failed, 2 skipped (108 total tests)
+
+Failing tests:
+Encountered 1 failing test in test/v2/integration/FullV4StackV2Fork.t.sol:FullV4StackV2ForkTest
+[FAIL: vm.envString: environment variable "MONAD_TESTNET_RPC_URL" not found] setUp() (gas: 0)
+
+Encountered 1 failing test in test/v2/integration/KuruV2EndToEndFork.t.sol:KuruV2EndToEndForkTest
+[FAIL: vm.envString: environment variable "MONAD_TESTNET_RPC_URL" not found] setUp() (gas: 0)
+
+Encountered 1 failing test in test/v2/integration/RetroPickFactoryLaunchV2Qualification.t.sol:RetroPickFactoryLaunchV2QualificationTest
+[FAIL: vm.deployCode: multiple matching artifacts found] setUp() (gas: 0)
+
+Encountered 1 failing test in test/v2/integration/RetroPickV4GraduationBehavior.t.sol:RetroPickV4GraduationBehaviorTest
+[FAIL: vm.deployCode: multiple matching artifacts found] setUp() (gas: 0)
+
+Encountered 1 failing test in test/v2/invariant/GraduationCoordinatorV2Invariant.t.sol:GraduationCoordinatorV2InvariantTest
+[FAIL: vm.deployCode: multiple matching artifacts found] setUp() (gas: 0)
+
+Encountered 1 failing test in test/v2/research-experiment/BaselineRightsConflict.t.sol:BaselineRightsConflictTest
+[FAIL: vm.deployCode: multiple matching artifacts found] setUp() (gas: 0)
+
+Encountered 2 failing tests in test/v2/research-experiment/CommunityAccountingInvariant.t.sol:CommunityAccountingInvariantTest
+[FAIL: assertion failed: 4529516753082573 != 4484741025449660] testCENativeRealTradesPolicyAndClaims() (gas: 8385740)
+[FAIL: assertion failed: 44775728456246 != 823333; counterexample: calldata=0xcf205f4e000000000000000000000000000000000000000000000000000000000af5d308 args=[183882504 [1.838e8]]] testFuzzCERealSettlementConservation(uint96) (runs: 0, μ: 0, ~: 0)
+
+Encountered 1 failing test in test/v2/unit/GraduationCoordinatorV2Authority.t.sol:GraduationCoordinatorV2AuthorityTest
+[FAIL: vm.deployCode: multiple matching artifacts found] setUp() (gas: 0)
+
+Encountered a total of 9 failing tests, 97 tests succeeded
+
+Tip: Run `forge test --rerun` to retry only the 9 failed tests
+Tip: Run `forge test --debug --match-test <TEST_NAME>` to inspect one failing test in the debugger
+
+Fuzz seed: 0xc1d4523425d270bf9da2ed6a2ba5d3d2f95deba370aa01ca7cde000fe49ef190 (use `--fuzz-seed` to reproduce)

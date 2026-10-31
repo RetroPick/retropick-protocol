@@ -1,0 +1,29 @@
+Compiling 126 files with Solc 0.8.26
+Solc 0.8.26 finished in 222.18s
+Compiler run successful with warnings:
+Warning (2018): Function state mutability can be restricted to view
+   --> src/v2/RetroPickBondingCurveV2.sol:861:5:
+    |
+861 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 3 tests for test/v2/research-experiment/BaselineRightsConflict.t.sol:BaselineRightsConflictTest
+[PASS] testAccruedUnsweptFeesFollowReplacement() (gas: 4420977)
+[PASS] testRegistryRejectsUnadmittedQuoteAndWrongCircleIdentity() (gas: 1928218)
+[PASS] testUnreleasedVestingFollowsReplacementButEscrowCreditDoesNot() (gas: 5030716)
+Suite result: ok. 3 passed; 0 failed; 0 skipped; finished in 599.95ms (9.51ms CPU time)
+
+Ran 9 tests for test/v2/research-experiment/CommunityPolicyRegistryV2.t.sol:CommunityPolicyRegistryV2Test
+[PASS] testFuzzRegistryCreatorCap(uint16) (runs: 10000, μ: 382575, ~: 440337)
+[PASS] testRegistryCancelConcurrentAndNonce() (gas: 801957)
+[PASS] testRegistryCheckpointFailureAndRetry() (gas: 727476)
+[PASS] testRegistryControllerRoundTripDoesNotReviveProposal() (gas: 395215)
+[PASS] testRegistryDelayHistoryReplay() (gas: 578398)
+[PASS] testRegistryExpiryAndStaleController() (gas: 706972)
+[PASS] testRegistryInvalidAddressesAndShares() (gas: 178348)
+[PASS] testRegistryReentry() (gas: 513042)
+[PASS] testRegistryUnauthorized() (gas: 319887)
+Suite result: ok. 9 passed; 0 failed; 0 skipped; finished in 718.12ms (727.44ms CPU time)
+
+Ran 2 test suites in 721.40ms (1.32s CPU time): 12 tests passed, 0 failed, 0 skipped (12 total tests)

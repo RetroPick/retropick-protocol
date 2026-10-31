@@ -13,3 +13,9 @@ Severity describes potential impact in the proposed constitution-enabled mode; i
 | CE-B-007 | High external trust risk | Owner-admitted asset changes balances or transfer behavior | QuoteAssetRegistry _validateIdentity; Curve _requireQuoteBacking | Existing exact-transfer/deficit tests partially reproduced | Restrict experiment profiles and retain fail-closed physical backing checks |
 
 Preserve every future failing trace, seed, command and source hash. A passing unit test is not an audit. No reserve theft or exploitable loss is claimed by this checkpoint.
+
+## Executable rights reproduction — iteration 001
+
+BaselineRightsConflict.t.sol demonstrates CE-B-001/002 using explicit canonical reference fixtures: testAccruedUnsweptFeesFollowReplacement and testUnreleasedVestingFollowsReplacementButEscrowCreditDoesNot both pass. These confirm intended existing powers that conflict with the proposed CE temporal guarantee; they are not arbitrary-attacker exploits. Already credited native escrow rights remain unchanged.
+
+Registry independent review: creator cap limits declared creator-category BPS, not beneficial ownership. Pinned module addresses do not prove module behavior. These remain nonproduction qualification limits; see iteration evidence review.

@@ -1,6 +1,6 @@
 # Community economy V2 research experiment
 
-Status: PARTIAL — baseline tooling and investigation only. No community-economics Solidity implementation or qualification is claimed.
+Status: PARTIAL — baseline evidence, canonical rights reproductions, and an unqualified noncustodial policy-registry prototype. No integrated community-economy qualification is claimed.
 
 Start with EXECUTIVE_DECISION.md, SOURCE_TRUTH_MATRIX.md, SECURITY_FINDINGS.md, QUALIFICATION_REPORT.md and NEXT_STEPS.md. The original source report is preserved in inputs/deep-research-report.md; its embedded ChatGPT citation identifiers are not independently resolvable sources.
 

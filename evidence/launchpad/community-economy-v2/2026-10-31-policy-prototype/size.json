@@ -1,0 +1,7 @@
+{
+  "runtimeBytes": 5679,
+  "EIP170Limit": 24576,
+  "compiler": "0.8.26",
+  "viaIR": true,
+  "optimizerRuns": 200
+}

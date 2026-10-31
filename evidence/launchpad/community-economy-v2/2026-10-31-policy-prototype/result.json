@@ -1,0 +1,18 @@
+{
+  "status": "PARTIAL_UNQUALIFIED_PROTOTYPE",
+  "passed": 14,
+  "failed": 0,
+  "skipped": 0,
+  "fuzzCases": 10000,
+  "newRightsReproductions": 2,
+  "inheritedReferenceTests": 1,
+  "registryTests": 11,
+  "runtimeBytes": 5679,
+  "realCheckpointIntegrated": false,
+  "gatesOpen": [
+    "G0 manual authority/source reconciliation",
+    "G1 complete campaign investigation",
+    "G2 full financial specification/integration proof"
+  ],
+  "mainPromotion": false
+}

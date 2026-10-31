@@ -1,9 +1,11 @@
 # V2 research experiment
 
-Unqualified research lane. The 31 original Solidity files are a baseline copy of canonical V2 (one interface has a whitespace-only difference). No new community-economics Solidity modules have been implemented at this checkpoint.
+UNQUALIFIED. Canonical V1/V2 remain untouched. No deployment authority.
 
-Campaign entrypoint: research/launchpad/community-economy-v2/README.md at repository root. Read its source truth matrix, qualification report and remaining-work ledger before changing financial code.
+CommunityPolicyRegistryV2 is an isolated noncustodial policy prototype with immutable bounds, history and delayed checkpoint-dependent activation. Its controller provider and checkpoint are tested with explicit mocks; authentic fee-source integration and full G0/G1/G2 remain open. It is not a passed M1 milestone.
 
-Existing copied contracts are EXISTING / unqualified in this lane. Policy registry, authenticated fee router, splitter, treasury, staking rewards and controller are pending NEW_EXPERIMENT work. Buyback adapters depend on accounting gates and independent price bounds. Kuru post-graduation community fee rights are BLOCKED_EXTERNAL_CAPABILITY. Auto-LP, referrals, external-business revenue rights and passive-holder distributions remain DEFERRED. Transfer taxes/reflections/rebases/arbitrary confiscation are REJECTED.
+BaselineRightsConflict.t.sol explicitly imports canonical reference fixtures to reproduce existing accrued-fee and vest-beneficiary redirection. Other experimental tests import experimental contracts.
 
-No production or deployment authority follows from a passing experiment. Canonical contracts/src/v1 and contracts/src/v2 remain read-only for this campaign.
+Creator caps currently constrain declared categories, not hidden beneficial ownership. Module address pinning is not proof of treasury/strategy behavior. Fee router, treasury, rewards, buyback adapters and controller recovery are pending. Kuru community revenue remains BLOCKED_EXTERNAL_CAPABILITY.
+
+See research/launchpad/community-economy-v2/iterations/001-policy-boundary.md and FEE_ACCOUNTING_SPEC.md at repository root.

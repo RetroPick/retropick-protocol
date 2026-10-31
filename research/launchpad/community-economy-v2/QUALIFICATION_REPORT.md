@@ -23,3 +23,9 @@ No RPC/fork campaign, static analysis, gas campaign, economic simulation, compil
 ## Completed scoped rerun
 
 Using --contracts src/v2 resolves artifact ambiguity without source changes: runner reports 3 passed, 0 failed, 0 skipped. This includes two authority unit tests and the grouped coordinator invariant suite (two properties, 64 runs, 4096 handler calls). This is local mocked-destination evidence, not a live Kuru or fork result. Four protection-check regression tests also pass.
+
+## Iteration 001 — actual Solidity prototype
+
+Noncustodial registry prototype implemented. Final targeted run: 14 passed, zero failures/skips, including 11 registry tests (one fuzz property at 10000 cases), two new canonical financial-rights reproductions and one inherited reference admission test. Runtime 5679 bytes; EIP-170 passes for this prototype. Registry source/test formatting and protected paths checked separately. Evidence: evidence/launchpad/community-economy-v2/2026-10-31-policy-prototype/.
+
+G0 manual authority reconciliation, full G1/G2 and real checkpoint integration remain open. Checkpoint/controller mocks are explicit. No real fee router, strategy, reward or integrated community economy has been implemented. No independent external audit, stateful CE campaign, fork or static-analysis qualification. The declared creator-category cap cannot identify hidden beneficial ownership. Module pins do not prove safe implementations. Prototype retained on isolated branch; no main milestone promotion or deployment.

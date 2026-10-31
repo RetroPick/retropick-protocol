@@ -1,0 +1,2 @@
+# Captured terminal output retains carriage returns and trailing spaces verbatim.
+*.log -whitespace

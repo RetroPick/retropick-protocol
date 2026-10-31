@@ -1,0 +1,7 @@
+{
+  "testedCoreCommit": "4e47b56159b6e5da39372df4858312ead3ca7840",
+  "path": "contracts/test/v2/research-experiment/CommunityFactoryFixtureV2.sol",
+  "change": "Remove one trailing empty line only; executable source unchanged",
+  "testedSHA256": "480c9e3e48289084150897aeda4af7a7ca7d9bd7aa286d8862f7f118470f74bc",
+  "deliverySHA256": "0fd9d39149895548241e86ee0267a1ab3e03a21b66582170226c44134626a1b8"
+}

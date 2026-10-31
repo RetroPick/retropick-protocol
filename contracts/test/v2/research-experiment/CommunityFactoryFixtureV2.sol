@@ -264,4 +264,3 @@ abstract contract CommunityFactoryFixtureV2 is Test {
         registry.configure(quote, c);
     }
 }
-

@@ -72,11 +72,7 @@ contract AtomicGraduationEscrowV3 is ReentrancyGuard {
     ///         before supplying exact graduation inventory to this escrow.
     /// @dev Uses transferFrom(factory) for the proof. Production V3 MUST preserve
     ///      V2's curve handoff and verify the same physical balance invariants.
-    function secure(bytes32 launchId, uint256 tokenAmount, uint256 quoteAmount)
-        external
-        onlyFactory
-        nonReentrant
-    {
+    function secure(bytes32 launchId, uint256 tokenAmount, uint256 quoteAmount) external onlyFactory nonReentrant {
         Ledger storage l = _ledgers[launchId];
         LaunchCommitmentV3 memory c = hub.commitment(launchId);
         if (
@@ -118,10 +114,11 @@ contract AtomicGraduationEscrowV3 is ReentrancyGuard {
         LaunchCommitmentV3 memory c = hub.commitment(launchId);
         if (
             c.launchId != launchId || c.factory != factory || c.sourceChainId != block.chainid
-                || c.settlementKind != SettlementKind.ATOMIC_EVM
-                || c.adapter.codehash != c.adapterCodeHash || c.adapter.code.length == 0
+                || c.settlementKind != SettlementKind.ATOMIC_EVM || c.adapter.codehash != c.adapterCodeHash
+                || c.adapter.code.length == 0
         ) revert InvalidCommitment();
 
+        if (IAtomicVenueExecutorV3(c.adapter).coordinator() != address(this)) revert InvalidCommitment();
         IERC20 token = IERC20(c.token);
         IERC20 quote = IERC20(c.quoteAsset);
         uint256 tokenBefore = token.balanceOf(address(this));
@@ -153,8 +150,7 @@ contract AtomicGraduationEscrowV3 is ReentrancyGuard {
         quote.forceApprove(c.adapter, 0);
 
         if (
-            receipt.launchId != launchId || receipt.destinationId == bytes32(0)
-                || receipt.settlementProof == bytes32(0)
+            receipt.launchId != launchId || receipt.destinationId == bytes32(0) || receipt.settlementProof == bytes32(0)
                 || receipt.tokenSpent != l.securedToken || receipt.quoteSpent != l.securedQuote
                 || token.balanceOf(address(this)) != tokenBefore - l.securedToken
                 || quote.balanceOf(address(this)) != quoteBefore - l.securedQuote

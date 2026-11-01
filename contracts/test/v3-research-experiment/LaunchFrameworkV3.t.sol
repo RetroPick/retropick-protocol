@@ -18,7 +18,10 @@ import {
 
 contract FrameworkTokenV3 is ERC20 {
     constructor(string memory n, string memory s) ERC20(n, s) {}
-    function mint(address to, uint256 amount) external { _mint(to, amount); }
+
+    function mint(address to, uint256 amount) external {
+        _mint(to, amount);
+    }
 }
 
 /// @dev Test-only stand-in. Actual Uniswap/Kuru destination-state checks are
@@ -37,8 +40,13 @@ contract FrameworkAtomicVenueV3 is IAtomicVenueExecutorV3 {
         destination = destination_;
     }
 
-    function configureFailure(bool value) external { shouldRevert = value; }
-    function configureInvalidReceipt(bool value) external { invalidReceipt = value; }
+    function configureFailure(bool value) external {
+        shouldRevert = value;
+    }
+
+    function configureInvalidReceipt(bool value) external {
+        invalidReceipt = value;
+    }
 
     function validate(LaunchCommitmentV3 calldata launch) external view {
         require(launch.adapter == address(this) && launch.settlementKind == SettlementKind.ATOMIC_EVM);

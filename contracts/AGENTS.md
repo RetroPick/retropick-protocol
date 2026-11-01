@@ -38,3 +38,7 @@ At minimum for contract-changing tasks, run the owning Foundry unit/fuzz/invaria
 ## Handoff
 
 Produce ABI/event/deployment artifacts and test evidence for SDK/indexer consumers.
+
+## Future venue and chain integrations (V3 research)
+
+For any request to add a venue, support a new chain, change graduation routing, or resolve Factory bytecode pressure, first read `../.agents/skills/retropick-venue-adapter-engineering/SKILL.md` and `../decisions/ADR-024-modular-venue-registry-and-chain-aware-graduation.md`. ADR-024 is **PROPOSED**, and `src/v3-research-experiment/` is an unqualified proof, not an accepted deployment target. Canonical V2 and its production/testnet manifests MUST NOT be silently modified or redeployed. Do not treat a registry prototype or harness test as a qualified launch/graduation execution path.

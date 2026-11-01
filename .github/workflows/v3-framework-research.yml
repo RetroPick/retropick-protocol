@@ -1,0 +1,39 @@
+name: V3 launchpad framework research
+
+on:
+  pull_request:
+    paths:
+      - 'contracts/src/v3-research-experiment/**'
+      - 'contracts/test/v3-research-experiment/**'
+      - '.github/workflows/v3-framework-research.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: v3-framework-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  solidity-v3-research:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          submodules: recursive
+      - uses: foundry-rs/foundry-toolchain@908c540300062bd5a7e473851cdb4282204cee09 # v1
+        with:
+          version: v1.8.4
+      - name: Format research contract sources and tests
+        working-directory: contracts
+        run: forge fmt --check src/v3-research-experiment test/v3-research-experiment
+      - name: Compile deployable contracts and report actual runtime sizes
+        working-directory: contracts
+        run: forge build --sizes --skip test --skip script
+      - name: V3 registry, launch commitment and atomic escrow proof tests
+        working-directory: contracts
+        env:
+          FOUNDRY_PROFILE: test
+        run: forge test --match-path 'test/v3-research-experiment/*.t.sol' -vv

@@ -1,0 +1,173 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RetroPick V3 Chain-Venue Capability Manifest (Research)",
+  "description": "Research manifest only. Null deployed addresses mean NOT deployed/qualified. Validate every address, source hash and environment independently.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "status",
+    "chainId",
+    "chainName",
+    "core",
+    "venues"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "integer",
+      "const": 1
+    },
+    "status": {
+      "enum": [
+        "research",
+        "testnet-candidate",
+        "qualified",
+        "disabled"
+      ]
+    },
+    "chainId": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "chainName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "core": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "factory",
+        "venueRegistry",
+        "quotePolicy",
+        "graduationCoordinator"
+      ],
+      "properties": {
+        "factory": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^0x[a-fA-F0-9]{40}$"
+        },
+        "venueRegistry": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^0x[a-fA-F0-9]{40}$"
+        },
+        "quotePolicy": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^0x[a-fA-F0-9]{40}$"
+        },
+        "graduationCoordinator": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^0x[a-fA-F0-9]{40}$"
+        }
+      }
+    },
+    "venues": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "venueId",
+          "version",
+          "settlementKind",
+          "adapter",
+          "adapterCodeHash",
+          "quoteAssets",
+          "status"
+        ],
+        "properties": {
+          "venueId": {
+            "type": "string",
+            "pattern": "^0x[a-fA-F0-9]{64}$"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "settlementKind": {
+            "enum": [
+              "ATOMIC_EVM",
+              "NATIVE_ASYNC",
+              "CROSS_CHAIN_ASYNC"
+            ]
+          },
+          "adapter": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^0x[a-fA-F0-9]{40}$"
+          },
+          "adapterCodeHash": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^0x[a-fA-F0-9]{64}$"
+          },
+          "quoteAssets": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^0x[a-fA-F0-9]{40}$"
+            }
+          },
+          "status": {
+            "enum": [
+              "research",
+              "testnet-candidate",
+              "qualified",
+              "disabled"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "qualified"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "core": {
+            "properties": {
+              "factory": {
+                "type": "string"
+              },
+              "venueRegistry": {
+                "type": "string"
+              },
+              "quotePolicy": {
+                "type": "string"
+              },
+              "graduationCoordinator": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

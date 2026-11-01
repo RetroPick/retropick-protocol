@@ -31,13 +31,10 @@ contract QuoteVenuePolicyV3 is Ownable2Step {
         deploymentChainId = block.chainid;
     }
 
-    function register(
-        bytes32 venueId,
-        uint32 version,
-        address quote,
-        uint8 expectedDecimals,
-        bytes32 policyHash
-    ) external onlyOwner {
+    function register(bytes32 venueId, uint32 version, address quote, uint8 expectedDecimals, bytes32 policyHash)
+        external
+        onlyOwner
+    {
         if (block.chainid != deploymentChainId) revert WrongChain();
         if (
             venueId == bytes32(0) || version == 0 || quote == address(0) || quote.code.length == 0
@@ -45,8 +42,7 @@ contract QuoteVenuePolicyV3 is Ownable2Step {
         ) revert InvalidQuote();
         if (_rules[venueId][version][quote].policyHash != bytes32(0)) revert RuleAlreadyRegistered();
         _checkDecimals(quote, expectedDecimals);
-        _rules[venueId][version][quote] =
-            QuoteRule({decimals: expectedDecimals, policyHash: policyHash, enabled: true});
+        _rules[venueId][version][quote] = QuoteRule({decimals: expectedDecimals, policyHash: policyHash, enabled: true});
         emit QuoteRuleRegistered(venueId, version, quote, expectedDecimals, policyHash);
     }
 

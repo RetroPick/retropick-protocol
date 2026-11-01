@@ -35,10 +35,9 @@ contract LaunchCommitmentHubV3 {
     );
 
     constructor(address factory_, VenueRegistryV3 registry_, QuoteVenuePolicyV3 quotePolicy_) {
-        if (
-            factory_ == address(0) || address(registry_).code.length == 0
-                || address(quotePolicy_).code.length == 0
-        ) revert InvalidLaunch();
+        if (factory_ == address(0) || address(registry_).code.length == 0 || address(quotePolicy_).code.length == 0) {
+            revert InvalidLaunch();
+        }
         factory = factory_;
         venueRegistry = registry_;
         quotePolicy = quotePolicy_;
@@ -53,9 +52,9 @@ contract LaunchCommitmentHubV3 {
     function commitLaunch(LaunchBlueprintV3 calldata blueprint) external onlyFactory returns (bytes32 launchId) {
         if (block.chainid != deploymentChainId) revert WrongChain();
         if (
-            blueprint.creator == address(0) || blueprint.token.code.length == 0
-                || blueprint.quoteAsset == address(0) || blueprint.token == blueprint.quoteAsset
-                || blueprint.venueConfigHash == bytes32(0) || blueprint.economicsHash == bytes32(0)
+            blueprint.creator == address(0) || blueprint.token.code.length == 0 || blueprint.quoteAsset == address(0)
+                || blueprint.token == blueprint.quoteAsset || blueprint.venueConfigHash == bytes32(0)
+                || blueprint.economicsHash == bytes32(0)
         ) revert InvalidLaunch();
         if (launchIdForToken[blueprint.token] != bytes32(0)) revert DuplicateToken();
 
@@ -97,7 +96,11 @@ contract LaunchCommitmentHubV3 {
         _commitments[launchId] = commitment;
         launchIdForToken[blueprint.token] = launchId;
         emit LaunchCommitted(
-            launchId, blueprint.token, blueprint.venueId, blueprint.venueVersion, cfg.adapter,
+            launchId,
+            blueprint.token,
+            blueprint.venueId,
+            blueprint.venueVersion,
+            cfg.adapter,
             keccak256(abi.encode(commitment))
         );
     }

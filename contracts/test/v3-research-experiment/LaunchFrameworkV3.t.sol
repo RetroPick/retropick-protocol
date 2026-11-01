@@ -27,7 +27,7 @@ contract FrameworkTokenV3 is ERC20 {
 /// @dev Test-only stand-in. Actual Uniswap/Kuru destination-state checks are
 ///      much stronger and MUST NOT be replaced by this mock.
 contract FrameworkAtomicVenueV3 is IAtomicVenueExecutorV3 {
-    address public immutable coordinator;
+    address public immutable override coordinator;
     address public immutable destination;
     bool public shouldRevert;
     bool public invalidReceipt;
@@ -48,12 +48,13 @@ contract FrameworkAtomicVenueV3 is IAtomicVenueExecutorV3 {
         invalidReceipt = value;
     }
 
-    function validate(LaunchCommitmentV3 calldata launch) external view {
+    function validate(LaunchCommitmentV3 calldata launch) external view override {
         require(launch.adapter == address(this) && launch.settlementKind == SettlementKind.ATOMIC_EVM);
     }
 
     function execute(AtomicExecutionContextV3 calldata context)
         external
+        override
         returns (AtomicGraduationReceiptV3 memory receipt)
     {
         if (msg.sender != coordinator) revert Unauthorized();
@@ -74,6 +75,7 @@ contract FrameworkAtomicVenueV3 is IAtomicVenueExecutorV3 {
     function verify(AtomicExecutionContextV3 calldata context, AtomicGraduationReceiptV3 calldata receipt)
         external
         view
+        override
         returns (bool)
     {
         return receipt.destinationId == bytes32(uint256(uint160(destination)))

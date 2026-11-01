@@ -1,0 +1,8 @@
+# Threat model
+Trust boundaries: real curve -> authenticated router -> treasury credit -> immutable vault -> timelock -> recipient. Helper authenticates creation, not revenue. Never classify a backend event or V3 receipt as backing.
+
+Threats and executable obligations: counterfeit router/wrong factory/quote/creator must fail finalization; arbitrary caller cannot select proposer or consume helper CREATE with another vault. Prefunded planned addresses cannot block creation or become fee revenue. Only the vault owns its credit; keeper cannot redirect claim recipient. Every spend requires actual timelock caller and unused spend ID, correct asset and solvent earned custody. Native/ERC20 receiver reentry cannot spend twice. Transfer failure must revert vault accounting and timelock completion. Negative backing blocks new claims/spends; donations may restore physical backing but never count as earned fees. Two vaults never cross-cover.
+
+Governance threats: fixed delay cannot be reduced via self-call, role escalation or batch. Both execution paths enforce expiry. New role assignments remain governed; external default-admin grants prohibited. Last-proposer loss is a disclosed liveness failure, not rescue authority. Compromised multisig can still approve spending after the review delay; no guaranteed veto exists. Controller/guardian changes never move treasury governance or old credits automatically.
+
+Venue boundaries: no LP/secured reserves access, no new venue streams. Existing v4 revenue remains disabled and Kuru blocked. G4 must reproduce all above; this document is not security qualification.

@@ -1,0 +1,40 @@
+autoindex: 16 scan threads, 16 index workers, 1 pdf workers, --bulk-mb 8 [cores=16 ram_total_mib=7805 ram_available_mib=3286 safe_zone_mib=2263]
+autoindex: memory safe zone 2260 MiB allows 1 PDF worker(s) at 1536 MiB each, not 4
+autoindex: bulk HTTP request timeout: 300s
+xerj-bar [????????????????????????] pct unknown | walk | eta unknown
+xerj-progress phase=walk basis=none pct=unknown items=0/0 bytes=0/0 rate=unknown eta_s=unknown eta_quality=unknown since_progress_s=0.0 phase_elapsed_s=0.0 elapsed_s=0.0
+autoindex: 37 files (0 MB) under /tmp/retropick-community-treasury-v2-20261102/contracts/src/v2-research-experiment
+xerj-progress phase=hash basis=bytes pct=0.0 items=0/37 bytes=0/322563 rate=unknown eta_s=unknown eta_quality=unknown since_progress_s=0.0 phase_elapsed_s=0.0 elapsed_s=0.0
+xerj-progress phase=scan basis=bytes pct=0.0 items=0/37 bytes=0/322563 rate=unknown eta_s=unknown eta_quality=unknown since_progress_s=0.0 phase_elapsed_s=0.0 elapsed_s=0.0
+phase A: sniffing + sampling 37 files with 16 threads…
+phase A: 1 datasets inferred, 0 junk/skipped files
+estimate: at least 0.3 s–0.4 s — a MEASURED FLOOR for client-side extraction, not a prediction of the whole run: server indexing, embedding and network time are not in it
+estimate: basis — measured on this machine during phase A: 37 file(s) / 315.0 KB read end to end across 2 family/families, scheduled over 16 worker(s). Covers 315.0 KB of the 315.0 KB planned (100% of planned bytes). Client-side extraction only.
+  estimate: code          36 files  313.6 KB at 190.5 KB/s measured over 36 file(s) / 313.6 KB → 1.6 s
+  estimate: txt-prose      1 files    1.4 KB at 532.4 KB/s measured over 1 file(s) / 1.4 KB → 0.0 s
+  estimate excludes: server-side indexing, embedding and merge time (autoindex cannot measure it without writing)
+  estimate excludes: network round trips to the endpoint
+  estimate excludes: relationship detection and edge writes (--no-graph removes these)
+  estimate excludes: families with no end-to-end read in phase A, listed under unmeasured_families
+work order: source-and-docs (37 files, 315.0 KB) — biggest first inside each band at 16 worker(s); a file that outlasts everything above it starts first regardless of band
+  source-and-docs  source code and documents — what a person searches for first
+gate: not triggered — the measured extraction floor 0.3 s–0.4 s is under --max-minutes 10. That is NOT a promise the run finishes in 10 minutes: server, network and embedding time are not measured before indexing starts
+xerj-bar [------------------------] 0.0% | prepare | 0/1 items | eta unknown
+xerj-progress phase=prepare basis=items pct=0.0 items=0/1 bytes=0/0 rate=unknown eta_s=unknown eta_quality=unknown since_progress_s=0.0 phase_elapsed_s=0.0 elapsed_s=2.6
+xerj-progress phase=snapshot basis=bytes pct=0.0 items=0/37 bytes=0/322563 rate=unknown eta_s=unknown eta_quality=unknown since_progress_s=0.0 phase_elapsed_s=0.0 elapsed_s=2.7
+xerj-progress phase=index basis=bytes pct=0.0 items=0/37 bytes=0/715057 rate=unknown eta_s=unknown eta_quality=unknown since_progress_s=0.0 phase_elapsed_s=0.0 elapsed_s=3.2
+xerj-progress phase=finalize-catalog basis=items pct=0.0 items=0/1 bytes=0/0 rate=unknown eta_s=unknown eta_quality=unknown since_progress_s=0.0 phase_elapsed_s=0.0 elapsed_s=4.2
+xerj-bar [------------------------] 0.0% | finalize-catalog | 0/1 items | eta unknown
+xerj-progress phase=finalize-catalog basis=items pct=0.0 items=0/1 bytes=0/0 rate=unknown eta_s=unknown eta_quality=unknown since_progress_s=0.8 phase_elapsed_s=0.8 elapsed_s=5.0
+xerj-progress phase=finalize-catalog basis=items pct=100.0 items=2/1 bytes=0/0 rate=0.2 eta_s=0.0 eta_quality=good since_progress_s=0.0 phase_elapsed_s=5.8 elapsed_s=10.0
+xerj-bar [------------------------] 0.0% | finalize-refresh | 0/2 items | eta unknown
+xerj-progress phase=finalize-refresh basis=items pct=0.0 items=0/2 bytes=0/0 rate=unknown eta_s=unknown eta_quality=unknown since_progress_s=0.0 phase_elapsed_s=0.0 elapsed_s=10.2
+xerj-progress phase=finalize-verify basis=items pct=0.0 items=0/2 bytes=0/0 rate=unknown eta_s=unknown eta_quality=unknown since_progress_s=0.0 phase_elapsed_s=0.0 elapsed_s=10.2
+generation 1 committed — 1 datasets, 589 records live
+
+next: `xerj autoindex map --url http://127.0.0.1:9200` for the data map; search via `curl 'http://127.0.0.1:9200/ce003-v2-source-*/_search'`
+      code was indexed — for a function/class instead of a whole file:
+        curl -s $URL/ce003-v2-source-*/_search -H 'Content-Type: application/json' \
+          -d '{"query":{"bool":{"should":[{"multi_match":{"query":"<symbol or phrase>","fields":["body","defs"],"type":"most_fields"}},{"match_phrase":{"defs":{"query":"<symbol or phrase>","boost":4}}}]}},"_source":["ax_path","title"],"fields":["_passage"]}'
+        (the `match_phrase` clause ranks the file that DEFINES a symbol above files that merely call it; `_passage` returns the enclosing block, not the file)
+xerj-done ok=true exit=0 reason=completed wall=10.4s files=37 records=589 generation=1 code_files=36 code_files_indexed=36 code_files_junked=0

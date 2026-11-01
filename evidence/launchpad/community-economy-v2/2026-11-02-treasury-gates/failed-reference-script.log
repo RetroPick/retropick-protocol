@@ -1,0 +1,7 @@
+Error: Compiler run failed:
+Error (6275): Source "script/DeployV2MonadTestnet.s.sol" not found: File not found. Searched the following locations: "/tmp/ce003-canonical-reference/contracts".
+ParserError: Source "script/DeployV2MonadTestnet.s.sol" not found: File not found. Searched the following locations: "/tmp/ce003-canonical-reference/contracts".
+ --> test/v2/integration/FullV4StackV2Fork.t.sol:6:1:
+  |
+6 | import {DeployV2MonadTestnet} from "../../../script/DeployV2MonadTestnet.s.sol";
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

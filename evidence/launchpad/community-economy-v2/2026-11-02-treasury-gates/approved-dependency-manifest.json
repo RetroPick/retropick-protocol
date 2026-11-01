@@ -1,0 +1,67 @@
+{
+  "LICENSE": {
+    "url": "https://raw.githubusercontent.com/OpenZeppelin/openzeppelin-contracts/c64a1edb67b6e3f4a15cca8909c9482ad33a02b0/LICENSE",
+    "sha256": "13cd784a6c31361f0e0c6aa3b410a1cb9a079868b7314c13e3eb8a75351746b9",
+    "bytes": 1090
+  },
+  "contracts/governance/TimelockController.sol": {
+    "url": "https://raw.githubusercontent.com/OpenZeppelin/openzeppelin-contracts/c64a1edb67b6e3f4a15cca8909c9482ad33a02b0/contracts/governance/TimelockController.sol",
+    "sha256": "4a5946a9ea4abbaef29225dc42da6c50c66bb13cae1b592607222599b0526f64",
+    "bytes": 16324
+  },
+  "contracts/utils/introspection/ERC165.sol": {
+    "url": "https://raw.githubusercontent.com/OpenZeppelin/openzeppelin-contracts/c64a1edb67b6e3f4a15cca8909c9482ad33a02b0/contracts/utils/introspection/ERC165.sol",
+    "sha256": "61a2b12c96857aaa35f48aeda67a4281637a42494c0b3795be0ae976aa7b3793",
+    "bytes": 879
+  },
+  "contracts/utils/introspection/IERC165.sol": {
+    "url": "https://raw.githubusercontent.com/OpenZeppelin/openzeppelin-contracts/c64a1edb67b6e3f4a15cca8909c9482ad33a02b0/contracts/utils/introspection/IERC165.sol",
+    "sha256": "9055c2994b37dea1a41b7b7926dcb510f05dbe2540b0aafc5fbee9558fffd0ca",
+    "bytes": 871
+  },
+  "contracts/utils/Address.sol": {
+    "url": "https://raw.githubusercontent.com/OpenZeppelin/openzeppelin-contracts/c64a1edb67b6e3f4a15cca8909c9482ad33a02b0/contracts/utils/Address.sol",
+    "sha256": "f1a9255dbc40cf9ae7c786abed3b022691a9d24bca0c7f05dc60e63421d405ab",
+    "bytes": 5996
+  },
+  "contracts/utils/Errors.sol": {
+    "url": "https://raw.githubusercontent.com/OpenZeppelin/openzeppelin-contracts/c64a1edb67b6e3f4a15cca8909c9482ad33a02b0/contracts/utils/Errors.sol",
+    "sha256": "0704b9d6c032cca8512a3bc3f30f49f86f1f03102d2896a3d23e794b82efea66",
+    "bytes": 896
+  },
+  "contracts/token/ERC1155/utils/ERC1155Holder.sol": {
+    "url": "https://raw.githubusercontent.com/OpenZeppelin/openzeppelin-contracts/c64a1edb67b6e3f4a15cca8909c9482ad33a02b0/contracts/token/ERC1155/utils/ERC1155Holder.sol",
+    "sha256": "08dbc044feab0e187a81a52142f907be598ecca0d35311766a346343af7b18af",
+    "bytes": 1319
+  },
+  "contracts/token/ERC1155/IERC1155Receiver.sol": {
+    "url": "https://raw.githubusercontent.com/OpenZeppelin/openzeppelin-contracts/c64a1edb67b6e3f4a15cca8909c9482ad33a02b0/contracts/token/ERC1155/IERC1155Receiver.sol",
+    "sha256": "3df310870e0187a59020ea48e910ed2693778b1f758b57b97a47365d74b92af5",
+    "bytes": 2599
+  },
+  "contracts/token/ERC721/utils/ERC721Holder.sol": {
+    "url": "https://raw.githubusercontent.com/OpenZeppelin/openzeppelin-contracts/c64a1edb67b6e3f4a15cca8909c9482ad33a02b0/contracts/token/ERC721/utils/ERC721Holder.sol",
+    "sha256": "fa1e231eedfd128232d8f34e9599165fb302c9dee5e58ef009f3b99f7e5d930d",
+    "bytes": 795
+  },
+  "contracts/token/ERC721/IERC721Receiver.sol": {
+    "url": "https://raw.githubusercontent.com/OpenZeppelin/openzeppelin-contracts/c64a1edb67b6e3f4a15cca8909c9482ad33a02b0/contracts/token/ERC721/IERC721Receiver.sol",
+    "sha256": "eafee3ffdc7cb2fba4bf6bd16fb28f8e5b4679742e81c2ad42a1b1df5c179feb",
+    "bytes": 997
+  },
+  "contracts/access/AccessControl.sol": {
+    "url": "https://raw.githubusercontent.com/OpenZeppelin/openzeppelin-contracts/c64a1edb67b6e3f4a15cca8909c9482ad33a02b0/contracts/access/AccessControl.sol",
+    "sha256": "93c8ebfe7b36ef4d180f1660a5a741125691957726209720af476fdd5c7bac43",
+    "bytes": 7028
+  },
+  "contracts/utils/Context.sol": {
+    "url": "https://raw.githubusercontent.com/OpenZeppelin/openzeppelin-contracts/c64a1edb67b6e3f4a15cca8909c9482ad33a02b0/contracts/utils/Context.sol",
+    "sha256": "847fda5460fee70f56f4200f59b82ae622bb03c79c77e67af010e31b7e2cc5b6",
+    "bytes": 963
+  },
+  "contracts/access/IAccessControl.sol": {
+    "url": "https://raw.githubusercontent.com/OpenZeppelin/openzeppelin-contracts/c64a1edb67b6e3f4a15cca8909c9482ad33a02b0/contracts/access/IAccessControl.sol",
+    "sha256": "140304b7e99d517c57a13f391dfd3b550ca633a507f7b2af130f391b6cd89cc5",
+    "bytes": 3343
+  }
+}

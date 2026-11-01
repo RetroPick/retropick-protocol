@@ -1,0 +1,3 @@
+# Controller temporal work
+Six new standalone tests passed with existing production-shaped experimental controller: recovery precedence over voluntary proposal; creator cannot cancel guardian recovery; old nonce rejection; exact voluntary acceptance deadline; expiry strictly after deadline with unchanged controller/generation; guardian cancellation; current controller remains active during recovery; 10000 early-recovery fuzz cases at seed0xce03. Raw command/output in iteration evidence.
+No controller code changed. This is PARTIAL G5: real policy-checkpoint races, round-trip generations, guardian compromise and all concurrent proposals still require integrated action sequences. Existing claims tests remain regression obligations.

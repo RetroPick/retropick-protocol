@@ -59,10 +59,9 @@ contract VenueRegistryV3 is Ownable2Step {
         SettlementKind settlementKind
     ) external onlyOwner {
         if (block.chainid != deploymentChainId) revert WrongChain();
-        if (
-            venueId == bytes32(0) || version == 0 || adapter.code.length == 0
-                || policyHash == bytes32(0)
-        ) revert InvalidVenue();
+        if (venueId == bytes32(0) || version == 0 || adapter.code.length == 0 || policyHash == bytes32(0)) {
+            revert InvalidVenue();
+        }
         if (_venues[venueId][version].adapter != address(0)) revert VenueAlreadyRegistered();
 
         bytes32 codeHash = adapter.codehash;

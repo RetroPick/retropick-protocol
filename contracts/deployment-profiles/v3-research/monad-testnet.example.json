@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "status": "research",
+  "chainId": 10143,
+  "chainName": "Monad Testnet",
+  "core": {
+    "factory": null,
+    "venueRegistry": null,
+    "quotePolicy": null,
+    "graduationCoordinator": null
+  },
+  "venues": []
+}

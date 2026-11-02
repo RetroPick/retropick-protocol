@@ -1,0 +1,4 @@
+{
+  "contracts/src/v2-research-experiment/CommunityTimelockV2.sol": "019f39261db9ea1fb046357c242f92a2d63c06cc4ec5c13afac2351748b3b117",
+  "contracts/test/v2/research-experiment/governance/CommunityTimelockV2.t.sol": "36857b92123283d83abedbb90c4202c400230232ae0b4ca37856e29e9ef85b06"
+}

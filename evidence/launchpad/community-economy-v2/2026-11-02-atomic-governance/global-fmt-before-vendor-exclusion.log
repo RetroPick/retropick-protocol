@@ -1,0 +1,152 @@
+Diff in src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol:
+156 156  |     receive() external payable virtual {}
+157 157  | 
+158 158  |     /// @inheritdoc IERC165
+159      |-    function supportsInterface(
+160      |-        bytes4 interfaceId
+161      |-    ) public view virtual override(AccessControl, ERC1155Holder) returns (bool) {
+    159  |+    function supportsInterface(bytes4 interfaceId)
+    160  |+        public
+    161  |+        view
+    162  |+        virtual
+    163  |+        override(AccessControl, ERC1155Holder)
+    164  |+        returns (bool)
+    165  |+    {
+162 166  |         return super.supportsInterface(interfaceId);
+163 167  |     }
+164 168  | 
+--------------------------------------------------------------------------------229 233  |      * @dev Returns the identifier of an operation containing a single
+230 234  |      * transaction.
+231 235  |      */
+232      |-    function hashOperation(
+233      |-        address target,
+234      |-        uint256 value,
+235      |-        bytes calldata data,
+236      |-        bytes32 predecessor,
+237      |-        bytes32 salt
+238      |-    ) public pure virtual returns (bytes32) {
+    236  |+    function hashOperation(address target, uint256 value, bytes calldata data, bytes32 predecessor, bytes32 salt)
+    237  |+        public
+    238  |+        pure
+    239  |+        virtual
+    240  |+        returns (bytes32)
+    241  |+    {
+239 242  |         return keccak256(abi.encode(target, value, data, predecessor, salt));
+240 243  |     }
+241 244  | 
+--------------------------------------------------------------------------------333 336  |     function cancel(bytes32 id) public virtual onlyRole(CANCELLER_ROLE) {
+334 337  |         if (!isOperationPending(id)) {
+335 338  |             revert TimelockUnexpectedOperationState(
+336      |-                id,
+337      |-                _encodeStateBitmap(OperationState.Waiting) | _encodeStateBitmap(OperationState.Ready)
+    339  |+                id, _encodeStateBitmap(OperationState.Waiting) | _encodeStateBitmap(OperationState.Ready)
+338 340  |             );
+339 341  |         }
+340 342  |         delete _timestamps[id];
+--------------------------------------------------------------------------------354 356  |     // This function can reenter, but it doesn't pose a risk because _afterCall checks that the proposal is pending,
+355 357  |     // thus any modifications to the operation during reentrancy should be caught.
+356 358  |     // slither-disable-next-line reentrancy-eth
+357      |-    function execute(
+358      |-        address target,
+359      |-        uint256 value,
+360      |-        bytes calldata payload,
+361      |-        bytes32 predecessor,
+362      |-        bytes32 salt
+363      |-    ) public payable virtual onlyRoleOrOpenRole(EXECUTOR_ROLE) {
+    359  |+    function execute(address target, uint256 value, bytes calldata payload, bytes32 predecessor, bytes32 salt)
+    360  |+        public
+    361  |+        payable
+    362  |+        virtual
+    363  |+        onlyRoleOrOpenRole(EXECUTOR_ROLE)
+    364  |+    {
+364 365  |         bytes32 id = hashOperation(target, value, payload, predecessor, salt);
+365 366  | 
+366 367  |         _beforeCall(id, predecessor);
+
+Diff in src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol:
+103 103  |      * was not a contract or bubbling up the revert reason (falling back to {Errors.FailedCall}) in case
+104 104  |      * of an unsuccessful call.
+105 105  |      */
+106      |-    function verifyCallResultFromTarget(
+107      |-        address target,
+108      |-        bool success,
+109      |-        bytes memory returndata
+110      |-    ) internal view returns (bytes memory) {
+    106  |+    function verifyCallResultFromTarget(address target, bool success, bytes memory returndata)
+    107  |+        internal
+    108  |+        view
+    109  |+        returns (bytes memory)
+    110  |+    {
+111 111  |         if (!success) {
+112 112  |             _revert(returndata);
+113 113  |         } else {
+
+Diff in src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/token/ERC1155/utils/ERC1155Holder.sol:
+18  18   |         return interfaceId == type(IERC1155Receiver).interfaceId || super.supportsInterface(interfaceId);
+19  19   |     }
+20  20   | 
+21       |-    function onERC1155Received(
+22       |-        address,
+23       |-        address,
+24       |-        uint256,
+25       |-        uint256,
+26       |-        bytes memory
+27       |-    ) public virtual override returns (bytes4) {
+    21   |+    function onERC1155Received(address, address, uint256, uint256, bytes memory)
+    22   |+        public
+    23   |+        virtual
+    24   |+        override
+    25   |+        returns (bytes4)
+    26   |+    {
+28  27   |         return this.onERC1155Received.selector;
+29  28   |     }
+30  29   | 
+31       |-    function onERC1155BatchReceived(
+32       |-        address,
+33       |-        address,
+34       |-        uint256[] memory,
+35       |-        uint256[] memory,
+36       |-        bytes memory
+37       |-    ) public virtual override returns (bytes4) {
+    30   |+    function onERC1155BatchReceived(address, address, uint256[] memory, uint256[] memory, bytes memory)
+    31   |+        public
+    32   |+        virtual
+    33   |+        override
+    34   |+        returns (bytes4)
+    35   |+    {
+38  36   |         return this.onERC1155BatchReceived.selector;
+39  37   |     }
+40  38   | }
+
+Diff in src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/token/ERC1155/IERC1155Receiver.sol:
+25  25   |      * @param data Additional data with no specified format
+26  26   |      * @return `bytes4(keccak256("onERC1155Received(address,address,uint256,uint256,bytes)"))` if transfer is allowed
+27  27   |      */
+28       |-    function onERC1155Received(
+29       |-        address operator,
+30       |-        address from,
+31       |-        uint256 id,
+32       |-        uint256 value,
+33       |-        bytes calldata data
+34       |-    ) external returns (bytes4);
+    28   |+    function onERC1155Received(address operator, address from, uint256 id, uint256 value, bytes calldata data)
+    29   |+        external
+    30   |+        returns (bytes4);
+35  31   | 
+36  32   |     /**
+37  33   |      * @dev Handles the receipt of a multiple ERC-1155 token types. This function
+
+Diff in src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/token/ERC721/IERC721Receiver.sol:
+19  19   |      *
+20  20   |      * The selector can be obtained in Solidity with `IERC721Receiver.onERC721Received.selector`.
+21  21   |      */
+22       |-    function onERC721Received(
+23       |-        address operator,
+24       |-        address from,
+25       |-        uint256 tokenId,
+26       |-        bytes calldata data
+27       |-    ) external returns (bytes4);
+    22   |+    function onERC721Received(address operator, address from, uint256 tokenId, bytes calldata data)
+    23   |+        external
+    24   |+        returns (bytes4);
+28  25   | }

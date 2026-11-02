@@ -1,0 +1,12 @@
+[
+  {
+    "check": "solidity.performance.non-payable-constructor.non-payable-constructor",
+    "line": 17,
+    "disposition": "PERFORMANCE_ONLY: do not make constructor payable or rewrite short, clear checked policy conditions merely to suppress suggestions."
+  },
+  {
+    "check": "solidity.performance.use-nested-if.use-nested-if",
+    "line": 79,
+    "disposition": "PERFORMANCE_ONLY: do not make constructor payable or rewrite short, clear checked policy conditions merely to suppress suggestions."
+  }
+]

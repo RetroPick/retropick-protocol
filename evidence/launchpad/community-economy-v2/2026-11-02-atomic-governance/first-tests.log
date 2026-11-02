@@ -1,0 +1,27 @@
+Compiling 33 files with Solc 0.8.26
+Solc 0.8.26 finished in 20.17s
+Compiler run successful!
+
+Ran 19 tests for test/v2/research-experiment/governance/CommunityTimelockV2.t.sol:CommunityTimelockV2Test
+[PASS] testCEGovAtomicProposerReplacement() (gas: 354036)
+[PASS] testCEGovBatchExpiryAndAtomicFailure() (gas: 233288)
+[PASS] testCEGovBootstrapRolesAndFixedDelay() (gas: 55845)
+[PASS] testCEGovCallbackCannotEscalateRole() (gas: 443577)
+[PASS] testCEGovCancelRequeueRestartsFullDelay() (gas: 359159)
+[PASS] testCEGovDirectAndGovernedDelayChangeAlwaysFails() (gas: 134242)
+[PASS] testCEGovExactReadinessAndDeadline() (gas: 213761)
+[PASS] testCEGovExpirySeparateFromUpstreamReady() (gas: 184396)
+[PASS] testCEGovHugeFutureTimestampDoesNotOverflowViews() (gas: 123166)
+[PASS] testCEGovImmutableAdminExecutorAndRenunciation() (gas: 350849)
+[PASS] testCEGovInsufficientDelayAndPredecessor() (gas: 170879)
+[PASS] testCEGovLastProposerRemovalIsExplicitLivenessRisk() (gas: 185089)
+[PASS] testCEGovMembershipRequiresSelfCallAndRejectsZero() (gas: 251041)
+[PASS] testCEGovPermissionlessReadyExecutionAndNoScheduleAuthority() (gas: 268337)
+[PASS] testCEGovRejectsInvalidProposers() (gas: 4522)
+[PASS] testCEGovSameOperationReentryRollsBack() (gas: 504686)
+[PASS] testCEGovTargetFailureRetryAndIndependentOperation() (gas: 409050)
+[PASS] testFuzzCEGovCannotExecuteEarly(uint32) (runs: 10000, μ: 132894, ~: 132827)
+[PASS] testFuzzCEGovExecutionWindow(uint32) (runs: 10000, μ: 153162, ~: 158724)
+Suite result: ok. 19 passed; 0 failed; 0 skipped; finished in 1.05s (2.10s CPU time)
+
+Ran 1 test suite in 1.05s (1.05s CPU time): 19 tests passed, 0 failed, 0 skipped (19 total tests)

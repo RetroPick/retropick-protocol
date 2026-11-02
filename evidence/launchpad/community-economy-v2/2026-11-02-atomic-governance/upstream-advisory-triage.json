@@ -1,0 +1,142 @@
+[
+  {
+    "ghsaId": "GHSA-9rcw-c2f9-2j55",
+    "severity": "low",
+    "summary": "Bytes's lastIndexOf function with position argument performs out-of-bound memory access on empty buffers",
+    "url": "https://github.com/OpenZeppelin/openzeppelin-contracts/security/advisories/GHSA-9rcw-c2f9-2j55",
+    "disposition": "Package range includes v5.4.0, but affected Bytes.lastIndexOf implementation is absent from the complete approved import closure; no Bytes.sol imported."
+  },
+  {
+    "ghsaId": "GHSA-9vx6-7xxf-x967",
+    "severity": "low",
+    "summary": "Base64 encoding may read from potentially dirty memory",
+    "url": "https://github.com/OpenZeppelin/openzeppelin-contracts/security/advisories/GHSA-9vx6-7xxf-x967",
+    "disposition": "Not in affected version range: approved dependency is non-upgradeable v5.4.0. Review remains specific to the twelve-file closure, not whole-package qualification."
+  },
+  {
+    "ghsaId": "GHSA-699g-q6qh-q4v8",
+    "severity": "medium",
+    "summary": "Duplicated execution of subcalls in v4.9.4",
+    "url": "https://github.com/OpenZeppelin/openzeppelin-contracts/security/advisories/GHSA-699g-q6qh-q4v8",
+    "disposition": "Not in affected version range: approved dependency is non-upgradeable v5.4.0. Review remains specific to the twelve-file closure, not whole-package qualification."
+  },
+  {
+    "ghsaId": "GHSA-g4vp-m682-qqmp",
+    "severity": "low",
+    "summary": "ERC2771Context with custom forwarder may lead to zero-valued _msgSender",
+    "url": "https://github.com/OpenZeppelin/openzeppelin-contracts/security/advisories/GHSA-g4vp-m682-qqmp",
+    "disposition": "Not in affected version range: approved dependency is non-upgradeable v5.4.0. Review remains specific to the twelve-file closure, not whole-package qualification."
+  },
+  {
+    "ghsaId": "GHSA-wprv-93r4-jj2p",
+    "severity": "medium",
+    "summary": "MerkleProof multiproofs may allow proving arbitrary leaves for specific trees",
+    "url": "https://github.com/OpenZeppelin/openzeppelin-contracts/security/advisories/GHSA-wprv-93r4-jj2p",
+    "disposition": "Not in affected version range: approved dependency is non-upgradeable v5.4.0. Review remains specific to the twelve-file closure, not whole-package qualification."
+  },
+  {
+    "ghsaId": "GHSA-5h3x-9wvq-w4m2",
+    "severity": "medium",
+    "summary": "Governor proposal creation may be blocked by frontrunning",
+    "url": "https://github.com/OpenZeppelin/openzeppelin-contracts/security/advisories/GHSA-5h3x-9wvq-w4m2",
+    "disposition": "Not in affected version range: approved dependency is non-upgradeable v5.4.0. Review remains specific to the twelve-file closure, not whole-package qualification."
+  },
+  {
+    "ghsaId": "GHSA-mx2q-35m2-x2rh",
+    "severity": "low",
+    "summary": "TransparentUpgradeableProxy clashing selector calls may not be delegated",
+    "url": "https://github.com/OpenZeppelin/openzeppelin-contracts/security/advisories/GHSA-mx2q-35m2-x2rh",
+    "disposition": "Not in affected version range: approved dependency is non-upgradeable v5.4.0. Review remains specific to the twelve-file closure, not whole-package qualification."
+  },
+  {
+    "ghsaId": "GHSA-93hq-5wgc-jc82",
+    "severity": "medium",
+    "summary": "GovernorCompatibilityBravo may trim proposal calldata",
+    "url": "https://github.com/OpenZeppelin/openzeppelin-contracts/security/advisories/GHSA-93hq-5wgc-jc82",
+    "disposition": "Not in affected version range: approved dependency is non-upgradeable v5.4.0. Review remains specific to the twelve-file closure, not whole-package qualification."
+  },
+  {
+    "ghsaId": "GHSA-878m-3g6q-594q",
+    "severity": "medium",
+    "summary": "ERC721Consecutive incorrect balance update with batch of 1",
+    "url": "https://github.com/OpenZeppelin/openzeppelin-contracts/security/advisories/GHSA-878m-3g6q-594q",
+    "disposition": "Not in affected version range: approved dependency is non-upgradeable v5.4.0. Review remains specific to the twelve-file closure, not whole-package qualification."
+  },
+  {
+    "ghsaId": "GHSA-4h98-2769-gh6h",
+    "severity": "high",
+    "summary": "ECDSA signature malleability",
+    "url": "https://github.com/OpenZeppelin/openzeppelin-contracts/security/advisories/GHSA-4h98-2769-gh6h",
+    "disposition": "Not in affected version range: approved dependency is non-upgradeable v5.4.0. Review remains specific to the twelve-file closure, not whole-package qualification."
+  },
+  {
+    "ghsaId": "GHSA-9j3m-g383-29qr",
+    "severity": "low",
+    "summary": "Cross chain utilities for Arbitrum L2 see EOA calls as cross chain calls",
+    "url": "https://github.com/OpenZeppelin/openzeppelin-contracts/security/advisories/GHSA-9j3m-g383-29qr",
+    "disposition": "Not in affected version range: approved dependency is non-upgradeable v5.4.0. Review remains specific to the twelve-file closure, not whole-package qualification."
+  },
+  {
+    "ghsaId": "GHSA-xrc4-737v-9q75",
+    "severity": "high",
+    "summary": "GovernorVotesQuorumFraction updates to quorum may affect past defeated proposals",
+    "url": "https://github.com/OpenZeppelin/openzeppelin-contracts/security/advisories/GHSA-xrc4-737v-9q75",
+    "disposition": "Not in affected version range: approved dependency is non-upgradeable v5.4.0. Review remains specific to the twelve-file closure, not whole-package qualification."
+  },
+  {
+    "ghsaId": "GHSA-7grf-83vw-6f5x",
+    "severity": "medium",
+    "summary": "ERC165Checker unbounded gas consumption",
+    "url": "https://github.com/OpenZeppelin/openzeppelin-contracts/security/advisories/GHSA-7grf-83vw-6f5x",
+    "disposition": "Not in affected version range: approved dependency is non-upgradeable v5.4.0. Review remains specific to the twelve-file closure, not whole-package qualification."
+  },
+  {
+    "ghsaId": "GHSA-4g63-c64m-25w9",
+    "severity": "medium",
+    "summary": "SignatureChecker may revert on invalid EIP-1271 signers",
+    "url": "https://github.com/OpenZeppelin/openzeppelin-contracts/security/advisories/GHSA-4g63-c64m-25w9",
+    "disposition": "Not in affected version range: approved dependency is non-upgradeable v5.4.0. Review remains specific to the twelve-file closure, not whole-package qualification."
+  },
+  {
+    "ghsaId": "GHSA-qh9x-gcfh-pcrw",
+    "severity": "high",
+    "summary": "ERC165Checker may revert instead of returning false",
+    "url": "https://github.com/OpenZeppelin/openzeppelin-contracts/security/advisories/GHSA-qh9x-gcfh-pcrw",
+    "disposition": "Not in affected version range: approved dependency is non-upgradeable v5.4.0. Review remains specific to the twelve-file closure, not whole-package qualification."
+  },
+  {
+    "ghsaId": "GHSA-m6w8-fq7v-ph4m",
+    "severity": "medium",
+    "summary": "GovernorCompatibilityBravo incorrect ABI encoding may lead to unexpected behavior",
+    "url": "https://github.com/OpenZeppelin/openzeppelin-contracts/security/advisories/GHSA-m6w8-fq7v-ph4m",
+    "disposition": "Not in affected version range: approved dependency is non-upgradeable v5.4.0. Review remains specific to the twelve-file closure, not whole-package qualification."
+  },
+  {
+    "ghsaId": "GHSA-9c22-pwxw-p6hx",
+    "severity": "low",
+    "summary": "Initializer reentrancy may lead to double initialization",
+    "url": "https://github.com/OpenZeppelin/openzeppelin-contracts/security/advisories/GHSA-9c22-pwxw-p6hx",
+    "disposition": "Not in affected version range: approved dependency is non-upgradeable v5.4.0. Review remains specific to the twelve-file closure, not whole-package qualification."
+  },
+  {
+    "ghsaId": "GHSA-wmpv-c2jp-j2xg",
+    "severity": "low",
+    "summary": "ERC1155Supply vulnerability in OpenZeppelin Contracts",
+    "url": "https://github.com/OpenZeppelin/openzeppelin-contracts/security/advisories/GHSA-wmpv-c2jp-j2xg",
+    "disposition": "Not in affected version range: approved dependency is non-upgradeable v5.4.0. Review remains specific to the twelve-file closure, not whole-package qualification."
+  },
+  {
+    "ghsaId": "GHSA-5vp3-v4hc-gx76",
+    "severity": "critical",
+    "summary": "UUPSUpgradeable vulnerability in OpenZeppelin Contracts",
+    "url": "https://github.com/OpenZeppelin/openzeppelin-contracts/security/advisories/GHSA-5vp3-v4hc-gx76",
+    "disposition": "Not in affected version range: approved dependency is non-upgradeable v5.4.0. Review remains specific to the twelve-file closure, not whole-package qualification."
+  },
+  {
+    "ghsaId": "GHSA-fg47-3c2x-m2wr",
+    "severity": "critical",
+    "summary": "TimelockController vulnerability in OpenZeppelin Contracts",
+    "url": "https://github.com/OpenZeppelin/openzeppelin-contracts/security/advisories/GHSA-fg47-3c2x-m2wr",
+    "disposition": "Critical historical TimelockController advisory affects selected 3.x/4.x versions; v5.4.0 is outside range. Callback/escalation/regression tests still required and executed."
+  }
+]

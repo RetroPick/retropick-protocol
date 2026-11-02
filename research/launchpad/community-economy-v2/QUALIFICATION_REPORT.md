@@ -1,5 +1,9 @@
 # Qualification checkpoint
 
+## Iteration 004 — atomic treasury implementation
+
+New experimental TreasuryLaunchBuilder, TreasuryDeployer, TreasuryVault and restricted pinned-OZ Timelock are implemented. Real native/USDC trade-to-spend tests and independent internal review are recorded in [iteration004](iterations/004-atomic-binding/QUALIFICATION.md). Use that report and its final logs for current counts; earlier results below remain historical. Canonical adoption, live multisig identity, fork qualification and external audit remain separate gates. Overall status remains PARTIAL / NOT RELEASE QUALIFIED.
+
 Status: PARTIAL / NOT RELEASE QUALIFIED.
 
 ## Current iteration 002 — real curve financial slice

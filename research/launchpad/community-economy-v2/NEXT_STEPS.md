@@ -1,5 +1,9 @@
 # Remaining-work ledger
 
+## Active dependency after iteration 004
+
+Atomic creation replaces the unsafe shared counterfactual helper; actual custody/governance implementations now exist in the experiment. See [current qualification](iterations/004-atomic-binding/QUALIFICATION.md) for completed evidence and precise gaps. Canonical integration is now owner-authorized subject to qualification under [ADR-CE02](../../../decisions/ADR-CE02-atomic-treasury-canonical-adoption.md), followed by source-scoped canonical promotion and regression qualification. The earlier treasury/dependency queue below is historical; do not restart it. No deployment, rewards or buyback expansion is authorized by this checkpoint.
+
 ## Current dependency after iteration 002
 
 The older baseline/M1 queue below is historical. A real experimental factory/curve/router/controller vertical slice now exists; independent multi-recipient claims are integrated in the router rather than a second custody contract. See qualification evidence and invariant map for actual scope. Full G0/G1/G2 and M9 are not closed by a curve-only result.

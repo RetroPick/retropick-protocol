@@ -1,0 +1,188 @@
+
+Detector: arbitrary-send-eth
+TimelockController._execute(address,uint256,bytes) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#411-414) sends eth to arbitrary user
+	Dangerous calls:
+	- (success,returndata) = target.call{value: value}(data) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#412)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#functions-that-send-ether-to-arbitrary-destinations
+
+Detector: incorrect-equality
+TimelockController.getOperationState(bytes32) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#206-217) uses a dangerous strict equality:
+	- timestamp == 0 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#208)
+TimelockController.getOperationState(bytes32) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#206-217) uses a dangerous strict equality:
+	- timestamp == _DONE_TIMESTAMP (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#210)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#dangerous-strict-equalities
+
+Detector: unused-return
+TimelockController._execute(address,uint256,bytes) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#411-414) ignores return value by Address.verifyCallResult(success,returndata) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#413)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#unused-return
+
+Detector: calls-loop
+TimelockController._execute(address,uint256,bytes) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#411-414) has external calls inside a loop: (success,returndata) = target.call{value: value}(data) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#412)
+	Calls stack containing the loop:
+		CommunityTimelockV2.executeBatch(address[],uint256[],bytes[],bytes32,bytes32)
+		TimelockController.executeBatch(address[],uint256[],bytes[],bytes32,bytes32)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation/#calls-inside-a-loop
+
+Detector: reentrancy-events
+Reentrancy in TimelockController.execute(address,uint256,bytes,bytes32,bytes32) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#357-370):
+	External calls:
+	- _execute(target,value,payload) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#367)
+		- (success,returndata) = target.call{value: value}(data) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#412)
+	Event emitted after the call(s):
+	- CallExecuted(id,0,target,value,payload) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#368)
+Reentrancy in TimelockController.executeBatch(address[],uint256[],bytes[],bytes32,bytes32) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#384-406):
+	External calls:
+	- _execute(target,value,payload) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#402)
+		- (success,returndata) = target.call{value: value}(data) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#412)
+	Event emitted after the call(s):
+	- CallExecuted(id,i,target,value,payload) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#403)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#reentrancy-vulnerabilities-4
+
+Detector: timestamp
+CommunityTimelockV2.isExpired(bytes32) (src/v2-research-experiment/CommunityTimelockV2.sol#44-47) uses timestamp for comparisons
+	Dangerous comparisons:
+	- eta > _DONE_TIMESTAMP && block.timestamp > eta && block.timestamp - eta > EXECUTION_WINDOW (src/v2-research-experiment/CommunityTimelockV2.sol#46)
+CommunityTimelockV2.isReadyWithinWindow(bytes32) (src/v2-research-experiment/CommunityTimelockV2.sol#50-52) uses timestamp for comparisons
+	Dangerous comparisons:
+	- isOperationReady(id) && ! isExpired(id) (src/v2-research-experiment/CommunityTimelockV2.sol#51)
+TimelockController.getOperationState(bytes32) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#206-217) uses timestamp for comparisons
+	Dangerous comparisons:
+	- timestamp == 0 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#208)
+	- timestamp == _DONE_TIMESTAMP (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#210)
+	- timestamp > block.timestamp (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#212)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#block-timestamp
+
+Detector: assembly
+Address._revert(bytes) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#138-148) uses assembly
+	- INLINE ASM (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#142-144)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#assembly-usage
+
+Detector: pragma
+6 different versions of Solidity are used:
+	- Version constraint ^0.8.26 is used by:
+		-^0.8.26 (src/v2-research-experiment/CommunityTimelockV2.sol#2)
+	- Version constraint ^0.8.20 is used by:
+		-^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/access/AccessControl.sol#4)
+		-^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#4)
+		-^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/token/ERC1155/utils/ERC1155Holder.sol#4)
+		-^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/token/ERC721/utils/ERC721Holder.sol#4)
+		-^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#4)
+		-^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Context.sol#4)
+		-^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Errors.sol#4)
+		-^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/introspection/ERC165.sol#4)
+	- Version constraint >=0.8.4 is used by:
+		->=0.8.4 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/access/IAccessControl.sol#4)
+	- Version constraint >=0.6.2 is used by:
+		->=0.6.2 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/token/ERC1155/IERC1155Receiver.sol#4)
+	- Version constraint >=0.5.0 is used by:
+		->=0.5.0 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/token/ERC721/IERC721Receiver.sol#4)
+	- Version constraint >=0.4.16 is used by:
+		->=0.4.16 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/introspection/IERC165.sol#4)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#different-pragma-directives-are-used
+
+Detector: dead-code
+AccessControl._setRoleAdmin(bytes32,bytes32) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/access/AccessControl.sol#168-172) is never used and should be removed
+Context._contextSuffixLength() (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Context.sol#25-27) is never used and should be removed
+Context._msgData() (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Context.sol#21-23) is never used and should be removed
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#dead-code
+
+Detector: solc-version
+Version constraint ^0.8.20 contains known severe issues (https://solidity.readthedocs.io/en/latest/bugs.html)
+	- VerbatimInvalidDeduplication
+	- FullInlinerNonExpressionSplitArgumentEvaluationOrder
+	- MissingSideEffectsOnSelectorAccess.
+It is used by:
+	- ^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/access/AccessControl.sol#4)
+	- ^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#4)
+	- ^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/token/ERC1155/utils/ERC1155Holder.sol#4)
+	- ^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/token/ERC721/utils/ERC721Holder.sol#4)
+	- ^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#4)
+	- ^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Context.sol#4)
+	- ^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Errors.sol#4)
+	- ^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/introspection/ERC165.sol#4)
+Version constraint >=0.8.4 contains known severe issues (https://solidity.readthedocs.io/en/latest/bugs.html)
+	- FullInlinerNonExpressionSplitArgumentEvaluationOrder
+	- MissingSideEffectsOnSelectorAccess
+	- AbiReencodingHeadOverflowWithStaticArrayCleanup
+	- DirtyBytesArrayToStorage
+	- DataLocationChangeInInternalOverride
+	- NestedCalldataArrayAbiReencodingSizeValidation
+	- SignedImmutables.
+It is used by:
+	- >=0.8.4 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/access/IAccessControl.sol#4)
+Version constraint >=0.6.2 contains known severe issues (https://solidity.readthedocs.io/en/latest/bugs.html)
+	- MissingSideEffectsOnSelectorAccess
+	- AbiReencodingHeadOverflowWithStaticArrayCleanup
+	- DirtyBytesArrayToStorage
+	- NestedCalldataArrayAbiReencodingSizeValidation
+	- ABIDecodeTwoDimensionalArrayMemory
+	- KeccakCaching
+	- EmptyByteArrayCopy
+	- DynamicArrayCleanup
+	- MissingEscapingInFormatting
+	- ArraySliceDynamicallyEncodedBaseType
+	- ImplicitConstructorCallvalueCheck
+	- TupleAssignmentMultiStackSlotComponents
+	- MemoryArrayCreationOverflow.
+It is used by:
+	- >=0.6.2 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/token/ERC1155/IERC1155Receiver.sol#4)
+Version constraint >=0.5.0 contains known severe issues (https://solidity.readthedocs.io/en/latest/bugs.html)
+	- DirtyBytesArrayToStorage
+	- ABIDecodeTwoDimensionalArrayMemory
+	- KeccakCaching
+	- EmptyByteArrayCopy
+	- DynamicArrayCleanup
+	- ImplicitConstructorCallvalueCheck
+	- TupleAssignmentMultiStackSlotComponents
+	- MemoryArrayCreationOverflow
+	- privateCanBeOverridden
+	- SignedArrayStorageCopy
+	- ABIEncoderV2StorageArrayWithMultiSlotElement
+	- DynamicConstructorArgumentsClippedABIV2
+	- UninitializedFunctionPointerInConstructor
+	- IncorrectEventSignatureInLibraries
+	- ABIEncoderV2PackedStorage.
+It is used by:
+	- >=0.5.0 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/token/ERC721/IERC721Receiver.sol#4)
+Version constraint >=0.4.16 contains known severe issues (https://solidity.readthedocs.io/en/latest/bugs.html)
+	- DirtyBytesArrayToStorage
+	- ABIDecodeTwoDimensionalArrayMemory
+	- KeccakCaching
+	- EmptyByteArrayCopy
+	- DynamicArrayCleanup
+	- ImplicitConstructorCallvalueCheck
+	- TupleAssignmentMultiStackSlotComponents
+	- MemoryArrayCreationOverflow
+	- privateCanBeOverridden
+	- SignedArrayStorageCopy
+	- ABIEncoderV2StorageArrayWithMultiSlotElement
+	- DynamicConstructorArgumentsClippedABIV2
+	- UninitializedFunctionPointerInConstructor_0.4.x
+	- IncorrectEventSignatureInLibraries_0.4.x
+	- ExpExponentCleanup
+	- NestedArrayFunctionCallDecoder
+	- ZeroFunctionSelector.
+It is used by:
+	- >=0.4.16 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/introspection/IERC165.sol#4)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#incorrect-versions-of-solidity
+
+Detector: low-level-calls
+Low level call in TimelockController._execute(address,uint256,bytes) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#411-414):
+	- (success,returndata) = target.call{value: value}(data) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#412)
+Low level call in Address.sendValue(address,uint256) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#33-42):
+	- (success,returndata) = recipient.call{value: amount}() (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#38)
+Low level call in Address.functionCallWithValue(address,bytes,uint256) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#75-81):
+	- (success,returndata) = target.call{value: value}(data) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#79)
+Low level call in Address.functionStaticCall(address,bytes) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#87-90):
+	- (success,returndata) = target.staticcall(data) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#88)
+Low level call in Address.functionDelegateCall(address,bytes) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#96-99):
+	- (success,returndata) = target.delegatecall(data) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#97)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#low-level-calls
+
+Detector: immutable-states
+TimelockController._minDelay (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#32) should be immutable 
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#state-variables-that-could-be-declared-immutable
+src/v2-research-experiment/CommunityTimelockV2.sol analyzed (13 contracts with 102 detectors), 26 result(s) found
+'forge config --json' running
+'/home/ubuntu/.solc-select/artifacts/solc-0.8.26/solc-0.8.26 --version' running
+'/home/ubuntu/.solc-select/artifacts/solc-0.8.26/solc-0.8.26 forge-std/=lib/forge-std/src/ @openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/ @uniswap/v4-core/src/=lib/v4-core/src/ @uniswap/v4-periphery/src/=lib/v4-periphery/src/ @uniswap/v4-hooks-public/src/=lib/v4-hooks-public/src/ permit2/src/=lib/v4-periphery/lib/permit2/src/ lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/ lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/ lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/ lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/ lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/ lib/v4-deployment-periphery/lib/permit2/:solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/ lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/ lib/v4-deployment-periphery/lib/v4-core/:solmate/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/ lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/ lib/v4-deployment-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/ lib/v4-deployment-periphery/:permit2/=lib/v4-deployment-periphery/lib/permit2/ lib/v4-deployment-periphery/:v4-core/=lib/v4-deployment-periphery/lib/v4-core/src/ lib/v4-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/ lib/v4-periphery/:permit2/=lib/v4-periphery/lib/permit2/src/ @ensdomains/=lib/v4-deployment-periphery/lib/v4-core/node_modules/@ensdomains/ @openzeppelin/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/ @uniswap/v4-core/=lib/v4-deployment-periphery/lib/v4-core/ ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/ erc4626-tests/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/erc4626-tests/ forge-gas-snapshot/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/src/ hardhat/=lib/v4-deployment-periphery/lib/v4-core/node_modules/hardhat/ openzeppelin-contracts/=lib/openzeppelin-contracts/contracts/ permit2/=lib/v4-periphery/lib/permit2/src/ solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/ v4-core/=lib/v4-core/src/ v4-deployment-periphery/=lib/v4-deployment-periphery/ v4-hooks-public/=lib/v4-hooks-public/src/ v4-periphery/=lib/v4-periphery/src/ src/v2-research-experiment/CommunityTimelockV2.sol --combined-json abi,ast,bin,bin-runtime,srcmap,srcmap-runtime,userdoc,devdoc,hashes --optimize --optimize-runs 200 --via-ir --evm-version cancun --allow-paths .,/home/ubuntu/project/retropick/retropick-community-economy-v2-20261031/contracts/src/v2-research-experiment' running

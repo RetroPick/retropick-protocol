@@ -1,5 +1,9 @@
 # Experimental curve community economy
 
+## Iteration 004 architecture addition
+
+For fresh opt-in launches, alternate TreasuryLaunchBuilder calls factory-bound TreasuryDeployer for actual fresh Vault/Timelock creation before Registry beneficiary binding. Factory and bonding math are unchanged. Vault pulls only its immutable Router credit and spends only earned balances through fixed72h/seven-day-window governance. [Atomic/custody specification](iterations/004-atomic-binding/SPEC.md) defines role, accounting and failure boundaries. Existing deployed launches are not migrated.
+
 Status: NEW_EXPERIMENT, local qualification only. No deployment or production promotion. Source baseline: canonical 28a4744dcc8005da285f9e924ba7841073daee0b; research parent 9a80398089b70498d8f8b5c41164a6d4c17b3cf5.
 
 ```mermaid

@@ -1,0 +1,527 @@
+[
+  {
+    "id": "7684f03837e02879ea68753c8da74d62360c5f7c03099eb3c5fd9abf49443119",
+    "check": "arbitrary-send-erc20",
+    "impact": "High",
+    "description": "ExactAssetV2.pull(address,address,address,uint256) (src/v2-research-experiment/libraries/ExactAssetV2.sol#10-18) uses arbitrary from in transferFrom: IERC20(asset).safeTransferFrom(from,to,amount) (src/v2-research-experiment/libraries/ExactAssetV2.sol#14)\n",
+    "disposition": "Existing ExactAsset helper; caller chooses authenticated source in Router. Receiver and sender deltas checked. Existing source-authentication/funding tests apply; no new helper change."
+  },
+  {
+    "id": "c8486989b9fb86b230cf9216b4d898c29eb27162568412121b5cc59470b0083f",
+    "check": "arbitrary-send-eth",
+    "impact": "High",
+    "description": "TimelockController._execute(address,uint256,bytes) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#411-414) sends eth to arbitrary user\n\tDangerous calls:\n\t- (success,returndata) = target.call{value: value}(data) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#412)\n",
+    "disposition": "Pinned upstream Timelock intentionally executes authorized arbitrary targets after scheduling. New Vault permits only restricted spend by its immutable timelock, no generic calls. Role/expiry/batch tests and independent source review apply."
+  },
+  {
+    "id": "83603023c15885ad42ce01c58ca872dc8cbd223c57947d08d7918a4fd59ff82a",
+    "check": "incorrect-exp",
+    "impact": "High",
+    "description": "Math.mulDiv(uint256,uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#206-277) has bitwise-xor operator ^ instead of the exponentiation operator **: \n\t - inverse = (3 * denominator) ^ 2 (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#259)\n",
+    "disposition": "Existing upstream mulDiv Newton inverse seed intentionally uses XOR, not exponentiation. Unchanged dependency code; no financial rewrite."
+  },
+  {
+    "id": "3a965cabf06902231e8ca2cf8d9b2299ef85497942f15c3e2a9b38096526dc09",
+    "check": "reentrancy-balance",
+    "impact": "High",
+    "description": "Reentrancy in CommunityTreasuryVaultV2.spend(address,address,uint256,bytes32) (src/v2-research-experiment/CommunityTreasuryVaultV2.sol#112-131):\n\tExternal call allowing reentrancy:\n\t- (ok,None) = address(recipient).call{value: amount}() (src/v2-research-experiment/CommunityTreasuryVaultV2.sol#123)\n\tBalance read before the call:\n\t- beforeBalance = _backing() (src/v2-research-experiment/CommunityTreasuryVaultV2.sol#119)\n\tPossible stale balance used after the call in a condition:\n\t- actualBalance() != beforeBalance - amount (src/v2-research-experiment/CommunityTreasuryVaultV2.sol#128)\n\t\t- stale variable `beforeBalance`\n",
+    "disposition": "Reviewed new Vault: nonReentrant guards claim/spend; snapshot is intentionally checked against exact post-call delta. Native/token callback and failed-payout integration cases pass. Unexpected callback balance changes revert atomically; no demonstrated exploit. Not an external audit."
+  },
+  {
+    "id": "b389af0c30213844bea054250c3dc5da43035692944193f861e5fd8f4ddd4831",
+    "check": "reentrancy-balance",
+    "impact": "High",
+    "description": "Reentrancy in CommunityTreasuryVaultV2.claimFromRouter(uint256) (src/v2-research-experiment/CommunityTreasuryVaultV2.sol#97-109):\n\tExternal call allowing reentrancy:\n\t- router.claimTo(address(this),amount) (src/v2-research-experiment/CommunityTreasuryVaultV2.sol#102)\n\tBalance read before the call:\n\t- beforeBalance = _backing() (src/v2-research-experiment/CommunityTreasuryVaultV2.sol#101)\n\tPossible stale balance used after the call in a condition:\n\t- router.credit(address(this)) != oldCredit - amount || actualBalance() != beforeBalance + amount (src/v2-research-experiment/CommunityTreasuryVaultV2.sol#103)\n\t\t- stale variable `beforeBalance`\n",
+    "disposition": "Reviewed new Vault: nonReentrant guards claim/spend; snapshot is intentionally checked against exact post-call delta. Native/token callback and failed-payout integration cases pass. Unexpected callback balance changes revert atomically; no demonstrated exploit. Not an external audit."
+  },
+  {
+    "id": "78de567e89c8d92ba286127f2401d3833fabd53e14fbf38553c805d401aefa35",
+    "check": "divide-before-multiply",
+    "impact": "Medium",
+    "description": "Math.mulDiv(uint256,uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#206-277) performs a multiplication on the result of a division:\n\t- denominator = denominator / twos (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#244)\n\t- inverse = (3 * denominator) ^ 2 (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#259)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "8b7b598911a68095eb4b853e5972916725f5b9acd2def81703ebbfd6edc20533",
+    "check": "divide-before-multiply",
+    "impact": "Medium",
+    "description": "Math.mulDiv(uint256,uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#206-277) performs a multiplication on the result of a division:\n\t- low = low / twos (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#247)\n\t- result = low * inverse (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#274)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "8d23869d6808590b4243d03e5263dec8d65bd46991a40de4edcd0785f2d6933d",
+    "check": "divide-before-multiply",
+    "impact": "Medium",
+    "description": "Math.mulDiv(uint256,uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#206-277) performs a multiplication on the result of a division:\n\t- denominator = denominator / twos (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#244)\n\t- inverse *= 2 - denominator * inverse (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#265)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "8e730c3dca57b2bc6eefc8e55d5591610bba754f12e91d001d76536c11c7c174",
+    "check": "divide-before-multiply",
+    "impact": "Medium",
+    "description": "Math.invMod(uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#317-363) performs a multiplication on the result of a division:\n\t- quotient = gcd / remainder (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#339)\n\t- (gcd,remainder) = (remainder,gcd - remainder * quotient) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#341-348)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "96b8f0c0471d04ca494a1eb1f6d41b964d7198b776a894d7f4b9a018b99fcb00",
+    "check": "divide-before-multiply",
+    "impact": "Medium",
+    "description": "Math.mulDiv(uint256,uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#206-277) performs a multiplication on the result of a division:\n\t- denominator = denominator / twos (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#244)\n\t- inverse *= 2 - denominator * inverse (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#264)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "d749c8ec4880f8e1322100d050046001f687f990117af3c3fed794954e9bc83d",
+    "check": "divide-before-multiply",
+    "impact": "Medium",
+    "description": "Math.mulDiv(uint256,uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#206-277) performs a multiplication on the result of a division:\n\t- denominator = denominator / twos (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#244)\n\t- inverse *= 2 - denominator * inverse (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#266)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "dceb850138674cff0efb9ce45492b1f3c832b4be04f9983e97cf9b519960630e",
+    "check": "divide-before-multiply",
+    "impact": "Medium",
+    "description": "Math.mulDiv(uint256,uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#206-277) performs a multiplication on the result of a division:\n\t- denominator = denominator / twos (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#244)\n\t- inverse *= 2 - denominator * inverse (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#267)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "f3c05efec8e6d330b72ecfb3a62a9cfa0a347f661b5735a7e7c2574a354ecc39",
+    "check": "divide-before-multiply",
+    "impact": "Medium",
+    "description": "Math.mulDiv(uint256,uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#206-277) performs a multiplication on the result of a division:\n\t- denominator = denominator / twos (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#244)\n\t- inverse *= 2 - denominator * inverse (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#263)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "fa74b1b14a018c9ef7dae16be9273aa6e4c2661ea05f93da50f1ba075d6b4ddc",
+    "check": "divide-before-multiply",
+    "impact": "Medium",
+    "description": "Math.mulDiv(uint256,uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#206-277) performs a multiplication on the result of a division:\n\t- denominator = denominator / twos (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#244)\n\t- inverse *= 2 - denominator * inverse (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#268)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "2b5b21e66389b5db536012acfb5b949779955e74b9e85132423c4fe09b9ca371",
+    "check": "incorrect-equality",
+    "impact": "Medium",
+    "description": "TimelockController.getOperationState(bytes32) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#206-217) uses a dangerous strict equality:\n\t- timestamp == _DONE_TIMESTAMP (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#210)\n",
+    "disposition": "Exact asset delta/backing predicates intentionally fail closed for incompatible behavior. Donation, inexact transfer and deficit tests apply."
+  },
+  {
+    "id": "878287916ce8dcfa4ba0438f50cc6686d523ca58ee4b3443cba95fb4bc13106d",
+    "check": "incorrect-equality",
+    "impact": "Medium",
+    "description": "TimelockController.getOperationState(bytes32) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#206-217) uses a dangerous strict equality:\n\t- timestamp == 0 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#208)\n",
+    "disposition": "Exact asset delta/backing predicates intentionally fail closed for incompatible behavior. Donation, inexact transfer and deficit tests apply."
+  },
+  {
+    "id": "a254d6c2f2c77fa003d14d1315f733437d2291fdb0e79e2dbefcac171fa35c37",
+    "check": "reentrancy-no-eth",
+    "impact": "Medium",
+    "description": "Reentrancy in CommunityTreasuryVaultV2.claimFromRouter(uint256) (src/v2-research-experiment/CommunityTreasuryVaultV2.sol#97-109):\n\tExternal calls:\n\t- router.claimTo(address(this),amount) (src/v2-research-experiment/CommunityTreasuryVaultV2.sol#102)\n\tState variables written after the call(s):\n\t- claimed += amount (src/v2-research-experiment/CommunityTreasuryVaultV2.sol#106)\n\tCommunityTreasuryVaultV2.claimed (src/v2-research-experiment/CommunityTreasuryVaultV2.sol#26) can be used in cross function reentrancies:\n\t- CommunityTreasuryVaultV2.claimed (src/v2-research-experiment/CommunityTreasuryVaultV2.sol#26)\n\t- CommunityTreasuryVaultV2.held() (src/v2-research-experiment/CommunityTreasuryVaultV2.sol#72-74)\n",
+    "disposition": "New Vault uses nonReentrant and exact source credit/physical receipt reconciliation; counter updated after receipt atomically. Callback/rollback tests pass. Inspect raw locations for transitive occurrences."
+  },
+  {
+    "id": "ed2f06911aa534f4cd4beb9f6ad4d5cd585ecbfa50df3829d4757c29ea5570cb",
+    "check": "reentrancy-no-eth",
+    "impact": "Medium",
+    "description": "Reentrancy in CommunityPolicyRegistryV2.activatePolicy(uint256) (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#138-165):\n\tExternal calls:\n\t- source.checkpoint(epoch) (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#150)\n\tState variables written after the call(s):\n\t- ++ epoch (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#155)\n\tCommunityPolicyRegistryV2.epoch (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#57) can be used in cross function reentrancies:\n\t- CommunityPolicyRegistryV2.epoch (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#57)\n\t- CommunityPolicyRegistryV2.policyAtVersion(uint256) (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#107-110)\n\t- delete pendingPolicy (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#162)\n\tCommunityPolicyRegistryV2.pendingPolicy (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#60) can be used in cross function reentrancies:\n\t- CommunityPolicyRegistryV2.pendingPolicy (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#60)\n",
+    "disposition": "New Vault uses nonReentrant and exact source credit/physical receipt reconciliation; counter updated after receipt atomically. Callback/rollback tests pass. Inspect raw locations for transitive occurrences."
+  },
+  {
+    "id": "934d87b6de4c376c3a43bf91522f902bf2ae31807e7c2d908134a4f681a8f6da",
+    "check": "uninitialized-local",
+    "impact": "Medium",
+    "description": "CommunityPolicyRegistryV2._validate(CommunityPolicyRegistryV2.Allocation[]).treasury (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#171) is a local variable never initialized\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "b66836049eef36c4171ee1c2780df77dbf2665b14e2d9e7ebe7c426829287812",
+    "check": "uninitialized-local",
+    "impact": "Medium",
+    "description": "CommunityFeeRouterV2.fund(address,address,uint256,uint256,uint256).assigned (src/v2-research-experiment/CommunityFeeRouterV2.sol#111) is a local variable never initialized\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "bbdbe3f971923d6b13eff3cd03caae6fb129a4d586e7507518f1dc3be32c64a7",
+    "check": "uninitialized-local",
+    "impact": "Medium",
+    "description": "CommunityPolicyRegistryV2._validate(CommunityPolicyRegistryV2.Allocation[]).creator (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#170) is a local variable never initialized\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "d0a33b8d3973517b0c1038cc3914c8205e4611976b7e1146f2ee3ae351ff9eca",
+    "check": "uninitialized-local",
+    "impact": "Medium",
+    "description": "CommunityPolicyRegistryV2._validate(CommunityPolicyRegistryV2.Allocation[]).total (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#169) is a local variable never initialized\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "90790bbbe7292fcf6a8e1317c29c331f791b0044abdf7e570a9ff21a129c9754",
+    "check": "unused-return",
+    "impact": "Medium",
+    "description": "TimelockController._execute(address,uint256,bytes) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#411-414) ignores return value by Address.verifyCallResult(success,returndata) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#413)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "a5d80546007d0a5dce03ca92b7c47a88f9edbdcb5ad23f240a6ff7c980b16163",
+    "check": "calls-loop",
+    "impact": "Low",
+    "description": "TimelockController._execute(address,uint256,bytes) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#411-414) has external calls inside a loop: (success,returndata) = target.call{value: value}(data) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#412)\n\tCalls stack containing the loop:\n\t\tCommunityTimelockV2.executeBatch(address[],uint256[],bytes[],bytes32,bytes32)\n\t\tTimelockController.executeBatch(address[],uint256[],bytes[],bytes32,bytes32)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "c207e2a3f4fb764ac827164d802b0eb1f800b0035ba007d7d5b0a7e4395d2903",
+    "check": "reentrancy-benign",
+    "impact": "Low",
+    "description": "Reentrancy in CommunityPolicyRegistryV2.activatePolicy(uint256) (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#138-165):\n\tExternal calls:\n\t- source.checkpoint(epoch) (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#150)\n\tState variables written after the call(s):\n\t- policies[epoch].push(a[i]) (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#160)\n\t- policyHash[epoch] = h (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#158)\n\t- delete proposed (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#163)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "bc43a8784289175a078a13cb3b975cf3101ed7cbf63f502a8e598c812b82b804",
+    "check": "reentrancy-events",
+    "impact": "Low",
+    "description": "Reentrancy in TimelockController.execute(address,uint256,bytes,bytes32,bytes32) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#357-370):\n\tExternal calls:\n\t- _execute(target,value,payload) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#367)\n\t\t- (success,returndata) = target.call{value: value}(data) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#412)\n\tEvent emitted after the call(s):\n\t- CallExecuted(id,0,target,value,payload) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#368)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "deb67704cba16573e4375426886e60fe92fe9fb95488ba75f17c95a38d65588f",
+    "check": "reentrancy-events",
+    "impact": "Low",
+    "description": "Reentrancy in TimelockController.executeBatch(address[],uint256[],bytes[],bytes32,bytes32) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#384-406):\n\tExternal calls:\n\t- _execute(target,value,payload) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#402)\n\t\t- (success,returndata) = target.call{value: value}(data) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#412)\n\tEvent emitted after the call(s):\n\t- CallExecuted(id,i,target,value,payload) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#403)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "07a0c32a033f79802aa5bd9cb24b8ed4664fddef46aac1c62bebbbf5bb2b6fb4",
+    "check": "timestamp",
+    "impact": "Low",
+    "description": "TimelockController.getOperationState(bytes32) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#206-217) uses timestamp for comparisons\n\tDangerous comparisons:\n\t- timestamp == 0 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#208)\n\t- timestamp == _DONE_TIMESTAMP (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#210)\n\t- timestamp > block.timestamp (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#212)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "2da3c6068f4feb79731641db93cdb2adcc3afc1ce3a1a1ed58dbfdfc84065023",
+    "check": "timestamp",
+    "impact": "Low",
+    "description": "CommunityTimelockV2.isReadyWithinWindow(bytes32) (src/v2-research-experiment/CommunityTimelockV2.sol#50-52) uses timestamp for comparisons\n\tDangerous comparisons:\n\t- isOperationReady(id) && ! isExpired(id) (src/v2-research-experiment/CommunityTimelockV2.sol#51)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "9196f218aee50990cb150256e91841fc1554264e945b04a0d15c8fc5bceac46a",
+    "check": "timestamp",
+    "impact": "Low",
+    "description": "CommunityPolicyRegistryV2.activatePolicy(uint256) (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#138-165) uses timestamp for comparisons\n\tDangerous comparisons:\n\t- block.timestamp < p.effectiveAt || block.timestamp > p.effectiveAt + EXECUTION_WINDOW (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#146)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "c4e9c95df2b1eb2c0270b7bfd3aab8a9a038747b344f3da1233f6aefd960707f",
+    "check": "timestamp",
+    "impact": "Low",
+    "description": "CommunityTimelockV2.isExpired(bytes32) (src/v2-research-experiment/CommunityTimelockV2.sol#44-47) uses timestamp for comparisons\n\tDangerous comparisons:\n\t- eta > _DONE_TIMESTAMP && block.timestamp > eta && block.timestamp - eta > EXECUTION_WINDOW (src/v2-research-experiment/CommunityTimelockV2.sol#46)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "0614eaa799c65c7a0dd915c72c766983762e740a48c1b88d4d9b80d132c5e1f7",
+    "check": "assembly",
+    "impact": "Informational",
+    "description": "Math.tryMul(uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#73-84) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#76-80)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "0aca81f4c74fc46475cf143b1175b6644f87efde3400099cf420cc6d46132992",
+    "check": "assembly",
+    "impact": "Informational",
+    "description": "Math._zeroBytes(bytes) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#478-490) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#482-484)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "0cb0950f0a0659779cfbb710140755d3c77f5a3e0cd20665f14e2c29ffa77241",
+    "check": "assembly",
+    "impact": "Informational",
+    "description": "StorageSlot.getAddressSlot(bytes32) (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#66-70) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#67-69)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "168b15c466213dab4f22538081a848ff5bb2677ed1f68f8a6e3c5cec40bb386c",
+    "check": "assembly",
+    "impact": "Informational",
+    "description": "Math.mul512(uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#37-46) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#41-45)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "1bd732c19519e123841ebb947318ac5e5c5dd6dd254899214fe78b2834b787e2",
+    "check": "assembly",
+    "impact": "Informational",
+    "description": "Math.mulDiv(uint256,uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#206-277) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#229-236)\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#242-251)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "28bdebcd76b79ef2976918aae40b2d93a0922c69961989873a3970a98b70bc7f",
+    "check": "assembly",
+    "impact": "Informational",
+    "description": "Math.add512(uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#25-30) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#26-29)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "2e4ab6ee6d34a1ad1e875dbb9d306e369d818eb56ce463ba31c5f17842492019",
+    "check": "assembly",
+    "impact": "Informational",
+    "description": "SafeERC20._safeTransfer(IERC20,address,uint256,bool) (lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol#188-212) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol#191-211)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "34f9a9306e1110542216cbccf2fca90cca99dfbf63bb6c8f67872d4824c90459",
+    "check": "assembly",
+    "impact": "Informational",
+    "description": "SafeCast.toUint(bool) (lib/openzeppelin-contracts/contracts/utils/math/SafeCast.sol#1157-1161) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/math/SafeCast.sol#1158-1160)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "39b269e77ca4a55a660c8ff6fb0327594b7836943bf18153a5a3f415eaec6ee2",
+    "check": "assembly",
+    "impact": "Informational",
+    "description": "StorageSlot.getInt256Slot(bytes32) (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#102-106) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#103-105)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "40f8056918b342873870666ee9219ff54e855f6acce43ca8a9cdb34b4a8692d1",
+    "check": "assembly",
+    "impact": "Informational",
+    "description": "Math.tryModExp(bytes,bytes,bytes) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#451-473) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#463-472)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "48df44bd50eb3c0995f482fc56294b5ac38532faa71891daeaba1dd47910454d",
+    "check": "assembly",
+    "impact": "Informational",
+    "description": "Math.tryModExp(uint256,uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#411-435) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#413-434)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "514042b8e90a4f94cc8e124d087dd1ee57e83611d0d7143d6ea91f34a1a40c2b",
+    "check": "assembly",
+    "impact": "Informational",
+    "description": "Panic.panic(uint256) (lib/openzeppelin-contracts/contracts/utils/Panic.sol#50-56) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/Panic.sol#51-55)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "5312cebb2ab4b8c384cec1819b8568b6c3421d67d46e2d67394b702843826ee6",
+    "check": "assembly",
+    "impact": "Informational",
+    "description": "StorageSlot.getBytesSlot(bytes32) (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#129-133) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#130-132)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "6460fa34afc0b025d1e00ec548436085d88eab2b80c84c9fd22040e91011d104",
+    "check": "assembly",
+    "impact": "Informational",
+    "description": "SafeERC20._safeTransferFrom(IERC20,address,address,uint256,bool) (lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol#224-256) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol#233-255)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "6573c467bc9e0b668393b654835d00ccad45b96f3847ce70688f03332a48aca1",
+    "check": "assembly",
+    "impact": "Informational",
+    "description": "Math.log2(uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#619-658) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#655-657)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "6a9ae1f07a6a025e863e9db6b62be4f7010ba985b05c152e4f03dae1893353f7",
+    "check": "assembly",
+    "impact": "Informational",
+    "description": "StorageSlot.getStringSlot(string) (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#120-124) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#121-123)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "6e227cedcd7e749e974202ff8de10aac20188eab08f34d87055eed0e201722d2",
+    "check": "assembly",
+    "impact": "Informational",
+    "description": "StorageSlot.getBytes32Slot(bytes32) (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#84-88) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#85-87)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "7313f74380b103670486dbd8cf457c4b4778807730acf647419c5b82c007e98d",
+    "check": "assembly",
+    "impact": "Informational",
+    "description": "Math.tryMod(uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#102-110) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#105-108)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "749137134693cf0304f52b590e5a47c5286e0c8814e75ef8be3f6159fd60f08c",
+    "check": "assembly",
+    "impact": "Informational",
+    "description": "StorageSlot.getBytesSlot(bytes) (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#138-142) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#139-141)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "7d05c864c11a3dca15fd8c2d8f9183e5a53438e99f35f1403ebfeae6257f6049",
+    "check": "assembly",
+    "impact": "Informational",
+    "description": "SafeERC20.tryGetDecimals(IERC20) (lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol#169-177) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol#171-176)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "7d30224ad923fb46b530816990ce5e4fbe1512dd2fa9f27e469f40cae1573b3f",
+    "check": "assembly",
+    "impact": "Informational",
+    "description": "Math.tryDiv(uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#89-97) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#92-95)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "983222c57c42f357d634e6a0307e308f2f0068150a399b605dcd74e034e93c8b",
+    "check": "assembly",
+    "impact": "Informational",
+    "description": "StorageSlot.getBooleanSlot(bytes32) (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#75-79) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#76-78)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "a06128e1b1c97ee25c55d74dda6e1aaa0976f9d134f60bf4344ab3080b21abd2",
+    "check": "assembly",
+    "impact": "Informational",
+    "description": "StorageSlot.getStringSlot(bytes32) (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#111-115) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#112-114)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "cf6ad62b4b22ece0233f239c1db2a0176d29ee89454b88d2afb8243810f50587",
+    "check": "assembly",
+    "impact": "Informational",
+    "description": "Address._revert(bytes) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#138-148) uses assembly\n\t- INLINE ASM (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#142-144)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "e0999a78e2a4800028a800b8f94e81bd4b1fcbb9c2c0021af31da78c22e747e4",
+    "check": "assembly",
+    "impact": "Informational",
+    "description": "StorageSlot.getUint256Slot(bytes32) (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#93-97) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#94-96)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "fbb81f03f1ad3636167f248ae6d92b4ed18580c07828c7ece89f7a60dd8a0dff",
+    "check": "assembly",
+    "impact": "Informational",
+    "description": "SafeERC20._safeApprove(IERC20,address,uint256,bool) (lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol#267-291) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol#270-290)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "93326f6ebca8f2fa33b93c069925d6fc8e726c2647d4f88b115e99467bf201a1",
+    "check": "pragma",
+    "impact": "Informational",
+    "description": "6 different versions of Solidity are used:\n\t- Version constraint >=0.6.2 is used by:\n\t\t->=0.6.2 (lib/openzeppelin-contracts/contracts/interfaces/IERC1363.sol#4)\n\t\t->=0.6.2 (lib/openzeppelin-contracts/contracts/interfaces/IERC20Metadata.sol#4)\n\t\t->=0.6.2 (lib/openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Metadata.sol#4)\n\t\t->=0.6.2 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/token/ERC1155/IERC1155Receiver.sol#4)\n\t- Version constraint >=0.4.16 is used by:\n\t\t->=0.4.16 (lib/openzeppelin-contracts/contracts/interfaces/IERC165.sol#4)\n\t\t->=0.4.16 (lib/openzeppelin-contracts/contracts/interfaces/IERC20.sol#4)\n\t\t->=0.4.16 (lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol#4)\n\t\t->=0.4.16 (lib/openzeppelin-contracts/contracts/utils/introspection/IERC165.sol#4)\n\t\t->=0.4.16 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/introspection/IERC165.sol#4)\n\t- Version constraint >=0.8.4 is used by:\n\t\t->=0.8.4 (lib/openzeppelin-contracts/contracts/interfaces/draft-IERC6093.sol#4)\n\t\t->=0.8.4 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/access/IAccessControl.sol#4)\n\t- Version constraint ^0.8.20 is used by:\n\t\t-^0.8.20 (lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol#4)\n\t\t-^0.8.20 (lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Burnable.sol#4)\n\t\t-^0.8.20 (lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol#4)\n\t\t-^0.8.20 (lib/openzeppelin-contracts/contracts/utils/Context.sol#4)\n\t\t-^0.8.20 (lib/openzeppelin-contracts/contracts/utils/Panic.sol#4)\n\t\t-^0.8.20 (lib/openzeppelin-contracts/contracts/utils/ReentrancyGuard.sol#4)\n\t\t-^0.8.20 (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#5)\n\t\t-^0.8.20 (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#4)\n\t\t-^0.8.20 (lib/openzeppelin-contracts/contracts/utils/math/SafeCast.sol#5)\n\t\t-^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/access/AccessControl.sol#4)\n\t\t-^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#4)\n\t\t-^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/token/ERC1155/utils/ERC1155Holder.sol#4)\n\t\t-^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/token/ERC721/utils/ERC721Holder.sol#4)\n\t\t-^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#4)\n\t\t-^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Context.sol#4)\n\t\t-^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Errors.sol#4)\n\t\t-^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/introspection/ERC165.sol#4)\n\t- Version constraint ^0.8.26 is used by:\n\t\t-^0.8.26 (src/v2-research-experiment/CommunityFeeRouterV2.sol#2)\n\t\t-^0.8.26 (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#2)\n\t\t-^0.8.26 (src/v2-research-experiment/CommunityTimelockV2.sol#2)\n\t\t-^0.8.26 (src/v2-research-experiment/CommunityTreasuryVaultV2.sol#2)\n\t\t-^0.8.26 (src/v2-research-experiment/RetroPickLauncherTokenV2.sol#2)\n\t\t-^0.8.26 (src/v2-research-experiment/interfaces/ICommunityFeesV2.sol#2)\n\t\t-^0.8.26 (src/v2-research-experiment/libraries/ExactAssetV2.sol#2)\n\t- Version constraint >=0.5.0 is used by:\n\t\t->=0.5.0 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/token/ERC721/IERC721Receiver.sol#4)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "0e7b9c73fe49cb5dacd30327ee017f7e886048906a696f321753ab6246586231",
+    "check": "dead-code",
+    "impact": "Informational",
+    "description": "AccessControl._setRoleAdmin(bytes32,bytes32) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/access/AccessControl.sol#168-172) is never used and should be removed\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "10de43c0e01930a1b9fb40f4f6ed72c2f999387cc16e08f742e274689dd237ba",
+    "check": "dead-code",
+    "impact": "Informational",
+    "description": "Context._contextSuffixLength() (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Context.sol#25-27) is never used and should be removed\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "93bd23634a3bf022810e43138345cf58db61248a704a7d277c8ec3d68c3ad188",
+    "check": "dead-code",
+    "impact": "Informational",
+    "description": "Context._msgData() (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Context.sol#21-23) is never used and should be removed\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "4234764b5a2f0ef2df466eb36a4971b0922641955853d7b3c0ce9179f31f8fd7",
+    "check": "solc-version",
+    "impact": "Informational",
+    "description": "Version constraint >=0.6.2 contains known severe issues (https://solidity.readthedocs.io/en/latest/bugs.html)\n\t- MissingSideEffectsOnSelectorAccess\n\t- AbiReencodingHeadOverflowWithStaticArrayCleanup\n\t- DirtyBytesArrayToStorage\n\t- NestedCalldataArrayAbiReencodingSizeValidation\n\t- ABIDecodeTwoDimensionalArrayMemory\n\t- KeccakCaching\n\t- EmptyByteArrayCopy\n\t- DynamicArrayCleanup\n\t- MissingEscapingInFormatting\n\t- ArraySliceDynamicallyEncodedBaseType\n\t- ImplicitConstructorCallvalueCheck\n\t- TupleAssignmentMultiStackSlotComponents\n\t- MemoryArrayCreationOverflow.\nIt is used by:\n\t- >=0.6.2 (lib/openzeppelin-contracts/contracts/interfaces/IERC1363.sol#4)\n\t- >=0.6.2 (lib/openzeppelin-contracts/contracts/interfaces/IERC20Metadata.sol#4)\n\t- >=0.6.2 (lib/openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Metadata.sol#4)\n\t- >=0.6.2 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/token/ERC1155/IERC1155Receiver.sol#4)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "4d85025317a4b945195503920cd57e9914dfa81c26abc9826d9a64c57cb70060",
+    "check": "solc-version",
+    "impact": "Informational",
+    "description": "Version constraint ^0.8.20 contains known severe issues (https://solidity.readthedocs.io/en/latest/bugs.html)\n\t- VerbatimInvalidDeduplication\n\t- FullInlinerNonExpressionSplitArgumentEvaluationOrder\n\t- MissingSideEffectsOnSelectorAccess.\nIt is used by:\n\t- ^0.8.20 (lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol#4)\n\t- ^0.8.20 (lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Burnable.sol#4)\n\t- ^0.8.20 (lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol#4)\n\t- ^0.8.20 (lib/openzeppelin-contracts/contracts/utils/Context.sol#4)\n\t- ^0.8.20 (lib/openzeppelin-contracts/contracts/utils/Panic.sol#4)\n\t- ^0.8.20 (lib/openzeppelin-contracts/contracts/utils/ReentrancyGuard.sol#4)\n\t- ^0.8.20 (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#5)\n\t- ^0.8.20 (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#4)\n\t- ^0.8.20 (lib/openzeppelin-contracts/contracts/utils/math/SafeCast.sol#5)\n\t- ^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/access/AccessControl.sol#4)\n\t- ^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#4)\n\t- ^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/token/ERC1155/utils/ERC1155Holder.sol#4)\n\t- ^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/token/ERC721/utils/ERC721Holder.sol#4)\n\t- ^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#4)\n\t- ^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Context.sol#4)\n\t- ^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Errors.sol#4)\n\t- ^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/introspection/ERC165.sol#4)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "9d184d4d76a90ff128ef16962f8e50c6c1fb3cc5dddb87abfe0b408d577d776e",
+    "check": "solc-version",
+    "impact": "Informational",
+    "description": "Version constraint >=0.8.4 contains known severe issues (https://solidity.readthedocs.io/en/latest/bugs.html)\n\t- FullInlinerNonExpressionSplitArgumentEvaluationOrder\n\t- MissingSideEffectsOnSelectorAccess\n\t- AbiReencodingHeadOverflowWithStaticArrayCleanup\n\t- DirtyBytesArrayToStorage\n\t- DataLocationChangeInInternalOverride\n\t- NestedCalldataArrayAbiReencodingSizeValidation\n\t- SignedImmutables.\nIt is used by:\n\t- >=0.8.4 (lib/openzeppelin-contracts/contracts/interfaces/draft-IERC6093.sol#4)\n\t- >=0.8.4 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/access/IAccessControl.sol#4)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "a48d2a1536656b6a3999e1772dfe73c31cdd0b8609fe5c838eb264a3a6dc39f1",
+    "check": "solc-version",
+    "impact": "Informational",
+    "description": "Version constraint >=0.5.0 contains known severe issues (https://solidity.readthedocs.io/en/latest/bugs.html)\n\t- DirtyBytesArrayToStorage\n\t- ABIDecodeTwoDimensionalArrayMemory\n\t- KeccakCaching\n\t- EmptyByteArrayCopy\n\t- DynamicArrayCleanup\n\t- ImplicitConstructorCallvalueCheck\n\t- TupleAssignmentMultiStackSlotComponents\n\t- MemoryArrayCreationOverflow\n\t- privateCanBeOverridden\n\t- SignedArrayStorageCopy\n\t- ABIEncoderV2StorageArrayWithMultiSlotElement\n\t- DynamicConstructorArgumentsClippedABIV2\n\t- UninitializedFunctionPointerInConstructor\n\t- IncorrectEventSignatureInLibraries\n\t- ABIEncoderV2PackedStorage.\nIt is used by:\n\t- >=0.5.0 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/token/ERC721/IERC721Receiver.sol#4)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "a9f1628396352b02c7d490b351ce1ace0317480ecf9188ce08250ee8d714219b",
+    "check": "solc-version",
+    "impact": "Informational",
+    "description": "Version constraint >=0.4.16 contains known severe issues (https://solidity.readthedocs.io/en/latest/bugs.html)\n\t- DirtyBytesArrayToStorage\n\t- ABIDecodeTwoDimensionalArrayMemory\n\t- KeccakCaching\n\t- EmptyByteArrayCopy\n\t- DynamicArrayCleanup\n\t- ImplicitConstructorCallvalueCheck\n\t- TupleAssignmentMultiStackSlotComponents\n\t- MemoryArrayCreationOverflow\n\t- privateCanBeOverridden\n\t- SignedArrayStorageCopy\n\t- ABIEncoderV2StorageArrayWithMultiSlotElement\n\t- DynamicConstructorArgumentsClippedABIV2\n\t- UninitializedFunctionPointerInConstructor_0.4.x\n\t- IncorrectEventSignatureInLibraries_0.4.x\n\t- ExpExponentCleanup\n\t- NestedArrayFunctionCallDecoder\n\t- ZeroFunctionSelector.\nIt is used by:\n\t- >=0.4.16 (lib/openzeppelin-contracts/contracts/interfaces/IERC165.sol#4)\n\t- >=0.4.16 (lib/openzeppelin-contracts/contracts/interfaces/IERC20.sol#4)\n\t- >=0.4.16 (lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol#4)\n\t- >=0.4.16 (lib/openzeppelin-contracts/contracts/utils/introspection/IERC165.sol#4)\n\t- >=0.4.16 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/introspection/IERC165.sol#4)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "0488c16c1c1ba9d7515ee192b2e51b286ce6c7a33e085c1a5fa9ca4e71672b38",
+    "check": "low-level-calls",
+    "impact": "Informational",
+    "description": "Low level call in Address.functionCallWithValue(address,bytes,uint256) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#75-81):\n\t- (success,returndata) = target.call{value: value}(data) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#79)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "10cd231f414ae3cc2f5ea676c5284bb40e47c9bee4246db336a297caac9d51d7",
+    "check": "low-level-calls",
+    "impact": "Informational",
+    "description": "Low level call in TimelockController._execute(address,uint256,bytes) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#411-414):\n\t- (success,returndata) = target.call{value: value}(data) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#412)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "35a9c63a33abe88f30e2b53cf755e88e991685e4fad2150cf507311338d7bbf0",
+    "check": "low-level-calls",
+    "impact": "Informational",
+    "description": "Low level call in Address.sendValue(address,uint256) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#33-42):\n\t- (success,returndata) = recipient.call{value: amount}() (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#38)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "72f0b074c1bdc17937e19a85dbf1bf0575a20fba1c8a5796d519cbcc1dd56c94",
+    "check": "low-level-calls",
+    "impact": "Informational",
+    "description": "Low level call in Address.functionDelegateCall(address,bytes) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#96-99):\n\t- (success,returndata) = target.delegatecall(data) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#97)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "c6b1d862087b569d34516ba8c9e9286bafd28adf9c8e5563523f2430084fffbf",
+    "check": "low-level-calls",
+    "impact": "Informational",
+    "description": "Low level call in CommunityTreasuryVaultV2.spend(address,address,uint256,bytes32) (src/v2-research-experiment/CommunityTreasuryVaultV2.sol#112-131):\n\t- (ok,None) = address(recipient).call{value: amount}() (src/v2-research-experiment/CommunityTreasuryVaultV2.sol#123)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "dc5fddb7f7cd665836008f80067047d3f1809c69484c7eb9e840818e5acba982",
+    "check": "low-level-calls",
+    "impact": "Informational",
+    "description": "Low level call in CommunityFeeRouterV2._claim(address,uint256) (src/v2-research-experiment/CommunityFeeRouterV2.sol#136-150):\n\t- (ok,None) = address(recipient).call{value: amount}() (src/v2-research-experiment/CommunityFeeRouterV2.sol#143)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "fd31db10da457f31d006cba259a6e291ff1cf46eddd8eb530bee5997da536730",
+    "check": "low-level-calls",
+    "impact": "Informational",
+    "description": "Low level call in Address.functionStaticCall(address,bytes) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#87-90):\n\t- (success,returndata) = target.staticcall(data) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#88)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "0d746317b0af6f83551b3f25e77c70dfda35a924dd013ba0774527adcc3b8c0b",
+    "check": "too-many-digits",
+    "impact": "Informational",
+    "description": "Math.log2(uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#619-658) uses literals with too many digits:\n\t- r = r | byte(uint256,uint256)(x >> r,0x0000010102020202030303030303030300000000000000000000000000000000) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#656)\n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  },
+  {
+    "id": "209a31aac460018496d2f061c1fecef7e55acb13cd8fd9457f8d4ffaa04c7a9b",
+    "check": "immutable-states",
+    "impact": "Optimization",
+    "description": "TimelockController._minDelay (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#32) should be immutable \n",
+    "disposition": "Transitive/compiler/informational or medium/low source-review item. Raw finding retained; no claim of complete detector closure or external audit. Further independent audit required before release."
+  }
+]

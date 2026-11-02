@@ -1,0 +1,6 @@
+{
+  "canonicalFindings": 75,
+  "experimentalFindings": 75,
+  "normalizedDescriptionsEquivalent": true,
+  "scope": "Exact canonical implementation bytes match qualified experiment; contextual triage remains applicable, unresolved medium/low review is not an external audit."
+}

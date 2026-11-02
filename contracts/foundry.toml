@@ -36,6 +36,8 @@ fail_on_revert = false
 # Add RPC endpoints as needed
 
 [fmt]
+# Preserve the approved upstream dependency byte-for-byte.
+ignore = ["src/v2-research-experiment/vendor/openzeppelin-v5.4.0/**", "src/v2/vendor/openzeppelin-v5.4.0/**", "test/v2/community-economy/reference/**"]
 line_length = 120
 tab_width = 4
 bracket_spacing = false

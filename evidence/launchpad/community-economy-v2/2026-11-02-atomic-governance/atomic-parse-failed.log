@@ -1,0 +1,11 @@
+Error: Compiler run failed:
+Error (7398): Explicit type conversion not allowed from non-payable "address" to "contract RetroPickLaunchFactoryV2", which has a payable fallback function.
+  --> test/v2/research-experiment/atomic/CommunityAtomicBinding.t.sol:41:39:
+   |
+41 |         require(msg.sender == address(F(factory).communityBuilder()));
+   |                                       ^^^^^^^^^^
+Note: Did you mean to declare this variable as "address payable"?
+  --> test/v2/research-experiment/atomic/CommunityAtomicBinding.t.sol:32:5:
+   |
+32 |     address public immutable factory;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

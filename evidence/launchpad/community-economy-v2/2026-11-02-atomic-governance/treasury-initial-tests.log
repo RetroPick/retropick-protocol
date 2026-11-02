@@ -1,0 +1,31 @@
+Compiling 145 files with Solc 0.8.26
+Solc 0.8.26 finished in 133.20s
+Compiler run successful with warnings:
+Warning (2018): Function state mutability can be restricted to view
+   --> src/v2-research-experiment/RetroPickBondingCurveV2.sol:931:5:
+    |
+931 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 13 tests for test/v2/research-experiment/treasury-integration/CommunityTreasuryIntegration.t.sol:CommunityTreasuryIntegrationTest
+[PASS] testCETreasuryDeployerCannotReuseFundedRouterOrWrongCaller() (gas: 10183988)
+[PASS] testCETreasuryDonationsCannotBecomeSpendableAndUnauthorizedSpendsFail() (gas: 11132035)
+[PASS] testCETreasuryExpiryAndSpendIdReplayRejected() (gas: 11376095)
+[PASS] testCETreasuryFailedRecipientDoesNotConsumeOperationAndOtherSpendSucceeds() (gas: 11452901)
+[PASS] testCETreasuryFalseAndInexactQuotePayoutsRollbackCredits() (gas: 12714595)
+[PASS] testCETreasuryNativeReentryCannotClaimWhileSpending() (gas: 11319620)
+[PASS] testCETreasuryNativeTradeClaimTimelockedSpend() (gas: 11492771)
+[PASS] testCETreasuryPolicyAndControllerChangesPreserveOldRightsAndGovernance() (gas: 12071335)
+[PASS] testCETreasuryQuoteDeficitBlocksNewClaimsAndSpending() (gas: 13161493)
+[PASS] testCETreasuryRealConstructorAndLateRegistryFailureRollbackAndRetry() (gas: 26174545)
+Logs:
+  computeCreateAddress is deprecated. Please use vm.computeCreateAddress instead.
+  computeCreateAddress is deprecated. Please use vm.computeCreateAddress instead.
+
+[PASS] testCETreasuryTwoSameCreatorLaunchesAndCrossGovernanceIsolation() (gas: 21927607)
+[PASS] testCETreasuryUSDCTradeClaimTimelockedSpend() (gas: 12774034)
+[PASS] testFuzzCETreasuryRealFundingClaimsAndSpend(uint96,uint16) (runs: 10000, μ: 11169291, ~: 11170507)
+Suite result: ok. 13 passed; 0 failed; 0 skipped; finished in 5.47s (5.54s CPU time)
+
+Ran 1 test suite in 5.47s (5.47s CPU time): 13 tests passed, 0 failed, 0 skipped (13 total tests)

@@ -1,0 +1,21 @@
+# Iteration 005 — owner-authorized canonical candidate
+
+Authority: ADR-CE02, explicitly accepted2026-11-02 for canonical implementation subject to qualification. This is development approval, no release or deployment approval. Qualified experimental checkpoint:ff7540ba. Main baseline:7bad742b67e2fa58ebf680eadbfa6194d5bbf0c3.
+
+## Exact scope
+
+Canonical source receives byte-identical qualified experimental Controller, Registry, Router, legacy CommunityBuilder, new TreasuryBuilder/Deployer/Vault/Timelock and ICommunityFees interface, plus the existing experimental Factory/Curve opt-in integration and v4 unsupported-revenue disable branch. Canonical token, bonding math, existing escrow/buyback vault, coordinator and Kuru sources remain unchanged. Experimental source remains intact. No new treasury branch/code is added to the already near-limit experimental Factory. Canonical Factory grows from its old23423-byte runtime to the qualified experiment's24486bytes, retaining90bytes headroom.
+
+New deployments select either legacy or explicitly opted-in community launch entrypoints. Existing deployed addresses cannot acquire these changes, and existing once-wired builders are not retrofitted. Storage layout changes are unsuitable for an in-place proxy upgrade; no proxy/migration/deployment is provided. Legacy methods/events remain, new methods/events are additive; source-level ABI reconciliation evidence is scoped separately from historical production ABI files. Selected community launches disable unsupported post-graduation hook/creator fees; Kuru continuous revenue is still BLOCKED_EXTERNAL_CAPABILITY.
+
+New canonical tests import canonical sources explicitly. Their distinct frozen reference at test/v2/community-economy/reference/v2 contains exact original31Solidity files from7bad742b, with a provenance/hash manifest. Differential tests use that actual immutable reference, not the now-modified canonical source as a baseline. The reference is test-only and must never be deployed as the candidate. Original test bodies/assertions are unchanged; the owner-approved five-import DEV4 historical pin is the sole exception.
+
+Historical baseline.py is untouched and intentionally fails after accepted canonical changes. canonical_adoption.py is a separate stage-specific checker that permits only exact qualified experiment bytes for12canonical module/core/interface paths and the exact vendor closure, checks untouched V1/V3/scripts/deployments/apps/packages/original tests, verifies frozen reference bytes against Git, and permits only disclosed formatter exclusions. It does not waive financial tests or release gates. Compiler/remappings unchanged.
+
+## Handoff
+
+Reuse iteration004's source/asset/fee sequence and SDK/indexer handoff. For a fresh environment deploy TreasuryDeployer bound to Factory, TreasuryLaunchBuilder bound to both, verify immutable nonproxy codehashes and once-only Factory wiring; each launch creates actual unique modules atomically. Clients encode ConfigV1 and commit address/codehash/exact bytes, using treasury placeholders rather than predicted addresses. Resolve actual module addresses from events/views. Controller and economic beneficiaries remain distinct.
+
+No SDK/indexer or deployment scripts changed. Existing manifests, original ABI artifacts, accepted historical evidence and live contracts are preserved. Full source/ABI, local qualification, unresolved static findings, actual multisig policy/identity, fork and independent audit requirements must be reviewed before release. The main research campaign remains PARTIAL even if this canonical implementation passes local tests.
+
+Compatibility boundary: the new v4 Executor calls Curve.communityRouter(), so it must not be inserted into an old deployed coordinator serving pre-change Curves without separately approved migration/adaptation. ABI retention is not permission to change live wiring. Existing UI/SDK/indexer are not qualified for the new opt-in mode: the Factory creator identity is not the full economic beneficiary map. Read Registry policy, Router credit, actual Vault/Timelock and explicit venue capability instead of assuming all creator-domain earnings belong to the old launch-record beneficiary. No frontend financial write is enabled by this source change.

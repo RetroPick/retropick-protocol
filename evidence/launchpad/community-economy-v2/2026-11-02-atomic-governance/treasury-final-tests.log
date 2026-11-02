@@ -1,0 +1,71 @@
+Compiling 146 files with Solc 0.8.26
+Solc 0.8.26 finished in 146.81s
+Compiler run successful with warnings:
+Warning (2018): Function state mutability can be restricted to view
+   --> src/v2-research-experiment/RetroPickBondingCurveV2.sol:931:5:
+    |
+931 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 16 tests for test/v2/research-experiment/treasury-integration/CommunityTreasuryIntegration.t.sol:CommunityTreasuryIntegrationTest
+[PASS] testCETreasuryBatchFailureRollsBackEarlierRealPayment() (gas: 11185205)
+[PASS] testCETreasuryDeployerCannotReuseFundedRouterOrWrongCaller() (gas: 10183895)
+[PASS] testCETreasuryDonationsCannotBecomeSpendableAndUnauthorizedSpendsFail() (gas: 11131986)
+[PASS] testCETreasuryExpiryAndSpendIdReplayRejected() (gas: 11376068)
+[PASS] testCETreasuryFailedRecipientDoesNotConsumeOperationAndOtherSpendSucceeds() (gas: 11452852)
+[PASS] testCETreasuryFalseAndInexactQuotePayoutsRollbackCredits() (gas: 12714546)
+[PASS] testCETreasuryInvalidSpendFieldsRejectedThroughRealTimelock() (gas: 11685931)
+[PASS] testCETreasuryNativeReentryCannotClaimWhileSpending() (gas: 11319559)
+[PASS] testCETreasuryNativeTradeClaimTimelockedSpend() (gas: 11492722)
+[PASS] testCETreasuryOneUnitDustNativeAndUSDC() (gas: 23233589)
+[PASS] testCETreasuryPolicyAndControllerChangesPreserveOldRightsAndGovernance() (gas: 12071235)
+[PASS] testCETreasuryQuoteDeficitBlocksNewClaimsAndSpending() (gas: 13161466)
+[PASS] testCETreasuryRealConstructorAndLateRegistryFailureRollbackAndRetry() (gas: 26174356)
+Logs:
+  computeCreateAddress is deprecated. Please use vm.computeCreateAddress instead.
+  computeCreateAddress is deprecated. Please use vm.computeCreateAddress instead.
+
+[PASS] testCETreasuryTwoSameCreatorLaunchesAndCrossGovernanceIsolation() (gas: 21927465)
+[PASS] testCETreasuryUSDCTradeClaimTimelockedSpend() (gas: 12773985)
+[PASS] testFuzzCETreasuryRealFundingClaimsAndSpend(uint96,uint16) (runs: 10000, μ: 11169210, ~: 11170414)
+Suite result: ok. 16 passed; 0 failed; 0 skipped; finished in 7.46s (7.66s CPU time)
+
+Ran 1 test for test/v2/research-experiment/treasury-integration/CommunityTreasuryInvariant.t.sol:CommunityTreasuryInvariantTest
+[PASS] invariantCETreasuryEarnedCustodyAndSourceConservation() (runs: 256, calls: 32768, reverts: 0)
+
+╭---------------------------+--------------+-------+---------+----------╮
+| Contract                  | Selector     | Calls | Reverts | Discards |
++=======================================================================+
+| TreasuryAccountingHandler | claim        | 4130  | 0       | 0        |
+|---------------------------+--------------+-------+---------+----------|
+| TreasuryAccountingHandler | claimOther   | 3964  | 0       | 0        |
+|---------------------------+--------------+-------+---------+----------|
+| TreasuryAccountingHandler | donate       | 4121  | 0       | 0        |
+|---------------------------+--------------+-------+---------+----------|
+| TreasuryAccountingHandler | execute      | 4084  | 0       | 0        |
+|---------------------------+--------------+-------+---------+----------|
+| TreasuryAccountingHandler | schedule     | 4124  | 0       | 0        |
+|---------------------------+--------------+-------+---------+----------|
+| TreasuryAccountingHandler | settle       | 4106  | 0       | 0        |
+|---------------------------+--------------+-------+---------+----------|
+| TreasuryAccountingHandler | trade        | 4076  | 0       | 0        |
+|---------------------------+--------------+-------+---------+----------|
+| TreasuryAccountingHandler | unauthorized | 4163  | 0       | 0        |
+╰---------------------------+--------------+-------+---------+----------╯
+
+Logs:
+  successful trades (includes seed): 16
+  successful settlements: 18
+  successful treasury claims: 11
+  successful other claims: 11
+  successful schedules: 24
+  successful executions: 6
+  failed executions caught: 12
+  other economic rejections caught: 0
+  donations: 20
+  unauthorized attempts: 19
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 19.01s (18.96s CPU time)
+
+Ran 2 test suites in 19.01s (26.47s CPU time): 17 tests passed, 0 failed, 0 skipped (17 total tests)

@@ -1,0 +1,28 @@
+No files changed, compilation skipped
+
+Ran 22 tests for test/v2/research-experiment/governance/CommunityTimelockV2.t.sol:CommunityTimelockV2Test
+[PASS] testCEGovAtomicProposerReplacement() (gas: 421072)
+[PASS] testCEGovBatchExactDeadlineAndReplay() (gas: 237014)
+[PASS] testCEGovBatchExpiryAndAtomicFailure() (gas: 233391)
+[PASS] testCEGovBootstrapRolesAndFixedDelay() (gas: 55845)
+[PASS] testCEGovCallbackCannotEscalateRole() (gas: 443599)
+[PASS] testCEGovCancelRequeueRestartsFullDelay() (gas: 359159)
+[PASS] testCEGovDirectAndGovernedDelayChangeAlwaysFails() (gas: 134308)
+[PASS] testCEGovExactReadinessAndDeadline() (gas: 213761)
+[PASS] testCEGovExpirySeparateFromUpstreamReady() (gas: 184418)
+[PASS] testCEGovFixedNativeValueAndTargetAuthority() (gas: 222060)
+[PASS] testCEGovGovernedAdminExecutorAndRenounceBypassesRejected() (gas: 699845)
+[PASS] testCEGovHugeFutureTimestampDoesNotOverflowViews() (gas: 123166)
+[PASS] testCEGovImmutableAdminExecutorAndRenunciation() (gas: 350871)
+[PASS] testCEGovInsufficientDelayAndPredecessor() (gas: 170879)
+[PASS] testCEGovLastProposerRemovalIsExplicitLivenessRisk() (gas: 185155)
+[PASS] testCEGovMembershipRequiresSelfCallAndRejectsZero() (gas: 251041)
+[PASS] testCEGovPermissionlessReadyExecutionAndNoScheduleAuthority() (gas: 268337)
+[PASS] testCEGovRejectsInvalidProposers() (gas: 4588)
+[PASS] testCEGovSameOperationReentryRollsBack() (gas: 504686)
+[PASS] testCEGovTargetFailureRetryAndIndependentOperation() (gas: 409094)
+[PASS] testFuzzCEGovCannotExecuteEarly(uint32) (runs: 256, μ: 132894, ~: 132827)
+[PASS] testFuzzCEGovExecutionWindow(uint32) (runs: 256, μ: 153104, ~: 158724)
+Suite result: ok. 22 passed; 0 failed; 0 skipped; finished in 39.43ms (77.57ms CPU time)
+
+Ran 1 test suite in 41.54ms (39.43ms CPU time): 22 tests passed, 0 failed, 0 skipped (22 total tests)

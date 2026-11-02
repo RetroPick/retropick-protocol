@@ -1,0 +1,233 @@
+{
+  "frozenContracts": 45,
+  "candidateContracts": 76,
+  "sourceFilesFrozen": 31,
+  "sourceFilesCandidate": 52,
+  "originals": {
+    "libraries/KuruParameterPolicyV2.sol:KuruParameterPolicyV2": {
+      "legacyABIEntries": 1,
+      "retained": 1,
+      "missing": []
+    },
+    "libraries/CompletionQuoteMathV2.sol:CompletionQuoteMathV2": {
+      "legacyABIEntries": 2,
+      "retained": 2,
+      "missing": []
+    },
+    "libraries/ExecutorDonationsV2.sol:ExecutorDonationLockV2": {
+      "legacyABIEntries": 3,
+      "retained": 3,
+      "missing": []
+    },
+    "libraries/ExecutorDonationsV2.sol:ExecutorDonationsV2": {
+      "legacyABIEntries": 2,
+      "retained": 2,
+      "missing": []
+    },
+    "libraries/ExactAssetV2.sol:ExactAssetV2": {
+      "legacyABIEntries": 1,
+      "retained": 1,
+      "missing": []
+    },
+    "libraries/RetroPickGraduationMathV2.sol:RetroPickGraduationMathV2": {
+      "legacyABIEntries": 2,
+      "retained": 2,
+      "missing": []
+    },
+    "libraries/RetroPickBondingCurveMathV2.sol:RetroPickBondingCurveMathV2": {
+      "legacyABIEntries": 3,
+      "retained": 3,
+      "missing": []
+    },
+    "interfaces/IGraduationExecutorV2.sol:IGraduationCoordinatorV2": {
+      "legacyABIEntries": 6,
+      "retained": 6,
+      "missing": []
+    },
+    "interfaces/IGraduationExecutorV2.sol:IGraduationFactoryV2": {
+      "legacyABIEntries": 1,
+      "retained": 1,
+      "missing": []
+    },
+    "interfaces/IGraduationExecutorV2.sol:IGraduationExecutorV2": {
+      "legacyABIEntries": 6,
+      "retained": 6,
+      "missing": []
+    },
+    "interfaces/IVenueLaunchV2.sol:IVenueLaunchV2": {
+      "legacyABIEntries": 1,
+      "retained": 1,
+      "missing": []
+    },
+    "interfaces/IRetroPickQuoteAssetPolicyV2.sol:IRetroPickQuoteAssetPolicyV2": {
+      "legacyABIEntries": 2,
+      "retained": 2,
+      "missing": []
+    },
+    "interfaces/IRetroPickGraduationV2.sol:IRetroPickLaunchFactoryGraduationV2": {
+      "legacyABIEntries": 1,
+      "retained": 1,
+      "missing": []
+    },
+    "interfaces/IKuruV2.sol:IKuruOrderBookV2": {
+      "legacyABIEntries": 3,
+      "retained": 3,
+      "missing": []
+    },
+    "interfaces/IKuruV2.sol:IKuruMarketStateV2": {
+      "legacyABIEntries": 1,
+      "retained": 1,
+      "missing": []
+    },
+    "interfaces/IKuruV2.sol:IKuruRouterV2": {
+      "legacyABIEntries": 7,
+      "retained": 7,
+      "missing": []
+    },
+    "interfaces/IKuruV2.sol:IKuruVaultV2": {
+      "legacyABIEntries": 10,
+      "retained": 10,
+      "missing": []
+    },
+    "interfaces/IRetroPickDoorwayV2.sol:IRetroPickDoorwayV2": {
+      "legacyABIEntries": 20,
+      "retained": 20,
+      "missing": []
+    },
+    "interfaces/IRetroPickDoorwayV2.sol:IRetroPickDoorwayRegistryV2": {
+      "legacyABIEntries": 4,
+      "retained": 4,
+      "missing": []
+    },
+    "interfaces/IRetroPickDoorwayV2.sol:IRetroPickDoorwayStakingV2": {
+      "legacyABIEntries": 4,
+      "retained": 4,
+      "missing": []
+    },
+    "interfaces/IRetroPickDoorwayV2.sol:IRetroPickDoorwayVaultV2": {
+      "legacyABIEntries": 3,
+      "retained": 3,
+      "missing": []
+    },
+    "interfaces/IRetroPickLaunchpadV2.sol:IRetroPickBondingCurveV2": {
+      "legacyABIEntries": 10,
+      "retained": 10,
+      "missing": []
+    },
+    "interfaces/IRetroPickLaunchpadV2.sol:IRetroPickFeePolicyV2": {
+      "legacyABIEntries": 7,
+      "retained": 7,
+      "missing": []
+    },
+    "interfaces/IRetroPickLaunchpadV2.sol:IRetroPickLaunchFactoryV2": {
+      "legacyABIEntries": 1,
+      "retained": 1,
+      "missing": []
+    },
+    "interfaces/IRetroPickLaunchpadV2.sol:IERC721ReceiverLike": {
+      "legacyABIEntries": 1,
+      "retained": 1,
+      "missing": []
+    },
+    "interfaces/IRetroPickLaunchpadV2.sol:IRetroPickFeeEscrowV2": {
+      "legacyABIEntries": 8,
+      "retained": 8,
+      "missing": []
+    },
+    "RetroPickFeeEscrowV2.sol:RetroPickFeeEscrowV2": {
+      "legacyABIEntries": 23,
+      "retained": 23,
+      "missing": []
+    },
+    "UniswapV4GraduationExecutorV2.sol:UniswapV4GraduationExecutorV2": {
+      "legacyABIEntries": 27,
+      "retained": 27,
+      "missing": []
+    },
+    "RetroPickLaunchFactoryV2.sol:RetroPickLaunchFactoryV2": {
+      "legacyABIEntries": 131,
+      "retained": 131,
+      "missing": []
+    },
+    "RetroPickBondingCurveV2.sol:RetroPickBondingCurveV2": {
+      "legacyABIEntries": 82,
+      "retained": 82,
+      "missing": []
+    },
+    "KuruGraduationExecutorV2.sol:KuruGraduationExecutorV2": {
+      "legacyABIEntries": 20,
+      "retained": 20,
+      "missing": []
+    },
+    "RetroPickGraduationGuardV2.sol:RetroPickGraduationGuardV2": {
+      "legacyABIEntries": 6,
+      "retained": 6,
+      "missing": []
+    },
+    "RetroPickQuoteAssetRegistryV2.sol:RetroPickQuoteAssetRegistryV2": {
+      "legacyABIEntries": 21,
+      "retained": 21,
+      "missing": []
+    },
+    "RetroPickLaunchDeployerV2.sol:RetroPickLaunchDeployerV2": {
+      "legacyABIEntries": 5,
+      "retained": 5,
+      "missing": []
+    },
+    "GraduationCoordinatorV2.sol:IGraduationLaunchConfigV2": {
+      "legacyABIEntries": 4,
+      "retained": 4,
+      "missing": []
+    },
+    "GraduationCoordinatorV2.sol:GraduationCoordinatorV2": {
+      "legacyABIEntries": 39,
+      "retained": 39,
+      "missing": []
+    },
+    "RetroPickQuoteAssetPolicyV2.sol:RetroPickQuoteAssetPolicyV2": {
+      "legacyABIEntries": 8,
+      "retained": 8,
+      "missing": []
+    },
+    "KuruLiquidityLockV2.sol:KuruLiquidityLockV2": {
+      "legacyABIEntries": 7,
+      "retained": 7,
+      "missing": []
+    },
+    "RetroPickDoorwayV2.sol:RetroPickDoorwayV2": {
+      "legacyABIEntries": 48,
+      "retained": 48,
+      "missing": []
+    },
+    "RetroPickLaunchLockerV2.sol:RetroPickLaunchLockerV2": {
+      "legacyABIEntries": 33,
+      "retained": 33,
+      "missing": []
+    },
+    "RetroPickLauncherTokenV2.sol:RetroPickLauncherTokenV2": {
+      "legacyABIEntries": 28,
+      "retained": 28,
+      "missing": []
+    },
+    "RetroPickBuybackVaultV2.sol:RetroPickBuybackVaultV2": {
+      "legacyABIEntries": 39,
+      "retained": 39,
+      "missing": []
+    },
+    "KuruEnvironmentV2.sol:KuruEnvironmentV2": {
+      "legacyABIEntries": 10,
+      "retained": 10,
+      "missing": []
+    },
+    "RetroPickHookDeployerV2.sol:RetroPickHookDeployerV2": {
+      "legacyABIEntries": 4,
+      "retained": 4,
+      "missing": []
+    },
+    "hooks/RetroPickMemeHookV2.sol:RetroPickMemeHookV2": {
+      "legacyABIEntries": 89,
+      "retained": 89,
+      "missing": []
+    }
+  }
+}

@@ -1,0 +1,23 @@
+--- a/contracts/test/v2/integration/DEV4GraduationExtractionResearch.t.sol
++++ b/contracts/test/v2/integration/DEV4GraduationExtractionResearch.t.sol
+@@ -4,15 +4,15 @@
+ import {Test} from "forge-std/Test.sol";
+ import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+ import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+-import {RetroPickBondingCurveV2} from "../../../src/v2/RetroPickBondingCurveV2.sol";
+-import {RetroPickLauncherTokenV2} from "../../../src/v2/RetroPickLauncherTokenV2.sol";
+-import {RetroPickBuybackVaultV2} from "../../../src/v2/RetroPickBuybackVaultV2.sol";
+-import {RetroPickFeeEscrowV2} from "../../../src/v2/RetroPickFeeEscrowV2.sol";
++import {RetroPickBondingCurveV2} from "../community-economy/reference/v2/RetroPickBondingCurveV2.sol";
++import {RetroPickLauncherTokenV2} from "../community-economy/reference/v2/RetroPickLauncherTokenV2.sol";
++import {RetroPickBuybackVaultV2} from "../community-economy/reference/v2/RetroPickBuybackVaultV2.sol";
++import {RetroPickFeeEscrowV2} from "../community-economy/reference/v2/RetroPickFeeEscrowV2.sol";
+ import {
+     FeePolicySnapshot,
+     IRetroPickFeeEscrowV2,
+     IRetroPickFeePolicyV2
+-} from "../../../src/v2/interfaces/IRetroPickLaunchpadV2.sol";
++} from "../community-economy/reference/v2/interfaces/IRetroPickLaunchpadV2.sol";
+ 
+ /// @title DEV-4 Factory-to-Coordinator extraction research fixture.
+ /// @notice Research-only architecture proof. No contract here is production

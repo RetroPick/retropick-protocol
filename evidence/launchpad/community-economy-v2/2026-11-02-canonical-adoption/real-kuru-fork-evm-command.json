@@ -1,0 +1,30 @@
+{
+  "command": [
+    "forge",
+    "test",
+    "--root",
+    "/tmp/retropick-ce-canonical-2kkcj4u2/contracts",
+    "--contracts",
+    "src/v2",
+    "--match-contract",
+    "^KuruV2EndToEndForkTest$",
+    "--match-test",
+    "^testFreshNativeProductionGraduationCustodyReplay",
+    "--out",
+    "/tmp/retropick-ce-canonical-2kkcj4u2/out",
+    "--cache-path",
+    "/tmp/retropick-ce-canonical-2kkcj4u2/cache",
+    "--rpc-url",
+    "https://testnet-rpc.monad.xyz",
+    "--fork-block-number",
+    "76412975",
+    "--chain-id",
+    "10143",
+    "--code-size-limit",
+    "1048576",
+    "-vvv"
+  ],
+  "publicRPC": "https://testnet-rpc.monad.xyz",
+  "pinnedBlock": "76412975",
+  "broadcast": false
+}

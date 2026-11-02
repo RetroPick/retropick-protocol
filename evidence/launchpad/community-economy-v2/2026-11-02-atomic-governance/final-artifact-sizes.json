@@ -1,0 +1,44 @@
+{
+  "CommunityTreasuryVaultV2": {
+    "runtimeBytes": 4606,
+    "creationBytesExcludingArguments": 7486,
+    "target": {
+      "src/v2-research-experiment/CommunityTreasuryVaultV2.sol": "CommunityTreasuryVaultV2"
+    }
+  },
+  "CommunityTreasuryDeployerV2": {
+    "runtimeBytes": 16453,
+    "creationBytesExcludingArguments": 16643,
+    "target": {
+      "src/v2-research-experiment/CommunityTreasuryDeployerV2.sol": "CommunityTreasuryDeployerV2"
+    }
+  },
+  "CommunityTimelockV2": {
+    "runtimeBytes": 5842,
+    "creationBytesExcludingArguments": 7072,
+    "target": {
+      "src/v2-research-experiment/CommunityTimelockV2.sol": "CommunityTimelockV2"
+    }
+  },
+  "CommunityTreasuryLaunchBuilderV2": {
+    "runtimeBytes": 20644,
+    "creationBytesExcludingArguments": 21047,
+    "target": {
+      "src/v2-research-experiment/CommunityTreasuryLaunchBuilderV2.sol": "CommunityTreasuryLaunchBuilderV2"
+    }
+  },
+  "RetroPickLaunchFactoryV2": {
+    "runtimeBytes": 24486,
+    "creationBytesExcludingArguments": 26001,
+    "target": {
+      "src/v2-research-experiment/RetroPickLaunchFactoryV2.sol": "RetroPickLaunchFactoryV2"
+    }
+  },
+  "CommunityFeeRouterV2": {
+    "runtimeBytes": 6487,
+    "creationBytesExcludingArguments": 7514,
+    "target": {
+      "src/v2-research-experiment/CommunityFeeRouterV2.sol": "CommunityFeeRouterV2"
+    }
+  }
+}

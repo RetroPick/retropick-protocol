@@ -1,5 +1,13 @@
 # Qualification checkpoint
 
+## Iteration 005 — canonical implementation candidate
+
+Owner accepted ADR-CE02 for canonical implementation subject to qualification. Scoped canonical V2 source is now intentionally changed on the isolated candidate branch. [Canonical qualification](iterations/005-canonical-adoption/QUALIFICATION.md):91distinct canonical community tests pass; fresh original regression64pass/0fail/10forkskips. Owner approved the five-import historical-fixture pin; original assertions/bodies are unchanged and the prior failure is preserved. Not release qualified; no deployment. Earlier checkpoints below are historical.
+
+## Iteration 004 — atomic treasury implementation
+
+New experimental TreasuryLaunchBuilder, TreasuryDeployer, TreasuryVault and restricted pinned-OZ Timelock are implemented. Real native/USDC trade-to-spend tests and independent internal review are recorded in [iteration004](iterations/004-atomic-binding/QUALIFICATION.md). Use that report and its final logs for current counts; earlier results below remain historical. Canonical adoption, live multisig identity, fork qualification and external audit remain separate gates. Overall status remains PARTIAL / NOT RELEASE QUALIFIED.
+
 Status: PARTIAL / NOT RELEASE QUALIFIED.
 
 ## Current iteration 002 — real curve financial slice

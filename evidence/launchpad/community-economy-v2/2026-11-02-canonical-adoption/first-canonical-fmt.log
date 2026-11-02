@@ -1,0 +1,93 @@
+Diff in test/v2/community-economy/CommunityLegacyDifferential.t.sol:
+9   9    |     IRetroPickFeePolicyV2 as CanonicalPolicy,
+10  10   |     IRetroPickFeeEscrowV2 as CanonicalEscrow
+11  11   | } from "./reference/v2/interfaces/IRetroPickLaunchpadV2.sol";
+12       |-import {
+13       |-    RetroPickBondingCurveV2 as ExperimentalCurve
+14       |-} from "../../../src/v2/RetroPickBondingCurveV2.sol";
+15       |-import {
+16       |-    RetroPickLauncherTokenV2 as ExperimentalToken
+17       |-} from "../../../src/v2/RetroPickLauncherTokenV2.sol";
+    12   |+import {RetroPickBondingCurveV2 as ExperimentalCurve} from "../../../src/v2/RetroPickBondingCurveV2.sol";
+    13   |+import {RetroPickLauncherTokenV2 as ExperimentalToken} from "../../../src/v2/RetroPickLauncherTokenV2.sol";
+18  14   | import {
+19  15   |     IRetroPickFeePolicyV2 as ExperimentalPolicy,
+20  16   |     IRetroPickFeeEscrowV2 as ExperimentalEscrow
+
+Diff in test/v2/community-economy/CommunityV4Registration.t.sol:
+15  15   | import {IAllowanceTransfer} from "permit2/src/interfaces/IAllowanceTransfer.sol";
+16  16   | import {GraduationCoordinatorV2} from "../../../src/v2/GraduationCoordinatorV2.sol";
+17  17   | import {RetroPickQuoteAssetRegistryV2} from "../../../src/v2/RetroPickQuoteAssetRegistryV2.sol";
+18       |-import {
+19       |-    QuoteAssetConfig,
+20       |-    GraduationVenue,
+21       |-    GraduationState
+22       |-} from "../../../src/v2/interfaces/IGraduationExecutorV2.sol";
+    18   |+import {QuoteAssetConfig, GraduationVenue, GraduationState} from "../../../src/v2/interfaces/IGraduationExecutorV2.sol";
+23  19   | import {ExactAssetV2} from "../../../src/v2/libraries/ExactAssetV2.sol";
+24  20   | import {RetroPickLaunchFactoryV2} from "../../../src/v2/RetroPickLaunchFactoryV2.sol";
+25  21   | import {RetroPickLaunchDeployerV2} from "../../../src/v2/RetroPickLaunchDeployerV2.sol";
+26  22   | import {UniswapV4GraduationExecutorV2} from "../../../src/v2/UniswapV4GraduationExecutorV2.sol";
+27  23   | import {RetroPickLaunchLockerV2} from "../../../src/v2/RetroPickLaunchLockerV2.sol";
+28  24   | import {RetroPickBondingCurveV2} from "../../../src/v2/RetroPickBondingCurveV2.sol";
+29       |-import {
+30       |-    RetroPickBondingCurveMathV2
+31       |-} from "../../../src/v2/libraries/RetroPickBondingCurveMathV2.sol";
+    25   |+import {RetroPickBondingCurveMathV2} from "../../../src/v2/libraries/RetroPickBondingCurveMathV2.sol";
+32  26   | import {RetroPickLauncherTokenV2} from "../../../src/v2/RetroPickLauncherTokenV2.sol";
+33  27   | import {RetroPickBuybackVaultV2} from "../../../src/v2/RetroPickBuybackVaultV2.sol";
+34  28   | import {RetroPickFeeEscrowV2} from "../../../src/v2/RetroPickFeeEscrowV2.sol";
+--------------------------------------------------------------------------------200 194  |         );
+201 195  |         RetroPickLaunchDeployerV2 deployer = RetroPickLaunchDeployerV2(
+202 196  |             vm.deployCode(
+203      |-                "src/v2/RetroPickLaunchDeployerV2.sol:RetroPickLaunchDeployerV2",
+204      |-                abi.encode(address(factory))
+    197  |+                "src/v2/RetroPickLaunchDeployerV2.sol:RetroPickLaunchDeployerV2", abi.encode(address(factory))
+205 198  |             )
+206 199  |         );
+207 200  |         UniswapV4GraduationExecutorV2 executor = UniswapV4GraduationExecutorV2(
+
+Diff in test/v2/community-economy/CommunityFactoryFixtureV2.sol:
+11  11   | import {IAllowanceTransfer} from "permit2/src/interfaces/IAllowanceTransfer.sol";
+12  12   | import {GraduationCoordinatorV2} from "../../../src/v2/GraduationCoordinatorV2.sol";
+13  13   | import {RetroPickQuoteAssetRegistryV2} from "../../../src/v2/RetroPickQuoteAssetRegistryV2.sol";
+14       |-import {
+15       |-    QuoteAssetConfig,
+16       |-    GraduationVenue,
+17       |-    GraduationState
+18       |-} from "../../../src/v2/interfaces/IGraduationExecutorV2.sol";
+    14   |+import {QuoteAssetConfig, GraduationVenue, GraduationState} from "../../../src/v2/interfaces/IGraduationExecutorV2.sol";
+19  15   | import {ExactAssetV2} from "../../../src/v2/libraries/ExactAssetV2.sol";
+20  16   | import {RetroPickLaunchFactoryV2} from "../../../src/v2/RetroPickLaunchFactoryV2.sol";
+21  17   | import {RetroPickLaunchDeployerV2} from "../../../src/v2/RetroPickLaunchDeployerV2.sol";
+--------------------------------------------------------------------------------26  22   | import {RetroPickBuybackVaultV2} from "../../../src/v2/RetroPickBuybackVaultV2.sol";
+27  23   | import {RetroPickFeeEscrowV2} from "../../../src/v2/RetroPickFeeEscrowV2.sol";
+28  24   | import {RetroPickQuoteAssetPolicyV2} from "../../../src/v2/RetroPickQuoteAssetPolicyV2.sol";
+29       |-import {
+30       |-    IRetroPickQuoteAssetPolicyV2
+31       |-} from "../../../src/v2/interfaces/IRetroPickQuoteAssetPolicyV2.sol";
+    25   |+import {IRetroPickQuoteAssetPolicyV2} from "../../../src/v2/interfaces/IRetroPickQuoteAssetPolicyV2.sol";
+32  26   | import {RetroPickMemeHookV2} from "../../../src/v2/hooks/RetroPickMemeHookV2.sol";
+33  27   | import {
+34  28   |     FeePolicySnapshot,
+--------------------------------------------------------------------------------182 176  |         );
+183 177  |         deployer = RetroPickLaunchDeployerV2(
+184 178  |             vm.deployCode(
+185      |-                "src/v2/RetroPickLaunchDeployerV2.sol:RetroPickLaunchDeployerV2",
+186      |-                abi.encode(address(factory))
+    179  |+                "src/v2/RetroPickLaunchDeployerV2.sol:RetroPickLaunchDeployerV2", abi.encode(address(factory))
+187 180  |             )
+188 181  |         );
+189 182  |         executor = UniswapV4GraduationExecutorV2(
+
+Diff in test/v2/community-economy/treasury-integration/CommunityTreasuryIntegration.t.sol:
+4   4    | import {MockERC20} from "../../../mocks/MockERC20.sol";
+5   5    | import {CommunityFactoryFixtureV2} from "../CommunityFactoryFixtureV2.sol";
+6   6    | import {CommunityLaunchBuilderV2 as L} from "../../../../src/v2/CommunityLaunchBuilderV2.sol";
+7        |-import {
+8        |-    CommunityTreasuryLaunchBuilderV2 as B
+9        |-} from "../../../../src/v2/CommunityTreasuryLaunchBuilderV2.sol";
+    7    |+import {CommunityTreasuryLaunchBuilderV2 as B} from "../../../../src/v2/CommunityTreasuryLaunchBuilderV2.sol";
+10  8    | import {CommunityTreasuryDeployerV2 as D} from "../../../../src/v2/CommunityTreasuryDeployerV2.sol";
+11  9    | import {CommunityTreasuryVaultV2 as V} from "../../../../src/v2/CommunityTreasuryVaultV2.sol";
+12  10   | import {CommunityTimelockV2 as T} from "../../../../src/v2/CommunityTimelockV2.sol";

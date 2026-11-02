@@ -1,0 +1,827 @@
+Compiling 177 files with Solc 0.8.26
+Solc 0.8.26 finished in 250.33s
+Compiler run successful with warnings:
+Warning (2018): Function state mutability can be restricted to view
+   --> src/v2/RetroPickBondingCurveV2.sol:931:5:
+    |
+931 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to view
+   --> test/v2/community-economy/reference/v2/RetroPickBondingCurveV2.sol:861:5:
+    |
+861 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 2 tests for test/v2/community-economy/treasury-integration/CommunityTreasuryGraduation.t.sol:CanonicalCommunityTreasuryGraduationTest
+[FAIL: next call did not revert as expected] testCETreasuryNativeClaimsSurviveSecuredGraduationAndFailedVenueRetries() (gas: 10974224)
+Traces:
+  [10974224] CanonicalCommunityTreasuryGraduationTest::testCETreasuryNativeClaimsSurviveSecuredGraduationAndFailedVenueRetries()
+    ├─ [54160] RetroPickLaunchFactoryV2::previewLaunchEconomics(0, 0x0000000000000000000000000000000000000000) [staticcall]
+    │   ├─ [49613] GraduationCoordinatorV2::previewEconomics(0, 0x0000000000000000000000000000000000000000, 0) [staticcall]
+    │   │   ├─ [13795] RetroPickLaunchFactoryV2::getLaunchConfig(0) [staticcall]
+    │   │   │   └─ ← [Return] LaunchConfig({ supply: 1000000000000000000000000 [1e24], curveFeeBps: 100, phantomQuote: 100000000000000000000 [1e20], graduationThreshold: 100000000000000000000 [1e20], poolFee: 0, tickSpacing: 60, enabled: true })
+    │   │   ├─ [964] RetroPickLaunchFactoryV2::quoteRegistry() [staticcall]
+    │   │   │   └─ ← [Return] RetroPickQuoteAssetRegistryV2: [0xc7183455a4C133Ae270771860664b6B7ec320bB1]
+    │   │   ├─ [14209] RetroPickQuoteAssetRegistryV2::admitted(0x0000000000000000000000000000000000000000, 0) [staticcall]
+    │   │   │   └─ ← [Return] QuoteAssetConfig({ enabled: true, decimals: 18, venueMask: 3, policyVersion: 1, phantomQuote: 100000000000000000000 [1e20], graduationThreshold: 100000000000000000000 [1e20], graduationQuoteCeiling: 5000000000000000000000 [5e21], assetId: 0x9f603c926f6692f1671628592f344bd257d4c31b448483cee39d273f4d4212b2, policyHash: 0x5fd5f5156e063ef38efa18827a18d676a455856136362aece8e75ec005b7a45a })
+    │   │   ├─ [634] RetroPickLaunchFactoryV2::memeHook() [staticcall]
+    │   │   │   └─ ← [Return] hook: [0x5018e24b12633b731aB34A21d4984C630Ea15B79]
+    │   │   ├─ [0] hook::currentFeePolicy() [staticcall]
+    │   │   │   └─ ← [Return] FeePolicySnapshot({ protocolFeeRecipient: 0xA0e8e0274E679D6711FFf9fbEdef749B483283BF, protocolFeeShareBps: 3000, buybackBurnBps: 5000, hookFeeBps: 100, maxInternalPriceImpactBps: 300 })
+    │   │   ├─ [153] UniswapV4GraduationExecutorV2::policyHash() [staticcall]
+    │   │   │   └─ ← [Return] 0xdb4c72aa335c1c5bb3b6d08609216008ce8e8f8f6429c85dbe055a01921fd431
+    │   │   └─ ← [Return] 0x2d50aca39889439a1122dadf6d07cc511f43553de5539430896e1933fb01b28d
+    │   └─ ← [Return] 0x2d50aca39889439a1122dadf6d07cc511f43553de5539430896e1933fb01b28d
+    ├─ [0] VM::prank(creator: [0x2190d584E30F4a2396C1487Aa784428f2068CBE8])
+    │   └─ ← [Return]
+    ├─ [10000899] RetroPickLaunchFactoryV2::launchCommunityToken(TokenParams({ name: "Factory Launch", symbol: "FLCH", logo: "", description: "", socials: Socials({ twitter: "", telegram: "", discord: "", website: "", farcaster: "" }), creatorFeeRecipient: 0x0000000000000000000000000000000000000000, creatorTaxBps: 50, buybackEnabled: false, expectedEconomics: 0x2d50aca39889439a1122dadf6d07cc511f43553de5539430896e1933fb01b28d, salt: 0x0000000000000000000000000000000000000000000000000000000000000387 }), 0, 0x0000000000000000000000000000000000000000, 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000060000000000000000000000000cdb69d6f55de85a19177c2560567df9f6cf239ff0000000000000000000000002190d584e30f4a2396c1487aa784428f2068cbe8000000000000000000000000619d5d1e620c70442e67726b0e4cbf8c6e111b1900000000000000000000000000000000000000000000000000000000000017700000000000000000000000000000000000000000000000000000000000000fa00000000000000000000000000000000000000000000000000000000000000096000000000000000000000000000000000000000000000000000000000003f48000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000018000000000000000000000000000000000000000000000000000000000000000030000000000000000000000002190d584e30f4a2396c1487aa784428f2068cbe80000000000000000000000000000000000000000000000000000000000000fa0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000057de6b0fe869b2215deba755c653f353d9f4f32000000000000000000000000000000000000000000000000000000000000007d0000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000fa00000000000000000000000000000000000000000000000000000000000000002, 0xb479fd572739e21965d37d06602c78707181fcb5c3e76a789e996b587d29dc9e)
+    │   ├─ [166] RetroPickLaunchDeployerV2::factory() [staticcall]
+    │   │   └─ ← [Return] RetroPickLaunchFactoryV2: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   ├─ [2476] GraduationCoordinatorV2::factory() [staticcall]
+    │   │   └─ ← [Return] RetroPickLaunchFactoryV2: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   ├─ [0] hook::factory() [staticcall]
+    │   │   └─ ← [Return] RetroPickLaunchFactoryV2: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   ├─ [0] hook::buybackVault() [staticcall]
+    │   │   └─ ← [Return] RetroPickBuybackVaultV2: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]
+    │   ├─ [2566] RetroPickBuybackVaultV2::factory() [staticcall]
+    │   │   └─ ← [Return] RetroPickLaunchFactoryV2: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   ├─ [0] hook::poolManager() [staticcall]
+    │   │   └─ ← [Return] pool-manager: [0x24e946f844a76c280eCbbEF3Be80764510d59fd3]
+    │   ├─ [0] hook::feeEscrow() [staticcall]
+    │   │   └─ ← [Return] RetroPickFeeEscrowV2: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]
+    │   ├─ [350] RetroPickBuybackVaultV2::feePolicy() [staticcall]
+    │   │   └─ ← [Return] hook: [0x5018e24b12633b731aB34A21d4984C630Ea15B79]
+    │   ├─ [482] RetroPickBuybackVaultV2::feeEscrow() [staticcall]
+    │   │   └─ ← [Return] RetroPickFeeEscrowV2: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]
+    │   ├─ [0] hook::currentFeePolicy() [staticcall]
+    │   │   └─ ← [Return] FeePolicySnapshot({ protocolFeeRecipient: 0xA0e8e0274E679D6711FFf9fbEdef749B483283BF, protocolFeeShareBps: 3000, buybackBurnBps: 5000, hookFeeBps: 100, maxInternalPriceImpactBps: 300 })
+    │   ├─ [14209] RetroPickQuoteAssetRegistryV2::admitted(0x0000000000000000000000000000000000000000, 0) [staticcall]
+    │   │   └─ ← [Return] QuoteAssetConfig({ enabled: true, decimals: 18, venueMask: 3, policyVersion: 1, phantomQuote: 100000000000000000000 [1e20], graduationThreshold: 100000000000000000000 [1e20], graduationQuoteCeiling: 5000000000000000000000 [5e21], assetId: 0x9f603c926f6692f1671628592f344bd257d4c31b448483cee39d273f4d4212b2, policyHash: 0x5fd5f5156e063ef38efa18827a18d676a455856136362aece8e75ec005b7a45a })
+    │   ├─ [2464] GraduationCoordinatorV2::executors(0) [staticcall]
+    │   │   └─ ← [Return] UniswapV4GraduationExecutorV2: [0xD6BbDE9174b1CdAa358d2Cf4D57D1a9F7178FBfF]
+    │   ├─ [11613] GraduationCoordinatorV2::previewEconomics(0, 0x0000000000000000000000000000000000000000, 0) [staticcall]
+    │   │   ├─ [1795] RetroPickLaunchFactoryV2::getLaunchConfig(0) [staticcall]
+    │   │   │   └─ ← [Return] LaunchConfig({ supply: 1000000000000000000000000 [1e24], curveFeeBps: 100, phantomQuote: 100000000000000000000 [1e20], graduationThreshold: 100000000000000000000 [1e20], poolFee: 0, tickSpacing: 60, enabled: true })
+    │   │   ├─ [964] RetroPickLaunchFactoryV2::quoteRegistry() [staticcall]
+    │   │   │   └─ ← [Return] RetroPickQuoteAssetRegistryV2: [0xc7183455a4C133Ae270771860664b6B7ec320bB1]
+    │   │   ├─ [2209] RetroPickQuoteAssetRegistryV2::admitted(0x0000000000000000000000000000000000000000, 0) [staticcall]
+    │   │   │   └─ ← [Return] QuoteAssetConfig({ enabled: true, decimals: 18, venueMask: 3, policyVersion: 1, phantomQuote: 100000000000000000000 [1e20], graduationThreshold: 100000000000000000000 [1e20], graduationQuoteCeiling: 5000000000000000000000 [5e21], assetId: 0x9f603c926f6692f1671628592f344bd257d4c31b448483cee39d273f4d4212b2, policyHash: 0x5fd5f5156e063ef38efa18827a18d676a455856136362aece8e75ec005b7a45a })
+    │   │   ├─ [634] RetroPickLaunchFactoryV2::memeHook() [staticcall]
+    │   │   │   └─ ← [Return] hook: [0x5018e24b12633b731aB34A21d4984C630Ea15B79]
+    │   │   ├─ [0] hook::currentFeePolicy() [staticcall]
+    │   │   │   └─ ← [Return] FeePolicySnapshot({ protocolFeeRecipient: 0xA0e8e0274E679D6711FFf9fbEdef749B483283BF, protocolFeeShareBps: 3000, buybackBurnBps: 5000, hookFeeBps: 100, maxInternalPriceImpactBps: 300 })
+    │   │   ├─ [153] UniswapV4GraduationExecutorV2::policyHash() [staticcall]
+    │   │   │   └─ ← [Return] 0xdb4c72aa335c1c5bb3b6d08609216008ce8e8f8f6429c85dbe055a01921fd431
+    │   │   └─ ← [Return] 0x2d50aca39889439a1122dadf6d07cc511f43553de5539430896e1933fb01b28d
+    │   ├─ [3650634] RetroPickLaunchDeployerV2::deployLaunch(LaunchDeployment({ pairToken: 0x0000000000000000000000000000000000000000, creatorFeeRecipient: 0x2190d584E30F4a2396C1487Aa784428f2068CBE8, originalDeployer: 0x2190d584E30F4a2396C1487Aa784428f2068CBE8, feePolicy: 0x5018e24b12633b731aB34A21d4984C630Ea15B79, policy: FeePolicySnapshot({ protocolFeeRecipient: 0xA0e8e0274E679D6711FFf9fbEdef749B483283BF, protocolFeeShareBps: 3000, buybackBurnBps: 5000, hookFeeBps: 100, maxInternalPriceImpactBps: 300 }), feeEscrow: 0x2e234DAe75C793f67A35089C9d99245E1C58470b, buybackVault: 0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9, phantomQuote: 100000000000000000000 [1e20], curveFeeBps: 100, creatorTaxBps: 50, buybackEnabled: false, graduationThreshold: 100000000000000000000 [1e20], graduationQuoteCeiling: 5000000000000000000000 [5e21], supply: 1000000000000000000000000 [1e24], name: "Factory Launch", symbol: "FLCH", logo: "", description: "", socials: Socials({ twitter: "", telegram: "", discord: "", website: "", farcaster: "" }) }))
+    │   │   ├─ [2811397] → new RetroPickBondingCurveV2@0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e
+    │   │   │   └─ ← [Return] 13805 bytes of code
+    │   │   ├─ [763099] → new RetroPickLauncherTokenV2@0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49
+    │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e], amount: 1000000000000000000000000 [1e24])
+    │   │   │   └─ ← [Return] 3248 bytes of code
+    │   │   └─ ← [Return] RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49], RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e]
+    │   ├─ [82278] RetroPickBondingCurveV2::initialize(RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49])
+    │   │   ├─ [292] RetroPickLauncherTokenV2::totalSupply() [staticcall]
+    │   │   │   └─ ← [Return] 1000000000000000000000000 [1e24]
+    │   │   ├─ [573] RetroPickLauncherTokenV2::balanceOf(RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e]) [staticcall]
+    │   │   │   └─ ← [Return] 1000000000000000000000000 [1e24]
+    │   │   ├─ emit Initialized(token: RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49])
+    │   │   └─ ← [Return]
+    │   ├─ [327] RetroPickBondingCurveV2::exemptFromSnipeTax(creator: [0x2190d584E30F4a2396C1487Aa784428f2068CBE8])
+    │   │   └─ ← [Stop]
+    │   ├─ [387766] GraduationCoordinatorV2::registerLaunch(RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49], RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e], 0, 0, 60)
+    │   │   ├─ [964] RetroPickLaunchFactoryV2::quoteRegistry() [staticcall]
+    │   │   │   └─ ← [Return] RetroPickQuoteAssetRegistryV2: [0xc7183455a4C133Ae270771860664b6B7ec320bB1]
+    │   │   ├─ [367] RetroPickBondingCurveV2::pairToken() [staticcall]
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   ├─ [2209] RetroPickQuoteAssetRegistryV2::admitted(0x0000000000000000000000000000000000000000, 0) [staticcall]
+    │   │   │   └─ ← [Return] QuoteAssetConfig({ enabled: true, decimals: 18, venueMask: 3, policyVersion: 1, phantomQuote: 100000000000000000000 [1e20], graduationThreshold: 100000000000000000000 [1e20], graduationQuoteCeiling: 5000000000000000000000 [5e21], assetId: 0x9f603c926f6692f1671628592f344bd257d4c31b448483cee39d273f4d4212b2, policyHash: 0x5fd5f5156e063ef38efa18827a18d676a455856136362aece8e75ec005b7a45a })
+    │   │   ├─ [367] RetroPickBondingCurveV2::pairToken() [staticcall]
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   ├─ [1390] RetroPickLaunchFactoryV2::getLaunchFeePolicy(RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49]) [staticcall]
+    │   │   │   └─ ← [Return] FeePolicySnapshot({ protocolFeeRecipient: 0xA0e8e0274E679D6711FFf9fbEdef749B483283BF, protocolFeeShareBps: 3000, buybackBurnBps: 5000, hookFeeBps: 100, maxInternalPriceImpactBps: 300 })
+    │   │   ├─ [153] UniswapV4GraduationExecutorV2::policyHash() [staticcall]
+    │   │   │   └─ ← [Return] 0xdb4c72aa335c1c5bb3b6d08609216008ce8e8f8f6429c85dbe055a01921fd431
+    │   │   ├─ [464] UniswapV4GraduationExecutorV2::previewReceiver(GraduationPacket({ token: 0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49, curve: 0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e, quoteAsset: 0x0000000000000000000000000000000000000000, venue: 0, executor: 0xD6BbDE9174b1CdAa358d2Cf4D57D1a9F7178FBfF, executorCodeHash: 0xd1d3efa720c7a1849785c3b2eae63a3cccb15f987997cfafb2149dc2f8aaa9c6, quoteDecimals: 18, quotePolicyVersion: 1, quotePolicyHash: 0x5fd5f5156e063ef38efa18827a18d676a455856136362aece8e75ec005b7a45a, phantomQuote: 100000000000000000000 [1e20], graduationThreshold: 100000000000000000000 [1e20], graduationQuoteCeiling: 5000000000000000000000 [5e21], venuePolicyHash: 0xdb4c72aa335c1c5bb3b6d08609216008ce8e8f8f6429c85dbe055a01921fd431, protectedLPReceiver: 0x0000000000000000000000000000000000000000, protectedExcessReceiver: 0x0000000000000000000000000000000000000000, poolFee: 0, tickSpacing: 60, feePolicy: FeePolicySnapshot({ protocolFeeRecipient: 0xA0e8e0274E679D6711FFf9fbEdef749B483283BF, protocolFeeShareBps: 3000, buybackBurnBps: 5000, hookFeeBps: 100, maxInternalPriceImpactBps: 300 }) })) [staticcall]
+    │   │   │   └─ ← [Return] RetroPickLaunchLockerV2: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]
+    │   │   ├─ [153] UniswapV4GraduationExecutorV2::policyHash() [staticcall]
+    │   │   │   └─ ← [Return] 0xdb4c72aa335c1c5bb3b6d08609216008ce8e8f8f6429c85dbe055a01921fd431
+    │   │   ├─ [464] UniswapV4GraduationExecutorV2::previewReceiver(GraduationPacket({ token: 0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49, curve: 0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e, quoteAsset: 0x0000000000000000000000000000000000000000, venue: 0, executor: 0xD6BbDE9174b1CdAa358d2Cf4D57D1a9F7178FBfF, executorCodeHash: 0xd1d3efa720c7a1849785c3b2eae63a3cccb15f987997cfafb2149dc2f8aaa9c6, quoteDecimals: 18, quotePolicyVersion: 1, quotePolicyHash: 0x5fd5f5156e063ef38efa18827a18d676a455856136362aece8e75ec005b7a45a, phantomQuote: 100000000000000000000 [1e20], graduationThreshold: 100000000000000000000 [1e20], graduationQuoteCeiling: 5000000000000000000000 [5e21], venuePolicyHash: 0xdb4c72aa335c1c5bb3b6d08609216008ce8e8f8f6429c85dbe055a01921fd431, protectedLPReceiver: 0xF62849F9A0B5Bf2913b396098F7c7019b51A820a, protectedExcessReceiver: 0xF62849F9A0B5Bf2913b396098F7c7019b51A820a, poolFee: 0, tickSpacing: 60, feePolicy: FeePolicySnapshot({ protocolFeeRecipient: 0xA0e8e0274E679D6711FFf9fbEdef749B483283BF, protocolFeeShareBps: 3000, buybackBurnBps: 5000, hookFeeBps: 100, maxInternalPriceImpactBps: 300 }) })) [staticcall]
+    │   │   │   └─ ← [Return] RetroPickLaunchLockerV2: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]
+    │   │   ├─ [810] RetroPickBondingCurveV2::factory() [staticcall]
+    │   │   │   └─ ← [Return] RetroPickLaunchFactoryV2: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   │   ├─ [1287] RetroPickBondingCurveV2::token() [staticcall]
+    │   │   │   └─ ← [Return] RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49]
+    │   │   ├─ [367] RetroPickBondingCurveV2::pairToken() [staticcall]
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   ├─ [302] RetroPickBondingCurveV2::graduationQuoteCeiling() [staticcall]
+    │   │   │   └─ ← [Return] 5000000000000000000000 [5e21]
+    │   │   ├─ [855] RetroPickBondingCurveV2::phantomQuote() [staticcall]
+    │   │   │   └─ ← [Return] 100000000000000000000 [1e20]
+    │   │   ├─ [635] RetroPickBondingCurveV2::graduationThreshold() [staticcall]
+    │   │   │   └─ ← [Return] 100000000000000000000 [1e20]
+    │   │   ├─ [292] RetroPickLauncherTokenV2::totalSupply() [staticcall]
+    │   │   │   └─ ← [Return] 1000000000000000000000000 [1e24]
+    │   │   ├─ [23021] UniswapV4GraduationExecutorV2::validateLaunch(GraduationPacket({ token: 0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49, curve: 0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e, quoteAsset: 0x0000000000000000000000000000000000000000, venue: 0, executor: 0xD6BbDE9174b1CdAa358d2Cf4D57D1a9F7178FBfF, executorCodeHash: 0xd1d3efa720c7a1849785c3b2eae63a3cccb15f987997cfafb2149dc2f8aaa9c6, quoteDecimals: 18, quotePolicyVersion: 1, quotePolicyHash: 0x5fd5f5156e063ef38efa18827a18d676a455856136362aece8e75ec005b7a45a, phantomQuote: 100000000000000000000 [1e20], graduationThreshold: 100000000000000000000 [1e20], graduationQuoteCeiling: 5000000000000000000000 [5e21], venuePolicyHash: 0xdb4c72aa335c1c5bb3b6d08609216008ce8e8f8f6429c85dbe055a01921fd431, protectedLPReceiver: 0xF62849F9A0B5Bf2913b396098F7c7019b51A820a, protectedExcessReceiver: 0xF62849F9A0B5Bf2913b396098F7c7019b51A820a, poolFee: 0, tickSpacing: 60, feePolicy: FeePolicySnapshot({ protocolFeeRecipient: 0xA0e8e0274E679D6711FFf9fbEdef749B483283BF, protocolFeeShareBps: 3000, buybackBurnBps: 5000, hookFeeBps: 100, maxInternalPriceImpactBps: 300 }) }), 1000000000000000000000000 [1e24]) [staticcall]
+    │   │   │   ├─ [2522] RetroPickLaunchLockerV2::graduationExecutor() [staticcall]
+    │   │   │   │   └─ ← [Return] UniswapV4GraduationExecutorV2: [0xD6BbDE9174b1CdAa358d2Cf4D57D1a9F7178FBfF]
+    │   │   │   ├─ [0] hook::graduationExecutor() [staticcall]
+    │   │   │   │   └─ ← [Return] UniswapV4GraduationExecutorV2: [0xD6BbDE9174b1CdAa358d2Cf4D57D1a9F7178FBfF]
+    │   │   │   ├─ [5500] RetroPickGraduationGuardV2::assertSeedable(RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49], 0x0000000000000000000000000000000000000000, 60, 100000000000000000000 [1e20], 250000000000000000000000 [2.5e23]) [staticcall]
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [5500] RetroPickGraduationGuardV2::assertSeedable(RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49], 0x0000000000000000000000000000000000000000, 60, 5000000000000000000000 [5e21], 490196078431372549019607 [4.901e23]) [staticcall]
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   └─ ← [Return]
+    │   │   ├─ emit LaunchCommitted(token: RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49], venue: 0, packetHash: 0xcc6b5818ccb4bcd406e433bfd2d19c81ae37df975ae1af9715fc8b5ca6ccdba7)
+    │   │   └─ ← [Return]
+    │   ├─ emit TokenLaunched(token: RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49], curve: RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e], deployer: creator: [0x2190d584E30F4a2396C1487Aa784428f2068CBE8], pairToken: 0x0000000000000000000000000000000000000000, launchConfigId: 0, graduationThreshold: 100000000000000000000 [1e20])
+    │   ├─ [5532136] CommunityTreasuryLaunchBuilderV2::configure(RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49], RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e], creator: [0x2190d584E30F4a2396C1487Aa784428f2068CBE8], 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000060000000000000000000000000cdb69d6f55de85a19177c2560567df9f6cf239ff0000000000000000000000002190d584e30f4a2396c1487aa784428f2068cbe8000000000000000000000000619d5d1e620c70442e67726b0e4cbf8c6e111b1900000000000000000000000000000000000000000000000000000000000017700000000000000000000000000000000000000000000000000000000000000fa00000000000000000000000000000000000000000000000000000000000000096000000000000000000000000000000000000000000000000000000000003f48000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000018000000000000000000000000000000000000000000000000000000000000000030000000000000000000000002190d584e30f4a2396c1487aa784428f2068cbe80000000000000000000000000000000000000000000000000000000000000fa0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000057de6b0fe869b2215deba755c653f353d9f4f32000000000000000000000000000000000000000000000000000000000000007d0000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000fa00000000000000000000000000000000000000000000000000000000000000002, 0xb479fd572739e21965d37d06602c78707181fcb5c3e76a789e996b587d29dc9e)
+    │   │   ├─ [496] RetroPickLauncherTokenV2::deployer() [staticcall]
+    │   │   │   └─ ← [Return] creator: [0x2190d584E30F4a2396C1487Aa784428f2068CBE8]
+    │   │   ├─ [298] RetroPickLauncherTokenV2::launchFactory() [staticcall]
+    │   │   │   └─ ← [Return] RetroPickLaunchFactoryV2: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   │   ├─ [364] RetroPickLauncherTokenV2::curve() [staticcall]
+    │   │   │   └─ ← [Return] RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e]
+    │   │   ├─ [321743] → new CommunityControllerV2@0x514dd0Bcaf5994Ef889f482B79d39D18B6E4363F
+    │   │   │   └─ ← [Return] 1494 bytes of code
+    │   │   ├─ [1328511] → new CommunityFeeRouterV2@0xE748aec1d9e6477F82B231539c21Ffe56FE5f168
+    │   │   │   ├─ [810] RetroPickBondingCurveV2::factory() [staticcall]
+    │   │   │   │   └─ ← [Return] RetroPickLaunchFactoryV2: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   │   │   ├─ [1287] RetroPickBondingCurveV2::token() [staticcall]
+    │   │   │   │   └─ ← [Return] RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49]
+    │   │   │   ├─ [1752] RetroPickLaunchFactoryV2::communitySource(RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49]) [staticcall]
+    │   │   │   │   └─ ← [Return] RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e]
+    │   │   │   ├─ [367] RetroPickBondingCurveV2::pairToken() [staticcall]
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   │   └─ ← [Return] 6487 bytes of code
+    │   │   ├─ [2398464] CommunityTreasuryDeployerV2::deployForLaunch(CommunityFeeRouterV2: [0xE748aec1d9e6477F82B231539c21Ffe56FE5f168], creator: [0x2190d584E30F4a2396C1487Aa784428f2068CBE8], treasury-proposer-role-fixture: [0xcDB69D6f55dE85a19177C2560567Df9f6CF239fF])
+    │   │   │   ├─ [583] RetroPickLaunchFactoryV2::communityBuilder() [staticcall]
+    │   │   │   │   └─ ← [Return] CommunityTreasuryLaunchBuilderV2: [0x756e0562323ADcDA4430d6cb456d9151f605290B]
+    │   │   │   ├─ [556] CommunityFeeRouterV2::factory() [staticcall]
+    │   │   │   │   └─ ← [Return] RetroPickLaunchFactoryV2: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   │   │   ├─ [292] CommunityFeeRouterV2::registrar() [staticcall]
+    │   │   │   │   └─ ← [Return] CommunityTreasuryLaunchBuilderV2: [0x756e0562323ADcDA4430d6cb456d9151f605290B]
+    │   │   │   ├─ [2502] CommunityFeeRouterV2::ready() [staticcall]
+    │   │   │   │   └─ ← [Return] false
+    │   │   │   ├─ [2594] CommunityFeeRouterV2::totalFunded() [staticcall]
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   ├─ [2418] CommunityFeeRouterV2::sequence() [staticcall]
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   ├─ [490] CommunityFeeRouterV2::launchToken() [staticcall]
+    │   │   │   │   └─ ← [Return] RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49]
+    │   │   │   ├─ [1292045] → new CommunityTimelockV2@0x269C4753e15E47d7CaD8B230ed19cFff21f29D51
+    │   │   │   │   ├─ emit RoleGranted(role: 0x0000000000000000000000000000000000000000000000000000000000000000, account: CommunityTimelockV2: [0x269C4753e15E47d7CaD8B230ed19cFff21f29D51], sender: CommunityTreasuryDeployerV2: [0x3381cD18e2Fb4dB236BF0525938AB6E43Db0440f])
+    │   │   │   │   ├─ emit RoleGranted(role: 0xb09aa5aeb3702cfd50b6b62bc4532604938f21248a27a1d5ca736082b6819cc1, account: treasury-proposer-role-fixture: [0xcDB69D6f55dE85a19177C2560567Df9f6CF239fF], sender: CommunityTreasuryDeployerV2: [0x3381cD18e2Fb4dB236BF0525938AB6E43Db0440f])
+    │   │   │   │   ├─ emit RoleGranted(role: 0xfd643c72710c63c0180259aba6b2d05451e3591a24e58b62239378085726f783, account: treasury-proposer-role-fixture: [0xcDB69D6f55dE85a19177C2560567Df9f6CF239fF], sender: CommunityTreasuryDeployerV2: [0x3381cD18e2Fb4dB236BF0525938AB6E43Db0440f])
+    │   │   │   │   ├─ emit RoleGranted(role: 0xd8aa0f3194971a2a116679f7c2090f6939c8d4e01a2a8d7e41d55e5351469e63, account: 0x0000000000000000000000000000000000000000, sender: CommunityTreasuryDeployerV2: [0x3381cD18e2Fb4dB236BF0525938AB6E43Db0440f])
+    │   │   │   │   ├─ emit MinDelayChange(oldDuration: 0, newDuration: 259200 [2.592e5])
+    │   │   │   │   └─ ← [Return] 5842 bytes of code
+    │   │   │   ├─ [971836] → new CommunityTreasuryVaultV2@0x84331fdf4F2974B3Cb6D8003584CE74f62599F38
+    │   │   │   │   ├─ [556] CommunityFeeRouterV2::factory() [staticcall]
+    │   │   │   │   │   └─ ← [Return] RetroPickLaunchFactoryV2: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   │   │   │   ├─ [292] CommunityFeeRouterV2::registrar() [staticcall]
+    │   │   │   │   │   └─ ← [Return] CommunityTreasuryLaunchBuilderV2: [0x756e0562323ADcDA4430d6cb456d9151f605290B]
+    │   │   │   │   ├─ [583] RetroPickLaunchFactoryV2::communityBuilder() [staticcall]
+    │   │   │   │   │   └─ ← [Return] CommunityTreasuryLaunchBuilderV2: [0x756e0562323ADcDA4430d6cb456d9151f605290B]
+    │   │   │   │   ├─ [502] CommunityFeeRouterV2::ready() [staticcall]
+    │   │   │   │   │   └─ ← [Return] false
+    │   │   │   │   ├─ [594] CommunityFeeRouterV2::totalFunded() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [418] CommunityFeeRouterV2::sequence() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [926] CommunityTimelockV2::getMinDelay() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 259200 [2.592e5]
+    │   │   │   │   ├─ [490] CommunityFeeRouterV2::launchToken() [staticcall]
+    │   │   │   │   │   └─ ← [Return] RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49]
+    │   │   │   │   ├─ [380] CommunityFeeRouterV2::source() [staticcall]
+    │   │   │   │   │   └─ ← [Return] RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e]
+    │   │   │   │   ├─ [1752] RetroPickLaunchFactoryV2::communitySource(RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e]
+    │   │   │   │   ├─ [810] RetroPickBondingCurveV2::factory() [staticcall]
+    │   │   │   │   │   └─ ← [Return] RetroPickLaunchFactoryV2: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   │   │   │   ├─ [1287] RetroPickBondingCurveV2::token() [staticcall]
+    │   │   │   │   │   └─ ← [Return] RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49]
+    │   │   │   │   ├─ [367] RetroPickBondingCurveV2::pairToken() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   │   │   ├─ [358] CommunityFeeRouterV2::feeAsset() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   │   │   ├─ [3136] RetroPickBondingCurveV2::communityRouter() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   │   │   ├─ [496] RetroPickLauncherTokenV2::deployer() [staticcall]
+    │   │   │   │   │   └─ ← [Return] creator: [0x2190d584E30F4a2396C1487Aa784428f2068CBE8]
+    │   │   │   │   ├─ [298] RetroPickLauncherTokenV2::launchFactory() [staticcall]
+    │   │   │   │   │   └─ ← [Return] RetroPickLaunchFactoryV2: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   │   │   │   ├─ [364] RetroPickLauncherTokenV2::curve() [staticcall]
+    │   │   │   │   │   └─ ← [Return] RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e]
+    │   │   │   │   ├─ [358] CommunityFeeRouterV2::feeAsset() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   │   │   ├─ [358] CommunityFeeRouterV2::feeAsset() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   │   │   ├─ emit TreasuryInitialized(token: RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49], router: CommunityFeeRouterV2: [0xE748aec1d9e6477F82B231539c21Ffe56FE5f168], timelock: CommunityTimelockV2: [0x269C4753e15E47d7CaD8B230ed19cFff21f29D51], feeAsset: 0x0000000000000000000000000000000000000000)
+    │   │   │   │   └─ ← [Return] 4606 bytes of code
+    │   │   │   ├─ [490] CommunityFeeRouterV2::launchToken() [staticcall]
+    │   │   │   │   └─ ← [Return] RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49]
+    │   │   │   ├─ [490] CommunityFeeRouterV2::launchToken() [staticcall]
+    │   │   │   │   └─ ← [Return] RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49]
+    │   │   │   ├─ emit TreasuryCreated(token: RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49], router: CommunityFeeRouterV2: [0xE748aec1d9e6477F82B231539c21Ffe56FE5f168], vault: CommunityTreasuryVaultV2: [0x84331fdf4F2974B3Cb6D8003584CE74f62599F38], timelock: CommunityTimelockV2: [0x269C4753e15E47d7CaD8B230ed19cFff21f29D51])
+    │   │   │   └─ ← [Return] CommunityTreasuryVaultV2: [0x84331fdf4F2974B3Cb6D8003584CE74f62599F38]
+    │   │   ├─ [528] CommunityTreasuryVaultV2::router() [staticcall]
+    │   │   │   └─ ← [Return] CommunityFeeRouterV2: [0xE748aec1d9e6477F82B231539c21Ffe56FE5f168]
+    │   │   ├─ [214] RetroPickBondingCurveV2::feeBps() [staticcall]
+    │   │   │   └─ ← [Return] 100
+    │   │   ├─ [767] RetroPickBondingCurveV2::creatorTaxBps() [staticcall]
+    │   │   │   └─ ← [Return] 50
+    │   │   ├─ [1339028] → new CommunityPolicyRegistryV2@0x0e16A9dC103fdD00794C0f13F19bCaDC292D80ba
+    │   │   │   ├─ [488] CommunityControllerV2::controller() [staticcall]
+    │   │   │   │   └─ ← [Return] creator: [0x2190d584E30F4a2396C1487Aa784428f2068CBE8]
+    │   │   │   ├─ emit PolicyActivated(epoch: 1, hash: 0x5bce0364b1a7a0d95e0fe98ca1af90baae5d1d9e3780dc6361f881d10d791ef2)
+    │   │   │   └─ ← [Return] 5679 bytes of code
+    │   │   ├─ [23190] CommunityFeeRouterV2::bindRegistry(CommunityPolicyRegistryV2: [0x0e16A9dC103fdD00794C0f13F19bCaDC292D80ba])
+    │   │   │   ├─ [392] CommunityPolicyRegistryV2::launchToken() [staticcall]
+    │   │   │   │   └─ ← [Return] RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49]
+    │   │   │   ├─ [257] CommunityPolicyRegistryV2::source() [staticcall]
+    │   │   │   │   └─ ← [Return] CommunityFeeRouterV2: [0xE748aec1d9e6477F82B231539c21Ffe56FE5f168]
+    │   │   │   ├─ [480] CommunityPolicyRegistryV2::authority() [staticcall]
+    │   │   │   │   └─ ← [Return] CommunityControllerV2: [0x514dd0Bcaf5994Ef889f482B79d39D18B6E4363F]
+    │   │   │   └─ ← [Return]
+    │   │   ├─ emit TreasuryBound(token: RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49], router: CommunityFeeRouterV2: [0xE748aec1d9e6477F82B231539c21Ffe56FE5f168], treasury: CommunityTreasuryVaultV2: [0x84331fdf4F2974B3Cb6D8003584CE74f62599F38], registry: CommunityPolicyRegistryV2: [0x0e16A9dC103fdD00794C0f13F19bCaDC292D80ba])
+    │   │   └─ ← [Return] CommunityFeeRouterV2: [0xE748aec1d9e6477F82B231539c21Ffe56FE5f168]
+    │   ├─ [28854] RetroPickBondingCurveV2::configureCommunity(CommunityFeeRouterV2: [0xE748aec1d9e6477F82B231539c21Ffe56FE5f168])
+    │   │   ├─ [292] RetroPickLauncherTokenV2::totalSupply() [staticcall]
+    │   │   │   └─ ← [Return] 1000000000000000000000000 [1e24]
+    │   │   ├─ [380] CommunityFeeRouterV2::source() [staticcall]
+    │   │   │   └─ ← [Return] RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e]
+    │   │   ├─ [556] CommunityFeeRouterV2::factory() [staticcall]
+    │   │   │   └─ ← [Return] RetroPickLaunchFactoryV2: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   │   ├─ [502] CommunityFeeRouterV2::ready() [staticcall]
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ emit CommunityBound(router: CommunityFeeRouterV2: [0xE748aec1d9e6477F82B231539c21Ffe56FE5f168])
+    │   │   └─ ← [Return]
+    │   └─ ← [Return] RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49], RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e]
+    ├─ [3136] RetroPickBondingCurveV2::communityRouter() [staticcall]
+    │   └─ ← [Return] CommunityFeeRouterV2: [0xE748aec1d9e6477F82B231539c21Ffe56FE5f168]
+    ├─ [2445] CommunityTreasuryDeployerV2::vaultForRouter(CommunityFeeRouterV2: [0xE748aec1d9e6477F82B231539c21Ffe56FE5f168]) [staticcall]
+    │   └─ ← [Return] CommunityTreasuryVaultV2: [0x84331fdf4F2974B3Cb6D8003584CE74f62599F38]
+    ├─ [0] VM::deal(creator: [0x2190d584E30F4a2396C1487Aa784428f2068CBE8], 200000000000000000000 [2e20])
+    │   └─ ← [Return]
+    ├─ [0] VM::startPrank(creator: [0x2190d584E30F4a2396C1487Aa784428f2068CBE8])
+    │   └─ ← [Return]
+    ├─ [749889] RetroPickBondingCurveV2::buy{value: 150000000000000000000}(150000000000000000000 [1.5e20], 0, creator: [0x2190d584E30F4a2396C1487Aa784428f2068CBE8])
+    │   ├─ [29732] RetroPickLauncherTokenV2::transfer(creator: [0x2190d584E30F4a2396C1487Aa784428f2068CBE8], 500000000000000000000000 [5e23])
+    │   │   ├─ emit Transfer(from: RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e], to: creator: [0x2190d584E30F4a2396C1487Aa784428f2068CBE8], amount: 500000000000000000000000 [5e23])
+    │   │   └─ ← [Return] true
+    │   ├─ emit CurveBuyRefunded(buyer: creator: [0x2190d584E30F4a2396C1487Aa784428f2068CBE8], refund: 48477157360406091369 [4.847e19])
+    │   ├─ [0] creator::receive{value: 48477157360406091369}()
+    │   │   └─ ← [Stop]
+    │   ├─ emit CurveBuy(buyer: creator: [0x2190d584E30F4a2396C1487Aa784428f2068CBE8], recipient: creator: [0x2190d584E30F4a2396C1487Aa784428f2068CBE8], quoteIn: 101522842639593908631 [1.015e20], tokensOut: 500000000000000000000000 [5e23], fee: 1015228426395939086 [1.015e18], tax: 507614213197969543 [5.076e17])
+    │   ├─ [589349] RetroPickLaunchFactoryV2::graduate(RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49])
+    │   │   ├─ [554892] GraduationCoordinatorV2::secure(RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49])
+    │   │   │   ├─ [1190] RetroPickBondingCurveV2::graduated() [staticcall]
+    │   │   │   │   └─ ← [Return] false
+    │   │   │   ├─ [1300] RetroPickBondingCurveV2::readyToGraduate() [staticcall]
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [3181] RetroPickBondingCurveV2::realQuoteReserve() [staticcall]
+    │   │   │   │   └─ ← [Return] 100000000000000000002 [1e20]
+    │   │   │   ├─ [3889] RetroPickBondingCurveV2::tokenReserve() [staticcall]
+    │   │   │   │   └─ ← [Return] 500000000000000000000000 [5e23]
+    │   │   │   ├─ [2573] RetroPickLauncherTokenV2::balanceOf(GraduationCoordinatorV2: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]) [staticcall]
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   ├─ [393638] RetroPickLaunchFactoryV2::secureCurve(RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49])
+    │   │   │   │   ├─ [24929] GraduationCoordinatorV2::ledger(RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] GraduationLedger({ phase: 0, securedQuote: 0, securedLaunchTokens: 0, consumedQuote: 0, consumedLaunchTokens: 0, destinationIdentity: 0x0000000000000000000000000000000000000000000000000000000000000000, receiptHash: 0x0000000000000000000000000000000000000000000000000000000000000000, protectedLPReceiver: 0xF62849F9A0B5Bf2913b396098F7c7019b51A820a, protectedLPAmount: 0, protectedExcessReceiver: 0xF62849F9A0B5Bf2913b396098F7c7019b51A820a, protectedExcessAmount: 0, securedAt: 0 })
+    │   │   │   │   ├─ [1190] RetroPickBondingCurveV2::graduated() [staticcall]
+    │   │   │   │   │   └─ ← [Return] false
+    │   │   │   │   ├─ [361493] RetroPickBondingCurveV2::graduate(GraduationCoordinatorV2: [0xa0Cb889707d426A7A386870A03bc70d1b0697598])
+    │   │   │   │   │   ├─ [51847] RetroPickFeeEscrowV2::credit{value: 304568527918781725}(protocol: [0xA0e8e0274E679D6711FFf9fbEdef749B483283BF])
+    │   │   │   │   │   │   ├─ emit NativeCredited(payer: RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e], recipient: protocol: [0xA0e8e0274E679D6711FFf9fbEdef749B483283BF], amount: 304568527918781725 [3.045e17])
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─ [7935] CommunityFeeRouterV2::activeEpoch() [staticcall]
+    │   │   │   │   │   │   ├─ [2452] CommunityPolicyRegistryV2::epoch() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 1
+    │   │   │   │   │   │   └─ ← [Return] 1
+    │   │   │   │   │   ├─ [191144] CommunityFeeRouterV2::fund{value: 1218274111675126904}(RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49], 0x0000000000000000000000000000000000000000, 1, 1, 1218274111675126904 [1.218e18])
+    │   │   │   │   │   │   ├─ [1136] RetroPickBondingCurveV2::communityRouter() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] CommunityFeeRouterV2: [0xE748aec1d9e6477F82B231539c21Ffe56FE5f168]
+    │   │   │   │   │   │   ├─ [452] CommunityPolicyRegistryV2::epoch() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 1
+    │   │   │   │   │   │   ├─ [10478] CommunityPolicyRegistryV2::policyAtVersion(1) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] [Allocation({ beneficiary: 0x2190d584E30F4a2396C1487Aa784428f2068CBE8, bps: 4000, kind: 0 }), Allocation({ beneficiary: 0x57DE6b0fE869B2215dEBA755C653f353d9F4F320, bps: 2000, kind: 1 }), Allocation({ beneficiary: 0x84331fdf4F2974B3Cb6D8003584CE74f62599F38, bps: 4000, kind: 2 })]
+    │   │   │   │   │   │   ├─ emit Allocated(epoch: 1, beneficiary: creator: [0x2190d584E30F4a2396C1487Aa784428f2068CBE8], amount: 487309644670050761 [4.873e17])
+    │   │   │   │   │   │   ├─ emit Allocated(epoch: 1, beneficiary: contributor: [0x57DE6b0fE869B2215dEBA755C653f353d9F4F320], amount: 243654822335025380 [2.436e17])
+    │   │   │   │   │   │   ├─ emit Allocated(epoch: 1, beneficiary: CommunityTreasuryVaultV2: [0x84331fdf4F2974B3Cb6D8003584CE74f62599F38], amount: 487309644670050761 [4.873e17])
+    │   │   │   │   │   │   ├─ [2431] CommunityPolicyRegistryV2::module(2) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] CommunityTreasuryVaultV2: [0x84331fdf4F2974B3Cb6D8003584CE74f62599F38]
+    │   │   │   │   │   │   ├─ emit Allocated(epoch: 1, beneficiary: CommunityTreasuryVaultV2: [0x84331fdf4F2974B3Cb6D8003584CE74f62599F38], amount: 2)
+    │   │   │   │   │   │   ├─ emit Funded(epoch: 1, sequence: 1, amount: 1218274111675126904 [1.218e18])
+    │   │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   │   ├─ emit CommunityFeesSettled(sequence: 1, epoch: 1, protocolAmount: 304568527918781725 [3.045e17], communityAmount: 1218274111675126904 [1.218e18])
+    │   │   │   │   │   ├─ [62] GraduationCoordinatorV2::receive{value: 100000000000000000002}()
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─ [22932] RetroPickLauncherTokenV2::transfer(GraduationCoordinatorV2: [0xa0Cb889707d426A7A386870A03bc70d1b0697598], 500000000000000000000000 [5e23])
+    │   │   │   │   │   │   ├─ emit Transfer(from: RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e], to: GraduationCoordinatorV2: [0xa0Cb889707d426A7A386870A03bc70d1b0697598], amount: 500000000000000000000000 [5e23])
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ emit CurveCompleted(recipient: GraduationCoordinatorV2: [0xa0Cb889707d426A7A386870A03bc70d1b0697598], quoteOut: 100000000000000000002 [1e20], tokenOut: 500000000000000000000000 [5e23])
+    │   │   │   │   │   └─ ← [Return] 100000000000000000002 [1e20], 500000000000000000000000 [5e23]
+    │   │   │   │   └─ ← [Return] 100000000000000000002 [1e20], 500000000000000000000000 [5e23]
+    │   │   │   ├─ [573] RetroPickLauncherTokenV2::balanceOf(GraduationCoordinatorV2: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]) [staticcall]
+    │   │   │   │   └─ ← [Return] 500000000000000000000000 [5e23]
+    │   │   │   ├─ emit GraduationSecured(token: RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49], quote: 100000000000000000002 [1e20], launchTokens: 500000000000000000000000 [5e23])
+    │   │   │   └─ ← [Stop]
+    │   │   └─ ← [Return]
+    │   └─ ← [Return] 500000000000000000000000 [5e23]
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return]
+    ├─ [3190] RetroPickBondingCurveV2::graduated() [staticcall]
+    │   └─ ← [Return] true
+    ├─ [9238] RetroPickBondingCurveV2::communityPending() [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [3287] RetroPickBondingCurveV2::token() [staticcall]
+    │   └─ ← [Return] RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49]
+    ├─ [48095] RetroPickLaunchFactoryV2::getLaunchedToken(RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49]) [staticcall]
+    │   ├─ [26929] GraduationCoordinatorV2::ledger(RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49]) [staticcall]
+    │   │   └─ ← [Return] GraduationLedger({ phase: 1, securedQuote: 100000000000000000002 [1e20], securedLaunchTokens: 500000000000000000000000 [5e23], consumedQuote: 0, consumedLaunchTokens: 0, destinationIdentity: 0x0000000000000000000000000000000000000000000000000000000000000000, receiptHash: 0x0000000000000000000000000000000000000000000000000000000000000000, protectedLPReceiver: 0xF62849F9A0B5Bf2913b396098F7c7019b51A820a, protectedLPAmount: 0, protectedExcessReceiver: 0xF62849F9A0B5Bf2913b396098F7c7019b51A820a, protectedExcessAmount: 0, securedAt: 1 })
+    │   └─ ← [Return] LaunchedToken({ token: 0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49, curve: 0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e, deployer: 0x2190d584E30F4a2396C1487Aa784428f2068CBE8, creatorFeeRecipient: 0x2190d584E30F4a2396C1487Aa784428f2068CBE8, pairToken: 0x0000000000000000000000000000000000000000, graduationThreshold: 100000000000000000000 [1e20], poolFee: 0, tickSpacing: 60, creatorTaxBps: 50, buybackEnabled: false, phase: 1, sweptQuote: 100000000000000000002 [1e20], sweptTokens: 500000000000000000000000 [5e23], sweptAt: 1, exists: true })
+    ├─ [2814] CommunityFeeRouterV2::credit(CommunityTreasuryVaultV2: [0x84331fdf4F2974B3Cb6D8003584CE74f62599F38]) [staticcall]
+    │   └─ ← [Return] 487309644670050763 [4.873e17]
+    ├─ [2814] CommunityFeeRouterV2::credit(creator: [0x2190d584E30F4a2396C1487Aa784428f2068CBE8]) [staticcall]
+    │   └─ ← [Return] 487309644670050761 [4.873e17]
+    ├─ [0] VM::expectCall(UniswapV4GraduationExecutorV2: [0xD6BbDE9174b1CdAa358d2Cf4D57D1a9F7178FBfF], 0x9bad0654)
+    │   └─ ← [Return]
+    ├─ [0] VM::expectRevert(custom error 0xf4844814)
+    │   └─ ← [Return]
+    ├─ [3287] RetroPickBondingCurveV2::token() [staticcall]
+    │   └─ ← [Return] RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49]
+    └─ ← [Revert] next call did not revert as expected
+
+Backtrace:
+  at CanonicalCommunityTreasuryGraduationTest.testCETreasuryNativeClaimsSurviveSecuredGraduationAndFailedVenueRetries
+
+[FAIL: next call did not revert as expected] testCETreasuryUSDCClaimsSurviveSecuredGraduationAndFailedVenueRetries() (gas: 12187254)
+Traces:
+  [12187254] CanonicalCommunityTreasuryGraduationTest::testCETreasuryUSDCClaimsSurviveSecuredGraduationAndFailedVenueRetries()
+    ├─ [636566] → new TreasuryIntegrationQuote@0xe8dc788818033232EF9772CB2e6622F1Ec8bc840
+    │   └─ ← [Return] 2433 bytes of code
+    ├─ [0] VM::etch(0x534b2f3A21130d7a60830c2Df862319e593943A3, 0x60806040526004361015610011575f80fd5b5f3560e01c806302fb4d851461062557806306fdde031461056a578063083b273214610542578063095ea7b3146104c057806318160ddd146104a357806323b872dd146103b9578063295a52121461039c578063313ce5671461035f57806340c10f1914610314578063415aeaa5146102ef57806370a08231146102b857806381b8d60b14610277578063917f51b41461025257806395d89b411461014e578063a9059cbb1461011d5763dd62ed3e146100c9575f80fd5b34610119576040366003190112610119576100e261064a565b6100ea610660565b6001600160a01b039182165f908152600160209081526040808320949093168252928352819020549051908152f35b5f80fd5b3461011957604036600319011261011957602061014461013b61064a565b602435906106d6565b6040519015158152f35b34610119575f366003190112610119576040515f6004548060011c90600181168015610248575b6020831081146102345782855290811561021057506001146101b2575b6101ae836101a2818503826106a0565b60405191829182610676565b0390f35b91905060045f527f8a35acfbc15ff81a39ae7d344fd709f28e8600b4aa8c65c6b64bfe7fe36bd19b915f905b8082106101f6575090915081016020016101a2610192565b9192600181602092548385880101520191019092916101de565b60ff191660208086019190915291151560051b840190910191506101a29050610192565b634e487b7160e01b5f52602260045260245ffd5b91607f1691610175565b34610119575f36600319011261011957602060ff60065460a01c166040519015158152f35b3461011957604036600319011261011957610290610660565b600435600555600680546001600160a81b0319166001600160a01b0392909216919091179055005b34610119576020366003190112610119576001600160a01b036102d961064a565b165f525f602052602060405f2054604051908152f35b34610119575f36600319011261011957602060ff60065460a81c166040519015158152f35b346101195760403660031901126101195761032d61064a565b6001600160a01b0381161561034c5761034a90602435905f61081e565b005b63ec442f0560e01b5f525f60045260245ffd5b34610119575f36600319011261011957602060405160ff7f0000000000000000000000000000000000000000000000000000000000000006168152f35b34610119575f366003190112610119576020600554604051908152f35b34610119576060366003190112610119576103d261064a565b6103da610660565b6001600160a01b0382165f818152600160209081526040808320338452909152902054909260443592915f198110610423575b5061041893506107f9565b602060405160018152f35b83811061048857841561047557331561046257610418945f52600160205260405f2060018060a01b0333165f526020528360405f20910390558461040d565b634a1406b160e11b5f525f60045260245ffd5b63e602df0560e01b5f525f60045260245ffd5b8390637dc7a0d960e11b5f523360045260245260445260645ffd5b34610119575f366003190112610119576020600254604051908152f35b34610119576040366003190112610119576104d961064a565b602435903315610475576001600160a01b031690811561046257335f52600160205260405f20825f526020528060405f20556040519081527f8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b92560203392a3602060405160018152f35b34610119575f366003190112610119576006546040516001600160a01b039091168152602090f35b34610119575f366003190112610119576040515f6003548060011c9060018116801561061b575b6020831081146102345782855290811561021057506001146105bd576101ae836101a2818503826106a0565b91905060035f527fc2575a0e9e593c00f959f8c92f12db2869c3395a3b0502d05e2516446f71f85b915f905b808210610601575090915081016020016101a2610192565b9192600181602092548385880101520191019092916105e9565b91607f1691610591565b346101195760403660031901126101195761034a61064161064a565b602435906107ca565b600435906001600160a01b038216820361011957565b602435906001600160a01b038216820361011957565b602060409281835280519182918282860152018484015e5f828201840152601f01601f1916010190565b90601f8019910116810190811067ffffffffffffffff8211176106c257604052565b634e487b7160e01b5f52604160045260245ffd5b906001600554146107c4576106eb91336107f9565b6006546001600160a01b03811690811515806107b6575b61070e575b5050600190565b60ff60a01b1916600160a01b176006556040516353021b8360e01b60208201908152600160248084019190915282525f92839290919083906107516044826106a0565b51925af13d156107b1573d67ffffffffffffffff81116106c25760405190610783601f8201601f1916602001836106a0565b81525f60203d92013e5b6006805460ff60a81b191691151560a81b60ff60a81b169190911790555f80610707565b61078d565b5060ff8160a01c1615610702565b50505f90565b906001600160a01b038216156107e6575f6107e49261081e565b565b634b637e8f60e11b5f525f60045260245ffd5b91906001600160a01b038316156107e6576001600160a01b0381161561034c576107e4925b906001600160a01b03821680158015610909576002548581018091116108f5576002555b6001600160a01b03831680159283156108df5786600254036002555b7fddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef6020604051898152a31590816108d6575b5061089a57505050565b6002600554146108c3575b506003600554146108b4575050565b6107e491600a90045b906107ca565b6108d090600a84046108bd565b5f6108a5565b9050155f610890565b815f525f60205260405f2087815401905561085e565b634e487b7160e01b5f52601160045260245ffd5b815f525f60205260405f2054858110610930578590835f525f6020520360405f2055610842565b85908363391434e360e21b5f5260045260245260445260645ffdfea264697066735822122067c44589bbc33354607605496541778c10e7e492c59569c40699fabe23c7d8e964736f6c634300081a0033)
+    │   └─ ← [Return]
+    ├─ [13979] RetroPickQuoteAssetRegistryV2::getConfig(0x534b2f3A21130d7a60830c2Df862319e593943A3) [staticcall]
+    │   └─ ← [Return] QuoteAssetConfig({ enabled: false, decimals: 0, venueMask: 0, policyVersion: 0, phantomQuote: 0, graduationThreshold: 0, graduationQuoteCeiling: 0, assetId: 0x0000000000000000000000000000000000000000000000000000000000000000, policyHash: 0x0000000000000000000000000000000000000000000000000000000000000000 })
+    ├─ [165679] RetroPickQuoteAssetRegistryV2::configure(0x534b2f3A21130d7a60830c2Df862319e593943A3, QuoteAssetConfig({ enabled: true, decimals: 6, venueMask: 3, policyVersion: 1, phantomQuote: 100000000 [1e8], graduationThreshold: 100000000 [1e8], graduationQuoteCeiling: 5000000000 [5e9], assetId: 0x9f603c926f6692f1671628592f344bd257d4c31b448483cee39d273f4d4212b2, policyHash: 0x0000000000000000000000000000000000000000000000000000000000000000 }))
+    │   ├─ [305] 0x534b2f3A21130d7a60830c2Df862319e593943A3::decimals() [staticcall]
+    │   │   └─ ← [Return] 6
+    │   ├─ emit QuoteAssetConfigured(quote: 0x534b2f3A21130d7a60830c2Df862319e593943A3, version: 1, policyHash: 0x7b13f7958c48f3b57cbb9e4bd3775e6997a7f0cc2091c8598f193388bea542e1, enabled: true)
+    │   └─ ← [Stop]
+    ├─ [68293] 0x534b2f3A21130d7a60830c2Df862319e593943A3::mint(creator: [0x2190d584E30F4a2396C1487Aa784428f2068CBE8], 1000000000 [1e9])
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: creator: [0x2190d584E30F4a2396C1487Aa784428f2068CBE8], amount: 1000000000 [1e9])
+    │   └─ ← [Stop]
+    ├─ [57482] RetroPickLaunchFactoryV2::previewLaunchEconomics(0, 0x534b2f3A21130d7a60830c2Df862319e593943A3) [staticcall]
+    │   ├─ [52935] GraduationCoordinatorV2::previewEconomics(0, 0x534b2f3A21130d7a60830c2Df862319e593943A3, 0) [staticcall]
+    │   │   ├─ [13795] RetroPickLaunchFactoryV2::getLaunchConfig(0) [staticcall]
+    │   │   │   └─ ← [Return] LaunchConfig({ supply: 1000000000000000000000000 [1e24], curveFeeBps: 100, phantomQuote: 100000000000000000000 [1e20], graduationThreshold: 100000000000000000000 [1e20], poolFee: 0, tickSpacing: 60, enabled: true })
+    │   │   ├─ [964] RetroPickLaunchFactoryV2::quoteRegistry() [staticcall]
+    │   │   │   └─ ← [Return] RetroPickQuoteAssetRegistryV2: [0xc7183455a4C133Ae270771860664b6B7ec320bB1]
+    │   │   ├─ [17531] RetroPickQuoteAssetRegistryV2::admitted(0x534b2f3A21130d7a60830c2Df862319e593943A3, 0) [staticcall]
+    │   │   │   ├─ [305] 0x534b2f3A21130d7a60830c2Df862319e593943A3::decimals() [staticcall]
+    │   │   │   │   └─ ← [Return] 6
+    │   │   │   └─ ← [Return] QuoteAssetConfig({ enabled: true, decimals: 6, venueMask: 3, policyVersion: 1, phantomQuote: 100000000 [1e8], graduationThreshold: 100000000 [1e8], graduationQuoteCeiling: 5000000000 [5e9], assetId: 0x9f603c926f6692f1671628592f344bd257d4c31b448483cee39d273f4d4212b2, policyHash: 0x7b13f7958c48f3b57cbb9e4bd3775e6997a7f0cc2091c8598f193388bea542e1 })
+    │   │   ├─ [634] RetroPickLaunchFactoryV2::memeHook() [staticcall]
+    │   │   │   └─ ← [Return] hook: [0x5018e24b12633b731aB34A21d4984C630Ea15B79]
+    │   │   ├─ [0] hook::currentFeePolicy() [staticcall]
+    │   │   │   └─ ← [Return] FeePolicySnapshot({ protocolFeeRecipient: 0xA0e8e0274E679D6711FFf9fbEdef749B483283BF, protocolFeeShareBps: 3000, buybackBurnBps: 5000, hookFeeBps: 100, maxInternalPriceImpactBps: 300 })
+    │   │   ├─ [153] UniswapV4GraduationExecutorV2::policyHash() [staticcall]
+    │   │   │   └─ ← [Return] 0xdb4c72aa335c1c5bb3b6d08609216008ce8e8f8f6429c85dbe055a01921fd431
+    │   │   └─ ← [Return] 0x81e1a11d82cb7db3201cfe8533fe24f2dd5570f1791024894e0504cfff2dae4c
+    │   └─ ← [Return] 0x81e1a11d82cb7db3201cfe8533fe24f2dd5570f1791024894e0504cfff2dae4c
+    ├─ [0] VM::prank(creator: [0x2190d584E30F4a2396C1487Aa784428f2068CBE8])
+    │   └─ ← [Return]
+    ├─ [10046023] RetroPickLaunchFactoryV2::launchCommunityToken(TokenParams({ name: "Factory Launch", symbol: "FLCH", logo: "", description: "", socials: Socials({ twitter: "", telegram: "", discord: "", website: "", farcaster: "" }), creatorFeeRecipient: 0x0000000000000000000000000000000000000000, creatorTaxBps: 50, buybackEnabled: false, expectedEconomics: 0x81e1a11d82cb7db3201cfe8533fe24f2dd5570f1791024894e0504cfff2dae4c, salt: 0x0000000000000000000000000000000000000000000000000000000000000387 }), 0, 0x534b2f3A21130d7a60830c2Df862319e593943A3, 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000060000000000000000000000000cdb69d6f55de85a19177c2560567df9f6cf239ff0000000000000000000000002190d584e30f4a2396c1487aa784428f2068cbe8000000000000000000000000619d5d1e620c70442e67726b0e4cbf8c6e111b1900000000000000000000000000000000000000000000000000000000000017700000000000000000000000000000000000000000000000000000000000000fa00000000000000000000000000000000000000000000000000000000000000096000000000000000000000000000000000000000000000000000000000003f48000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000018000000000000000000000000000000000000000000000000000000000000000030000000000000000000000002190d584e30f4a2396c1487aa784428f2068cbe80000000000000000000000000000000000000000000000000000000000000fa0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000057de6b0fe869b2215deba755c653f353d9f4f32000000000000000000000000000000000000000000000000000000000000007d0000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000fa00000000000000000000000000000000000000000000000000000000000000002, 0xb479fd572739e21965d37d06602c78707181fcb5c3e76a789e996b587d29dc9e)
+    │   ├─ [166] RetroPickLaunchDeployerV2::factory() [staticcall]
+    │   │   └─ ← [Return] RetroPickLaunchFactoryV2: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   ├─ [2476] GraduationCoordinatorV2::factory() [staticcall]
+    │   │   └─ ← [Return] RetroPickLaunchFactoryV2: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   ├─ [0] hook::factory() [staticcall]
+    │   │   └─ ← [Return] RetroPickLaunchFactoryV2: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   ├─ [0] hook::buybackVault() [staticcall]
+    │   │   └─ ← [Return] RetroPickBuybackVaultV2: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]
+    │   ├─ [2566] RetroPickBuybackVaultV2::factory() [staticcall]
+    │   │   └─ ← [Return] RetroPickLaunchFactoryV2: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   ├─ [0] hook::poolManager() [staticcall]
+    │   │   └─ ← [Return] pool-manager: [0x24e946f844a76c280eCbbEF3Be80764510d59fd3]
+    │   ├─ [0] hook::feeEscrow() [staticcall]
+    │   │   └─ ← [Return] RetroPickFeeEscrowV2: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]
+    │   ├─ [350] RetroPickBuybackVaultV2::feePolicy() [staticcall]
+    │   │   └─ ← [Return] hook: [0x5018e24b12633b731aB34A21d4984C630Ea15B79]
+    │   ├─ [482] RetroPickBuybackVaultV2::feeEscrow() [staticcall]
+    │   │   └─ ← [Return] RetroPickFeeEscrowV2: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]
+    │   ├─ [0] hook::currentFeePolicy() [staticcall]
+    │   │   └─ ← [Return] FeePolicySnapshot({ protocolFeeRecipient: 0xA0e8e0274E679D6711FFf9fbEdef749B483283BF, protocolFeeShareBps: 3000, buybackBurnBps: 5000, hookFeeBps: 100, maxInternalPriceImpactBps: 300 })
+    │   ├─ [17531] RetroPickQuoteAssetRegistryV2::admitted(0x534b2f3A21130d7a60830c2Df862319e593943A3, 0) [staticcall]
+    │   │   ├─ [305] 0x534b2f3A21130d7a60830c2Df862319e593943A3::decimals() [staticcall]
+    │   │   │   └─ ← [Return] 6
+    │   │   └─ ← [Return] QuoteAssetConfig({ enabled: true, decimals: 6, venueMask: 3, policyVersion: 1, phantomQuote: 100000000 [1e8], graduationThreshold: 100000000 [1e8], graduationQuoteCeiling: 5000000000 [5e9], assetId: 0x9f603c926f6692f1671628592f344bd257d4c31b448483cee39d273f4d4212b2, policyHash: 0x7b13f7958c48f3b57cbb9e4bd3775e6997a7f0cc2091c8598f193388bea542e1 })
+    │   ├─ [2464] GraduationCoordinatorV2::executors(0) [staticcall]
+    │   │   └─ ← [Return] UniswapV4GraduationExecutorV2: [0xD6BbDE9174b1CdAa358d2Cf4D57D1a9F7178FBfF]
+    │   ├─ [12435] GraduationCoordinatorV2::previewEconomics(0, 0x534b2f3A21130d7a60830c2Df862319e593943A3, 0) [staticcall]
+    │   │   ├─ [1795] RetroPickLaunchFactoryV2::getLaunchConfig(0) [staticcall]
+    │   │   │   └─ ← [Return] LaunchConfig({ supply: 1000000000000000000000000 [1e24], curveFeeBps: 100, phantomQuote: 100000000000000000000 [1e20], graduationThreshold: 100000000000000000000 [1e20], poolFee: 0, tickSpacing: 60, enabled: true })
+    │   │   ├─ [964] RetroPickLaunchFactoryV2::quoteRegistry() [staticcall]
+    │   │   │   └─ ← [Return] RetroPickQuoteAssetRegistryV2: [0xc7183455a4C133Ae270771860664b6B7ec320bB1]
+    │   │   ├─ [3031] RetroPickQuoteAssetRegistryV2::admitted(0x534b2f3A21130d7a60830c2Df862319e593943A3, 0) [staticcall]
+    │   │   │   ├─ [305] 0x534b2f3A21130d7a60830c2Df862319e593943A3::decimals() [staticcall]
+    │   │   │   │   └─ ← [Return] 6
+    │   │   │   └─ ← [Return] QuoteAssetConfig({ enabled: true, decimals: 6, venueMask: 3, policyVersion: 1, phantomQuote: 100000000 [1e8], graduationThreshold: 100000000 [1e8], graduationQuoteCeiling: 5000000000 [5e9], assetId: 0x9f603c926f6692f1671628592f344bd257d4c31b448483cee39d273f4d4212b2, policyHash: 0x7b13f7958c48f3b57cbb9e4bd3775e6997a7f0cc2091c8598f193388bea542e1 })
+    │   │   ├─ [634] RetroPickLaunchFactoryV2::memeHook() [staticcall]
+    │   │   │   └─ ← [Return] hook: [0x5018e24b12633b731aB34A21d4984C630Ea15B79]
+    │   │   ├─ [0] hook::currentFeePolicy() [staticcall]
+    │   │   │   └─ ← [Return] FeePolicySnapshot({ protocolFeeRecipient: 0xA0e8e0274E679D6711FFf9fbEdef749B483283BF, protocolFeeShareBps: 3000, buybackBurnBps: 5000, hookFeeBps: 100, maxInternalPriceImpactBps: 300 })
+    │   │   ├─ [153] UniswapV4GraduationExecutorV2::policyHash() [staticcall]
+    │   │   │   └─ ← [Return] 0xdb4c72aa335c1c5bb3b6d08609216008ce8e8f8f6429c85dbe055a01921fd431
+    │   │   └─ ← [Return] 0x81e1a11d82cb7db3201cfe8533fe24f2dd5570f1791024894e0504cfff2dae4c
+    │   ├─ [3650634] RetroPickLaunchDeployerV2::deployLaunch(LaunchDeployment({ pairToken: 0x534b2f3A21130d7a60830c2Df862319e593943A3, creatorFeeRecipient: 0x2190d584E30F4a2396C1487Aa784428f2068CBE8, originalDeployer: 0x2190d584E30F4a2396C1487Aa784428f2068CBE8, feePolicy: 0x5018e24b12633b731aB34A21d4984C630Ea15B79, policy: FeePolicySnapshot({ protocolFeeRecipient: 0xA0e8e0274E679D6711FFf9fbEdef749B483283BF, protocolFeeShareBps: 3000, buybackBurnBps: 5000, hookFeeBps: 100, maxInternalPriceImpactBps: 300 }), feeEscrow: 0x2e234DAe75C793f67A35089C9d99245E1C58470b, buybackVault: 0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9, phantomQuote: 100000000 [1e8], curveFeeBps: 100, creatorTaxBps: 50, buybackEnabled: false, graduationThreshold: 100000000 [1e8], graduationQuoteCeiling: 5000000000 [5e9], supply: 1000000000000000000000000 [1e24], name: "Factory Launch", symbol: "FLCH", logo: "", description: "", socials: Socials({ twitter: "", telegram: "", discord: "", website: "", farcaster: "" }) }))
+    │   │   ├─ [2811397] → new RetroPickBondingCurveV2@0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e
+    │   │   │   └─ ← [Return] 13805 bytes of code
+    │   │   ├─ [763099] → new RetroPickLauncherTokenV2@0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49
+    │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e], amount: 1000000000000000000000000 [1e24])
+    │   │   │   └─ ← [Return] 3248 bytes of code
+    │   │   └─ ← [Return] RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49], RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e]
+    │   ├─ [82278] RetroPickBondingCurveV2::initialize(RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49])
+    │   │   ├─ [292] RetroPickLauncherTokenV2::totalSupply() [staticcall]
+    │   │   │   └─ ← [Return] 1000000000000000000000000 [1e24]
+    │   │   ├─ [573] RetroPickLauncherTokenV2::balanceOf(RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e]) [staticcall]
+    │   │   │   └─ ← [Return] 1000000000000000000000000 [1e24]
+    │   │   ├─ emit Initialized(token: RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49])
+    │   │   └─ ← [Return]
+    │   ├─ [327] RetroPickBondingCurveV2::exemptFromSnipeTax(creator: [0x2190d584E30F4a2396C1487Aa784428f2068CBE8])
+    │   │   └─ ← [Stop]
+    │   ├─ [408578] GraduationCoordinatorV2::registerLaunch(RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49], RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e], 0, 0, 60)
+    │   │   ├─ [964] RetroPickLaunchFactoryV2::quoteRegistry() [staticcall]
+    │   │   │   └─ ← [Return] RetroPickQuoteAssetRegistryV2: [0xc7183455a4C133Ae270771860664b6B7ec320bB1]
+    │   │   ├─ [367] RetroPickBondingCurveV2::pairToken() [staticcall]
+    │   │   │   └─ ← [Return] 0x534b2f3A21130d7a60830c2Df862319e593943A3
+    │   │   ├─ [3031] RetroPickQuoteAssetRegistryV2::admitted(0x534b2f3A21130d7a60830c2Df862319e593943A3, 0) [staticcall]
+    │   │   │   ├─ [305] 0x534b2f3A21130d7a60830c2Df862319e593943A3::decimals() [staticcall]
+    │   │   │   │   └─ ← [Return] 6
+    │   │   │   └─ ← [Return] QuoteAssetConfig({ enabled: true, decimals: 6, venueMask: 3, policyVersion: 1, phantomQuote: 100000000 [1e8], graduationThreshold: 100000000 [1e8], graduationQuoteCeiling: 5000000000 [5e9], assetId: 0x9f603c926f6692f1671628592f344bd257d4c31b448483cee39d273f4d4212b2, policyHash: 0x7b13f7958c48f3b57cbb9e4bd3775e6997a7f0cc2091c8598f193388bea542e1 })
+    │   │   ├─ [367] RetroPickBondingCurveV2::pairToken() [staticcall]
+    │   │   │   └─ ← [Return] 0x534b2f3A21130d7a60830c2Df862319e593943A3
+    │   │   ├─ [1390] RetroPickLaunchFactoryV2::getLaunchFeePolicy(RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49]) [staticcall]
+    │   │   │   └─ ← [Return] FeePolicySnapshot({ protocolFeeRecipient: 0xA0e8e0274E679D6711FFf9fbEdef749B483283BF, protocolFeeShareBps: 3000, buybackBurnBps: 5000, hookFeeBps: 100, maxInternalPriceImpactBps: 300 })
+    │   │   ├─ [153] UniswapV4GraduationExecutorV2::policyHash() [staticcall]
+    │   │   │   └─ ← [Return] 0xdb4c72aa335c1c5bb3b6d08609216008ce8e8f8f6429c85dbe055a01921fd431
+    │   │   ├─ [464] UniswapV4GraduationExecutorV2::previewReceiver(GraduationPacket({ token: 0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49, curve: 0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e, quoteAsset: 0x534b2f3A21130d7a60830c2Df862319e593943A3, venue: 0, executor: 0xD6BbDE9174b1CdAa358d2Cf4D57D1a9F7178FBfF, executorCodeHash: 0xd1d3efa720c7a1849785c3b2eae63a3cccb15f987997cfafb2149dc2f8aaa9c6, quoteDecimals: 6, quotePolicyVersion: 1, quotePolicyHash: 0x7b13f7958c48f3b57cbb9e4bd3775e6997a7f0cc2091c8598f193388bea542e1, phantomQuote: 100000000 [1e8], graduationThreshold: 100000000 [1e8], graduationQuoteCeiling: 5000000000 [5e9], venuePolicyHash: 0xdb4c72aa335c1c5bb3b6d08609216008ce8e8f8f6429c85dbe055a01921fd431, protectedLPReceiver: 0x0000000000000000000000000000000000000000, protectedExcessReceiver: 0x0000000000000000000000000000000000000000, poolFee: 0, tickSpacing: 60, feePolicy: FeePolicySnapshot({ protocolFeeRecipient: 0xA0e8e0274E679D6711FFf9fbEdef749B483283BF, protocolFeeShareBps: 3000, buybackBurnBps: 5000, hookFeeBps: 100, maxInternalPriceImpactBps: 300 }) })) [staticcall]
+    │   │   │   └─ ← [Return] RetroPickLaunchLockerV2: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]
+    │   │   ├─ [153] UniswapV4GraduationExecutorV2::policyHash() [staticcall]
+    │   │   │   └─ ← [Return] 0xdb4c72aa335c1c5bb3b6d08609216008ce8e8f8f6429c85dbe055a01921fd431
+    │   │   ├─ [464] UniswapV4GraduationExecutorV2::previewReceiver(GraduationPacket({ token: 0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49, curve: 0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e, quoteAsset: 0x534b2f3A21130d7a60830c2Df862319e593943A3, venue: 0, executor: 0xD6BbDE9174b1CdAa358d2Cf4D57D1a9F7178FBfF, executorCodeHash: 0xd1d3efa720c7a1849785c3b2eae63a3cccb15f987997cfafb2149dc2f8aaa9c6, quoteDecimals: 6, quotePolicyVersion: 1, quotePolicyHash: 0x7b13f7958c48f3b57cbb9e4bd3775e6997a7f0cc2091c8598f193388bea542e1, phantomQuote: 100000000 [1e8], graduationThreshold: 100000000 [1e8], graduationQuoteCeiling: 5000000000 [5e9], venuePolicyHash: 0xdb4c72aa335c1c5bb3b6d08609216008ce8e8f8f6429c85dbe055a01921fd431, protectedLPReceiver: 0xF62849F9A0B5Bf2913b396098F7c7019b51A820a, protectedExcessReceiver: 0xF62849F9A0B5Bf2913b396098F7c7019b51A820a, poolFee: 0, tickSpacing: 60, feePolicy: FeePolicySnapshot({ protocolFeeRecipient: 0xA0e8e0274E679D6711FFf9fbEdef749B483283BF, protocolFeeShareBps: 3000, buybackBurnBps: 5000, hookFeeBps: 100, maxInternalPriceImpactBps: 300 }) })) [staticcall]
+    │   │   │   └─ ← [Return] RetroPickLaunchLockerV2: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]
+    │   │   ├─ [810] RetroPickBondingCurveV2::factory() [staticcall]
+    │   │   │   └─ ← [Return] RetroPickLaunchFactoryV2: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   │   ├─ [1287] RetroPickBondingCurveV2::token() [staticcall]
+    │   │   │   └─ ← [Return] RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49]
+    │   │   ├─ [367] RetroPickBondingCurveV2::pairToken() [staticcall]
+    │   │   │   └─ ← [Return] 0x534b2f3A21130d7a60830c2Df862319e593943A3
+    │   │   ├─ [302] RetroPickBondingCurveV2::graduationQuoteCeiling() [staticcall]
+    │   │   │   └─ ← [Return] 5000000000 [5e9]
+    │   │   ├─ [855] RetroPickBondingCurveV2::phantomQuote() [staticcall]
+    │   │   │   └─ ← [Return] 100000000 [1e8]
+    │   │   ├─ [635] RetroPickBondingCurveV2::graduationThreshold() [staticcall]
+    │   │   │   └─ ← [Return] 100000000 [1e8]
+    │   │   ├─ [292] RetroPickLauncherTokenV2::totalSupply() [staticcall]
+    │   │   │   └─ ← [Return] 1000000000000000000000000 [1e24]
+    │   │   ├─ [23111] UniswapV4GraduationExecutorV2::validateLaunch(GraduationPacket({ token: 0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49, curve: 0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e, quoteAsset: 0x534b2f3A21130d7a60830c2Df862319e593943A3, venue: 0, executor: 0xD6BbDE9174b1CdAa358d2Cf4D57D1a9F7178FBfF, executorCodeHash: 0xd1d3efa720c7a1849785c3b2eae63a3cccb15f987997cfafb2149dc2f8aaa9c6, quoteDecimals: 6, quotePolicyVersion: 1, quotePolicyHash: 0x7b13f7958c48f3b57cbb9e4bd3775e6997a7f0cc2091c8598f193388bea542e1, phantomQuote: 100000000 [1e8], graduationThreshold: 100000000 [1e8], graduationQuoteCeiling: 5000000000 [5e9], venuePolicyHash: 0xdb4c72aa335c1c5bb3b6d08609216008ce8e8f8f6429c85dbe055a01921fd431, protectedLPReceiver: 0xF62849F9A0B5Bf2913b396098F7c7019b51A820a, protectedExcessReceiver: 0xF62849F9A0B5Bf2913b396098F7c7019b51A820a, poolFee: 0, tickSpacing: 60, feePolicy: FeePolicySnapshot({ protocolFeeRecipient: 0xA0e8e0274E679D6711FFf9fbEdef749B483283BF, protocolFeeShareBps: 3000, buybackBurnBps: 5000, hookFeeBps: 100, maxInternalPriceImpactBps: 300 }) }), 1000000000000000000000000 [1e24]) [staticcall]
+    │   │   │   ├─ [2522] RetroPickLaunchLockerV2::graduationExecutor() [staticcall]
+    │   │   │   │   └─ ← [Return] UniswapV4GraduationExecutorV2: [0xD6BbDE9174b1CdAa358d2Cf4D57D1a9F7178FBfF]
+    │   │   │   ├─ [0] hook::graduationExecutor() [staticcall]
+    │   │   │   │   └─ ← [Return] UniswapV4GraduationExecutorV2: [0xD6BbDE9174b1CdAa358d2Cf4D57D1a9F7178FBfF]
+    │   │   │   ├─ [5530] RetroPickGraduationGuardV2::assertSeedable(RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49], 0x534b2f3A21130d7a60830c2Df862319e593943A3, 60, 100000000 [1e8], 250000000000000000000000 [2.5e23]) [staticcall]
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [5560] RetroPickGraduationGuardV2::assertSeedable(RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49], 0x534b2f3A21130d7a60830c2Df862319e593943A3, 60, 5000000000 [5e9], 490196078431372549019607 [4.901e23]) [staticcall]
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   └─ ← [Return]
+    │   │   ├─ emit LaunchCommitted(token: RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49], venue: 0, packetHash: 0x88e58a25516fad609d57b46dbf9a90cab06619d2d9ae5c40b767b7c0d09a34e9)
+    │   │   └─ ← [Return]
+    │   ├─ emit TokenLaunched(token: RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49], curve: RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e], deployer: creator: [0x2190d584E30F4a2396C1487Aa784428f2068CBE8], pairToken: 0x534b2f3A21130d7a60830c2Df862319e593943A3, launchConfigId: 0, graduationThreshold: 100000000 [1e8])
+    │   ├─ [5532164] CommunityTreasuryLaunchBuilderV2::configure(RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49], RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e], creator: [0x2190d584E30F4a2396C1487Aa784428f2068CBE8], 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000060000000000000000000000000cdb69d6f55de85a19177c2560567df9f6cf239ff0000000000000000000000002190d584e30f4a2396c1487aa784428f2068cbe8000000000000000000000000619d5d1e620c70442e67726b0e4cbf8c6e111b1900000000000000000000000000000000000000000000000000000000000017700000000000000000000000000000000000000000000000000000000000000fa00000000000000000000000000000000000000000000000000000000000000096000000000000000000000000000000000000000000000000000000000003f48000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000018000000000000000000000000000000000000000000000000000000000000000030000000000000000000000002190d584e30f4a2396c1487aa784428f2068cbe80000000000000000000000000000000000000000000000000000000000000fa0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000057de6b0fe869b2215deba755c653f353d9f4f32000000000000000000000000000000000000000000000000000000000000007d0000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000fa00000000000000000000000000000000000000000000000000000000000000002, 0xb479fd572739e21965d37d06602c78707181fcb5c3e76a789e996b587d29dc9e)
+    │   │   ├─ [496] RetroPickLauncherTokenV2::deployer() [staticcall]
+    │   │   │   └─ ← [Return] creator: [0x2190d584E30F4a2396C1487Aa784428f2068CBE8]
+    │   │   ├─ [298] RetroPickLauncherTokenV2::launchFactory() [staticcall]
+    │   │   │   └─ ← [Return] RetroPickLaunchFactoryV2: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   │   ├─ [364] RetroPickLauncherTokenV2::curve() [staticcall]
+    │   │   │   └─ ← [Return] RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e]
+    │   │   ├─ [321743] → new CommunityControllerV2@0x514dd0Bcaf5994Ef889f482B79d39D18B6E4363F
+    │   │   │   └─ ← [Return] 1494 bytes of code
+    │   │   ├─ [1328539] → new CommunityFeeRouterV2@0xE748aec1d9e6477F82B231539c21Ffe56FE5f168
+    │   │   │   ├─ [810] RetroPickBondingCurveV2::factory() [staticcall]
+    │   │   │   │   └─ ← [Return] RetroPickLaunchFactoryV2: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   │   │   ├─ [1287] RetroPickBondingCurveV2::token() [staticcall]
+    │   │   │   │   └─ ← [Return] RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49]
+    │   │   │   ├─ [1752] RetroPickLaunchFactoryV2::communitySource(RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49]) [staticcall]
+    │   │   │   │   └─ ← [Return] RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e]
+    │   │   │   ├─ [367] RetroPickBondingCurveV2::pairToken() [staticcall]
+    │   │   │   │   └─ ← [Return] 0x534b2f3A21130d7a60830c2Df862319e593943A3
+    │   │   │   └─ ← [Return] 6487 bytes of code
+    │   │   ├─ [2398464] CommunityTreasuryDeployerV2::deployForLaunch(CommunityFeeRouterV2: [0xE748aec1d9e6477F82B231539c21Ffe56FE5f168], creator: [0x2190d584E30F4a2396C1487Aa784428f2068CBE8], treasury-proposer-role-fixture: [0xcDB69D6f55dE85a19177C2560567Df9f6CF239fF])
+    │   │   │   ├─ [583] RetroPickLaunchFactoryV2::communityBuilder() [staticcall]
+    │   │   │   │   └─ ← [Return] CommunityTreasuryLaunchBuilderV2: [0x756e0562323ADcDA4430d6cb456d9151f605290B]
+    │   │   │   ├─ [556] CommunityFeeRouterV2::factory() [staticcall]
+    │   │   │   │   └─ ← [Return] RetroPickLaunchFactoryV2: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   │   │   ├─ [292] CommunityFeeRouterV2::registrar() [staticcall]
+    │   │   │   │   └─ ← [Return] CommunityTreasuryLaunchBuilderV2: [0x756e0562323ADcDA4430d6cb456d9151f605290B]
+    │   │   │   ├─ [2502] CommunityFeeRouterV2::ready() [staticcall]
+    │   │   │   │   └─ ← [Return] false
+    │   │   │   ├─ [2594] CommunityFeeRouterV2::totalFunded() [staticcall]
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   ├─ [2418] CommunityFeeRouterV2::sequence() [staticcall]
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   ├─ [490] CommunityFeeRouterV2::launchToken() [staticcall]
+    │   │   │   │   └─ ← [Return] RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49]
+    │   │   │   ├─ [1292045] → new CommunityTimelockV2@0x269C4753e15E47d7CaD8B230ed19cFff21f29D51
+    │   │   │   │   ├─ emit RoleGranted(role: 0x0000000000000000000000000000000000000000000000000000000000000000, account: CommunityTimelockV2: [0x269C4753e15E47d7CaD8B230ed19cFff21f29D51], sender: CommunityTreasuryDeployerV2: [0x3381cD18e2Fb4dB236BF0525938AB6E43Db0440f])
+    │   │   │   │   ├─ emit RoleGranted(role: 0xb09aa5aeb3702cfd50b6b62bc4532604938f21248a27a1d5ca736082b6819cc1, account: treasury-proposer-role-fixture: [0xcDB69D6f55dE85a19177C2560567Df9f6CF239fF], sender: CommunityTreasuryDeployerV2: [0x3381cD18e2Fb4dB236BF0525938AB6E43Db0440f])
+    │   │   │   │   ├─ emit RoleGranted(role: 0xfd643c72710c63c0180259aba6b2d05451e3591a24e58b62239378085726f783, account: treasury-proposer-role-fixture: [0xcDB69D6f55dE85a19177C2560567Df9f6CF239fF], sender: CommunityTreasuryDeployerV2: [0x3381cD18e2Fb4dB236BF0525938AB6E43Db0440f])
+    │   │   │   │   ├─ emit RoleGranted(role: 0xd8aa0f3194971a2a116679f7c2090f6939c8d4e01a2a8d7e41d55e5351469e63, account: 0x0000000000000000000000000000000000000000, sender: CommunityTreasuryDeployerV2: [0x3381cD18e2Fb4dB236BF0525938AB6E43Db0440f])
+    │   │   │   │   ├─ emit MinDelayChange(oldDuration: 0, newDuration: 259200 [2.592e5])
+    │   │   │   │   └─ ← [Return] 5842 bytes of code
+    │   │   │   ├─ [971836] → new CommunityTreasuryVaultV2@0x84331fdf4F2974B3Cb6D8003584CE74f62599F38
+    │   │   │   │   ├─ [556] CommunityFeeRouterV2::factory() [staticcall]
+    │   │   │   │   │   └─ ← [Return] RetroPickLaunchFactoryV2: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   │   │   │   ├─ [292] CommunityFeeRouterV2::registrar() [staticcall]
+    │   │   │   │   │   └─ ← [Return] CommunityTreasuryLaunchBuilderV2: [0x756e0562323ADcDA4430d6cb456d9151f605290B]
+    │   │   │   │   ├─ [583] RetroPickLaunchFactoryV2::communityBuilder() [staticcall]
+    │   │   │   │   │   └─ ← [Return] CommunityTreasuryLaunchBuilderV2: [0x756e0562323ADcDA4430d6cb456d9151f605290B]
+    │   │   │   │   ├─ [502] CommunityFeeRouterV2::ready() [staticcall]
+    │   │   │   │   │   └─ ← [Return] false
+    │   │   │   │   ├─ [594] CommunityFeeRouterV2::totalFunded() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [418] CommunityFeeRouterV2::sequence() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [926] CommunityTimelockV2::getMinDelay() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 259200 [2.592e5]
+    │   │   │   │   ├─ [490] CommunityFeeRouterV2::launchToken() [staticcall]
+    │   │   │   │   │   └─ ← [Return] RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49]
+    │   │   │   │   ├─ [380] CommunityFeeRouterV2::source() [staticcall]
+    │   │   │   │   │   └─ ← [Return] RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e]
+    │   │   │   │   ├─ [1752] RetroPickLaunchFactoryV2::communitySource(RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e]
+    │   │   │   │   ├─ [810] RetroPickBondingCurveV2::factory() [staticcall]
+    │   │   │   │   │   └─ ← [Return] RetroPickLaunchFactoryV2: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   │   │   │   ├─ [1287] RetroPickBondingCurveV2::token() [staticcall]
+    │   │   │   │   │   └─ ← [Return] RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49]
+    │   │   │   │   ├─ [367] RetroPickBondingCurveV2::pairToken() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0x534b2f3A21130d7a60830c2Df862319e593943A3
+    │   │   │   │   ├─ [358] CommunityFeeRouterV2::feeAsset() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0x534b2f3A21130d7a60830c2Df862319e593943A3
+    │   │   │   │   ├─ [3136] RetroPickBondingCurveV2::communityRouter() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   │   │   ├─ [496] RetroPickLauncherTokenV2::deployer() [staticcall]
+    │   │   │   │   │   └─ ← [Return] creator: [0x2190d584E30F4a2396C1487Aa784428f2068CBE8]
+    │   │   │   │   ├─ [298] RetroPickLauncherTokenV2::launchFactory() [staticcall]
+    │   │   │   │   │   └─ ← [Return] RetroPickLaunchFactoryV2: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   │   │   │   ├─ [364] RetroPickLauncherTokenV2::curve() [staticcall]
+    │   │   │   │   │   └─ ← [Return] RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e]
+    │   │   │   │   ├─ [358] CommunityFeeRouterV2::feeAsset() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0x534b2f3A21130d7a60830c2Df862319e593943A3
+    │   │   │   │   ├─ [358] CommunityFeeRouterV2::feeAsset() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0x534b2f3A21130d7a60830c2Df862319e593943A3
+    │   │   │   │   ├─ emit TreasuryInitialized(token: RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49], router: CommunityFeeRouterV2: [0xE748aec1d9e6477F82B231539c21Ffe56FE5f168], timelock: CommunityTimelockV2: [0x269C4753e15E47d7CaD8B230ed19cFff21f29D51], feeAsset: 0x534b2f3A21130d7a60830c2Df862319e593943A3)
+    │   │   │   │   └─ ← [Return] 4606 bytes of code
+    │   │   │   ├─ [490] CommunityFeeRouterV2::launchToken() [staticcall]
+    │   │   │   │   └─ ← [Return] RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49]
+    │   │   │   ├─ [490] CommunityFeeRouterV2::launchToken() [staticcall]
+    │   │   │   │   └─ ← [Return] RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49]
+    │   │   │   ├─ emit TreasuryCreated(token: RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49], router: CommunityFeeRouterV2: [0xE748aec1d9e6477F82B231539c21Ffe56FE5f168], vault: CommunityTreasuryVaultV2: [0x84331fdf4F2974B3Cb6D8003584CE74f62599F38], timelock: CommunityTimelockV2: [0x269C4753e15E47d7CaD8B230ed19cFff21f29D51])
+    │   │   │   └─ ← [Return] CommunityTreasuryVaultV2: [0x84331fdf4F2974B3Cb6D8003584CE74f62599F38]
+    │   │   ├─ [528] CommunityTreasuryVaultV2::router() [staticcall]
+    │   │   │   └─ ← [Return] CommunityFeeRouterV2: [0xE748aec1d9e6477F82B231539c21Ffe56FE5f168]
+    │   │   ├─ [214] RetroPickBondingCurveV2::feeBps() [staticcall]
+    │   │   │   └─ ← [Return] 100
+    │   │   ├─ [767] RetroPickBondingCurveV2::creatorTaxBps() [staticcall]
+    │   │   │   └─ ← [Return] 50
+    │   │   ├─ [1339028] → new CommunityPolicyRegistryV2@0x0e16A9dC103fdD00794C0f13F19bCaDC292D80ba
+    │   │   │   ├─ [488] CommunityControllerV2::controller() [staticcall]
+    │   │   │   │   └─ ← [Return] creator: [0x2190d584E30F4a2396C1487Aa784428f2068CBE8]
+    │   │   │   ├─ emit PolicyActivated(epoch: 1, hash: 0x5bce0364b1a7a0d95e0fe98ca1af90baae5d1d9e3780dc6361f881d10d791ef2)
+    │   │   │   └─ ← [Return] 5679 bytes of code
+    │   │   ├─ [23190] CommunityFeeRouterV2::bindRegistry(CommunityPolicyRegistryV2: [0x0e16A9dC103fdD00794C0f13F19bCaDC292D80ba])
+    │   │   │   ├─ [392] CommunityPolicyRegistryV2::launchToken() [staticcall]
+    │   │   │   │   └─ ← [Return] RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49]
+    │   │   │   ├─ [257] CommunityPolicyRegistryV2::source() [staticcall]
+    │   │   │   │   └─ ← [Return] CommunityFeeRouterV2: [0xE748aec1d9e6477F82B231539c21Ffe56FE5f168]
+    │   │   │   ├─ [480] CommunityPolicyRegistryV2::authority() [staticcall]
+    │   │   │   │   └─ ← [Return] CommunityControllerV2: [0x514dd0Bcaf5994Ef889f482B79d39D18B6E4363F]
+    │   │   │   └─ ← [Return]
+    │   │   ├─ emit TreasuryBound(token: RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49], router: CommunityFeeRouterV2: [0xE748aec1d9e6477F82B231539c21Ffe56FE5f168], treasury: CommunityTreasuryVaultV2: [0x84331fdf4F2974B3Cb6D8003584CE74f62599F38], registry: CommunityPolicyRegistryV2: [0x0e16A9dC103fdD00794C0f13F19bCaDC292D80ba])
+    │   │   └─ ← [Return] CommunityFeeRouterV2: [0xE748aec1d9e6477F82B231539c21Ffe56FE5f168]
+    │   ├─ [28854] RetroPickBondingCurveV2::configureCommunity(CommunityFeeRouterV2: [0xE748aec1d9e6477F82B231539c21Ffe56FE5f168])
+    │   │   ├─ [292] RetroPickLauncherTokenV2::totalSupply() [staticcall]
+    │   │   │   └─ ← [Return] 1000000000000000000000000 [1e24]
+    │   │   ├─ [380] CommunityFeeRouterV2::source() [staticcall]
+    │   │   │   └─ ← [Return] RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e]
+    │   │   ├─ [556] CommunityFeeRouterV2::factory() [staticcall]
+    │   │   │   └─ ← [Return] RetroPickLaunchFactoryV2: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   │   ├─ [502] CommunityFeeRouterV2::ready() [staticcall]
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ emit CommunityBound(router: CommunityFeeRouterV2: [0xE748aec1d9e6477F82B231539c21Ffe56FE5f168])
+    │   │   └─ ← [Return]
+    │   └─ ← [Return] RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49], RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e]
+    ├─ [3136] RetroPickBondingCurveV2::communityRouter() [staticcall]
+    │   └─ ← [Return] CommunityFeeRouterV2: [0xE748aec1d9e6477F82B231539c21Ffe56FE5f168]
+    ├─ [2445] CommunityTreasuryDeployerV2::vaultForRouter(CommunityFeeRouterV2: [0xE748aec1d9e6477F82B231539c21Ffe56FE5f168]) [staticcall]
+    │   └─ ← [Return] CommunityTreasuryVaultV2: [0x84331fdf4F2974B3Cb6D8003584CE74f62599F38]
+    ├─ [0] VM::deal(creator: [0x2190d584E30F4a2396C1487Aa784428f2068CBE8], 200000000000000000000 [2e20])
+    │   └─ ← [Return]
+    ├─ [0] VM::startPrank(creator: [0x2190d584E30F4a2396C1487Aa784428f2068CBE8])
+    │   └─ ← [Return]
+    ├─ [45957] 0x534b2f3A21130d7a60830c2Df862319e593943A3::approve(RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e], 150000000 [1.5e8])
+    │   ├─ emit Approval(owner: creator: [0x2190d584E30F4a2396C1487Aa784428f2068CBE8], spender: RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e], amount: 150000000 [1.5e8])
+    │   └─ ← [Return] true
+    ├─ [933914] RetroPickBondingCurveV2::buy(150000000 [1.5e8], 0, creator: [0x2190d584E30F4a2396C1487Aa784428f2068CBE8])
+    │   ├─ [2617] 0x534b2f3A21130d7a60830c2Df862319e593943A3::balanceOf(RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e]) [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [2617] 0x534b2f3A21130d7a60830c2Df862319e593943A3::balanceOf(creator: [0x2190d584E30F4a2396C1487Aa784428f2068CBE8]) [staticcall]
+    │   │   └─ ← [Return] 1000000000 [1e9]
+    │   ├─ [33508] 0x534b2f3A21130d7a60830c2Df862319e593943A3::transferFrom(creator: [0x2190d584E30F4a2396C1487Aa784428f2068CBE8], RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e], 150000000 [1.5e8])
+    │   │   ├─ emit Transfer(from: creator: [0x2190d584E30F4a2396C1487Aa784428f2068CBE8], to: RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e], amount: 150000000 [1.5e8])
+    │   │   └─ ← [Return] true
+    │   ├─ [617] 0x534b2f3A21130d7a60830c2Df862319e593943A3::balanceOf(RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e]) [staticcall]
+    │   │   └─ ← [Return] 150000000 [1.5e8]
+    │   ├─ [617] 0x534b2f3A21130d7a60830c2Df862319e593943A3::balanceOf(creator: [0x2190d584E30F4a2396C1487Aa784428f2068CBE8]) [staticcall]
+    │   │   └─ ← [Return] 850000000 [8.5e8]
+    │   ├─ [29732] RetroPickLauncherTokenV2::transfer(creator: [0x2190d584E30F4a2396C1487Aa784428f2068CBE8], 500000000000000000000000 [5e23])
+    │   │   ├─ emit Transfer(from: RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e], to: creator: [0x2190d584E30F4a2396C1487Aa784428f2068CBE8], amount: 500000000000000000000000 [5e23])
+    │   │   └─ ← [Return] true
+    │   ├─ emit CurveBuyRefunded(buyer: creator: [0x2190d584E30F4a2396C1487Aa784428f2068CBE8], refund: 48477156 [4.847e7])
+    │   ├─ [617] 0x534b2f3A21130d7a60830c2Df862319e593943A3::balanceOf(RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e]) [staticcall]
+    │   │   └─ ← [Return] 150000000 [1.5e8]
+    │   ├─ [617] 0x534b2f3A21130d7a60830c2Df862319e593943A3::balanceOf(creator: [0x2190d584E30F4a2396C1487Aa784428f2068CBE8]) [staticcall]
+    │   │   └─ ← [Return] 850000000 [8.5e8]
+    │   ├─ [5838] 0x534b2f3A21130d7a60830c2Df862319e593943A3::transfer(creator: [0x2190d584E30F4a2396C1487Aa784428f2068CBE8], 48477156 [4.847e7])
+    │   │   ├─ emit Transfer(from: RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e], to: creator: [0x2190d584E30F4a2396C1487Aa784428f2068CBE8], amount: 48477156 [4.847e7])
+    │   │   └─ ← [Return] true
+    │   ├─ [617] 0x534b2f3A21130d7a60830c2Df862319e593943A3::balanceOf(RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e]) [staticcall]
+    │   │   └─ ← [Return] 101522844 [1.015e8]
+    │   ├─ [617] 0x534b2f3A21130d7a60830c2Df862319e593943A3::balanceOf(creator: [0x2190d584E30F4a2396C1487Aa784428f2068CBE8]) [staticcall]
+    │   │   └─ ← [Return] 898477156 [8.984e8]
+    │   ├─ [617] 0x534b2f3A21130d7a60830c2Df862319e593943A3::balanceOf(RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e]) [staticcall]
+    │   │   └─ ← [Return] 101522844 [1.015e8]
+    │   ├─ emit CurveBuy(buyer: creator: [0x2190d584E30F4a2396C1487Aa784428f2068CBE8], recipient: creator: [0x2190d584E30F4a2396C1487Aa784428f2068CBE8], quoteIn: 101522844 [1.015e8], tokensOut: 500000000000000000000000 [5e23], fee: 1015228 [1.015e6], tax: 507614 [5.076e5])
+    │   ├─ [724163] RetroPickLaunchFactoryV2::graduate(RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49])
+    │   │   ├─ [689706] GraduationCoordinatorV2::secure(RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49])
+    │   │   │   ├─ [1190] RetroPickBondingCurveV2::graduated() [staticcall]
+    │   │   │   │   └─ ← [Return] false
+    │   │   │   ├─ [1300] RetroPickBondingCurveV2::readyToGraduate() [staticcall]
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [4185] RetroPickBondingCurveV2::realQuoteReserve() [staticcall]
+    │   │   │   │   ├─ [617] 0x534b2f3A21130d7a60830c2Df862319e593943A3::balanceOf(RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 101522844 [1.015e8]
+    │   │   │   │   └─ ← [Return] 100000002 [1e8]
+    │   │   │   ├─ [4893] RetroPickBondingCurveV2::tokenReserve() [staticcall]
+    │   │   │   │   ├─ [617] 0x534b2f3A21130d7a60830c2Df862319e593943A3::balanceOf(RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 101522844 [1.015e8]
+    │   │   │   │   └─ ← [Return] 500000000000000000000000 [5e23]
+    │   │   │   ├─ [2617] 0x534b2f3A21130d7a60830c2Df862319e593943A3::balanceOf(GraduationCoordinatorV2: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]) [staticcall]
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   ├─ [2573] RetroPickLauncherTokenV2::balanceOf(GraduationCoordinatorV2: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]) [staticcall]
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   ├─ [522630] RetroPickLaunchFactoryV2::secureCurve(RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49])
+    │   │   │   │   ├─ [24929] GraduationCoordinatorV2::ledger(RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] GraduationLedger({ phase: 0, securedQuote: 0, securedLaunchTokens: 0, consumedQuote: 0, consumedLaunchTokens: 0, destinationIdentity: 0x0000000000000000000000000000000000000000000000000000000000000000, receiptHash: 0x0000000000000000000000000000000000000000000000000000000000000000, protectedLPReceiver: 0xF62849F9A0B5Bf2913b396098F7c7019b51A820a, protectedLPAmount: 0, protectedExcessReceiver: 0xF62849F9A0B5Bf2913b396098F7c7019b51A820a, protectedExcessAmount: 0, securedAt: 0 })
+    │   │   │   │   ├─ [1190] RetroPickBondingCurveV2::graduated() [staticcall]
+    │   │   │   │   │   └─ ← [Return] false
+    │   │   │   │   ├─ [490485] RetroPickBondingCurveV2::graduate(GraduationCoordinatorV2: [0xa0Cb889707d426A7A386870A03bc70d1b0697598])
+    │   │   │   │   │   ├─ [617] 0x534b2f3A21130d7a60830c2Df862319e593943A3::balanceOf(RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 101522844 [1.015e8]
+    │   │   │   │   │   ├─ [24361] 0x534b2f3A21130d7a60830c2Df862319e593943A3::approve(RetroPickFeeEscrowV2: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 304568 [3.045e5])
+    │   │   │   │   │   │   ├─ emit Approval(owner: RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e], spender: RetroPickFeeEscrowV2: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], amount: 304568 [3.045e5])
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [617] 0x534b2f3A21130d7a60830c2Df862319e593943A3::balanceOf(RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 101522844 [1.015e8]
+    │   │   │   │   │   ├─ [83007] RetroPickFeeEscrowV2::creditToken(protocol: [0xA0e8e0274E679D6711FFf9fbEdef749B483283BF], 0x534b2f3A21130d7a60830c2Df862319e593943A3, 304568 [3.045e5])
+    │   │   │   │   │   │   ├─ [2617] 0x534b2f3A21130d7a60830c2Df862319e593943A3::balanceOf(RetroPickFeeEscrowV2: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   ├─ [617] 0x534b2f3A21130d7a60830c2Df862319e593943A3::balanceOf(RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 101522844 [1.015e8]
+    │   │   │   │   │   │   ├─ [23908] 0x534b2f3A21130d7a60830c2Df862319e593943A3::transferFrom(RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e], RetroPickFeeEscrowV2: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 304568 [3.045e5])
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e], to: RetroPickFeeEscrowV2: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], amount: 304568 [3.045e5])
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ [617] 0x534b2f3A21130d7a60830c2Df862319e593943A3::balanceOf(RetroPickFeeEscrowV2: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 304568 [3.045e5]
+    │   │   │   │   │   │   ├─ [617] 0x534b2f3A21130d7a60830c2Df862319e593943A3::balanceOf(RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 101218276 [1.012e8]
+    │   │   │   │   │   │   ├─ emit TokenCredited(payer: RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e], recipient: protocol: [0xA0e8e0274E679D6711FFf9fbEdef749B483283BF], token: 0x534b2f3A21130d7a60830c2Df862319e593943A3, amount: 304568 [3.045e5])
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─ [617] 0x534b2f3A21130d7a60830c2Df862319e593943A3::balanceOf(RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 101218276 [1.012e8]
+    │   │   │   │   │   ├─ [7935] CommunityFeeRouterV2::activeEpoch() [staticcall]
+    │   │   │   │   │   │   ├─ [2452] CommunityPolicyRegistryV2::epoch() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 1
+    │   │   │   │   │   │   └─ ← [Return] 1
+    │   │   │   │   │   ├─ [24361] 0x534b2f3A21130d7a60830c2Df862319e593943A3::approve(CommunityFeeRouterV2: [0xE748aec1d9e6477F82B231539c21Ffe56FE5f168], 1218274 [1.218e6])
+    │   │   │   │   │   │   ├─ emit Approval(owner: RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e], spender: CommunityFeeRouterV2: [0xE748aec1d9e6477F82B231539c21Ffe56FE5f168], amount: 1218274 [1.218e6])
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [223654] CommunityFeeRouterV2::fund(RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49], 0x534b2f3A21130d7a60830c2Df862319e593943A3, 1, 1, 1218274 [1.218e6])
+    │   │   │   │   │   │   ├─ [1136] RetroPickBondingCurveV2::communityRouter() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] CommunityFeeRouterV2: [0xE748aec1d9e6477F82B231539c21Ffe56FE5f168]
+    │   │   │   │   │   │   ├─ [452] CommunityPolicyRegistryV2::epoch() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 1
+    │   │   │   │   │   │   ├─ [2617] 0x534b2f3A21130d7a60830c2Df862319e593943A3::balanceOf(CommunityFeeRouterV2: [0xE748aec1d9e6477F82B231539c21Ffe56FE5f168]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   ├─ [617] 0x534b2f3A21130d7a60830c2Df862319e593943A3::balanceOf(RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 101218276 [1.012e8]
+    │   │   │   │   │   │   ├─ [617] 0x534b2f3A21130d7a60830c2Df862319e593943A3::balanceOf(CommunityFeeRouterV2: [0xE748aec1d9e6477F82B231539c21Ffe56FE5f168]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   ├─ [23908] 0x534b2f3A21130d7a60830c2Df862319e593943A3::transferFrom(RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e], CommunityFeeRouterV2: [0xE748aec1d9e6477F82B231539c21Ffe56FE5f168], 1218274 [1.218e6])
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e], to: CommunityFeeRouterV2: [0xE748aec1d9e6477F82B231539c21Ffe56FE5f168], amount: 1218274 [1.218e6])
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ [617] 0x534b2f3A21130d7a60830c2Df862319e593943A3::balanceOf(RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 100000002 [1e8]
+    │   │   │   │   │   │   ├─ [617] 0x534b2f3A21130d7a60830c2Df862319e593943A3::balanceOf(CommunityFeeRouterV2: [0xE748aec1d9e6477F82B231539c21Ffe56FE5f168]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 1218274 [1.218e6]
+    │   │   │   │   │   │   ├─ [10478] CommunityPolicyRegistryV2::policyAtVersion(1) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] [Allocation({ beneficiary: 0x2190d584E30F4a2396C1487Aa784428f2068CBE8, bps: 4000, kind: 0 }), Allocation({ beneficiary: 0x57DE6b0fE869B2215dEBA755C653f353d9F4F320, bps: 2000, kind: 1 }), Allocation({ beneficiary: 0x84331fdf4F2974B3Cb6D8003584CE74f62599F38, bps: 4000, kind: 2 })]
+    │   │   │   │   │   │   ├─ emit Allocated(epoch: 1, beneficiary: creator: [0x2190d584E30F4a2396C1487Aa784428f2068CBE8], amount: 487309 [4.873e5])
+    │   │   │   │   │   │   ├─ emit Allocated(epoch: 1, beneficiary: contributor: [0x57DE6b0fE869B2215dEBA755C653f353d9F4F320], amount: 243654 [2.436e5])
+    │   │   │   │   │   │   ├─ emit Allocated(epoch: 1, beneficiary: CommunityTreasuryVaultV2: [0x84331fdf4F2974B3Cb6D8003584CE74f62599F38], amount: 487309 [4.873e5])
+    │   │   │   │   │   │   ├─ [2431] CommunityPolicyRegistryV2::module(2) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] CommunityTreasuryVaultV2: [0x84331fdf4F2974B3Cb6D8003584CE74f62599F38]
+    │   │   │   │   │   │   ├─ emit Allocated(epoch: 1, beneficiary: CommunityTreasuryVaultV2: [0x84331fdf4F2974B3Cb6D8003584CE74f62599F38], amount: 2)
+    │   │   │   │   │   │   ├─ [617] 0x534b2f3A21130d7a60830c2Df862319e593943A3::balanceOf(CommunityFeeRouterV2: [0xE748aec1d9e6477F82B231539c21Ffe56FE5f168]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 1218274 [1.218e6]
+    │   │   │   │   │   │   ├─ emit Funded(epoch: 1, sequence: 1, amount: 1218274 [1.218e6])
+    │   │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   │   ├─ [2361] 0x534b2f3A21130d7a60830c2Df862319e593943A3::approve(CommunityFeeRouterV2: [0xE748aec1d9e6477F82B231539c21Ffe56FE5f168], 0)
+    │   │   │   │   │   │   ├─ emit Approval(owner: RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e], spender: CommunityFeeRouterV2: [0xE748aec1d9e6477F82B231539c21Ffe56FE5f168], amount: 0)
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ emit CommunityFeesSettled(sequence: 1, epoch: 1, protocolAmount: 304568 [3.045e5], communityAmount: 1218274 [1.218e6])
+    │   │   │   │   │   ├─ [617] 0x534b2f3A21130d7a60830c2Df862319e593943A3::balanceOf(RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 100000002 [1e8]
+    │   │   │   │   │   ├─ [617] 0x534b2f3A21130d7a60830c2Df862319e593943A3::balanceOf(RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 100000002 [1e8]
+    │   │   │   │   │   ├─ [617] 0x534b2f3A21130d7a60830c2Df862319e593943A3::balanceOf(GraduationCoordinatorV2: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   ├─ [23738] 0x534b2f3A21130d7a60830c2Df862319e593943A3::transfer(GraduationCoordinatorV2: [0xa0Cb889707d426A7A386870A03bc70d1b0697598], 100000002 [1e8])
+    │   │   │   │   │   │   ├─ emit Transfer(from: RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e], to: GraduationCoordinatorV2: [0xa0Cb889707d426A7A386870A03bc70d1b0697598], amount: 100000002 [1e8])
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [617] 0x534b2f3A21130d7a60830c2Df862319e593943A3::balanceOf(RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   ├─ [617] 0x534b2f3A21130d7a60830c2Df862319e593943A3::balanceOf(GraduationCoordinatorV2: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 100000002 [1e8]
+    │   │   │   │   │   ├─ [22932] RetroPickLauncherTokenV2::transfer(GraduationCoordinatorV2: [0xa0Cb889707d426A7A386870A03bc70d1b0697598], 500000000000000000000000 [5e23])
+    │   │   │   │   │   │   ├─ emit Transfer(from: RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e], to: GraduationCoordinatorV2: [0xa0Cb889707d426A7A386870A03bc70d1b0697598], amount: 500000000000000000000000 [5e23])
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [617] 0x534b2f3A21130d7a60830c2Df862319e593943A3::balanceOf(RetroPickBondingCurveV2: [0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   ├─ emit CurveCompleted(recipient: GraduationCoordinatorV2: [0xa0Cb889707d426A7A386870A03bc70d1b0697598], quoteOut: 100000002 [1e8], tokenOut: 500000000000000000000000 [5e23])
+    │   │   │   │   │   └─ ← [Return] 100000002 [1e8], 500000000000000000000000 [5e23]
+    │   │   │   │   └─ ← [Return] 100000002 [1e8], 500000000000000000000000 [5e23]
+    │   │   │   ├─ [617] 0x534b2f3A21130d7a60830c2Df862319e593943A3::balanceOf(GraduationCoordinatorV2: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]) [staticcall]
+    │   │   │   │   └─ ← [Return] 100000002 [1e8]
+    │   │   │   ├─ [573] RetroPickLauncherTokenV2::balanceOf(GraduationCoordinatorV2: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]) [staticcall]
+    │   │   │   │   └─ ← [Return] 500000000000000000000000 [5e23]
+    │   │   │   ├─ emit GraduationSecured(token: RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49], quote: 100000002 [1e8], launchTokens: 500000000000000000000000 [5e23])
+    │   │   │   └─ ← [Stop]
+    │   │   └─ ← [Return]
+    │   └─ ← [Return] 500000000000000000000000 [5e23]
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return]
+    ├─ [3190] RetroPickBondingCurveV2::graduated() [staticcall]
+    │   └─ ← [Return] true
+    ├─ [9238] RetroPickBondingCurveV2::communityPending() [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [2617] 0x534b2f3A21130d7a60830c2Df862319e593943A3::balanceOf(GraduationCoordinatorV2: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]) [staticcall]
+    │   └─ ← [Return] 100000002 [1e8]
+    ├─ [3287] RetroPickBondingCurveV2::token() [staticcall]
+    │   └─ ← [Return] RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49]
+    ├─ [48095] RetroPickLaunchFactoryV2::getLaunchedToken(RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49]) [staticcall]
+    │   ├─ [26929] GraduationCoordinatorV2::ledger(RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49]) [staticcall]
+    │   │   └─ ← [Return] GraduationLedger({ phase: 1, securedQuote: 100000002 [1e8], securedLaunchTokens: 500000000000000000000000 [5e23], consumedQuote: 0, consumedLaunchTokens: 0, destinationIdentity: 0x0000000000000000000000000000000000000000000000000000000000000000, receiptHash: 0x0000000000000000000000000000000000000000000000000000000000000000, protectedLPReceiver: 0xF62849F9A0B5Bf2913b396098F7c7019b51A820a, protectedLPAmount: 0, protectedExcessReceiver: 0xF62849F9A0B5Bf2913b396098F7c7019b51A820a, protectedExcessAmount: 0, securedAt: 1 })
+    │   └─ ← [Return] LaunchedToken({ token: 0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49, curve: 0x61a0009C8E5f6e87CAf2D3B57081c27882a0187e, deployer: 0x2190d584E30F4a2396C1487Aa784428f2068CBE8, creatorFeeRecipient: 0x2190d584E30F4a2396C1487Aa784428f2068CBE8, pairToken: 0x534b2f3A21130d7a60830c2Df862319e593943A3, graduationThreshold: 100000000 [1e8], poolFee: 0, tickSpacing: 60, creatorTaxBps: 50, buybackEnabled: false, phase: 1, sweptQuote: 100000002 [1e8], sweptTokens: 500000000000000000000000 [5e23], sweptAt: 1, exists: true })
+    ├─ [2814] CommunityFeeRouterV2::credit(CommunityTreasuryVaultV2: [0x84331fdf4F2974B3Cb6D8003584CE74f62599F38]) [staticcall]
+    │   └─ ← [Return] 487311 [4.873e5]
+    ├─ [2814] CommunityFeeRouterV2::credit(creator: [0x2190d584E30F4a2396C1487Aa784428f2068CBE8]) [staticcall]
+    │   └─ ← [Return] 487309 [4.873e5]
+    ├─ [0] VM::expectCall(UniswapV4GraduationExecutorV2: [0xD6BbDE9174b1CdAa358d2Cf4D57D1a9F7178FBfF], 0x9bad0654)
+    │   └─ ← [Return]
+    ├─ [0] VM::expectRevert(custom error 0xf4844814)
+    │   └─ ← [Return]
+    ├─ [3287] RetroPickBondingCurveV2::token() [staticcall]
+    │   └─ ← [Return] RetroPickLauncherTokenV2: [0x7491359Ecc049aE7aF6DbE7f3fA2E58162b3CC49]
+    └─ ← [Revert] next call did not revert as expected
+
+Backtrace:
+  at CanonicalCommunityTreasuryGraduationTest.testCETreasuryUSDCClaimsSurviveSecuredGraduationAndFailedVenueRetries
+
+Suite result: FAILED. 0 passed; 2 failed; 0 skipped; finished in 34.55ms (21.44ms CPU time)
+
+Ran 1 test suite in 120.04ms (34.55ms CPU time): 0 tests passed, 2 failed, 0 skipped (2 total tests)
+
+Failing tests:
+Encountered 2 failing tests in test/v2/community-economy/treasury-integration/CommunityTreasuryGraduation.t.sol:CanonicalCommunityTreasuryGraduationTest
+[FAIL: next call did not revert as expected] testCETreasuryNativeClaimsSurviveSecuredGraduationAndFailedVenueRetries() (gas: 10974224)
+[FAIL: next call did not revert as expected] testCETreasuryUSDCClaimsSurviveSecuredGraduationAndFailedVenueRetries() (gas: 12187254)
+
+Encountered a total of 2 failing tests, 0 tests succeeded
+
+Tip: Run `forge test --rerun` to retry only the 2 failed tests
+Tip: Run `forge test --debug --match-test <TEST_NAME>` to inspect one failing test in the debugger

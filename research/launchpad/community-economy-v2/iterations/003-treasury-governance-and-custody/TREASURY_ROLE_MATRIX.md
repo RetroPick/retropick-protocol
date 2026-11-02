@@ -1,0 +1,4 @@
+# Role matrix
+Creator: chooses helper's immutable launch/governance inputs; cannot alter them later or directly spend. Keeper: finalize a correctly authenticated router, claim vault's own credit to itself, execute already-ready operations. Multisig: propose/cancel operations; no direct vault withdrawal. Timelock: sole spender after fixed72h, seven-day inclusive execution window; self-administration only. Controller and guardian: existing future-policy/recovery powers only, no treasury privileges. Factory/builder: existing launch identities only, no new vault branch. Recipient: receives approved transfer, no claim on other beneficiaries. Anyone: donations, which remain quarantined.
+
+Bootstrap has no temporary external admin. Local proposer role fixtures do not prove an actual Safe threshold, proxy identity or signer policy; live qualification remains separate.

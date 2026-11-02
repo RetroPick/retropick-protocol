@@ -1,0 +1,2 @@
+# Owner acceptance — experimental only
+Owner explicitly replied “Accept for experimental implementation” to the candidate dependency/governance question during this session on 2026-11-02. This authorizes only the exact scope in TREASURY_DECISION_ADR_CANDIDATE.md: isolated twelve-file OZ v5.4.0 MIT closure at c64a1edb67b6e3f4a15cca8909c9482ad33a02b0 and reviewed treasury/helper/timelock design. It does not accept production ADRs, alter canonical economics or authorize deployment. G0 baseline gate and independent G2/G4 verification still apply.

@@ -1,0 +1,21 @@
+Error: Compiler run failed:
+Error (6275): Source "/home/ubuntu/project/retropick/retropick-protocol/contracts/test/v2/research-experiment/CommunityCurveFlow.t.sol" not found: File not found. Searched the following locations: "/home/ubuntu/project/retropick/retropick-protocol/contracts".
+ParserError: Source "/home/ubuntu/project/retropick/retropick-protocol/contracts/test/v2/research-experiment/CommunityCurveFlow.t.sol" not found: File not found. Searched the following locations: "/home/ubuntu/project/retropick/retropick-protocol/contracts".
+ --> /tmp/ce003-binding-test/CommunityTreasuryBindingPreconditions.t.sol:3:1:
+  |
+3 | import {CommunityFlowFixtureV2} fro ... periment/CommunityCurveFlow.t.sol";
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Error (6275): Source "/home/ubuntu/project/retropick/retropick-protocol/contracts/src/v2-research-experiment/CommunityFeeRouterV2.sol" not found: File not found. Searched the following locations: "/home/ubuntu/project/retropick/retropick-protocol/contracts".
+ParserError: Source "/home/ubuntu/project/retropick/retropick-protocol/contracts/src/v2-research-experiment/CommunityFeeRouterV2.sol" not found: File not found. Searched the following locations: "/home/ubuntu/project/retropick/retropick-protocol/contracts".
+ --> /tmp/ce003-binding-test/CommunityTreasuryBindingPreconditions.t.sol:4:1:
+  |
+4 | import {CommunityFeeRouterV2} from "/home/ubuntu/project/retropick/retropick-protocol/contracts/src/v2-research-experiment/CommunityFeeRouterV2.sol";
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Error (6275): Source "/home/ubuntu/project/retropick/retropick-protocol/contracts/src/v2-research-experiment/RetroPickBondingCurveV2.sol" not found: File not found. Searched the following locations: "/home/ubuntu/project/retropick/retropick-protocol/contracts".
+ParserError: Source "/home/ubuntu/project/retropick/retropick-protocol/contracts/src/v2-research-experiment/RetroPickBondingCurveV2.sol" not found: File not found. Searched the following locations: "/home/ubuntu/project/retropick/retropick-protocol/contracts".
+ --> /tmp/ce003-binding-test/CommunityTreasuryBindingPreconditions.t.sol:5:1:
+  |
+5 | import {RetroPickBondingCurveV2} fr ... iment/RetroPickBondingCurveV2.sol";
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

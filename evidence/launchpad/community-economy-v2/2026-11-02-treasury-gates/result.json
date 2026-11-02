@@ -1,0 +1,16 @@
+{
+  "status": "PARTIAL_G2_DESIGN_BLOCKED",
+  "base": "6d9ac546d856f021d9e597f6e625a134b8ab8bcd",
+  "financialTests": 33,
+  "controllerTests": 6,
+  "bindingPreconditionTests": 1,
+  "fuzzCases": 40000,
+  "handlerCalls": 32768,
+  "canonicalLocalPass": 64,
+  "canonicalLocalSkipped": 10,
+  "custodyImplemented": false,
+  "dependencyImported": false,
+  "ownerAcceptance": "experimental candidate only",
+  "blocker": "CE003-001",
+  "broadcasts": 0
+}

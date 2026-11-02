@@ -1,0 +1,176 @@
+Compiling 137 files with Solc 0.8.26
+Solc 0.8.26 finished in 344.28s
+Compiler run successful with warnings:
+Warning (2018): Function state mutability can be restricted to view
+   --> src/v2/RetroPickBondingCurveV2.sol:861:5:
+    |
+861 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to pure
+  --> test/v2/integration/DEV4GraduationExtractionResearch.t.sol:41:5:
+   |
+41 |     function feeEscrow() external view returns (IRetroPickFeeEscrowV2) {
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 3 tests for test/v2/unit/QuoteAssetRegistryV2.t.sol:QuoteAssetRegistryV2Test
+[PASS] testAdmissionVersionAndVenueSnapshot() (gas: 315058)
+[PASS] testChainAndPolicyHashFailClosed() (gas: 229355)
+[PASS] testExactIdentityAndOwnerAdmissionRequired() (gas: 835196)
+Suite result: ok. 3 passed; 0 failed; 0 skipped; finished in 5.43ms (2.21ms CPU time)
+
+Ran 1 test for test/v2/unit/CompletionQuoteOracleV2.t.sol:CompletionQuoteOracleV2Test
+[PASS] testDifferentialPythonOracle80States() (gas: 236831)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 10.59ms (8.37ms CPU time)
+
+Ran 1 test for test/v2/integration/KuruForkResearch.t.sol:KuruForkResearchTest
+[SKIP: skipped: research fork requires MONAD_TESTNET_RPC_URL] setUp() (gas: 0)
+Suite result: ok. 0 passed; 0 failed; 1 skipped; finished in 11.18ms (0.00ns CPU time)
+
+Ran 2 tests for test/v2/unit/GraduationCoordinatorV2Authority.t.sol:GraduationCoordinatorV2AuthorityTest
+[PASS] testInexactSecureReportCannotCreateDurableLedgerThenExactHandoffRetries() (gas: 5138390)
+[PASS] testOnlyFactoryCanConfigureRegisterOrSecureAndBindingIsOneTime() (gas: 204013)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 35.57ms (8.36ms CPU time)
+
+Ran 1 test for test/v2/integration/KuruAtomicResearch.t.sol:KuruAtomicResearchTest
+[SKIP: skipped: research fork requires MONAD_TESTNET_RPC_URL] setUp() (gas: 0)
+Suite result: ok. 0 passed; 0 failed; 1 skipped; finished in 3.32ms (0.00ns CPU time)
+
+Ran 4 tests for test/v2/unit/RetroPickLaunchDeployerV2Qualification.t.sol:RetroPickLaunchDeployerV2QualificationTest
+[PASS] testDeploysFreshCurveAndTokenWithFactoryIdentity() (gas: 3421905)
+[PASS] testDifferentQuoteAddressIsPassedThroughNotAdmittedHere() (gas: 3269956)
+[PASS] testMetadataBoundsRejectOverlongNameAndSocial() (gas: 110311)
+[PASS] testUnauthorizedCallerCannotDeploy() (gas: 56585)
+Suite result: ok. 4 passed; 0 failed; 0 skipped; finished in 39.36ms (3.44ms CPU time)
+
+Ran 2 tests for test/v2/unit/KuruPolicyAndLockV2.t.sol:KuruPolicyAndLockV2Test
+[PASS] testPermanentBoundCustodyHasNoEscapeEntrypoints() (gas: 1907138)
+[PASS] testQualifiedTupleAndSeedsUseExactQuoteScale() (gas: 326392)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 51.25ms (40.87ms CPU time)
+
+Ran 5 tests for test/v2/unit/RetroPickBondingCurveMathV2Qualification.t.sol:RetroPickBondingCurveMathV2QualificationTest
+[PASS] testFuzzAmountInExactIntegerFormula(uint256,uint256,uint256,uint16) (runs: 256, μ: 7874, ~: 7925)
+[PASS] testFuzzAmountOutExactIntegerFormula(uint256,uint256,uint256,uint16) (runs: 256, μ: 10859, ~: 11452)
+[PASS] testGoldenAmountInCurrentPlusOneRounding() (gas: 9678)
+[PASS] testGoldenAmountOutNoFee() (gas: 9730)
+[PASS] testZeroAndEmptyDomains() (gas: 37727)
+Suite result: ok. 5 passed; 0 failed; 0 skipped; finished in 58.96ms (98.07ms CPU time)
+
+Ran 8 tests for test/v2/unit/RetroPickFeeEscrowV2Qualification.t.sol:RetroPickFeeEscrowV2QualificationTest
+[PASS] testExactTokenCreditsAndClaimsAreAssetSegregated() (gas: 1335638)
+[PASS] testExternalBalanceLossStopsTokenClaimsWithoutCorruptingLedger() (gas: 870791)
+[PASS] testNativeCreditsClaimsAndDonationsRemainSeparate() (gas: 232073)
+[PASS] testNativeReceiverReentryCannotDoubleClaim() (gas: 397128)
+[PASS] testRejectedCallsPreserveState() (gas: 88313)
+[PASS] testRejectedTokenPayoutAndLateSenderSurchargePreserveCredit() (gas: 1160388)
+[PASS] testRepeatedCreditsPartialClaimsAndDoubleClaimRejection() (gas: 640083)
+[PASS] testSenderSurchargeCreditRevertsBeforeLiabilityIsCreated() (gas: 779815)
+Suite result: ok. 8 passed; 0 failed; 0 skipped; finished in 53.51ms (27.26ms CPU time)
+
+Ran 4 tests for test/v2/integration/DEV4GraduationExtractionResearch.t.sol:DEV4GraduationExtractionResearchTest
+[PASS] testNativeAutomaticHandoffFailureRetryReplayAndCustody() (gas: 5195291)
+[PASS] testQuoteAutomaticHandoffFailureRetryReplayAndCustody() (gas: 5421526)
+[PASS] testThinFactoryRuntimeIsResearchOnly() (gas: 7204)
+[PASS] testWrongExecutorCannotConsumeSecuredQuotePacket() (gas: 5538848)
+Suite result: ok. 4 passed; 0 failed; 0 skipped; finished in 57.93ms (71.89ms CPU time)
+
+Ran 7 tests for test/v2/unit/RetroPickCurrentCurveStateV2Qualification.t.sol:RetroPickCurrentCurveStateV2QualificationTest
+[PASS] testBuySellAndFeeBucketsReconcileWithPhysicalBalances() (gas: 452058)
+[PASS] testCompletionQuoteMatchesExecutableFinalBuyAfterMutations() (gas: 1151857)
+[PASS] testInitialSupplyWiringAndReserve() (gas: 87948)
+[PASS] testPlainFeeSweepLeavesTradingReserveIntact() (gas: 371359)
+[PASS] testSnipeExemptionIsCurrentlyNoOpForTradeTax() (gas: 196686)
+[PASS] testSweepDoesNotDoubleDeductBuybackEarmark() (gas: 329047)
+[PASS] testUnauthorizedAndFailedOperationsPreserveAccounting() (gas: 104162)
+Suite result: ok. 7 passed; 0 failed; 0 skipped; finished in 61.32ms (40.35ms CPU time)
+
+Ran 12 tests for test/v2/integration/RetroPickV4GraduationBehavior.t.sol:RetroPickV4GraduationBehaviorTest
+[PASS] testBuybackEnabledCompletionQuoteBeforeAndAfterSweep() (gas: 5630869)
+[SKIP: Circle test requires pinned Monad Testnet fork] testCircleCompletionQuoteMatchesImmediateFinalBuyAcrossStates() (gas: 0)
+[SKIP: Circle test requires pinned Monad Testnet fork] testCircleCurrentV4FailureRetryCustodyAndReplay() (gas: 0)
+[SKIP: Circle test requires pinned Monad Testnet fork] testCircleMinimumRawRoundTripPumpsReserveRepeatedly() (gas: 0)
+[SKIP: Circle test requires pinned Monad Testnet fork] testCircleResearchCeilingRejectsFifthCycleSell() (gas: 0)
+[SKIP: Circle test requires pinned Monad Testnet fork] testCircleRoundTripHistoryChangesTerminalQuote() (gas: 0)
+[PASS] testNativeCompletionQuoteMatchesImmediateFinalBuyAcrossStates() (gas: 7930601)
+[PASS] testNativeCurrentV4FailureRetryCustodyAndReplay() (gas: 6403855)
+[PASS] testNativeMinimumRawRoundTripPumpsReserveRepeatedly() (gas: 8720302)
+[PASS] testNativeResearchCeilingRejectsFifthCycleSell() (gas: 6086294)
+[PASS] testNativeRoundTripHistoryChangesTerminalQuote() (gas: 7141788)
+[PASS] testOneRawQuoteCannotCompleteInitialRoundTrip() (gas: 4236497)
+Suite result: ok. 7 passed; 0 failed; 5 skipped; finished in 72.65ms (104.55ms CPU time)
+
+Ran 21 tests for test/v2/integration/RetroPickFactoryLaunchV2Qualification.t.sol:RetroPickFactoryLaunchV2QualificationTest
+[PASS] testApprovedCallbackQuoteCannotReenterBuyAccounting() (gas: 5217133)
+[PASS] testApprovedExactTransferSixDecimalQuoteBuySellBalances() (gas: 5235453)
+[PASS] testApprovedExternallyReducibleQuoteLossFailsClosed() (gas: 5182932)
+[PASS] testApprovedFalseReturnQuoteBuyRevertsWithoutStateChange() (gas: 4883777)
+[PASS] testApprovedSenderSurchargeQuoteRejectedBeforeCurveAccounting() (gas: 4983532)
+[PASS] testBuybackAuthorizationCreatorCanEnableOwnerCanOnlyDisable() (gas: 4364158)
+[PASS] testCreatorFeeRecipientOverrideIsDelayedAndSupersedesInterveningTransfer() (gas: 4513193)
+[PASS] testCrossingBuySweepsAssetsAndFailedMockV4SeedPreservesThem() (gas: 4944646)
+[PASS] testCurrentSaltDoesNotAffectAddressesFromIdenticalPrelaunchState() (gas: 7951530)
+[PASS] testEconomicsPinAndDisabledConfigRejectWithoutLaunch() (gas: 388308)
+[PASS] testFactoryCreatesAndRecordsNativeLaunch() (gas: 4184239)
+[PASS] testFactoryV4SeedRejectsQuoteSenderSurchargeAfterSweep() (gas: 6058647)
+[PASS] testNativeNearGraduationBuybackFoldsIntoCreatorFees() (gas: 4444020)
+[PASS] testNativeRepeatedBuybackSweepsAndPartialFullVest() (gas: 5427373)
+[SKIP: Circle Core fork requires MONAD_TESTNET_RPC_URL] testPinnedCircleCoreLaunchBuySweepAndFailedV4PreservesAssets() (gas: 0)
+[SKIP: Circle Core fork requires MONAD_TESTNET_RPC_URL] testPinnedCircleNearGraduationBuybackFoldsIntoCreatorFees() (gas: 0)
+[SKIP: Circle Core fork requires MONAD_TESTNET_RPC_URL] testPinnedCircleRepeatedBuybackSweepsAndPartialFullVest() (gas: 0)
+[PASS] testRegistryRejectsUnadmittedQuoteAndWrongCircleIdentity() (gas: 1928196)
+[PASS] testSnipeSettingDoesNotChangeCurrentBuyEconomics() (gas: 8328291)
+[PASS] testTrustedFeeSweepLocksBuybackTokensAndPreservesQuoteAccounting() (gas: 5137929)
+[PASS] testUnapprovedQuoteRejectedAndApprovedSixDecimalQuoteLaunched() (gas: 4906517)
+Suite result: ok. 18 passed; 0 failed; 3 skipped; finished in 79.92ms (137.86ms CPU time)
+
+Ran 2 tests for test/v2/invariant/RetroPickCurrentCurveV2Invariant.t.sol:RetroPickCurrentCurveV2InvariantTest
+[PASS]
+RetroPickCurrentCurveV2InvariantTest invariants:
+[PASS] invariantFixedSupplyAndNoUnauthorizedMutation
+[PASS] invariantPhysicalBalancesAndFeeBuckets
+ RetroPickCurrentCurveV2InvariantTest invariants (runs: 64, calls: 4096, reverts: 0)
+
+╭-----------------------+-----------------------------+-------+---------+----------╮
+| Contract              | Selector                    | Calls | Reverts | Discards |
++==================================================================================+
+| CurrentCurveV2Handler | attemptUnauthorizedMutation | 1070  | 0       | 0        |
+|-----------------------+-----------------------------+-------+---------+----------|
+| CurrentCurveV2Handler | buy                         | 1010  | 0       | 0        |
+|-----------------------+-----------------------------+-------+---------+----------|
+| CurrentCurveV2Handler | sell                        | 1040  | 0       | 0        |
+|-----------------------+-----------------------------+-------+---------+----------|
+| CurrentCurveV2Handler | sweep                       | 976   | 0       | 0        |
+╰-----------------------+-----------------------------+-------+---------+----------╯
+
+[PASS] testHandlerExercisesAcceptedAndRejectedBranches() (gas: 591841)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 3.46s (3.46s CPU time)
+
+Ran 1 test for test/v2/invariant/GraduationCoordinatorV2Invariant.t.sol:GraduationCoordinatorV2InvariantTest
+[PASS]
+GraduationCoordinatorV2InvariantTest invariants:
+[PASS] invariantNoCompletionDeadlockReplayOrProtectedExit
+[PASS] invariantOneLedgerPhysicalBackingImmutableVenueAndDestination
+ GraduationCoordinatorV2InvariantTest invariants (runs: 64, calls: 4096, reverts: 0)
+
+╭----------------------+------------------------+-------+---------+----------╮
+| Contract             | Selector               | Calls | Reverts | Discards |
++============================================================================+
+| CoordinatorHandlerV2 | attemptProtectedEscape | 608   | 0       | 0        |
+|----------------------+------------------------+-------+---------+----------|
+| CoordinatorHandlerV2 | buy                    | 601   | 0       | 0        |
+|----------------------+------------------------+-------+---------+----------|
+| CoordinatorHandlerV2 | complete               | 560   | 0       | 0        |
+|----------------------+------------------------+-------+---------+----------|
+| CoordinatorHandlerV2 | finish                 | 587   | 0       | 0        |
+|----------------------+------------------------+-------+---------+----------|
+| CoordinatorHandlerV2 | launch                 | 556   | 0       | 0        |
+|----------------------+------------------------+-------+---------+----------|
+| CoordinatorHandlerV2 | sell                   | 613   | 0       | 0        |
+|----------------------+------------------------+-------+---------+----------|
+| CoordinatorHandlerV2 | sweep                  | 571   | 0       | 0        |
+╰----------------------+------------------------+-------+---------+----------╯
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 7.27s (7.22s CPU time)
+
+Ran 15 test suites in 7.30s (11.28s CPU time): 64 tests passed, 0 failed, 10 skipped (74 total tests)

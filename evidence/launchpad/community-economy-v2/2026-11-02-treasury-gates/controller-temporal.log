@@ -1,0 +1,14 @@
+Compiling 24 files with Solc 0.8.26
+Solc 0.8.26 finished in 8.07s
+Compiler run successful!
+
+Ran 6 tests for /tmp/retropick-community-treasury-v2-20261102/contracts/test/v2/research-experiment/treasury/CommunityControllerTemporal.t.sol:CommunityControllerTemporalTest
+[PASS] testCEGuardianCancellationInvalidatesRecovery() (gas: 203139)
+[PASS] testCERecoveryDoesNotFreezeCurrentControllerDuringDelay() (gas: 172881)
+[PASS] testCERecoveryExpiresOnlyAfterDeadlineAndDoesNotChangeAuthority() (gas: 249567)
+[PASS] testCERecoverySupersedesVoluntaryAndCannotBeCancelledByCreator() (gas: 326411)
+[PASS] testCEVoluntaryExactReadinessAndAcceptanceDeadline() (gas: 246446)
+[PASS] testFuzzCENoEarlyRecoveryAcceptance(uint32) (runs: 10000, μ: 174824, ~: 174758)
+Suite result: ok. 6 passed; 0 failed; 0 skipped; finished in 306.29ms (317.63ms CPU time)
+
+Ran 1 test suite in 310.68ms (306.29ms CPU time): 6 tests passed, 0 failed, 0 skipped (6 total tests)

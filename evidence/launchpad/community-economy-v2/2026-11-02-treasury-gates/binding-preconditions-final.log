@@ -1,0 +1,68 @@
+Unable to resolve imports:
+      "test/v2/research-experiment/CommunityCurveFlow.t.sol" in "/tmp/ce003-binding-test/CommunityTreasuryBindingPreconditions.t.sol"
+      "src/v2-research-experiment/RetroPickBondingCurveV2.sol" in "/tmp/ce003-binding-test/CommunityTreasuryBindingPreconditions.t.sol"
+      "src/v2-research-experiment/CommunityFeeRouterV2.sol" in "/tmp/ce003-binding-test/CommunityTreasuryBindingPreconditions.t.sol"
+with remappings:
+      forge-std/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/forge-std/src/
+      @openzeppelin/contracts/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/openzeppelin-contracts/contracts/
+      @uniswap/v4-core/src/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-core/src/
+      @uniswap/v4-periphery/src/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-periphery/src/
+      @uniswap/v4-hooks-public/src/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-hooks-public/src/
+      permit2/src/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-periphery/lib/permit2/src/
+      lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/
+      /home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/
+      lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/
+      /home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/
+      lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/
+      /home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/
+      lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/
+      /home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/
+      lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/
+      /home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/
+      lib/v4-deployment-periphery/lib/permit2/:solmate/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/
+      /home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-deployment-periphery/lib/permit2/:solmate/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/
+      lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/
+      /home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/
+      lib/v4-deployment-periphery/lib/v4-core/:solmate/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/
+      /home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-deployment-periphery/lib/v4-core/:solmate/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/
+      lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/
+      /home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/
+      lib/v4-deployment-periphery/:permit2/src/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-periphery/lib/permit2/src/
+      /home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-deployment-periphery/:permit2/src/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-periphery/lib/permit2/src/
+      lib/v4-deployment-periphery/:permit2/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-deployment-periphery/lib/permit2/
+      /home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-deployment-periphery/:permit2/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-deployment-periphery/lib/permit2/
+      lib/v4-deployment-periphery/:v4-core/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-deployment-periphery/lib/v4-core/src/
+      /home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-deployment-periphery/:v4-core/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-deployment-periphery/lib/v4-core/src/
+      lib/v4-periphery/:permit2/src/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-periphery/lib/permit2/src/
+      /home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-periphery/:permit2/src/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-periphery/lib/permit2/src/
+      lib/v4-periphery/:permit2/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-periphery/lib/permit2/src/
+      /home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-periphery/:permit2/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-periphery/lib/permit2/src/
+      @ensdomains/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-deployment-periphery/lib/v4-core/node_modules/@ensdomains/
+      @openzeppelin/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/
+      @uniswap/v4-core/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-deployment-periphery/lib/v4-core/
+      ds-test/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/
+      erc4626-tests/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/erc4626-tests/
+      forge-gas-snapshot/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/src/
+      hardhat/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-deployment-periphery/lib/v4-core/node_modules/hardhat/
+      openzeppelin-contracts/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/openzeppelin-contracts/contracts/
+      permit2/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-periphery/lib/permit2/src/
+      solmate/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/
+      v4-core/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-core/src/
+      v4-deployment-periphery/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-deployment-periphery/
+      v4-hooks-public/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-hooks-public/src/
+      v4-periphery/=/home/ubuntu/project/retropick/retropick-protocol/contracts/lib/v4-periphery/src/
+Compiling 108 files with Solc 0.8.26
+Solc 0.8.26 finished in 118.47s
+Compiler run successful with warnings:
+Warning (2018): Function state mutability can be restricted to view
+   --> src/v2-research-experiment/RetroPickBondingCurveV2.sol:931:5:
+    |
+931 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 1 test for /tmp/ce003-binding-test/CommunityTreasuryBindingPreconditions.t.sol:CommunityTreasuryBindingPreconditionsTest
+[PASS] testCETwoLaunchesCanCreditSamePlannedTreasury() (gas: 16606981)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 13.69ms (7.03ms CPU time)
+
+Ran 1 test suite in 16.61ms (13.69ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

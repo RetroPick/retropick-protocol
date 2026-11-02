@@ -1,0 +1,4 @@
+# State transitions
+Helper: CONSTRUCTED -> PLANNED_ADDRESS -> real factory launch pins address -> FINALIZED exactly once. Invalid finalization/constructor failure rolls back. Finalization is permissionless after authenticated identity checks. No contract creation in helper constructor; first CREATE address is independently checked.
+Vault: initialized immutable binding -> own credit unclaimed at router -> partial/full exact claim -> revenue held -> approved spend -> held reduced. Donations are surplus, not a transition into earned revenue. Failure returns to pre-transaction state.
+Operation: unset -> waiting >=72h -> ready -> done; cancellation removes permission, a requeue restarts delay. Expired at readyAt+7days+1; executable at exact boundary. Done cannot replay; vault spendId prevents duplicates under a different operation hash. No reserved balance at scheduling time; insufficient funds can retry within window. Independent operations do not require FIFO.

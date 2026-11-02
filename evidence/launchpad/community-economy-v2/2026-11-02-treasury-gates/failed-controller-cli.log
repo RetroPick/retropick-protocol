@@ -1,0 +1,7 @@
+error: unexpected argument '--test' found
+
+  tip: a similar argument exists: '--ast'
+
+Usage: forge test --contracts <PATH> --ast [PATH]
+
+For more information, try '--help'.

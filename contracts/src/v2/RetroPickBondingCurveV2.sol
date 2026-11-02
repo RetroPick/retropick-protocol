@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.26;
+import {ICommunityFeeFundingV2} from "./interfaces/ICommunityFeesV2.sol";
 import {CompletionQuoteMathV2} from "./libraries/CompletionQuoteMathV2.sol";
 
 import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
@@ -89,6 +90,65 @@ contract RetroPickBondingCurveV2 is ReentrancyGuard {
     // Not immutable: the creator can hand off future fee sweeps to a new
     // address (or the factory can override on the protocol owner's behalf)
     // via `setCreatorFeeRecipient`, both gated through `onlyFactory`.
+    address public communityRouter;
+    uint256 public communitySettlementNonce;
+    bool private communitySettling;
+    error CommunityMode();
+    event CommunityBound(address indexed router);
+    event CommunityFeesSettled(
+        uint256 indexed sequence, uint256 indexed epoch, uint256 protocolAmount, uint256 communityAmount
+    );
+
+    function configureCommunity(address router) external onlyFactory {
+        if (
+            communityRouter != address(0) || router.code.length == 0 || trackedQuote != 0 || quoteFeeBalance != 0
+                || creatorTaxBalance != 0 || buybackQuoteBalance != 0 || buybackEnabled || graduated
+                || trackedTokens != IERC20(token).totalSupply()
+                || address(ICommunityFeeFundingV2(router).source()) != address(this)
+                || ICommunityFeeFundingV2(router).factory() != factory || !ICommunityFeeFundingV2(router).ready()
+        ) revert CommunityMode();
+        communityRouter = router;
+        emit CommunityBound(router);
+    }
+
+    function communityPending() external view returns (uint256) {
+        return quoteFeeBalance + creatorTaxBalance + buybackQuoteBalance + (communitySettling ? 1 : 0);
+    }
+
+    function checkpointCommunityFees() external nonReentrant {
+        if (msg.sender != communityRouter || communityRouter == address(0) || communitySettling) {
+            revert CommunityMode();
+        }
+        _requireQuoteBacking();
+        _sweepCommunityFees();
+    }
+
+    function _sweepCommunityFees() private returns (uint256 protocolAmount, uint256 communityAmount) {
+        if (communitySettling) revert CommunityMode();
+        uint256 f = quoteFeeBalance;
+        uint256 t = creatorTaxBalance;
+        if (f == 0 && t == 0) return (0, 0);
+        if (buybackQuoteBalance != 0 || buybackEnabled) revert CommunityMode();
+        communitySettling = true;
+        protocolAmount = f * protocolFeeShareBps / BASIS_POINTS;
+        communityAmount = f - protocolAmount + t;
+        quoteFeeBalance = 0;
+        creatorTaxBalance = 0;
+        trackedQuote -= protocolAmount + communityAmount;
+        if (protocolAmount != 0) _creditQuote(protocolFeeRecipient, protocolAmount);
+        if (communityAmount != 0) {
+            uint256 e = ICommunityFeeFundingV2(communityRouter).activeEpoch();
+            uint256 seq = ++communitySettlementNonce;
+            if (pairToken != address(0)) IERC20(pairToken).forceApprove(communityRouter, communityAmount);
+            ICommunityFeeFundingV2(communityRouter).fund{value: pairToken == address(0) ? communityAmount : 0}(
+                token, pairToken, e, seq, communityAmount
+            );
+            if (pairToken != address(0)) IERC20(pairToken).forceApprove(communityRouter, 0);
+            emit CommunityFeesSettled(seq, e, protocolAmount, communityAmount);
+        }
+        communitySettling = false;
+        _requireQuoteBacking();
+    }
     address public deployer;
     address public immutable factory;
     IRetroPickFeePolicyV2 public immutable feePolicy;
@@ -287,6 +347,7 @@ contract RetroPickBondingCurveV2 is ReentrancyGuard {
      * this contract only needs to trust one caller.
      */
     function setCreatorFeeRecipient(address newRecipient) external onlyFactory {
+        if (communityRouter != address(0)) revert CommunityMode();
         if (newRecipient == address(0)) revert ZeroAddress();
         emit CreatorFeeRecipientUpdated(deployer, newRecipient);
         deployer = newRecipient;
@@ -304,6 +365,7 @@ contract RetroPickBondingCurveV2 is ReentrancyGuard {
      * enable would sweep fees earned under a plain split into the vest.
      */
     function setBuybackEnabled(bool enabled) external onlyFactory {
+        if (communityRouter != address(0)) revert CommunityMode();
         buybackEnabled = enabled;
         if (!graduated && token != address(0)) _requireCompletionLiveness();
         emit BuybackEnabledUpdated(enabled);
@@ -709,6 +771,10 @@ contract RetroPickBondingCurveV2 is ReentrancyGuard {
      * execute the swap without supplying an explicit output floor.
      */
     function _sweepFees(uint256 minBuybackTokensOut, bool executeBuyback) private {
+        if (communityRouter != address(0)) {
+            _sweepCommunityFees();
+            return;
+        }
         uint256 pending = quoteFeeBalance;
         uint256 tax = creatorTaxBalance;
         if (pending == 0 && tax == 0) return;
@@ -825,6 +891,10 @@ contract RetroPickBondingCurveV2 is ReentrancyGuard {
      * RetroPickLaunchFactoryV2.rescueSweptGraduation for the reserves in between.
      */
     function rescueFees() external onlyFactory returns (uint256 protocolAmount, uint256 creatorAmount) {
+        if (communityRouter != address(0)) {
+            _requireQuoteBacking();
+            return _sweepCommunityFees();
+        }
         _requireQuoteBacking();
         uint256 pending = quoteFeeBalance;
         uint256 tax = creatorTaxBalance;

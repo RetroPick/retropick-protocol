@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.26;
 
+import {ICommunityBuilderV2} from "./interfaces/ICommunityFeesV2.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {Ownable2Step} from "@openzeppelin/contracts/access/Ownable2Step.sol";
 import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
@@ -50,6 +51,39 @@ import {
 contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLaunchFactoryV2 {
     using SafeERC20 for IERC20;
 
+    ICommunityBuilderV2 public communityBuilder;
+    mapping(address => bool) private _communityLaunch;
+    error InvalidCommunity();
+    event CommunityBuilderBound(address indexed builder);
+
+    function setCommunityBuilder(ICommunityBuilderV2 builder) external onlyOwner {
+        if (
+            address(communityBuilder) != address(0) || address(builder).code.length == 0
+                || builder.factory() != address(this)
+        ) {
+            revert InvalidCommunity();
+        }
+        communityBuilder = builder;
+        emit CommunityBuilderBound(address(builder));
+    }
+
+    function communitySource(address token) external view returns (address) {
+        return _launchedTokens[token].curve;
+    }
+
+    function launchCommunityToken(
+        TokenParams calldata params,
+        uint256 configId,
+        address quote,
+        bytes calldata config,
+        bytes32 commitment
+    ) external payable nonReentrant returns (address token, address curve) {
+        if (address(communityBuilder) == address(0) || params.buybackEnabled || params.expectedEconomics == bytes32(0)) revert InvalidCommunity();
+        (token, curve) = _launchToken(params, configId, quote, msg.sender, GraduationVenue.UNISWAP_V4);
+        _communityLaunch[token] = true;
+        address router = communityBuilder.configure(token, curve, msg.sender, config, commitment);
+        RetroPickBondingCurveV2(curve).configureCommunity(router);
+    }
     uint256 private constant BASIS_POINTS = 10_000;
     uint256 private constant MAX_CURVE_FEE_BPS = 1_000; // 10%
     uint256 private constant MAX_CREATOR_TAX_CEILING_BPS = 1_000; // 10%
@@ -828,6 +862,7 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
      * set here. See `setCreatorFeeRecipient`.
      */
     function transferCreatorFeeRecipient(address token, address newRecipient) external {
+        if (_communityLaunch[token]) revert InvalidCommunity();
         LaunchRecord storage launch = _launchedTokens[token];
         if (!launch.exists) revert TokenNotFound();
         if (msg.sender != launch.creatorFeeRecipient) revert NotCreatorFeeRecipient();
@@ -844,6 +879,7 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
      * protocol's 30% release share against the creator's wishes.
      */
     function setBuybackEnabled(address token, bool enabled) external {
+        if (_communityLaunch[token]) revert InvalidCommunity();
         LaunchRecord storage launch = _launchedTokens[token];
         if (!launch.exists) revert TokenNotFound();
         bool isCreator = msg.sender == launch.creatorFeeRecipient;
@@ -890,6 +926,7 @@ contract RetroPickLaunchFactoryV2 is Ownable2Step, ReentrancyGuard, IRetroPickLa
      * between shows up as a mismatch between the two.
      */
     function setCreatorFeeRecipient(address token, address newRecipient) external onlyOwner {
+        if (_communityLaunch[token]) revert InvalidCommunity();
         LaunchRecord storage launch = _launchedTokens[token];
         if (!launch.exists) revert TokenNotFound();
         if (newRecipient == address(0)) revert ZeroAddress();

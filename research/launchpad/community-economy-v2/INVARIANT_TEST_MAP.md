@@ -1,5 +1,9 @@
 # Scoped invariant map
 
+## Canonical campaign
+
+Canonical tests are in contracts/test/v2/community-economy and explicitly import canonical code; legacy differential uses immutable7bad742b references. Registry/router conservation and treasury earned-custody each run256×128with zero outer reverts. USDC stateful, actual multisig and full treasury graduation/fork coverage remain open. Original DEV4 historical proof has an owner-approved import-only version pin, with unchanged assertions; source-specific qualification avoids short-basename artifact collisions.
+
 ## Iteration 004 evidence boundary
 
 Treasury earned-custody/source-conservation handler and temporal action tests supplement the existing Router handler; see [current report](iterations/004-atomic-binding/QUALIFICATION.md). Native stateful coverage does not prove USDC stateful, real multisig, all graduation venues or every LP/CE property. Original map and earlier results remain below.

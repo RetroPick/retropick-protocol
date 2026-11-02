@@ -1,5 +1,9 @@
 # Experimental curve community economy
 
+## Owner-authorized canonical candidate
+
+Iteration005 copies the qualified opt-in financial modules and core integration into canonical V2 under ADR-CE02. The experimental lane remains intact. See [implementation and compatibility](iterations/005-canonical-adoption/IMPLEMENTATION.md) and [qualification](iterations/005-canonical-adoption/QUALIFICATION.md) for exact source, historical-fixture exception and release boundaries. No deployed identity or live venue is modified.
+
 ## Iteration 004 architecture addition
 
 For fresh opt-in launches, alternate TreasuryLaunchBuilder calls factory-bound TreasuryDeployer for actual fresh Vault/Timelock creation before Registry beneficiary binding. Factory and bonding math are unchanged. Vault pulls only its immutable Router credit and spends only earned balances through fixed72h/seven-day-window governance. [Atomic/custody specification](iterations/004-atomic-binding/SPEC.md) defines role, accounting and failure boundaries. Existing deployed launches are not migrated.

@@ -1,0 +1,9 @@
+{
+  "endpoint": "https://testnet-rpc.monad.xyz",
+  "httpStatus": 200,
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": "0x279f"
+  }
+}

@@ -1,0 +1,16 @@
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 146.50s
+Compiler run successful with warnings:
+Warning (2018): Function state mutability can be restricted to view
+   --> src/v2/RetroPickBondingCurveV2.sol:931:5:
+    |
+931 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 2 tests for test/v2/community-economy/treasury-integration/CommunityTreasuryGraduation.t.sol:CanonicalCommunityTreasuryGraduationTest
+[PASS] testCETreasuryNativeClaimsSurviveSecuredGraduationAndFailedVenueRetries() (gas: 11722420)
+[PASS] testCETreasuryUSDCClaimsSurviveSecuredGraduationAndFailedVenueRetries() (gas: 13055459)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 23.34ms (18.52ms CPU time)
+
+Ran 1 test suite in 28.04ms (23.34ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)

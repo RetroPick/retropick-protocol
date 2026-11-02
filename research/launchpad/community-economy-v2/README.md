@@ -1,5 +1,9 @@
 # Community economy V2 research experiment
 
+## Canonical implementation checkpoint
+
+ADR-CE02 is owner-accepted for scoped canonical implementation subject to qualification, not release/deployment. Canonical community/Treasury modules and opt-in core wiring now exist on the isolated candidate branch. See [iteration005](iterations/005-canonical-adoption/QUALIFICATION.md) for current tests and blockers. Historical frozen baseline/evidence remain unchanged. Use canonical_adoption.py for the current stage: baseline.py intentionally fails after authorized canonical changes. The DEV4 historical fixture has an explicitly owner-approved five-import snapshot pin, with assertions/bodies preserved. V1, V3 and live manifests/scripts remain untouched. Older checkpoints below are historical.
+
 Status: PARTIAL — an experimental curve-only financial vertical slice is implemented and locally tested. Real native/USDC trades, authenticated funding, old-policy checkpointing and independent claims are covered. Treasury vault, rewards, strategies, full controller/venue/release qualification remain open. No production or fork qualification is claimed.
 
 Start with EXECUTIVE_DECISION.md, SOURCE_TRUTH_MATRIX.md, SECURITY_FINDINGS.md, QUALIFICATION_REPORT.md and NEXT_STEPS.md. The original source report is preserved in inputs/deep-research-report.md; its embedded ChatGPT citation identifiers are not independently resolvable sources.

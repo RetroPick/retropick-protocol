@@ -1,0 +1,178 @@
+{
+  "CommunityControllerV2": {
+    "runtimeBytes": 1494,
+    "creationBytesExcludingArguments": 1736,
+    "runtimeSha256WithPlaceholders": "4cf76c23960510149a99cb32a156ad775944cad062b14274292cde25c1bea7b2",
+    "target": {
+      "src/v2/CommunityControllerV2.sol": "CommunityControllerV2"
+    },
+    "settings": {
+      "optimizer": {
+        "enabled": true,
+        "runs": 200
+      },
+      "evmVersion": "cancun",
+      "viaIR": true
+    }
+  },
+  "CommunityPolicyRegistryV2": {
+    "runtimeBytes": 5679,
+    "creationBytesExcludingArguments": 8062,
+    "runtimeSha256WithPlaceholders": "63f87b88acab363d3f4c036eada668735231a11786d4fe44e08667800e914e6a",
+    "target": {
+      "src/v2/CommunityPolicyRegistryV2.sol": "CommunityPolicyRegistryV2"
+    },
+    "settings": {
+      "optimizer": {
+        "enabled": true,
+        "runs": 200
+      },
+      "evmVersion": "cancun",
+      "viaIR": true
+    }
+  },
+  "CommunityLaunchBuilderV2": {
+    "runtimeBytes": 19332,
+    "creationBytesExcludingArguments": 19485,
+    "runtimeSha256WithPlaceholders": "5941f92c64e3bea842f7ead8ff7ba438de7d4b048b7ded12e67c4350236f5212",
+    "target": {
+      "src/v2/CommunityLaunchBuilderV2.sol": "CommunityLaunchBuilderV2"
+    },
+    "settings": {
+      "optimizer": {
+        "enabled": true,
+        "runs": 200
+      },
+      "evmVersion": "cancun",
+      "viaIR": true
+    }
+  },
+  "CommunityFeeRouterV2": {
+    "runtimeBytes": 6487,
+    "creationBytesExcludingArguments": 7514,
+    "runtimeSha256WithPlaceholders": "602dadd7854867970fc1702d4206118f791e34433de7c8513e14e189227a68ce",
+    "target": {
+      "src/v2/CommunityFeeRouterV2.sol": "CommunityFeeRouterV2"
+    },
+    "settings": {
+      "optimizer": {
+        "enabled": true,
+        "runs": 200
+      },
+      "evmVersion": "cancun",
+      "viaIR": true
+    }
+  },
+  "CommunityTreasuryVaultV2": {
+    "runtimeBytes": 4606,
+    "creationBytesExcludingArguments": 7486,
+    "runtimeSha256WithPlaceholders": "d69b6943525f8e15bce2a0d88cac07624ad4bd13aaed340d158fb9b255120090",
+    "target": {
+      "src/v2/CommunityTreasuryVaultV2.sol": "CommunityTreasuryVaultV2"
+    },
+    "settings": {
+      "optimizer": {
+        "enabled": true,
+        "runs": 200
+      },
+      "evmVersion": "cancun",
+      "viaIR": true
+    }
+  },
+  "CommunityTreasuryDeployerV2": {
+    "runtimeBytes": 16453,
+    "creationBytesExcludingArguments": 16643,
+    "runtimeSha256WithPlaceholders": "3cf4094bc7864b6ea4c70e6e3b305db3b76adf9aeea16eb4a3cddf692a0f7d18",
+    "target": {
+      "src/v2/CommunityTreasuryDeployerV2.sol": "CommunityTreasuryDeployerV2"
+    },
+    "settings": {
+      "optimizer": {
+        "enabled": true,
+        "runs": 200
+      },
+      "evmVersion": "cancun",
+      "viaIR": true
+    }
+  },
+  "CommunityTimelockV2": {
+    "runtimeBytes": 5842,
+    "creationBytesExcludingArguments": 7072,
+    "runtimeSha256WithPlaceholders": "af367a9ff688e643dbde768f2e4864a0673a5660a76eb043e7343fefeae71d89",
+    "target": {
+      "src/v2/CommunityTimelockV2.sol": "CommunityTimelockV2"
+    },
+    "settings": {
+      "optimizer": {
+        "enabled": true,
+        "runs": 200
+      },
+      "evmVersion": "cancun",
+      "viaIR": true
+    }
+  },
+  "CommunityTreasuryLaunchBuilderV2": {
+    "runtimeBytes": 20644,
+    "creationBytesExcludingArguments": 21047,
+    "runtimeSha256WithPlaceholders": "5acf33af1918220d2275acc319a1cb05c4bf8e9a71207d0a2251aa7e7423ceb8",
+    "target": {
+      "src/v2/CommunityTreasuryLaunchBuilderV2.sol": "CommunityTreasuryLaunchBuilderV2"
+    },
+    "settings": {
+      "optimizer": {
+        "enabled": true,
+        "runs": 200
+      },
+      "evmVersion": "cancun",
+      "viaIR": true
+    }
+  },
+  "RetroPickLaunchFactoryV2": {
+    "runtimeBytes": 24486,
+    "creationBytesExcludingArguments": 26001,
+    "runtimeSha256WithPlaceholders": "9951a3c691656a9906475d85d508eadcc8d2a44f35cf478801d55b5f862f8a80",
+    "target": {
+      "src/v2/RetroPickLaunchFactoryV2.sol": "RetroPickLaunchFactoryV2"
+    },
+    "settings": {
+      "optimizer": {
+        "enabled": true,
+        "runs": 200
+      },
+      "evmVersion": "cancun",
+      "viaIR": true
+    }
+  },
+  "RetroPickBondingCurveV2": {
+    "runtimeBytes": 13805,
+    "creationBytesExcludingArguments": 15157,
+    "runtimeSha256WithPlaceholders": "52ee8860de601d1f2329772fb406b48cd5b3b9181ea289bc5e99a442e2d41198",
+    "target": {
+      "src/v2/RetroPickBondingCurveV2.sol": "RetroPickBondingCurveV2"
+    },
+    "settings": {
+      "optimizer": {
+        "enabled": true,
+        "runs": 200
+      },
+      "evmVersion": "cancun",
+      "viaIR": true
+    }
+  },
+  "UniswapV4GraduationExecutorV2": {
+    "runtimeBytes": 16036,
+    "creationBytesExcludingArguments": 20524,
+    "runtimeSha256WithPlaceholders": "ffea537a685e2d633c42b82a89e1851a66f1a406ad6f963b3d7e4d690042c2aa",
+    "target": {
+      "src/v2/UniswapV4GraduationExecutorV2.sol": "UniswapV4GraduationExecutorV2"
+    },
+    "settings": {
+      "optimizer": {
+        "enabled": true,
+        "runs": 200
+      },
+      "evmVersion": "cancun",
+      "viaIR": true
+    }
+  }
+}

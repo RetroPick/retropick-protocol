@@ -1,0 +1,25 @@
+{
+  "endpoint": "https://testnet-rpc.monad.xyz",
+  "chainId": "0x279f",
+  "block": "0x48df82f",
+  "blockHash": "0x5ec49ae066c3600d647e78103e303942efec679f062486660a82cc54a6d2ffd2",
+  "officialReference": "https://docs.monad.xyz/developer-essentials/testnet",
+  "identities": {
+    "0x7EFbE105Ca7415dE98F96622173458ac1c054630": {
+      "codeBytes": 141,
+      "codehash": "0xae572ec3ca9b5f49c0364ca34edc5880b6b2837e47802e64e6b681bf2e74aa5c"
+    },
+    "0xd029C2D98ff85D8F64799017fE00a59B1159CE02": {
+      "codeBytes": 141,
+      "codehash": "0xae572ec3ca9b5f49c0364ca34edc5880b6b2837e47802e64e6b681bf2e74aa5c"
+    },
+    "0x72caE0a99C19B574e8a6De558F43fc1D019c9374": {
+      "codeBytes": 35548,
+      "codehash": "0x24c5974f233021f00d607bfa191d430f79565663fb90805ebcfca52de7333500"
+    },
+    "0x4d54e0d60CaB0cec0100cdA8e00897bC933C5Bb6": {
+      "codeBytes": 11672,
+      "codehash": "0xde0b16a79cf8f711403e89093c1e82ce0e7813949dd0f5041b41da324fdd3dc3"
+    }
+  }
+}

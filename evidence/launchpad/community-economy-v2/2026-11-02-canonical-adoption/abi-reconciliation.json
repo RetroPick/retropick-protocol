@@ -1,0 +1,58 @@
+{
+  "CommunityControllerV2": {
+    "sameABIAsQualifiedExperiment": true
+  },
+  "CommunityPolicyRegistryV2": {
+    "sameABIAsQualifiedExperiment": true
+  },
+  "CommunityLaunchBuilderV2": {
+    "sameABIAsQualifiedExperiment": true
+  },
+  "CommunityFeeRouterV2": {
+    "sameABIAsQualifiedExperiment": true
+  },
+  "CommunityTreasuryVaultV2": {
+    "sameABIAsQualifiedExperiment": true
+  },
+  "CommunityTreasuryDeployerV2": {
+    "sameABIAsQualifiedExperiment": true
+  },
+  "CommunityTimelockV2": {
+    "sameABIAsQualifiedExperiment": true
+  },
+  "CommunityTreasuryLaunchBuilderV2": {
+    "sameABIAsQualifiedExperiment": true
+  },
+  "RetroPickLaunchFactoryV2": {
+    "sameABIAsQualifiedExperiment": true
+  },
+  "RetroPickBondingCurveV2": {
+    "sameABIAsQualifiedExperiment": true
+  },
+  "UniswapV4GraduationExecutorV2": {
+    "sameABIAsQualifiedExperiment": true
+  },
+  "frozenCurveOriginalABI": {
+    "originalEntries": 82,
+    "preservedEntries": 82,
+    "removedOrChanged": []
+  },
+  "frozen-RetroPickLaunchFactoryV2": {
+    "originalEntries": 131,
+    "preservedEntries": 131,
+    "removedOrChanged": [],
+    "frozenRuntimeBytes": 23423
+  },
+  "frozen-RetroPickBondingCurveV2": {
+    "originalEntries": 82,
+    "preservedEntries": 82,
+    "removedOrChanged": [],
+    "frozenRuntimeBytes": 11612
+  },
+  "frozen-UniswapV4GraduationExecutorV2": {
+    "originalEntries": 27,
+    "preservedEntries": 27,
+    "removedOrChanged": [],
+    "frozenRuntimeBytes": 15661
+  }
+}

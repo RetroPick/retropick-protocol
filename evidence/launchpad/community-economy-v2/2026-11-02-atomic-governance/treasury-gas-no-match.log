@@ -1,0 +1,14 @@
+Compiling 144 files with Solc 0.8.26
+Solc 0.8.26 finished in 78.21s
+Compiler run successful with warnings:
+Warning (2018): Function state mutability can be restricted to view
+   --> src/v2-research-experiment/RetroPickBondingCurveV2.sol:931:5:
+    |
+931 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning: no tests match the provided pattern:
+	match-test: `^testCETreasuryNativeTradeClaimTimelockedSpend$`
+	match-contract: `^CommunityTreasuryIntegrationTest$`
+
+Did you mean `testCETreasuryNativeTradeClaimTimelockedSpend`?

@@ -1,5 +1,9 @@
 # Feature priorities
 
+## Canonical treasury development checkpoint
+
+Immutable policy/Router/controller and atomic TreasuryVault/Deployer/Timelock are implemented under accepted ADR-CE02, with local qualification evidence in iteration005. Splitter remains integrated independent Router claims, not a second ledger. Rewards, automated buybacks and new venue rights remain deferred/blocked. Current deployment/UI/audit/fork readiness is not inferred from source placement.
+
 Scores are qualitative engineering judgments, not a numeric safety rating. Pain evidence is classified in PRODUCT_DEMAND_EVIDENCE.md; adoption remains a hypothesis.
 
 | User job / feature | Benefit and alternatives | Attack surface / effort | Decision |

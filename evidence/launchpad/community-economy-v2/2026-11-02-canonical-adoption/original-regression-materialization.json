@@ -1,0 +1,15 @@
+{
+  "repository": "/home/ubuntu/project/retropick/retropick-community-economy-v2-20261031",
+  "qualifier": "/tmp/retropick-ce-canonical-2kkcj4u2/contracts",
+  "historicalFixtureSha256": "52f488101ba6fd57a5f994c99a68cc8f2c87e73b40f346e30e8c5ab09e4e52f7",
+  "historicalReferenceClosure": [
+    "RetroPickBondingCurveV2.sol",
+    "RetroPickBuybackVaultV2.sol",
+    "RetroPickFeeEscrowV2.sol",
+    "RetroPickLauncherTokenV2.sol",
+    "interfaces/IRetroPickGraduationV2.sol",
+    "interfaces/IRetroPickLaunchpadV2.sol",
+    "libraries/CompletionQuoteMathV2.sol",
+    "libraries/RetroPickBondingCurveMathV2.sol"
+  ]
+}

@@ -1,5 +1,9 @@
 # Executive decision
 
+## Canonical implementation checkpoint
+
+ADR-CE02 is owner-accepted for scoped canonical implementation subject to qualification, not release/deployment. Canonical community/Treasury modules and opt-in core wiring now exist on the isolated candidate branch. See [iteration005](iterations/005-canonical-adoption/QUALIFICATION.md) for current tests and blockers. Historical frozen baseline/evidence remain unchanged. Use canonical_adoption.py for the current stage: baseline.py intentionally fails after authorized canonical changes. The DEV4 historical fixture has an explicitly owner-approved five-import snapshot pin, with assertions/bodies preserved. V1, V3 and live manifests/scripts remain untouched. Older checkpoints below are historical.
+
 **Decision: continue research; no promotion.** This checkpoint freezes the source baseline and provides executable protection checks. It does not fulfill the complete experiment acceptance gates.
 
 Iteration 002 decision: retain the curve-only financial vertical slice for further experimental review, with real funding and independently payable old rights. A source-only build measures the router at 6,487 bytes and factory at 24,486 bytes. Candidate ADR-CE01 is PROPOSED; no production economic authority changes. Qualified experimental code/evidence may land on main under the owner's delivery instruction; that is not protocol release promotion. Full campaign remains PARTIAL.

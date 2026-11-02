@@ -1,5 +1,9 @@
 # Current-source truth matrix
 
+## Canonical adoption amendment — iteration005
+
+Owner-authorized candidate adds opt-in community modules and existing experimental Factory/Curve/v4 integration to canonical source. Frozen baseline31files compile to45types; candidate52files compile to76types including pinned vendor. All original ABI entries are retained; compiler inventory and exact source-stage checker are in2026-11-02-canonical-adoption evidence. ABI/source identity is not deployed identity. Original research-fixture budget mismatch CE005-001 remains separately recorded. Earlier matrix describes its frozen revision, not this candidate.
+
 Iteration 002 extends the frozen matrix below; its 31/31 count describes the original baseline, not today's experiment. Canonical files remain unchanged. Prior iteration compiler reconciliation covers 45 canonical contract/interface artifacts and archived/consumer ABI comparisons. The new scoped evidence contains compiler-derived experimental ABIs, source hashes and runtime identities. Exhaustive manual authority coverage of every venue and production release gates remains open.
 
 | Financial authority | Actual current experiment | Rights preserved / limitation |

@@ -1,0 +1,36 @@
+Compiling 153 files with Solc 0.8.26
+Solc 0.8.26 finished in 182.07s
+Compiler run successful with warnings:
+Warning (5159): "selfdestruct" has been deprecated. Note that, starting from the Cancun hard fork, the underlying opcode no longer deletes the code and data associated with an account and only transfers its Ether to the beneficiary, unless executed in the same transaction in which the contract was created (see EIP-6780). Any use in newly deployed contracts is strongly discouraged even if the new behavior is taken into account. Future changes to the EVM might further reduce the functionality of the opcode.
+   --> test/v2/integration/KuruV2EndToEndFork.t.sol:276:9:
+    |
+276 |         selfdestruct(receiver);
+    |         ^^^^^^^^^^^^
+
+Warning (2018): Function state mutability can be restricted to view
+   --> src/v2/RetroPickBondingCurveV2.sol:931:5:
+    |
+931 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to view
+   --> test/v2/community-economy/reference/v2/RetroPickBondingCurveV2.sol:861:5:
+    |
+861 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 1 test for test/v2/integration/KuruV2EndToEndFork.t.sol:KuruV2EndToEndForkTest
+[FAIL: vm.createSelectFork: cannot create a `monad` fork with an EVM instantiated for `ethereum`; run the script with --rpc-url pointing to the forked chain to select its EVM] setUp() (gas: 0)
+Suite result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 877.37ms (0.00ns CPU time)
+
+Ran 1 test suite in 880.48ms (877.37ms CPU time): 0 tests passed, 1 failed, 0 skipped (1 total tests)
+
+Failing tests:
+Encountered 1 failing test in test/v2/integration/KuruV2EndToEndFork.t.sol:KuruV2EndToEndForkTest
+[FAIL: vm.createSelectFork: cannot create a `monad` fork with an EVM instantiated for `ethereum`; run the script with --rpc-url pointing to the forked chain to select its EVM] setUp() (gas: 0)
+
+Encountered a total of 1 failing tests, 0 tests succeeded
+
+Tip: Run `forge test --rerun` to retry only the 1 failed test
+Tip: Run `forge test --debug --match-test <TEST_NAME>` to inspect one failing test in the debugger

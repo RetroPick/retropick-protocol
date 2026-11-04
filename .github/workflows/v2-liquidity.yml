@@ -58,3 +58,8 @@ jobs:
         env:
           FOUNDRY_PROFILE: test
         run: forge test --match-path 'test/v2/community-economy/treasury-integration/CommunityTreasuryUSDCInvariant.t.sol'
+      - name: Community Treasury successful V4 behavior seam (native and six-decimal)
+        working-directory: contracts
+        env:
+          FOUNDRY_PROFILE: test
+        run: forge test --match-path 'test/v2/community-economy/treasury-integration/CommunityTreasuryV4Seam.t.sol'

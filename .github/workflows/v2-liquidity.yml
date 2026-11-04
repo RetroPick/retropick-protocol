@@ -53,3 +53,8 @@ jobs:
         env:
           FOUNDRY_PROFILE: test
         run: forge test --match-path 'test/v2/invariant/*.t.sol'
+      - name: Community Treasury six-decimal stateful invariants
+        working-directory: contracts
+        env:
+          FOUNDRY_PROFILE: test
+        run: forge test --match-path 'test/v2/community-economy/treasury-integration/CommunityTreasuryUSDCInvariant.t.sol'

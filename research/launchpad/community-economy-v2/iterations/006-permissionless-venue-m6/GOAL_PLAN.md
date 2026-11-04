@@ -62,6 +62,14 @@ Do not infer hook-fee ownership from LP fee accrual, nor charge hook fees agains
 - Gate via Foundry CI, `FOUNDRY_PROFILE=test forge test --match-path 'test/v2/community-economy/treasury-integration/CommunityTreasuryUSDCInvariant.t.sol'`.
 - **This is not a live Circle USDC/fork/venue/multisig test.**
 
+
+### M6.1b — Successful local V4 behavior seam
+
+- Test `test/v2/community-economy/treasury-integration/CommunityTreasuryV4Seam.t.sol` uses the existing V4 behavioral PoolManager, PositionManager and Permit2 test doubles with real V2 Curve, Router, Vault and Timelock.
+- Exercise native and modeled six-decimal quote launches, successful simulated V4 graduation, LP NFT ownership/lock, zero post-graduation community hook fees, independent beneficiary entitlements, Vault claim, 72h spend and replay rejection.
+- Gate in CI separately from the USDC stateful invariant campaign.
+- **Explicit limit:** this is a behavioral seam (not live v4 fork/real deployed PoolManager or live USDC) and does not qualify external venue interoperability.
+
 ### M6.2 — Venue and fee-source feasibility
 - Verify real chain-specific Uniswap PoolManager, PositionManager, hook, Permit2, quote policy and ERC20 bytecode on RPC.
 - Develop fee-source protocol and mock-vs-real test separation.
@@ -101,6 +109,7 @@ Do not infer hook-fee ownership from LP fee accrual, nor charge hook fees agains
 
 - [ ] Current main/ref and pre-existing deployment manifests pinned
 - [ ] USDC local stateful Foundry test PASS in CI
+- [ ] Successful Treasury local V4 behavior seam PASS in CI (native + six-decimal)
 - [ ] Original V2 unit and invariant CI remains PASS
 - [ ] 75 Slither findings independently triaged
 - [ ] Accepted fee-source and venue-deprecation ADRs

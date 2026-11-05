@@ -6,6 +6,14 @@ RetroPick carries community tokens through onchain bonding discovery and protect
 
 **Launch → Bonding Curve → Graduation Coordinator → Kuru Market → Protected Liquidity → Orderbook Trading**
 
+## Smart contracts for hackathon judges
+
+Review the [frozen Legacy V2 smart contracts](contracts/legacy-v2/src/v2/) for the deployed Monad Testnet submission, including its Kuru integration. The [archive guide](contracts/legacy-v2/README.md) and [source manifest](contracts/legacy-v2/MANIFEST.json) identify the recorded deployed revision: `f0363249f4b74e58dde37d1241742ca5a92bcfe3`.
+
+[Factory](contracts/legacy-v2/src/v2/RetroPickLaunchFactoryV2.sol) · [Bonding curve](contracts/legacy-v2/src/v2/RetroPickBondingCurveV2.sol) · [Coordinator](contracts/legacy-v2/src/v2/GraduationCoordinatorV2.sol) · [Kuru executor](contracts/legacy-v2/src/v2/KuruGraduationExecutorV2.sol) · [Permanent liquidity lock](contracts/legacy-v2/src/v2/KuruLiquidityLockV2.sol)
+
+Ongoing V2 development in `contracts/src/v2/` is separate from this frozen judging snapshot. The live deployment addresses and historical proof transactions below remain unchanged.
+
 ## Live on Monad Testnet
 
 The canonical deployed candidate demonstrates:

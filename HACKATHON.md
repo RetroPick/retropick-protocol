@@ -26,6 +26,8 @@ Canonical Monad Testnet lifecycle: **MON launch PASS; Kuru graduation PASS; two-
 
 ## Deployed Contracts
 
+**Judging source:** [Legacy V2 smart contracts](contracts/legacy-v2/src/v2/), frozen from recorded deployed revision `f0363249f4b74e58dde37d1241742ca5a92bcfe3`. See the [archive guide and verification instructions](contracts/legacy-v2/README.md). Current development continues separately under `contracts/src/v2/`.
+
 | Role | Address |
 | --- | --- |
 | Factory | `0xa7f18b9eceb0A9852b08408854A45D00fc682454` |

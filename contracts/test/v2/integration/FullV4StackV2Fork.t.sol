@@ -24,7 +24,7 @@ contract FullV4StackV2ForkTest is Test {
         actor = vm.envAddress("MONAD_TESTNET_ACTOR_A");
         // All constructor and wiring code is shared with the release script; no network broadcast occurs in tests.
         DeployV2MonadTestnet release =
-            DeployV2MonadTestnet(vm.deployCode("DeployV2MonadTestnet.s.sol:DeployV2MonadTestnet"));
+            DeployV2MonadTestnet(vm.deployCode("script/DeployV2MonadTestnet.s.sol:DeployV2MonadTestnet"));
         deployment = release.run();
         vm.deal(actor, 10 ether);
     }

@@ -1,0 +1,6 @@
+Error: Compiler run failed:
+Error (9429): This looks like an address but is not exactly 40 hex digits. It is 39 hex digits. If this is not used as an address, please prepend '00'. For more information please see https://docs.soliditylang.org/en/develop/types.html#address-literals
+  --> test/v2/community-economy/treasury-integration/CommunityTreasuryV4Seam.t.sol:25:40:
+   |
+25 |     address internal constant CIRCLE = 0x534b2f3A21130d7a60830c2Df862319e593943A;
+   |                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

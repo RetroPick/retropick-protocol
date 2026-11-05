@@ -1,0 +1,23 @@
+[
+  {
+    "artifact": "/tmp/m6-ci-out/RetroPickLaunchFactoryV2.sol/RetroPickLaunchFactoryV2.json",
+    "compilationTarget": {
+      "src/v2/RetroPickLaunchFactoryV2.sol": "RetroPickLaunchFactoryV2"
+    },
+    "runtimeBytes": 24486
+  },
+  {
+    "artifact": "/tmp/m6-ci-out/v2/RetroPickLaunchFactoryV2.sol/RetroPickLaunchFactoryV2.json",
+    "compilationTarget": {
+      "test/v2/community-economy/reference/v2/RetroPickLaunchFactoryV2.sol": "RetroPickLaunchFactoryV2"
+    },
+    "runtimeBytes": 23423
+  },
+  {
+    "artifact": "/tmp/m6-ci-out/v2-research-experiment/RetroPickLaunchFactoryV2.sol/RetroPickLaunchFactoryV2.json",
+    "compilationTarget": {
+      "src/v2-research-experiment/RetroPickLaunchFactoryV2.sol": "RetroPickLaunchFactoryV2"
+    },
+    "runtimeBytes": 24486
+  }
+]

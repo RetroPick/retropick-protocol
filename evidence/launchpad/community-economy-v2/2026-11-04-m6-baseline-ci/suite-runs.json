@@ -1,0 +1,77 @@
+[
+  {
+    "suite": "invariants",
+    "command": [
+      "forge",
+      "test",
+      "--match-path",
+      "test/v2/invariant/*.t.sol",
+      "--fuzz-seed",
+      "0x6a",
+      "--out",
+      "/tmp/m6-ci-out",
+      "--cache-path",
+      "/tmp/m6-ci-cache",
+      "-vvv"
+    ],
+    "profile": "test",
+    "fuzzSeed": "0x6a",
+    "invariantRuns": 256,
+    "invariantDepth": 128,
+    "exitCode": 0,
+    "elapsedSeconds": 219.688,
+    "log": "/tmp/m6-ci-invariants.log",
+    "sourceCommit": "7ddf4dae65e11acb489be7eceb30a4846adf18cc",
+    "workingPatch": true
+  },
+  {
+    "suite": "usdc",
+    "command": [
+      "forge",
+      "test",
+      "--match-path",
+      "test/v2/community-economy/treasury-integration/CommunityTreasuryUSDCInvariant.t.sol",
+      "--fuzz-seed",
+      "0x6a",
+      "--out",
+      "/tmp/m6-ci-out",
+      "--cache-path",
+      "/tmp/m6-ci-cache",
+      "-vvv"
+    ],
+    "profile": "test",
+    "fuzzSeed": "0x6a",
+    "invariantRuns": 256,
+    "invariantDepth": 128,
+    "exitCode": 0,
+    "elapsedSeconds": 211.607,
+    "log": "/tmp/m6-ci-usdc.log",
+    "sourceCommit": "7ddf4dae65e11acb489be7eceb30a4846adf18cc",
+    "workingPatch": true
+  },
+  {
+    "suite": "seam",
+    "command": [
+      "forge",
+      "test",
+      "--match-path",
+      "test/v2/community-economy/treasury-integration/CommunityTreasuryV4Seam.t.sol",
+      "--fuzz-seed",
+      "0x6a",
+      "--out",
+      "/tmp/m6-ci-out",
+      "--cache-path",
+      "/tmp/m6-ci-cache",
+      "-vvv"
+    ],
+    "profile": "test",
+    "fuzzSeed": "0x6a",
+    "invariantRuns": null,
+    "invariantDepth": null,
+    "exitCode": 0,
+    "elapsedSeconds": 174.028,
+    "log": "/tmp/m6-ci-seam.log",
+    "sourceCommit": "7ddf4dae65e11acb489be7eceb30a4846adf18cc",
+    "workingPatch": true
+  }
+]

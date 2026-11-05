@@ -32,11 +32,12 @@ contract KuruV2EndToEndForkTest is RetroPickFactoryFixtureV2 {
         vm.createSelectFork(rpc, forkBlock);
         assertEq(block.chainid, 10143);
         super.setUp();
-        environment = KuruEnvironmentV2(vm.deployCode("KuruEnvironmentV2.sol:KuruEnvironmentV2"));
+        environment = KuruEnvironmentV2(vm.deployCode("src/v2/KuruEnvironmentV2.sol:KuruEnvironmentV2"));
         environment.validate();
         kuru = KuruGraduationExecutorV2(
             vm.deployCode(
-                "KuruGraduationExecutorV2.sol:KuruGraduationExecutorV2", abi.encode(address(coordinator), environment)
+                "src/v2/KuruGraduationExecutorV2.sol:KuruGraduationExecutorV2",
+                abi.encode(address(coordinator), environment)
             )
         );
         factory.configureVenueExecutor(GraduationVenue.KURU, address(kuru));
@@ -179,7 +180,8 @@ contract KuruV2EndToEndForkTest is RetroPickFactoryFixtureV2 {
         _buyToCompletion(address(0), curve);
         KuruGraduationExecutorV2 replacement = KuruGraduationExecutorV2(
             vm.deployCode(
-                "KuruGraduationExecutorV2.sol:KuruGraduationExecutorV2", abi.encode(address(coordinator), environment)
+                "src/v2/KuruGraduationExecutorV2.sol:KuruGraduationExecutorV2",
+                abi.encode(address(coordinator), environment)
             )
         );
         factory.configureVenueExecutor(GraduationVenue.KURU, address(replacement));

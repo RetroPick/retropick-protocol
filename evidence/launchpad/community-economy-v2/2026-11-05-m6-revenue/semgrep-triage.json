@@ -1,0 +1,225 @@
+{
+  "toolVersion": "1.177.0",
+  "command": "semgrep scan --config r/solidity --metrics off --disable-version-check --no-git-ignore --json contracts/src/v2-research-experiment/m6",
+  "errors": [],
+  "scanned": [
+    "contracts/src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol",
+    "contracts/src/v2-research-experiment/m6/CommunityRevenueDeployersV2.sol",
+    "contracts/src/v2-research-experiment/m6/CommunityRevenueLaunchBuilderV2.sol",
+    "contracts/src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol",
+    "contracts/src/v2-research-experiment/m6/CommunityV4GraduationExecutorV2.sol",
+    "contracts/src/v2-research-experiment/m6/hooks/CommunityV4FeeHookV2.sol"
+  ],
+  "resultCount": 28,
+  "rules": 50,
+  "sourceSha256": {
+    "contracts/src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol": "d7d061741e071e5c093256cd7ae86b4ec3075a715b116f0ef1ba0d2be20239e0",
+    "contracts/src/v2-research-experiment/m6/CommunityRevenueDeployersV2.sol": "fbf575ef56c3adc4d4f176bac4bd28036bef95180d24e00394da1e9377e5042b",
+    "contracts/src/v2-research-experiment/m6/CommunityRevenueLaunchBuilderV2.sol": "8e7a409aa74c6d59aa59b206fa87caf5c1c2bc96e499f1236a77ebd28373f2c8",
+    "contracts/src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol": "65a492acac9e1e6af64fe5d6d1110dd2c469e17c65ce4a4e08fa6fc7238ca7a4",
+    "contracts/src/v2-research-experiment/m6/CommunityV4GraduationExecutorV2.sol": "a70772b94788fc37dc6501a4139107648736b635851138a8f4a740af692d41c9",
+    "contracts/src/v2-research-experiment/m6/hooks/CommunityV4FeeHookV2.sol": "e072344a6e08effcae718cda989453e1f96b6d9bc39211ddfa366c81eee7262a"
+  },
+  "findings": [
+    {
+      "id": "solidity.performance.non-payable-constructor.non-payable-constructor",
+      "path": "contracts/src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol",
+      "line": 38,
+      "classification": "INFORMATIONAL_PERFORMANCE",
+      "rationale": "Static gas/style suggestion; no demonstrated asset or authority violation. Preserve nonpayable constructors, checked arithmetic and readable authorization until correctness qualification completes."
+    },
+    {
+      "id": "solidity.performance.use-nested-if.use-nested-if",
+      "path": "contracts/src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol",
+      "line": 162,
+      "classification": "INFORMATIONAL_PERFORMANCE",
+      "rationale": "Static gas/style suggestion; no demonstrated asset or authority violation. Preserve nonpayable constructors, checked arithmetic and readable authorization until correctness qualification completes."
+    },
+    {
+      "id": "solidity.performance.non-payable-constructor.non-payable-constructor",
+      "path": "contracts/src/v2-research-experiment/m6/CommunityRevenueDeployersV2.sol",
+      "line": 23,
+      "classification": "INFORMATIONAL_PERFORMANCE",
+      "rationale": "Static gas/style suggestion; no demonstrated asset or authority violation. Preserve nonpayable constructors, checked arithmetic and readable authorization until correctness qualification completes."
+    },
+    {
+      "id": "solidity.performance.non-payable-constructor.non-payable-constructor",
+      "path": "contracts/src/v2-research-experiment/m6/CommunityRevenueDeployersV2.sol",
+      "line": 56,
+      "classification": "INFORMATIONAL_PERFORMANCE",
+      "rationale": "Static gas/style suggestion; no demonstrated asset or authority violation. Preserve nonpayable constructors, checked arithmetic and readable authorization until correctness qualification completes."
+    },
+    {
+      "id": "solidity.performance.non-payable-constructor.non-payable-constructor",
+      "path": "contracts/src/v2-research-experiment/m6/CommunityRevenueLaunchBuilderV2.sol",
+      "line": 58,
+      "classification": "INFORMATIONAL_PERFORMANCE",
+      "rationale": "Static gas/style suggestion; no demonstrated asset or authority violation. Preserve nonpayable constructors, checked arithmetic and readable authorization until correctness qualification completes."
+    },
+    {
+      "id": "solidity.performance.unnecessary-checked-arithmetic-in-loop.unnecessary-checked-arithmetic-in-loop",
+      "path": "contracts/src/v2-research-experiment/m6/CommunityRevenueLaunchBuilderV2.sol",
+      "line": 90,
+      "classification": "INFORMATIONAL_PERFORMANCE",
+      "rationale": "Static gas/style suggestion; no demonstrated asset or authority violation. Preserve nonpayable constructors, checked arithmetic and readable authorization until correctness qualification completes."
+    },
+    {
+      "id": "solidity.performance.array-length-outside-loop.array-length-outside-loop",
+      "path": "contracts/src/v2-research-experiment/m6/CommunityRevenueLaunchBuilderV2.sol",
+      "line": 94,
+      "classification": "INFORMATIONAL_PERFORMANCE",
+      "rationale": "Static gas/style suggestion; no demonstrated asset or authority violation. Preserve nonpayable constructors, checked arithmetic and readable authorization until correctness qualification completes."
+    },
+    {
+      "id": "solidity.performance.unnecessary-checked-arithmetic-in-loop.unnecessary-checked-arithmetic-in-loop",
+      "path": "contracts/src/v2-research-experiment/m6/CommunityRevenueLaunchBuilderV2.sol",
+      "line": 94,
+      "classification": "INFORMATIONAL_PERFORMANCE",
+      "rationale": "Static gas/style suggestion; no demonstrated asset or authority violation. Preserve nonpayable constructors, checked arithmetic and readable authorization until correctness qualification completes."
+    },
+    {
+      "id": "solidity.performance.use-nested-if.use-nested-if",
+      "path": "contracts/src/v2-research-experiment/m6/CommunityRevenueLaunchBuilderV2.sol",
+      "line": 106,
+      "classification": "INFORMATIONAL_PERFORMANCE",
+      "rationale": "Static gas/style suggestion; no demonstrated asset or authority violation. Preserve nonpayable constructors, checked arithmetic and readable authorization until correctness qualification completes."
+    },
+    {
+      "id": "solidity.performance.array-length-outside-loop.array-length-outside-loop",
+      "path": "contracts/src/v2-research-experiment/m6/CommunityRevenueLaunchBuilderV2.sol",
+      "line": 112,
+      "classification": "INFORMATIONAL_PERFORMANCE",
+      "rationale": "Static gas/style suggestion; no demonstrated asset or authority violation. Preserve nonpayable constructors, checked arithmetic and readable authorization until correctness qualification completes."
+    },
+    {
+      "id": "solidity.performance.unnecessary-checked-arithmetic-in-loop.unnecessary-checked-arithmetic-in-loop",
+      "path": "contracts/src/v2-research-experiment/m6/CommunityRevenueLaunchBuilderV2.sol",
+      "line": 112,
+      "classification": "INFORMATIONAL_PERFORMANCE",
+      "rationale": "Static gas/style suggestion; no demonstrated asset or authority violation. Preserve nonpayable constructors, checked arithmetic and readable authorization until correctness qualification completes."
+    },
+    {
+      "id": "solidity.performance.non-payable-constructor.non-payable-constructor",
+      "path": "contracts/src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol",
+      "line": 134,
+      "classification": "INFORMATIONAL_PERFORMANCE",
+      "rationale": "Static gas/style suggestion; no demonstrated asset or authority violation. Preserve nonpayable constructors, checked arithmetic and readable authorization until correctness qualification completes."
+    },
+    {
+      "id": "solidity.performance.use-nested-if.use-nested-if",
+      "path": "contracts/src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol",
+      "line": 151,
+      "classification": "INFORMATIONAL_PERFORMANCE",
+      "rationale": "Static gas/style suggestion; no demonstrated asset or authority violation. Preserve nonpayable constructors, checked arithmetic and readable authorization until correctness qualification completes."
+    },
+    {
+      "id": "solidity.performance.use-nested-if.use-nested-if",
+      "path": "contracts/src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol",
+      "line": 189,
+      "classification": "INFORMATIONAL_PERFORMANCE",
+      "rationale": "Static gas/style suggestion; no demonstrated asset or authority violation. Preserve nonpayable constructors, checked arithmetic and readable authorization until correctness qualification completes."
+    },
+    {
+      "id": "solidity.performance.array-length-outside-loop.array-length-outside-loop",
+      "path": "contracts/src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol",
+      "line": 387,
+      "classification": "INFORMATIONAL_PERFORMANCE",
+      "rationale": "Static gas/style suggestion; no demonstrated asset or authority violation. Preserve nonpayable constructors, checked arithmetic and readable authorization until correctness qualification completes."
+    },
+    {
+      "id": "solidity.performance.unnecessary-checked-arithmetic-in-loop.unnecessary-checked-arithmetic-in-loop",
+      "path": "contracts/src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol",
+      "line": 387,
+      "classification": "INFORMATIONAL_PERFORMANCE",
+      "rationale": "Static gas/style suggestion; no demonstrated asset or authority violation. Preserve nonpayable constructors, checked arithmetic and readable authorization until correctness qualification completes."
+    },
+    {
+      "id": "solidity.performance.state-variable-read-in-a-loop.state-variable-read-in-a-loop",
+      "path": "contracts/src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol",
+      "line": 390,
+      "classification": "INFORMATIONAL_PERFORMANCE",
+      "rationale": "Static gas/style suggestion; no demonstrated asset or authority violation. Preserve nonpayable constructors, checked arithmetic and readable authorization until correctness qualification completes."
+    },
+    {
+      "id": "solidity.performance.non-payable-constructor.non-payable-constructor",
+      "path": "contracts/src/v2-research-experiment/m6/CommunityV4GraduationExecutorV2.sol",
+      "line": 59,
+      "classification": "INFORMATIONAL_PERFORMANCE",
+      "rationale": "Static gas/style suggestion; no demonstrated asset or authority violation. Preserve nonpayable constructors, checked arithmetic and readable authorization until correctness qualification completes."
+    },
+    {
+      "id": "solidity.performance.non-payable-constructor.non-payable-constructor",
+      "path": "contracts/src/v2-research-experiment/m6/hooks/CommunityV4FeeHookV2.sol",
+      "line": 197,
+      "classification": "INFORMATIONAL_PERFORMANCE",
+      "rationale": "Static gas/style suggestion; no demonstrated asset or authority violation. Preserve nonpayable constructors, checked arithmetic and readable authorization until correctness qualification completes."
+    },
+    {
+      "id": "solidity.performance.use-nested-if.use-nested-if",
+      "path": "contracts/src/v2-research-experiment/m6/hooks/CommunityV4FeeHookV2.sol",
+      "line": 389,
+      "classification": "INFORMATIONAL_PERFORMANCE",
+      "rationale": "Static gas/style suggestion; no demonstrated asset or authority violation. Preserve nonpayable constructors, checked arithmetic and readable authorization until correctness qualification completes."
+    },
+    {
+      "id": "solidity.performance.use-nested-if.use-nested-if",
+      "path": "contracts/src/v2-research-experiment/m6/hooks/CommunityV4FeeHookV2.sol",
+      "line": 438,
+      "classification": "INFORMATIONAL_PERFORMANCE",
+      "rationale": "Static gas/style suggestion; no demonstrated asset or authority violation. Preserve nonpayable constructors, checked arithmetic and readable authorization until correctness qualification completes."
+    },
+    {
+      "id": "solidity.performance.use-nested-if.use-nested-if",
+      "path": "contracts/src/v2-research-experiment/m6/hooks/CommunityV4FeeHookV2.sol",
+      "line": 539,
+      "classification": "INFORMATIONAL_PERFORMANCE",
+      "rationale": "Static gas/style suggestion; no demonstrated asset or authority violation. Preserve nonpayable constructors, checked arithmetic and readable authorization until correctness qualification completes."
+    },
+    {
+      "id": "solidity.performance.use-nested-if.use-nested-if",
+      "path": "contracts/src/v2-research-experiment/m6/hooks/CommunityV4FeeHookV2.sol",
+      "line": 643,
+      "classification": "INFORMATIONAL_PERFORMANCE",
+      "rationale": "Static gas/style suggestion; no demonstrated asset or authority violation. Preserve nonpayable constructors, checked arithmetic and readable authorization until correctness qualification completes."
+    },
+    {
+      "id": "solidity.performance.use-nested-if.use-nested-if",
+      "path": "contracts/src/v2-research-experiment/m6/hooks/CommunityV4FeeHookV2.sol",
+      "line": 644,
+      "classification": "INFORMATIONAL_PERFORMANCE",
+      "rationale": "Static gas/style suggestion; no demonstrated asset or authority violation. Preserve nonpayable constructors, checked arithmetic and readable authorization until correctness qualification completes."
+    },
+    {
+      "id": "solidity.performance.use-nested-if.use-nested-if",
+      "path": "contracts/src/v2-research-experiment/m6/hooks/CommunityV4FeeHookV2.sol",
+      "line": 654,
+      "classification": "INFORMATIONAL_PERFORMANCE",
+      "rationale": "Static gas/style suggestion; no demonstrated asset or authority violation. Preserve nonpayable constructors, checked arithmetic and readable authorization until correctness qualification completes."
+    },
+    {
+      "id": "solidity.performance.use-nested-if.use-nested-if",
+      "path": "contracts/src/v2-research-experiment/m6/hooks/CommunityV4FeeHookV2.sol",
+      "line": 661,
+      "classification": "INFORMATIONAL_PERFORMANCE",
+      "rationale": "Static gas/style suggestion; no demonstrated asset or authority violation. Preserve nonpayable constructors, checked arithmetic and readable authorization until correctness qualification completes."
+    },
+    {
+      "id": "solidity.performance.use-nested-if.use-nested-if",
+      "path": "contracts/src/v2-research-experiment/m6/hooks/CommunityV4FeeHookV2.sol",
+      "line": 705,
+      "classification": "INFORMATIONAL_PERFORMANCE",
+      "rationale": "Static gas/style suggestion; no demonstrated asset or authority violation. Preserve nonpayable constructors, checked arithmetic and readable authorization until correctness qualification completes."
+    },
+    {
+      "id": "solidity.performance.use-nested-if.use-nested-if",
+      "path": "contracts/src/v2-research-experiment/m6/hooks/CommunityV4FeeHookV2.sol",
+      "line": 722,
+      "classification": "INFORMATIONAL_PERFORMANCE",
+      "rationale": "Static gas/style suggestion; no demonstrated asset or authority violation. Preserve nonpayable constructors, checked arithmetic and readable authorization until correctness qualification completes."
+    }
+  ],
+  "limitations": [
+    "Performance suggestions are not an external security audit.",
+    "Initial p/solidity configuration returned HTTP404; original error retained separately."
+  ]
+}

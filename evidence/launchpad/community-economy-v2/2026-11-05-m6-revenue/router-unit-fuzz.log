@@ -1,0 +1,39 @@
+Compiling 197 files with Solc 0.8.26
+Solc 0.8.26 finished in 165.32s
+Compiler run successful with warnings:
+Warning (2018): Function state mutability can be restricted to view
+   --> src/v2-research-experiment/RetroPickBondingCurveV2.sol:931:5:
+    |
+931 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to view
+   --> src/v2/RetroPickBondingCurveV2.sol:931:5:
+    |
+931 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to view
+   --> test/v2/community-economy/reference/v2/RetroPickBondingCurveV2.sol:861:5:
+    |
+861 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 13 tests for test/v2/research-experiment/m6/CommunityRevenueRouterV2.t.sol:CommunityRevenueRouterV2AccountingTest
+[PASS] testFuzzMockIntegerConservationAndTreasuryDust(uint128,uint128) (runs: 10000, μ: 814788, ~: 823375)
+[PASS] testMockAuthenticCallerReplayPoolEpochAndAssetGuards() (gas: 1211375)
+[PASS] testMockDonationsDoNotBookIncomeAndCannotCoverOldDeficit() (gas: 2114475)
+[PASS] testMockFailedCheckpointKeepsPolicyAndPendingFees() (gas: 1061762)
+[PASS] testMockFalseReturnAndDeflationaryFundingRollback() (gas: 2032370)
+[PASS] testMockFeeCapBindingAndRegistrarCannotBeSpoofed() (gas: 1677783)
+[PASS] testMockMaliciousRecipientCannotBlockIndependentClaims() (gas: 1665504)
+[PASS] testMockNativeVenueProtocolOnceAndCurvePreSeparated() (gas: 1321503)
+[PASS] testMockPolicyActivationCheckpointsOldCurveFeesAndKeepsOldRights() (gas: 2025560)
+[PASS] testMockReentrantClaimCannotDoublePayOrReplay() (gas: 1705225)
+[PASS] testMockTokenCallbackCannotActivatePolicyDuringVenueFunding() (gas: 1536523)
+[PASS] testMockUSDCAndLaunchedTokenLedgersAreIndependent() (gas: 10417791)
+[PASS] testMockUnfinalizedOrUnlockedOrChangedPrincipalRejectsRevenue() (gas: 1252241)
+Suite result: ok. 13 passed; 0 failed; 0 skipped; finished in 1.53s (1.78s CPU time)
+
+Ran 1 test suite in 1.54s (1.53s CPU time): 13 tests passed, 0 failed, 0 skipped (13 total tests)

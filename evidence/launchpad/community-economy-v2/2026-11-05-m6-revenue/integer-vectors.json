@@ -1,0 +1,45 @@
+{
+  "protocolShareBps": 2000,
+  "communitySplitBps": [
+    6000,
+    4000
+  ],
+  "vectors": [
+    {
+      "asset": "MON_WEI",
+      "baseFee": 101,
+      "creatorTax": 7,
+      "protocol": 20,
+      "community": 88,
+      "creator": 52,
+      "treasuryIncludingDust": 36
+    },
+    {
+      "asset": "USDC_MICRO",
+      "baseFee": 1000,
+      "creatorTax": 100,
+      "protocol": 200,
+      "community": 900,
+      "creator": 540,
+      "treasuryIncludingDust": 360
+    },
+    {
+      "asset": "MON_WEI",
+      "baseFee": 1,
+      "creatorTax": 0,
+      "protocol": 0,
+      "community": 1,
+      "creator": 0,
+      "treasuryIncludingDust": 1
+    },
+    {
+      "asset": "USDC_MICRO",
+      "baseFee": 0,
+      "creatorTax": 1,
+      "protocol": 0,
+      "community": 1,
+      "creator": 0,
+      "treasuryIncludingDust": 1
+    }
+  ]
+}

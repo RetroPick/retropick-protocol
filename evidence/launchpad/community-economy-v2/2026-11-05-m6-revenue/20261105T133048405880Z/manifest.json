@@ -1,0 +1,57 @@
+{
+  "sourceCommit": "940050bb939c923bdf168daa29eaeaf00b3ad187",
+  "kind": "LOCAL_GENUINE_V4_NOT_FORK",
+  "status": "LOCAL_PASS",
+  "chainId": 10143,
+  "limitations": [
+    "Modeled six-decimal quote; not live Circle",
+    "EOA proposer; not Safe qualification",
+    "Experimental financial modules; no canonical promotion or release authorization"
+  ],
+  "sourceSha256": {
+    "contracts/test/v2/research-experiment/m6-revenue/GenuineV4Revenue.t.sol": "4768bbae5c55be974a83532b91293942522437353220c986d7d47f1dee2c11d2",
+    "contracts/src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol": "d7d061741e071e5c093256cd7ae86b4ec3075a715b116f0ef1ba0d2be20239e0",
+    "contracts/src/v2-research-experiment/m6/CommunityRevenueDeployersV2.sol": "fbf575ef56c3adc4d4f176bac4bd28036bef95180d24e00394da1e9377e5042b",
+    "contracts/src/v2-research-experiment/m6/CommunityRevenueLaunchBuilderV2.sol": "8e7a409aa74c6d59aa59b206fa87caf5c1c2bc96e499f1236a77ebd28373f2c8",
+    "contracts/src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol": "65a492acac9e1e6af64fe5d6d1110dd2c469e17c65ce4a4e08fa6fc7238ca7a4",
+    "contracts/src/v2-research-experiment/m6/CommunityV4GraduationExecutorV2.sol": "a70772b94788fc37dc6501a4139107648736b635851138a8f4a740af692d41c9",
+    "contracts/src/v2-research-experiment/m6/hooks/CommunityV4FeeHookV2.sol": "e072344a6e08effcae718cda989453e1f96b6d9bc39211ddfa366c81eee7262a",
+    "contracts/test/v2/research-experiment/m6-infra/GenuineSwapHarnessV2.sol": "3c520fa08a834bceb4eaf1f496300e827e6c1ee599a10d2d796c17942c9a2c29",
+    "contracts/test/v2/research-experiment/m6-infra/GenuineV4CommunityBaseline.t.sol": "c1a90b439910ec51876efcb402fe592e51150fc6913cbc26c158c52e14d565bc",
+    "contracts/test/v2/research-experiment/m6-infra/GenuineV4EnvironmentFixtureV2.sol": "628136680605cd2987e787761745c31b8760dbd2981e418bac0bc4123047ab4d"
+  },
+  "pins": {
+    "periphery": "9969eec44cfdf07e24b41de47f40276a58401976",
+    "core": "59d3ecf53afa9264a16bba0e38f4c5d2231f80bc",
+    "permit2": "cc56ad0f3439c502c246fc5cfcc3db92bb8b7219",
+    "core-openzeppelin": "dbb6104ce834628e473d2173bbc9d47f81a9eec3",
+    "core-solmate": "4b47a19038b798b4a33d9749d25e570443520647",
+    "permit2-solmate": "8d910d876f51c3b2585c9109409d601f600e68e1"
+  },
+  "configSha256": "d39e3d9f65044fcf77057a0918e00d43399d3986602f4ab7087665974b1132a2",
+  "runnerSha256": "558b034afebcaeb5f2cd2a0f2c9cce019cb1d92c90225c54270d2ce1e7f6babe",
+  "command": [
+    "forge",
+    "test",
+    "--root",
+    "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts",
+    "--config-path",
+    "/tmp/retropick-m6-genuine/revenue-20261105T133048405880Z/foundry.toml",
+    "--contracts",
+    "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/src/v2-research-experiment/m6",
+    "--out",
+    "/tmp/retropick-m6-genuine/revenue-out",
+    "--cache-path",
+    "/tmp/retropick-m6-genuine/revenue-cache",
+    "--match-contract",
+    "^M6GenuineV4RevenueTest$",
+    "-vvvv"
+  ],
+  "exitCode": 0,
+  "tests": {
+    "passed": 2,
+    "failed": 0,
+    "skipped": 0
+  },
+  "logSha256": "4923cba687777d1acc672b811a1ca4ccca03333cab6e3dac58c8019a393bf60a"
+}

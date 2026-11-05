@@ -1,0 +1,766 @@
+Compiling 196 files with Solc 0.8.26
+Solc 0.8.26 finished in 101.37s
+Compiler run successful with warnings:
+Warning (2018): Function state mutability can be restricted to view
+   --> src/v2-research-experiment/RetroPickBondingCurveV2.sol:931:5:
+    |
+931 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to view
+   --> src/v2/RetroPickBondingCurveV2.sol:931:5:
+    |
+931 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to view
+   --> test/v2/community-economy/reference/v2/RetroPickBondingCurveV2.sol:861:5:
+    |
+861 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+╭----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------╮
+| Contract                                                                                                 | Runtime Size (B) | Initcode Size (B) | Runtime Margin (B) | Initcode Margin (B) |
++============================================================================================================================================================================================+
+| BalanceDeltaLibrary                                                                                      | 111              | 139               | 24,465             | 49,013              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| BeforeSwapDeltaLibrary                                                                                   | 111              | 139               | 24,465             | 49,013              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| CallbackQuote (test/v2/community-economy/CommunityFactoryFixtureV2.sol)                                  | 2,145            | 2,954             | 22,431             | 46,198              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| CallbackQuote (test/v2/research-experiment/CommunityFactoryFixtureV2.sol)                                | 2,145            | 2,954             | 22,431             | 46,198              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| CommunityAssetTreasuryDeployerV2                                                                         | 17,435           | 17,625            | 7,141              | 31,527              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| CommunityAssetTreasuryVaultV2                                                                            | 5,841            | 8,376             | 18,735             | 40,776              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| CommunityControllerV2                                                                                    | 1,494            | 1,736             | 23,082             | 47,416              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| CommunityFeeRouterV2                                                                                     | 6,487            | 7,514             | 18,089             | 41,638              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| CommunityLaunchBuilderV2                                                                                 | 19,332           | 19,485            | 5,244              | 29,667              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| CommunityPolicyRegistryV2                                                                                | 5,679            | 8,062             | 18,897             | 41,090              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| CommunityRevenueDeployerV2                                                                               | 23,812           | 24,002            | 764                | 25,150              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| CommunityRevenueLaunchBuilderV2                                                                          | 13,416           | 15,144            | 11,160             | 34,008              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| CommunityRevenueRouterV2                                                                                 | 14,415           | 20,814            | 10,161             | 28,338              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| CommunityTimelockV2                                                                                      | 5,842            | 7,072             | 18,734             | 42,080              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| CommunityV4FeeHookV2                                                                                     | 20,321           | 21,434            | 4,255              | 27,718              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| CommunityV4GraduationExecutorV2                                                                          | 16,465           | 20,953            | 8,111              | 28,199              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| CurrencyLibrary                                                                                          | 111              | 139               | 24,465             | 49,013              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| ExecutorDonationLockV2 (src/v2-research-experiment/libraries/ExecutorDonationsV2.sol)                    | 161              | 286               | 24,415             | 48,866              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| ExecutorDonationLockV2 (src/v2/libraries/ExecutorDonationsV2.sol)                                        | 161              | 286               | 24,415             | 48,866              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| ExecutorDonationLockV2 (test/v2/community-economy/reference/v2/libraries/ExecutorDonationsV2.sol)        | 161              | 286               | 24,415             | 48,866              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| ExternallyReducibleQuote (test/v2/community-economy/CommunityFactoryFixtureV2.sol)                       | 1,898            | 2,708             | 22,678             | 46,444              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| ExternallyReducibleQuote (test/v2/research-experiment/CommunityFactoryFixtureV2.sol)                     | 1,898            | 2,708             | 22,678             | 46,444              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| FalseReturnQuote (test/v2/community-economy/CommunityFactoryFixtureV2.sol)                               | 1,573            | 2,386             | 23,003             | 46,766              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| FalseReturnQuote (test/v2/research-experiment/CommunityFactoryFixtureV2.sol)                             | 1,573            | 2,386             | 23,003             | 46,766              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| GenuineSwapHarnessV2                                                                                     | 2,908            | 3,049             | 21,668             | 46,103              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| GraduationCoordinatorV2 (src/v2-research-experiment/GraduationCoordinatorV2.sol)                         | 14,026           | 14,285            | 10,550             | 34,867              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| GraduationCoordinatorV2 (src/v2/GraduationCoordinatorV2.sol)                                             | 14,026           | 14,285            | 10,550             | 34,867              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| GraduationCoordinatorV2 (test/v2/community-economy/reference/v2/GraduationCoordinatorV2.sol)             | 14,026           | 14,285            | 10,550             | 34,867              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| ImmutableState                                                                                           | 156              | 281               | 24,420             | 48,871              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| KuruEnvironmentV2                                                                                        | 1,608            | 1,634             | 22,968             | 47,518              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| KuruGraduationExecutorV2                                                                                 | 16,457           | 17,382            | 8,119              | 31,770              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| KuruLiquidityLockV2                                                                                      | 775              | 1,081             | 23,801             | 48,071              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| LPFeeLibrary                                                                                             | 215              | 244               | 24,361             | 48,908              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| MockERC20                                                                                                | 1,731            | 2,670             | 22,845             | 46,482              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| ProtocolFeeLibrary                                                                                       | 113              | 141               | 24,463             | 49,011              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| ResearchPermissiveQuotePolicy (test/v2/community-economy/CommunityFactoryFixtureV2.sol)                  | 192              | 216               | 24,384             | 48,936              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| ResearchPermissiveQuotePolicy (test/v2/research-experiment/CommunityFactoryFixtureV2.sol)                | 192              | 216               | 24,384             | 48,936              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickBondingCurveV2 (src/v2-research-experiment/RetroPickBondingCurveV2.sol)                         | 13,805           | 15,157            | 10,771             | 33,995              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickBondingCurveV2 (src/v2/RetroPickBondingCurveV2.sol)                                             | 13,805           | 15,157            | 10,771             | 33,995              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickBondingCurveV2 (test/v2/community-economy/reference/v2/RetroPickBondingCurveV2.sol)             | 11,612           | 12,928            | 12,964             | 36,224              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickBuybackVaultV2 (src/v2-research-experiment/RetroPickBuybackVaultV2.sol)                         | 4,610            | 4,993             | 19,966             | 44,159              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickBuybackVaultV2 (src/v2/RetroPickBuybackVaultV2.sol)                                             | 4,610            | 4,993             | 19,966             | 44,159              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickBuybackVaultV2 (test/v2/community-economy/reference/v2/RetroPickBuybackVaultV2.sol)             | 4,610            | 4,993             | 19,966             | 44,159              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickDoorwayV2                                                                                       | 7,124            | 7,632             | 17,452             | 41,520              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickFeeEscrowV2 (src/v2-research-experiment/RetroPickFeeEscrowV2.sol)                               | 3,013            | 3,075             | 21,563             | 46,077              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickFeeEscrowV2 (src/v2/RetroPickFeeEscrowV2.sol)                                                   | 3,013            | 3,075             | 21,563             | 46,077              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickFeeEscrowV2 (test/v2/community-economy/reference/v2/RetroPickFeeEscrowV2.sol)                   | 3,013            | 3,075             | 21,563             | 46,077              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickGraduationGuardV2 (src/v2-research-experiment/RetroPickGraduationGuardV2.sol)                   | 2,896            | 2,922             | 21,680             | 46,230              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickGraduationGuardV2 (src/v2/RetroPickGraduationGuardV2.sol)                                       | 2,896            | 2,922             | 21,680             | 46,230              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickGraduationGuardV2 (test/v2/community-economy/reference/v2/RetroPickGraduationGuardV2.sol)       | 2,896            | 2,922             | 21,680             | 46,230              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickHookDeployerV2 (src/v2/RetroPickHookDeployerV2.sol)                                             | 17,059           | 17,192            | 7,517              | 31,960              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickHookDeployerV2 (test/v2/community-economy/reference/v2/RetroPickHookDeployerV2.sol)             | 17,059           | 17,192            | 7,517              | 31,960              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickLaunchDeployerV2 (src/v2-research-experiment/RetroPickLaunchDeployerV2.sol)                     | 23,942           | 24,095            | 634                | 25,057              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickLaunchDeployerV2 (src/v2/RetroPickLaunchDeployerV2.sol)                                         | 23,942           | 24,095            | 634                | 25,057              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickLaunchDeployerV2 (test/v2/community-economy/reference/v2/RetroPickLaunchDeployerV2.sol)         | 21,713           | 21,866            | 2,863              | 27,286              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickLaunchFactoryV2 (src/v2-research-experiment/RetroPickLaunchFactoryV2.sol)                       | 24,486           | 26,001            | 90                 | 23,151              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickLaunchFactoryV2 (src/v2/RetroPickLaunchFactoryV2.sol)                                           | 24,486           | 26,001            | 90                 | 23,151              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickLaunchFactoryV2 (test/v2/community-economy/reference/v2/RetroPickLaunchFactoryV2.sol)           | 23,423           | 24,938            | 1,153              | 24,214              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickLaunchLockerV2 (src/v2-research-experiment/RetroPickLaunchLockerV2.sol)                         | 2,652            | 2,964             | 21,924             | 46,188              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickLaunchLockerV2 (src/v2/RetroPickLaunchLockerV2.sol)                                             | 2,652            | 2,964             | 21,924             | 46,188              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickLaunchLockerV2 (test/v2/community-economy/reference/v2/RetroPickLaunchLockerV2.sol)             | 2,652            | 2,964             | 21,924             | 46,188              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickLauncherTokenV2 (src/v2-research-experiment/RetroPickLauncherTokenV2.sol)                       | 3,248            | 7,099             | 21,328             | 42,053              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickLauncherTokenV2 (src/v2/RetroPickLauncherTokenV2.sol)                                           | 3,248            | 7,099             | 21,328             | 42,053              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickLauncherTokenV2 (test/v2/community-economy/reference/v2/RetroPickLauncherTokenV2.sol)           | 3,248            | 7,099             | 21,328             | 42,053              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickMemeHookV2 (src/v2-research-experiment/hooks/RetroPickMemeHookV2.sol)                           | 15,505           | 16,618            | 9,071              | 32,534              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickMemeHookV2 (src/v2/hooks/RetroPickMemeHookV2.sol)                                               | 15,505           | 16,618            | 9,071              | 32,534              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickMemeHookV2 (test/v2/community-economy/reference/v2/hooks/RetroPickMemeHookV2.sol)               | 15,505           | 16,618            | 9,071              | 32,534              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickQuoteAssetPolicyV2 (src/v2-research-experiment/RetroPickQuoteAssetPolicyV2.sol)                 | 682              | 708               | 23,894             | 48,444              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickQuoteAssetPolicyV2 (src/v2/RetroPickQuoteAssetPolicyV2.sol)                                     | 682              | 708               | 23,894             | 48,444              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickQuoteAssetPolicyV2 (test/v2/community-economy/reference/v2/RetroPickQuoteAssetPolicyV2.sol)     | 682              | 708               | 23,894             | 48,444              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickQuoteAssetRegistryV2 (src/v2-research-experiment/RetroPickQuoteAssetRegistryV2.sol)             | 2,629            | 2,876             | 21,947             | 46,276              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickQuoteAssetRegistryV2 (src/v2/RetroPickQuoteAssetRegistryV2.sol)                                 | 2,629            | 2,876             | 21,947             | 46,276              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| RetroPickQuoteAssetRegistryV2 (test/v2/community-economy/reference/v2/RetroPickQuoteAssetRegistryV2.sol) | 2,654            | 2,901             | 21,922             | 46,251              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| SenderSurchargeQuote (test/v2/community-economy/CommunityFactoryFixtureV2.sol)                           | 1,897            | 2,693             | 22,679             | 46,459              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| SenderSurchargeQuote (test/v2/research-experiment/CommunityFactoryFixtureV2.sol)                         | 1,897            | 2,693             | 22,679             | 46,459              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| StateLibrary                                                                                             | 269              | 299               | 24,307             | 48,853              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| TimelockController                                                                                       | 5,450            | 6,755             | 19,126             | 42,397              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| ToggleSenderSurchargeQuote (test/v2/community-economy/CommunityFactoryFixtureV2.sol)                     | 2,141            | 2,953             | 22,435             | 46,199              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| ToggleSenderSurchargeQuote (test/v2/research-experiment/CommunityFactoryFixtureV2.sol)                   | 2,141            | 2,953             | 22,435             | 46,199              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| UniswapV4GraduationExecutorV2 (src/v2-research-experiment/UniswapV4GraduationExecutorV2.sol)             | 16,036           | 20,524            | 8,540              | 28,628              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| UniswapV4GraduationExecutorV2 (src/v2/UniswapV4GraduationExecutorV2.sol)                                 | 16,036           | 20,524            | 8,540              | 28,628              |
+|----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------|
+| UniswapV4GraduationExecutorV2 (test/v2/community-economy/reference/v2/UniswapV4GraduationExecutorV2.sol) | 15,661           | 20,163            | 8,915              | 28,989              |
+╰----------------------------------------------------------------------------------------------------------+------------------+-------------------+--------------------+---------------------╯
+
+warning[missing-events-access-control]: `routerForToken` is changed without an event but is used for access control
+   ╭▸ src/v2-research-experiment/m6/CommunityRevenueDeployersV2.sol:43:9
+   │
+43 │         routerForToken[token] = address(router);
+   │         ━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/missing-events-access-control
+
+warning[missing-zero-check]: address parameter is used in a state write or value transfer without a zero-address check
+   ╭▸ src/v2-research-experiment/m6/CommunityV4GraduationExecutorV2.sol:60:9
+   │
+60 │         address coordinator_,
+   │         ━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/missing-zero-check
+
+warning[missing-zero-check]: address parameter is used in a state write or value transfer without a zero-address check
+   ╭▸ src/v2-research-experiment/m6/CommunityRevenueDeployersV2.sol:23:17
+   │
+23 │     constructor(address factory_) {
+   │                 ━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/missing-zero-check
+
+warning[missing-events-access-control]: `registry` is changed without an event but is used for access control
+    ╭▸ src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol:248:9
+    │
+248 │         registry = r;
+    │         ━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/missing-events-access-control
+
+warning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on
+   ╭▸ src/v2-research-experiment/m6/CommunityRevenueDeployersV2.sol:44:9
+   │
+44 │         emit RevenueCreated(token, address(router), address(authority));
+   │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/reentrancy-events
+
+warning[missing-events-access-control]: `vaultForRouter` is changed without an event but is used for access control
+   ╭▸ src/v2-research-experiment/m6/CommunityRevenueDeployersV2.sol:77:9
+   │
+77 │         vaultForRouter[address(router)] = address(vault);
+   │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/missing-events-access-control
+
+warning[missing-events-access-control]: `vaultForToken` is changed without an event but is used for access control
+   ╭▸ src/v2-research-experiment/m6/CommunityRevenueDeployersV2.sol:78:9
+   │
+78 │         vaultForToken[router.launchToken()] = address(vault);
+   │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/missing-events-access-control
+
+warning[missing-zero-check]: address parameter is used in a state write or value transfer without a zero-address check
+   ╭▸ src/v2-research-experiment/m6/CommunityRevenueDeployersV2.sol:56:17
+   │
+56 │     constructor(address factory_) {
+   │                 ━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/missing-zero-check
+
+warning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on
+   ╭▸ src/v2-research-experiment/m6/CommunityRevenueDeployersV2.sol:79:9
+   │
+79 │         emit TreasuryCreated(router.launchToken(), address(router), address(vault), address(governance));
+   │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/reentrancy-events
+
+warning[missing-zero-check]: address parameter is used in a state write or value transfer without a zero-address check
+    ╭▸ src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol:138:9
+    │
+138 │         address authority_,
+    │         ━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/missing-zero-check
+
+warning[missing-zero-check]: address parameter is used in a state write or value transfer without a zero-address check
+    ╭▸ src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol:140:9
+    │
+140 │         address hook_
+    │         ━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/missing-zero-check
+
+warning[missing-zero-check]: address parameter is used in a state write or value transfer without a zero-address check
+    ╭▸ src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol:137:9
+    │
+137 │         address token_,
+    │         ━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/missing-zero-check
+
+warning[missing-zero-check]: address parameter is used in a state write or value transfer without a zero-address check
+    ╭▸ src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol:139:9
+    │
+139 │         address registrar_,
+    │         ━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/missing-zero-check
+
+warning[missing-zero-check]: address parameter is used in a state write or value transfer without a zero-address check
+    ╭▸ src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol:135:9
+    │
+135 │         address factory_,
+    │         ━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/missing-zero-check
+
+warning[missing-events-access-control]: `graduationExecutor` is changed without an event but is used for access control
+    ╭▸ src/v2-research-experiment/m6/hooks/CommunityV4FeeHookV2.sol:252:9
+    │
+252 │         graduationExecutor = executor;
+    │         ━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/missing-events-access-control
+
+warning[reentrancy-no-eth]: external call can be reentered before `checkpointing` is updated
+    ╭▸ src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol:275:9
+    │
+275 │         source.checkpointCommunityFees(); // Curve must reenter fund() to settle genuine old-epoch value.
+    │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/reentrancy-no-eth
+
+warning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on
+    ╭▸ src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol:293:9
+    │
+293 │         emit Funded(epoch_, seq, amount);
+    │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/reentrancy-events
+
+warning[reentrancy-no-eth]: external call can be reentered before `venueSequence` is updated
+    ╭▸ src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol:364:13
+    │
+364 │             feeEscrow.creditToken(protocolFeeRecipient, asset, amount);
+    │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/reentrancy-no-eth
+
+warning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on
+    ╭▸ src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol:391:13
+    │
+391 │             emit AllocatedAsset(asset, epoch_, a[i].beneficiary, share);
+    │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/reentrancy-events
+
+warning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on
+    ╭▸ src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol:397:13
+    │
+397 │             emit AllocatedAsset(asset, epoch_, treasury, dust);
+    │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/reentrancy-events
+
+warning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on
+    ╭▸ src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol:320:9
+    │
+320 │         emit VenueFunded(poolId_, asset, epoch_, seq, baseFee, tax, protocolAmount);
+    │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/reentrancy-events
+
+warning[uninitialized-local]: local variable is read before being initialized
+    ╭▸ src/v2-research-experiment/m6/CommunityV4GraduationExecutorV2.sol:173:13
+    │
+173 │         if (inKind) {
+    │             ━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/uninitialized-local
+
+warning[non-reentrant-not-first]: `nonReentrant` is not the first modifier
+    ╭▸ src/v2-research-experiment/m6/CommunityV4GraduationExecutorV2.sol:135:9
+    │
+135 │         nonReentrant
+    │         ━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/non-reentrant-not-first
+
+warning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on
+    ╭▸ src/v2-research-experiment/m6/CommunityV4GraduationExecutorV2.sol:170:17
+    │
+170 │                 emit CommunityVenueRevenueDisabled(p.token, community);
+    │                 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/reentrancy-events
+
+warning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on
+    ╭▸ src/v2-research-experiment/m6/CommunityV4GraduationExecutorV2.sol:178:13
+    │
+178 │             emit CommunityVenueRevenueEnabled(p.token, community);
+    │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/reentrancy-events
+
+warning[unused-return]: return value of an external call is not used
+    ╭▸ src/v2-research-experiment/m6/CommunityV4GraduationExecutorV2.sol:152:9
+    │
+152 │         poolManager.initialize(key, price);
+    │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/unused-return
+
+warning[incorrect-strict-equality]: dangerous strict equality check on an externally-influenced value
+    ╭▸ src/v2-research-experiment/m6/CommunityV4GraduationExecutorV2.sol:206:13
+    │
+206 │             IERC20(p.token).balanceOf(address(this)) != 0 || ExactAssetV2.balance(p.quoteAsset, address(this)) != 0
+    │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/incorrect-strict-equality
+
+warning[divide-before-multiply]: division before multiplication may lose precision
+    ╭▸ src/v2-research-experiment/m6/CommunityV4GraduationExecutorV2.sol:227:23
+    │
+227 │         int24 lower = (TickMath.MIN_TICK / p.tickSpacing) * p.tickSpacing;
+    │                       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/divide-before-multiply
+
+warning[divide-before-multiply]: division before multiplication may lose precision
+    ╭▸ src/v2-research-experiment/m6/CommunityV4GraduationExecutorV2.sol:228:23
+    │
+228 │         int24 upper = (TickMath.MAX_TICK / p.tickSpacing) * p.tickSpacing;
+    │                       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/divide-before-multiply
+
+warning[uninitialized-local]: local variable is read before being initialized
+    ╭▸ src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol:389:13
+    │
+389 │             assigned += share;
+    │             ━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/uninitialized-local
+
+warning[missing-zero-check]: address parameter is used in a state write or value transfer without a zero-address check
+   ╭▸ src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol:38:17
+   │
+38 │     constructor(address factory_, CommunityRevenueRouterV2 router_, address creator_, CommunityTimelockV2 timelock_) {
+   │                 ━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/missing-zero-check
+
+warning[arbitrary-send-eth]: ETH is sent to a user-controlled destination; restrict the destination or the caller
+    ╭▸ src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol:453:26
+    │
+453 │             (bool ok,) = payable(recipient).call{value: amount}("");
+    │                          ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/arbitrary-send-eth
+
+warning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on
+    ╭▸ src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol:460:9
+    │
+460 │         emit ClaimedAsset(asset, msg.sender, recipient, amount);
+    │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/reentrancy-events
+
+warning[reentrancy-no-eth]: external call can be reentered before `claimedAsset` is updated
+    ╭▸ src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol:128:9
+    │
+128 │         router.claimAssetTo(asset, address(this), amount);
+    │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/reentrancy-no-eth
+
+warning[divide-before-multiply]: division before multiplication may lose precision
+    ╭▸ src/v2-research-experiment/m6/CommunityV4GraduationExecutorV2.sol:255:23
+    │
+255 │         int24 lower = (TickMath.MIN_TICK / key.tickSpacing) * key.tickSpacing;
+    │                       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/divide-before-multiply
+
+warning[divide-before-multiply]: division before multiplication may lose precision
+    ╭▸ src/v2-research-experiment/m6/CommunityV4GraduationExecutorV2.sol:256:23
+    │
+256 │         int24 upper = (TickMath.MAX_TICK / key.tickSpacing) * key.tickSpacing;
+    │                       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/divide-before-multiply
+
+warning[unsafe-typecast]: typecast can truncate values
+    ╭▸ src/v2-research-experiment/m6/CommunityV4GraduationExecutorV2.sol:266:32
+    │
+266 │             ? abi.encodePacked(uint8(Actions.MINT_POSITION), uint8(Actions.SETTLE_PAIR), uint8(Actions.SWEEP))
+    │                                ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ├ note: consider disabling this lint if you're certain the cast is safe
+    │       
+    │       // casting to 'uint8' is safe because [explain why]
+    │       // forge-lint: disable-next-line(unsafe-typecast)
+    │       
+    │       
+    ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
+
+warning[unsafe-typecast]: typecast can truncate values
+    ╭▸ src/v2-research-experiment/m6/CommunityV4GraduationExecutorV2.sol:266:62
+    │
+266 │             ? abi.encodePacked(uint8(Actions.MINT_POSITION), uint8(Actions.SETTLE_PAIR), uint8(Actions.SWEEP))
+    │                                                              ━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ├ note: consider disabling this lint if you're certain the cast is safe
+    │       
+    │       // casting to 'uint8' is safe because [explain why]
+    │       // forge-lint: disable-next-line(unsafe-typecast)
+    │       
+    │       
+    ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
+
+warning[unsafe-typecast]: typecast can truncate values
+    ╭▸ src/v2-research-experiment/m6/CommunityV4GraduationExecutorV2.sol:266:90
+    │
+266 │             ? abi.encodePacked(uint8(Actions.MINT_POSITION), uint8(Actions.SETTLE_PAIR), uint8(Actions.SWEEP))
+    │                                                                                          ━━━━━━━━━━━━━━━━━━━━
+    │
+    ├ note: consider disabling this lint if you're certain the cast is safe
+    │       
+    │       // casting to 'uint8' is safe because [explain why]
+    │       // forge-lint: disable-next-line(unsafe-typecast)
+    │       
+    │       
+    ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
+
+warning[unsafe-typecast]: typecast can truncate values
+    ╭▸ src/v2-research-experiment/m6/CommunityV4GraduationExecutorV2.sol:267:32
+    │
+267 │             : abi.encodePacked(uint8(Actions.MINT_POSITION), uint8(Actions.SETTLE_PAIR));
+    │                                ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ├ note: consider disabling this lint if you're certain the cast is safe
+    │       
+    │       // casting to 'uint8' is safe because [explain why]
+    │       // forge-lint: disable-next-line(unsafe-typecast)
+    │       
+    │       
+    ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
+
+warning[unsafe-typecast]: typecast can truncate values
+    ╭▸ src/v2-research-experiment/m6/CommunityV4GraduationExecutorV2.sol:267:62
+    │
+267 │             : abi.encodePacked(uint8(Actions.MINT_POSITION), uint8(Actions.SETTLE_PAIR));
+    │                                                              ━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ├ note: consider disabling this lint if you're certain the cast is safe
+    │       
+    │       // casting to 'uint8' is safe because [explain why]
+    │       // forge-lint: disable-next-line(unsafe-typecast)
+    │       
+    │       
+    ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
+
+warning[unsafe-typecast]: typecast can truncate values
+    ╭▸ src/v2-research-experiment/m6/CommunityV4GraduationExecutorV2.sol:270:52
+    │
+270 │             key, lower, upper, uint256(liquidity), uint128(amount0), uint128(amount1), address(locker), bytes("")
+    │                                                    ━━━━━━━━━━━━━━━━
+    │
+    ├ note: consider disabling this lint if you're certain the cast is safe
+    │       
+    │       // casting to 'uint128' is safe because [explain why]
+    │       // forge-lint: disable-next-line(unsafe-typecast)
+    │       
+    │       
+    ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
+
+warning[unsafe-typecast]: typecast can truncate values
+    ╭▸ src/v2-research-experiment/m6/CommunityV4GraduationExecutorV2.sol:270:70
+    │
+270 │             key, lower, upper, uint256(liquidity), uint128(amount0), uint128(amount1), address(locker), bytes("")
+    │                                                                      ━━━━━━━━━━━━━━━━
+    │
+    ├ note: consider disabling this lint if you're certain the cast is safe
+    │       
+    │       // casting to 'uint128' is safe because [explain why]
+    │       // forge-lint: disable-next-line(unsafe-typecast)
+    │       
+    │       
+    ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
+
+warning[unsafe-typecast]: typecast can truncate values
+    ╭▸ src/v2-research-experiment/m6/CommunityV4GraduationExecutorV2.sol:286:58
+    │
+286 │         permit2.approve(asset, address(positionManager), uint160(amount), uint48(block.timestamp + 300));
+    │                                                          ━━━━━━━━━━━━━━━
+    │
+    ├ note: consider disabling this lint if you're certain the cast is safe
+    │       
+    │       // casting to 'uint160' is safe because [explain why]
+    │       // forge-lint: disable-next-line(unsafe-typecast)
+    │       
+    │       
+    ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
+
+warning[unsafe-typecast]: typecast can truncate values
+    ╭▸ src/v2-research-experiment/m6/CommunityV4GraduationExecutorV2.sol:286:75
+    │
+286 │         permit2.approve(asset, address(positionManager), uint160(amount), uint48(block.timestamp + 300));
+    │                                                                           ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ├ note: consider disabling this lint if you're certain the cast is safe
+    │       
+    │       // casting to 'uint48' is safe because [explain why]
+    │       // forge-lint: disable-next-line(unsafe-typecast)
+    │       
+    │       
+    ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
+
+warning[unused-return]: return value of an external call is not used
+    ╭▸ src/v2-research-experiment/m6/CommunityV4GraduationExecutorV2.sol:292:30
+    │
+292 │         (uint160 amount,,) = permit2.allowance(address(this), asset, address(positionManager));
+    │                              ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/unused-return
+
+warning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on
+    ╭▸ src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol:135:9
+    │
+135 │         emit RevenueClaimed(asset, amount, claimedAsset[asset]);
+    │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/reentrancy-events
+
+warning[missing-zero-check]: address parameter is used in a state write or value transfer without a zero-address check
+   ╭▸ src/v2-research-experiment/m6/CommunityRevenueLaunchBuilderV2.sol:58:17
+   │
+58 │     constructor(address factory_, CommunityRevenueDeployerV2 revenue_, CommunityAssetTreasuryDeployerV2 treasury_) {
+   │                 ━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/missing-zero-check
+
+warning[uninitialized-local]: local variable is read before being initialized
+   ╭▸ src/v2-research-experiment/m6/CommunityRevenueLaunchBuilderV2.sol:97:19
+   │
+97 │                 ++treasuryCount;
+   │                   ━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/uninitialized-local
+
+warning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on
+    ╭▸ src/v2-research-experiment/m6/CommunityRevenueLaunchBuilderV2.sol:121:9
+    │
+121 │ ┏         emit RevenueCommunityCreated(
+122 │ ┃             token, address(router), address(vault), address(registry), address(control), router.venueTermsHash()
+123 │ ┃         );
+    │ ┗━━━━━━━━━━┛
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/reentrancy-events
+
+warning[require-revert-in-loop]: `require` or `revert` inside a loop
+   ╭▸ src/v2-research-experiment/m6/CommunityRevenueLaunchBuilderV2.sol:91:45
+   │
+91 │             if (c.modules[i] != address(0)) revert InvalidLaunch();
+   │                                             ━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/require-revert-in-loop
+
+warning[require-revert-in-loop]: `require` or `revert` inside a loop
+   ╭▸ src/v2-research-experiment/m6/CommunityRevenueLaunchBuilderV2.sol:95:44
+   │
+95 │             if (c.allocations[i].kind > 2) revert InvalidLaunch();
+   │                                            ━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/require-revert-in-loop
+
+warning[require-revert-in-loop]: `require` or `revert` inside a loop
+   ╭▸ src/v2-research-experiment/m6/CommunityRevenueLaunchBuilderV2.sol:98:94
+   │
+98 │                 if (c.allocations[i].beneficiary != address(0) || c.allocations[i].bps == 0) revert InvalidLaunch();
+   │                                                                                              ━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/require-revert-in-loop
+
+warning[unsafe-typecast]: typecast can truncate values
+    ╭▸ src/v2-research-experiment/m6/CommunityRevenueLaunchBuilderV2.sol:119:76
+    │
+119 │         Registry registry = new Registry(token, control, router, c.bounds, uint16(maxFees), c.modules, c.allocations);
+    │                                                                            ━━━━━━━━━━━━━━━
+    │
+    ├ note: consider disabling this lint if you're certain the cast is safe
+    │       
+    │       // casting to 'uint16' is safe because [explain why]
+    │       // forge-lint: disable-next-line(unsafe-typecast)
+    │       
+    │       
+    ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
+
+warning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on
+    ╭▸ src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol:158:9
+    │
+158 │         emit RevenueSpent(asset, recipient, spendId, amount);
+    │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/reentrancy-events
+
+warning[missing-zero-check]: address parameter is used in a state write or value transfer without a zero-address check
+    ╭▸ src/v2-research-experiment/m6/hooks/CommunityV4FeeHookV2.sol:249:36
+    │
+249 │     function setGraduationExecutor(address executor) external onlyOwner {
+    │                                    ━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/missing-zero-check
+
+warning[arbitrary-send-eth]: ETH is sent to a user-controlled destination; restrict the destination or the caller
+    ╭▸ src/v2-research-experiment/m6/hooks/CommunityV4FeeHookV2.sol:608:13
+    │
+608 │             router.fundVenue{value: gross}(PoolId.unwrap(id), asset, epoch, seq, fee, tax);
+    │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/arbitrary-send-eth
+
+warning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on
+    ╭▸ src/v2-research-experiment/m6/hooks/CommunityV4FeeHookV2.sol:619:9
+    │
+619 │         emit CommunityRevenueSettled(id, asset, epoch, seq, fee, tax);
+    │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/reentrancy-events
+
+warning[unsafe-typecast]: typecast can truncate values
+    ╭▸ src/v2-research-experiment/m6/hooks/CommunityV4FeeHookV2.sol:597:29
+    │
+597 │         uint256 magnitude = uint256(raw < 0 ? -raw : raw);
+    │                             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ├ note: consider disabling this lint if you're certain the cast is safe
+    │       
+    │       // casting to 'uint256' is safe because [explain why]
+    │       // forge-lint: disable-next-line(unsafe-typecast)
+    │       
+    │       
+    ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
+
+warning[incorrect-strict-equality]: dangerous strict equality check on an externally-influenced value
+    ╭▸ src/v2-research-experiment/m6/hooks/CommunityV4FeeHookV2.sol:614:17
+    │
+614 │             if (IERC20(asset).balanceOf(address(this)) != beforeBalance - gross) {
+    │                 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/incorrect-strict-equality
+
+warning[unsafe-typecast]: typecast can truncate values
+    ╭▸ src/v2-research-experiment/m6/hooks/CommunityV4FeeHookV2.sol:620:44
+    │
+620 │         return (IHooks.afterSwap.selector, int128(uint128(gross)));
+    │                                            ━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ├ note: consider disabling this lint if you're certain the cast is safe
+    │       
+    │       // casting to 'int128' is safe because [explain why]
+    │       // forge-lint: disable-next-line(unsafe-typecast)
+    │       
+    │       
+    ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
+
+warning[unsafe-typecast]: typecast can truncate values
+    ╭▸ src/v2-research-experiment/m6/hooks/CommunityV4FeeHookV2.sol:620:51
+    │
+620 │         return (IHooks.afterSwap.selector, int128(uint128(gross)));
+    │                                                   ━━━━━━━━━━━━━━
+    │
+    ├ note: consider disabling this lint if you're certain the cast is safe
+    │       
+    │       // casting to 'uint128' is safe because [explain why]
+    │       // forge-lint: disable-next-line(unsafe-typecast)
+    │       
+    │       
+    ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
+

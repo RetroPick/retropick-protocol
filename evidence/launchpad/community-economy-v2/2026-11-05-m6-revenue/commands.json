@@ -1,0 +1,15 @@
+{
+  "unit": [
+    "FOUNDRY_PROFILE=test FOUNDRY_FUZZ_RUNS=10000 forge test --contracts src/v2-research-experiment/m6 --match-path test/v2/research-experiment/m6/CommunityRevenueRouterV2.t.sol --fuzz-seed 0x6a -vvv",
+    "FOUNDRY_PROFILE=test FOUNDRY_FUZZ_RUNS=10000 forge test --contracts src/v2-research-experiment/m6 --match-path test/v2/research-experiment/m6/CommunityRevenueRouterV2.t.sol --fuzz-seed 0x6b -vvv"
+  ],
+  "stateful": [
+    "FOUNDRY_PROFILE=test FOUNDRY_INVARIANT_RUNS=256 FOUNDRY_INVARIANT_DEPTH=128 FOUNDRY_INVARIANT_FAIL_ON_REVERT=true forge test --contracts src/v2-research-experiment/m6 --match-path test/v2/research-experiment/m6/CommunityRevenueRouterInvariant.t.sol --match-test invariant_twoAsset --fuzz-seed 0x6a -vvv",
+    "FOUNDRY_PROFILE=test FOUNDRY_INVARIANT_RUNS=256 FOUNDRY_INVARIANT_DEPTH=128 FOUNDRY_INVARIANT_FAIL_ON_REVERT=true forge test --contracts src/v2-research-experiment/m6 --match-path test/v2/research-experiment/m6/CommunityRevenueRouterInvariant.t.sol --match-test invariant_twoAsset --fuzz-seed 0x6b -vvv",
+    "FOUNDRY_PROFILE=test FOUNDRY_INVARIANT_RUNS=256 FOUNDRY_INVARIANT_DEPTH=128 FOUNDRY_INVARIANT_FAIL_ON_REVERT=true forge test --contracts src/v2-research-experiment/m6 --match-path test/v2/research-experiment/m6/CommunityRevenueRouterInvariant.t.sol --match-test invariant_twoAsset --fuzz-seed 0x6c -vvv"
+  ],
+  "genuine": "python3 contracts/test/v2/research-experiment/m6-revenue/run_genuine_revenue.py",
+  "cwd": "Foundry commands from contracts/; Python runner from repo root",
+  "sourceHashOverlay": "source-overlay-final.json",
+  "note": "Seeds6a/6b model native only; final6c model covers native+modeledQ6. Final Router formatting was token-preserving and final genuine run repeats using formatted sources."
+}

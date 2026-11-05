@@ -1,0 +1,611 @@
+
+Detector: arbitrary-send-erc20
+ExactAssetV2.pull(address,address,address,uint256) (src/v2-research-experiment/libraries/ExactAssetV2.sol#10-18) uses arbitrary from in transferFrom: IERC20(asset).safeTransferFrom(from,to,amount) (src/v2-research-experiment/libraries/ExactAssetV2.sol#14)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#arbitrary-from-in-transferfrom
+
+Detector: arbitrary-send-eth
+TimelockController._execute(address,uint256,bytes) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#411-414) sends eth to arbitrary user
+	Dangerous calls:
+	- (success,returndata) = target.call{value: value}(data) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#412)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#functions-that-send-ether-to-arbitrary-destinations
+
+Detector: incorrect-exp
+Math.mulDiv(uint256,uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#206-277) has bitwise-xor operator ^ instead of the exponentiation operator **: 
+	 - inverse = (3 * denominator) ^ 2 (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#259)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#incorrect-exponentiation
+
+Detector: reentrancy-balance
+Reentrancy in CommunityAssetTreasuryVaultV2._claim(address,uint256) (src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol#122-136):
+	External call allowing reentrancy:
+	- router.claimAssetTo(asset,address(this),amount) (src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol#128)
+	Balance read before the call:
+	- beforeBalance = _backing(asset) (src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol#127)
+	Possible stale balance used after the call in a condition:
+	- router.creditOf(asset,address(this)) != oldCredit - amount || actualBalanceAsset(asset) != beforeBalance + amount (src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol#130-131)
+		- stale variable `beforeBalance`
+Reentrancy in CommunityRevenueRouterV2._remitProtocol(address,uint256) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#353-378):
+	External call allowing reentrancy:
+	- feeEscrow.credit{value: amount}(protocolFeeRecipient) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#361)
+	Balance read before the call:
+	- creditBefore = feeEscrow.balanceOf(protocolFeeRecipient) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#357-359)
+	Possible stale balance used after the call in a condition:
+	- ExactAssetV2.balance(asset,address(this)) != ownBefore - amount || ExactAssetV2.balance(asset,address(feeEscrow)) != escrowBefore + amount || creditAfter != creditBefore + amount (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#372-374)
+		- stale variable `creditBefore`
+Reentrancy in CommunityRevenueRouterV2._remitProtocol(address,uint256) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#353-378):
+	External call allowing reentrancy:
+	- feeEscrow.creditToken(protocolFeeRecipient,asset,amount) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#364)
+	Balance read before the call:
+	- creditBefore = feeEscrow.balanceOf(protocolFeeRecipient) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#357-359)
+	Possible stale balance used after the call in a condition:
+	- ExactAssetV2.balance(asset,address(this)) != ownBefore - amount || ExactAssetV2.balance(asset,address(feeEscrow)) != escrowBefore + amount || creditAfter != creditBefore + amount (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#372-374)
+		- stale variable `creditBefore`
+Reentrancy in CommunityAssetTreasuryVaultV2.spend(address,address,uint256,bytes32) (src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol#139-159):
+	External call allowing reentrancy:
+	- (ok,None) = address(recipient).call{value: amount}() (src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol#151)
+	Balance read before the call:
+	- beforeBalance = _backing(asset) (src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol#147)
+	Possible stale balance used after the call in a condition:
+	- actualBalanceAsset(asset) != beforeBalance - amount (src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol#156)
+		- stale variable `beforeBalance`
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#reentrancy-vulnerabilities
+
+Detector: reentrancy-eth
+Reentrancy in CommunityRevenueRouterV2.fundVenue(bytes32,address,uint256,uint256,uint256,uint256) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#296-321):
+	External calls:
+	- _remitProtocol(asset,protocolAmount) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#313)
+		- feeEscrow.credit{value: amount}(protocolFeeRecipient) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#361)
+		- feeEscrow.creditToken(protocolFeeRecipient,asset,amount) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#364)
+	External calls sending eth:
+	- _remitProtocol(asset,protocolAmount) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#313)
+		- feeEscrow.credit{value: amount}(protocolFeeRecipient) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#361)
+	State variables written after the call(s):
+	- _allocate(asset,epoch_,community) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#319)
+		- liability[asset] += amount (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#383)
+	CommunityRevenueRouterV2.liability (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#109) can be used in cross function reentrancies:
+	- CommunityRevenueRouterV2._backing(address) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#467-469)
+	- CommunityRevenueRouterV2._claim(address,address,uint256) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#442-461)
+	- CommunityRevenueRouterV2.liability (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#109)
+	- CommunityRevenueRouterV2.totalLiability() (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#418-420)
+	- venueSequence[asset] = seq (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#315)
+	CommunityRevenueRouterV2.venueSequence (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#106) can be used in cross function reentrancies:
+	- CommunityRevenueRouterV2.venueSequence (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#106)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#reentrancy-vulnerabilities-1
+
+Detector: divide-before-multiply
+Math.mulDiv(uint256,uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#206-277) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#244)
+	- inverse = (3 * denominator) ^ 2 (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#259)
+Math.mulDiv(uint256,uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#206-277) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#244)
+	- inverse *= 2 - denominator * inverse (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#263)
+Math.mulDiv(uint256,uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#206-277) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#244)
+	- inverse *= 2 - denominator * inverse (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#264)
+Math.mulDiv(uint256,uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#206-277) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#244)
+	- inverse *= 2 - denominator * inverse (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#265)
+Math.mulDiv(uint256,uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#206-277) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#244)
+	- inverse *= 2 - denominator * inverse (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#266)
+Math.mulDiv(uint256,uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#206-277) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#244)
+	- inverse *= 2 - denominator * inverse (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#267)
+Math.mulDiv(uint256,uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#206-277) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#244)
+	- inverse *= 2 - denominator * inverse (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#268)
+Math.mulDiv(uint256,uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#206-277) performs a multiplication on the result of a division:
+	- low = low / twos (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#247)
+	- result = low * inverse (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#274)
+Math.invMod(uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#317-363) performs a multiplication on the result of a division:
+	- quotient = gcd / remainder (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#339)
+	- (gcd,remainder) = (remainder,gcd - remainder * quotient) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#341-348)
+CustomRevert.bubbleUpAndRevertWith(address,bytes4,bytes4) (lib/v4-core/src/libraries/CustomRevert.sol#83-119) performs a multiplication on the result of a division:
+	- encodedDataSize_bubbleUpAndRevertWith_asm_0 = returndatasize()() + 31 / 32 * 32 (lib/v4-core/src/libraries/CustomRevert.sol#91)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#divide-before-multiply
+
+Detector: incorrect-equality
+TimelockController.getOperationState(bytes32) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#206-217) uses a dangerous strict equality:
+	- timestamp == 0 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#208)
+TimelockController.getOperationState(bytes32) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#206-217) uses a dangerous strict equality:
+	- timestamp == _DONE_TIMESTAMP (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#210)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#dangerous-strict-equalities
+
+Detector: reentrancy-no-eth
+Reentrancy in CommunityRevenueRouterV2._checkpoint() (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#272-278):
+	External calls:
+	- source.checkpointCommunityFees() (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#275)
+	State variables written after the call(s):
+	- checkpointing = false (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#277)
+	CommunityRevenueRouterV2.checkpointing (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#104) can be used in cross function reentrancies:
+	- CommunityRevenueRouterV2._checkpoint() (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#272-278)
+	- CommunityRevenueRouterV2.pending() (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#257-260)
+Reentrancy in CommunityAssetTreasuryVaultV2._claim(address,uint256) (src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol#122-136):
+	External calls:
+	- router.claimAssetTo(asset,address(this),amount) (src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol#128)
+	State variables written after the call(s):
+	- claimedAsset[asset] += amount (src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol#133)
+	CommunityAssetTreasuryVaultV2.claimedAsset (src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol#24) can be used in cross function reentrancies:
+	- CommunityAssetTreasuryVaultV2._claim(address,uint256) (src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol#122-136)
+	- CommunityAssetTreasuryVaultV2.claimed() (src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol#64-66)
+	- CommunityAssetTreasuryVaultV2.claimedAsset (src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol#24)
+	- CommunityAssetTreasuryVaultV2.heldAsset(address) (src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol#92-95)
+Reentrancy in CommunityPolicyRegistryV2.activatePolicy(uint256) (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#138-165):
+	External calls:
+	- source.checkpoint(epoch) (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#150)
+	State variables written after the call(s):
+	- ++ epoch (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#155)
+	CommunityPolicyRegistryV2.epoch (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#57) can be used in cross function reentrancies:
+	- CommunityPolicyRegistryV2.epoch (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#57)
+	- CommunityPolicyRegistryV2.policyAtVersion(uint256) (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#107-110)
+	- delete pendingPolicy (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#162)
+	CommunityPolicyRegistryV2.pendingPolicy (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#60) can be used in cross function reentrancies:
+	- CommunityPolicyRegistryV2.pendingPolicy (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#60)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#reentrancy-vulnerabilities-2
+
+Detector: uninitialized-local
+CommunityPolicyRegistryV2._validate(CommunityPolicyRegistryV2.Allocation[]).total (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#169) is a local variable never initialized
+CommunityPolicyRegistryV2._validate(CommunityPolicyRegistryV2.Allocation[]).creator (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#170) is a local variable never initialized
+CommunityPolicyRegistryV2._validate(CommunityPolicyRegistryV2.Allocation[]).treasury (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#171) is a local variable never initialized
+CommunityRevenueRouterV2._allocate(address,uint256,uint256).assigned (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#386) is a local variable never initialized
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#uninitialized-local-variables
+
+Detector: unused-return
+TimelockController._execute(address,uint256,bytes) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#411-414) ignores return value by Address.verifyCallResult(success,returndata) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#413)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#unused-return
+
+Detector: shadowing-local
+INotifier.subscriber(uint256).subscriber (lib/v4-periphery/src/interfaces/INotifier.sol#32) shadows:
+	- INotifier.subscriber(uint256) (lib/v4-periphery/src/interfaces/INotifier.sol#32) (function)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#local-variable-shadowing
+
+Detector: missing-zero-check
+CommunityRevenueRouterV2.constructor(address,ICommunityFeeSourceV2,address,address,address,address).manager (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#162) lacks a zero-check on :
+		- poolManager = manager (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#198)
+CommunityRevenueRouterV2.constructor(address,ICommunityFeeSourceV2,address,address,address,address).pm (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#163) lacks a zero-check on :
+		- positionManager = pm (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#203)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#missing-zero-address-validation
+
+Detector: calls-loop
+TimelockController._execute(address,uint256,bytes) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#411-414) has external calls inside a loop: (success,returndata) = target.call{value: value}(data) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#412)
+	Calls stack containing the loop:
+		CommunityTimelockV2.executeBatch(address[],uint256[],bytes[],bytes32,bytes32)
+		TimelockController.executeBatch(address[],uint256[],bytes[],bytes32,bytes32)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation/#calls-inside-a-loop
+
+Detector: reentrancy-benign
+Reentrancy in CommunityPolicyRegistryV2.activatePolicy(uint256) (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#138-165):
+	External calls:
+	- source.checkpoint(epoch) (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#150)
+	State variables written after the call(s):
+	- policies[epoch].push(a[i]) (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#160)
+	- policyHash[epoch] = h (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#158)
+	- delete proposed (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#163)
+Reentrancy in CommunityRevenueRouterV2.fundVenue(bytes32,address,uint256,uint256,uint256,uint256) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#296-321):
+	External calls:
+	- _remitProtocol(asset,protocolAmount) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#313)
+		- feeEscrow.credit{value: amount}(protocolFeeRecipient) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#361)
+		- feeEscrow.creditToken(protocolFeeRecipient,asset,amount) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#364)
+	External calls sending eth:
+	- _remitProtocol(asset,protocolAmount) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#313)
+		- feeEscrow.credit{value: amount}(protocolFeeRecipient) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#361)
+	State variables written after the call(s):
+	- _allocate(asset,epoch_,community) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#319)
+		- credits[asset][a[i].beneficiary] += share (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#390)
+		- credits[asset][treasury] += dust (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#396)
+	- _allocate(asset,epoch_,community) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#319)
+		- epochFundedAsset[asset][epoch_] += amount (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#384)
+	- _allocate(asset,epoch_,community) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#319)
+		- funded[asset] += amount (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#382)
+	- venueCommunityFunded[asset] += community (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#318)
+	- venueGross[asset] += gross (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#316)
+	- venueProtocolRemitted[asset] += protocolAmount (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#317)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#reentrancy-vulnerabilities-3
+
+Detector: reentrancy-events
+Reentrancy in TimelockController.execute(address,uint256,bytes,bytes32,bytes32) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#357-370):
+	External calls:
+	- _execute(target,value,payload) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#367)
+		- (success,returndata) = target.call{value: value}(data) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#412)
+	Event emitted after the call(s):
+	- CallExecuted(id,0,target,value,payload) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#368)
+Reentrancy in TimelockController.executeBatch(address[],uint256[],bytes[],bytes32,bytes32) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#384-406):
+	External calls:
+	- _execute(target,value,payload) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#402)
+		- (success,returndata) = target.call{value: value}(data) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#412)
+	Event emitted after the call(s):
+	- CallExecuted(id,i,target,value,payload) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#403)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#reentrancy-vulnerabilities-4
+
+Detector: timestamp
+CommunityPolicyRegistryV2.activatePolicy(uint256) (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#138-165) uses timestamp for comparisons
+	Dangerous comparisons:
+	- block.timestamp < p.effectiveAt || block.timestamp > p.effectiveAt + EXECUTION_WINDOW (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#146)
+CommunityTimelockV2.isExpired(bytes32) (src/v2-research-experiment/CommunityTimelockV2.sol#44-47) uses timestamp for comparisons
+	Dangerous comparisons:
+	- eta > _DONE_TIMESTAMP && block.timestamp > eta && block.timestamp - eta > EXECUTION_WINDOW (src/v2-research-experiment/CommunityTimelockV2.sol#46)
+CommunityTimelockV2.isReadyWithinWindow(bytes32) (src/v2-research-experiment/CommunityTimelockV2.sol#50-52) uses timestamp for comparisons
+	Dangerous comparisons:
+	- isOperationReady(id) && ! isExpired(id) (src/v2-research-experiment/CommunityTimelockV2.sol#51)
+TimelockController.getOperationState(bytes32) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#206-217) uses timestamp for comparisons
+	Dangerous comparisons:
+	- timestamp == 0 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#208)
+	- timestamp == _DONE_TIMESTAMP (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#210)
+	- timestamp > block.timestamp (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#212)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#block-timestamp
+
+Detector: assembly
+SafeERC20.tryGetDecimals(IERC20) (lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol#169-177) uses assembly
+	- INLINE ASM (lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol#171-176)
+SafeERC20._safeTransfer(IERC20,address,uint256,bool) (lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol#188-212) uses assembly
+	- INLINE ASM (lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol#191-211)
+SafeERC20._safeTransferFrom(IERC20,address,address,uint256,bool) (lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol#224-256) uses assembly
+	- INLINE ASM (lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol#233-255)
+SafeERC20._safeApprove(IERC20,address,uint256,bool) (lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol#267-291) uses assembly
+	- INLINE ASM (lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol#270-290)
+Panic.panic(uint256) (lib/openzeppelin-contracts/contracts/utils/Panic.sol#50-56) uses assembly
+	- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/Panic.sol#51-55)
+StorageSlot.getAddressSlot(bytes32) (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#66-70) uses assembly
+	- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#67-69)
+StorageSlot.getBooleanSlot(bytes32) (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#75-79) uses assembly
+	- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#76-78)
+StorageSlot.getBytes32Slot(bytes32) (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#84-88) uses assembly
+	- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#85-87)
+StorageSlot.getUint256Slot(bytes32) (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#93-97) uses assembly
+	- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#94-96)
+StorageSlot.getInt256Slot(bytes32) (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#102-106) uses assembly
+	- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#103-105)
+StorageSlot.getStringSlot(bytes32) (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#111-115) uses assembly
+	- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#112-114)
+StorageSlot.getStringSlot(string) (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#120-124) uses assembly
+	- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#121-123)
+StorageSlot.getBytesSlot(bytes32) (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#129-133) uses assembly
+	- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#130-132)
+StorageSlot.getBytesSlot(bytes) (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#138-142) uses assembly
+	- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#139-141)
+Math.add512(uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#25-30) uses assembly
+	- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#26-29)
+Math.mul512(uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#37-46) uses assembly
+	- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#41-45)
+Math.tryMul(uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#73-84) uses assembly
+	- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#76-80)
+Math.tryDiv(uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#89-97) uses assembly
+	- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#92-95)
+Math.tryMod(uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#102-110) uses assembly
+	- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#105-108)
+Math.mulDiv(uint256,uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#206-277) uses assembly
+	- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#229-236)
+	- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#242-251)
+Math.tryModExp(uint256,uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#411-435) uses assembly
+	- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#413-434)
+Math.tryModExp(bytes,bytes,bytes) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#451-473) uses assembly
+	- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#463-472)
+Math._zeroBytes(bytes) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#478-490) uses assembly
+	- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#482-484)
+Math.log2(uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#619-658) uses assembly
+	- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#655-657)
+SafeCast.toUint(bool) (lib/openzeppelin-contracts/contracts/utils/math/SafeCast.sol#1157-1161) uses assembly
+	- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/math/SafeCast.sol#1158-1160)
+CustomRevert.revertWith(bytes4) (lib/v4-core/src/libraries/CustomRevert.sol#14-19) uses assembly
+	- INLINE ASM (lib/v4-core/src/libraries/CustomRevert.sol#15-18)
+CustomRevert.revertWith(bytes4,address) (lib/v4-core/src/libraries/CustomRevert.sol#22-28) uses assembly
+	- INLINE ASM (lib/v4-core/src/libraries/CustomRevert.sol#23-27)
+CustomRevert.revertWith(bytes4,int24) (lib/v4-core/src/libraries/CustomRevert.sol#31-37) uses assembly
+	- INLINE ASM (lib/v4-core/src/libraries/CustomRevert.sol#32-36)
+CustomRevert.revertWith(bytes4,uint160) (lib/v4-core/src/libraries/CustomRevert.sol#40-46) uses assembly
+	- INLINE ASM (lib/v4-core/src/libraries/CustomRevert.sol#41-45)
+CustomRevert.revertWith(bytes4,int24,int24) (lib/v4-core/src/libraries/CustomRevert.sol#49-57) uses assembly
+	- INLINE ASM (lib/v4-core/src/libraries/CustomRevert.sol#50-56)
+CustomRevert.revertWith(bytes4,uint160,uint160) (lib/v4-core/src/libraries/CustomRevert.sol#60-68) uses assembly
+	- INLINE ASM (lib/v4-core/src/libraries/CustomRevert.sol#61-67)
+CustomRevert.revertWith(bytes4,address,address) (lib/v4-core/src/libraries/CustomRevert.sol#71-79) uses assembly
+	- INLINE ASM (lib/v4-core/src/libraries/CustomRevert.sol#72-78)
+CustomRevert.bubbleUpAndRevertWith(address,bytes4,bytes4) (lib/v4-core/src/libraries/CustomRevert.sol#83-119) uses assembly
+	- INLINE ASM (lib/v4-core/src/libraries/CustomRevert.sol#89-118)
+BalanceDeltaLibrary.amount0(BalanceDelta) (lib/v4-core/src/types/BalanceDelta.sol#61-65) uses assembly
+	- INLINE ASM (lib/v4-core/src/types/BalanceDelta.sol#62-64)
+BalanceDeltaLibrary.amount1(BalanceDelta) (lib/v4-core/src/types/BalanceDelta.sol#67-71) uses assembly
+	- INLINE ASM (lib/v4-core/src/types/BalanceDelta.sol#68-70)
+BeforeSwapDeltaLibrary.getSpecifiedDelta(BeforeSwapDelta) (lib/v4-core/src/types/BeforeSwapDelta.sol#25-29) uses assembly
+	- INLINE ASM (lib/v4-core/src/types/BeforeSwapDelta.sol#26-28)
+BeforeSwapDeltaLibrary.getUnspecifiedDelta(BeforeSwapDelta) (lib/v4-core/src/types/BeforeSwapDelta.sol#33-37) uses assembly
+	- INLINE ASM (lib/v4-core/src/types/BeforeSwapDelta.sol#34-36)
+CurrencyLibrary.transfer(Currency,address,uint256) (lib/v4-core/src/types/Currency.sol#40-88) uses assembly
+	- INLINE ASM (lib/v4-core/src/types/Currency.sol#46-49)
+	- INLINE ASM (lib/v4-core/src/types/Currency.sol#55-80)
+PoolIdLibrary.toId(PoolKey) (lib/v4-core/src/types/PoolId.sol#11-16) uses assembly
+	- INLINE ASM (lib/v4-core/src/types/PoolId.sol#12-15)
+PositionInfoLibrary.poolId(PositionInfo) (lib/v4-periphery/src/libraries/PositionInfoLibrary.sol#47-51) uses assembly
+	- INLINE ASM (lib/v4-periphery/src/libraries/PositionInfoLibrary.sol#48-50)
+PositionInfoLibrary.tickLower(PositionInfo) (lib/v4-periphery/src/libraries/PositionInfoLibrary.sol#53-57) uses assembly
+	- INLINE ASM (lib/v4-periphery/src/libraries/PositionInfoLibrary.sol#54-56)
+PositionInfoLibrary.tickUpper(PositionInfo) (lib/v4-periphery/src/libraries/PositionInfoLibrary.sol#59-63) uses assembly
+	- INLINE ASM (lib/v4-periphery/src/libraries/PositionInfoLibrary.sol#60-62)
+PositionInfoLibrary.hasSubscriber(PositionInfo) (lib/v4-periphery/src/libraries/PositionInfoLibrary.sol#65-69) uses assembly
+	- INLINE ASM (lib/v4-periphery/src/libraries/PositionInfoLibrary.sol#66-68)
+PositionInfoLibrary.setSubscribe(PositionInfo) (lib/v4-periphery/src/libraries/PositionInfoLibrary.sol#72-76) uses assembly
+	- INLINE ASM (lib/v4-periphery/src/libraries/PositionInfoLibrary.sol#73-75)
+PositionInfoLibrary.setUnsubscribe(PositionInfo) (lib/v4-periphery/src/libraries/PositionInfoLibrary.sol#79-83) uses assembly
+	- INLINE ASM (lib/v4-periphery/src/libraries/PositionInfoLibrary.sol#80-82)
+PositionInfoLibrary.initialize(PoolKey,int24,int24) (lib/v4-periphery/src/libraries/PositionInfoLibrary.sol#91-103) uses assembly
+	- INLINE ASM (lib/v4-periphery/src/libraries/PositionInfoLibrary.sol#97-102)
+Address._revert(bytes) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#138-148) uses assembly
+	- INLINE ASM (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#142-144)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#assembly-usage
+
+Detector: pragma
+8 different versions of Solidity are used:
+	- Version constraint >=0.6.2 is used by:
+		->=0.6.2 (lib/openzeppelin-contracts/contracts/interfaces/IERC1363.sol#4)
+		->=0.6.2 (lib/openzeppelin-contracts/contracts/interfaces/IERC20Metadata.sol#4)
+		->=0.6.2 (lib/openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Metadata.sol#4)
+		->=0.6.2 (lib/openzeppelin-contracts/contracts/token/ERC721/IERC721.sol#4)
+		->=0.6.2 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/token/ERC1155/IERC1155Receiver.sol#4)
+	- Version constraint >=0.4.16 is used by:
+		->=0.4.16 (lib/openzeppelin-contracts/contracts/interfaces/IERC165.sol#4)
+		->=0.4.16 (lib/openzeppelin-contracts/contracts/interfaces/IERC20.sol#4)
+		->=0.4.16 (lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol#4)
+		->=0.4.16 (lib/openzeppelin-contracts/contracts/utils/introspection/IERC165.sol#4)
+		->=0.4.16 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/introspection/IERC165.sol#4)
+	- Version constraint >=0.8.4 is used by:
+		->=0.8.4 (lib/openzeppelin-contracts/contracts/interfaces/draft-IERC6093.sol#4)
+		->=0.8.4 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/access/IAccessControl.sol#4)
+	- Version constraint ^0.8.20 is used by:
+		-^0.8.20 (lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol#4)
+		-^0.8.20 (lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Burnable.sol#4)
+		-^0.8.20 (lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol#4)
+		-^0.8.20 (lib/openzeppelin-contracts/contracts/utils/Context.sol#4)
+		-^0.8.20 (lib/openzeppelin-contracts/contracts/utils/Panic.sol#4)
+		-^0.8.20 (lib/openzeppelin-contracts/contracts/utils/ReentrancyGuard.sol#4)
+		-^0.8.20 (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#5)
+		-^0.8.20 (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#4)
+		-^0.8.20 (lib/openzeppelin-contracts/contracts/utils/math/SafeCast.sol#5)
+		-^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/access/AccessControl.sol#4)
+		-^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#4)
+		-^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/token/ERC1155/utils/ERC1155Holder.sol#4)
+		-^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/token/ERC721/utils/ERC721Holder.sol#4)
+		-^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#4)
+		-^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Context.sol#4)
+		-^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Errors.sol#4)
+		-^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/introspection/ERC165.sol#4)
+	- Version constraint ^0.8.0 is used by:
+		-^0.8.0 (lib/v4-core/src/interfaces/IExtsload.sol#2)
+		-^0.8.0 (lib/v4-core/src/interfaces/IHooks.sol#2)
+		-^0.8.0 (lib/v4-core/src/interfaces/IProtocolFees.sol#2)
+		-^0.8.0 (lib/v4-core/src/interfaces/external/IERC20Minimal.sol#2)
+		-^0.8.0 (lib/v4-core/src/interfaces/external/IERC6909Claims.sol#2)
+		-^0.8.0 (lib/v4-core/src/libraries/CustomRevert.sol#2)
+		-^0.8.0 (lib/v4-core/src/libraries/SafeCast.sol#2)
+		-^0.8.0 (lib/v4-core/src/types/BalanceDelta.sol#2)
+		-^0.8.0 (lib/v4-core/src/types/BeforeSwapDelta.sol#2)
+		-^0.8.0 (lib/v4-core/src/types/Currency.sol#2)
+		-^0.8.0 (lib/v4-core/src/types/PoolId.sol#2)
+		-^0.8.0 (lib/v4-core/src/types/PoolKey.sol#2)
+		-^0.8.0 (lib/v4-periphery/lib/permit2/src/interfaces/IAllowanceTransfer.sol#2)
+		-^0.8.0 (lib/v4-periphery/lib/permit2/src/interfaces/IEIP712.sol#2)
+		-^0.8.0 (lib/v4-periphery/src/interfaces/IEIP712_v4.sol#2)
+		-^0.8.0 (lib/v4-periphery/src/interfaces/IERC721Permit_v4.sol#2)
+		-^0.8.0 (lib/v4-periphery/src/interfaces/IImmutableState.sol#2)
+		-^0.8.0 (lib/v4-periphery/src/interfaces/IMulticall_v4.sol#2)
+		-^0.8.0 (lib/v4-periphery/src/interfaces/INotifier.sol#2)
+		-^0.8.0 (lib/v4-periphery/src/interfaces/IPermit2Forwarder.sol#2)
+		-^0.8.0 (lib/v4-periphery/src/interfaces/IPoolInitializer_v4.sol#2)
+		-^0.8.0 (lib/v4-periphery/src/interfaces/IPositionManager.sol#2)
+		-^0.8.0 (lib/v4-periphery/src/interfaces/ISubscriber.sol#2)
+		-^0.8.0 (lib/v4-periphery/src/interfaces/IUnorderedNonce.sol#2)
+	- Version constraint ^0.8.24 is used by:
+		-^0.8.24 (lib/v4-core/src/interfaces/IExttload.sol#2)
+		-^0.8.24 (lib/v4-core/src/interfaces/IPoolManager.sol#2)
+		-^0.8.24 (lib/v4-core/src/types/PoolOperation.sol#2)
+		-^0.8.24 (lib/v4-periphery/src/libraries/PositionInfoLibrary.sol#2)
+	- Version constraint ^0.8.26 is used by:
+		-^0.8.26 (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#2)
+		-^0.8.26 (src/v2-research-experiment/CommunityTimelockV2.sol#2)
+		-^0.8.26 (src/v2-research-experiment/RetroPickLauncherTokenV2.sol#2)
+		-^0.8.26 (src/v2-research-experiment/interfaces/ICommunityFeesV2.sol#2)
+		-^0.8.26 (src/v2-research-experiment/interfaces/IGraduationExecutorV2.sol#2)
+		-^0.8.26 (src/v2-research-experiment/interfaces/IRetroPickLaunchpadV2.sol#2)
+		-^0.8.26 (src/v2-research-experiment/libraries/ExactAssetV2.sol#2)
+		-^0.8.26 (src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol#2)
+		-^0.8.26 (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#2)
+	- Version constraint >=0.5.0 is used by:
+		->=0.5.0 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/token/ERC721/IERC721Receiver.sol#4)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#different-pragma-directives-are-used
+
+Detector: dead-code
+AccessControl._setRoleAdmin(bytes32,bytes32) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/access/AccessControl.sol#168-172) is never used and should be removed
+Context._contextSuffixLength() (lib/openzeppelin-contracts/contracts/utils/Context.sol#25-27) is never used and should be removed
+Context._msgData() (lib/openzeppelin-contracts/contracts/utils/Context.sol#21-23) is never used and should be removed
+add(BalanceDelta,BalanceDelta) (lib/v4-core/src/types/BalanceDelta.sol#20-32) is never used and should be removed
+eq(BalanceDelta,BalanceDelta) (lib/v4-core/src/types/BalanceDelta.sol#48-50) is never used and should be removed
+equals(Currency,Currency) (lib/v4-core/src/types/Currency.sol#12-14) is never used and should be removed
+greaterThan(Currency,Currency) (lib/v4-core/src/types/Currency.sol#16-18) is never used and should be removed
+greaterThanOrEqualTo(Currency,Currency) (lib/v4-core/src/types/Currency.sol#24-26) is never used and should be removed
+lessThan(Currency,Currency) (lib/v4-core/src/types/Currency.sol#20-22) is never used and should be removed
+neq(BalanceDelta,BalanceDelta) (lib/v4-core/src/types/BalanceDelta.sol#52-54) is never used and should be removed
+sub(BalanceDelta,BalanceDelta) (lib/v4-core/src/types/BalanceDelta.sol#34-46) is never used and should be removed
+toBalanceDelta(int128,int128) (lib/v4-core/src/types/BalanceDelta.sol#14-18) is never used and should be removed
+toBeforeSwapDelta(int128,int128) (lib/v4-core/src/types/BeforeSwapDelta.sol#9-16) is never used and should be removed
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#dead-code
+
+Detector: solc-version
+Version constraint >=0.6.2 contains known severe issues (https://solidity.readthedocs.io/en/latest/bugs.html)
+	- MissingSideEffectsOnSelectorAccess
+	- AbiReencodingHeadOverflowWithStaticArrayCleanup
+	- DirtyBytesArrayToStorage
+	- NestedCalldataArrayAbiReencodingSizeValidation
+	- ABIDecodeTwoDimensionalArrayMemory
+	- KeccakCaching
+	- EmptyByteArrayCopy
+	- DynamicArrayCleanup
+	- MissingEscapingInFormatting
+	- ArraySliceDynamicallyEncodedBaseType
+	- ImplicitConstructorCallvalueCheck
+	- TupleAssignmentMultiStackSlotComponents
+	- MemoryArrayCreationOverflow.
+It is used by:
+	- >=0.6.2 (lib/openzeppelin-contracts/contracts/interfaces/IERC1363.sol#4)
+	- >=0.6.2 (lib/openzeppelin-contracts/contracts/interfaces/IERC20Metadata.sol#4)
+	- >=0.6.2 (lib/openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Metadata.sol#4)
+	- >=0.6.2 (lib/openzeppelin-contracts/contracts/token/ERC721/IERC721.sol#4)
+	- >=0.6.2 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/token/ERC1155/IERC1155Receiver.sol#4)
+Version constraint >=0.4.16 contains known severe issues (https://solidity.readthedocs.io/en/latest/bugs.html)
+	- DirtyBytesArrayToStorage
+	- ABIDecodeTwoDimensionalArrayMemory
+	- KeccakCaching
+	- EmptyByteArrayCopy
+	- DynamicArrayCleanup
+	- ImplicitConstructorCallvalueCheck
+	- TupleAssignmentMultiStackSlotComponents
+	- MemoryArrayCreationOverflow
+	- privateCanBeOverridden
+	- SignedArrayStorageCopy
+	- ABIEncoderV2StorageArrayWithMultiSlotElement
+	- DynamicConstructorArgumentsClippedABIV2
+	- UninitializedFunctionPointerInConstructor_0.4.x
+	- IncorrectEventSignatureInLibraries_0.4.x
+	- ExpExponentCleanup
+	- NestedArrayFunctionCallDecoder
+	- ZeroFunctionSelector.
+It is used by:
+	- >=0.4.16 (lib/openzeppelin-contracts/contracts/interfaces/IERC165.sol#4)
+	- >=0.4.16 (lib/openzeppelin-contracts/contracts/interfaces/IERC20.sol#4)
+	- >=0.4.16 (lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol#4)
+	- >=0.4.16 (lib/openzeppelin-contracts/contracts/utils/introspection/IERC165.sol#4)
+	- >=0.4.16 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/introspection/IERC165.sol#4)
+Version constraint >=0.8.4 contains known severe issues (https://solidity.readthedocs.io/en/latest/bugs.html)
+	- FullInlinerNonExpressionSplitArgumentEvaluationOrder
+	- MissingSideEffectsOnSelectorAccess
+	- AbiReencodingHeadOverflowWithStaticArrayCleanup
+	- DirtyBytesArrayToStorage
+	- DataLocationChangeInInternalOverride
+	- NestedCalldataArrayAbiReencodingSizeValidation
+	- SignedImmutables.
+It is used by:
+	- >=0.8.4 (lib/openzeppelin-contracts/contracts/interfaces/draft-IERC6093.sol#4)
+	- >=0.8.4 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/access/IAccessControl.sol#4)
+Version constraint ^0.8.20 contains known severe issues (https://solidity.readthedocs.io/en/latest/bugs.html)
+	- VerbatimInvalidDeduplication
+	- FullInlinerNonExpressionSplitArgumentEvaluationOrder
+	- MissingSideEffectsOnSelectorAccess.
+It is used by:
+	- ^0.8.20 (lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol#4)
+	- ^0.8.20 (lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Burnable.sol#4)
+	- ^0.8.20 (lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol#4)
+	- ^0.8.20 (lib/openzeppelin-contracts/contracts/utils/Context.sol#4)
+	- ^0.8.20 (lib/openzeppelin-contracts/contracts/utils/Panic.sol#4)
+	- ^0.8.20 (lib/openzeppelin-contracts/contracts/utils/ReentrancyGuard.sol#4)
+	- ^0.8.20 (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#5)
+	- ^0.8.20 (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#4)
+	- ^0.8.20 (lib/openzeppelin-contracts/contracts/utils/math/SafeCast.sol#5)
+	- ^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/access/AccessControl.sol#4)
+	- ^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#4)
+	- ^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/token/ERC1155/utils/ERC1155Holder.sol#4)
+	- ^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/token/ERC721/utils/ERC721Holder.sol#4)
+	- ^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#4)
+	- ^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Context.sol#4)
+	- ^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Errors.sol#4)
+	- ^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/introspection/ERC165.sol#4)
+Version constraint ^0.8.0 contains known severe issues (https://solidity.readthedocs.io/en/latest/bugs.html)
+	- FullInlinerNonExpressionSplitArgumentEvaluationOrder
+	- MissingSideEffectsOnSelectorAccess
+	- AbiReencodingHeadOverflowWithStaticArrayCleanup
+	- DirtyBytesArrayToStorage
+	- DataLocationChangeInInternalOverride
+	- NestedCalldataArrayAbiReencodingSizeValidation
+	- SignedImmutables
+	- ABIDecodeTwoDimensionalArrayMemory
+	- KeccakCaching.
+It is used by:
+	- ^0.8.0 (lib/v4-core/src/interfaces/IExtsload.sol#2)
+	- ^0.8.0 (lib/v4-core/src/interfaces/IHooks.sol#2)
+	- ^0.8.0 (lib/v4-core/src/interfaces/IProtocolFees.sol#2)
+	- ^0.8.0 (lib/v4-core/src/interfaces/external/IERC20Minimal.sol#2)
+	- ^0.8.0 (lib/v4-core/src/interfaces/external/IERC6909Claims.sol#2)
+	- ^0.8.0 (lib/v4-core/src/libraries/CustomRevert.sol#2)
+	- ^0.8.0 (lib/v4-core/src/libraries/SafeCast.sol#2)
+	- ^0.8.0 (lib/v4-core/src/types/BalanceDelta.sol#2)
+	- ^0.8.0 (lib/v4-core/src/types/BeforeSwapDelta.sol#2)
+	- ^0.8.0 (lib/v4-core/src/types/Currency.sol#2)
+	- ^0.8.0 (lib/v4-core/src/types/PoolId.sol#2)
+	- ^0.8.0 (lib/v4-core/src/types/PoolKey.sol#2)
+	- ^0.8.0 (lib/v4-periphery/lib/permit2/src/interfaces/IAllowanceTransfer.sol#2)
+	- ^0.8.0 (lib/v4-periphery/lib/permit2/src/interfaces/IEIP712.sol#2)
+	- ^0.8.0 (lib/v4-periphery/src/interfaces/IEIP712_v4.sol#2)
+	- ^0.8.0 (lib/v4-periphery/src/interfaces/IERC721Permit_v4.sol#2)
+	- ^0.8.0 (lib/v4-periphery/src/interfaces/IImmutableState.sol#2)
+	- ^0.8.0 (lib/v4-periphery/src/interfaces/IMulticall_v4.sol#2)
+	- ^0.8.0 (lib/v4-periphery/src/interfaces/INotifier.sol#2)
+	- ^0.8.0 (lib/v4-periphery/src/interfaces/IPermit2Forwarder.sol#2)
+	- ^0.8.0 (lib/v4-periphery/src/interfaces/IPoolInitializer_v4.sol#2)
+	- ^0.8.0 (lib/v4-periphery/src/interfaces/IPositionManager.sol#2)
+	- ^0.8.0 (lib/v4-periphery/src/interfaces/ISubscriber.sol#2)
+	- ^0.8.0 (lib/v4-periphery/src/interfaces/IUnorderedNonce.sol#2)
+Version constraint >=0.5.0 contains known severe issues (https://solidity.readthedocs.io/en/latest/bugs.html)
+	- DirtyBytesArrayToStorage
+	- ABIDecodeTwoDimensionalArrayMemory
+	- KeccakCaching
+	- EmptyByteArrayCopy
+	- DynamicArrayCleanup
+	- ImplicitConstructorCallvalueCheck
+	- TupleAssignmentMultiStackSlotComponents
+	- MemoryArrayCreationOverflow
+	- privateCanBeOverridden
+	- SignedArrayStorageCopy
+	- ABIEncoderV2StorageArrayWithMultiSlotElement
+	- DynamicConstructorArgumentsClippedABIV2
+	- UninitializedFunctionPointerInConstructor
+	- IncorrectEventSignatureInLibraries
+	- ABIEncoderV2PackedStorage.
+It is used by:
+	- >=0.5.0 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/token/ERC721/IERC721Receiver.sol#4)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#incorrect-versions-of-solidity
+
+Detector: low-level-calls
+Low level call in CommunityAssetTreasuryVaultV2.spend(address,address,uint256,bytes32) (src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol#139-159):
+	- (ok,None) = address(recipient).call{value: amount}() (src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol#151)
+Low level call in CommunityRevenueRouterV2._claim(address,address,uint256) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#442-461):
+	- (ok,None) = address(recipient).call{value: amount}() (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#453)
+Low level call in TimelockController._execute(address,uint256,bytes) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#411-414):
+	- (success,returndata) = target.call{value: value}(data) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#412)
+Low level call in Address.sendValue(address,uint256) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#33-42):
+	- (success,returndata) = recipient.call{value: amount}() (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#38)
+Low level call in Address.functionCallWithValue(address,bytes,uint256) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#75-81):
+	- (success,returndata) = target.call{value: value}(data) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#79)
+Low level call in Address.functionStaticCall(address,bytes) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#87-90):
+	- (success,returndata) = target.staticcall(data) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#88)
+Low level call in Address.functionDelegateCall(address,bytes) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#96-99):
+	- (success,returndata) = target.delegatecall(data) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#97)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#low-level-calls
+
+Detector: naming-convention
+Function IEIP712.DOMAIN_SEPARATOR() (lib/v4-periphery/lib/permit2/src/interfaces/IEIP712.sol#5) is not in mixedCase
+Contract IEIP712_v4 (lib/v4-periphery/src/interfaces/IEIP712_v4.sol#6-10) is not in CapWords
+Function IEIP712_v4.DOMAIN_SEPARATOR() (lib/v4-periphery/src/interfaces/IEIP712_v4.sol#9) is not in mixedCase
+Contract IERC721Permit_v4 (lib/v4-periphery/src/interfaces/IERC721Permit_v4.sol#6-38) is not in CapWords
+Contract IMulticall_v4 (lib/v4-periphery/src/interfaces/IMulticall_v4.sol#6-13) is not in CapWords
+Contract IPoolInitializer_v4 (lib/v4-periphery/src/interfaces/IPoolInitializer_v4.sol#8-15) is not in CapWords
+Parameter PositionInfoLibrary.initialize(PoolKey,int24,int24)._poolKey (lib/v4-periphery/src/libraries/PositionInfoLibrary.sol#91) is not in mixedCase
+Parameter PositionInfoLibrary.initialize(PoolKey,int24,int24)._tickLower (lib/v4-periphery/src/libraries/PositionInfoLibrary.sol#91) is not in mixedCase
+Parameter PositionInfoLibrary.initialize(PoolKey,int24,int24)._tickUpper (lib/v4-periphery/src/libraries/PositionInfoLibrary.sol#91) is not in mixedCase
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#conformance-to-solidity-naming-conventions
+
+Detector: too-many-digits
+Math.log2(uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#619-658) uses literals with too many digits:
+	- r = r | byte(uint256,uint256)(x >> r,0x0000010102020202030303030303030300000000000000000000000000000000) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#656)
+CustomRevert.bubbleUpAndRevertWith(address,bytes4,bytes4) (lib/v4-core/src/libraries/CustomRevert.sol#83-119) uses literals with too many digits:
+	- mstore(uint256,uint256)(fmp_bubbleUpAndRevertWith_asm_0 + 0x24,revertingFunctionSelector & 0xffffffff00000000000000000000000000000000000000000000000000000000) (lib/v4-core/src/libraries/CustomRevert.sol#98-101)
+CustomRevert.bubbleUpAndRevertWith(address,bytes4,bytes4) (lib/v4-core/src/libraries/CustomRevert.sol#83-119) uses literals with too many digits:
+	- mstore(uint256,uint256)(fmp_bubbleUpAndRevertWith_asm_0 + 0xc4 + encodedDataSize_bubbleUpAndRevertWith_asm_0,additionalContext & 0xffffffff00000000000000000000000000000000000000000000000000000000) (lib/v4-core/src/libraries/CustomRevert.sol#113-116)
+CurrencyLibrary.transfer(Currency,address,uint256) (lib/v4-core/src/types/Currency.sol#40-88) uses literals with too many digits:
+	- mstore(uint256,uint256)(fmp_transfer_asm_1,0xa9059cbb00000000000000000000000000000000000000000000000000000000) (lib/v4-core/src/types/Currency.sol#60)
+PositionInfoLibrary.slitherConstructorConstantVariables() (lib/v4-periphery/src/libraries/PositionInfoLibrary.sol#35-104) uses literals with too many digits:
+	- MASK_UPPER_200_BITS = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000000000000 (lib/v4-periphery/src/libraries/PositionInfoLibrary.sol#38)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#too-many-digits
+
+Detector: immutable-states
+TimelockController._minDelay (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#32) should be immutable 
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#state-variables-that-could-be-declared-immutable
+src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol analyzed (81 contracts with 102 detectors), 129 result(s) found
+'forge config --json' running
+'/home/ubuntu/.solc-select/artifacts/solc-0.8.26/solc-0.8.26 --version' running
+'/home/ubuntu/.solc-select/artifacts/solc-0.8.26/solc-0.8.26 forge-std/=lib/forge-std/src/ @openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/ @uniswap/v4-core/src/=lib/v4-core/src/ @uniswap/v4-periphery/src/=lib/v4-periphery/src/ @uniswap/v4-hooks-public/src/=lib/v4-hooks-public/src/ permit2/src/=lib/v4-periphery/lib/permit2/src/ lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/ lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/ lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/ lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/ lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/ lib/v4-deployment-periphery/lib/permit2/:solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/ lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/ lib/v4-deployment-periphery/lib/v4-core/:solmate/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/ lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/ lib/v4-deployment-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/ lib/v4-deployment-periphery/:permit2/=lib/v4-deployment-periphery/lib/permit2/ lib/v4-deployment-periphery/:v4-core/=lib/v4-deployment-periphery/lib/v4-core/src/ lib/v4-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/ lib/v4-periphery/:permit2/=lib/v4-periphery/lib/permit2/src/ @ensdomains/=lib/v4-deployment-periphery/lib/v4-core/node_modules/@ensdomains/ @openzeppelin/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/ @uniswap/v4-core/=lib/v4-deployment-periphery/lib/v4-core/ ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/ erc4626-tests/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/erc4626-tests/ forge-gas-snapshot/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/src/ hardhat/=lib/v4-deployment-periphery/lib/v4-core/node_modules/hardhat/ openzeppelin-contracts/=lib/openzeppelin-contracts/contracts/ permit2/=lib/v4-periphery/lib/permit2/src/ solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/ v4-core/=lib/v4-core/src/ v4-deployment-periphery/=lib/v4-deployment-periphery/ v4-hooks-public/=lib/v4-hooks-public/src/ v4-periphery/=lib/v4-periphery/src/ src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol --combined-json abi,ast,bin,bin-runtime,srcmap,srcmap-runtime,userdoc,devdoc,hashes --optimize --optimize-runs 200 --via-ir --evm-version cancun --allow-paths .,/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/src/v2-research-experiment/m6' running

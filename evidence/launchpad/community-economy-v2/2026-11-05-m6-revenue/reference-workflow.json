@@ -1,0 +1,9 @@
+{
+  "projectIndex": "ATTEMPTED_FAILED_SCHEMA_EVOLUTION",
+  "details": "XERJ incremental index rejected new archive MANIFEST fields; existing source search and pinned local source reads used. No complete current project indexing claimed.",
+  "referenceCorpus": "retropick-v4-core",
+  "referenceCommit": "bea7f6d1c11cd5dc4f0d5151ffa37a1c239feee6",
+  "actualDependencyCommit": "59d3ecf53afa9264a16bba0e38f4c5d2231f80bc",
+  "referenceBehavior": "Hooks.afterSwap chooses unspecified currency using amountSpecified<0==zeroForOne, subtracts returned hook delta and requires full unlock reconciliation. New hook uses original RetroPick code plus separately authored in-kind branch; no upstream test router copied.",
+  "primaryDocumentation": "https://developers.uniswap.org/docs/protocols/v4/guides/custom-accounting"
+}

@@ -1,0 +1,27 @@
+Diff in test/v2/community-economy/treasury-integration/CommunityTreasuryUSDCInvariant.t.sol:
+2   2    | pragma solidity ^0.8.26;
+3   3    | 
+4   4    | import {Test} from "forge-std/Test.sol";
+5        |-import {
+6        |-    CommunityTreasuryIntegrationFixtureV2,
+7        |-    TreasuryIntegrationQuote
+8        |-} from "./CommunityTreasuryIntegration.t.sol";
+    5    |+import {CommunityTreasuryIntegrationFixtureV2, TreasuryIntegrationQuote} from "./CommunityTreasuryIntegration.t.sol";
+9   6    | import {CommunityTreasuryVaultV2 as Vault} from "../../../../src/v2/CommunityTreasuryVaultV2.sol";
+10  7    | import {CommunityTimelockV2 as Timelock} from "../../../../src/v2/CommunityTimelockV2.sol";
+11  8    | import {CommunityFeeRouterV2 as Router} from "../../../../src/v2/CommunityFeeRouterV2.sol";
+--------------------------------------------------------------------------------185 182  |         quoteUnderTest = quote();
+186 183  |         (curveUnderTest, routerUnderTest, vaultUnderTest) = launch(CIRCLE);
+187 184  |         handler = new TreasuryUSDCStateHandler(
+188      |-            curveUnderTest,
+189      |-            routerUnderTest,
+190      |-            vaultUnderTest,
+191      |-            quoteUnderTest,
+192      |-            creator,
+193      |-            proposer,
+194      |-            contributor,
+195      |-            recipient
+    185  |+            curveUnderTest, routerUnderTest, vaultUnderTest, quoteUnderTest, creator, proposer, contributor, recipient
+196 186  |         );
+197 187  | 
+198 188  |         // Deterministic reachability seeds; invariant calls are randomized afterwards.

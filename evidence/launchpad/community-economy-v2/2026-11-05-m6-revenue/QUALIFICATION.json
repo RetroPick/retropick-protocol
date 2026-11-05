@@ -1,0 +1,99 @@
+{
+  "status": "LOCAL_FINANCIAL_EXPERIMENT_PASS_NOT_RELEASE_QUALIFIED",
+  "scope": "Experimental in-kind Router and genuine local V4 lifecycle; canonical source separation separately qualified",
+  "commands": [
+    {
+      "log": "router-unit-fuzz.log",
+      "scope": "Native/Q6/token accounting source doubles, seed0x6a,10000 fuzz cases",
+      "passed": 13,
+      "failed": 0,
+      "skipped": 0,
+      "logSha256": "cd6fdf6126c4f3220a482b21056a49127dc0a53ea77e254e7aa9a10404d735d0",
+      "statefulResults": []
+    },
+    {
+      "log": "router-unit-fuzz-6b.log",
+      "scope": "Same accounting property seed0x6b,10000 fuzz cases",
+      "passed": 13,
+      "failed": 0,
+      "skipped": 0,
+      "logSha256": "161396ced61deb33a2a74501702a19cfee014fd653fbb9d558f3c9690a854e6f",
+      "statefulResults": []
+    },
+    {
+      "log": "router-invariant-6a.log",
+      "scope": "Earlier native-only action model seed0x6a,256x128",
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "logSha256": "7fa9c26c66a2f3de27999b8358962c574dd4b468d557aeae06e405a393815178",
+      "statefulResults": [
+        {
+          "runs": 256,
+          "calls": 32768,
+          "unexpectedReverts": 0
+        }
+      ]
+    },
+    {
+      "log": "router-invariant-6b.log",
+      "scope": "Earlier native-only action model seed0x6b,256x128",
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "logSha256": "b43389076f988531590acdcbda4f32c00e193b1184c84f3bb86e1a08ebb5daa2",
+      "statefulResults": [
+        {
+          "runs": 256,
+          "calls": 32768,
+          "unexpectedReverts": 0
+        }
+      ]
+    },
+    {
+      "log": "router-invariant-6c-native-usdc.log",
+      "scope": "Final native+modeledQ6 action model seed0x6c, each256x128",
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "logSha256": "3ee40f897743988ecfca2c63496e6f545ef53de088db20ed9049eb9b880f4d95",
+      "statefulResults": [
+        {
+          "runs": 256,
+          "calls": 32768,
+          "unexpectedReverts": 0
+        },
+        {
+          "runs": 256,
+          "calls": 32768,
+          "unexpectedReverts": 0
+        }
+      ]
+    }
+  ],
+  "sourceSha256": {
+    "contracts/src/v2-research-experiment/m6/CommunityV4GraduationExecutorV2.sol": "a70772b94788fc37dc6501a4139107648736b635851138a8f4a740af692d41c9",
+    "contracts/src/v2-research-experiment/m6/CommunityRevenueLaunchBuilderV2.sol": "8e7a409aa74c6d59aa59b206fa87caf5c1c2bc96e499f1236a77ebd28373f2c8",
+    "contracts/src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol": "02481ea86b8b903a5adf15c2a4a7a8899f76fe952f2fbb9a0c66c4635fdf4a10",
+    "contracts/src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol": "d7d061741e071e5c093256cd7ae86b4ec3075a715b116f0ef1ba0d2be20239e0",
+    "contracts/src/v2-research-experiment/m6/CommunityRevenueDeployersV2.sol": "fbf575ef56c3adc4d4f176bac4bd28036bef95180d24e00394da1e9377e5042b",
+    "contracts/src/v2-research-experiment/m6/hooks/CommunityV4FeeHookV2.sol": "e072344a6e08effcae718cda989453e1f96b6d9bc39211ddfa366c81eee7262a",
+    "contracts/test/v2/research-experiment/m6/CommunityRevenueRouterV2.t.sol": "6d13d0631671f7119b8a0d31de7e0e84420bae7fd7a022ff098b71de7545a9ea",
+    "contracts/test/v2/research-experiment/m6/CommunityRevenueRouterInvariant.t.sol": "454f74980e4b10e57b89e84f282c2b6df265e2b91992f35a8e5e7e50e8bbcb36",
+    "contracts/test/v2/research-experiment/m6-revenue/GenuineV4Revenue.t.sol": "b631ca4612f8234f7723ddceb62294ef3b85fc4e2a33474d2fdfac6002f55435"
+  },
+  "limitations": [
+    "No real fork, liveCircle or Safe qualification",
+    "New Treasury callback matrix/maximum gas/expanded independent review still pending",
+    "Concrete fee activation spec not accepted for canonical promotion",
+    "Imported static-analysis finding closure not fully reviewed",
+    "Historical baseline checker intentionally reports pre-existing approved V2 differences and new owner-directed extraction; unchanged checker failure retained"
+  ],
+  "genuineLatestEvidence": "20261105T135901201409Z/manifest.json",
+  "genuineLatestResult": {
+    "passed": 2,
+    "failed": 0,
+    "skipped": 0
+  },
+  "formatEquivalence": "router-format-equivalence.json; earlier accounting/model logs precede whitespace-only Router formatting. Final genuine lifecycle uses final formatted source."
+}

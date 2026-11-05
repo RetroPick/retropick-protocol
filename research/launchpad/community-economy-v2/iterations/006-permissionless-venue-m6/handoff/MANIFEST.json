@@ -1,0 +1,448 @@
+{
+  "status": "EXPERIMENTAL_NEW_DEPLOYMENT_ONLY",
+  "sourceCommit": "940050bb939c923bdf168daa29eaeaf00b3ad187",
+  "artifacts": [
+    {
+      "name": "CommunityRevenueRouterV2",
+      "sourceUnit": "src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol",
+      "sourceSha256": "02481ea86b8b903a5adf15c2a4a7a8899f76fe952f2fbb9a0c66c4635fdf4a10",
+      "abiSha256": "015c3733149be5c3d12b76e4e1d8b976abf14c0643889748c74112fe94f404f0",
+      "runtimeTemplateBytes": 14415,
+      "initcodeTemplateBytes": 20814,
+      "compiler": {
+        "version": "0.8.26+commit.8a97fa7a"
+      },
+      "settings": {
+        "remappings": [
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/:permit2/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/:permit2/src/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/:v4-core/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/:solmate/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/:solmate/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/:permit2/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/:permit2/src/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/lib/permit2/src/",
+          "@ensdomains/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/node_modules/@ensdomains/",
+          "@openzeppelin/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "@openzeppelin/contracts/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/openzeppelin-contracts/contracts/",
+          "@uniswap/v4-core/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/",
+          "@uniswap/v4-core/src/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-core/src/",
+          "@uniswap/v4-hooks-public/src/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-hooks-public/src/",
+          "@uniswap/v4-periphery/src/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/src/",
+          "ds-test/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "erc4626-tests/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/erc4626-tests/",
+          "forge-gas-snapshot/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/src/",
+          "forge-std/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/forge-std/src/",
+          "hardhat/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/node_modules/hardhat/",
+          "openzeppelin-contracts/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/openzeppelin-contracts/contracts/",
+          "permit2/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/lib/permit2/src/",
+          "permit2/src/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/lib/permit2/src/",
+          "solmate/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "v4-core/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-core/src/",
+          "v4-deployment-periphery/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/",
+          "v4-hooks-public/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-hooks-public/src/",
+          "v4-periphery/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/src/"
+        ],
+        "optimizer": {
+          "enabled": true,
+          "runs": 200
+        },
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "compilationTarget": {
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol": "CommunityRevenueRouterV2"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "viaIR": true
+      }
+    },
+    {
+      "name": "CommunityAssetTreasuryVaultV2",
+      "sourceUnit": "src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol",
+      "sourceSha256": "d7d061741e071e5c093256cd7ae86b4ec3075a715b116f0ef1ba0d2be20239e0",
+      "abiSha256": "ae55d5d3da61942f8aa88c7b39d608ff46002d25f57b21f6eeaf25215bc5551c",
+      "runtimeTemplateBytes": 5841,
+      "initcodeTemplateBytes": 8376,
+      "compiler": {
+        "version": "0.8.26+commit.8a97fa7a"
+      },
+      "settings": {
+        "remappings": [
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/:permit2/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/:permit2/src/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/:v4-core/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/:solmate/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/:solmate/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/:permit2/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/:permit2/src/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/lib/permit2/src/",
+          "@ensdomains/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/node_modules/@ensdomains/",
+          "@openzeppelin/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "@openzeppelin/contracts/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/openzeppelin-contracts/contracts/",
+          "@uniswap/v4-core/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/",
+          "@uniswap/v4-core/src/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-core/src/",
+          "@uniswap/v4-hooks-public/src/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-hooks-public/src/",
+          "@uniswap/v4-periphery/src/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/src/",
+          "ds-test/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "erc4626-tests/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/erc4626-tests/",
+          "forge-gas-snapshot/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/src/",
+          "forge-std/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/forge-std/src/",
+          "hardhat/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/node_modules/hardhat/",
+          "openzeppelin-contracts/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/openzeppelin-contracts/contracts/",
+          "permit2/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/lib/permit2/src/",
+          "permit2/src/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/lib/permit2/src/",
+          "solmate/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "v4-core/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-core/src/",
+          "v4-deployment-periphery/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/",
+          "v4-hooks-public/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-hooks-public/src/",
+          "v4-periphery/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/src/"
+        ],
+        "optimizer": {
+          "enabled": true,
+          "runs": 200
+        },
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "compilationTarget": {
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol": "CommunityAssetTreasuryVaultV2"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "viaIR": true
+      }
+    },
+    {
+      "name": "CommunityRevenueDeployerV2",
+      "sourceUnit": "src/v2-research-experiment/m6/CommunityRevenueDeployersV2.sol",
+      "sourceSha256": "fbf575ef56c3adc4d4f176bac4bd28036bef95180d24e00394da1e9377e5042b",
+      "abiSha256": "b60b07603a14311381d7a3ed6ce35a2aab4e54b7a5872d2f5b32ee5ed280dbe8",
+      "runtimeTemplateBytes": 23812,
+      "initcodeTemplateBytes": 24002,
+      "compiler": {
+        "version": "0.8.26+commit.8a97fa7a"
+      },
+      "settings": {
+        "remappings": [
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/:permit2/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/:permit2/src/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/:v4-core/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/:solmate/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/:solmate/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/:permit2/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/:permit2/src/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/lib/permit2/src/",
+          "@ensdomains/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/node_modules/@ensdomains/",
+          "@openzeppelin/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "@openzeppelin/contracts/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/openzeppelin-contracts/contracts/",
+          "@uniswap/v4-core/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/",
+          "@uniswap/v4-core/src/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-core/src/",
+          "@uniswap/v4-hooks-public/src/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-hooks-public/src/",
+          "@uniswap/v4-periphery/src/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/src/",
+          "ds-test/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "erc4626-tests/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/erc4626-tests/",
+          "forge-gas-snapshot/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/src/",
+          "forge-std/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/forge-std/src/",
+          "hardhat/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/node_modules/hardhat/",
+          "openzeppelin-contracts/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/openzeppelin-contracts/contracts/",
+          "permit2/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/lib/permit2/src/",
+          "permit2/src/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/lib/permit2/src/",
+          "solmate/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "v4-core/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-core/src/",
+          "v4-deployment-periphery/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/",
+          "v4-hooks-public/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-hooks-public/src/",
+          "v4-periphery/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/src/"
+        ],
+        "optimizer": {
+          "enabled": true,
+          "runs": 200
+        },
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "compilationTarget": {
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/src/v2-research-experiment/m6/CommunityRevenueDeployersV2.sol": "CommunityRevenueDeployerV2"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "viaIR": true
+      }
+    },
+    {
+      "name": "CommunityAssetTreasuryDeployerV2",
+      "sourceUnit": "src/v2-research-experiment/m6/CommunityRevenueDeployersV2.sol",
+      "sourceSha256": "fbf575ef56c3adc4d4f176bac4bd28036bef95180d24e00394da1e9377e5042b",
+      "abiSha256": "e7f4a4ff51fa0c0b045206be4997383b1e3c5fb82480f6ccb9fd282f921d927b",
+      "runtimeTemplateBytes": 17435,
+      "initcodeTemplateBytes": 17625,
+      "compiler": {
+        "version": "0.8.26+commit.8a97fa7a"
+      },
+      "settings": {
+        "remappings": [
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/:permit2/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/:permit2/src/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/:v4-core/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/:solmate/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/:solmate/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/:permit2/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/:permit2/src/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/lib/permit2/src/",
+          "@ensdomains/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/node_modules/@ensdomains/",
+          "@openzeppelin/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "@openzeppelin/contracts/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/openzeppelin-contracts/contracts/",
+          "@uniswap/v4-core/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/",
+          "@uniswap/v4-core/src/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-core/src/",
+          "@uniswap/v4-hooks-public/src/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-hooks-public/src/",
+          "@uniswap/v4-periphery/src/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/src/",
+          "ds-test/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "erc4626-tests/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/erc4626-tests/",
+          "forge-gas-snapshot/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/src/",
+          "forge-std/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/forge-std/src/",
+          "hardhat/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/node_modules/hardhat/",
+          "openzeppelin-contracts/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/openzeppelin-contracts/contracts/",
+          "permit2/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/lib/permit2/src/",
+          "permit2/src/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/lib/permit2/src/",
+          "solmate/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "v4-core/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-core/src/",
+          "v4-deployment-periphery/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/",
+          "v4-hooks-public/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-hooks-public/src/",
+          "v4-periphery/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/src/"
+        ],
+        "optimizer": {
+          "enabled": true,
+          "runs": 200
+        },
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "compilationTarget": {
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/src/v2-research-experiment/m6/CommunityRevenueDeployersV2.sol": "CommunityAssetTreasuryDeployerV2"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "viaIR": true
+      }
+    },
+    {
+      "name": "CommunityRevenueLaunchBuilderV2",
+      "sourceUnit": "src/v2-research-experiment/m6/CommunityRevenueLaunchBuilderV2.sol",
+      "sourceSha256": "8e7a409aa74c6d59aa59b206fa87caf5c1c2bc96e499f1236a77ebd28373f2c8",
+      "abiSha256": "7059a6cb6e4ef7c83c1b3489d692462de07ff705944ade21f06da55beeaa6b32",
+      "runtimeTemplateBytes": 13416,
+      "initcodeTemplateBytes": 15144,
+      "compiler": {
+        "version": "0.8.26+commit.8a97fa7a"
+      },
+      "settings": {
+        "remappings": [
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/:permit2/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/:permit2/src/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/:v4-core/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/:solmate/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/:solmate/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/:permit2/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/:permit2/src/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/lib/permit2/src/",
+          "@ensdomains/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/node_modules/@ensdomains/",
+          "@openzeppelin/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "@openzeppelin/contracts/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/openzeppelin-contracts/contracts/",
+          "@uniswap/v4-core/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/",
+          "@uniswap/v4-core/src/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-core/src/",
+          "@uniswap/v4-hooks-public/src/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-hooks-public/src/",
+          "@uniswap/v4-periphery/src/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/src/",
+          "ds-test/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "erc4626-tests/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/erc4626-tests/",
+          "forge-gas-snapshot/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/src/",
+          "forge-std/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/forge-std/src/",
+          "hardhat/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/node_modules/hardhat/",
+          "openzeppelin-contracts/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/openzeppelin-contracts/contracts/",
+          "permit2/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/lib/permit2/src/",
+          "permit2/src/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/lib/permit2/src/",
+          "solmate/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "v4-core/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-core/src/",
+          "v4-deployment-periphery/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/",
+          "v4-hooks-public/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-hooks-public/src/",
+          "v4-periphery/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/src/"
+        ],
+        "optimizer": {
+          "enabled": true,
+          "runs": 200
+        },
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "compilationTarget": {
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/src/v2-research-experiment/m6/CommunityRevenueLaunchBuilderV2.sol": "CommunityRevenueLaunchBuilderV2"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "viaIR": true
+      }
+    },
+    {
+      "name": "CommunityV4FeeHookV2",
+      "sourceUnit": "src/v2-research-experiment/m6/hooks/CommunityV4FeeHookV2.sol",
+      "sourceSha256": "e072344a6e08effcae718cda989453e1f96b6d9bc39211ddfa366c81eee7262a",
+      "abiSha256": "2a7ac48e4cb9fc8a27bfd5f42880f8d139774879946b33cc4cac4919dc776ca7",
+      "runtimeTemplateBytes": 20321,
+      "initcodeTemplateBytes": 21434,
+      "compiler": {
+        "version": "0.8.26+commit.8a97fa7a"
+      },
+      "settings": {
+        "remappings": [
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/:permit2/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/:permit2/src/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/:v4-core/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/:solmate/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/:solmate/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/:permit2/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/:permit2/src/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/lib/permit2/src/",
+          "@ensdomains/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/node_modules/@ensdomains/",
+          "@openzeppelin/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "@openzeppelin/contracts/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/openzeppelin-contracts/contracts/",
+          "@uniswap/v4-core/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/",
+          "@uniswap/v4-core/src/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-core/src/",
+          "@uniswap/v4-hooks-public/src/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-hooks-public/src/",
+          "@uniswap/v4-periphery/src/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/src/",
+          "ds-test/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "erc4626-tests/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/erc4626-tests/",
+          "forge-gas-snapshot/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/src/",
+          "forge-std/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/forge-std/src/",
+          "hardhat/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/node_modules/hardhat/",
+          "openzeppelin-contracts/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/openzeppelin-contracts/contracts/",
+          "permit2/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/lib/permit2/src/",
+          "permit2/src/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/lib/permit2/src/",
+          "solmate/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "v4-core/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-core/src/",
+          "v4-deployment-periphery/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/",
+          "v4-hooks-public/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-hooks-public/src/",
+          "v4-periphery/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/src/"
+        ],
+        "optimizer": {
+          "enabled": true,
+          "runs": 200
+        },
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "compilationTarget": {
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/src/v2-research-experiment/m6/hooks/CommunityV4FeeHookV2.sol": "CommunityV4FeeHookV2"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "viaIR": true
+      }
+    },
+    {
+      "name": "CommunityV4GraduationExecutorV2",
+      "sourceUnit": "src/v2-research-experiment/m6/CommunityV4GraduationExecutorV2.sol",
+      "sourceSha256": "a70772b94788fc37dc6501a4139107648736b635851138a8f4a740af692d41c9",
+      "abiSha256": "18a224827224362f672b989731349b46c5339a11d67540d8c3f0c7d865d0ed14",
+      "runtimeTemplateBytes": 16465,
+      "initcodeTemplateBytes": 20953,
+      "compiler": {
+        "version": "0.8.26+commit.8a97fa7a"
+      },
+      "settings": {
+        "remappings": [
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/:permit2/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/:permit2/src/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/:v4-core/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/:solmate/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/:solmate/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/:permit2/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/:permit2/src/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/lib/permit2/src/",
+          "@ensdomains/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/node_modules/@ensdomains/",
+          "@openzeppelin/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "@openzeppelin/contracts/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/openzeppelin-contracts/contracts/",
+          "@uniswap/v4-core/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/",
+          "@uniswap/v4-core/src/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-core/src/",
+          "@uniswap/v4-hooks-public/src/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-hooks-public/src/",
+          "@uniswap/v4-periphery/src/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/src/",
+          "ds-test/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "erc4626-tests/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/erc4626-tests/",
+          "forge-gas-snapshot/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/src/",
+          "forge-std/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/forge-std/src/",
+          "hardhat/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/v4-core/node_modules/hardhat/",
+          "openzeppelin-contracts/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/openzeppelin-contracts/contracts/",
+          "permit2/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/lib/permit2/src/",
+          "permit2/src/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/lib/permit2/src/",
+          "solmate/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "v4-core/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-core/src/",
+          "v4-deployment-periphery/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-deployment-periphery/",
+          "v4-hooks-public/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-hooks-public/src/",
+          "v4-periphery/=/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/lib/v4-periphery/src/"
+        ],
+        "optimizer": {
+          "enabled": true,
+          "runs": 200
+        },
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "compilationTarget": {
+          "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/src/v2-research-experiment/m6/CommunityV4GraduationExecutorV2.sol": "CommunityV4GraduationExecutorV2"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "viaIR": true
+      }
+    }
+  ],
+  "runtimeLimit": 24576,
+  "initcodeLimit": 49152,
+  "limitations": [
+    "Compiler templates are not deployed runtime identities.",
+    "No production ABI files or manifests overwritten.",
+    "Canonical adoption and external qualification still gated."
+  ],
+  "qualificationEvidence": "evidence/launchpad/community-economy-v2/2026-11-05-m6-revenue/20261105T135901201409Z/manifest.json"
+}

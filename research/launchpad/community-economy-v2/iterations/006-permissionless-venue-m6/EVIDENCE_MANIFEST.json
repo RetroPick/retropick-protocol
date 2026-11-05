@@ -1,0 +1,316 @@
+{
+  "schemaVersion": 1,
+  "implementationCommit": "0a7f6a18ff1b58521352cb5ffffeafa619197826",
+  "draftPR": 48,
+  "status": "LOCAL_PASS_EXTERNAL_AND_ADOPTION_GATES_OPEN",
+  "files": {
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-kuru-extraction/.gitattributes": {
+      "bytes": 38,
+      "sha256": "d60da3ee657c609cc9e3bd1a4ffa9e723992f0952b8f30a2df58a6626fbb5776"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-kuru-extraction/artifact-final.json": {
+      "bytes": 73614,
+      "sha256": "cc883d94b8b400951a661d838189bf7a0bdb6ea16e787924631104bb223a6c95"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-kuru-extraction/artifact-boundary-pre-campaign.json": {
+      "bytes": 86724,
+      "sha256": "6db2db97bae63433e12e454176f7f21b9d9265ecf5818ed0713867ac15ee9874"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-kuru-extraction/full-v4-script-compile-and-fork-gate.log": {
+      "bytes": 1817,
+      "sha256": "ebc19d8e4770fbe850a024563fa559cf2ca21243aebf01f1477ab4cd4ebeca25"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-kuru-extraction/unit.log": {
+      "bytes": 6328,
+      "sha256": "40717eaf0dbc55815513135dbf548277537baa5934d626adb15a04e61f84a2c2"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-kuru-extraction/final-boundary-verify.json": {
+      "bytes": 442,
+      "sha256": "cf8365d9318a12d16dea43f2a6665899760513c783ab02f3ed782055ac412242"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-kuru-extraction/workflow-final-validation.json": {
+      "bytes": 274,
+      "sha256": "543274b5a23db049026813df2663ff5a864a900faeaaa07cb4e9cdd0af6486df"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-kuru-extraction/final-deployed-archive-verify.log": {
+      "bytes": 147,
+      "sha256": "cff6a263bfa2e1962523337270eba9020ab9e5ff728b79293cce5ed10e1f9e85"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-kuru-extraction/artifact-final-02.json": {
+      "bytes": 87844,
+      "sha256": "b521e8040bacaff31423a4ff6152ce44e5bd8a92adddf8effe240e6b795ba236"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-kuru-extraction/scoped-run-01/09-active-community.log": {
+      "bytes": 17627,
+      "sha256": "114477094198c19da86ffe7ec7f4cbe086477733ec041e8514b66a3fb5f85a28"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-kuru-extraction/scoped-run-01/03-foundry-version.log": {
+      "bytes": 155,
+      "sha256": "8241ab306541ac8339965f8e0f94f131a288f2a0f05c3587a8a84288459c7358"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-kuru-extraction/scoped-run-01/04-fmt.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-kuru-extraction/scoped-run-01/source-sha256.json": {
+      "bytes": 31681,
+      "sha256": "3ab143727406eb624310ce2cfa4a68e48ebec52db36a5cc7d1aa0f910313c4ff"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-kuru-extraction/scoped-run-01/11-legacy-unit.log": {
+      "bytes": 2116,
+      "sha256": "520bb4ad7937931da19db6fd21f8ef9d512e94a7a1e808f02adf9ef113d0a281"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-kuru-extraction/scoped-run-01/manifest.json": {
+      "bytes": 10385,
+      "sha256": "07acaa03d7675cb18de1fff9a5eed06dc25a4034b81e872dbbc387b598613876"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-kuru-extraction/scoped-run-01/02-deployed-archive-verify.log": {
+      "bytes": 147,
+      "sha256": "cff6a263bfa2e1962523337270eba9020ab9e5ff728b79293cce5ed10e1f9e85"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-kuru-extraction/scoped-run-01/12-legacy-factory.log": {
+      "bytes": 3491,
+      "sha256": "8a9ce8c8a3f61acd71d1644fd5c1e6c7bef53495d3489c70ba0b7e372afe5017"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-kuru-extraction/scoped-run-01/08-active-invariants.log": {
+      "bytes": 4398,
+      "sha256": "436573f205470e659b0e497a9aaf627dc033713f1d7f266aa71be3d6e9959f22"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-kuru-extraction/scoped-run-01/10-experimental-community.log": {
+      "bytes": 34367,
+      "sha256": "e69285c76b96809d4d53f59d7de577363c8ae2860037ffa2457020112336717c"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-kuru-extraction/scoped-run-01/01-archive-verify.log": {
+      "bytes": 442,
+      "sha256": "a67a363b6ff1c2c79b81e60e2e79a89dc8c46f96d7385c0098534abbf5dc0d83"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-kuru-extraction/scoped-run-01/13-active-build-sizes.log": {
+      "bytes": 82619,
+      "sha256": "1d54fd3bcfe2c43029d1e686de577d1be20a4752830d213931e83fbb4202e01b"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-kuru-extraction/scoped-run-01/07-active-v4-behavior.log": {
+      "bytes": 1447,
+      "sha256": "41451568aa476c176a57713e30347cdca255e1d19ddc28484828972fdf40721c"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-kuru-extraction/scoped-run-01/05-active-unit.log": {
+      "bytes": 5151,
+      "sha256": "0f8e22fd71eaed5aa972d0df07d452015e262892ef8eb591dbdcbeeb9f450b17"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-kuru-extraction/scoped-run-01/06-active-factory.log": {
+      "bytes": 2183,
+      "sha256": "d617ad3844b15707d2e4e8e1968ca3058a15ab7955920e602331850a63322c96"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-kuru-extraction/scoped-run-02/09-active-community.log": {
+      "bytes": 17620,
+      "sha256": "e736bf85c3d63b8f80f1cb10ddde5480edac1c1388df413f691f5bb61712389e"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-kuru-extraction/scoped-run-02/03-foundry-version.log": {
+      "bytes": 155,
+      "sha256": "8241ab306541ac8339965f8e0f94f131a288f2a0f05c3587a8a84288459c7358"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-kuru-extraction/scoped-run-02/04-fmt.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-kuru-extraction/scoped-run-02/source-sha256.json": {
+      "bytes": 32922,
+      "sha256": "455023aa2f2348d25b3b00b259d6f8ce7193fb1e491bf05ffce5d9349cb1aabc"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-kuru-extraction/scoped-run-02/11-legacy-unit.log": {
+      "bytes": 2115,
+      "sha256": "f23d9ea56a0ae74f609303fbf4959ff178d13d19183bf365565174b22630e0d6"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-kuru-extraction/scoped-run-02/manifest.json": {
+      "bytes": 10476,
+      "sha256": "015f4347564a79cff0c5d44bb88cb218543f4eabdfee9964050524142ae83cb6"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-kuru-extraction/scoped-run-02/02-deployed-archive-verify.log": {
+      "bytes": 147,
+      "sha256": "cff6a263bfa2e1962523337270eba9020ab9e5ff728b79293cce5ed10e1f9e85"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-kuru-extraction/scoped-run-02/12-legacy-factory.log": {
+      "bytes": 3491,
+      "sha256": "ff4a80599142ec096bcf3bcca870aa174d8fcab6ff332bc806fc5439587bafd9"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-kuru-extraction/scoped-run-02/08-active-invariants.log": {
+      "bytes": 4398,
+      "sha256": "758aa4992f7203c2f42049ae91298a87a79d124ed0324c480eeabebd873073d5"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-kuru-extraction/scoped-run-02/10-experimental-community.log": {
+      "bytes": 16115,
+      "sha256": "70bb112bd7866a5bf3025b98163e1b42e63653ff291b9ad9359c9a3aa30b122a"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-kuru-extraction/scoped-run-02/01-archive-verify.log": {
+      "bytes": 442,
+      "sha256": "59c3cd4d140be2f2ef752816d1c60fc6bbaf005cda05319c2c178cb9c5d05585"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-kuru-extraction/scoped-run-02/13-active-build-sizes.log": {
+      "bytes": 82619,
+      "sha256": "699b58fd679217761005f09a7da7e94fe0becc5bd028aa101a05b2cf6981618e"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-kuru-extraction/scoped-run-02/07-active-v4-behavior.log": {
+      "bytes": 1446,
+      "sha256": "357df64c0f211072e459d41747e7f221e9611ef3f18f6f90954f42ace8fd1b03"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-kuru-extraction/scoped-run-02/05-active-unit.log": {
+      "bytes": 5159,
+      "sha256": "3afb6e6ddef435c246ddbccd90fc411391b3f5013d4a57ae53b7807eb13a92de"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-kuru-extraction/scoped-run-02/06-active-factory.log": {
+      "bytes": 2182,
+      "sha256": "ffcdcf9a08ebc02d08b9d2293fad7ec991b17995c61e633bd6d8c3320e9796be"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-revenue/router-unit-fuzz-6b.log": {
+      "bytes": 1387,
+      "sha256": "161396ced61deb33a2a74501702a19cfee014fd653fbb9d558f3c9690a854e6f"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-revenue/semgrep.json": {
+      "bytes": 397,
+      "sha256": "b56d9dadb2da611d9ff1bd93dd5d5df5e23d5ae9f3c05b79afd0fa9c68c47d6f"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-revenue/01-hook-executor-build.log": {
+      "bytes": 46403,
+      "sha256": "8fad1816678cd5c89afdfb24c8fccb88c0544e9ce48ebd0200039116efdca79f"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-revenue/router-unit-fuzz.log": {
+      "bytes": 2373,
+      "sha256": "cd6fdf6126c4f3220a482b21056a49127dc0a53ea77e254e7aa9a10404d735d0"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-revenue/global-fmt-check.log": {
+      "bytes": 1635,
+      "sha256": "185ed947a4a73da4a5f89f3b9a4942e53c6e416bd9e9ea989cf2bc8ccc0988db"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-revenue/asset-treasury-slither.log": {
+      "bytes": 55377,
+      "sha256": "840902c06f46e5a543cb0f8043408f3ff2e10d5fa7888b56f859896a2d09604c"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-revenue/historical-baseline-check.log": {
+      "bytes": 266706,
+      "sha256": "7bf6df9359023681b1d66f9d4a7eea6b482cf6bfe34041566df63d88c5839dc2"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-revenue/router-invariant-6a.log": {
+      "bytes": 2895,
+      "sha256": "7fa9c26c66a2f3de27999b8358962c574dd4b468d557aeae06e405a393815178"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-revenue/commands.json": {
+      "bytes": 1778,
+      "sha256": "ac6df1d4f9147d17514ea69931429ea76b2967390b9c0ee2f13a8dc66ba71c18"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-revenue/semgrep-r-solidity.log": {
+      "bytes": 589,
+      "sha256": "04099c69bd36f2b5cf03075b575e86b9a26ce4ce93b74160011131cf27a6954d"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-revenue/gateway-gas-trace.json": {
+      "bytes": 4289,
+      "sha256": "9ec598e4292f1bb8d0fd081188a3343e88f90edb9491d357cb6380a9e99cb3b0"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-revenue/semgrep-r-solidity.json": {
+      "bytes": 27672,
+      "sha256": "162db202127b5fa5abcc8756fd411cd4b4262ead1be4d3efe8b7805589aa8838"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-revenue/02-complete-modules-build.log": {
+      "bytes": 65901,
+      "sha256": "f17102dc452ffde194726810c1e9cbd8459f332c355cfafbb95cfe7285f21335"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-revenue/asset-treasury-slither-command.json": {
+      "bytes": 3272,
+      "sha256": "6de0cad9755dc542cca3a567df11e57725ae93eef653bdc0862e0a7c33c9f768"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-revenue/source-overlay-final.json": {
+      "bytes": 15414,
+      "sha256": "9f1166a76ccf075877cf55dfcfcf432cc1d58fee214c51236da792a64fe75aa8"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-revenue/router-invariant-6b.log": {
+      "bytes": 1962,
+      "sha256": "b43389076f988531590acdcbda4f32c00e193b1184c84f3bb86e1a08ebb5daa2"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-revenue/router-format-equivalence.json": {
+      "bytes": 322,
+      "sha256": "aa04d2d7b21ee869956ee224740f79bf30298758699e32ff9c90f961688ea37b"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-revenue/integer-vectors.json": {
+      "bytes": 836,
+      "sha256": "88d81e94cd197fcd6bfc5852e7532f12fc06ea07ef7296021e1192f67ddd4ccb"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-revenue/fmt-check.log": {
+      "bytes": 1608,
+      "sha256": "28c0b5d3f1040f33dbe165478ccd1a0176daee31af5c6cbe93dedc8d4b1690fb"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-revenue/semgrep.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-revenue/asset-treasury-slither-triage.json": {
+      "bytes": 105741,
+      "sha256": "f9f8b0f4445d0d51ac47391db0ced6ba0ed0fc6f62214caa9e6d5a8ed864f1c4"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-revenue/router-invariant-6c-native-usdc.log": {
+      "bytes": 3740,
+      "sha256": "3ee40f897743988ecfca2c63496e6f545ef53de088db20ed9049eb9b880f4d95"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-revenue/fmt-final.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-revenue/semgrep-triage.json": {
+      "bytes": 15088,
+      "sha256": "614c5dd1e57922a69449fd508ecaee6a42fe6fc7c26ba4d78014cc0ca05730a2"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-revenue/asset-treasury-slither.json": {
+      "bytes": 3347460,
+      "sha256": "89ef9cfa0433c15437d604b66c39e594063e4b2cd62184292f658a0b7d45f804"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-revenue/reference-workflow.json": {
+      "bytes": 812,
+      "sha256": "e19dde8d88fa2df943b49fdc2d79704f61018edbc7860002a1e81fdaec4a83b5"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-revenue/asset-treasury-slither-exit.json": {
+      "bytes": 18,
+      "sha256": "599bf132335f9e1445b6dad9ff79351ca085b29a32de4a7c8ca265b5974cf871"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-revenue/QUALIFICATION.json": {
+      "bytes": 4319,
+      "sha256": "0264831f5f1069547285ae5a526fcce7412ee180cad0a585d87d3d13f623a5e6"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-revenue/router-format-only.patch": {
+      "bytes": 1423,
+      "sha256": "a0171f6b37cfd0b0686c82e6f788064b8aa889ce79d534afa4f5bb10f42758cf"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-revenue/01-hook-executor-build.json": {
+      "bytes": 840,
+      "sha256": "c2748ff8e5e5951c4d1c83df1709b087507daac928ceb9a4a484c53ae7086baf"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-revenue/20261105T133048405880Z/manifest.json": {
+      "bytes": 3149,
+      "sha256": "f9db8e55481424aade7344171d5294920d2d49d39866e4fe36739cba42d5bd81"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-revenue/20261105T133048405880Z/genuine-revenue.log": {
+      "bytes": 638134,
+      "sha256": "4923cba687777d1acc672b811a1ca4ccca03333cab6e3dac58c8019a393bf60a"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-revenue/20261105T133842923862Z/manifest.json": {
+      "bytes": 3149,
+      "sha256": "6c5a541b8bd009ecab8485da966d0c695051c33cfe308d4332344ea4a3f0ec5b"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-revenue/20261105T133842923862Z/genuine-revenue.log": {
+      "bytes": 661282,
+      "sha256": "bdb58701a35106b1cd76b245d0d13a6937cca82ffee1dc282781db0ea9a81de2"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-revenue/20261105T132709852763Z/manifest.json": {
+      "bytes": 3149,
+      "sha256": "0ebc0519464a7f509df80d9e6104213baf1b7b1d8228e4512a4f6b28e5c70a1d"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-revenue/20261105T132709852763Z/genuine-revenue.log": {
+      "bytes": 500493,
+      "sha256": "bc2ca5cd04358ec445b8fd68a1b1b127c44b4907384b4e04b7b5445e076d1f37"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-revenue/20261105T135901201409Z/manifest.json": {
+      "bytes": 3149,
+      "sha256": "9bc65cfead5256f551fe1f848af1b9db83b7e73a3f0cf9037c7a53a33a8c0d09"
+    },
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-revenue/20261105T135901201409Z/genuine-revenue.log": {
+      "bytes": 660540,
+      "sha256": "cad0cd800bf3d88d63243ffdf25f7614fa71e591e61b4699715fe7fa871d0b45"
+    }
+  }
+}

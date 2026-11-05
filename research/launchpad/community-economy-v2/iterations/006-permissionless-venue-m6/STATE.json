@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "campaign": "RETROPICK-V2-COMMUNITY-ECONOMY-M6",
   "baseline": "7ddf4dae65e11acb489be7eceb30a4846adf18cc",
-  "observedGitHead": "b36eb9451d4587e9808fa67587946170d7c6d1a2",
+  "observedGitHead": "0a7f6a18ff1b58521352cb5ffffeafa619197826",
   "branch": "research/v2-m6-permissionless-revenue-20261104",
   "currentMilestone": "P3_AUTHENTICATED_IN_KIND_REVENUE_EXPERIMENT",
   "tasks": {
@@ -58,5 +58,16 @@
   "observedRemoteMain": "a4b3c609a2014773e36bb202cca8a1020661c16a",
   "executionLimits": [
     "Specialist agents reached tool-provider usage limits during this iteration; root continues from persisted files and raw logs."
-  ]
+  ],
+  "implementationCommit": "0a7f6a18ff1b58521352cb5ffffeafa619197826",
+  "delivery": {
+    "draftPR": "https://github.com/RetroPick/retropick-protocol/pull/48",
+    "branch": "research/v2-m6-permissionless-revenue-20261104",
+    "remoteBranchVerified": "0a7f6a18ff1b58521352cb5ffffeafa619197826",
+    "remoteMainObserved": "a4b3c609a2014773e36bb202cca8a1020661c16a",
+    "hostedWorkflowRunsObserved": 0,
+    "mergePerformed": false,
+    "deploymentPerformed": false
+  },
+  "canonicalFeeSourceAcceptance": "PENDING_OWNER_RESPONSE_TO_CONCRETE_PR48_CANDIDATE"
 }

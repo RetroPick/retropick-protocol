@@ -3,7 +3,7 @@ pragma solidity ^0.8.26;
 import {Test} from "forge-std/Test.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
-import {DeployV2MonadTestnet} from "../../../script/DeployV2MonadTestnet.s.sol";
+import {DeployV2V4OnlyCandidate} from "../../../script/DeployV2V4OnlyCandidate.s.sol";
 import {RetroPickLaunchFactoryV2} from "../../../src/v2/RetroPickLaunchFactoryV2.sol";
 import {RetroPickBondingCurveV2} from "../../../src/v2/RetroPickBondingCurveV2.sol";
 import {GraduationCoordinatorV2} from "../../../src/v2/GraduationCoordinatorV2.sol";
@@ -15,16 +15,16 @@ import {
 
 /// @notice Actual pinned PoolManager/PositionManager/Permit2/hook, on a fresh Monad fork. No V4 mocks.
 contract FullV4StackV2ForkTest is Test {
-    DeployV2MonadTestnet.Deployment internal deployment;
+    DeployV2V4OnlyCandidate.Deployment internal deployment;
     address internal actor;
 
     function setUp() public {
         vm.createSelectFork(vm.envString("MONAD_TESTNET_RPC_URL"), vm.envUint("MONAD_V2_FORK_BLOCK"));
         assertEq(block.chainid, 10143);
         actor = vm.envAddress("MONAD_TESTNET_ACTOR_A");
-        // All constructor and wiring code is shared with the release script; no network broadcast occurs in tests.
-        DeployV2MonadTestnet release =
-            DeployV2MonadTestnet(vm.deployCode("script/DeployV2MonadTestnet.s.sol:DeployV2MonadTestnet"));
+        // Local-only V4 construction candidate; it has no broadcast cheatcode and is not a release script.
+        DeployV2V4OnlyCandidate release =
+            DeployV2V4OnlyCandidate(vm.deployCode("script/DeployV2V4OnlyCandidate.s.sol:DeployV2V4OnlyCandidate"));
         deployment = release.run();
         vm.deal(actor, 10 ether);
     }

@@ -1,0 +1,437 @@
+Compiling 239 files with Solc 0.8.26
+Solc 0.8.26 finished in 590.02s
+Compiler run successful with warnings:
+Warning (2018): Function state mutability can be restricted to view
+   --> src/v2-research-experiment/RetroPickBondingCurveV2.sol:931:5:
+    |
+931 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to view
+   --> src/v2/RetroPickBondingCurveV2.sol:931:5:
+    |
+931 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to view
+   --> test/v2/community-economy/reference/v2/RetroPickBondingCurveV2.sol:861:5:
+    |
+861 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 1 test for test/v2/research-experiment/m6-infra/GenuineV4CommunityBaseline.t.sol:M6GenuineV4CommunityBaselineTest
+[FAIL: vm.getCode: the path /tmp/m6-genuine-v4-artifacts/WETH.sol/WETH.json is not allowed to be accessed for read operations] setUp() (gas: 0)
+Suite result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 19.72ms (0.00ns CPU time)
+
+Ran 1 test for test/v2/research-experiment/treasury/CommunityTreasuryBindingPreconditions.t.sol:CommunityTreasuryBindingPreconditionsTest
+[PASS] testCETwoLaunchesCanCreditSamePlannedTreasury() (gas: 17251431)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 43.85ms (17.88ms CPU time)
+
+Ran 2 tests for test/v2/research-experiment/CommunityLegacyDifferential.t.sol:CommunityLegacyDifferentialTest
+[PASS] testLegacyNativeTradeReserveFeeDifferential() (gas: 13650299)
+[PASS] testLegacyUSDCTradeReserveFeeDifferential() (gas: 18879710)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 121.51ms (99.10ms CPU time)
+
+Ran 1 test for test/v2/research-experiment/CommunityV4Registration.t.sol:CommunityV4RegistrationTest
+[PASS] testCEV4CompletionHasZeroCommunityHookFeesAndPermanentCustody() (gas: 14547323)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 137.81ms (78.79ms CPU time)
+
+Ran 23 tests for test/v2/research-experiment/BaselineRightsConflict.t.sol:BaselineRightsConflictTest
+[PASS] testAccruedUnsweptFeesFollowReplacement() (gas: 5011480)
+[PASS] testApprovedCallbackQuoteCannotReenterBuyAccounting() (gas: 5798278)
+[PASS] testApprovedExactTransferSixDecimalQuoteBuySellBalances() (gas: 5857641)
+[PASS] testApprovedExternallyReducibleQuoteLossFailsClosed() (gas: 5809417)
+[PASS] testApprovedFalseReturnQuoteBuyRevertsWithoutStateChange() (gas: 5438314)
+[PASS] testApprovedSenderSurchargeQuoteRejectedBeforeCurveAccounting() (gas: 5530895)
+[PASS] testBuybackAuthorizationCreatorCanEnableOwnerCanOnlyDisable() (gas: 4870142)
+[PASS] testCreatorFeeRecipientOverrideIsDelayedAndSupersedesInterveningTransfer() (gas: 5043751)
+[PASS] testCrossingBuySweepsAssetsAndFailedMockV4SeedPreservesThem() (gas: 5607712)
+[PASS] testCurrentSaltDoesNotAffectAddressesFromIdenticalPrelaunchState() (gas: 8844916)
+[PASS] testEconomicsPinAndDisabledConfigRejectWithoutLaunch() (gas: 602713)
+[PASS] testFactoryCreatesAndRecordsNativeLaunch() (gas: 4740763)
+[PASS] testFactoryV4SeedRejectsQuoteSenderSurchargeAfterSweep() (gas: 6792807)
+[PASS] testNativeNearGraduationBuybackFoldsIntoCreatorFees() (gas: 5042217)
+[PASS] testNativeRepeatedBuybackSweepsAndPartialFullVest() (gas: 6410239)
+[SKIP: Circle Core fork requires MONAD_TESTNET_RPC_URL] testPinnedCircleCoreLaunchBuySweepAndFailedV4PreservesAssets() (gas: 0)
+[SKIP: Circle Core fork requires MONAD_TESTNET_RPC_URL] testPinnedCircleNearGraduationBuybackFoldsIntoCreatorFees() (gas: 0)
+[SKIP: Circle Core fork requires MONAD_TESTNET_RPC_URL] testPinnedCircleRepeatedBuybackSweepsAndPartialFullVest() (gas: 0)
+[PASS] testRegistryRejectsUnadmittedQuoteAndWrongCircleIdentity() (gas: 2057756)
+[PASS] testSnipeSettingDoesNotChangeCurrentBuyEconomics() (gas: 9268966)
+[PASS] testTrustedFeeSweepLocksBuybackTokensAndPreservesQuoteAccounting() (gas: 5940326)
+[PASS] testUnapprovedQuoteRejectedAndApprovedSixDecimalQuoteLaunched() (gas: 5484603)
+[PASS] testUnreleasedVestingFollowsReplacementButEscrowCreditDoesNot() (gas: 5754745)
+Suite result: ok. 20 passed; 0 failed; 3 skipped; finished in 351.04ms (297.04ms CPU time)
+
+Ran 13 tests for test/v2/research-experiment/m6/CommunityRevenueRouterV2.t.sol:CommunityRevenueRouterV2AccountingTest
+[PASS] testFuzzMockIntegerConservationAndTreasuryDust(uint128,uint128) (runs: 10000, μ: 814813, ~: 823267)
+[FAIL: next call did not revert as expected] testMockAuthenticCallerReplayPoolEpochAndAssetGuards() (gas: 29581)
+Traces:
+  [29581] CommunityRevenueRouterV2AccountingTest::testMockAuthenticCallerReplayPoolEpochAndAssetGuards()
+    ├─ [0] VM::expectRevert(Unauthorized())
+    │   └─ ← [Return]
+    ├─ [135] CommunityRevenueRouterV2::venuePoolId() [staticcall]
+    │   └─ ← [Return] 0x090ec0e7a8dca740bc88741dd3a4fe7a118ba9c6738f295001bc437bd87cd0f7
+    └─ ← [Revert] next call did not revert as expected
+
+Backtrace:
+  at CommunityRevenueRouterV2AccountingTest.testMockAuthenticCallerReplayPoolEpochAndAssetGuards
+
+[FAIL: next call did not revert as expected] testMockDonationsDoNotBookIncomeAndCannotCoverOldDeficit() (gas: 967702)
+Traces:
+  [967702] CommunityRevenueRouterV2AccountingTest::testMockDonationsDoNotBookIncomeAndCannotCoverOldDeficit()
+    ├─ [0] VM::deal(CommunityRevenueRouterV2: [0x96d3F6c20EEd2697647F543fE6C08bC2Fbf39758], 77)
+    │   └─ ← [Return]
+    ├─ [62890] M6AccountingToken::mint(CommunityRevenueRouterV2: [0x96d3F6c20EEd2697647F543fE6C08bC2Fbf39758], 33)
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: CommunityRevenueRouterV2: [0x96d3F6c20EEd2697647F543fE6C08bC2Fbf39758], amount: 33)
+    │   └─ ← [Stop]
+    ├─ [8767] CommunityRevenueRouterV2::funded(0x0000000000000000000000000000000000000000) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [8767] CommunityRevenueRouterV2::funded(M6AccountingToken: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [27861] CommunityRevenueRouterV2::activeEpoch() [staticcall]
+    │   ├─ [8439] CommunityPolicyRegistryV2::epoch() [staticcall]
+    │   │   └─ ← [Return] 1
+    │   └─ ← [Return] 1
+    ├─ [8635] CommunityRevenueRouterV2::venueSequence(M6AccountingToken: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [688263] M6AccountingHook::fund(CommunityRevenueRouterV2: [0x96d3F6c20EEd2697647F543fE6C08bC2Fbf39758], M6AccountingToken: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1, 1, 1000, 100)
+    │   ├─ [135] CommunityRevenueRouterV2::venuePoolId() [staticcall]
+    │   │   └─ ← [Return] 0x090ec0e7a8dca740bc88741dd3a4fe7a118ba9c6738f295001bc437bd87cd0f7
+    │   ├─ [30134] M6AccountingToken::approve(CommunityRevenueRouterV2: [0x96d3F6c20EEd2697647F543fE6C08bC2Fbf39758], 1100)
+    │   │   ├─ emit Approval(owner: M6AccountingHook: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c], spender: CommunityRevenueRouterV2: [0x96d3F6c20EEd2697647F543fE6C08bC2Fbf39758], amount: 1100)
+    │   │   └─ ← [Return] true
+    │   ├─ [613736] CommunityRevenueRouterV2::fundVenue(0x090ec0e7a8dca740bc88741dd3a4fe7a118ba9c6738f295001bc437bd87cd0f7, M6AccountingToken: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1, 1, 1000, 100)
+    │   │   ├─ [8575] M6AccountingCurve::communityRouter() [staticcall]
+    │   │   │   └─ ← [Return] CommunityRevenueRouterV2: [0x96d3F6c20EEd2697647F543fE6C08bC2Fbf39758]
+    │   │   ├─ [8439] CommunityPolicyRegistryV2::epoch() [staticcall]
+    │   │   │   └─ ← [Return] 1
+    │   │   ├─ [10424] M6RouterIdentityCoordinator::ledger(M6AccountingToken: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   └─ ← [Return] GraduationLedger({ phase: 2, securedQuote: 0, securedLaunchTokens: 0, consumedQuote: 0, consumedLaunchTokens: 0, destinationIdentity: 0x090ec0e7a8dca740bc88741dd3a4fe7a118ba9c6738f295001bc437bd87cd0f7, receiptHash: 0xa34a789da5ac35c67f9ad7b7d45d66618aee6cc5e28c54ae438298cd31b717fa, protectedLPReceiver: 0xa0Cb889707d426A7A386870A03bc70d1b0697598, protectedLPAmount: 1000, protectedExcessReceiver: 0x0000000000000000000000000000000000000000, protectedExcessAmount: 0, securedAt: 0 })
+    │   │   ├─ [2847] M6RouterIdentityCoordinator::receipt(M6AccountingToken: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   └─ ← [Return] GraduationReceipt({ packetHash: 0xa31dfa526aaece1d27f46adeea4373d43b8026dbcc427c1777ac0aac8cdd201e, destinationIdentity: 0x090ec0e7a8dca740bc88741dd3a4fe7a118ba9c6738f295001bc437bd87cd0f7, market: 0x0000000000000000000000000000000000000000, vault: 0x0000000000000000000000000000000000000000, lpAsset: 0x0000000000000000000000000000000000000000, positionId: 1, seededQuote: 0, seededLaunchTokens: 0, quoteResidual: 0, quoteResidualReceiver: 0x0000000000000000000000000000000000000000, protectedLPReceiver: 0xa0Cb889707d426A7A386870A03bc70d1b0697598, protectedLPAmount: 1000, protectedExcessReceiver: 0x0000000000000000000000000000000000000000, protectedExcessAmount: 0 })
+    │   │   ├─ [367] M6RouterIdentityLocker::lockedPositions(M6AccountingToken: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   └─ ← [Return] 1
+    │   │   ├─ [3701] M6RouterIdentityCoordinator::packet(M6AccountingToken: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   └─ ← [Return] GraduationPacket({ token: 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f, curve: 0x1d1499e622D69689cdf9004d05Ec547d650Ff211, quoteAsset: 0x0000000000000000000000000000000000000000, venue: 0, executor: 0x03A6a84cD762D9707A21605b548aaaB891562aAb, executorCodeHash: 0xcf6c51d1bd7ce90a4a639a60bc0c0e7300cf0efd3197c2863d46db404537b9b0, quoteDecimals: 18, quotePolicyVersion: 0, quotePolicyHash: 0x0000000000000000000000000000000000000000000000000000000000000000, phantomQuote: 0, graduationThreshold: 0, graduationQuoteCeiling: 0, venuePolicyHash: 0x0000000000000000000000000000000000000000000000000000000000000000, protectedLPReceiver: 0xa0Cb889707d426A7A386870A03bc70d1b0697598, protectedExcessReceiver: 0xa0Cb889707d426A7A386870A03bc70d1b0697598, poolFee: 0, tickSpacing: 60, feePolicy: FeePolicySnapshot({ protocolFeeRecipient: 0x0000000000000000000000000000000000000FEE, protocolFeeShareBps: 2000, buybackBurnBps: 0, hookFeeBps: 200, maxInternalPriceImpactBps: 0 }) })
+    │   │   ├─ [8351] M6RouterIdentityLocker::isLocked(M6AccountingToken: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [8355] M6RouterIdentityManager::ownerOf(1) [staticcall]
+    │   │   │   └─ ← [Return] M6RouterIdentityLocker: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]
+    │   │   ├─ [306] M6RouterIdentityManager::getPositionLiquidity(1) [staticcall]
+    │   │   │   └─ ← [Return] 1000
+    │   │   ├─ [8634] M6AccountingToken::balanceOf(CommunityRevenueRouterV2: [0x96d3F6c20EEd2697647F543fE6C08bC2Fbf39758]) [staticcall]
+    │   │   │   └─ ← [Return] 33
+    │   │   ├─ [8634] M6AccountingToken::balanceOf(M6AccountingHook: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]) [staticcall]
+    │   │   │   └─ ← [Return] 1000000000000000000000000000000 [1e30]
+    │   │   ├─ [634] M6AccountingToken::balanceOf(CommunityRevenueRouterV2: [0x96d3F6c20EEd2697647F543fE6C08bC2Fbf39758]) [staticcall]
+    │   │   │   └─ ← [Return] 33
+    │   │   ├─ [17543] M6AccountingToken::transferFrom(M6AccountingHook: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c], CommunityRevenueRouterV2: [0x96d3F6c20EEd2697647F543fE6C08bC2Fbf39758], 1100)
+    │   │   │   ├─ emit Transfer(from: M6AccountingHook: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c], to: CommunityRevenueRouterV2: [0x96d3F6c20EEd2697647F543fE6C08bC2Fbf39758], amount: 1100)
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [634] M6AccountingToken::balanceOf(M6AccountingHook: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]) [staticcall]
+    │   │   │   └─ ← [Return] 999999999999999999999999998900 [9.999e29]
+    │   │   ├─ [634] M6AccountingToken::balanceOf(CommunityRevenueRouterV2: [0x96d3F6c20EEd2697647F543fE6C08bC2Fbf39758]) [staticcall]
+    │   │   │   └─ ← [Return] 1133
+    │   │   ├─ [634] M6AccountingToken::balanceOf(CommunityRevenueRouterV2: [0x96d3F6c20EEd2697647F543fE6C08bC2Fbf39758]) [staticcall]
+    │   │   │   └─ ← [Return] 1133
+    │   │   ├─ [8634] M6AccountingToken::balanceOf(RetroPickFeeEscrowV2: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ [8746] RetroPickFeeEscrowV2::balanceOfToken(0x0000000000000000000000000000000000000FEE, M6AccountingToken: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ [30134] M6AccountingToken::approve(RetroPickFeeEscrowV2: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 200)
+    │   │   │   ├─ emit Approval(owner: CommunityRevenueRouterV2: [0x96d3F6c20EEd2697647F543fE6C08bC2Fbf39758], spender: RetroPickFeeEscrowV2: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], amount: 200)
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [90687] RetroPickFeeEscrowV2::creditToken(0x0000000000000000000000000000000000000FEE, M6AccountingToken: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 200)
+    │   │   │   ├─ [634] M6AccountingToken::balanceOf(RetroPickFeeEscrowV2: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   ├─ [634] M6AccountingToken::balanceOf(CommunityRevenueRouterV2: [0x96d3F6c20EEd2697647F543fE6C08bC2Fbf39758]) [staticcall]
+    │   │   │   │   └─ ← [Return] 1133
+    │   │   │   ├─ [23743] M6AccountingToken::transferFrom(CommunityRevenueRouterV2: [0x96d3F6c20EEd2697647F543fE6C08bC2Fbf39758], RetroPickFeeEscrowV2: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 200)
+    │   │   │   │   ├─ emit Transfer(from: CommunityRevenueRouterV2: [0x96d3F6c20EEd2697647F543fE6C08bC2Fbf39758], to: RetroPickFeeEscrowV2: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], amount: 200)
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [634] M6AccountingToken::balanceOf(RetroPickFeeEscrowV2: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   │   │   └─ ← [Return] 200
+    │   │   │   ├─ [634] M6AccountingToken::balanceOf(CommunityRevenueRouterV2: [0x96d3F6c20EEd2697647F543fE6C08bC2Fbf39758]) [staticcall]
+    │   │   │   │   └─ ← [Return] 933
+    │   │   │   ├─ emit TokenCredited(payer: CommunityRevenueRouterV2: [0x96d3F6c20EEd2697647F543fE6C08bC2Fbf39758], recipient: 0x0000000000000000000000000000000000000FEE, token: M6AccountingToken: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], amount: 200)
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [2334] M6AccountingToken::approve(RetroPickFeeEscrowV2: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 0)
+    │   │   │   ├─ emit Approval(owner: CommunityRevenueRouterV2: [0x96d3F6c20EEd2697647F543fE6C08bC2Fbf39758], spender: RetroPickFeeEscrowV2: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], amount: 0)
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [890] M6AccountingToken::allowance(CommunityRevenueRouterV2: [0x96d3F6c20EEd2697647F543fE6C08bC2Fbf39758], RetroPickFeeEscrowV2: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ [746] RetroPickFeeEscrowV2::balanceOfToken(0x0000000000000000000000000000000000000FEE, M6AccountingToken: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   └─ ← [Return] 200
+    │   │   ├─ [634] M6AccountingToken::balanceOf(CommunityRevenueRouterV2: [0x96d3F6c20EEd2697647F543fE6C08bC2Fbf39758]) [staticcall]
+    │   │   │   └─ ← [Return] 933
+    │   │   ├─ [634] M6AccountingToken::balanceOf(RetroPickFeeEscrowV2: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   │   └─ ← [Return] 200
+    │   │   ├─ [439] CommunityPolicyRegistryV2::epoch() [staticcall]
+    │   │   │   └─ ← [Return] 1
+    │   │   ├─ [17887] CommunityPolicyRegistryV2::policyAtVersion(1) [staticcall]
+    │   │   │   └─ ← [Return] [Allocation({ beneficiary: 0x000000000000000000000000000000000000cafE, bps: 6000, kind: 0 }), Allocation({ beneficiary: 0x000000000000000000000000000000000000bEEF, bps: 4000, kind: 2 })]
+    │   │   ├─ emit AllocatedAsset(asset: M6AccountingToken: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], epoch: 1, beneficiary: 0x000000000000000000000000000000000000cafE, amount: 540)
+    │   │   ├─ emit AllocatedAsset(asset: M6AccountingToken: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], epoch: 1, beneficiary: 0x000000000000000000000000000000000000bEEF, amount: 360)
+    │   │   ├─ [634] M6AccountingToken::balanceOf(CommunityRevenueRouterV2: [0x96d3F6c20EEd2697647F543fE6C08bC2Fbf39758]) [staticcall]
+    │   │   │   └─ ← [Return] 933
+    │   │   ├─ emit VenueFunded(poolId: 0x090ec0e7a8dca740bc88741dd3a4fe7a118ba9c6738f295001bc437bd87cd0f7, asset: M6AccountingToken: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], epoch: 1, sequence: 1, baseFee: 1000, tax: 100, protocolAmount: 200)
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [46090] M6AccountingToken::destroy(CommunityRevenueRouterV2: [0x96d3F6c20EEd2697647F543fE6C08bC2Fbf39758], 34)
+    │   ├─ emit Transfer(from: CommunityRevenueRouterV2: [0x96d3F6c20EEd2697647F543fE6C08bC2Fbf39758], to: 0x0000000000000000000000000000000000000000, amount: 34)
+    │   └─ ← [Stop]
+    ├─ [0] VM::expectRevert(BackingDeficit())
+    │   └─ ← [Return]
+    ├─ [11861] CommunityRevenueRouterV2::activeEpoch() [staticcall]
+    │   ├─ [439] CommunityPolicyRegistryV2::epoch() [staticcall]
+    │   │   └─ ← [Return] 1
+    │   └─ ← [Return] 1
+    └─ ← [Revert] next call did not revert as expected
+
+Backtrace:
+  at CommunityRevenueRouterV2AccountingTest.testMockDonationsDoNotBookIncomeAndCannotCoverOldDeficit
+
+[PASS] testMockFailedCheckpointKeepsPolicyAndPendingFees() (gas: 1061762)
+[FAIL: next call did not revert as expected] testMockFalseReturnAndDeflationaryFundingRollback() (gas: 117467)
+Traces:
+  [117467] CommunityRevenueRouterV2AccountingTest::testMockFalseReturnAndDeflationaryFundingRollback()
+    ├─ [49474] M6AccountingToken::setMode(1)
+    │   └─ ← [Return]
+    ├─ [0] VM::expectRevert(custom error 0xf4844814)
+    │   └─ ← [Return]
+    ├─ [27861] CommunityRevenueRouterV2::activeEpoch() [staticcall]
+    │   ├─ [8439] CommunityPolicyRegistryV2::epoch() [staticcall]
+    │   │   └─ ← [Return] 1
+    │   └─ ← [Return] 1
+    └─ ← [Revert] next call did not revert as expected
+
+Backtrace:
+  at CommunityRevenueRouterV2AccountingTest.testMockFalseReturnAndDeflationaryFundingRollback
+
+[PASS] testMockFeeCapBindingAndRegistrarCannotBeSpoofed() (gas: 6025339)
+[PASS] testMockMaliciousRecipientCannotBlockIndependentClaims() (gas: 1665396)
+[PASS] testMockNativeVenueProtocolOnceAndCurvePreSeparated() (gas: 1321395)
+[PASS] testMockPolicyActivationCheckpointsOldCurveFeesAndKeepsOldRights() (gas: 2025344)
+[PASS] testMockReentrantClaimCannotDoublePayOrReplay() (gas: 1705117)
+[PASS] testMockTokenCallbackCannotActivatePolicyDuringVenueFunding() (gas: 1536427)
+[PASS] testMockUSDCAndLaunchedTokenLedgersAreIndependent() (gas: 13923311)
+[FAIL: next call did not revert as expected] testMockUnfinalizedOrUnlockedOrChangedPrincipalRejectsRevenue() (gas: 100233)
+Traces:
+  [100233] CommunityRevenueRouterV2AccountingTest::testMockUnfinalizedOrUnlockedOrChangedPrincipalRejectsRevenue()
+    ├─ [32425] M6RouterIdentityCoordinator::setPhase(1)
+    │   └─ ← [Return]
+    ├─ [0] VM::expectRevert(InvalidSettlement())
+    │   └─ ← [Return]
+    ├─ [27861] CommunityRevenueRouterV2::activeEpoch() [staticcall]
+    │   ├─ [8439] CommunityPolicyRegistryV2::epoch() [staticcall]
+    │   │   └─ ← [Return] 1
+    │   └─ ← [Return] 1
+    └─ ← [Revert] next call did not revert as expected
+
+Backtrace:
+  at CommunityRevenueRouterV2AccountingTest.testMockUnfinalizedOrUnlockedOrChangedPrincipalRejectsRevenue
+
+Suite result: FAILED. 9 passed; 4 failed; 0 skipped; finished in 16.72s (16.71s CPU time)
+
+Ran 11 tests for test/v2/research-experiment/CommunityPolicyRegistryV2.t.sol:CommunityPolicyRegistryV2Test
+[PASS] testFuzzRegistryCreatorCap(uint16) (runs: 10000, μ: 462751, ~: 531756)
+[PASS] testRegistryCancelConcurrentAndNonce() (gas: 919639)
+[PASS] testRegistryCheckpointFailureAndRetry() (gas: 884963)
+[PASS] testRegistryConstructionFeeCapAndDelay() (gas: 759601)
+[PASS] testRegistryControllerRoundTripDoesNotReviveProposal() (gas: 425352)
+[PASS] testRegistryDelayHistoryReplay() (gas: 745740)
+[PASS] testRegistryExpiryAndStaleController() (gas: 764129)
+[PASS] testRegistryInvalidAddressesAndShares() (gas: 311501)
+[PASS] testRegistryReentry() (gas: 610336)
+[PASS] testRegistryTreasuryFloorAndCardinality() (gas: 243643)
+[PASS] testRegistryUnauthorized() (gas: 365340)
+Suite result: ok. 11 passed; 0 failed; 0 skipped; finished in 37.05s (37.07s CPU time)
+
+Ran 22 tests for test/v2/research-experiment/governance/CommunityTimelockV2.t.sol:CommunityTimelockV2Test
+[PASS] testCEGovAtomicProposerReplacement() (gas: 659158)
+[PASS] testCEGovBatchExactDeadlineAndReplay() (gas: 349617)
+[PASS] testCEGovBatchExpiryAndAtomicFailure() (gas: 355026)
+[PASS] testCEGovBootstrapRolesAndFixedDelay() (gas: 176675)
+[PASS] testCEGovCallbackCannotEscalateRole() (gas: 572552)
+[PASS] testCEGovCancelRequeueRestartsFullDelay() (gas: 524074)
+[PASS] testCEGovDirectAndGovernedDelayChangeAlwaysFails() (gas: 231954)
+[PASS] testCEGovExactReadinessAndDeadline() (gas: 330128)
+[PASS] testCEGovExpirySeparateFromUpstreamReady() (gas: 308846)
+[PASS] testCEGovFixedNativeValueAndTargetAuthority() (gas: 326002)
+[PASS] testCEGovGovernedAdminExecutorAndRenounceBypassesRejected() (gas: 1140925)
+[PASS] testCEGovHugeFutureTimestampDoesNotOverflowViews() (gas: 199843)
+[PASS] testCEGovImmutableAdminExecutorAndRenunciation() (gas: 521433)
+[PASS] testCEGovInsufficientDelayAndPredecessor() (gas: 288508)
+[PASS] testCEGovLastProposerRemovalIsExplicitLivenessRisk() (gas: 313532)
+[PASS] testCEGovMembershipRequiresSelfCallAndRejectsZero() (gas: 372064)
+[PASS] testCEGovPermissionlessReadyExecutionAndNoScheduleAuthority() (gas: 393171)
+[PASS] testCEGovRejectsInvalidProposers() (gas: 12045)
+[PASS] testCEGovSameOperationReentryRollsBack() (gas: 611789)
+[PASS] testCEGovTargetFailureRetryAndIndependentOperation() (gas: 626732)
+[PASS] testFuzzCEGovCannotExecuteEarly(uint32) (runs: 10000, μ: 219060, ~: 218994)
+[PASS] testFuzzCEGovExecutionWindow(uint32) (runs: 10000, μ: 236380, ~: 243181)
+Suite result: ok. 22 passed; 0 failed; 0 skipped; finished in 37.96s (11.25s CPU time)
+
+Ran 6 tests for test/v2/research-experiment/treasury/CommunityControllerTemporal.t.sol:CommunityControllerTemporalTest
+[PASS] testCEGuardianCancellationInvalidatesRecovery() (gas: 230441)
+[PASS] testCERecoveryDoesNotFreezeCurrentControllerDuringDelay() (gas: 205409)
+[PASS] testCERecoveryExpiresOnlyAfterDeadlineAndDoesNotChangeAuthority() (gas: 302961)
+[PASS] testCERecoverySupersedesVoluntaryAndCannotBeCancelledByCreator() (gas: 370239)
+[PASS] testCEVoluntaryExactReadinessAndAcceptanceDeadline() (gas: 274943)
+[PASS] testFuzzCENoEarlyRecoveryAcceptance(uint32) (runs: 10000, μ: 195853, ~: 195791)
+Suite result: ok. 6 passed; 0 failed; 0 skipped; finished in 37.96s (37.95s CPU time)
+
+Ran 2 tests for test/v2/research-experiment/CommunityEpochRounding.t.sol:CommunityEpochRoundingTest
+[PASS] testCEDustOneUnitNativeAndUSDC() (gas: 18719908)
+[PASS] testFuzzCEEpochRights(uint16,uint96) (runs: 10000, μ: 9916791, ~: 9919301)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 37.96s (37.93s CPU time)
+
+Ran 8 tests for test/v2/research-experiment/atomic/CommunityAtomicBinding.t.sol:CommunityAtomicBindingTest
+[PASS] testCEAtomicConstructorFailureRollsBackAndRetries() (gas: 14755743)
+[PASS] testCEAtomicExactUSDCSourceAndIndependentClaim() (gas: 10125438)
+[PASS] testCEAtomicFailureRollsBackCreationNonceAndRetries() (gas: 15006058)
+[PASS] testCEAtomicRejectsSharedTreasuryInput() (gas: 4618852)
+[PASS] testCEAtomicRejectsUnauthorizedCalls() (gas: 8304866)
+[PASS] testCEAtomicRejectsWrongVersionAndChangedDeployerCode() (gas: 9170439)
+[PASS] testCEAtomicTwoLaunchesHaveDistinctClaimableDestinations() (gas: 17845908)
+[PASS] testFuzzCEAtomicBindingConservation(uint96) (runs: 10000, μ: 9001401, ~: 9004353)
+Suite result: ok. 8 passed; 0 failed; 0 skipped; finished in 37.96s (37.94s CPU time)
+
+Ran 16 tests for test/v2/research-experiment/treasury-integration/CommunityTreasuryIntegration.t.sol:CommunityTreasuryIntegrationTest
+[PASS] testCETreasuryBatchFailureRollsBackEarlierRealPayment() (gas: 11818201)
+[PASS] testCETreasuryDeployerCannotReuseFundedRouterOrWrongCaller() (gas: 10454451)
+[PASS] testCETreasuryDonationsCannotBecomeSpendableAndUnauthorizedSpendsFail() (gas: 11742763)
+[PASS] testCETreasuryExpiryAndSpendIdReplayRejected() (gas: 12170267)
+[PASS] testCETreasuryFailedRecipientDoesNotConsumeOperationAndOtherSpendSucceeds() (gas: 12209017)
+[PASS] testCETreasuryFalseAndInexactQuotePayoutsRollbackCredits() (gas: 13718772)
+[PASS] testCETreasuryInvalidSpendFieldsRejectedThroughRealTimelock() (gas: 12844177)
+[PASS] testCETreasuryNativeReentryCannotClaimWhileSpending() (gas: 11959996)
+[PASS] testCETreasuryNativeTradeClaimTimelockedSpend() (gas: 12373948)
+[PASS] testCETreasuryOneUnitDustNativeAndUSDC() (gas: 24611332)
+[PASS] testCETreasuryPolicyAndControllerChangesPreserveOldRightsAndGovernance() (gas: 12873472)
+[PASS] testCETreasuryQuoteDeficitBlocksNewClaimsAndSpending() (gas: 14533027)
+[PASS] testCETreasuryRealConstructorAndLateRegistryFailureRollbackAndRetry() (gas: 26899499)
+Logs:
+  computeCreateAddress is deprecated. Please use vm.computeCreateAddress instead.
+  computeCreateAddress is deprecated. Please use vm.computeCreateAddress instead.
+
+[PASS] testCETreasuryTwoSameCreatorLaunchesAndCrossGovernanceIsolation() (gas: 22929517)
+[PASS] testCETreasuryUSDCTradeClaimTimelockedSpend() (gas: 13945079)
+[PASS] testFuzzCETreasuryRealFundingClaimsAndSpend(uint96,uint16) (runs: 10000, μ: 11818581, ~: 11820956)
+Suite result: ok. 16 passed; 0 failed; 0 skipped; finished in 37.97s (37.92s CPU time)
+
+Ran 16 tests for test/v2/research-experiment/CommunityCurveFlow.t.sol:CommunityCurveFlowTest
+[PASS] testCEBeneficiaryRotationCannotReassignAccruedRights() (gas: 9932470)
+[PASS] testCEControllerHandoffPreservesOldClaims() (gas: 8924837)
+[PASS] testCEDonationsAndRepeatedSettlementDoNotCreateIncome() (gas: 8830220)
+[PASS] testCEExpiredRecoveryCanBeClearedWithoutGuardian() (gas: 8175542)
+[PASS] testCEFundingFailureAndDeficitFailAtomically() (gas: 10606210)
+[PASS] testCEGraduationSecuresOnlyReservesAndClaimsSurvive() (gas: 9261015)
+[PASS] testCELegacyRecipientAndBuybackBypassesRejected() (gas: 7941603)
+[PASS] testCENativeRealTradesPolicyAndClaims() (gas: 10912966)
+[PASS] testCEPolicyCallbackCannotActivateInsideTrade() (gas: 10921391)
+[PASS] testCEReentrantClaimCannotDoublePay() (gas: 8957025)
+[PASS] testCERejectsInexactAndFalseReturnQuoteBeforeAccounting() (gas: 9833376)
+[PASS] testCERevertingBeneficiaryDoesNotBlockTreasury() (gas: 8998126)
+[PASS] testCETwoLaunchAssetsCannotCoverEachOther() (gas: 19330579)
+[PASS] testCEUSDCRealTradesPolicyAndClaims() (gas: 13095655)
+[PASS] testCEUnauthorizedFundingReplayAndCrossLaunch() (gas: 8911483)
+[PASS] testFuzzCERealSettlementConservation(uint96) (runs: 10000, μ: 8728758, ~: 8731154)
+Suite result: ok. 16 passed; 0 failed; 0 skipped; finished in 37.97s (38.24s CPU time)
+
+Ran 1 test for test/v2/research-experiment/CommunityAccountingInvariant.t.sol:CommunityAccountingInvariantTest
+[PASS] invariantCEConservationBackingAndRights() (runs: 256, calls: 32768, reverts: 0)
+
+╭----------------------------+-------------------+-------+---------+----------╮
+| Contract                   | Selector          | Calls | Reverts | Discards |
++=============================================================================+
+| CommunityAccountingHandler | activate          | 3320  | 0       | 0        |
+|----------------------------+-------------------+-------+---------+----------|
+| CommunityAccountingHandler | cancel            | 3245  | 0       | 0        |
+|----------------------------+-------------------+-------+---------+----------|
+| CommunityAccountingHandler | claim             | 3226  | 0       | 0        |
+|----------------------------+-------------------+-------+---------+----------|
+| CommunityAccountingHandler | donate            | 3215  | 0       | 0        |
+|----------------------------+-------------------+-------+---------+----------|
+| CommunityAccountingHandler | invalidSettlement | 3380  | 0       | 0        |
+|----------------------------+-------------------+-------+---------+----------|
+| CommunityAccountingHandler | propose           | 3167  | 0       | 0        |
+|----------------------------+-------------------+-------+---------+----------|
+| CommunityAccountingHandler | rotate            | 3260  | 0       | 0        |
+|----------------------------+-------------------+-------+---------+----------|
+| CommunityAccountingHandler | settle            | 3355  | 0       | 0        |
+|----------------------------+-------------------+-------+---------+----------|
+| CommunityAccountingHandler | trade             | 3381  | 0       | 0        |
+|----------------------------+-------------------+-------+---------+----------|
+| CommunityAccountingHandler | unauthorized      | 3219  | 0       | 0        |
+╰----------------------------+-------------------+-------+---------+----------╯
+
+Logs:
+  successful trades: 12
+  successful settlements: 12
+  successful claims: 15
+  successful proposals: 9
+  successful cancellations: 5
+  successful activations: 3
+  successful controller rotations: 12
+  donations: 10
+  unauthorized attempts: 20
+  invalid settlement attempts: 24
+  caught economic rejections: 19
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 39.96s (39.91s CPU time)
+
+Ran 1 test for test/v2/research-experiment/treasury-integration/CommunityTreasuryInvariant.t.sol:CommunityTreasuryInvariantTest
+[PASS] invariantCETreasuryEarnedCustodyAndSourceConservation() (runs: 256, calls: 32768, reverts: 0)
+
+╭---------------------------+--------------+-------+---------+----------╮
+| Contract                  | Selector     | Calls | Reverts | Discards |
++=======================================================================+
+| TreasuryAccountingHandler | claim        | 4132  | 0       | 0        |
+|---------------------------+--------------+-------+---------+----------|
+| TreasuryAccountingHandler | claimOther   | 4127  | 0       | 0        |
+|---------------------------+--------------+-------+---------+----------|
+| TreasuryAccountingHandler | donate       | 4136  | 0       | 0        |
+|---------------------------+--------------+-------+---------+----------|
+| TreasuryAccountingHandler | execute      | 4135  | 0       | 0        |
+|---------------------------+--------------+-------+---------+----------|
+| TreasuryAccountingHandler | schedule     | 4001  | 0       | 0        |
+|---------------------------+--------------+-------+---------+----------|
+| TreasuryAccountingHandler | settle       | 4032  | 0       | 0        |
+|---------------------------+--------------+-------+---------+----------|
+| TreasuryAccountingHandler | trade        | 4091  | 0       | 0        |
+|---------------------------+--------------+-------+---------+----------|
+| TreasuryAccountingHandler | unauthorized | 4114  | 0       | 0        |
+╰---------------------------+--------------+-------+---------+----------╯
+
+Logs:
+  successful trades (includes seed): 13
+  successful settlements: 12
+  successful treasury claims: 18
+  successful other claims: 23
+  successful schedules: 16
+  successful executions: 3
+  failed executions caught: 11
+  other economic rejections caught: 0
+  donations: 20
+  unauthorized attempts: 18
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 46.10s (46.03s CPU time)
+
+Ran 15 test suites in 46.14s (368.30s CPU time): 116 tests passed, 5 failed, 3 skipped (124 total tests)
+
+Failing tests:
+Encountered 1 failing test in test/v2/research-experiment/m6-infra/GenuineV4CommunityBaseline.t.sol:M6GenuineV4CommunityBaselineTest
+[FAIL: vm.getCode: the path /tmp/m6-genuine-v4-artifacts/WETH.sol/WETH.json is not allowed to be accessed for read operations] setUp() (gas: 0)
+
+Encountered 4 failing tests in test/v2/research-experiment/m6/CommunityRevenueRouterV2.t.sol:CommunityRevenueRouterV2AccountingTest
+[FAIL: next call did not revert as expected] testMockAuthenticCallerReplayPoolEpochAndAssetGuards() (gas: 29581)
+[FAIL: next call did not revert as expected] testMockDonationsDoNotBookIncomeAndCannotCoverOldDeficit() (gas: 967702)
+[FAIL: next call did not revert as expected] testMockFalseReturnAndDeflationaryFundingRollback() (gas: 117467)
+[FAIL: next call did not revert as expected] testMockUnfinalizedOrUnlockedOrChangedPrincipalRejectsRevenue() (gas: 100233)
+
+Encountered a total of 5 failing tests, 116 tests succeeded
+
+Tip: Run `forge test --rerun` to retry only the 5 failed tests
+Tip: Run `forge test --debug --match-test <TEST_NAME>` to inspect one failing test in the debugger

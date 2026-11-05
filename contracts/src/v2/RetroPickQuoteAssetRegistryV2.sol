@@ -7,7 +7,7 @@ import {IERC20Metadata} from "@openzeppelin/contracts/token/ERC20/extensions/IER
 import {IRetroPickQuoteAssetPolicyV2} from "./interfaces/IRetroPickQuoteAssetPolicyV2.sol";
 import {QuoteAssetConfig, GraduationVenue} from "./interfaces/IGraduationExecutorV2.sol";
 
-/// @notice Versioned chain-specific quote admission. Updates affect new launches only.
+/// @notice Versioned V4-only quote admission for a new stack. Existing deployed registries are unchanged.
 /// @dev Admission never substitutes for exact-transfer/backing checks at use.
 contract RetroPickQuoteAssetRegistryV2 is Ownable2Step, IRetroPickQuoteAssetPolicyV2 {
     uint256 public constant TARGET_CHAIN_ID = 10143;
@@ -28,8 +28,7 @@ contract RetroPickQuoteAssetRegistryV2 is Ownable2Step, IRetroPickQuoteAssetPoli
         if (
             proposed.policyVersion <= _configs[quote].policyVersion || proposed.assetId == bytes32(0)
                 || proposed.phantomQuote == 0 || proposed.graduationThreshold == 0
-                || proposed.graduationQuoteCeiling < proposed.graduationThreshold || proposed.venueMask == 0
-                || proposed.venueMask > 3
+                || proposed.graduationQuoteCeiling < proposed.graduationThreshold || proposed.venueMask != 1
         ) revert InvalidQuoteConfig();
         _validateIdentity(quote, proposed.decimals);
         QuoteAssetConfig memory config = proposed;
@@ -58,7 +57,10 @@ contract RetroPickQuoteAssetRegistryV2 is Ownable2Step, IRetroPickQuoteAssetPoli
 
     function admitted(address quote, GraduationVenue venue) external view returns (QuoteAssetConfig memory config) {
         config = _configs[quote];
-        if (block.chainid != TARGET_CHAIN_ID || !config.enabled || config.venueMask & (uint8(1) << uint8(venue)) == 0) {
+        if (
+            block.chainid != TARGET_CHAIN_ID || venue != GraduationVenue.UNISWAP_V4 || !config.enabled
+                || config.venueMask != 1
+        ) {
             revert UnsupportedQuote();
         }
         _validateIdentity(quote, config.decimals);

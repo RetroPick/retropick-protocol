@@ -1,0 +1,2 @@
+# Exact original consumers, not runnable current deployment files.
+*.orig -text

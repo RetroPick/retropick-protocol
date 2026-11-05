@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "baseline": "7ddf4dae65e11acb489be7eceb30a4846adf18cc",
+  "archiveSourceFiles": 39,
+  "rawHistoricalConsumers": 11,
+  "activeRelativeImportsChecked": 225,
+  "historicalTestBodiesChecked": 6,
+  "historicalScriptBodiesChecked": 3,
+  "venueWireIds": {
+    "UNISWAP_V4": 0,
+    "KURU_LEGACY_RESERVED": 1
+  },
+  "deployedArchive": "contracts/legacy-v2 (separately frozen; not this regression snapshot)",
+  "failures": []
+}

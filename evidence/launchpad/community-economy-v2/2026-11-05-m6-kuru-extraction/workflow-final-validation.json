@@ -1,0 +1,9 @@
+{
+  "yamlParse": "PASS",
+  "mandatorySuites": 5,
+  "outcomeCombinationsChecked": 1024,
+  "onlyAllSuccessAccepted": true,
+  "canonicalBuildsSourceScoped": true,
+  "actionlint": "NOT_AVAILABLE_IN_PRIOR_BASELINE",
+  "hostedGitHubRun": "NOT_OBSERVED_FOR_THIS_UNPUSHED_COMMIT"
+}

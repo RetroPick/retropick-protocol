@@ -1,0 +1,280 @@
+Compiling 212 files with Solc 0.8.26
+Solc 0.8.26 finished in 389.09s
+Compiler run successful with warnings:
+Warning (2018): Function state mutability can be restricted to view
+   --> src/v2-research-experiment/RetroPickBondingCurveV2.sol:931:5:
+    |
+931 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to view
+   --> src/v2/RetroPickBondingCurveV2.sol:931:5:
+    |
+931 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to view
+   --> test/v2/community-economy/reference/v2/RetroPickBondingCurveV2.sol:861:5:
+    |
+861 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 2 tests for test/v2/community-economy/treasury-integration/CommunityTreasuryPrefund.t.sol:CanonicalCommunityTreasuryPrefundTest
+[PASS] testCETreasuryPrefundedNativeAddressCannotCreateEarnedIncome() (gas: 12132221)
+Logs:
+  computeCreateAddress is deprecated. Please use vm.computeCreateAddress instead.
+
+[PASS] testCETreasuryPrefundedUSDCAddressCannotCreateEarnedIncome() (gas: 13682127)
+Logs:
+  computeCreateAddress is deprecated. Please use vm.computeCreateAddress instead.
+
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 74.51ms (41.71ms CPU time)
+
+Ran 1 test for test/v2/community-economy/CommunityV4Registration.t.sol:CanonicalCommunityV4RegistrationTest
+[PASS] testCEV4CompletionHasZeroCommunityHookFeesAndPermanentCustody() (gas: 14547323)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 96.66ms (41.97ms CPU time)
+
+Ran 2 tests for test/v2/community-economy/treasury-integration/CommunityTreasuryGraduation.t.sol:CanonicalCommunityTreasuryGraduationTest
+[PASS] testCETreasuryNativeClaimsSurviveSecuredGraduationAndFailedVenueRetries() (gas: 12655909)
+[PASS] testCETreasuryUSDCClaimsSurviveSecuredGraduationAndFailedVenueRetries() (gas: 14257828)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 131.25ms (75.56ms CPU time)
+
+Ran 2 tests for test/v2/community-economy/CommunityLegacyDifferential.t.sol:CanonicalCommunityLegacyDifferentialTest
+[PASS] testLegacyNativeTradeReserveFeeDifferential() (gas: 13171680)
+[PASS] testLegacyUSDCTradeReserveFeeDifferential() (gas: 18400531)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 135.21ms (106.73ms CPU time)
+
+Ran 2 tests for test/v2/community-economy/treasury-integration/CommunityTreasuryV4Seam.t.sol:CanonicalCommunityTreasuryV4SeamTest
+[PASS] testCENativeTreasuryCompletesSuccessfulV4BehaviorSeam() (gas: 13775343)
+[PASS] testCEUSDCTreasuryCompletesSuccessfulV4BehaviorSeam() (gas: 15376781)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 147.86ms (88.23ms CPU time)
+
+Ran 1 test for test/v2/community-economy/treasury/CommunityTreasuryBindingPreconditions.t.sol:CanonicalCommunityTreasuryBindingPreconditionsTest
+[PASS] testCETwoLaunchesCanCreditSamePlannedTreasury() (gas: 17251365)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 153.60ms (73.95ms CPU time)
+
+Ran 11 tests for test/v2/community-economy/CommunityPolicyRegistryV2.t.sol:CanonicalCommunityPolicyRegistryV2Test
+[PASS] testFuzzRegistryCreatorCap(uint16) (runs: 10000, μ: 458954, ~: 531756)
+[PASS] testRegistryCancelConcurrentAndNonce() (gas: 919639)
+[PASS] testRegistryCheckpointFailureAndRetry() (gas: 884963)
+[PASS] testRegistryConstructionFeeCapAndDelay() (gas: 759601)
+[PASS] testRegistryControllerRoundTripDoesNotReviveProposal() (gas: 425352)
+[PASS] testRegistryDelayHistoryReplay() (gas: 745740)
+[PASS] testRegistryExpiryAndStaleController() (gas: 764129)
+[PASS] testRegistryInvalidAddressesAndShares() (gas: 311501)
+[PASS] testRegistryReentry() (gas: 610336)
+[PASS] testRegistryTreasuryFloorAndCardinality() (gas: 243643)
+[PASS] testRegistryUnauthorized() (gas: 365340)
+Suite result: ok. 11 passed; 0 failed; 0 skipped; finished in 8.05s (8.10s CPU time)
+
+Ran 6 tests for test/v2/community-economy/treasury/CommunityControllerTemporal.t.sol:CanonicalCommunityControllerTemporalTest
+[PASS] testCEGuardianCancellationInvalidatesRecovery() (gas: 230441)
+[PASS] testCERecoveryDoesNotFreezeCurrentControllerDuringDelay() (gas: 205409)
+[PASS] testCERecoveryExpiresOnlyAfterDeadlineAndDoesNotChangeAuthority() (gas: 302961)
+[PASS] testCERecoverySupersedesVoluntaryAndCannotBeCancelledByCreator() (gas: 370239)
+[PASS] testCEVoluntaryExactReadinessAndAcceptanceDeadline() (gas: 274943)
+[PASS] testFuzzCENoEarlyRecoveryAcceptance(uint32) (runs: 10000, μ: 195853, ~: 195791)
+Suite result: ok. 6 passed; 0 failed; 0 skipped; finished in 32.82s (32.81s CPU time)
+
+Ran 1 test for test/v2/community-economy/CommunityAccountingInvariant.t.sol:CanonicalCommunityAccountingInvariantTest
+[PASS] invariantCEConservationBackingAndRights() (runs: 256, calls: 32768, reverts: 0)
+
+╭----------------------------+-------------------+-------+---------+----------╮
+| Contract                   | Selector          | Calls | Reverts | Discards |
++=============================================================================+
+| CommunityAccountingHandler | activate          | 3320  | 0       | 0        |
+|----------------------------+-------------------+-------+---------+----------|
+| CommunityAccountingHandler | cancel            | 3245  | 0       | 0        |
+|----------------------------+-------------------+-------+---------+----------|
+| CommunityAccountingHandler | claim             | 3226  | 0       | 0        |
+|----------------------------+-------------------+-------+---------+----------|
+| CommunityAccountingHandler | donate            | 3215  | 0       | 0        |
+|----------------------------+-------------------+-------+---------+----------|
+| CommunityAccountingHandler | invalidSettlement | 3380  | 0       | 0        |
+|----------------------------+-------------------+-------+---------+----------|
+| CommunityAccountingHandler | propose           | 3167  | 0       | 0        |
+|----------------------------+-------------------+-------+---------+----------|
+| CommunityAccountingHandler | rotate            | 3260  | 0       | 0        |
+|----------------------------+-------------------+-------+---------+----------|
+| CommunityAccountingHandler | settle            | 3355  | 0       | 0        |
+|----------------------------+-------------------+-------+---------+----------|
+| CommunityAccountingHandler | trade             | 3381  | 0       | 0        |
+|----------------------------+-------------------+-------+---------+----------|
+| CommunityAccountingHandler | unauthorized      | 3219  | 0       | 0        |
+╰----------------------------+-------------------+-------+---------+----------╯
+
+Logs:
+  successful trades: 12
+  successful settlements: 12
+  successful claims: 15
+  successful proposals: 9
+  successful cancellations: 5
+  successful activations: 3
+  successful controller rotations: 12
+  donations: 10
+  unauthorized attempts: 20
+  invalid settlement attempts: 24
+  caught economic rejections: 19
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 38.62s (38.56s CPU time)
+
+Ran 2 tests for test/v2/community-economy/CommunityEpochRounding.t.sol:CanonicalCommunityEpochRoundingTest
+[PASS] testCEDustOneUnitNativeAndUSDC() (gas: 18719884)
+[PASS] testFuzzCEEpochRights(uint16,uint96) (runs: 10000, μ: 9917320, ~: 9919289)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 43.01s (42.98s CPU time)
+
+Ran 22 tests for test/v2/community-economy/governance/CommunityTimelockV2.t.sol:CanonicalCommunityTimelockV2Test
+[PASS] testCEGovAtomicProposerReplacement() (gas: 659158)
+[PASS] testCEGovBatchExactDeadlineAndReplay() (gas: 349617)
+[PASS] testCEGovBatchExpiryAndAtomicFailure() (gas: 355026)
+[PASS] testCEGovBootstrapRolesAndFixedDelay() (gas: 176675)
+[PASS] testCEGovCallbackCannotEscalateRole() (gas: 572540)
+[PASS] testCEGovCancelRequeueRestartsFullDelay() (gas: 524074)
+[PASS] testCEGovDirectAndGovernedDelayChangeAlwaysFails() (gas: 231954)
+[PASS] testCEGovExactReadinessAndDeadline() (gas: 330128)
+[PASS] testCEGovExpirySeparateFromUpstreamReady() (gas: 308846)
+[PASS] testCEGovFixedNativeValueAndTargetAuthority() (gas: 326002)
+[PASS] testCEGovGovernedAdminExecutorAndRenounceBypassesRejected() (gas: 1140925)
+[PASS] testCEGovHugeFutureTimestampDoesNotOverflowViews() (gas: 199843)
+[PASS] testCEGovImmutableAdminExecutorAndRenunciation() (gas: 521433)
+[PASS] testCEGovInsufficientDelayAndPredecessor() (gas: 288508)
+[PASS] testCEGovLastProposerRemovalIsExplicitLivenessRisk() (gas: 313532)
+[PASS] testCEGovMembershipRequiresSelfCallAndRejectsZero() (gas: 372064)
+[PASS] testCEGovPermissionlessReadyExecutionAndNoScheduleAuthority() (gas: 393171)
+[PASS] testCEGovRejectsInvalidProposers() (gas: 12030)
+[PASS] testCEGovSameOperationReentryRollsBack() (gas: 611777)
+[PASS] testCEGovTargetFailureRetryAndIndependentOperation() (gas: 626732)
+[PASS] testFuzzCEGovCannotExecuteEarly(uint32) (runs: 10000, μ: 219061, ~: 218994)
+[PASS] testFuzzCEGovExecutionWindow(uint32) (runs: 10000, μ: 236050, ~: 243181)
+Suite result: ok. 22 passed; 0 failed; 0 skipped; finished in 43.13s (47.17s CPU time)
+
+Ran 16 tests for test/v2/community-economy/CommunityCurveFlow.t.sol:CanonicalCommunityCurveFlowTest
+[PASS] testCEBeneficiaryRotationCannotReassignAccruedRights() (gas: 9932458)
+[PASS] testCEControllerHandoffPreservesOldClaims() (gas: 8924825)
+[PASS] testCEDonationsAndRepeatedSettlementDoNotCreateIncome() (gas: 8830208)
+[PASS] testCEExpiredRecoveryCanBeClearedWithoutGuardian() (gas: 8175530)
+[PASS] testCEFundingFailureAndDeficitFailAtomically() (gas: 10606198)
+[PASS] testCEGraduationSecuresOnlyReservesAndClaimsSurvive() (gas: 9261003)
+[PASS] testCELegacyRecipientAndBuybackBypassesRejected() (gas: 7941484)
+[PASS] testCENativeRealTradesPolicyAndClaims() (gas: 10912954)
+[PASS] testCEPolicyCallbackCannotActivateInsideTrade() (gas: 10921379)
+[PASS] testCEReentrantClaimCannotDoublePay() (gas: 8957013)
+[PASS] testCERejectsInexactAndFalseReturnQuoteBeforeAccounting() (gas: 9833364)
+[PASS] testCERevertingBeneficiaryDoesNotBlockTreasury() (gas: 8998114)
+[PASS] testCETwoLaunchAssetsCannotCoverEachOther() (gas: 19330555)
+[PASS] testCEUSDCRealTradesPolicyAndClaims() (gas: 13095643)
+[PASS] testCEUnauthorizedFundingReplayAndCrossLaunch() (gas: 8911471)
+[PASS] testFuzzCERealSettlementConservation(uint96) (runs: 10000, μ: 8729269, ~: 8731142)
+Suite result: ok. 16 passed; 0 failed; 0 skipped; finished in 43.12s (43.03s CPU time)
+
+Ran 8 tests for test/v2/community-economy/atomic/CommunityAtomicBinding.t.sol:CanonicalCommunityAtomicBindingTest
+[PASS] testCEAtomicConstructorFailureRollsBackAndRetries() (gas: 14755743)
+[PASS] testCEAtomicExactUSDCSourceAndIndependentClaim() (gas: 10125438)
+[PASS] testCEAtomicFailureRollsBackCreationNonceAndRetries() (gas: 15006058)
+[PASS] testCEAtomicRejectsSharedTreasuryInput() (gas: 4618852)
+[PASS] testCEAtomicRejectsUnauthorizedCalls() (gas: 8304866)
+[PASS] testCEAtomicRejectsWrongVersionAndChangedDeployerCode() (gas: 9170415)
+[PASS] testCEAtomicTwoLaunchesHaveDistinctClaimableDestinations() (gas: 17845908)
+[PASS] testFuzzCEAtomicBindingConservation(uint96) (runs: 10000, μ: 9001852, ~: 9004353)
+Suite result: ok. 8 passed; 0 failed; 0 skipped; finished in 43.35s (43.35s CPU time)
+
+Ran 16 tests for test/v2/community-economy/treasury-integration/CommunityTreasuryIntegration.t.sol:CanonicalCommunityTreasuryIntegrationTest
+[PASS] testCETreasuryBatchFailureRollsBackEarlierRealPayment() (gas: 11818201)
+[PASS] testCETreasuryDeployerCannotReuseFundedRouterOrWrongCaller() (gas: 10454451)
+[PASS] testCETreasuryDonationsCannotBecomeSpendableAndUnauthorizedSpendsFail() (gas: 11742763)
+[PASS] testCETreasuryExpiryAndSpendIdReplayRejected() (gas: 12170267)
+[PASS] testCETreasuryFailedRecipientDoesNotConsumeOperationAndOtherSpendSucceeds() (gas: 12209017)
+[PASS] testCETreasuryFalseAndInexactQuotePayoutsRollbackCredits() (gas: 13718784)
+[PASS] testCETreasuryInvalidSpendFieldsRejectedThroughRealTimelock() (gas: 12844177)
+[PASS] testCETreasuryNativeReentryCannotClaimWhileSpending() (gas: 11959996)
+[PASS] testCETreasuryNativeTradeClaimTimelockedSpend() (gas: 12373948)
+[PASS] testCETreasuryOneUnitDustNativeAndUSDC() (gas: 24611344)
+[PASS] testCETreasuryPolicyAndControllerChangesPreserveOldRightsAndGovernance() (gas: 12873472)
+[PASS] testCETreasuryQuoteDeficitBlocksNewClaimsAndSpending() (gas: 14533039)
+[PASS] testCETreasuryRealConstructorAndLateRegistryFailureRollbackAndRetry() (gas: 26899499)
+Logs:
+  computeCreateAddress is deprecated. Please use vm.computeCreateAddress instead.
+  computeCreateAddress is deprecated. Please use vm.computeCreateAddress instead.
+
+[PASS] testCETreasuryTwoSameCreatorLaunchesAndCrossGovernanceIsolation() (gas: 22929517)
+[PASS] testCETreasuryUSDCTradeClaimTimelockedSpend() (gas: 13945091)
+[PASS] testFuzzCETreasuryRealFundingClaimsAndSpend(uint96,uint16) (runs: 10000, μ: 11819022, ~: 11820956)
+Suite result: ok. 16 passed; 0 failed; 0 skipped; finished in 43.60s (43.59s CPU time)
+
+Ran 1 test for test/v2/community-economy/treasury-integration/CommunityTreasuryInvariant.t.sol:CanonicalCommunityTreasuryInvariantTest
+[PASS] invariantCETreasuryEarnedCustodyAndSourceConservation() (runs: 256, calls: 32768, reverts: 0)
+
+╭---------------------------+--------------+-------+---------+----------╮
+| Contract                  | Selector     | Calls | Reverts | Discards |
++=======================================================================+
+| TreasuryAccountingHandler | claim        | 4132  | 0       | 0        |
+|---------------------------+--------------+-------+---------+----------|
+| TreasuryAccountingHandler | claimOther   | 4127  | 0       | 0        |
+|---------------------------+--------------+-------+---------+----------|
+| TreasuryAccountingHandler | donate       | 4136  | 0       | 0        |
+|---------------------------+--------------+-------+---------+----------|
+| TreasuryAccountingHandler | execute      | 4135  | 0       | 0        |
+|---------------------------+--------------+-------+---------+----------|
+| TreasuryAccountingHandler | schedule     | 4001  | 0       | 0        |
+|---------------------------+--------------+-------+---------+----------|
+| TreasuryAccountingHandler | settle       | 4032  | 0       | 0        |
+|---------------------------+--------------+-------+---------+----------|
+| TreasuryAccountingHandler | trade        | 4091  | 0       | 0        |
+|---------------------------+--------------+-------+---------+----------|
+| TreasuryAccountingHandler | unauthorized | 4114  | 0       | 0        |
+╰---------------------------+--------------+-------+---------+----------╯
+
+Logs:
+  successful trades (includes seed): 13
+  successful settlements: 12
+  successful treasury claims: 18
+  successful other claims: 23
+  successful schedules: 16
+  successful executions: 4
+  failed executions caught: 10
+  other economic rejections caught: 0
+  donations: 20
+  unauthorized attempts: 18
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 55.43s (55.30s CPU time)
+
+Ran 1 test for test/v2/community-economy/treasury-integration/CommunityTreasuryUSDCInvariant.t.sol:CanonicalCommunityTreasuryUSDCInvariantTest
+[PASS] invariantCEUSDCConservationAndQuarantinedSurplus() (runs: 256, calls: 32768, reverts: 0)
+
+╭--------------------------+------------------+-------+---------+----------╮
+| Contract                 | Selector         | Calls | Reverts | Discards |
++==========================================================================+
+| TreasuryUSDCStateHandler | buy              | 3687  | 0       | 0        |
+|--------------------------+------------------+-------+---------+----------|
+| TreasuryUSDCStateHandler | claimBeneficiary | 3594  | 0       | 0        |
+|--------------------------+------------------+-------+---------+----------|
+| TreasuryUSDCStateHandler | claimTreasury    | 3631  | 0       | 0        |
+|--------------------------+------------------+-------+---------+----------|
+| TreasuryUSDCStateHandler | donate           | 3660  | 0       | 0        |
+|--------------------------+------------------+-------+---------+----------|
+| TreasuryUSDCStateHandler | executeSpend     | 3619  | 0       | 0        |
+|--------------------------+------------------+-------+---------+----------|
+| TreasuryUSDCStateHandler | scheduleSpend    | 3736  | 0       | 0        |
+|--------------------------+------------------+-------+---------+----------|
+| TreasuryUSDCStateHandler | sell             | 3667  | 0       | 0        |
+|--------------------------+------------------+-------+---------+----------|
+| TreasuryUSDCStateHandler | settle           | 3556  | 0       | 0        |
+|--------------------------+------------------+-------+---------+----------|
+| TreasuryUSDCStateHandler | unauthorized     | 3618  | 0       | 0        |
+╰--------------------------+------------------+-------+---------+----------╯
+
+Logs:
+  USDC trades (includes seed): 30
+  USDC settlements: 23
+  USDC treasury claims: 14
+  USDC beneficiary claims: 10
+  USDC scheduled spends: 13
+  USDC executed spends: 8
+  USDC direct donations: 16
+  USDC caught economic rejections: 9
+  USDC unauthorized attempts: 15
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 64.26s (64.22s CPU time)
+
+Ran 16 test suites in 64.29s (416.12s CPU time): 94 tests passed, 0 failed, 0 skipped (94 total tests)

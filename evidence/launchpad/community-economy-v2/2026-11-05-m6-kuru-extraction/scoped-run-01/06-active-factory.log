@@ -1,0 +1,27 @@
+No files changed, compilation skipped
+
+Ran 21 tests for test/v2/integration/RetroPickFactoryLaunchV2Qualification.t.sol:RetroPickFactoryLaunchV2QualificationTest
+[PASS] testApprovedCallbackQuoteCannotReenterBuyAccounting() (gas: 5798256)
+[PASS] testApprovedExactTransferSixDecimalQuoteBuySellBalances() (gas: 5857619)
+[PASS] testApprovedExternallyReducibleQuoteLossFailsClosed() (gas: 5809395)
+[PASS] testApprovedFalseReturnQuoteBuyRevertsWithoutStateChange() (gas: 5438270)
+[PASS] testApprovedSenderSurchargeQuoteRejectedBeforeCurveAccounting() (gas: 5530873)
+[PASS] testBuybackAuthorizationCreatorCanEnableOwnerCanOnlyDisable() (gas: 4870120)
+[PASS] testCreatorFeeRecipientOverrideIsDelayedAndSupersedesInterveningTransfer() (gas: 5043679)
+[PASS] testCrossingBuySweepsAssetsAndFailedMockV4SeedPreservesThem() (gas: 5607690)
+[PASS] testCurrentSaltDoesNotAffectAddressesFromIdenticalPrelaunchState() (gas: 8844894)
+[PASS] testEconomicsPinAndDisabledConfigRejectWithoutLaunch() (gas: 602713)
+[PASS] testFactoryCreatesAndRecordsNativeLaunch() (gas: 4740741)
+[PASS] testFactoryV4SeedRejectsQuoteSenderSurchargeAfterSweep() (gas: 6792807)
+[PASS] testNativeNearGraduationBuybackFoldsIntoCreatorFees() (gas: 5042195)
+[PASS] testNativeRepeatedBuybackSweepsAndPartialFullVest() (gas: 6410239)
+[SKIP: Circle Core fork requires MONAD_TESTNET_RPC_URL] testPinnedCircleCoreLaunchBuySweepAndFailedV4PreservesAssets() (gas: 0)
+[SKIP: Circle Core fork requires MONAD_TESTNET_RPC_URL] testPinnedCircleNearGraduationBuybackFoldsIntoCreatorFees() (gas: 0)
+[SKIP: Circle Core fork requires MONAD_TESTNET_RPC_URL] testPinnedCircleRepeatedBuybackSweepsAndPartialFullVest() (gas: 0)
+[PASS] testRegistryRejectsUnadmittedQuoteAndWrongCircleIdentity() (gas: 2057734)
+[PASS] testSnipeSettingDoesNotChangeCurrentBuyEconomics() (gas: 9268922)
+[PASS] testTrustedFeeSweepLocksBuybackTokensAndPreservesQuoteAccounting() (gas: 5940304)
+[PASS] testUnapprovedQuoteRejectedAndApprovedSixDecimalQuoteLaunched() (gas: 5484603)
+Suite result: ok. 18 passed; 0 failed; 3 skipped; finished in 452.84ms (1.93s CPU time)
+
+Ran 1 test suite in 463.30ms (452.84ms CPU time): 18 tests passed, 0 failed, 3 skipped (21 total tests)

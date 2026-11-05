@@ -1,0 +1,81 @@
+Compiling 206 files with Solc 0.8.26
+Solc 0.8.26 finished in 506.36s
+Compiler run successful with warnings:
+Warning (2018): Function state mutability can be restricted to view
+   --> src/v2-research-experiment/RetroPickBondingCurveV2.sol:931:5:
+    |
+931 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to view
+   --> src/v2/RetroPickBondingCurveV2.sol:931:5:
+    |
+931 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to view
+   --> test/v2/community-economy/reference/v2/RetroPickBondingCurveV2.sol:861:5:
+    |
+861 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 1 test for test/v2/unit/CompletionQuoteOracleV2.t.sol:CompletionQuoteOracleV2Test
+[PASS] testDifferentialPythonOracle80States() (gas: 234411)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 111.53ms (61.43ms CPU time)
+
+Ran 2 tests for test/v2/unit/V4OnlyLaunchAdmissionV2.t.sol:V4OnlyLaunchAdmissionV2Test
+[PASS] testEveryLegacyDefaultLaunchOverloadPinsV4() (gas: 17785565)
+[PASS] testReservedVenueRejectedBeforeDeploymentEvenWithConfiguredExecutor() (gas: 364073)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 206.62ms (104.12ms CPU time)
+
+Ran 4 tests for test/v2/unit/RetroPickLaunchDeployerV2Qualification.t.sol:RetroPickLaunchDeployerV2QualificationTest
+[PASS] testDeploysFreshCurveAndTokenWithFactoryIdentity() (gas: 3962967)
+[PASS] testDifferentQuoteAddressIsPassedThroughNotAdmittedHere() (gas: 3733410)
+[PASS] testMetadataBoundsRejectOverlongNameAndSocial() (gas: 164945)
+[PASS] testUnauthorizedCallerCannotDeploy() (gas: 85540)
+Suite result: ok. 4 passed; 0 failed; 0 skipped; finished in 433.30ms (263.89ms CPU time)
+
+Ran 7 tests for test/v2/unit/RetroPickCurrentCurveStateV2Qualification.t.sol:RetroPickCurrentCurveStateV2QualificationTest
+[PASS] testBuySellAndFeeBucketsReconcileWithPhysicalBalances() (gas: 554829)
+[PASS] testCompletionQuoteMatchesExecutableFinalBuyAfterMutations() (gas: 1351208)
+[PASS] testInitialSupplyWiringAndReserve() (gas: 141326)
+[PASS] testPlainFeeSweepLeavesTradingReserveIntact() (gas: 458249)
+[PASS] testSnipeExemptionIsCurrentlyNoOpForTradeTax() (gas: 239106)
+[PASS] testSweepDoesNotDoubleDeductBuybackEarmark() (gas: 351130)
+[PASS] testUnauthorizedAndFailedOperationsPreserveAccounting() (gas: 144260)
+Suite result: ok. 7 passed; 0 failed; 0 skipped; finished in 751.75ms (137.48ms CPU time)
+
+Ran 2 tests for test/v2/unit/GraduationCoordinatorV2Authority.t.sol:GraduationCoordinatorV2AuthorityTest
+[PASS] testInexactSecureReportCannotCreateDurableLedgerThenExactHandoffRetries() (gas: 5721025)
+[PASS] testOnlyFactoryCanConfigureRegisterOrSecureAndBindingIsOneTime() (gas: 281358)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 790.83ms (276.14ms CPU time)
+
+Ran 8 tests for test/v2/unit/RetroPickFeeEscrowV2Qualification.t.sol:RetroPickFeeEscrowV2QualificationTest
+[PASS] testExactTokenCreditsAndClaimsAreAssetSegregated() (gas: 1790898)
+[PASS] testExternalBalanceLossStopsTokenClaimsWithoutCorruptingLedger() (gas: 1030374)
+[PASS] testNativeCreditsClaimsAndDonationsRemainSeparate() (gas: 368967)
+[PASS] testNativeReceiverReentryCannotDoubleClaim() (gas: 524269)
+[PASS] testRejectedCallsPreserveState() (gas: 132751)
+[PASS] testRejectedTokenPayoutAndLateSenderSurchargePreserveCredit() (gas: 1435525)
+[PASS] testRepeatedCreditsPartialClaimsAndDoubleClaimRejection() (gas: 1006345)
+[PASS] testSenderSurchargeCreditRevertsBeforeLiabilityIsCreated() (gas: 875751)
+Suite result: ok. 8 passed; 0 failed; 0 skipped; finished in 1.19s (167.38ms CPU time)
+
+Ran 5 tests for test/v2/unit/RetroPickBondingCurveMathV2Qualification.t.sol:RetroPickBondingCurveMathV2QualificationTest
+[PASS] testFuzzAmountInExactIntegerFormula(uint256,uint256,uint256,uint16) (runs: 10000, μ: 21311, ~: 21321)
+[PASS] testFuzzAmountOutExactIntegerFormula(uint256,uint256,uint256,uint16) (runs: 10000, μ: 30403, ~: 32251)
+[PASS] testGoldenAmountInCurrentPlusOneRounding() (gas: 30627)
+[PASS] testGoldenAmountOutNoFee() (gas: 30679)
+[PASS] testZeroAndEmptyDomains() (gas: 105149)
+Suite result: ok. 5 passed; 0 failed; 0 skipped; finished in 2.52s (4.67s CPU time)
+
+Ran 5 tests for test/v2/unit/QuoteAssetRegistryV2.t.sol:V4OnlyQuoteAssetRegistryV2Test
+[PASS] testChainAndPolicyHashFailClosed() (gas: 283781)
+[PASS] testFuzzOnlyMaskOneCanBeConfigured(uint8) (runs: 10000, μ: 79797, ~: 70432)
+[PASS] testNativeAndSixDecimalAdmissionIdentity() (gas: 1011179)
+[PASS] testOwnerCannotEnableReservedKuruMask() (gas: 333393)
+[PASS] testVersionAndExistingSnapshotRemainStable() (gas: 321838)
+Suite result: ok. 5 passed; 0 failed; 0 skipped; finished in 2.56s (2.54s CPU time)
+
+Ran 8 test suites in 2.71s (8.57s CPU time): 34 tests passed, 0 failed, 0 skipped (34 total tests)

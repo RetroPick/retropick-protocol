@@ -1,0 +1,6 @@
+{
+  "oldSha256": "65a492acac9e1e6af64fe5d6d1110dd2c469e17c65ce4a4e08fa6fc7238ca7a4",
+  "newSha256": "02481ea86b8b903a5adf15c2a4a7a8899f76fe952f2fbb9a0c66c4635fdf4a10",
+  "solidityTokenSequenceIdentical": true,
+  "scope": "Whitespace-only formatter output; metadata/source hashes change. No financial statement changed."
+}

@@ -1,0 +1,18 @@
+No files changed, compilation skipped
+
+Ran 12 tests for test/v2/integration/RetroPickV4GraduationBehavior.t.sol:RetroPickV4GraduationBehaviorTest
+[PASS] testBuybackEnabledCompletionQuoteBeforeAndAfterSweep() (gas: 6481757)
+[SKIP: Circle test requires pinned Monad Testnet fork] testCircleCompletionQuoteMatchesImmediateFinalBuyAcrossStates() (gas: 0)
+[SKIP: Circle test requires pinned Monad Testnet fork] testCircleCurrentV4FailureRetryCustodyAndReplay() (gas: 0)
+[SKIP: Circle test requires pinned Monad Testnet fork] testCircleMinimumRawRoundTripPumpsReserveRepeatedly() (gas: 0)
+[SKIP: Circle test requires pinned Monad Testnet fork] testCircleResearchCeilingRejectsFifthCycleSell() (gas: 0)
+[SKIP: Circle test requires pinned Monad Testnet fork] testCircleRoundTripHistoryChangesTerminalQuote() (gas: 0)
+[PASS] testNativeCompletionQuoteMatchesImmediateFinalBuyAcrossStates() (gas: 9464655)
+[PASS] testNativeCurrentV4FailureRetryCustodyAndReplay() (gas: 7460911)
+[PASS] testNativeMinimumRawRoundTripPumpsReserveRepeatedly() (gas: 10283984)
+[PASS] testNativeResearchCeilingRejectsFifthCycleSell() (gas: 7033849)
+[PASS] testNativeRoundTripHistoryChangesTerminalQuote() (gas: 8341211)
+[PASS] testOneRawQuoteCannotCompleteInitialRoundTrip() (gas: 4731450)
+Suite result: ok. 7 passed; 0 failed; 5 skipped; finished in 481.32ms (1.06s CPU time)
+
+Ran 1 test suite in 501.54ms (481.32ms CPU time): 7 tests passed, 0 failed, 5 skipped (12 total tests)

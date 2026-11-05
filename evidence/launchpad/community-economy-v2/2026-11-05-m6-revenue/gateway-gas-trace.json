@@ -1,0 +1,45 @@
+{
+  "source": "evidence/launchpad/community-economy-v2/2026-11-05-m6-revenue/20261105T133842923862Z/genuine-revenue.log",
+  "classification": "CALL_TRACE_GAS_GENUINE_LOCAL_PAYMENT_GATEWAY_INCLUDES_AUTHENTICATION_AND_SETTLEMENT",
+  "notComparableWithoutControls": [
+    "warm/cold state",
+    "first storage writes",
+    "asset direction and exactness",
+    "policy epoch",
+    "modeled token vs native"
+  ],
+  "swaps": [
+    {
+      "gas": 1025223,
+      "trace": "\u251c\u2500 [1025223] GenuineSwapHarnessV2::swap{value: 10000000000000000}(PoolKey({ currency0: 0x0000000000000000000000000000000000000000, currency1: 0x1a7420135e3551169cf51251e77C21eCaB8fBff7, fee: 0, tickSpacing: 60, hooks: 0x8F3F943f304DfDecB79C14737237430628F92044 }), SwapParams({ zeroForOne: true, amountSpecified: -10000000000000000 [-1e16], sqrtPriceLimitX96: 4295128740 [4.295e9] }), 10000000000000000 [1e16], 1)"
+    },
+    {
+      "gas": 740058,
+      "trace": "\u251c\u2500 [740058] GenuineSwapHarnessV2::swap(PoolKey({ currency0: 0x0000000000000000000000000000000000000000, currency1: 0x1a7420135e3551169cf51251e77C21eCaB8fBff7, fee: 0, tickSpacing: 60, hooks: 0x8F3F943f304DfDecB79C14737237430628F92044 }), SwapParams({ zeroForOne: false, amountSpecified: -1219059405940594057 [-1.219e18], sqrtPriceLimitX96: 1461446703485210103287273052203988822378723970341 [1.461e48] }), 1219059405940594057 [1.219e18], 1)"
+    },
+    {
+      "gas": 684080,
+      "trace": "\u251c\u2500 [684080] GenuineSwapHarnessV2::swap{value: 10000000000000000}(PoolKey({ currency0: 0x0000000000000000000000000000000000000000, currency1: 0x1a7420135e3551169cf51251e77C21eCaB8fBff7, fee: 0, tickSpacing: 60, hooks: 0x8F3F943f304DfDecB79C14737237430628F92044 }), SwapParams({ zeroForOne: true, amountSpecified: 243811881188118811 [2.438e17], sqrtPriceLimitX96: 4295128740 [4.295e9] }), 10000000000000000 [1e16], 243811881188118811 [2.438e17])"
+    },
+    {
+      "gas": 815739,
+      "trace": "\u251c\u2500 [815739] GenuineSwapHarnessV2::swap(PoolKey({ currency0: 0x0000000000000000000000000000000000000000, currency1: 0x1a7420135e3551169cf51251e77C21eCaB8fBff7, fee: 0, tickSpacing: 60, hooks: 0x8F3F943f304DfDecB79C14737237430628F92044 }), SwapParams({ zeroForOne: false, amountSpecified: 1000000000000000 [1e15], sqrtPriceLimitX96: 1461446703485210103287273052203988822378723970341 [1.461e48] }), 2438118811881188115 [2.438e18], 1000000000000000 [1e15])"
+    },
+    {
+      "gas": 1064266,
+      "trace": "\u251c\u2500 [1064266] GenuineSwapHarnessV2::swap(PoolKey({ currency0: 0x1a7420135e3551169cf51251e77C21eCaB8fBff7, currency1: 0x534b2f3A21130d7a60830c2Df862319e593943A3, fee: 0, tickSpacing: 60, hooks: 0x8F3F943f304DfDecB79C14737237430628F92044 }), SwapParams({ zeroForOne: false, amountSpecified: -10000 [-1e4], sqrtPriceLimitX96: 1461446703485210103287273052203988822378723970341 [1.461e48] }), 10000 [1e4], 1)"
+    },
+    {
+      "gas": 893977,
+      "trace": "\u251c\u2500 [893977] GenuineSwapHarnessV2::swap(PoolKey({ currency0: 0x1a7420135e3551169cf51251e77C21eCaB8fBff7, currency1: 0x534b2f3A21130d7a60830c2Df862319e593943A3, fee: 0, tickSpacing: 60, hooks: 0x8F3F943f304DfDecB79C14737237430628F92044 }), SwapParams({ zeroForOne: true, amountSpecified: -1219058211022125096 [-1.219e18], sqrtPriceLimitX96: 4295128740 [4.295e9] }), 1219058211022125096 [1.219e18], 1)"
+    },
+    {
+      "gas": 843325,
+      "trace": "\u251c\u2500 [843325] GenuineSwapHarnessV2::swap(PoolKey({ currency0: 0x1a7420135e3551169cf51251e77C21eCaB8fBff7, currency1: 0x534b2f3A21130d7a60830c2Df862319e593943A3, fee: 0, tickSpacing: 60, hooks: 0x8F3F943f304DfDecB79C14737237430628F92044 }), SwapParams({ zeroForOne: false, amountSpecified: 243811642204425019 [2.438e17], sqrtPriceLimitX96: 1461446703485210103287273052203988822378723970341 [1.461e48] }), 10000 [1e4], 243811642204425019 [2.438e17])"
+    },
+    {
+      "gas": 843412,
+      "trace": "\u251c\u2500 [843412] GenuineSwapHarnessV2::swap(PoolKey({ currency0: 0x1a7420135e3551169cf51251e77C21eCaB8fBff7, currency1: 0x534b2f3A21130d7a60830c2Df862319e593943A3, fee: 0, tickSpacing: 60, hooks: 0x8F3F943f304DfDecB79C14737237430628F92044 }), SwapParams({ zeroForOne: true, amountSpecified: 1000, sqrtPriceLimitX96: 4295128740 [4.295e9] }), 2438116422044250193 [2.438e18], 1000)"
+    }
+  ]
+}

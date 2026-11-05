@@ -1,0 +1,53 @@
+Compiling 204 files with Solc 0.8.26
+Solc 0.8.26 finished in 223.25s
+Compiler run successful with warnings:
+Warning (2018): Function state mutability can be restricted to view
+   --> src/legacy/v2/kuru/canonical/RetroPickBondingCurveV2.sol:931:5:
+    |
+931 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to view
+   --> src/v2-research-experiment/RetroPickBondingCurveV2.sol:931:5:
+    |
+931 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to view
+   --> src/v2/RetroPickBondingCurveV2.sol:931:5:
+    |
+931 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to view
+   --> test/v2/community-economy/reference/v2/RetroPickBondingCurveV2.sol:861:5:
+    |
+861 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 21 tests for test/legacy/v2-kuru/integration/RetroPickFactoryLaunchV2Qualification.t.sol:RetroPickFactoryLaunchV2QualificationTest
+[PASS] testApprovedCallbackQuoteCannotReenterBuyAccounting() (gas: 5798304)
+[PASS] testApprovedExactTransferSixDecimalQuoteBuySellBalances() (gas: 5857667)
+[PASS] testApprovedExternallyReducibleQuoteLossFailsClosed() (gas: 5809443)
+[PASS] testApprovedFalseReturnQuoteBuyRevertsWithoutStateChange() (gas: 5438318)
+[PASS] testApprovedSenderSurchargeQuoteRejectedBeforeCurveAccounting() (gas: 5530921)
+[PASS] testBuybackAuthorizationCreatorCanEnableOwnerCanOnlyDisable() (gas: 4870042)
+[PASS] testCreatorFeeRecipientOverrideIsDelayedAndSupersedesInterveningTransfer() (gas: 5043601)
+[PASS] testCrossingBuySweepsAssetsAndFailedMockV4SeedPreservesThem() (gas: 5607612)
+[PASS] testCurrentSaltDoesNotAffectAddressesFromIdenticalPrelaunchState() (gas: 8844738)
+[PASS] testEconomicsPinAndDisabledConfigRejectWithoutLaunch() (gas: 602583)
+[PASS] testFactoryCreatesAndRecordsNativeLaunch() (gas: 4740637)
+[PASS] testFactoryV4SeedRejectsQuoteSenderSurchargeAfterSweep() (gas: 6792867)
+[PASS] testNativeNearGraduationBuybackFoldsIntoCreatorFees() (gas: 5042117)
+[PASS] testNativeRepeatedBuybackSweepsAndPartialFullVest() (gas: 6410161)
+[SKIP: Circle Core fork requires MONAD_TESTNET_RPC_URL] testPinnedCircleCoreLaunchBuySweepAndFailedV4PreservesAssets() (gas: 0)
+[SKIP: Circle Core fork requires MONAD_TESTNET_RPC_URL] testPinnedCircleNearGraduationBuybackFoldsIntoCreatorFees() (gas: 0)
+[SKIP: Circle Core fork requires MONAD_TESTNET_RPC_URL] testPinnedCircleRepeatedBuybackSweepsAndPartialFullVest() (gas: 0)
+[PASS] testRegistryRejectsUnadmittedQuoteAndWrongCircleIdentity() (gas: 2058068)
+[PASS] testSnipeSettingDoesNotChangeCurrentBuyEconomics() (gas: 9268766)
+[PASS] testTrustedFeeSweepLocksBuybackTokensAndPreservesQuoteAccounting() (gas: 5940226)
+[PASS] testUnapprovedQuoteRejectedAndApprovedSixDecimalQuoteLaunched() (gas: 5484581)
+Suite result: ok. 18 passed; 0 failed; 3 skipped; finished in 43.40ms (127.29ms CPU time)
+
+Ran 1 test suite in 47.75ms (43.40ms CPU time): 18 tests passed, 0 failed, 3 skipped (21 total tests)

@@ -1,0 +1,457 @@
+{
+  "schema": 1,
+  "baseline": "7ddf4dae65e11acb489be7eceb30a4846adf18cc",
+  "purpose": "Frozen historical Kuru compile closure; relocated builds are logic regressions, not deployed byte identity",
+  "sourceUnits": [
+    {
+      "lane": "canonical",
+      "originalPath": "contracts/src/v2/GraduationCoordinatorV2.sol",
+      "originalSourceUnit": "src/v2/GraduationCoordinatorV2.sol",
+      "archivePath": "contracts/src/legacy/v2/kuru/canonical/GraduationCoordinatorV2.sol",
+      "gitBlob": "f24ae768669738112587cefc570cffaa334750be",
+      "sha256": "7823fba50e8890facd20e1df30df60f02628574ef5d9236991cf38f755274f4a",
+      "bytes": 13106
+    },
+    {
+      "lane": "canonical",
+      "originalPath": "contracts/src/v2/KuruEnvironmentV2.sol",
+      "originalSourceUnit": "src/v2/KuruEnvironmentV2.sol",
+      "archivePath": "contracts/src/legacy/v2/kuru/canonical/KuruEnvironmentV2.sol",
+      "gitBlob": "8afba9116e270e6ca5736683e2888fcff28a9400",
+      "sha256": "aa915a37dbdf2b439983d4b8791bbbc61d64730aee879e44a322b4148ab7c99f",
+      "bytes": 1732
+    },
+    {
+      "lane": "canonical",
+      "originalPath": "contracts/src/v2/KuruGraduationExecutorV2.sol",
+      "originalSourceUnit": "src/v2/KuruGraduationExecutorV2.sol",
+      "archivePath": "contracts/src/legacy/v2/kuru/canonical/KuruGraduationExecutorV2.sol",
+      "gitBlob": "178922412e5e2226f48c6865e94faec529d8aac1",
+      "sha256": "8d3212f6d12580cab1e928afdcf28519145b50e97b05ffd311c4a2dee200217c",
+      "bytes": 15428
+    },
+    {
+      "lane": "canonical",
+      "originalPath": "contracts/src/v2/KuruLiquidityLockV2.sol",
+      "originalSourceUnit": "src/v2/KuruLiquidityLockV2.sol",
+      "archivePath": "contracts/src/legacy/v2/kuru/canonical/KuruLiquidityLockV2.sol",
+      "gitBlob": "8689509f69b1afbdf4c8bfb3bb50f7d0c187bc99",
+      "sha256": "fdb8ada56145a8418d277131bd834444273bc5ce81736d61b941c760431b19c1",
+      "bytes": 998
+    },
+    {
+      "lane": "canonical",
+      "originalPath": "contracts/src/v2/RetroPickBondingCurveV2.sol",
+      "originalSourceUnit": "src/v2/RetroPickBondingCurveV2.sol",
+      "archivePath": "contracts/src/legacy/v2/kuru/canonical/RetroPickBondingCurveV2.sol",
+      "gitBlob": "78a3445835064bab629a97c0ce12d82c694cfb70",
+      "sha256": "776b2fe8935617cbe8cab1336765efd97858e152ffa5ee870d43eb04e0568b05",
+      "bytes": 50990
+    },
+    {
+      "lane": "canonical",
+      "originalPath": "contracts/src/v2/RetroPickBuybackVaultV2.sol",
+      "originalSourceUnit": "src/v2/RetroPickBuybackVaultV2.sol",
+      "archivePath": "contracts/src/legacy/v2/kuru/canonical/RetroPickBuybackVaultV2.sol",
+      "gitBlob": "a7be0a59fdecdefe02f86866485b053bfff3aee6",
+      "sha256": "2a387e80ddd1b24b8b381bcc6aed982e1c16fcf2d6d16325483989eaa85f60be",
+      "bytes": 16320
+    },
+    {
+      "lane": "canonical",
+      "originalPath": "contracts/src/v2/RetroPickFeeEscrowV2.sol",
+      "originalSourceUnit": "src/v2/RetroPickFeeEscrowV2.sol",
+      "archivePath": "contracts/src/legacy/v2/kuru/canonical/RetroPickFeeEscrowV2.sol",
+      "gitBlob": "7d32540a2fcfa5fd47d016b58e72925206a86cde",
+      "sha256": "41183cf76e94c1a51fca4754d0a885e81997b5aeb41ed7101f6e3e71f040cf88",
+      "bytes": 6058
+    },
+    {
+      "lane": "canonical",
+      "originalPath": "contracts/src/v2/RetroPickGraduationGuardV2.sol",
+      "originalSourceUnit": "src/v2/RetroPickGraduationGuardV2.sol",
+      "archivePath": "contracts/src/legacy/v2/kuru/canonical/RetroPickGraduationGuardV2.sol",
+      "gitBlob": "0c941ecf04ade0d68dfbf059a37bbd6abd018f8a",
+      "sha256": "3b96b08ae957260617c671a60cf85c8cab11c1b4cfee0db6c102b01f945d3b3c",
+      "bytes": 6212
+    },
+    {
+      "lane": "canonical",
+      "originalPath": "contracts/src/v2/RetroPickHookDeployerV2.sol",
+      "originalSourceUnit": "src/v2/RetroPickHookDeployerV2.sol",
+      "archivePath": "contracts/src/legacy/v2/kuru/canonical/RetroPickHookDeployerV2.sol",
+      "gitBlob": "5c06d9a7818d9f99b620156f9c9653fb312dd0b8",
+      "sha256": "012bd068abf797e79dea255e7c4ebed999ef60b00b2e34237e0de135d972ae4f",
+      "bytes": 847
+    },
+    {
+      "lane": "canonical",
+      "originalPath": "contracts/src/v2/RetroPickLaunchDeployerV2.sol",
+      "originalSourceUnit": "src/v2/RetroPickLaunchDeployerV2.sol",
+      "archivePath": "contracts/src/legacy/v2/kuru/canonical/RetroPickLaunchDeployerV2.sol",
+      "gitBlob": "2b9473cae981d79eed0b186463716256ecc68af6",
+      "sha256": "a8e67cf25071c477b617ea84f00ea0f02c4f7d00c70450bd843d8ee83041a4a0",
+      "bytes": 5425
+    },
+    {
+      "lane": "canonical",
+      "originalPath": "contracts/src/v2/RetroPickLaunchFactoryV2.sol",
+      "originalSourceUnit": "src/v2/RetroPickLaunchFactoryV2.sol",
+      "archivePath": "contracts/src/legacy/v2/kuru/canonical/RetroPickLaunchFactoryV2.sol",
+      "gitBlob": "5498a9b3d93eeb9480e5b5939270af533c1af640",
+      "sha256": "4e87f074f101d0d548800f29c9a06907a94fe15f5957df537806fe07284a36fe",
+      "bytes": 56462
+    },
+    {
+      "lane": "canonical",
+      "originalPath": "contracts/src/v2/RetroPickLaunchLockerV2.sol",
+      "originalSourceUnit": "src/v2/RetroPickLaunchLockerV2.sol",
+      "archivePath": "contracts/src/legacy/v2/kuru/canonical/RetroPickLaunchLockerV2.sol",
+      "gitBlob": "b45ff445439bcfa31f2ff1e84ec7900c51a181e2",
+      "sha256": "389779b3db7251dd14bbb8eb216c3056c858a071e85700aff5a7d25516b2a794",
+      "bytes": 5522
+    },
+    {
+      "lane": "canonical",
+      "originalPath": "contracts/src/v2/RetroPickLauncherTokenV2.sol",
+      "originalSourceUnit": "src/v2/RetroPickLauncherTokenV2.sol",
+      "archivePath": "contracts/src/legacy/v2/kuru/canonical/RetroPickLauncherTokenV2.sol",
+      "gitBlob": "9fb8a73c4965c899e7aeb719d18a7150c017eaf4",
+      "sha256": "6218554cf72090fa443da6650ff446c8965fec8ecd6fcce6a6daaf853ad68f33",
+      "bytes": 3474
+    },
+    {
+      "lane": "canonical",
+      "originalPath": "contracts/src/v2/RetroPickQuoteAssetPolicyV2.sol",
+      "originalSourceUnit": "src/v2/RetroPickQuoteAssetPolicyV2.sol",
+      "archivePath": "contracts/src/legacy/v2/kuru/canonical/RetroPickQuoteAssetPolicyV2.sol",
+      "gitBlob": "04fcf78168bcc78f64577c0d51d463b90a42b79f",
+      "sha256": "00a1d6b50ec3736ec4ea347964dc2bc0cb71bf05047937bc030b30026d6ab90e",
+      "bytes": 1546
+    },
+    {
+      "lane": "canonical",
+      "originalPath": "contracts/src/v2/RetroPickQuoteAssetRegistryV2.sol",
+      "originalSourceUnit": "src/v2/RetroPickQuoteAssetRegistryV2.sol",
+      "archivePath": "contracts/src/legacy/v2/kuru/canonical/RetroPickQuoteAssetRegistryV2.sol",
+      "gitBlob": "1ec5bf779e71f431050b58b6bb738a8d960dad46",
+      "sha256": "7032fbb85717c8077ff46a48dc1fc6733795c8d7a8afdc964c4de85962fa909c",
+      "bytes": 4123
+    },
+    {
+      "lane": "canonical",
+      "originalPath": "contracts/src/v2/UniswapV4GraduationExecutorV2.sol",
+      "originalSourceUnit": "src/v2/UniswapV4GraduationExecutorV2.sol",
+      "archivePath": "contracts/src/legacy/v2/kuru/canonical/UniswapV4GraduationExecutorV2.sol",
+      "gitBlob": "75096a68d1e9a6c096033c6af83f782320e642a3",
+      "sha256": "d2e3d0e8f33fdb3549ed1a6b644a00cb8c461c6ec406f96b24daa31eda31dcb6",
+      "bytes": 14661
+    },
+    {
+      "lane": "canonical",
+      "originalPath": "contracts/src/v2/hooks/RetroPickMemeHookV2.sol",
+      "originalSourceUnit": "src/v2/hooks/RetroPickMemeHookV2.sol",
+      "archivePath": "contracts/src/legacy/v2/kuru/canonical/hooks/RetroPickMemeHookV2.sol",
+      "gitBlob": "4209876d91fa4b26ce4e0171afdfd8a9487d691b",
+      "sha256": "30730479a25e133fbea08e8d27167e25a622d6e368e24c2ac159ea90d81b1a2e",
+      "bytes": 48504
+    },
+    {
+      "lane": "canonical",
+      "originalPath": "contracts/src/v2/interfaces/ICommunityFeesV2.sol",
+      "originalSourceUnit": "src/v2/interfaces/ICommunityFeesV2.sol",
+      "archivePath": "contracts/src/legacy/v2/kuru/canonical/interfaces/ICommunityFeesV2.sol",
+      "gitBlob": "513c29746279de4141412bd03bc196479d95dbf1",
+      "sha256": "b0f2a3cec8a8fafdab771e7a9703cd5ac986cea4e236eb9a622dd22268300dc5",
+      "bytes": 1084
+    },
+    {
+      "lane": "canonical",
+      "originalPath": "contracts/src/v2/interfaces/IGraduationExecutorV2.sol",
+      "originalSourceUnit": "src/v2/interfaces/IGraduationExecutorV2.sol",
+      "archivePath": "contracts/src/legacy/v2/kuru/canonical/interfaces/IGraduationExecutorV2.sol",
+      "gitBlob": "cd2ded05cbd1576ff939be36da7d2ec9a50a5771",
+      "sha256": "f2120b5edf7c34d5229eb7fb4fb20adfac48af3469368205d34d1e1f9e28d6fd",
+      "bytes": 3281
+    },
+    {
+      "lane": "canonical",
+      "originalPath": "contracts/src/v2/interfaces/IKuruV2.sol",
+      "originalSourceUnit": "src/v2/interfaces/IKuruV2.sol",
+      "archivePath": "contracts/src/legacy/v2/kuru/canonical/interfaces/IKuruV2.sol",
+      "gitBlob": "5543d23fdf72533cd3f14d17a4918edc3087bf47",
+      "sha256": "8cd18dd7032a8b9a7ca2b54ae88eef17c055e6b9a92996cae87b7c9996dedeb2",
+      "bytes": 2328
+    },
+    {
+      "lane": "canonical",
+      "originalPath": "contracts/src/v2/interfaces/IRetroPickGraduationV2.sol",
+      "originalSourceUnit": "src/v2/interfaces/IRetroPickGraduationV2.sol",
+      "archivePath": "contracts/src/legacy/v2/kuru/canonical/interfaces/IRetroPickGraduationV2.sol",
+      "gitBlob": "92202ac0cd0be31c28587e29ca7f08d4e0ffc574",
+      "sha256": "8c145b9e43ae84b00664769306c8267b47b2a300f4d554e5af2d8187ab166ff0",
+      "bytes": 433
+    },
+    {
+      "lane": "canonical",
+      "originalPath": "contracts/src/v2/interfaces/IRetroPickLaunchpadV2.sol",
+      "originalSourceUnit": "src/v2/interfaces/IRetroPickLaunchpadV2.sol",
+      "archivePath": "contracts/src/legacy/v2/kuru/canonical/interfaces/IRetroPickLaunchpadV2.sol",
+      "gitBlob": "75b479b4341e78e7a8f0f898a25b85b13ff2d616",
+      "sha256": "707b07a77d0c2a5805032aa949a926dd241efb6aa4b951e58f27cd9a4b79f831",
+      "bytes": 5886
+    },
+    {
+      "lane": "canonical",
+      "originalPath": "contracts/src/v2/interfaces/IRetroPickQuoteAssetPolicyV2.sol",
+      "originalSourceUnit": "src/v2/interfaces/IRetroPickQuoteAssetPolicyV2.sol",
+      "archivePath": "contracts/src/legacy/v2/kuru/canonical/interfaces/IRetroPickQuoteAssetPolicyV2.sol",
+      "gitBlob": "831a1713d0d5d932144ba86c7190840714b12e31",
+      "sha256": "403fa51050f584318330fbe236acb870cf09c298306745229dc69fd4ae5074d1",
+      "bytes": 257
+    },
+    {
+      "lane": "canonical",
+      "originalPath": "contracts/src/v2/interfaces/IVenueLaunchV2.sol",
+      "originalSourceUnit": "src/v2/interfaces/IVenueLaunchV2.sol",
+      "archivePath": "contracts/src/legacy/v2/kuru/canonical/interfaces/IVenueLaunchV2.sol",
+      "gitBlob": "f81ef1a748f8139363811907df452224e604a1f2",
+      "sha256": "c9cd43a33118899de7ec5b17852d175c3d445af20931dd8693334406012c0e86",
+      "bytes": 532
+    },
+    {
+      "lane": "canonical",
+      "originalPath": "contracts/src/v2/libraries/CompletionQuoteMathV2.sol",
+      "originalSourceUnit": "src/v2/libraries/CompletionQuoteMathV2.sol",
+      "archivePath": "contracts/src/legacy/v2/kuru/canonical/libraries/CompletionQuoteMathV2.sol",
+      "gitBlob": "a4861890a027e8ef1c14828fe6a28630bdff01ec",
+      "sha256": "0501bd4cd506f68ff073187c8cf2f018a9e32e0c92686f99d080db771a99461c",
+      "bytes": 2406
+    },
+    {
+      "lane": "canonical",
+      "originalPath": "contracts/src/v2/libraries/ExactAssetV2.sol",
+      "originalSourceUnit": "src/v2/libraries/ExactAssetV2.sol",
+      "archivePath": "contracts/src/legacy/v2/kuru/canonical/libraries/ExactAssetV2.sol",
+      "gitBlob": "0a80424261f0ba11a55d2e536ef883de8f5f06a8",
+      "sha256": "55b86794fa8a1545ed247c4035dffdf05515d9c5a2a27b49f335102eeeede28e",
+      "bytes": 1456
+    },
+    {
+      "lane": "canonical",
+      "originalPath": "contracts/src/v2/libraries/ExecutorDonationsV2.sol",
+      "originalSourceUnit": "src/v2/libraries/ExecutorDonationsV2.sol",
+      "archivePath": "contracts/src/legacy/v2/kuru/canonical/libraries/ExecutorDonationsV2.sol",
+      "gitBlob": "cfbf3041da9b5429dd4da736bc9448eef0a2ec5b",
+      "sha256": "47661cb3dda1c80ddca62ae708881c49af4cc3c3be383a23173f19c9b0da130a",
+      "bytes": 1579
+    },
+    {
+      "lane": "canonical",
+      "originalPath": "contracts/src/v2/libraries/KuruParameterPolicyV2.sol",
+      "originalSourceUnit": "src/v2/libraries/KuruParameterPolicyV2.sol",
+      "archivePath": "contracts/src/legacy/v2/kuru/canonical/libraries/KuruParameterPolicyV2.sol",
+      "gitBlob": "fb24051b372d990ef6076176b90a0ee85bc8ce63",
+      "sha256": "f0979f764111c2fb537caf3f4d6a34cad6419b66da4f5279d6bfbe373c857750",
+      "bytes": 2646
+    },
+    {
+      "lane": "canonical",
+      "originalPath": "contracts/src/v2/libraries/RetroPickBondingCurveMathV2.sol",
+      "originalSourceUnit": "src/v2/libraries/RetroPickBondingCurveMathV2.sol",
+      "archivePath": "contracts/src/legacy/v2/kuru/canonical/libraries/RetroPickBondingCurveMathV2.sol",
+      "gitBlob": "6a28775a25c414f8377ea1aa71fbb81ecff68fd3",
+      "sha256": "2576c4601ca9f516d156cc5652a66400f05e1974c6e2e0fec815a171d669066b",
+      "bytes": 3925
+    },
+    {
+      "lane": "canonical",
+      "originalPath": "contracts/src/v2/libraries/RetroPickGraduationMathV2.sol",
+      "originalSourceUnit": "src/v2/libraries/RetroPickGraduationMathV2.sol",
+      "archivePath": "contracts/src/legacy/v2/kuru/canonical/libraries/RetroPickGraduationMathV2.sol",
+      "gitBlob": "6ddd9cc18da0ef35c778bb64caba97a9fd690661",
+      "sha256": "f9cf285edf8aac15ef3266d42c454ec14f42b6e8a9ce618019a5e9d3d2886c3a",
+      "bytes": 2725
+    },
+    {
+      "lane": "experimental",
+      "originalPath": "contracts/src/v2-research-experiment/KuruEnvironmentV2.sol",
+      "originalSourceUnit": "src/v2-research-experiment/KuruEnvironmentV2.sol",
+      "archivePath": "contracts/src/legacy/v2/kuru/experimental/KuruEnvironmentV2.sol",
+      "gitBlob": "8afba9116e270e6ca5736683e2888fcff28a9400",
+      "sha256": "aa915a37dbdf2b439983d4b8791bbbc61d64730aee879e44a322b4148ab7c99f",
+      "bytes": 1732
+    },
+    {
+      "lane": "experimental",
+      "originalPath": "contracts/src/v2-research-experiment/KuruGraduationExecutorV2.sol",
+      "originalSourceUnit": "src/v2-research-experiment/KuruGraduationExecutorV2.sol",
+      "archivePath": "contracts/src/legacy/v2/kuru/experimental/KuruGraduationExecutorV2.sol",
+      "gitBlob": "178922412e5e2226f48c6865e94faec529d8aac1",
+      "sha256": "8d3212f6d12580cab1e928afdcf28519145b50e97b05ffd311c4a2dee200217c",
+      "bytes": 15428
+    },
+    {
+      "lane": "experimental",
+      "originalPath": "contracts/src/v2-research-experiment/KuruLiquidityLockV2.sol",
+      "originalSourceUnit": "src/v2-research-experiment/KuruLiquidityLockV2.sol",
+      "archivePath": "contracts/src/legacy/v2/kuru/experimental/KuruLiquidityLockV2.sol",
+      "gitBlob": "8689509f69b1afbdf4c8bfb3bb50f7d0c187bc99",
+      "sha256": "fdb8ada56145a8418d277131bd834444273bc5ce81736d61b941c760431b19c1",
+      "bytes": 998
+    },
+    {
+      "lane": "experimental",
+      "originalPath": "contracts/src/v2-research-experiment/interfaces/IGraduationExecutorV2.sol",
+      "originalSourceUnit": "src/v2-research-experiment/interfaces/IGraduationExecutorV2.sol",
+      "archivePath": "contracts/src/legacy/v2/kuru/experimental/interfaces/IGraduationExecutorV2.sol",
+      "gitBlob": "cd2ded05cbd1576ff939be36da7d2ec9a50a5771",
+      "sha256": "f2120b5edf7c34d5229eb7fb4fb20adfac48af3469368205d34d1e1f9e28d6fd",
+      "bytes": 3281
+    },
+    {
+      "lane": "experimental",
+      "originalPath": "contracts/src/v2-research-experiment/interfaces/IKuruV2.sol",
+      "originalSourceUnit": "src/v2-research-experiment/interfaces/IKuruV2.sol",
+      "archivePath": "contracts/src/legacy/v2/kuru/experimental/interfaces/IKuruV2.sol",
+      "gitBlob": "43cef1e4d92201db7b825453810f01e25678d38e",
+      "sha256": "3c6180c9cf333d3b6b3e1e4af1ba84d3da50d30f022c11315ae070e4d4ad3dc1",
+      "bytes": 2327
+    },
+    {
+      "lane": "experimental",
+      "originalPath": "contracts/src/v2-research-experiment/interfaces/IRetroPickLaunchpadV2.sol",
+      "originalSourceUnit": "src/v2-research-experiment/interfaces/IRetroPickLaunchpadV2.sol",
+      "archivePath": "contracts/src/legacy/v2/kuru/experimental/interfaces/IRetroPickLaunchpadV2.sol",
+      "gitBlob": "75b479b4341e78e7a8f0f898a25b85b13ff2d616",
+      "sha256": "707b07a77d0c2a5805032aa949a926dd241efb6aa4b951e58f27cd9a4b79f831",
+      "bytes": 5886
+    },
+    {
+      "lane": "experimental",
+      "originalPath": "contracts/src/v2-research-experiment/libraries/ExactAssetV2.sol",
+      "originalSourceUnit": "src/v2-research-experiment/libraries/ExactAssetV2.sol",
+      "archivePath": "contracts/src/legacy/v2/kuru/experimental/libraries/ExactAssetV2.sol",
+      "gitBlob": "0a80424261f0ba11a55d2e536ef883de8f5f06a8",
+      "sha256": "55b86794fa8a1545ed247c4035dffdf05515d9c5a2a27b49f335102eeeede28e",
+      "bytes": 1456
+    },
+    {
+      "lane": "experimental",
+      "originalPath": "contracts/src/v2-research-experiment/libraries/ExecutorDonationsV2.sol",
+      "originalSourceUnit": "src/v2-research-experiment/libraries/ExecutorDonationsV2.sol",
+      "archivePath": "contracts/src/legacy/v2/kuru/experimental/libraries/ExecutorDonationsV2.sol",
+      "gitBlob": "cfbf3041da9b5429dd4da736bc9448eef0a2ec5b",
+      "sha256": "47661cb3dda1c80ddca62ae708881c49af4cc3c3be383a23173f19c9b0da130a",
+      "bytes": 1579
+    },
+    {
+      "lane": "experimental",
+      "originalPath": "contracts/src/v2-research-experiment/libraries/KuruParameterPolicyV2.sol",
+      "originalSourceUnit": "src/v2-research-experiment/libraries/KuruParameterPolicyV2.sol",
+      "archivePath": "contracts/src/legacy/v2/kuru/experimental/libraries/KuruParameterPolicyV2.sol",
+      "gitBlob": "fb24051b372d990ef6076176b90a0ee85bc8ce63",
+      "sha256": "f0979f764111c2fb537caf3f4d6a34cad6419b66da4f5279d6bfbe373c857750",
+      "bytes": 2646
+    }
+  ],
+  "originalConsumers": [
+    {
+      "originalPath": "contracts/script/DeployV2MonadTestnet.s.sol",
+      "originalSourceUnit": "script/DeployV2MonadTestnet.s.sol",
+      "archivePath": "contracts/legacy/v2-kuru/original/script/DeployV2MonadTestnet.s.sol.orig",
+      "gitBlob": "f435f0d743ad8031e5cb57210ff871adf396eb6b",
+      "sha256": "ebc5860f5bd32d8bc64dc63f6779ee5a1c8c7f0d8cc7a1a2667ffcc8df2d01d6"
+    },
+    {
+      "originalPath": "contracts/script/SmokeV2MonadTestnet.s.sol",
+      "originalSourceUnit": "script/SmokeV2MonadTestnet.s.sol",
+      "archivePath": "contracts/legacy/v2-kuru/original/script/SmokeV2MonadTestnet.s.sol.orig",
+      "gitBlob": "9ef99f61d7faf9c66d245fc68bbb38908079caff",
+      "sha256": "4e00580fa20d1d3348bf367b8f6cb55144553d62bae46ee8968be2bd390fc3ef"
+    },
+    {
+      "originalPath": "contracts/script/TradeV2KuruTestnet.s.sol",
+      "originalSourceUnit": "script/TradeV2KuruTestnet.s.sol",
+      "archivePath": "contracts/legacy/v2-kuru/original/script/TradeV2KuruTestnet.s.sol.orig",
+      "gitBlob": "ead9c28b1130ad9aeb8e4cda20e1ec0614db2064",
+      "sha256": "13a8424c1ccd1d21b32637ccced581b674122adc3c601ef38e18c492d6c4b5cd"
+    },
+    {
+      "originalPath": "contracts/test/v2/unit/QuoteAssetRegistryV2.t.sol",
+      "originalSourceUnit": "test/v2/unit/QuoteAssetRegistryV2.t.sol",
+      "archivePath": "contracts/legacy/v2-kuru/original/test/v2/unit/QuoteAssetRegistryV2.t.sol.orig",
+      "gitBlob": "a4fb00eef121f522f8dabfd73069074bda3f288d",
+      "sha256": "68a4ac00d3082d2f7e89988b3d32e4b5ec74d1551ecb5bf8f268e5cc1441e79f"
+    },
+    {
+      "originalPath": "contracts/test/v2/unit/KuruPolicyAndLockV2.t.sol",
+      "originalSourceUnit": "test/v2/unit/KuruPolicyAndLockV2.t.sol",
+      "archivePath": "contracts/legacy/v2-kuru/original/test/v2/unit/KuruPolicyAndLockV2.t.sol.orig",
+      "gitBlob": "4b9d658baa879c3dc6c0ae4415fe27300cc8668d",
+      "sha256": "f41edea304a66dfd8e12357b17bcf20acf179751cc300b664f1eda9bc6e361f5"
+    },
+    {
+      "originalPath": "contracts/test/v2/integration/RetroPickFactoryLaunchV2Qualification.t.sol",
+      "originalSourceUnit": "test/v2/integration/RetroPickFactoryLaunchV2Qualification.t.sol",
+      "archivePath": "contracts/legacy/v2-kuru/original/test/v2/integration/RetroPickFactoryLaunchV2Qualification.t.sol.orig",
+      "gitBlob": "61de85555ad01dd39ebb678dee1b65203f192698",
+      "sha256": "8c163dec9a2df08a7868434380e856c5d5534b520f4c215890d767cf4a5c588e"
+    },
+    {
+      "originalPath": "contracts/test/v2/integration/KuruV2EndToEndFork.t.sol",
+      "originalSourceUnit": "test/v2/integration/KuruV2EndToEndFork.t.sol",
+      "archivePath": "contracts/legacy/v2-kuru/original/test/v2/integration/KuruV2EndToEndFork.t.sol.orig",
+      "gitBlob": "288a5a28ddc220c9b1967989d9ed5b7bd43e51e3",
+      "sha256": "07f80344140079224cf4b92840578032eb857c1e4d2fcfabf224c21c06ef73d3"
+    },
+    {
+      "originalPath": "contracts/test/v2/integration/KuruForkResearch.t.sol",
+      "originalSourceUnit": "test/v2/integration/KuruForkResearch.t.sol",
+      "archivePath": "contracts/legacy/v2-kuru/original/test/v2/integration/KuruForkResearch.t.sol.orig",
+      "gitBlob": "b2ea3f2289edd4007c5500b41d9ee380ee951c59",
+      "sha256": "3fa11a21a5deb0d541803bd2503c22f4693321c17cbcc32b6f9e970bf13bd8d5"
+    },
+    {
+      "originalPath": "contracts/test/v2/integration/KuruAtomicResearch.t.sol",
+      "originalSourceUnit": "test/v2/integration/KuruAtomicResearch.t.sol",
+      "archivePath": "contracts/legacy/v2-kuru/original/test/v2/integration/KuruAtomicResearch.t.sol.orig",
+      "gitBlob": "7a2cc7006fc4483697eafd88f8c2cd9624c9e9c4",
+      "sha256": "eba39c0624ffcadbb4382b6b2538ce37971a160d5ac9a763182ef9a3524e1764"
+    },
+    {
+      "originalPath": "contracts/test/v2/integration/FullV4StackV2Fork.t.sol",
+      "originalSourceUnit": "test/v2/integration/FullV4StackV2Fork.t.sol",
+      "archivePath": "contracts/legacy/v2-kuru/original/test/v2/integration/FullV4StackV2Fork.t.sol.orig",
+      "gitBlob": "f76687c740fbca39d85a9bbc12874012d077d0b9",
+      "sha256": "2dad53ce54d64e9312a650e5ee086addf96dfa242540b1e4c82f131cb31091a6"
+    },
+    {
+      "originalPath": "contracts/script/release_v2_monad.py",
+      "archivePath": "contracts/legacy/v2-kuru/original/script/release_v2_monad.py.orig",
+      "gitBlob": "d46fdd6a6aedb251a0ecc4d674ba539d2f889351",
+      "sha256": "2a9c6ce59076c159c7b795d08ca700993992ced1e37217a3084ae43b95f2004e",
+      "bytes": 20130
+    }
+  ],
+  "compiler": {
+    "solc": "0.8.26",
+    "evmVersion": "cancun",
+    "optimizer": {
+      "enabled": true,
+      "runs": 200
+    },
+    "viaIR": true,
+    "profile": "test",
+    "chainId": 10143
+  },
+  "dependencies": {
+    "contracts/lib/openzeppelin-contracts": "040000 tree 7de1dd588c3e440d2cb7540ada9c4b4eaedf12f9\tcontracts/lib/openzeppelin-contracts",
+    "contracts/lib/v4-core": "040000 tree ef1aaebdb1e6ecdb775df5a321057a4022d34668\tcontracts/lib/v4-core",
+    "contracts/lib/v4-periphery": "040000 tree 8e063e6cd7add8b441e2726cf65885fae5870135\tcontracts/lib/v4-periphery",
+    "contracts/lib/v4-hooks-public": "040000 tree ac9ce3592f3f6738fd092167121d215143a265f0\tcontracts/lib/v4-hooks-public",
+    "contracts/lib/forge-std": "160000 commit bf647bd6046f2f7da30d0c2bf435e5c76a780c1b\tcontracts/lib/forge-std",
+    "contracts/lib/v4-deployment-periphery": "160000 commit 9969eec44cfdf07e24b41de47f40276a58401976\tcontracts/lib/v4-deployment-periphery"
+  },
+  "remappings": "forge-std/=lib/forge-std/src/\n@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/\n@uniswap/v4-core/src/=lib/v4-core/src/\n@uniswap/v4-periphery/src/=lib/v4-periphery/src/\n@uniswap/v4-hooks-public/src/=lib/v4-hooks-public/src/\npermit2/src/=lib/v4-periphery/lib/permit2/src/"
+}

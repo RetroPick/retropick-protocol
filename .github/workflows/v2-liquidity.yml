@@ -46,6 +46,7 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           submodules: recursive
+          fetch-depth: 0 # Archive verifiers compare original deployed and regression Git blobs.
       - id: foundry
         uses: foundry-rs/foundry-toolchain@908c540300062bd5a7e473851cdb4282204cee09 # v1
         with:
@@ -63,7 +64,7 @@ jobs:
         working-directory: contracts
         run: |
           mkdir -p "$EVIDENCE_DIR"
-          forge test --match-path 'test/v2/unit/*.t.sol' --fuzz-seed 0x6a -vvv 2>&1 | tee "$EVIDENCE_DIR/unit.log"
+          forge test --contracts src/v2 --match-path 'test/v2/unit/*.t.sol' --fuzz-seed 0x6a -vvv 2>&1 | tee "$EVIDENCE_DIR/unit.log"
       - name: V2 stateful invariants
         id: invariants
         if: ${{ !cancelled() && steps.foundry.outcome == 'success' }}
@@ -73,7 +74,7 @@ jobs:
           FOUNDRY_INVARIANT_DEPTH: '128'
         run: |
           mkdir -p "$EVIDENCE_DIR"
-          forge test --match-path 'test/v2/invariant/*.t.sol' --fuzz-seed 0x6a -vvv 2>&1 | tee "$EVIDENCE_DIR/invariants.log"
+          forge test --contracts src/v2 --match-path 'test/v2/invariant/*.t.sol' --fuzz-seed 0x6a -vvv 2>&1 | tee "$EVIDENCE_DIR/invariants.log"
       - name: Community Treasury six-decimal stateful invariants
         id: treasury_usdc
         if: ${{ !cancelled() && steps.foundry.outcome == 'success' }}
@@ -83,17 +84,27 @@ jobs:
           FOUNDRY_INVARIANT_DEPTH: '128'
         run: |
           mkdir -p "$EVIDENCE_DIR"
-          forge test --match-path 'test/v2/community-economy/treasury-integration/CommunityTreasuryUSDCInvariant.t.sol' --fuzz-seed 0x6a -vvv 2>&1 | tee "$EVIDENCE_DIR/treasury-usdc.log"
+          forge test --contracts src/v2 --match-path 'test/v2/community-economy/treasury-integration/CommunityTreasuryUSDCInvariant.t.sol' --fuzz-seed 0x6a -vvv 2>&1 | tee "$EVIDENCE_DIR/treasury-usdc.log"
       - name: Community Treasury successful V4 behavior seam (native and six-decimal)
         id: treasury_v4
         if: ${{ !cancelled() && steps.foundry.outcome == 'success' }}
         working-directory: contracts
         run: |
           mkdir -p "$EVIDENCE_DIR"
-          forge test --match-path 'test/v2/community-economy/treasury-integration/CommunityTreasuryV4Seam.t.sol' --fuzz-seed 0x6a -vvv 2>&1 | tee "$EVIDENCE_DIR/treasury-v4-seam.log"
+          forge test --contracts src/v2 --match-path 'test/v2/community-economy/treasury-integration/CommunityTreasuryV4Seam.t.sol' --fuzz-seed 0x6a -vvv 2>&1 | tee "$EVIDENCE_DIR/treasury-v4-seam.log"
+      - name: Frozen legacy source and custody-policy regression
+        id: legacy
+        if: ${{ !cancelled() && steps.foundry.outcome == 'success' }}
+        working-directory: contracts
+        run: |
+          mkdir -p "$EVIDENCE_DIR"
+          python3 legacy-v2/verify.py 2>&1 | tee "$EVIDENCE_DIR/deployed-legacy-source.log"
+          python3 legacy/v2-kuru/verify.py 2>&1 | tee "$EVIDENCE_DIR/legacy-boundary.log"
+          forge test --contracts src/legacy/v2/kuru/canonical --match-path 'test/legacy/v2-kuru/unit/*.t.sol' --fuzz-seed 0x6a -vvv 2>&1 | tee "$EVIDENCE_DIR/legacy-unit.log"
       - name: Require every Solidity qualification suite
         if: ${{ always() }}
         env:
+          LEGACY_OUTCOME: ${{ steps.legacy.outcome }}
           UNIT_OUTCOME: ${{ steps.unit.outcome }}
           INVARIANTS_OUTCOME: ${{ steps.invariants.outcome }}
           TREASURY_USDC_OUTCOME: ${{ steps.treasury_usdc.outcome }}
@@ -103,7 +114,7 @@ jobs:
           python3 - <<'PYTHON'
           import json, os, pathlib
           outcomes = {name: os.environ.get(name, "missing") for name in (
-              "UNIT_OUTCOME", "INVARIANTS_OUTCOME", "TREASURY_USDC_OUTCOME", "TREASURY_V4_OUTCOME")}
+              "UNIT_OUTCOME", "INVARIANTS_OUTCOME", "TREASURY_USDC_OUTCOME", "TREASURY_V4_OUTCOME", "LEGACY_OUTCOME")}
           pathlib.Path(os.environ["EVIDENCE_DIR"], "suite-outcomes.json").write_text(json.dumps(outcomes, indent=2) + "\n")
           print(json.dumps(outcomes))
           if any(result != "success" for result in outcomes.values()):

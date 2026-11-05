@@ -1,0 +1,355 @@
+{
+  "sourceCommit": "c41fa72d94a98e8c42f36e9d38cad683f5ebdd9c",
+  "workingTreeOverlay": "source-sha256.json",
+  "profile": "test",
+  "fuzzSeed": "0x6a",
+  "fuzzRuns": 10000,
+  "invariantRuns": 256,
+  "invariantDepth": 128,
+  "environment": "Local EVM; no live transactions, no RPC fork",
+  "forkQualification": {
+    "status": "BLOCKED",
+    "reason": "No qualified RPC, pinned current block/hash and deployed-code identity supplied to this local campaign"
+  },
+  "commands": [
+    {
+      "name": "archive-verify",
+      "argv": [
+        "python3",
+        "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/legacy/v2-kuru/verify.py"
+      ],
+      "cwd": "contracts",
+      "startedAt": "2026-11-05T08:39:12.911834+00:00",
+      "elapsedSeconds": 1.028,
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "01-archive-verify.log",
+      "logSHA256": "a67a363b6ff1c2c79b81e60e2e79a89dc8c46f96d7385c0098534abbf5dc0d83"
+    },
+    {
+      "name": "deployed-archive-verify",
+      "argv": [
+        "python3",
+        "/home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/legacy-v2/verify.py"
+      ],
+      "cwd": "contracts",
+      "startedAt": "2026-11-05T08:39:13.941439+00:00",
+      "elapsedSeconds": 0.982,
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "02-deployed-archive-verify.log",
+      "logSHA256": "cff6a263bfa2e1962523337270eba9020ab9e5ff728b79293cce5ed10e1f9e85"
+    },
+    {
+      "name": "foundry-version",
+      "argv": [
+        "forge",
+        "--version"
+      ],
+      "cwd": "contracts",
+      "startedAt": "2026-11-05T08:39:14.923727+00:00",
+      "elapsedSeconds": 0.016,
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "03-foundry-version.log",
+      "logSHA256": "8241ab306541ac8339965f8e0f94f131a288f2a0f05c3587a8a84288459c7358"
+    },
+    {
+      "name": "fmt",
+      "argv": [
+        "forge",
+        "fmt",
+        "--check",
+        "src/v2/RetroPickQuoteAssetRegistryV2.sol",
+        "src/v2/interfaces/IGraduationExecutorV2.sol",
+        "src/v2-research-experiment/RetroPickQuoteAssetRegistryV2.sol",
+        "src/v2-research-experiment/interfaces/IGraduationExecutorV2.sol",
+        "test/v2/unit/QuoteAssetRegistryV2.t.sol",
+        "test/v2/unit/V4OnlyLaunchAdmissionV2.t.sol",
+        "test/v2/integration/RetroPickFactoryLaunchV2Qualification.t.sol",
+        "test/v2/integration/RetroPickV4GraduationBehavior.t.sol",
+        "test/v2/integration/FullV4StackV2Fork.t.sol",
+        "test/v2/community-economy/CommunityFactoryFixtureV2.sol",
+        "test/v2/community-economy/CommunityV4Registration.t.sol",
+        "test/v2/research-experiment/CommunityFactoryFixtureV2.sol",
+        "test/v2/research-experiment/CommunityV4Registration.t.sol",
+        "test/legacy/v2-kuru",
+        "script/DeployV2V4OnlyCandidate.s.sol",
+        "legacy/v2-kuru/script"
+      ],
+      "cwd": "contracts",
+      "startedAt": "2026-11-05T08:39:14.940454+00:00",
+      "elapsedSeconds": 0.104,
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "04-fmt.log",
+      "logSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "active-unit",
+      "argv": [
+        "forge",
+        "test",
+        "--contracts",
+        "src/v2",
+        "--match-path",
+        "test/v2/unit/*.t.sol",
+        "--fuzz-seed",
+        "0x6a",
+        "--out",
+        "/home/ubuntu/.cache/retropick-m6-ci/out",
+        "--cache-path",
+        "/home/ubuntu/.cache/retropick-m6-ci/cache",
+        "-vvv"
+      ],
+      "cwd": "contracts",
+      "startedAt": "2026-11-05T08:39:15.045469+00:00",
+      "elapsedSeconds": 521.799,
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "05-active-unit.log",
+      "logSHA256": "0f8e22fd71eaed5aa972d0df07d452015e262892ef8eb591dbdcbeeb9f450b17",
+      "runnerReportedTests": {
+        "passed": 34,
+        "failed": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "name": "active-factory",
+      "argv": [
+        "forge",
+        "test",
+        "--contracts",
+        "src/v2",
+        "--match-path",
+        "test/v2/integration/RetroPickFactoryLaunchV2Qualification.t.sol",
+        "--fuzz-seed",
+        "0x6a",
+        "--out",
+        "/home/ubuntu/.cache/retropick-m6-ci/out",
+        "--cache-path",
+        "/home/ubuntu/.cache/retropick-m6-ci/cache",
+        "-vvv"
+      ],
+      "cwd": "contracts",
+      "startedAt": "2026-11-05T08:47:56.943225+00:00",
+      "elapsedSeconds": 9.147,
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "06-active-factory.log",
+      "logSHA256": "d617ad3844b15707d2e4e8e1968ca3058a15ab7955920e602331850a63322c96",
+      "runnerReportedTests": {
+        "passed": 18,
+        "failed": 0,
+        "skipped": 3
+      }
+    },
+    {
+      "name": "active-v4-behavior",
+      "argv": [
+        "forge",
+        "test",
+        "--contracts",
+        "src/v2",
+        "--match-path",
+        "test/v2/integration/RetroPickV4GraduationBehavior.t.sol",
+        "--fuzz-seed",
+        "0x6a",
+        "--out",
+        "/home/ubuntu/.cache/retropick-m6-ci/out",
+        "--cache-path",
+        "/home/ubuntu/.cache/retropick-m6-ci/cache",
+        "-vvv"
+      ],
+      "cwd": "contracts",
+      "startedAt": "2026-11-05T08:48:06.099234+00:00",
+      "elapsedSeconds": 6.719,
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "07-active-v4-behavior.log",
+      "logSHA256": "41451568aa476c176a57713e30347cdca255e1d19ddc28484828972fdf40721c",
+      "runnerReportedTests": {
+        "passed": 7,
+        "failed": 0,
+        "skipped": 5
+      }
+    },
+    {
+      "name": "active-invariants",
+      "argv": [
+        "forge",
+        "test",
+        "--contracts",
+        "src/v2",
+        "--match-path",
+        "test/v2/invariant/*.t.sol",
+        "--fuzz-seed",
+        "0x6a",
+        "--out",
+        "/home/ubuntu/.cache/retropick-m6-ci/out",
+        "--cache-path",
+        "/home/ubuntu/.cache/retropick-m6-ci/cache",
+        "-vvv"
+      ],
+      "cwd": "contracts",
+      "startedAt": "2026-11-05T08:48:12.837293+00:00",
+      "elapsedSeconds": 320.418,
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "08-active-invariants.log",
+      "logSHA256": "436573f205470e659b0e497a9aaf627dc033713f1d7f266aa71be3d6e9959f22",
+      "runnerReportedTests": {
+        "passed": 3,
+        "failed": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "name": "active-community",
+      "argv": [
+        "forge",
+        "test",
+        "--contracts",
+        "src/v2",
+        "--match-path",
+        "test/v2/community-economy/**/*.t.sol",
+        "--fuzz-seed",
+        "0x6a",
+        "--out",
+        "/home/ubuntu/.cache/retropick-m6-ci/out",
+        "--cache-path",
+        "/home/ubuntu/.cache/retropick-m6-ci/cache",
+        "-vvv"
+      ],
+      "cwd": "contracts",
+      "startedAt": "2026-11-05T08:53:33.266878+00:00",
+      "elapsedSeconds": 592.903,
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "09-active-community.log",
+      "logSHA256": "114477094198c19da86ffe7ec7f4cbe086477733ec041e8514b66a3fb5f85a28",
+      "runnerReportedTests": {
+        "passed": 94,
+        "failed": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "name": "experimental-community",
+      "argv": [
+        "forge",
+        "test",
+        "--contracts",
+        "src/v2-research-experiment",
+        "--match-path",
+        "test/v2/research-experiment/*.t.sol",
+        "--fuzz-seed",
+        "0x6a",
+        "--out",
+        "/home/ubuntu/.cache/retropick-m6-ci/out",
+        "--cache-path",
+        "/home/ubuntu/.cache/retropick-m6-ci/cache",
+        "-vvv"
+      ],
+      "cwd": "contracts",
+      "startedAt": "2026-11-05T09:03:26.199737+00:00",
+      "elapsedSeconds": 642.506,
+      "exitCode": 1,
+      "status": "FAIL",
+      "log": "10-experimental-community.log",
+      "logSHA256": "e69285c76b96809d4d53f59d7de577363c8ae2860037ffa2457020112336717c",
+      "runnerReportedTests": {
+        "passed": 116,
+        "failed": 5,
+        "skipped": 3
+      }
+    },
+    {
+      "name": "legacy-unit",
+      "argv": [
+        "forge",
+        "test",
+        "--contracts",
+        "src/legacy/v2/kuru/canonical",
+        "--match-path",
+        "test/legacy/v2-kuru/unit/*.t.sol",
+        "--fuzz-seed",
+        "0x6a",
+        "--out",
+        "/home/ubuntu/.cache/retropick-m6-ci/out",
+        "--cache-path",
+        "/home/ubuntu/.cache/retropick-m6-ci/cache",
+        "-vvv"
+      ],
+      "cwd": "contracts",
+      "startedAt": "2026-11-05T09:14:08.753282+00:00",
+      "elapsedSeconds": 194.625,
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "11-legacy-unit.log",
+      "logSHA256": "520bb4ad7937931da19db6fd21f8ef9d512e94a7a1e808f02adf9ef113d0a281",
+      "runnerReportedTests": {
+        "passed": 5,
+        "failed": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "name": "legacy-factory",
+      "argv": [
+        "forge",
+        "test",
+        "--contracts",
+        "src/legacy/v2/kuru/canonical",
+        "--match-path",
+        "test/legacy/v2-kuru/integration/RetroPickFactoryLaunchV2Qualification.t.sol",
+        "--fuzz-seed",
+        "0x6a",
+        "--out",
+        "/home/ubuntu/.cache/retropick-m6-ci/out",
+        "--cache-path",
+        "/home/ubuntu/.cache/retropick-m6-ci/cache",
+        "-vvv"
+      ],
+      "cwd": "contracts",
+      "startedAt": "2026-11-05T09:17:23.384417+00:00",
+      "elapsedSeconds": 241.462,
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "12-legacy-factory.log",
+      "logSHA256": "8a9ce8c8a3f61acd71d1644fd5c1e6c7bef53495d3489c70ba0b7e372afe5017",
+      "runnerReportedTests": {
+        "passed": 18,
+        "failed": 0,
+        "skipped": 3
+      }
+    },
+    {
+      "name": "active-build-sizes",
+      "argv": [
+        "forge",
+        "build",
+        "--contracts",
+        "src/v2",
+        "--sizes",
+        "--skip",
+        "test",
+        "--skip",
+        "script",
+        "--out",
+        "/home/ubuntu/.cache/retropick-m6-ci/out",
+        "--cache-path",
+        "/home/ubuntu/.cache/retropick-m6-ci/cache"
+      ],
+      "cwd": "contracts",
+      "startedAt": "2026-11-05T09:21:24.861415+00:00",
+      "elapsedSeconds": 152.834,
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "13-active-build-sizes.log",
+      "logSHA256": "1d54fd3bcfe2c43029d1e686de577d1be20a4752830d213931e83fbb4202e01b"
+    }
+  ],
+  "status": "FAIL"
+}

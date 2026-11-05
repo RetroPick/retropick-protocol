@@ -1,0 +1,17 @@
+Diff in src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol:
+163 163  |         address pm = IRevenueLockerV2(lock).positionManager();
+164 164  |         if (
+165 165  |             p.token != token_ || p.curve != address(source_) || p.quoteAsset != quote
+166      |-                || p.quoteDecimals != (quote == address(0) ? 18 : 6)
+167      |-                || p.venue != GraduationVenue.UNISWAP_V4 || p.executor.code.length == 0
+168      |-                || p.executor.codehash != p.executorCodeHash || p.poolFee != 0 || p.tickSpacing <= 0
+169      |-                || p.protectedLPReceiver != lock || p.protectedExcessReceiver != lock || manager.code.length == 0
+170      |-                || pm.code.length == 0 || IRevenueExecutorV2(p.executor).coordinator() != coord
+    166  |+                || p.quoteDecimals != (quote == address(0) ? 18 : 6) || p.venue != GraduationVenue.UNISWAP_V4
+    167  |+                || p.executor.code.length == 0 || p.executor.codehash != p.executorCodeHash || p.poolFee != 0
+    168  |+                || p.tickSpacing <= 0 || p.protectedLPReceiver != lock || p.protectedExcessReceiver != lock
+    169  |+                || manager.code.length == 0 || pm.code.length == 0
+    170  |+                || IRevenueExecutorV2(p.executor).coordinator() != coord
+171 171  |                 || IRevenueExecutorV2(p.executor).poolManager() != manager
+172 172  |                 || IRevenueExecutorV2(p.executor).positionManager() != pm || h.graduationExecutor() != p.executor
+173 173  |                 || IRevenueLockerV2(lock).graduationExecutor() != p.executor

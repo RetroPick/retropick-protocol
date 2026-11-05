@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "campaign": "RETROPICK-V2-COMMUNITY-ECONOMY-M6",
+  "baseline": "7ddf4dae65e11acb489be7eceb30a4846adf18cc",
+  "observedGitHead": "0a7f6a18ff1b58521352cb5ffffeafa619197826",
+  "branch": "research/v2-m6-permissionless-revenue-20261104",
+  "currentMilestone": "P3_AUTHENTICATED_IN_KIND_REVENUE_EXPERIMENT",
+  "tasks": {
+    "P0": "COMPLETE_LOCAL_CI_REPAIR_MERGED_PR47",
+    "P1": "COMPLETE_LOCAL_CANONICAL_AND_LEGACY_REGRESSIONS_286PASS_14SKIP",
+    "P2": "COMPLETE_GENUINE_LOCAL_V4_BASELINE_AND_REVENUE_NOT_FORK",
+    "P3": "LOCAL_GENUINE_NATIVE_AND_Q6_REVENUE_2PASS_ROUTER13PASS_FUZZ20K_STATEFUL_NATIVE_Q6_PASS",
+    "P4": "BLOCKED_ACCEPTED_SPEC_AND_QUALIFICATION",
+    "P5": "PENDING",
+    "P6": "PENDING",
+    "P7": "PENDING"
+  },
+  "decisions": {
+    "venueSettlement": "IN_KIND_QUOTE_AND_LAUNCH_TOKEN",
+    "authority": "Owner selected in-kind fees and requested implementation of plan; no production release/deployment authority",
+    "factory": "Factory financial source unchanged,24486runtime; executable runtime unchanged vs7dd after metadata removal, full codehash not asserted",
+    "traderFacingRates": "Old CE mode stayszero venuefee. Fresh ConfigV2 enables frozen legacy snapshot hookfee/tax only with explicit consent; concrete canonical acceptance pending."
+  },
+  "blockers": [
+    "NEW_FEE_SOURCE_SPEC_NOT_ACCEPTED_FOR_CANONICAL",
+    "REAL_FORK_QUALIFICATION_UNAVAILABLE",
+    "SAFE_GOVERNANCE_NOT_QUALIFIED",
+    "COMPILER_ADVISORY_REVIEW",
+    "EXTERNAL_AUDIT_REQUIRED",
+    "GLOBAL_FMT_FAILS_PREEXISTING_FROZEN_FILES"
+  ],
+  "knownVulnerabilities": [],
+  "testCoverage": {
+    "baselineObserved": "unit30PASS1FAIL; USDCdiagnostic1PASS256x128; V4seamcompileFAIL on unmodified7ddf4dae",
+    "newRevenueRouter": "13 tests repeated seed0x6a and0x6b, 10000 fuzz cases each; accounting-source/venue doubles.",
+    "genuineLocalV4": "2PASS/0FAIL/0SKIP; existing zero hook-fee mode; modeled6decimal andEOAgovernance, notcontinuous-revenue/fork/Safe.",
+    "newRevenueStateful": "Native seeds6a+6b each256x128; final native+modeledQ6 seed6c each256x128. 131072 total handler calls across four model campaigns,0 unexpected reverts. Final two-asset model65536 calls; source/venue identity doubles, not genuine stateful venue.",
+    "genuineRevenue": "2PASS/0FAIL/0SKIP local pinnedgenuinev4; allfourdirection/exactness cases, two launches samecreator, failure+retry, independent twoasset claims, policychange oldrights, Treasury72h spending. Modeledquote,EOAproposer; notfork/Safe.",
+    "extraction": "286PASS0FAIL14SKIP scopedlocalcampaign; separateFullV4Stack compiled but setupFAILmissingRPC,notforkpass."
+  },
+  "evidenceReferences": [
+    "contracts/test/v2/research-experiment/m6-infra/QUALIFICATION.md",
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-kuru-extraction/",
+    "evidence/launchpad/community-economy-v2/2026-11-05-m6-revenue/"
+  ],
+  "releaseQualification": "NOT_QUALIFIED",
+  "nextTask": "Owner review concrete fee-activation candidate and draftPR; expanded newTreasury adversarial review, Safe and realfork qualification before release. No automatic canonical fee-module promotion.",
+  "ownerSteering20261105": {
+    "kuru": "Remove implementation from active V2 source and quarantine under contracts/src/legacy; preserve historical custody, wire IDs, retry semantics and evidence.",
+    "constraintDelta": "Supersedes admission-only deprecation; analyze source/ABI dependencies before extraction.",
+    "hackathonFreeze": "contracts/legacy-v2 pinnedf0363249 source31files+67records exact; nojudgingdeploymentchange.",
+    "activeSource": "Delete Kuru implementation/dependencies/names from canonical+experimentalactivepaths; preserve historical wire ID1 as LEGACY_RESERVED and alllegacyarchives."
+  },
+  "continuity": {
+    "temporaryArtifacts": "Host /tmp was cleared on continuation. Root experimental Solidity drafts there were lost and must be reconstructed directly in scoped repository staging after baseline. No financial module implementation PASS is claimed.",
+    "retainedEvidence": "See scoped baseline-ci suite-runs and copied logs; do not infer missing transient output."
+  },
+  "observedRemoteMain": "a4b3c609a2014773e36bb202cca8a1020661c16a",
+  "executionLimits": [
+    "Specialist agents reached tool-provider usage limits during this iteration; root continues from persisted files and raw logs."
+  ],
+  "implementationCommit": "0a7f6a18ff1b58521352cb5ffffeafa619197826",
+  "delivery": {
+    "draftPR": "https://github.com/RetroPick/retropick-protocol/pull/48",
+    "branch": "research/v2-m6-permissionless-revenue-20261104",
+    "remoteBranchVerified": "0a7f6a18ff1b58521352cb5ffffeafa619197826",
+    "remoteMainObserved": "a4b3c609a2014773e36bb202cca8a1020661c16a",
+    "hostedWorkflowRunsObserved": 0,
+    "mergePerformed": false,
+    "deploymentPerformed": false
+  },
+  "canonicalFeeSourceAcceptance": "PENDING_OWNER_RESPONSE_TO_CONCRETE_PR48_CANDIDATE"
+}

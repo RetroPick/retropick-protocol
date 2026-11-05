@@ -1,0 +1,18 @@
+{
+  "command": "forge build --contracts src/v2-research-experiment/m6 --skip test --skip script --sizes",
+  "cwd": "contracts",
+  "exitCode": 0,
+  "sourceCommit": "940050bb939c923bdf168daa29eaeaf00b3ad187",
+  "sourceSha256": {
+    "contracts/src/v2-research-experiment/m6/CommunityV4GraduationExecutorV2.sol": "a70772b94788fc37dc6501a4139107648736b635851138a8f4a740af692d41c9",
+    "contracts/src/v2-research-experiment/m6/hooks/CommunityV4FeeHookV2.sol": "e072344a6e08effcae718cda989453e1f96b6d9bc39211ddfa366c81eee7262a"
+  },
+  "measuredRuntimeBytes": {
+    "CommunityV4FeeHookV2": 20321,
+    "CommunityV4GraduationExecutorV2": 16465
+  },
+  "limitations": [
+    "Only Hook and Executor sources existed in this build snapshot. Later-added Router, helpers and Treasury not covered.",
+    "Compilation is not financial qualification."
+  ]
+}

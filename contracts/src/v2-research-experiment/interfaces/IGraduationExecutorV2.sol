@@ -5,7 +5,7 @@ import {FeePolicySnapshot} from "./IRetroPickLaunchpadV2.sol";
 
 enum GraduationVenue {
     UNISWAP_V4,
-    KURU
+    LEGACY_RESERVED // Wire value 1 retained for historical records; new launch admission rejects it.
 }
 enum GraduationState {
     NONE,

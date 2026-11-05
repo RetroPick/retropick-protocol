@@ -1,0 +1,774 @@
+{
+  "chainId": 10143,
+  "deploymentBlock": 69509526,
+  "gitSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3",
+  "scope": "TESTNET_HACKATHON",
+  "addresses": {
+    "buybackVault": "0x2D746643E0BA37F127b38A4C04866a123895BE09",
+    "chainId": 10143,
+    "coordinator": "0xaD62309242EA65BB07C833669EC6a4ED23AF738F",
+    "factory": "0xa7f18b9eceb0A9852b08408854A45D00fc682454",
+    "feeEscrow": "0xb0312b0412c3BAa11895A6c4FeeC7CD9A01c2D96",
+    "hook": "0x6d70125c61aD8f1a6d85eA4C37c94680b42f2044",
+    "hookDeployer": "0x09fC0edEEBf13C171eE5739eac6B9C7f3400C9B8",
+    "kuruEnvironment": "0xAD59b3ff498d76DbC68351DaD4391D250b1E1Ba1",
+    "kuruExecutor": "0xa2590ab344BAD0452c53958821A2B74f87871983",
+    "launchDeployer": "0x14080b43f3d45B47AEefF3bC1b0bee0cf0cCF5d8",
+    "locker": "0x7bb3aA1e48490F810e3F1eEC1Dda52D1F4d76A19",
+    "owner": "0xB505cBaab3ACdF287af1366b9B1229404757913b",
+    "permit2": "0x10301c3690501cF1a7c27300de4779E695DEDaE1",
+    "poolManager": "0xD18dE14a0DB8adc66fd9c1CB9B960dea02c5D3c9",
+    "positionDescriptor": "0xB0769a3517f31b324cb5C0f7ca337F2239796532",
+    "positionManager": "0x3eb4cB7B07EbeDe7A2A508e4cf0D9e575dC449a9",
+    "quoteRegistry": "0xd1211276869ec55CAF302E22371D2005B23B9B40",
+    "v4Executor": "0xCB4670e7D2146A9Ca4541C383844b281Cf53Edb1",
+    "wrappedNative": "0xff437B117Ec17a79a3b24Da4B5047dca4da9D0a2",
+    "kuruDonationLock": "0xbcd997c476be3ca0a1608804c9ad55c7ebd5271c",
+    "v4DonationLock": "0xf2aacba1ca0b6683023f437900314419d4aeca3b",
+    "v4Guard": "0x1f1cbe81f6f0abd8165cdf691700f64ec36339a8"
+  },
+  "kuruEnvironment": {
+    "chainId": 10143,
+    "block": 69509427,
+    "router": "0x7EFbE105Ca7415dE98F96622173458ac1c054630",
+    "marginAccount": "0xd029C2D98ff85D8F64799017fE00a59B1159CE02",
+    "orderBookImplementation": "0x72caE0a99C19B574e8a6De558F43fc1D019c9374",
+    "vaultImplementation": "0x4d54e0d60CaB0cec0100cdA8e00897bC933C5Bb6",
+    "codeHashes": {
+      "0x7EFbE105Ca7415dE98F96622173458ac1c054630": "0xae572ec3ca9b5f49c0364ca34edc5880b6b2837e47802e64e6b681bf2e74aa5c",
+      "0xd029C2D98ff85D8F64799017fE00a59B1159CE02": "0xae572ec3ca9b5f49c0364ca34edc5880b6b2837e47802e64e6b681bf2e74aa5c",
+      "0x72caE0a99C19B574e8a6De558F43fc1D019c9374": "0x24c5974f233021f00d607bfa191d430f79565663fb90805ebcfca52de7333500",
+      "0x4d54e0d60CaB0cec0100cdA8e00897bC933C5Bb6": "0xde0b16a79cf8f711403e89093c1e82ce0e7813949dd0f5041b41da324fdd3dc3",
+      "0x534b2f3A21130d7a60830c2Df862319e593943A3": "0x96215e6049ed615cdc22fea7701e85458a8e51a2df3e7d45e8f9fa1d521b5a78"
+    },
+    "proxyImplementations": {
+      "0x7EFbE105Ca7415dE98F96622173458ac1c054630": "0xaaa0f0c4d49d09ef33ae758d88afab810ecbe1ed",
+      "0xd029C2D98ff85D8F64799017fE00a59B1159CE02": "0xf10af40f060b7ae54a2d5da682becc981dfb52c3"
+    },
+    "actors": {
+      "A": {
+        "address": "0xB505cBaab3ACdF287af1366b9B1229404757913b",
+        "monWei": "10000000000000000000",
+        "circleRaw": 0
+      },
+      "B": {
+        "address": "0x101212C52620ca00540ee04D1515E714e6368Fcd",
+        "monWei": "24700252705170000000",
+        "circleRaw": 0
+      }
+    }
+  },
+  "quotePolicyVersions": {
+    "MON": 1,
+    "CIRCLE_TEST_USDC": 1
+  },
+  "quotePolicy": "TESTNET_POLICY_V1",
+  "gates": {
+    "sourceGitSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3",
+    "testsPassed": 145,
+    "testsFailed": 0,
+    "testsSkipped": 0,
+    "freshForkBlock": 69507986,
+    "runtimeBytes": {
+      "IGraduationCoordinatorV2": 0,
+      "IGraduationFactoryV2": 0,
+      "IGraduationExecutorV2": 0,
+      "RetroPickFeeEscrowV2": 3013,
+      "UniswapV4GraduationExecutorV2": 15661,
+      "RetroPickGraduationExecutorV2": 4402,
+      "IVenueLaunchV2": 0,
+      "IRetroPickQuoteAssetPolicyV2": 0,
+      "IRetroPickLaunchFactoryGraduationV2": 0,
+      "RetroPickLaunchFactoryV2": 23423,
+      "KuruParameterPolicyV2": 57,
+      "RetroPickMemeHookV2": 15505,
+      "RetroPickBondingCurveV2": 11612,
+      "CompletionQuoteMathV2": 57,
+      "KuruGraduationExecutorV2": 16457,
+      "RetroPickGraduationGuardV2": 2896,
+      "RetroPickQuoteAssetRegistryV2": 2654,
+      "RetroPickLaunchDeployerV2": 21713,
+      "IGraduationLaunchConfigV2": 0,
+      "GraduationCoordinatorV2": 14026,
+      "RetroPickQuoteAssetPolicyV2": 682,
+      "ExecutorDonationLockV2": 161,
+      "ExecutorDonationsV2": 57,
+      "KuruLiquidityLockV2": 775,
+      "ExactAssetV2": 57,
+      "RetroPickDoorwayV2": 7124,
+      "IKuruOrderBookV2": 0,
+      "IKuruMarketStateV2": 0,
+      "IKuruRouterV2": 0,
+      "IKuruVaultV2": 0,
+      "IRetroPickDoorwayV2": 0,
+      "IRetroPickDoorwayRegistryV2": 0,
+      "IRetroPickDoorwayStakingV2": 0,
+      "IRetroPickDoorwayVaultV2": 0,
+      "RetroPickLaunchLockerV2": 2652,
+      "IRetroPickBondingCurveV2": 0,
+      "IRetroPickFeePolicyV2": 0,
+      "IRetroPickLaunchFactoryV2": 0,
+      "IERC721ReceiverLike": 0,
+      "IRetroPickFeeEscrowV2": 0,
+      "RetroPickGraduationMathV2": 57,
+      "RetroPickBondingCurveMathV2": 57,
+      "RetroPickLauncherTokenV2": 3248,
+      "RetroPickBuybackVaultV2": 4610,
+      "KuruEnvironmentV2": 1608,
+      "RetroPickHookDeployerV2": 17059,
+      "WETH": 2833,
+      "PoolManager": 17110,
+      "PositionManager": 19733,
+      "PositionDescriptor": 24240,
+      "Permit2": 9152
+    },
+    "deploymentSimulation": "PASS",
+    "policy": "TESTNET_POLICY_V1"
+  },
+  "deploymentTransactions": [
+    {
+      "hash": "0x1f9a01d22c123280386b92143de80381567d69553f0edcac62ed2c245bb9ec0e",
+      "block": 69509526,
+      "status": 1,
+      "contractName": "RetroPickQuoteAssetRegistryV2",
+      "contractAddress": "0xd1211276869ec55caf302e22371d2005b23b9b40",
+      "function": null,
+      "gasUsed": 866698
+    },
+    {
+      "hash": "0xc929564b8e35fc9b5c4ac26d3057e25da5e4006f2e81d8bb41ba05c7f147221d",
+      "block": 69509529,
+      "status": 1,
+      "contractName": "RetroPickFeeEscrowV2",
+      "contractAddress": "0xb0312b0412c3baa11895a6c4feec7cd9a01c2d96",
+      "function": null,
+      "gasUsed": 961590
+    },
+    {
+      "hash": "0x064193421f852573d04b789f6ca55bcc2e62b5d1c4bb2aa4719dcf805508a78f",
+      "block": 69509537,
+      "status": 1,
+      "contractName": null,
+      "contractAddress": "0xff437b117ec17a79a3b24da4b5047dca4da9d0a2",
+      "function": null,
+      "gasUsed": 956530
+    },
+    {
+      "hash": "0x1272cdd1c743ac1a09553337fe3437465ce49ed7b295376c13e4bc7290d3aa9d",
+      "block": 69509539,
+      "status": 1,
+      "contractName": null,
+      "contractAddress": "0x10301c3690501cf1a7c27300de4779e695dedae1",
+      "function": null,
+      "gasUsed": 2649426
+    },
+    {
+      "hash": "0xa009325164f5641ecbf736e247c99010a9354226aa8a9fd32e97d4fa80e1fa36",
+      "block": 69509542,
+      "status": 1,
+      "contractName": null,
+      "contractAddress": "0xd18de14a0db8adc66fd9c1cb9b960dea02c5d3c9",
+      "function": null,
+      "gasUsed": 4957644
+    },
+    {
+      "hash": "0xb4f9c44631d96ee851310c618358f1e3f57e3499ca95f5cfff14daec192bd99d",
+      "block": 69509544,
+      "status": 1,
+      "contractName": null,
+      "contractAddress": "0xb0769a3517f31b324cb5c0f7ca337f2239796532",
+      "function": null,
+      "gasUsed": 6935930
+    },
+    {
+      "hash": "0xb699b50c779760067e93ae0cd2c9a7a9c1cee79490e1468e2e5916b2f12a3f81",
+      "block": 69509547,
+      "status": 1,
+      "contractName": null,
+      "contractAddress": "0x3eb4cb7b07ebede7a2a508e4cf0d9e575dc449a9",
+      "function": null,
+      "gasUsed": 5754975
+    },
+    {
+      "hash": "0x961a307c17abb69bf5a69e8064fa0b791aa449b37aa79be5107d529f411e8ace",
+      "block": 69509556,
+      "status": 1,
+      "contractName": "RetroPickHookDeployerV2",
+      "contractAddress": "0x09fc0edeebf13c171ee5739eac6b9c7f3400c9b8",
+      "function": null,
+      "gasUsed": 4895489
+    },
+    {
+      "hash": "0x05c304e8a4e4a52de63ed6563a15de29d267c733b81ebb0d048d46bca5f7892f",
+      "block": 69509563,
+      "status": 1,
+      "contractName": "RetroPickHookDeployerV2",
+      "contractAddress": null,
+      "function": "deploy(bytes32,address,address,address)",
+      "gasUsed": 4395970
+    },
+    {
+      "hash": "0x16038bce5135a771f0e8b8df823af3c8a9c925874a6d93123d234c60f19fe518",
+      "block": 69509570,
+      "status": 1,
+      "contractName": "RetroPickBuybackVaultV2",
+      "contractAddress": "0x2d746643e0ba37f127b38a4c04866a123895be09",
+      "function": null,
+      "gasUsed": 1460278
+    },
+    {
+      "hash": "0xcdd7cea5041f3e88ebe010900d4cee8b46187372cbb3ae9ccabb055467658677",
+      "block": 69509576,
+      "status": 1,
+      "contractName": "RetroPickLaunchLockerV2",
+      "contractAddress": "0x7bb3aa1e48490f810e3f1eec1dda52d1f4d76a19",
+      "function": null,
+      "gasUsed": 867575
+    },
+    {
+      "hash": "0x21af852c483d24cdc9523c60ca2280626afd1f11b16a3371a3d8f26cd7bc8897",
+      "block": 69509582,
+      "status": 1,
+      "contractName": "KuruEnvironmentV2",
+      "contractAddress": "0xad59b3ff498d76dbc68351dad4391d250b1e1ba1",
+      "function": null,
+      "gasUsed": 526389
+    },
+    {
+      "hash": "0xbcb20ccb0929c76871643a40cee2c28930e754790411164377666089bfae3103",
+      "block": 69509589,
+      "status": 1,
+      "contractName": "GraduationCoordinatorV2",
+      "contractAddress": "0xad62309242ea65bb07c833669ec6a4ed23af738f",
+      "function": null,
+      "gasUsed": 4124858
+    },
+    {
+      "hash": "0x26fec38358cf4494339d57928884a519244b1aedc62d94fc2b5ad53aff526e7e",
+      "block": 69509592,
+      "status": 1,
+      "contractName": "KuruGraduationExecutorV2",
+      "contractAddress": "0xa2590ab344bad0452c53958821a2b74f87871983",
+      "function": null,
+      "gasUsed": 4887253
+    },
+    {
+      "hash": "0x27702abe416b7a062c9a7a13ff62e4d59fc7a8b7cbf49a183c58ffa0c6426f72",
+      "block": 69509600,
+      "status": 1,
+      "contractName": "UniswapV4GraduationExecutorV2",
+      "contractAddress": "0xcb4670e7d2146a9ca4541c383844b281cf53edb1",
+      "function": null,
+      "gasUsed": 5528627
+    },
+    {
+      "hash": "0x8b81d682bfbe9fd8617f830e5ffdf533209c46d85f96f30b4e58d31d9edc8e7e",
+      "block": 69509603,
+      "status": 1,
+      "contractName": "RetroPickQuoteAssetRegistryV2",
+      "contractAddress": null,
+      "function": "configure(address,(bool,uint8,uint8,uint32,uint256,uint256,uint256,bytes32,bytes32))",
+      "gasUsed": 209400
+    },
+    {
+      "hash": "0x076e1910d1a1d63540e747ce30a2819f4e001ab0e706431678e1083503af6d44",
+      "block": 69509612,
+      "status": 1,
+      "contractName": "RetroPickQuoteAssetRegistryV2",
+      "contractAddress": null,
+      "function": "configure(address,(bool,uint8,uint8,uint32,uint256,uint256,uint256,bytes32,bytes32))",
+      "gasUsed": 256672
+    },
+    {
+      "hash": "0xe527db201adcf2bc6192e80806c37caae12214474e5bdf1b88cb4604e9d93b72",
+      "block": 69509621,
+      "status": 1,
+      "contractName": "RetroPickLaunchFactoryV2",
+      "contractAddress": "0xa7f18b9eceb0a9852b08408854a45d00fc682454",
+      "function": null,
+      "gasUsed": 6905641
+    },
+    {
+      "hash": "0xc9776e4246cd0b1123d40ca810dc8b585d686f054608fb92107386f06464142b",
+      "block": 69509627,
+      "status": 1,
+      "contractName": "RetroPickLaunchDeployerV2",
+      "contractAddress": "0x14080b43f3d45b47aeeff3bc1b0bee0cf0ccf5d8",
+      "function": null,
+      "gasUsed": 6193392
+    },
+    {
+      "hash": "0x547af165a19504d79bdc27e78293dc80be37a7e0fd6b7827a5791b5446075303",
+      "block": 69509633,
+      "status": 1,
+      "contractName": "GraduationCoordinatorV2",
+      "contractAddress": null,
+      "function": "bindFactory(address)",
+      "gasUsed": 80860
+    },
+    {
+      "hash": "0xaf97c7bddb0aaa2b8a84208fabc7e44504db55c3ebb5d05711d541b522d0071e",
+      "block": 69509638,
+      "status": 1,
+      "contractName": "RetroPickLaunchFactoryV2",
+      "contractAddress": null,
+      "function": "setLaunchDeployer(address)",
+      "gasUsed": 66972
+    },
+    {
+      "hash": "0xd2f109d233273f68e00f5ae02b912646072e9967828ee31fae9857d072455f0d",
+      "block": 69509641,
+      "status": 1,
+      "contractName": "RetroPickLaunchFactoryV2",
+      "contractAddress": null,
+      "function": "configureVenueExecutor(uint8,address)",
+      "gasUsed": 119741
+    },
+    {
+      "hash": "0x32bbb1b6ea896228c69243d71bf65fa73945ef525729fb53ee2e059b21eb8ba2",
+      "block": 69509643,
+      "status": 1,
+      "contractName": "RetroPickLaunchFactoryV2",
+      "contractAddress": null,
+      "function": "configureVenueExecutor(uint8,address)",
+      "gasUsed": 119757
+    },
+    {
+      "hash": "0xd4e37c054c8891082e29040fcce2ec22b361a719008dac3f5c49e2406cd71d0d",
+      "block": 69509646,
+      "status": 1,
+      "contractName": "RetroPickMemeHookV2",
+      "contractAddress": null,
+      "function": "setFactory(address)",
+      "gasUsed": 66982
+    },
+    {
+      "hash": "0x028f7bca7b0cf6d25edb94a69ee245cbcce7ce584ebe3c540d5ef64136b461ed",
+      "block": 69509652,
+      "status": 1,
+      "contractName": "RetroPickMemeHookV2",
+      "contractAddress": null,
+      "function": "setBuybackVault(address)",
+      "gasUsed": 67111
+    },
+    {
+      "hash": "0xf90f20dbf07bbf5ee9d619140dd23611449449217e6073954612715dc7790be4",
+      "block": 69509658,
+      "status": 1,
+      "contractName": "RetroPickMemeHookV2",
+      "contractAddress": null,
+      "function": "setGraduationExecutor(address)",
+      "gasUsed": 80351
+    },
+    {
+      "hash": "0x5b57222af5af0493407a0afe4dbf5cbc0a557bcabba2f203ab469279ec913f33",
+      "block": 69509661,
+      "status": 1,
+      "contractName": "RetroPickBuybackVaultV2",
+      "contractAddress": null,
+      "function": "setFactory(address)",
+      "gasUsed": 66849
+    },
+    {
+      "hash": "0xbc81b72fd90c7dec2c6afbdaed3c9acb8c3879153f37d61bc4d38d228b1b2214",
+      "block": 69509669,
+      "status": 1,
+      "contractName": "RetroPickLaunchLockerV2",
+      "contractAddress": null,
+      "function": "setFactory(address)",
+      "gasUsed": 66792
+    },
+    {
+      "hash": "0x6d628c47a1a1e58cc893ba6bc00e333bd57a87e009d60c5d9b51f4d9964a3ccb",
+      "block": 69509672,
+      "status": 1,
+      "contractName": "RetroPickLaunchLockerV2",
+      "contractAddress": null,
+      "function": "setGraduationExecutor(address)",
+      "gasUsed": 79496
+    },
+    {
+      "hash": "0x5107fc516d6335a66831f9e722397a02294f71106550b4928f85341349114672",
+      "block": 69509674,
+      "status": 1,
+      "contractName": "RetroPickLaunchFactoryV2",
+      "contractAddress": null,
+      "function": "addLaunchConfig((uint256,uint256,uint256,uint256,uint24,int24,bool))",
+      "gasUsed": 212114
+    },
+    {
+      "hash": "0x35b0fab7e17f98d400c14263abf6af970dc134da06caec44521c5896e7b560c8",
+      "block": 69509677,
+      "status": 1,
+      "contractName": "RetroPickLaunchFactoryV2",
+      "contractAddress": null,
+      "function": "setSnipeTaxStartBps(uint256)",
+      "gasUsed": 45048
+    },
+    {
+      "hash": "0x3bc149832c304dbca7105716b762ce4bb439a4f2acb96103d9fec181ca276381",
+      "block": 69509679,
+      "status": 1,
+      "contractName": "RetroPickLaunchFactoryV2",
+      "contractAddress": null,
+      "function": "setLaunchEnabled(bool)",
+      "gasUsed": 67841
+    }
+  ],
+  "monSmoke": "PASS",
+  "circleSmoke": "BLOCKED_FUNDING",
+  "monLaunch": {
+    "actor": "0xB505cBaab3ACdF287af1366b9B1229404757913b",
+    "curve": "0x454A3A449d4e65CA5203d331905d167BA218E276",
+    "factory": "0xa7f18b9eceb0A9852b08408854A45D00fc682454",
+    "lpLock": "0x72ced84b20Bb8467c5547e3EbF85E62321B6a425",
+    "market": "0x1F5dE72616a7fe645Cf45aC66dfce8Ac7452C57F",
+    "phase": "GRADUATED",
+    "protectedExcessAmount": "249999999999999999751",
+    "protectedLPAmount": "15811388300841895683",
+    "quoteAsset": "0x0000000000000000000000000000000000000000",
+    "securedLaunchTokens": "500000000000000000000",
+    "securedQuote": "1000000000000000002",
+    "token": "0x43e7e9b1b7d9A143573307b13D14B51580c18f15",
+    "vault": "0xc88DED06eB0081430Ff02d124C22b532e122CbE7",
+    "transactions": [
+      {
+        "hash": "0x5cc1d0469ee7b811139055a81f2ba85a49a3de5b8ea54e158426693a556271f3",
+        "block": 69510104,
+        "status": 1,
+        "contractName": null,
+        "contractAddress": null,
+        "function": "launchToken((string,string,string,string,(string,string,string,string,string),address,uint16,bool,bytes32,bytes32),uint256,address,uint8)",
+        "gasUsed": 5465378
+      },
+      {
+        "hash": "0x41627a9090bd0fbdac03126457de8b3bc60a29486c70efffd18f71997596a926",
+        "block": 69510112,
+        "status": 1,
+        "contractName": "RetroPickBondingCurveV2",
+        "contractAddress": null,
+        "function": "buy(uint256,uint256,address)",
+        "gasUsed": 187133
+      },
+      {
+        "hash": "0x422096188305dfbca449b3eaf9ff4ad9da179e895e25853cee7aa30d9b98f184",
+        "block": 69510115,
+        "status": 1,
+        "contractName": "RetroPickBondingCurveV2",
+        "contractAddress": null,
+        "function": "buy(uint256,uint256,address)",
+        "gasUsed": 646883
+      },
+      {
+        "hash": "0x70d0cb480e7824ca9af62eaa5cb8d246a352efc6f2ba3585119c8bc64fa63fde",
+        "block": 69510121,
+        "status": 1,
+        "contractName": null,
+        "contractAddress": null,
+        "function": "complete(address)",
+        "gasUsed": 3072789
+      }
+    ],
+    "onchainVerification": {
+      "phase": "GRADUATED",
+      "ledgerWords": [
+        2,
+        "1000000000000000002",
+        "500000000000000000000",
+        "1000000000000000002",
+        "500000000000000000000",
+        "179072819097897841982294335585597618128547923327",
+        "103414057240121803779830338546579470132670170651417760748705515012056935817603",
+        "655437743203262734290697625117031482219589706789",
+        "15811388300841895683",
+        "655437743203262734290697625117031482219589706789",
+        "249999999999999999751",
+        1791539926
+      ],
+      "coordinatorPhysicalQuote": 0,
+      "coordinatorQuoteLiability": 0,
+      "workerResiduals": 0,
+      "workerVaultAllowances": 0,
+      "verifiedAtBlock": 69510846
+    }
+  },
+  "marketUsability": {
+    "actorA": "0xB505cBaab3ACdF287af1366b9B1229404757913b",
+    "actorABase": "900000000000000000",
+    "actorAQuote": 398010000000000,
+    "actorB": "0x101212C52620ca00540ee04D1515E714e6368Fcd",
+    "actorBBase": "99700000000000000",
+    "actorBQuote": "9601980000000000",
+    "cancelledOrderId": 2,
+    "fillPrice": 398019,
+    "filledOrderId": 1,
+    "finalBestAsk": 4000000000000000,
+    "finalBestBid": 3960396039603960,
+    "market": "0x1F5dE72616a7fe645Cf45aC66dfce8Ac7452C57F",
+    "result": "PASS",
+    "size": 10000000,
+    "transactions": [
+      {
+        "hash": "0xde9d50172b99428d0129259b4d9f33e831b491772938e0a0ddb0fbc042a9fd72",
+        "block": 69510700,
+        "status": 1,
+        "contractName": null,
+        "contractAddress": null,
+        "function": "approve(address,uint256)",
+        "gasUsed": 67752
+      },
+      {
+        "hash": "0xa831416ca168cbc2d7d3103c56bdb2fb56befb1d09f3b4bf926b2609f00b8202",
+        "block": 69510708,
+        "status": 1,
+        "contractName": null,
+        "contractAddress": null,
+        "function": "deposit(address,address,uint256)",
+        "gasUsed": 165848
+      },
+      {
+        "hash": "0xabd44f6922c652f0043658bf86f7d72e5cc550d4755a001cfd8d1c519ae515b7",
+        "block": 69510711,
+        "status": 1,
+        "contractName": null,
+        "contractAddress": null,
+        "function": "addSellOrder(uint32,uint96,bool)",
+        "gasUsed": 421937
+      },
+      {
+        "hash": "0xdcf9aaac4b28a7103322c875771ed25f6f4d3dc0874c779882c28aa6d0a6048a",
+        "block": 69510714,
+        "status": 1,
+        "contractName": null,
+        "contractAddress": null,
+        "function": "deposit(address,address,uint256)",
+        "gasUsed": 103507
+      },
+      {
+        "hash": "0x93e056ca41c8f55022c2030f4ecaade5775187fc443e8b98f7ddac7a65855415",
+        "block": 69510717,
+        "status": 1,
+        "contractName": null,
+        "contractAddress": null,
+        "function": "addBuyOrder(uint32,uint96,bool)",
+        "gasUsed": 345764
+      },
+      {
+        "hash": "0xc49a70eff3f496fcdaa720ab03bc0fe122573141a421d2efbc16d51d88b8f6e7",
+        "block": 69510725,
+        "status": 1,
+        "contractName": null,
+        "contractAddress": null,
+        "function": "addSellOrder(uint32,uint96,bool)",
+        "gasUsed": 421937
+      },
+      {
+        "hash": "0x471faeb38c8598fc7207cb97c18a550db989e6d43bf0ce23b3539ea7920ac920",
+        "block": 69510729,
+        "status": 1,
+        "contractName": null,
+        "contractAddress": null,
+        "function": "batchCancelOrders(uint40[])",
+        "gasUsed": 227286
+      }
+    ],
+    "marketEvents": [
+      {
+        "address": "0x1f5de72616a7fe645cf45ac66dfce8ac7452c57f",
+        "topics": [
+          "0xb81bbaf150467ef3096ed6220cb963abc169bffd2eb88f26c47359ef344cf94c"
+        ],
+        "data": "0x0000000000000000000000000000000000000000000000000000000000000001000000000000000000000000b505cbaab3acdf287af1366b9b1229404757913b000000000000000000000000000000000000000000000000000000000098968000000000000000000000000000000000000000000000000000000000000612c30000000000000000000000000000000000000000000000000000000000000000",
+        "blockHash": "0xaf9ee589ebfc0d282fcde3b1c95218232f1a1487209c1c8fde5dbcf914f6ad18",
+        "blockNumber": "0x424a637",
+        "blockTimestamp": "0x6ac8bb8a",
+        "transactionHash": "0xabd44f6922c652f0043658bf86f7d72e5cc550d4755a001cfd8d1c519ae515b7",
+        "transactionIndex": "0x2",
+        "logIndex": "0x2",
+        "removed": false
+      },
+      {
+        "address": "0x1f5de72616a7fe645cf45ac66dfce8ac7452c57f",
+        "topics": [
+          "0xf16924fba1c18c108912fcacaac7450c98eb3f2d8c0a3cdf3df7066c08f21581"
+        ],
+        "data": "0x0000000000000000000000000000000000000000000000000000000000000001000000000000000000000000b505cbaab3acdf287af1366b9b1229404757913b0000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000e23f63316ac000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000101212c52620ca00540ee04d1515e714e6368fcd000000000000000000000000101212c52620ca00540ee04d1515e714e6368fcd0000000000000000000000000000000000000000000000000000000000989680",
+        "blockHash": "0xfdbf1daf4c9fed47d644c5486fbbe39084af752947c9f0d72092d796fa22cdf6",
+        "blockNumber": "0x424a63d",
+        "blockTimestamp": "0x6ac8bb8c",
+        "transactionHash": "0x93e056ca41c8f55022c2030f4ecaade5775187fc443e8b98f7ddac7a65855415",
+        "transactionIndex": "0x3",
+        "logIndex": "0x23",
+        "removed": false
+      },
+      {
+        "address": "0x1f5de72616a7fe645cf45ac66dfce8ac7452c57f",
+        "topics": [
+          "0xb81bbaf150467ef3096ed6220cb963abc169bffd2eb88f26c47359ef344cf94c"
+        ],
+        "data": "0x0000000000000000000000000000000000000000000000000000000000000002000000000000000000000000b505cbaab3acdf287af1366b9b1229404757913b000000000000000000000000000000000000000000000000000000000098968000000000000000000000000000000000000000000000000000000000000668a10000000000000000000000000000000000000000000000000000000000000000",
+        "blockHash": "0x24caa3fd2bbc9d41fa93fb930a58ad433c802f8ecca01308bb5e32a40ea87fc7",
+        "blockNumber": "0x424a645",
+        "blockTimestamp": "0x6ac8bb8f",
+        "transactionHash": "0xc49a70eff3f496fcdaa720ab03bc0fe122573141a421d2efbc16d51d88b8f6e7",
+        "transactionIndex": "0x2",
+        "logIndex": "0x3f",
+        "removed": false
+      },
+      {
+        "address": "0x1f5de72616a7fe645cf45ac66dfce8ac7452c57f",
+        "topics": [
+          "0xd9c089818ef223629c2af53488dc47cf2867f157caca778ce77aaa742b8c1079"
+        ],
+        "data": "0x0000000000000000000000000000000000000000000000000000000000000002000000000000000000000000b505cbaab3acdf287af1366b9b1229404757913b00000000000000000000000000000000000000000000000000000000000668a100000000000000000000000000000000000000000000000000000000009896800000000000000000000000000000000000000000000000000000000000000000",
+        "blockHash": "0xf68b3bbb1031205c267be47f485f57f3c054ec3d9a9952f2108613f2d7004d25",
+        "blockNumber": "0x424a649",
+        "blockTimestamp": "0x6ac8bb90",
+        "transactionHash": "0x471faeb38c8598fc7207cb97c18a550db989e6d43bf0ce23b3539ea7920ac920",
+        "transactionIndex": "0x3",
+        "logIndex": "0x3",
+        "removed": false
+      },
+      {
+        "address": "0x1f5de72616a7fe645cf45ac66dfce8ac7452c57f",
+        "topics": [
+          "0x386974f41b61738b510019ccd5a3524a43eccf0d136929e09d524e87aeeca2c4"
+        ],
+        "data": "0x0000000000000000000000000000000000000000000000000000000000000040000000000000000000000000b505cbaab3acdf287af1366b9b1229404757913b00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000002",
+        "blockHash": "0xf68b3bbb1031205c267be47f485f57f3c054ec3d9a9952f2108613f2d7004d25",
+        "blockNumber": "0x424a649",
+        "blockTimestamp": "0x6ac8bb90",
+        "transactionHash": "0x471faeb38c8598fc7207cb97c18a550db989e6d43bf0ce23b3539ea7920ac920",
+        "transactionIndex": "0x3",
+        "logIndex": "0x4",
+        "removed": false
+      }
+    ],
+    "onchainVerification": {
+      "phase": "GRADUATED",
+      "ledgerWords": [
+        2,
+        "1000000000000000002",
+        "500000000000000000000",
+        "1000000000000000002",
+        "500000000000000000000",
+        "179072819097897841982294335585597618128547923327",
+        "103414057240121803779830338546579470132670170651417760748705515012056935817603",
+        "655437743203262734290697625117031482219589706789",
+        "15811388300841895683",
+        "655437743203262734290697625117031482219589706789",
+        "249999999999999999751",
+        1791539926
+      ],
+      "coordinatorPhysicalQuote": 0,
+      "coordinatorQuoteLiability": 0,
+      "workerResiduals": 0,
+      "workerVaultAllowances": 0,
+      "verifiedAtBlock": 69510765
+    }
+  },
+  "finalEnvironment": {
+    "chainId": 10143,
+    "block": 69510812,
+    "router": "0x7EFbE105Ca7415dE98F96622173458ac1c054630",
+    "marginAccount": "0xd029C2D98ff85D8F64799017fE00a59B1159CE02",
+    "orderBookImplementation": "0x72caE0a99C19B574e8a6De558F43fc1D019c9374",
+    "vaultImplementation": "0x4d54e0d60CaB0cec0100cdA8e00897bC933C5Bb6",
+    "codeHashes": {
+      "0x7EFbE105Ca7415dE98F96622173458ac1c054630": "0xae572ec3ca9b5f49c0364ca34edc5880b6b2837e47802e64e6b681bf2e74aa5c",
+      "0xd029C2D98ff85D8F64799017fE00a59B1159CE02": "0xae572ec3ca9b5f49c0364ca34edc5880b6b2837e47802e64e6b681bf2e74aa5c",
+      "0x72caE0a99C19B574e8a6De558F43fc1D019c9374": "0x24c5974f233021f00d607bfa191d430f79565663fb90805ebcfca52de7333500",
+      "0x4d54e0d60CaB0cec0100cdA8e00897bC933C5Bb6": "0xde0b16a79cf8f711403e89093c1e82ce0e7813949dd0f5041b41da324fdd3dc3",
+      "0x534b2f3A21130d7a60830c2Df862319e593943A3": "0x96215e6049ed615cdc22fea7701e85458a8e51a2df3e7d45e8f9fa1d521b5a78"
+    },
+    "proxyImplementations": {
+      "0x7EFbE105Ca7415dE98F96622173458ac1c054630": "0xaaa0f0c4d49d09ef33ae758d88afab810ecbe1ed",
+      "0xd029C2D98ff85D8F64799017fE00a59B1159CE02": "0xf10af40f060b7ae54a2d5da682becc981dfb52c3"
+    },
+    "actors": {
+      "A": {
+        "address": "0xB505cBaab3ACdF287af1366b9B1229404757913b",
+        "monWei": "1249326007898989897",
+        "circleRaw": 0
+      },
+      "B": {
+        "address": "0x101212C52620ca00540ee04D1515E714e6368Fcd",
+        "monWei": "24643977792170000000",
+        "circleRaw": 0
+      }
+    }
+  },
+  "onchainReleaseVerification": {
+    "block": 69511162,
+    "runtimeBytes": {
+      "buybackVault": 4610,
+      "coordinator": 14026,
+      "factory": 23423,
+      "feeEscrow": 3013,
+      "hook": 15505,
+      "hookDeployer": 17059,
+      "kuruEnvironment": 1608,
+      "kuruExecutor": 16457,
+      "launchDeployer": 21713,
+      "locker": 2652,
+      "permit2": 9152,
+      "poolManager": 17110,
+      "positionDescriptor": 24240,
+      "positionManager": 19733,
+      "quoteRegistry": 2654,
+      "v4Executor": 15661,
+      "wrappedNative": 2833,
+      "kuruDonationLock": 161,
+      "v4DonationLock": 161,
+      "v4Guard": 2896
+    },
+    "quoteConfigs": {
+      "MON": {
+        "asset": "0x0000000000000000000000000000000000000000",
+        "configWords": [
+          1,
+          18,
+          3,
+          1,
+          "1000000000000000000",
+          "1000000000000000000",
+          "50000000000000000000",
+          "24973969587027393473569699174193290461839771051764510857609579439024271167637",
+          "8078866891408142567324186905894108176544463826405185187422554811988650763364"
+        ]
+      },
+      "CIRCLE_TEST_USDC": {
+        "asset": "0x534b2f3A21130d7a60830c2Df862319e593943A3",
+        "configWords": [
+          1,
+          6,
+          3,
+          1,
+          1000000,
+          1000000,
+          50000000,
+          "68590786142294730894226225078937199471664630973146744131891242457264816125568",
+          "88689702173183279175385892386899268745323407972975400675992001467152864707737"
+        ]
+      }
+    },
+    "routerMarketParams": [
+      100000000,
+      100000000,
+      "387674211423037589663053713228070547642233491221",
+      18,
+      0,
+      18,
+      1,
+      1000000,
+      "10000000000000000",
+      30,
+      0
+    ],
+    "vaultMarginBase": "250000000000000000249",
+    "vaultMarginQuote": "1000000000000000002",
+    "boundPermanentCustody": true,
+    "completionReplay": "REVERT_WRONG_PHASE",
+    "coordinatorExecutorAllowance": 0
+  }
+}

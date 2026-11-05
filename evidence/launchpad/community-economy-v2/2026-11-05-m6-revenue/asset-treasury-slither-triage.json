@@ -1,0 +1,1181 @@
+{
+  "tool": "Slither0.11.6",
+  "success": true,
+  "exitCode": 255,
+  "exitMeaning": "Detector findings present, not a successful zero-findings scan",
+  "detectors": 102,
+  "contracts": 81,
+  "resultCount": 129,
+  "sourceSha256": {
+    "contracts/src/v2-research-experiment/m6/CommunityV4GraduationExecutorV2.sol": "a70772b94788fc37dc6501a4139107648736b635851138a8f4a740af692d41c9",
+    "contracts/src/v2-research-experiment/m6/CommunityRevenueLaunchBuilderV2.sol": "8e7a409aa74c6d59aa59b206fa87caf5c1c2bc96e499f1236a77ebd28373f2c8",
+    "contracts/src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol": "65a492acac9e1e6af64fe5d6d1110dd2c469e17c65ce4a4e08fa6fc7238ca7a4",
+    "contracts/src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol": "d7d061741e071e5c093256cd7ae86b4ec3075a715b116f0ef1ba0d2be20239e0",
+    "contracts/src/v2-research-experiment/m6/CommunityRevenueDeployersV2.sol": "fbf575ef56c3adc4d4f176bac4bd28036bef95180d24e00394da1e9377e5042b",
+    "contracts/src/v2-research-experiment/m6/hooks/CommunityV4FeeHookV2.sol": "e072344a6e08effcae718cda989453e1f96b6d9bc39211ddfa366c81eee7262a"
+  },
+  "findings": [
+    {
+      "index": 0,
+      "id": "7684f03837e02879ea68753c8da74d62360c5f7c03099eb3c5fd9abf49443119",
+      "check": "arbitrary-send-erc20",
+      "impact": "High",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "ExactAssetV2.pull(address,address,address,uint256) (src/v2-research-experiment/libraries/ExactAssetV2.sol#10-18) uses arbitrary from in transferFrom: IERC20(asset).safeTransferFrom(from,to,amount) (src/v2-research-experiment/libraries/ExactAssetV2.sol#14)\n"
+    },
+    {
+      "index": 1,
+      "id": "c8486989b9fb86b230cf9216b4d898c29eb27162568412121b5cc59470b0083f",
+      "check": "arbitrary-send-eth",
+      "impact": "High",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "TimelockController._execute(address,uint256,bytes) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#411-414) sends eth to arbitrary user\n\tDangerous calls:\n\t- (success,returndata) = target.call{value: value}(data) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#412)\n"
+    },
+    {
+      "index": 2,
+      "id": "83603023c15885ad42ce01c58ca872dc8cbd223c57947d08d7918a4fd59ff82a",
+      "check": "incorrect-exp",
+      "impact": "High",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Math.mulDiv(uint256,uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#206-277) has bitwise-xor operator ^ instead of the exponentiation operator **: \n\t - inverse = (3 * denominator) ^ 2 (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#259)\n"
+    },
+    {
+      "index": 3,
+      "id": "0cc1c88b4d0d2c60cc568b6e646531261cebc2731e2fc54cde44557a5ca35228",
+      "check": "reentrancy-balance",
+      "impact": "High",
+      "classification": "REVIEWED_NO_VIOLATION_REPRODUCED",
+      "rationale": "fund/fundVenue/claim/Vault spend and claim use a shared per-contract nonReentrant guard. Checkpoint rejects guard-entered or checkpointing state; only the authenticated real Curve can fund during checkpoint. Post-transfer exact balance/credit comparisons intentionally fail closed; failed calls revert accounting. Router callback/claim tests passed; adversarial new Treasury callbacks still need dedicated expanded coverage.",
+      "description": "Reentrancy in CommunityRevenueRouterV2._remitProtocol(address,uint256) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#353-378):\n\tExternal call allowing reentrancy:\n\t- feeEscrow.credit{value: amount}(protocolFeeRecipient) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#361)\n\tBalance read before the call:\n\t- creditBefore = feeEscrow.balanceOf(protocolFeeRecipient) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#357-359)\n\tPossible stale balance used after the call in a condition:\n\t- ExactAssetV2.balance(asset,address(this)) != ownBefore - amount || ExactAssetV2.balance(asset,address(feeEscrow)) != escrowBefore + amount || creditAfter != creditBefore + amount (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#372-374)\n\t\t- stale variable `creditBefore`\n"
+    },
+    {
+      "index": 4,
+      "id": "324e4f28378065dc0edd866d074fcf950e3590da69099ed75f13d992495fce38",
+      "check": "reentrancy-balance",
+      "impact": "High",
+      "classification": "REVIEWED_NO_VIOLATION_REPRODUCED",
+      "rationale": "fund/fundVenue/claim/Vault spend and claim use a shared per-contract nonReentrant guard. Checkpoint rejects guard-entered or checkpointing state; only the authenticated real Curve can fund during checkpoint. Post-transfer exact balance/credit comparisons intentionally fail closed; failed calls revert accounting. Router callback/claim tests passed; adversarial new Treasury callbacks still need dedicated expanded coverage.",
+      "description": "Reentrancy in CommunityAssetTreasuryVaultV2._claim(address,uint256) (src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol#122-136):\n\tExternal call allowing reentrancy:\n\t- router.claimAssetTo(asset,address(this),amount) (src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol#128)\n\tBalance read before the call:\n\t- beforeBalance = _backing(asset) (src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol#127)\n\tPossible stale balance used after the call in a condition:\n\t- router.creditOf(asset,address(this)) != oldCredit - amount || actualBalanceAsset(asset) != beforeBalance + amount (src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol#130-131)\n\t\t- stale variable `beforeBalance`\n"
+    },
+    {
+      "index": 5,
+      "id": "7238be02de81e2193eabbde5cf0240707a2fc08d1f4cf151c4d35cca3cfcad6f",
+      "check": "reentrancy-balance",
+      "impact": "High",
+      "classification": "REVIEWED_NO_VIOLATION_REPRODUCED",
+      "rationale": "fund/fundVenue/claim/Vault spend and claim use a shared per-contract nonReentrant guard. Checkpoint rejects guard-entered or checkpointing state; only the authenticated real Curve can fund during checkpoint. Post-transfer exact balance/credit comparisons intentionally fail closed; failed calls revert accounting. Router callback/claim tests passed; adversarial new Treasury callbacks still need dedicated expanded coverage.",
+      "description": "Reentrancy in CommunityAssetTreasuryVaultV2.spend(address,address,uint256,bytes32) (src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol#139-159):\n\tExternal call allowing reentrancy:\n\t- (ok,None) = address(recipient).call{value: amount}() (src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol#151)\n\tBalance read before the call:\n\t- beforeBalance = _backing(asset) (src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol#147)\n\tPossible stale balance used after the call in a condition:\n\t- actualBalanceAsset(asset) != beforeBalance - amount (src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol#156)\n\t\t- stale variable `beforeBalance`\n"
+    },
+    {
+      "index": 6,
+      "id": "ed64186aec3af83b8a7e6799764a59492acda57aeb3d69e111a48e6c59833a6d",
+      "check": "reentrancy-balance",
+      "impact": "High",
+      "classification": "REVIEWED_NO_VIOLATION_REPRODUCED",
+      "rationale": "fund/fundVenue/claim/Vault spend and claim use a shared per-contract nonReentrant guard. Checkpoint rejects guard-entered or checkpointing state; only the authenticated real Curve can fund during checkpoint. Post-transfer exact balance/credit comparisons intentionally fail closed; failed calls revert accounting. Router callback/claim tests passed; adversarial new Treasury callbacks still need dedicated expanded coverage.",
+      "description": "Reentrancy in CommunityRevenueRouterV2._remitProtocol(address,uint256) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#353-378):\n\tExternal call allowing reentrancy:\n\t- feeEscrow.creditToken(protocolFeeRecipient,asset,amount) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#364)\n\tBalance read before the call:\n\t- creditBefore = feeEscrow.balanceOf(protocolFeeRecipient) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#357-359)\n\tPossible stale balance used after the call in a condition:\n\t- ExactAssetV2.balance(asset,address(this)) != ownBefore - amount || ExactAssetV2.balance(asset,address(feeEscrow)) != escrowBefore + amount || creditAfter != creditBefore + amount (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#372-374)\n\t\t- stale variable `creditBefore`\n"
+    },
+    {
+      "index": 7,
+      "id": "6b3fadf43758bae73c5469872e218032246c96d62ccc90d58833c43a43f44f61",
+      "check": "reentrancy-eth",
+      "impact": "High",
+      "classification": "REVIEWED_NO_VIOLATION_REPRODUCED",
+      "rationale": "fund/fundVenue/claim/Vault spend and claim use a shared per-contract nonReentrant guard. Checkpoint rejects guard-entered or checkpointing state; only the authenticated real Curve can fund during checkpoint. Post-transfer exact balance/credit comparisons intentionally fail closed; failed calls revert accounting. Router callback/claim tests passed; adversarial new Treasury callbacks still need dedicated expanded coverage.",
+      "description": "Reentrancy in CommunityRevenueRouterV2.fundVenue(bytes32,address,uint256,uint256,uint256,uint256) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#296-321):\n\tExternal calls:\n\t- _remitProtocol(asset,protocolAmount) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#313)\n\t\t- feeEscrow.credit{value: amount}(protocolFeeRecipient) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#361)\n\t\t- feeEscrow.creditToken(protocolFeeRecipient,asset,amount) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#364)\n\tExternal calls sending eth:\n\t- _remitProtocol(asset,protocolAmount) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#313)\n\t\t- feeEscrow.credit{value: amount}(protocolFeeRecipient) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#361)\n\tState variables written after the call(s):\n\t- _allocate(asset,epoch_,community) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#319)\n\t\t- liability[asset] += amount (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#383)\n\tCommunityRevenueRouterV2.liability (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#109) can be used in cross function reentrancies:\n\t- CommunityRevenueRouterV2._backing(address) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#467-469)\n\t- CommunityRevenueRouterV2._claim(address,address,uint256) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#442-461)\n\t- CommunityRevenueRouterV2.liability (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#109)\n\t- CommunityRevenueRouterV2.totalLiability() (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#418-420)\n\t- venueSequence[asset] = seq (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#315)\n\tCommunityRevenueRouterV2.venueSequence (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#106) can be used in cross function reentrancies:\n\t- CommunityRevenueRouterV2.venueSequence (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#106)\n"
+    },
+    {
+      "index": 8,
+      "id": "2f1fc59113f7271e17fb52f8b3dbc60b8a761e624d381e984c698764c1199829",
+      "check": "divide-before-multiply",
+      "impact": "Medium",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "CustomRevert.bubbleUpAndRevertWith(address,bytes4,bytes4) (lib/v4-core/src/libraries/CustomRevert.sol#83-119) performs a multiplication on the result of a division:\n\t- encodedDataSize_bubbleUpAndRevertWith_asm_0 = returndatasize()() + 31 / 32 * 32 (lib/v4-core/src/libraries/CustomRevert.sol#91)\n"
+    },
+    {
+      "index": 9,
+      "id": "78de567e89c8d92ba286127f2401d3833fabd53e14fbf38553c805d401aefa35",
+      "check": "divide-before-multiply",
+      "impact": "Medium",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Math.mulDiv(uint256,uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#206-277) performs a multiplication on the result of a division:\n\t- denominator = denominator / twos (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#244)\n\t- inverse = (3 * denominator) ^ 2 (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#259)\n"
+    },
+    {
+      "index": 10,
+      "id": "8b7b598911a68095eb4b853e5972916725f5b9acd2def81703ebbfd6edc20533",
+      "check": "divide-before-multiply",
+      "impact": "Medium",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Math.mulDiv(uint256,uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#206-277) performs a multiplication on the result of a division:\n\t- low = low / twos (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#247)\n\t- result = low * inverse (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#274)\n"
+    },
+    {
+      "index": 11,
+      "id": "8d23869d6808590b4243d03e5263dec8d65bd46991a40de4edcd0785f2d6933d",
+      "check": "divide-before-multiply",
+      "impact": "Medium",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Math.mulDiv(uint256,uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#206-277) performs a multiplication on the result of a division:\n\t- denominator = denominator / twos (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#244)\n\t- inverse *= 2 - denominator * inverse (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#265)\n"
+    },
+    {
+      "index": 12,
+      "id": "8e730c3dca57b2bc6eefc8e55d5591610bba754f12e91d001d76536c11c7c174",
+      "check": "divide-before-multiply",
+      "impact": "Medium",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Math.invMod(uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#317-363) performs a multiplication on the result of a division:\n\t- quotient = gcd / remainder (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#339)\n\t- (gcd,remainder) = (remainder,gcd - remainder * quotient) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#341-348)\n"
+    },
+    {
+      "index": 13,
+      "id": "96b8f0c0471d04ca494a1eb1f6d41b964d7198b776a894d7f4b9a018b99fcb00",
+      "check": "divide-before-multiply",
+      "impact": "Medium",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Math.mulDiv(uint256,uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#206-277) performs a multiplication on the result of a division:\n\t- denominator = denominator / twos (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#244)\n\t- inverse *= 2 - denominator * inverse (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#264)\n"
+    },
+    {
+      "index": 14,
+      "id": "d749c8ec4880f8e1322100d050046001f687f990117af3c3fed794954e9bc83d",
+      "check": "divide-before-multiply",
+      "impact": "Medium",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Math.mulDiv(uint256,uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#206-277) performs a multiplication on the result of a division:\n\t- denominator = denominator / twos (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#244)\n\t- inverse *= 2 - denominator * inverse (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#266)\n"
+    },
+    {
+      "index": 15,
+      "id": "dceb850138674cff0efb9ce45492b1f3c832b4be04f9983e97cf9b519960630e",
+      "check": "divide-before-multiply",
+      "impact": "Medium",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Math.mulDiv(uint256,uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#206-277) performs a multiplication on the result of a division:\n\t- denominator = denominator / twos (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#244)\n\t- inverse *= 2 - denominator * inverse (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#267)\n"
+    },
+    {
+      "index": 16,
+      "id": "f3c05efec8e6d330b72ecfb3a62a9cfa0a347f661b5735a7e7c2574a354ecc39",
+      "check": "divide-before-multiply",
+      "impact": "Medium",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Math.mulDiv(uint256,uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#206-277) performs a multiplication on the result of a division:\n\t- denominator = denominator / twos (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#244)\n\t- inverse *= 2 - denominator * inverse (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#263)\n"
+    },
+    {
+      "index": 17,
+      "id": "fa74b1b14a018c9ef7dae16be9273aa6e4c2661ea05f93da50f1ba075d6b4ddc",
+      "check": "divide-before-multiply",
+      "impact": "Medium",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Math.mulDiv(uint256,uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#206-277) performs a multiplication on the result of a division:\n\t- denominator = denominator / twos (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#244)\n\t- inverse *= 2 - denominator * inverse (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#268)\n"
+    },
+    {
+      "index": 18,
+      "id": "2b5b21e66389b5db536012acfb5b949779955e74b9e85132423c4fe09b9ca371",
+      "check": "incorrect-equality",
+      "impact": "Medium",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "TimelockController.getOperationState(bytes32) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#206-217) uses a dangerous strict equality:\n\t- timestamp == _DONE_TIMESTAMP (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#210)\n"
+    },
+    {
+      "index": 19,
+      "id": "878287916ce8dcfa4ba0438f50cc6686d523ca58ee4b3443cba95fb4bc13106d",
+      "check": "incorrect-equality",
+      "impact": "Medium",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "TimelockController.getOperationState(bytes32) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#206-217) uses a dangerous strict equality:\n\t- timestamp == 0 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#208)\n"
+    },
+    {
+      "index": 20,
+      "id": "28197b62257c7fbd4ee9217b53464460c3c665a02157b986396e6391729573b4",
+      "check": "reentrancy-no-eth",
+      "impact": "Medium",
+      "classification": "REVIEWED_NO_VIOLATION_REPRODUCED",
+      "rationale": "fund/fundVenue/claim/Vault spend and claim use a shared per-contract nonReentrant guard. Checkpoint rejects guard-entered or checkpointing state; only the authenticated real Curve can fund during checkpoint. Post-transfer exact balance/credit comparisons intentionally fail closed; failed calls revert accounting. Router callback/claim tests passed; adversarial new Treasury callbacks still need dedicated expanded coverage.",
+      "description": "Reentrancy in CommunityAssetTreasuryVaultV2._claim(address,uint256) (src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol#122-136):\n\tExternal calls:\n\t- router.claimAssetTo(asset,address(this),amount) (src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol#128)\n\tState variables written after the call(s):\n\t- claimedAsset[asset] += amount (src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol#133)\n\tCommunityAssetTreasuryVaultV2.claimedAsset (src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol#24) can be used in cross function reentrancies:\n\t- CommunityAssetTreasuryVaultV2._claim(address,uint256) (src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol#122-136)\n\t- CommunityAssetTreasuryVaultV2.claimed() (src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol#64-66)\n\t- CommunityAssetTreasuryVaultV2.claimedAsset (src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol#24)\n\t- CommunityAssetTreasuryVaultV2.heldAsset(address) (src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol#92-95)\n"
+    },
+    {
+      "index": 21,
+      "id": "ed2f06911aa534f4cd4beb9f6ad4d5cd585ecbfa50df3829d4757c29ea5570cb",
+      "check": "reentrancy-no-eth",
+      "impact": "Medium",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Reentrancy in CommunityPolicyRegistryV2.activatePolicy(uint256) (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#138-165):\n\tExternal calls:\n\t- source.checkpoint(epoch) (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#150)\n\tState variables written after the call(s):\n\t- ++ epoch (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#155)\n\tCommunityPolicyRegistryV2.epoch (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#57) can be used in cross function reentrancies:\n\t- CommunityPolicyRegistryV2.epoch (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#57)\n\t- CommunityPolicyRegistryV2.policyAtVersion(uint256) (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#107-110)\n\t- delete pendingPolicy (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#162)\n\tCommunityPolicyRegistryV2.pendingPolicy (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#60) can be used in cross function reentrancies:\n\t- CommunityPolicyRegistryV2.pendingPolicy (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#60)\n"
+    },
+    {
+      "index": 22,
+      "id": "ee9bebd6f3161730273ebca715550647f14e87bc5cbcf88dbf635fa04535bda1",
+      "check": "reentrancy-no-eth",
+      "impact": "Medium",
+      "classification": "REVIEWED_NO_VIOLATION_REPRODUCED",
+      "rationale": "fund/fundVenue/claim/Vault spend and claim use a shared per-contract nonReentrant guard. Checkpoint rejects guard-entered or checkpointing state; only the authenticated real Curve can fund during checkpoint. Post-transfer exact balance/credit comparisons intentionally fail closed; failed calls revert accounting. Router callback/claim tests passed; adversarial new Treasury callbacks still need dedicated expanded coverage.",
+      "description": "Reentrancy in CommunityRevenueRouterV2._checkpoint() (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#272-278):\n\tExternal calls:\n\t- source.checkpointCommunityFees() (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#275)\n\tState variables written after the call(s):\n\t- checkpointing = false (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#277)\n\tCommunityRevenueRouterV2.checkpointing (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#104) can be used in cross function reentrancies:\n\t- CommunityRevenueRouterV2._checkpoint() (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#272-278)\n\t- CommunityRevenueRouterV2.pending() (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#257-260)\n"
+    },
+    {
+      "index": 23,
+      "id": "062cba4b9dbad7db39a2c8fd418f09386df86b9cc2a2e12ad1d2fe8f231f6dd8",
+      "check": "uninitialized-local",
+      "impact": "Medium",
+      "classification": "FALSE_POSITIVE_WITH_SOURCE_EVIDENCE",
+      "rationale": "Solidity uint assigned accumulator starts at zero and only receives bounded policy-share sums.",
+      "description": "CommunityRevenueRouterV2._allocate(address,uint256,uint256).assigned (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#386) is a local variable never initialized\n"
+    },
+    {
+      "index": 24,
+      "id": "934d87b6de4c376c3a43bf91522f902bf2ae31807e7c2d908134a4f681a8f6da",
+      "check": "uninitialized-local",
+      "impact": "Medium",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "CommunityPolicyRegistryV2._validate(CommunityPolicyRegistryV2.Allocation[]).treasury (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#171) is a local variable never initialized\n"
+    },
+    {
+      "index": 25,
+      "id": "bbdbe3f971923d6b13eff3cd03caae6fb129a4d586e7507518f1dc3be32c64a7",
+      "check": "uninitialized-local",
+      "impact": "Medium",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "CommunityPolicyRegistryV2._validate(CommunityPolicyRegistryV2.Allocation[]).creator (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#170) is a local variable never initialized\n"
+    },
+    {
+      "index": 26,
+      "id": "d0a33b8d3973517b0c1038cc3914c8205e4611976b7e1146f2ee3ae351ff9eca",
+      "check": "uninitialized-local",
+      "impact": "Medium",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "CommunityPolicyRegistryV2._validate(CommunityPolicyRegistryV2.Allocation[]).total (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#169) is a local variable never initialized\n"
+    },
+    {
+      "index": 27,
+      "id": "90790bbbe7292fcf6a8e1317c29c331f791b0044abdf7e570a9ff21a129c9754",
+      "check": "unused-return",
+      "impact": "Medium",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "TimelockController._execute(address,uint256,bytes) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#411-414) ignores return value by Address.verifyCallResult(success,returndata) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#413)\n"
+    },
+    {
+      "index": 28,
+      "id": "1352acc5cf9b149a0e1c61bc812e44bff1fd5470775561bdc864df5b732a63ff",
+      "check": "shadowing-local",
+      "impact": "Low",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "INotifier.subscriber(uint256).subscriber (lib/v4-periphery/src/interfaces/INotifier.sol#32) shadows:\n\t- INotifier.subscriber(uint256) (lib/v4-periphery/src/interfaces/INotifier.sol#32) (function)\n"
+    },
+    {
+      "index": 29,
+      "id": "0749810db39ad6204c4184c2b571c91d94b6c5be1031e2647ff90e0576249c2f",
+      "check": "missing-zero-check",
+      "impact": "Low",
+      "classification": "FALSE_POSITIVE_WITH_SOURCE_EVIDENCE",
+      "rationale": "Constructor requires both Manager and PositionManager code.length nonzero before immutable assignment; zero address has zero code.",
+      "description": "CommunityRevenueRouterV2.constructor(address,ICommunityFeeSourceV2,address,address,address,address).pm (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#163) lacks a zero-check on :\n\t\t- positionManager = pm (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#203)\n"
+    },
+    {
+      "index": 30,
+      "id": "81c87e9393ab7e64961dfbd7a97ba081cd110ff1b4f0f6bdac70e07ab0709ac2",
+      "check": "missing-zero-check",
+      "impact": "Low",
+      "classification": "FALSE_POSITIVE_WITH_SOURCE_EVIDENCE",
+      "rationale": "Constructor requires both Manager and PositionManager code.length nonzero before immutable assignment; zero address has zero code.",
+      "description": "CommunityRevenueRouterV2.constructor(address,ICommunityFeeSourceV2,address,address,address,address).manager (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#162) lacks a zero-check on :\n\t\t- poolManager = manager (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#198)\n"
+    },
+    {
+      "index": 31,
+      "id": "a5d80546007d0a5dce03ca92b7c47a88f9edbdcb5ad23f240a6ff7c980b16163",
+      "check": "calls-loop",
+      "impact": "Low",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "TimelockController._execute(address,uint256,bytes) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#411-414) has external calls inside a loop: (success,returndata) = target.call{value: value}(data) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#412)\n\tCalls stack containing the loop:\n\t\tCommunityTimelockV2.executeBatch(address[],uint256[],bytes[],bytes32,bytes32)\n\t\tTimelockController.executeBatch(address[],uint256[],bytes[],bytes32,bytes32)\n"
+    },
+    {
+      "index": 32,
+      "id": "7dd2484a2f395a4acc34f1f38199bec2ffd49b15f61f4522084c8c0e38422a77",
+      "check": "reentrancy-benign",
+      "impact": "Low",
+      "classification": "REVIEWED_NO_VIOLATION_REPRODUCED",
+      "rationale": "fund/fundVenue/claim/Vault spend and claim use a shared per-contract nonReentrant guard. Checkpoint rejects guard-entered or checkpointing state; only the authenticated real Curve can fund during checkpoint. Post-transfer exact balance/credit comparisons intentionally fail closed; failed calls revert accounting. Router callback/claim tests passed; adversarial new Treasury callbacks still need dedicated expanded coverage.",
+      "description": "Reentrancy in CommunityRevenueRouterV2.fundVenue(bytes32,address,uint256,uint256,uint256,uint256) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#296-321):\n\tExternal calls:\n\t- _remitProtocol(asset,protocolAmount) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#313)\n\t\t- feeEscrow.credit{value: amount}(protocolFeeRecipient) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#361)\n\t\t- feeEscrow.creditToken(protocolFeeRecipient,asset,amount) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#364)\n\tExternal calls sending eth:\n\t- _remitProtocol(asset,protocolAmount) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#313)\n\t\t- feeEscrow.credit{value: amount}(protocolFeeRecipient) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#361)\n\tState variables written after the call(s):\n\t- _allocate(asset,epoch_,community) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#319)\n\t\t- credits[asset][a[i].beneficiary] += share (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#390)\n\t\t- credits[asset][treasury] += dust (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#396)\n\t- _allocate(asset,epoch_,community) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#319)\n\t\t- epochFundedAsset[asset][epoch_] += amount (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#384)\n\t- _allocate(asset,epoch_,community) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#319)\n\t\t- funded[asset] += amount (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#382)\n\t- venueCommunityFunded[asset] += community (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#318)\n\t- venueGross[asset] += gross (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#316)\n\t- venueProtocolRemitted[asset] += protocolAmount (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#317)\n"
+    },
+    {
+      "index": 33,
+      "id": "c207e2a3f4fb764ac827164d802b0eb1f800b0035ba007d7d5b0a7e4395d2903",
+      "check": "reentrancy-benign",
+      "impact": "Low",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Reentrancy in CommunityPolicyRegistryV2.activatePolicy(uint256) (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#138-165):\n\tExternal calls:\n\t- source.checkpoint(epoch) (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#150)\n\tState variables written after the call(s):\n\t- policies[epoch].push(a[i]) (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#160)\n\t- policyHash[epoch] = h (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#158)\n\t- delete proposed (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#163)\n"
+    },
+    {
+      "index": 34,
+      "id": "bc43a8784289175a078a13cb3b975cf3101ed7cbf63f502a8e598c812b82b804",
+      "check": "reentrancy-events",
+      "impact": "Low",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Reentrancy in TimelockController.execute(address,uint256,bytes,bytes32,bytes32) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#357-370):\n\tExternal calls:\n\t- _execute(target,value,payload) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#367)\n\t\t- (success,returndata) = target.call{value: value}(data) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#412)\n\tEvent emitted after the call(s):\n\t- CallExecuted(id,0,target,value,payload) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#368)\n"
+    },
+    {
+      "index": 35,
+      "id": "deb67704cba16573e4375426886e60fe92fe9fb95488ba75f17c95a38d65588f",
+      "check": "reentrancy-events",
+      "impact": "Low",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Reentrancy in TimelockController.executeBatch(address[],uint256[],bytes[],bytes32,bytes32) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#384-406):\n\tExternal calls:\n\t- _execute(target,value,payload) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#402)\n\t\t- (success,returndata) = target.call{value: value}(data) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#412)\n\tEvent emitted after the call(s):\n\t- CallExecuted(id,i,target,value,payload) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#403)\n"
+    },
+    {
+      "index": 36,
+      "id": "07a0c32a033f79802aa5bd9cb24b8ed4664fddef46aac1c62bebbbf5bb2b6fb4",
+      "check": "timestamp",
+      "impact": "Low",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "TimelockController.getOperationState(bytes32) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#206-217) uses timestamp for comparisons\n\tDangerous comparisons:\n\t- timestamp == 0 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#208)\n\t- timestamp == _DONE_TIMESTAMP (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#210)\n\t- timestamp > block.timestamp (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#212)\n"
+    },
+    {
+      "index": 37,
+      "id": "2da3c6068f4feb79731641db93cdb2adcc3afc1ce3a1a1ed58dbfdfc84065023",
+      "check": "timestamp",
+      "impact": "Low",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "CommunityTimelockV2.isReadyWithinWindow(bytes32) (src/v2-research-experiment/CommunityTimelockV2.sol#50-52) uses timestamp for comparisons\n\tDangerous comparisons:\n\t- isOperationReady(id) && ! isExpired(id) (src/v2-research-experiment/CommunityTimelockV2.sol#51)\n"
+    },
+    {
+      "index": 38,
+      "id": "9196f218aee50990cb150256e91841fc1554264e945b04a0d15c8fc5bceac46a",
+      "check": "timestamp",
+      "impact": "Low",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "CommunityPolicyRegistryV2.activatePolicy(uint256) (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#138-165) uses timestamp for comparisons\n\tDangerous comparisons:\n\t- block.timestamp < p.effectiveAt || block.timestamp > p.effectiveAt + EXECUTION_WINDOW (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#146)\n"
+    },
+    {
+      "index": 39,
+      "id": "c4e9c95df2b1eb2c0270b7bfd3aab8a9a038747b344f3da1233f6aefd960707f",
+      "check": "timestamp",
+      "impact": "Low",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "CommunityTimelockV2.isExpired(bytes32) (src/v2-research-experiment/CommunityTimelockV2.sol#44-47) uses timestamp for comparisons\n\tDangerous comparisons:\n\t- eta > _DONE_TIMESTAMP && block.timestamp > eta && block.timestamp - eta > EXECUTION_WINDOW (src/v2-research-experiment/CommunityTimelockV2.sol#46)\n"
+    },
+    {
+      "index": 40,
+      "id": "0183fb11fad8a2019b70cecccdef45b8e3a0e6e24ca10a3839d7c8861f9d54ed",
+      "check": "assembly",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "BeforeSwapDeltaLibrary.getSpecifiedDelta(BeforeSwapDelta) (lib/v4-core/src/types/BeforeSwapDelta.sol#25-29) uses assembly\n\t- INLINE ASM (lib/v4-core/src/types/BeforeSwapDelta.sol#26-28)\n"
+    },
+    {
+      "index": 41,
+      "id": "0614eaa799c65c7a0dd915c72c766983762e740a48c1b88d4d9b80d132c5e1f7",
+      "check": "assembly",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Math.tryMul(uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#73-84) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#76-80)\n"
+    },
+    {
+      "index": 42,
+      "id": "0aca81f4c74fc46475cf143b1175b6644f87efde3400099cf420cc6d46132992",
+      "check": "assembly",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Math._zeroBytes(bytes) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#478-490) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#482-484)\n"
+    },
+    {
+      "index": 43,
+      "id": "0cb0950f0a0659779cfbb710140755d3c77f5a3e0cd20665f14e2c29ffa77241",
+      "check": "assembly",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "StorageSlot.getAddressSlot(bytes32) (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#66-70) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#67-69)\n"
+    },
+    {
+      "index": 44,
+      "id": "135f3843ee8c0feb8aac7c03ac4981f74c2d6a94d34d20d4be91ee6dfe9ef3f0",
+      "check": "assembly",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "CustomRevert.revertWith(bytes4,int24,int24) (lib/v4-core/src/libraries/CustomRevert.sol#49-57) uses assembly\n\t- INLINE ASM (lib/v4-core/src/libraries/CustomRevert.sol#50-56)\n"
+    },
+    {
+      "index": 45,
+      "id": "156b2ea3a8e484f83455655d7b45d5dea92fe4fdfad7994799623f201a5fa95d",
+      "check": "assembly",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "BalanceDeltaLibrary.amount0(BalanceDelta) (lib/v4-core/src/types/BalanceDelta.sol#61-65) uses assembly\n\t- INLINE ASM (lib/v4-core/src/types/BalanceDelta.sol#62-64)\n"
+    },
+    {
+      "index": 46,
+      "id": "168b15c466213dab4f22538081a848ff5bb2677ed1f68f8a6e3c5cec40bb386c",
+      "check": "assembly",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Math.mul512(uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#37-46) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#41-45)\n"
+    },
+    {
+      "index": 47,
+      "id": "1bd732c19519e123841ebb947318ac5e5c5dd6dd254899214fe78b2834b787e2",
+      "check": "assembly",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Math.mulDiv(uint256,uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#206-277) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#229-236)\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#242-251)\n"
+    },
+    {
+      "index": 48,
+      "id": "28bdebcd76b79ef2976918aae40b2d93a0922c69961989873a3970a98b70bc7f",
+      "check": "assembly",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Math.add512(uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#25-30) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#26-29)\n"
+    },
+    {
+      "index": 49,
+      "id": "2e4ab6ee6d34a1ad1e875dbb9d306e369d818eb56ce463ba31c5f17842492019",
+      "check": "assembly",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "SafeERC20._safeTransfer(IERC20,address,uint256,bool) (lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol#188-212) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol#191-211)\n"
+    },
+    {
+      "index": 50,
+      "id": "34f9a9306e1110542216cbccf2fca90cca99dfbf63bb6c8f67872d4824c90459",
+      "check": "assembly",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "SafeCast.toUint(bool) (lib/openzeppelin-contracts/contracts/utils/math/SafeCast.sol#1157-1161) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/math/SafeCast.sol#1158-1160)\n"
+    },
+    {
+      "index": 51,
+      "id": "39b269e77ca4a55a660c8ff6fb0327594b7836943bf18153a5a3f415eaec6ee2",
+      "check": "assembly",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "StorageSlot.getInt256Slot(bytes32) (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#102-106) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#103-105)\n"
+    },
+    {
+      "index": 52,
+      "id": "3de8d9e40d8d6dd5670aeb6895194c7460e41be3bbde1890bd1afede73477af3",
+      "check": "assembly",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "PositionInfoLibrary.hasSubscriber(PositionInfo) (lib/v4-periphery/src/libraries/PositionInfoLibrary.sol#65-69) uses assembly\n\t- INLINE ASM (lib/v4-periphery/src/libraries/PositionInfoLibrary.sol#66-68)\n"
+    },
+    {
+      "index": 53,
+      "id": "40511c84d392e7935bc41155895231b5a166cc53ca42ba0a59232f38535dc1db",
+      "check": "assembly",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "PositionInfoLibrary.setUnsubscribe(PositionInfo) (lib/v4-periphery/src/libraries/PositionInfoLibrary.sol#79-83) uses assembly\n\t- INLINE ASM (lib/v4-periphery/src/libraries/PositionInfoLibrary.sol#80-82)\n"
+    },
+    {
+      "index": 54,
+      "id": "40f8056918b342873870666ee9219ff54e855f6acce43ca8a9cdb34b4a8692d1",
+      "check": "assembly",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Math.tryModExp(bytes,bytes,bytes) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#451-473) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#463-472)\n"
+    },
+    {
+      "index": 55,
+      "id": "48df44bd50eb3c0995f482fc56294b5ac38532faa71891daeaba1dd47910454d",
+      "check": "assembly",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Math.tryModExp(uint256,uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#411-435) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#413-434)\n"
+    },
+    {
+      "index": 56,
+      "id": "4bbae9d8cba92e0e67aba303c375ac227617aa5feecb314c07a4cf8dcfab74d5",
+      "check": "assembly",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "CustomRevert.revertWith(bytes4,uint160) (lib/v4-core/src/libraries/CustomRevert.sol#40-46) uses assembly\n\t- INLINE ASM (lib/v4-core/src/libraries/CustomRevert.sol#41-45)\n"
+    },
+    {
+      "index": 57,
+      "id": "514042b8e90a4f94cc8e124d087dd1ee57e83611d0d7143d6ea91f34a1a40c2b",
+      "check": "assembly",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Panic.panic(uint256) (lib/openzeppelin-contracts/contracts/utils/Panic.sol#50-56) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/Panic.sol#51-55)\n"
+    },
+    {
+      "index": 58,
+      "id": "522bd523c8ef5e149312da3d841e487d354ce10481106fa870c3db1652d523f5",
+      "check": "assembly",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "PositionInfoLibrary.setSubscribe(PositionInfo) (lib/v4-periphery/src/libraries/PositionInfoLibrary.sol#72-76) uses assembly\n\t- INLINE ASM (lib/v4-periphery/src/libraries/PositionInfoLibrary.sol#73-75)\n"
+    },
+    {
+      "index": 59,
+      "id": "5312cebb2ab4b8c384cec1819b8568b6c3421d67d46e2d67394b702843826ee6",
+      "check": "assembly",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "StorageSlot.getBytesSlot(bytes32) (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#129-133) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#130-132)\n"
+    },
+    {
+      "index": 60,
+      "id": "5f0fb3a3321f410607c2ba3ddf1f8b5ee375cd1eedf8a82f3db3d95fd379a05a",
+      "check": "assembly",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "CustomRevert.revertWith(bytes4,address) (lib/v4-core/src/libraries/CustomRevert.sol#22-28) uses assembly\n\t- INLINE ASM (lib/v4-core/src/libraries/CustomRevert.sol#23-27)\n"
+    },
+    {
+      "index": 61,
+      "id": "5f57a4bb8fae4905fad547b08ec2a12016f40115771d50d47c843d477f2943a0",
+      "check": "assembly",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "CurrencyLibrary.transfer(Currency,address,uint256) (lib/v4-core/src/types/Currency.sol#40-88) uses assembly\n\t- INLINE ASM (lib/v4-core/src/types/Currency.sol#46-49)\n\t- INLINE ASM (lib/v4-core/src/types/Currency.sol#55-80)\n"
+    },
+    {
+      "index": 62,
+      "id": "6460fa34afc0b025d1e00ec548436085d88eab2b80c84c9fd22040e91011d104",
+      "check": "assembly",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "SafeERC20._safeTransferFrom(IERC20,address,address,uint256,bool) (lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol#224-256) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol#233-255)\n"
+    },
+    {
+      "index": 63,
+      "id": "6573c467bc9e0b668393b654835d00ccad45b96f3847ce70688f03332a48aca1",
+      "check": "assembly",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Math.log2(uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#619-658) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#655-657)\n"
+    },
+    {
+      "index": 64,
+      "id": "67cb1d1080a5ce92d1ed2f9db57ae44f69fb4062734c7f23d3cfcf152ddb42a1",
+      "check": "assembly",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "CustomRevert.revertWith(bytes4,int24) (lib/v4-core/src/libraries/CustomRevert.sol#31-37) uses assembly\n\t- INLINE ASM (lib/v4-core/src/libraries/CustomRevert.sol#32-36)\n"
+    },
+    {
+      "index": 65,
+      "id": "6a9ae1f07a6a025e863e9db6b62be4f7010ba985b05c152e4f03dae1893353f7",
+      "check": "assembly",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "StorageSlot.getStringSlot(string) (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#120-124) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#121-123)\n"
+    },
+    {
+      "index": 66,
+      "id": "6d8018a56df16911adf1175fc28ae38a67939774be26656ca4520684fd4bb0f2",
+      "check": "assembly",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "BalanceDeltaLibrary.amount1(BalanceDelta) (lib/v4-core/src/types/BalanceDelta.sol#67-71) uses assembly\n\t- INLINE ASM (lib/v4-core/src/types/BalanceDelta.sol#68-70)\n"
+    },
+    {
+      "index": 67,
+      "id": "6e227cedcd7e749e974202ff8de10aac20188eab08f34d87055eed0e201722d2",
+      "check": "assembly",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "StorageSlot.getBytes32Slot(bytes32) (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#84-88) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#85-87)\n"
+    },
+    {
+      "index": 68,
+      "id": "7313f74380b103670486dbd8cf457c4b4778807730acf647419c5b82c007e98d",
+      "check": "assembly",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Math.tryMod(uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#102-110) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#105-108)\n"
+    },
+    {
+      "index": 69,
+      "id": "749137134693cf0304f52b590e5a47c5286e0c8814e75ef8be3f6159fd60f08c",
+      "check": "assembly",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "StorageSlot.getBytesSlot(bytes) (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#138-142) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#139-141)\n"
+    },
+    {
+      "index": 70,
+      "id": "7d05c864c11a3dca15fd8c2d8f9183e5a53438e99f35f1403ebfeae6257f6049",
+      "check": "assembly",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "SafeERC20.tryGetDecimals(IERC20) (lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol#169-177) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol#171-176)\n"
+    },
+    {
+      "index": 71,
+      "id": "7d30224ad923fb46b530816990ce5e4fbe1512dd2fa9f27e469f40cae1573b3f",
+      "check": "assembly",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Math.tryDiv(uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#89-97) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#92-95)\n"
+    },
+    {
+      "index": 72,
+      "id": "983222c57c42f357d634e6a0307e308f2f0068150a399b605dcd74e034e93c8b",
+      "check": "assembly",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "StorageSlot.getBooleanSlot(bytes32) (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#75-79) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#76-78)\n"
+    },
+    {
+      "index": 73,
+      "id": "9c1694a91ebf1ccd823e41eabb7410d312240f7ecca9e40419ff9b95c8a9214f",
+      "check": "assembly",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "CustomRevert.revertWith(bytes4,uint160,uint160) (lib/v4-core/src/libraries/CustomRevert.sol#60-68) uses assembly\n\t- INLINE ASM (lib/v4-core/src/libraries/CustomRevert.sol#61-67)\n"
+    },
+    {
+      "index": 74,
+      "id": "9c32dd239596d5975a48b7a32dadf9974fbfee13598aa38283e093d8d3fe0a41",
+      "check": "assembly",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "PositionInfoLibrary.poolId(PositionInfo) (lib/v4-periphery/src/libraries/PositionInfoLibrary.sol#47-51) uses assembly\n\t- INLINE ASM (lib/v4-periphery/src/libraries/PositionInfoLibrary.sol#48-50)\n"
+    },
+    {
+      "index": 75,
+      "id": "a06128e1b1c97ee25c55d74dda6e1aaa0976f9d134f60bf4344ab3080b21abd2",
+      "check": "assembly",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "StorageSlot.getStringSlot(bytes32) (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#111-115) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#112-114)\n"
+    },
+    {
+      "index": 76,
+      "id": "a08f56d114185c049d1427b718e5fca2ea08a471eea1ecb91b25748aee5a4d3b",
+      "check": "assembly",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "PositionInfoLibrary.tickLower(PositionInfo) (lib/v4-periphery/src/libraries/PositionInfoLibrary.sol#53-57) uses assembly\n\t- INLINE ASM (lib/v4-periphery/src/libraries/PositionInfoLibrary.sol#54-56)\n"
+    },
+    {
+      "index": 77,
+      "id": "a140c58a8b12cc482ab7852e96be646f843e46c165b12e3245bd650a15a85353",
+      "check": "assembly",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "CustomRevert.revertWith(bytes4,address,address) (lib/v4-core/src/libraries/CustomRevert.sol#71-79) uses assembly\n\t- INLINE ASM (lib/v4-core/src/libraries/CustomRevert.sol#72-78)\n"
+    },
+    {
+      "index": 78,
+      "id": "a73c6823bc7c68da6280a35f5d4f63ce6cc68d635d4aff1a85e88c8feb12a59e",
+      "check": "assembly",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "CustomRevert.bubbleUpAndRevertWith(address,bytes4,bytes4) (lib/v4-core/src/libraries/CustomRevert.sol#83-119) uses assembly\n\t- INLINE ASM (lib/v4-core/src/libraries/CustomRevert.sol#89-118)\n"
+    },
+    {
+      "index": 79,
+      "id": "a9fe7518fdcbaad0743801f5f0ab2f0aac1adaaa7092d004099a3aa76252fa04",
+      "check": "assembly",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "CustomRevert.revertWith(bytes4) (lib/v4-core/src/libraries/CustomRevert.sol#14-19) uses assembly\n\t- INLINE ASM (lib/v4-core/src/libraries/CustomRevert.sol#15-18)\n"
+    },
+    {
+      "index": 80,
+      "id": "b4702675366c507eb4f5cd895dd74ff5188f4c38ea49a899ef26c0d142f73cbf",
+      "check": "assembly",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "BeforeSwapDeltaLibrary.getUnspecifiedDelta(BeforeSwapDelta) (lib/v4-core/src/types/BeforeSwapDelta.sol#33-37) uses assembly\n\t- INLINE ASM (lib/v4-core/src/types/BeforeSwapDelta.sol#34-36)\n"
+    },
+    {
+      "index": 81,
+      "id": "ba1a87a495fc347c621306718cd6f4a1c437b40f67303d1f726b59e08d84af39",
+      "check": "assembly",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "PositionInfoLibrary.tickUpper(PositionInfo) (lib/v4-periphery/src/libraries/PositionInfoLibrary.sol#59-63) uses assembly\n\t- INLINE ASM (lib/v4-periphery/src/libraries/PositionInfoLibrary.sol#60-62)\n"
+    },
+    {
+      "index": 82,
+      "id": "cf6ad62b4b22ece0233f239c1db2a0176d29ee89454b88d2afb8243810f50587",
+      "check": "assembly",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Address._revert(bytes) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#138-148) uses assembly\n\t- INLINE ASM (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#142-144)\n"
+    },
+    {
+      "index": 83,
+      "id": "e0999a78e2a4800028a800b8f94e81bd4b1fcbb9c2c0021af31da78c22e747e4",
+      "check": "assembly",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "StorageSlot.getUint256Slot(bytes32) (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#93-97) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#94-96)\n"
+    },
+    {
+      "index": 84,
+      "id": "f375618503422b77be359a4b16cae1c7cceb07ef2fff335e28e3529543f4d7b0",
+      "check": "assembly",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "PositionInfoLibrary.initialize(PoolKey,int24,int24) (lib/v4-periphery/src/libraries/PositionInfoLibrary.sol#91-103) uses assembly\n\t- INLINE ASM (lib/v4-periphery/src/libraries/PositionInfoLibrary.sol#97-102)\n"
+    },
+    {
+      "index": 85,
+      "id": "fbb81f03f1ad3636167f248ae6d92b4ed18580c07828c7ece89f7a60dd8a0dff",
+      "check": "assembly",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "SafeERC20._safeApprove(IERC20,address,uint256,bool) (lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol#267-291) uses assembly\n\t- INLINE ASM (lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol#270-290)\n"
+    },
+    {
+      "index": 86,
+      "id": "fd9f965c8e608c58e8db56d11e11df85f1452c9ad537410f4b3fcd2b91fad51b",
+      "check": "assembly",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "PoolIdLibrary.toId(PoolKey) (lib/v4-core/src/types/PoolId.sol#11-16) uses assembly\n\t- INLINE ASM (lib/v4-core/src/types/PoolId.sol#12-15)\n"
+    },
+    {
+      "index": 87,
+      "id": "65fb3b119f025b8dfc17cd94c062a7c06ca3c525c17454f537d4e4fec4645822",
+      "check": "pragma",
+      "impact": "Informational",
+      "classification": "INFORMATIONAL_REVIEWED",
+      "rationale": "Explicit native payout low-level call is checked and guarded; compiler pragmas are compiled with pinned0.8.26. Compiler known-bug applicability remains a separate unresolved release gate.",
+      "description": "8 different versions of Solidity are used:\n\t- Version constraint >=0.6.2 is used by:\n\t\t->=0.6.2 (lib/openzeppelin-contracts/contracts/interfaces/IERC1363.sol#4)\n\t\t->=0.6.2 (lib/openzeppelin-contracts/contracts/interfaces/IERC20Metadata.sol#4)\n\t\t->=0.6.2 (lib/openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Metadata.sol#4)\n\t\t->=0.6.2 (lib/openzeppelin-contracts/contracts/token/ERC721/IERC721.sol#4)\n\t\t->=0.6.2 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/token/ERC1155/IERC1155Receiver.sol#4)\n\t- Version constraint >=0.4.16 is used by:\n\t\t->=0.4.16 (lib/openzeppelin-contracts/contracts/interfaces/IERC165.sol#4)\n\t\t->=0.4.16 (lib/openzeppelin-contracts/contracts/interfaces/IERC20.sol#4)\n\t\t->=0.4.16 (lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol#4)\n\t\t->=0.4.16 (lib/openzeppelin-contracts/contracts/utils/introspection/IERC165.sol#4)\n\t\t->=0.4.16 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/introspection/IERC165.sol#4)\n\t- Version constraint >=0.8.4 is used by:\n\t\t->=0.8.4 (lib/openzeppelin-contracts/contracts/interfaces/draft-IERC6093.sol#4)\n\t\t->=0.8.4 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/access/IAccessControl.sol#4)\n\t- Version constraint ^0.8.20 is used by:\n\t\t-^0.8.20 (lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol#4)\n\t\t-^0.8.20 (lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Burnable.sol#4)\n\t\t-^0.8.20 (lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol#4)\n\t\t-^0.8.20 (lib/openzeppelin-contracts/contracts/utils/Context.sol#4)\n\t\t-^0.8.20 (lib/openzeppelin-contracts/contracts/utils/Panic.sol#4)\n\t\t-^0.8.20 (lib/openzeppelin-contracts/contracts/utils/ReentrancyGuard.sol#4)\n\t\t-^0.8.20 (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#5)\n\t\t-^0.8.20 (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#4)\n\t\t-^0.8.20 (lib/openzeppelin-contracts/contracts/utils/math/SafeCast.sol#5)\n\t\t-^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/access/AccessControl.sol#4)\n\t\t-^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#4)\n\t\t-^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/token/ERC1155/utils/ERC1155Holder.sol#4)\n\t\t-^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/token/ERC721/utils/ERC721Holder.sol#4)\n\t\t-^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#4)\n\t\t-^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Context.sol#4)\n\t\t-^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Errors.sol#4)\n\t\t-^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/introspection/ERC165.sol#4)\n\t- Version constraint ^0.8.0 is used by:\n\t\t-^0.8.0 (lib/v4-core/src/interfaces/IExtsload.sol#2)\n\t\t-^0.8.0 (lib/v4-core/src/interfaces/IHooks.sol#2)\n\t\t-^0.8.0 (lib/v4-core/src/interfaces/IProtocolFees.sol#2)\n\t\t-^0.8.0 (lib/v4-core/src/interfaces/external/IERC20Minimal.sol#2)\n\t\t-^0.8.0 (lib/v4-core/src/interfaces/external/IERC6909Claims.sol#2)\n\t\t-^0.8.0 (lib/v4-core/src/libraries/CustomRevert.sol#2)\n\t\t-^0.8.0 (lib/v4-core/src/libraries/SafeCast.sol#2)\n\t\t-^0.8.0 (lib/v4-core/src/types/BalanceDelta.sol#2)\n\t\t-^0.8.0 (lib/v4-core/src/types/BeforeSwapDelta.sol#2)\n\t\t-^0.8.0 (lib/v4-core/src/types/Currency.sol#2)\n\t\t-^0.8.0 (lib/v4-core/src/types/PoolId.sol#2)\n\t\t-^0.8.0 (lib/v4-core/src/types/PoolKey.sol#2)\n\t\t-^0.8.0 (lib/v4-periphery/lib/permit2/src/interfaces/IAllowanceTransfer.sol#2)\n\t\t-^0.8.0 (lib/v4-periphery/lib/permit2/src/interfaces/IEIP712.sol#2)\n\t\t-^0.8.0 (lib/v4-periphery/src/interfaces/IEIP712_v4.sol#2)\n\t\t-^0.8.0 (lib/v4-periphery/src/interfaces/IERC721Permit_v4.sol#2)\n\t\t-^0.8.0 (lib/v4-periphery/src/interfaces/IImmutableState.sol#2)\n\t\t-^0.8.0 (lib/v4-periphery/src/interfaces/IMulticall_v4.sol#2)\n\t\t-^0.8.0 (lib/v4-periphery/src/interfaces/INotifier.sol#2)\n\t\t-^0.8.0 (lib/v4-periphery/src/interfaces/IPermit2Forwarder.sol#2)\n\t\t-^0.8.0 (lib/v4-periphery/src/interfaces/IPoolInitializer_v4.sol#2)\n\t\t-^0.8.0 (lib/v4-periphery/src/interfaces/IPositionManager.sol#2)\n\t\t-^0.8.0 (lib/v4-periphery/src/interfaces/ISubscriber.sol#2)\n\t\t-^0.8.0 (lib/v4-periphery/src/interfaces/IUnorderedNonce.sol#2)\n\t- Version constraint ^0.8.24 is used by:\n\t\t-^0.8.24 (lib/v4-core/src/interfaces/IExttload.sol#2)\n\t\t-^0.8.24 (lib/v4-core/src/interfaces/IPoolManager.sol#2)\n\t\t-^0.8.24 (lib/v4-core/src/types/PoolOperation.sol#2)\n\t\t-^0.8.24 (lib/v4-periphery/src/libraries/PositionInfoLibrary.sol#2)\n\t- Version constraint ^0.8.26 is used by:\n\t\t-^0.8.26 (src/v2-research-experiment/CommunityPolicyRegistryV2.sol#2)\n\t\t-^0.8.26 (src/v2-research-experiment/CommunityTimelockV2.sol#2)\n\t\t-^0.8.26 (src/v2-research-experiment/RetroPickLauncherTokenV2.sol#2)\n\t\t-^0.8.26 (src/v2-research-experiment/interfaces/ICommunityFeesV2.sol#2)\n\t\t-^0.8.26 (src/v2-research-experiment/interfaces/IGraduationExecutorV2.sol#2)\n\t\t-^0.8.26 (src/v2-research-experiment/interfaces/IRetroPickLaunchpadV2.sol#2)\n\t\t-^0.8.26 (src/v2-research-experiment/libraries/ExactAssetV2.sol#2)\n\t\t-^0.8.26 (src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol#2)\n\t\t-^0.8.26 (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#2)\n\t- Version constraint >=0.5.0 is used by:\n\t\t->=0.5.0 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/token/ERC721/IERC721Receiver.sol#4)\n"
+    },
+    {
+      "index": 88,
+      "id": "0e7b9c73fe49cb5dacd30327ee017f7e886048906a696f321753ab6246586231",
+      "check": "dead-code",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "AccessControl._setRoleAdmin(bytes32,bytes32) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/access/AccessControl.sol#168-172) is never used and should be removed\n"
+    },
+    {
+      "index": 89,
+      "id": "10de43c0e01930a1b9fb40f4f6ed72c2f999387cc16e08f742e274689dd237ba",
+      "check": "dead-code",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Context._contextSuffixLength() (lib/openzeppelin-contracts/contracts/utils/Context.sol#25-27) is never used and should be removed\n"
+    },
+    {
+      "index": 90,
+      "id": "29f306c7adcb2cc4f039b035d57fbb2e29853fea4e4692ba438416e4904b50d4",
+      "check": "dead-code",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "eq(BalanceDelta,BalanceDelta) (lib/v4-core/src/types/BalanceDelta.sol#48-50) is never used and should be removed\n"
+    },
+    {
+      "index": 91,
+      "id": "40040c5f0a5dee74e542cef3d95379a93e192aa0f9a7419eb5469dbec02065fe",
+      "check": "dead-code",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "lessThan(Currency,Currency) (lib/v4-core/src/types/Currency.sol#20-22) is never used and should be removed\n"
+    },
+    {
+      "index": 92,
+      "id": "4029b6f77f10840e2fdf9dc5fe50f6b47f910c96251b534d4d8488d0534be473",
+      "check": "dead-code",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "greaterThan(Currency,Currency) (lib/v4-core/src/types/Currency.sol#16-18) is never used and should be removed\n"
+    },
+    {
+      "index": 93,
+      "id": "47da26296d3737a123d0600f98a8ca357ec7467327cff5baef26114ec28f8d69",
+      "check": "dead-code",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "neq(BalanceDelta,BalanceDelta) (lib/v4-core/src/types/BalanceDelta.sol#52-54) is never used and should be removed\n"
+    },
+    {
+      "index": 94,
+      "id": "5cc5115743b4169f753c1d4faf36076296bbbe0614d99ff54fd5a2cb5e49d5ba",
+      "check": "dead-code",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "equals(Currency,Currency) (lib/v4-core/src/types/Currency.sol#12-14) is never used and should be removed\n"
+    },
+    {
+      "index": 95,
+      "id": "6396b3f943fb2dfa83030a6045d08454216d7055ae50af49792cdeb591c9d27e",
+      "check": "dead-code",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "greaterThanOrEqualTo(Currency,Currency) (lib/v4-core/src/types/Currency.sol#24-26) is never used and should be removed\n"
+    },
+    {
+      "index": 96,
+      "id": "7d6312af6ff770d800fc6fccbdad8ce836493251ad1fd586116dead8e60220cf",
+      "check": "dead-code",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "toBalanceDelta(int128,int128) (lib/v4-core/src/types/BalanceDelta.sol#14-18) is never used and should be removed\n"
+    },
+    {
+      "index": 97,
+      "id": "93bd23634a3bf022810e43138345cf58db61248a704a7d277c8ec3d68c3ad188",
+      "check": "dead-code",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Context._msgData() (lib/openzeppelin-contracts/contracts/utils/Context.sol#21-23) is never used and should be removed\n"
+    },
+    {
+      "index": 98,
+      "id": "953d85bb00489dec79229d767b051a22f35fb1fccfcc6919d8e92cedaa23d385",
+      "check": "dead-code",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "sub(BalanceDelta,BalanceDelta) (lib/v4-core/src/types/BalanceDelta.sol#34-46) is never used and should be removed\n"
+    },
+    {
+      "index": 99,
+      "id": "e656227fb3e2db5a629fe4183166492162d7d6fd408890de53f32d030e7c7d26",
+      "check": "dead-code",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "add(BalanceDelta,BalanceDelta) (lib/v4-core/src/types/BalanceDelta.sol#20-32) is never used and should be removed\n"
+    },
+    {
+      "index": 100,
+      "id": "fc1e3a259dc8552780f2a8406e4c7908781d31b69e16e35b0bac23ecefca1f05",
+      "check": "dead-code",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "toBeforeSwapDelta(int128,int128) (lib/v4-core/src/types/BeforeSwapDelta.sol#9-16) is never used and should be removed\n"
+    },
+    {
+      "index": 101,
+      "id": "373f076966f4ec64216eac83b0def3012c09e0c970731ce37cc08be5be448459",
+      "check": "solc-version",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Version constraint >=0.6.2 contains known severe issues (https://solidity.readthedocs.io/en/latest/bugs.html)\n\t- MissingSideEffectsOnSelectorAccess\n\t- AbiReencodingHeadOverflowWithStaticArrayCleanup\n\t- DirtyBytesArrayToStorage\n\t- NestedCalldataArrayAbiReencodingSizeValidation\n\t- ABIDecodeTwoDimensionalArrayMemory\n\t- KeccakCaching\n\t- EmptyByteArrayCopy\n\t- DynamicArrayCleanup\n\t- MissingEscapingInFormatting\n\t- ArraySliceDynamicallyEncodedBaseType\n\t- ImplicitConstructorCallvalueCheck\n\t- TupleAssignmentMultiStackSlotComponents\n\t- MemoryArrayCreationOverflow.\nIt is used by:\n\t- >=0.6.2 (lib/openzeppelin-contracts/contracts/interfaces/IERC1363.sol#4)\n\t- >=0.6.2 (lib/openzeppelin-contracts/contracts/interfaces/IERC20Metadata.sol#4)\n\t- >=0.6.2 (lib/openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Metadata.sol#4)\n\t- >=0.6.2 (lib/openzeppelin-contracts/contracts/token/ERC721/IERC721.sol#4)\n\t- >=0.6.2 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/token/ERC1155/IERC1155Receiver.sol#4)\n"
+    },
+    {
+      "index": 102,
+      "id": "4d85025317a4b945195503920cd57e9914dfa81c26abc9826d9a64c57cb70060",
+      "check": "solc-version",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Version constraint ^0.8.20 contains known severe issues (https://solidity.readthedocs.io/en/latest/bugs.html)\n\t- VerbatimInvalidDeduplication\n\t- FullInlinerNonExpressionSplitArgumentEvaluationOrder\n\t- MissingSideEffectsOnSelectorAccess.\nIt is used by:\n\t- ^0.8.20 (lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol#4)\n\t- ^0.8.20 (lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Burnable.sol#4)\n\t- ^0.8.20 (lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol#4)\n\t- ^0.8.20 (lib/openzeppelin-contracts/contracts/utils/Context.sol#4)\n\t- ^0.8.20 (lib/openzeppelin-contracts/contracts/utils/Panic.sol#4)\n\t- ^0.8.20 (lib/openzeppelin-contracts/contracts/utils/ReentrancyGuard.sol#4)\n\t- ^0.8.20 (lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol#5)\n\t- ^0.8.20 (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#4)\n\t- ^0.8.20 (lib/openzeppelin-contracts/contracts/utils/math/SafeCast.sol#5)\n\t- ^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/access/AccessControl.sol#4)\n\t- ^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#4)\n\t- ^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/token/ERC1155/utils/ERC1155Holder.sol#4)\n\t- ^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/token/ERC721/utils/ERC721Holder.sol#4)\n\t- ^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#4)\n\t- ^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Context.sol#4)\n\t- ^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Errors.sol#4)\n\t- ^0.8.20 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/introspection/ERC165.sol#4)\n"
+    },
+    {
+      "index": 103,
+      "id": "9d184d4d76a90ff128ef16962f8e50c6c1fb3cc5dddb87abfe0b408d577d776e",
+      "check": "solc-version",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Version constraint >=0.8.4 contains known severe issues (https://solidity.readthedocs.io/en/latest/bugs.html)\n\t- FullInlinerNonExpressionSplitArgumentEvaluationOrder\n\t- MissingSideEffectsOnSelectorAccess\n\t- AbiReencodingHeadOverflowWithStaticArrayCleanup\n\t- DirtyBytesArrayToStorage\n\t- DataLocationChangeInInternalOverride\n\t- NestedCalldataArrayAbiReencodingSizeValidation\n\t- SignedImmutables.\nIt is used by:\n\t- >=0.8.4 (lib/openzeppelin-contracts/contracts/interfaces/draft-IERC6093.sol#4)\n\t- >=0.8.4 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/access/IAccessControl.sol#4)\n"
+    },
+    {
+      "index": 104,
+      "id": "a48d2a1536656b6a3999e1772dfe73c31cdd0b8609fe5c838eb264a3a6dc39f1",
+      "check": "solc-version",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Version constraint >=0.5.0 contains known severe issues (https://solidity.readthedocs.io/en/latest/bugs.html)\n\t- DirtyBytesArrayToStorage\n\t- ABIDecodeTwoDimensionalArrayMemory\n\t- KeccakCaching\n\t- EmptyByteArrayCopy\n\t- DynamicArrayCleanup\n\t- ImplicitConstructorCallvalueCheck\n\t- TupleAssignmentMultiStackSlotComponents\n\t- MemoryArrayCreationOverflow\n\t- privateCanBeOverridden\n\t- SignedArrayStorageCopy\n\t- ABIEncoderV2StorageArrayWithMultiSlotElement\n\t- DynamicConstructorArgumentsClippedABIV2\n\t- UninitializedFunctionPointerInConstructor\n\t- IncorrectEventSignatureInLibraries\n\t- ABIEncoderV2PackedStorage.\nIt is used by:\n\t- >=0.5.0 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/token/ERC721/IERC721Receiver.sol#4)\n"
+    },
+    {
+      "index": 105,
+      "id": "a9f1628396352b02c7d490b351ce1ace0317480ecf9188ce08250ee8d714219b",
+      "check": "solc-version",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Version constraint >=0.4.16 contains known severe issues (https://solidity.readthedocs.io/en/latest/bugs.html)\n\t- DirtyBytesArrayToStorage\n\t- ABIDecodeTwoDimensionalArrayMemory\n\t- KeccakCaching\n\t- EmptyByteArrayCopy\n\t- DynamicArrayCleanup\n\t- ImplicitConstructorCallvalueCheck\n\t- TupleAssignmentMultiStackSlotComponents\n\t- MemoryArrayCreationOverflow\n\t- privateCanBeOverridden\n\t- SignedArrayStorageCopy\n\t- ABIEncoderV2StorageArrayWithMultiSlotElement\n\t- DynamicConstructorArgumentsClippedABIV2\n\t- UninitializedFunctionPointerInConstructor_0.4.x\n\t- IncorrectEventSignatureInLibraries_0.4.x\n\t- ExpExponentCleanup\n\t- NestedArrayFunctionCallDecoder\n\t- ZeroFunctionSelector.\nIt is used by:\n\t- >=0.4.16 (lib/openzeppelin-contracts/contracts/interfaces/IERC165.sol#4)\n\t- >=0.4.16 (lib/openzeppelin-contracts/contracts/interfaces/IERC20.sol#4)\n\t- >=0.4.16 (lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol#4)\n\t- >=0.4.16 (lib/openzeppelin-contracts/contracts/utils/introspection/IERC165.sol#4)\n\t- >=0.4.16 (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/introspection/IERC165.sol#4)\n"
+    },
+    {
+      "index": 106,
+      "id": "bcfceb8cb2143558ce8f39090d20a133f0f8655013e7b09b4e0086c8d94f140d",
+      "check": "solc-version",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Version constraint ^0.8.0 contains known severe issues (https://solidity.readthedocs.io/en/latest/bugs.html)\n\t- FullInlinerNonExpressionSplitArgumentEvaluationOrder\n\t- MissingSideEffectsOnSelectorAccess\n\t- AbiReencodingHeadOverflowWithStaticArrayCleanup\n\t- DirtyBytesArrayToStorage\n\t- DataLocationChangeInInternalOverride\n\t- NestedCalldataArrayAbiReencodingSizeValidation\n\t- SignedImmutables\n\t- ABIDecodeTwoDimensionalArrayMemory\n\t- KeccakCaching.\nIt is used by:\n\t- ^0.8.0 (lib/v4-core/src/interfaces/IExtsload.sol#2)\n\t- ^0.8.0 (lib/v4-core/src/interfaces/IHooks.sol#2)\n\t- ^0.8.0 (lib/v4-core/src/interfaces/IProtocolFees.sol#2)\n\t- ^0.8.0 (lib/v4-core/src/interfaces/external/IERC20Minimal.sol#2)\n\t- ^0.8.0 (lib/v4-core/src/interfaces/external/IERC6909Claims.sol#2)\n\t- ^0.8.0 (lib/v4-core/src/libraries/CustomRevert.sol#2)\n\t- ^0.8.0 (lib/v4-core/src/libraries/SafeCast.sol#2)\n\t- ^0.8.0 (lib/v4-core/src/types/BalanceDelta.sol#2)\n\t- ^0.8.0 (lib/v4-core/src/types/BeforeSwapDelta.sol#2)\n\t- ^0.8.0 (lib/v4-core/src/types/Currency.sol#2)\n\t- ^0.8.0 (lib/v4-core/src/types/PoolId.sol#2)\n\t- ^0.8.0 (lib/v4-core/src/types/PoolKey.sol#2)\n\t- ^0.8.0 (lib/v4-periphery/lib/permit2/src/interfaces/IAllowanceTransfer.sol#2)\n\t- ^0.8.0 (lib/v4-periphery/lib/permit2/src/interfaces/IEIP712.sol#2)\n\t- ^0.8.0 (lib/v4-periphery/src/interfaces/IEIP712_v4.sol#2)\n\t- ^0.8.0 (lib/v4-periphery/src/interfaces/IERC721Permit_v4.sol#2)\n\t- ^0.8.0 (lib/v4-periphery/src/interfaces/IImmutableState.sol#2)\n\t- ^0.8.0 (lib/v4-periphery/src/interfaces/IMulticall_v4.sol#2)\n\t- ^0.8.0 (lib/v4-periphery/src/interfaces/INotifier.sol#2)\n\t- ^0.8.0 (lib/v4-periphery/src/interfaces/IPermit2Forwarder.sol#2)\n\t- ^0.8.0 (lib/v4-periphery/src/interfaces/IPoolInitializer_v4.sol#2)\n\t- ^0.8.0 (lib/v4-periphery/src/interfaces/IPositionManager.sol#2)\n\t- ^0.8.0 (lib/v4-periphery/src/interfaces/ISubscriber.sol#2)\n\t- ^0.8.0 (lib/v4-periphery/src/interfaces/IUnorderedNonce.sol#2)\n"
+    },
+    {
+      "index": 107,
+      "id": "0488c16c1c1ba9d7515ee192b2e51b286ce6c7a33e085c1a5fa9ca4e71672b38",
+      "check": "low-level-calls",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Low level call in Address.functionCallWithValue(address,bytes,uint256) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#75-81):\n\t- (success,returndata) = target.call{value: value}(data) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#79)\n"
+    },
+    {
+      "index": 108,
+      "id": "10cd231f414ae3cc2f5ea676c5284bb40e47c9bee4246db336a297caac9d51d7",
+      "check": "low-level-calls",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Low level call in TimelockController._execute(address,uint256,bytes) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#411-414):\n\t- (success,returndata) = target.call{value: value}(data) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#412)\n"
+    },
+    {
+      "index": 109,
+      "id": "35a9c63a33abe88f30e2b53cf755e88e991685e4fad2150cf507311338d7bbf0",
+      "check": "low-level-calls",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Low level call in Address.sendValue(address,uint256) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#33-42):\n\t- (success,returndata) = recipient.call{value: amount}() (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#38)\n"
+    },
+    {
+      "index": 110,
+      "id": "72f0b074c1bdc17937e19a85dbf1bf0575a20fba1c8a5796d519cbcc1dd56c94",
+      "check": "low-level-calls",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Low level call in Address.functionDelegateCall(address,bytes) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#96-99):\n\t- (success,returndata) = target.delegatecall(data) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#97)\n"
+    },
+    {
+      "index": 111,
+      "id": "942a8b0a3882929d91a650be5dae58db377e185b5eb727c7b0e6819abed14351",
+      "check": "low-level-calls",
+      "impact": "Informational",
+      "classification": "INFORMATIONAL_REVIEWED",
+      "rationale": "Explicit native payout low-level call is checked and guarded; compiler pragmas are compiled with pinned0.8.26. Compiler known-bug applicability remains a separate unresolved release gate.",
+      "description": "Low level call in CommunityAssetTreasuryVaultV2.spend(address,address,uint256,bytes32) (src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol#139-159):\n\t- (ok,None) = address(recipient).call{value: amount}() (src/v2-research-experiment/m6/CommunityAssetTreasuryVaultV2.sol#151)\n"
+    },
+    {
+      "index": 112,
+      "id": "f1fe2d15c2fa6fa21e9cb7033c7bdb4d51adb50c9af82def4f020f8d362433fc",
+      "check": "low-level-calls",
+      "impact": "Informational",
+      "classification": "INFORMATIONAL_REVIEWED",
+      "rationale": "Explicit native payout low-level call is checked and guarded; compiler pragmas are compiled with pinned0.8.26. Compiler known-bug applicability remains a separate unresolved release gate.",
+      "description": "Low level call in CommunityRevenueRouterV2._claim(address,address,uint256) (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#442-461):\n\t- (ok,None) = address(recipient).call{value: amount}() (src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol#453)\n"
+    },
+    {
+      "index": 113,
+      "id": "fd31db10da457f31d006cba259a6e291ff1cf46eddd8eb530bee5997da536730",
+      "check": "low-level-calls",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Low level call in Address.functionStaticCall(address,bytes) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#87-90):\n\t- (success,returndata) = target.staticcall(data) (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/utils/Address.sol#88)\n"
+    },
+    {
+      "index": 114,
+      "id": "066ee5e0e5552dbe68b023aed473f49f97362d7b5002c1e4e31b4081adb25d2e",
+      "check": "naming-convention",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Contract IEIP712_v4 (lib/v4-periphery/src/interfaces/IEIP712_v4.sol#6-10) is not in CapWords\n"
+    },
+    {
+      "index": 115,
+      "id": "2d6d572faa811d1554199e0cc0e180e1a913521c59e1d11e4b83b4333fb9caa1",
+      "check": "naming-convention",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Parameter PositionInfoLibrary.initialize(PoolKey,int24,int24)._tickUpper (lib/v4-periphery/src/libraries/PositionInfoLibrary.sol#91) is not in mixedCase\n"
+    },
+    {
+      "index": 116,
+      "id": "3656339f3f1f7281f2dabe36ae38bda08933c31ceff58cd373d87fc0e12d1d9f",
+      "check": "naming-convention",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Parameter PositionInfoLibrary.initialize(PoolKey,int24,int24)._tickLower (lib/v4-periphery/src/libraries/PositionInfoLibrary.sol#91) is not in mixedCase\n"
+    },
+    {
+      "index": 117,
+      "id": "5af7ec7305ab97515fb9a6e7d4ae18cf6d303f8498daeb9a56a648d8ebd68f74",
+      "check": "naming-convention",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Function IEIP712_v4.DOMAIN_SEPARATOR() (lib/v4-periphery/src/interfaces/IEIP712_v4.sol#9) is not in mixedCase\n"
+    },
+    {
+      "index": 118,
+      "id": "627319c87d1e3729ee998ad50484b0cf2ee63cfe7b826fda04f288bb1c889e17",
+      "check": "naming-convention",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Contract IMulticall_v4 (lib/v4-periphery/src/interfaces/IMulticall_v4.sol#6-13) is not in CapWords\n"
+    },
+    {
+      "index": 119,
+      "id": "628b2fe9ac6c95552e7500687e097dbc22d0bb15fe5513e9a0e41e1e80b7b538",
+      "check": "naming-convention",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Parameter PositionInfoLibrary.initialize(PoolKey,int24,int24)._poolKey (lib/v4-periphery/src/libraries/PositionInfoLibrary.sol#91) is not in mixedCase\n"
+    },
+    {
+      "index": 120,
+      "id": "6f44dd4f41279bbb9a34f198858af05e5b4f0edd59564b751c2f149423487017",
+      "check": "naming-convention",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Function IEIP712.DOMAIN_SEPARATOR() (lib/v4-periphery/lib/permit2/src/interfaces/IEIP712.sol#5) is not in mixedCase\n"
+    },
+    {
+      "index": 121,
+      "id": "9d88618b02ea3cb01ed0358478b4315ddc64928943cff63d7c1b4b005cf12440",
+      "check": "naming-convention",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Contract IERC721Permit_v4 (lib/v4-periphery/src/interfaces/IERC721Permit_v4.sol#6-38) is not in CapWords\n"
+    },
+    {
+      "index": 122,
+      "id": "c9ff019eba19c09ae37ba955435fa59aada47765a48972bb569a4d497a3b0fc5",
+      "check": "naming-convention",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Contract IPoolInitializer_v4 (lib/v4-periphery/src/interfaces/IPoolInitializer_v4.sol#8-15) is not in CapWords\n"
+    },
+    {
+      "index": 123,
+      "id": "0d746317b0af6f83551b3f25e77c70dfda35a924dd013ba0774527adcc3b8c0b",
+      "check": "too-many-digits",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "Math.log2(uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#619-658) uses literals with too many digits:\n\t- r = r | byte(uint256,uint256)(x >> r,0x0000010102020202030303030303030300000000000000000000000000000000) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#656)\n"
+    },
+    {
+      "index": 124,
+      "id": "2fbadd9de1a2ab4e3cdcbc82a677bcbefb8cfba763ca4715310e2b1d0f155f2c",
+      "check": "too-many-digits",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "CurrencyLibrary.transfer(Currency,address,uint256) (lib/v4-core/src/types/Currency.sol#40-88) uses literals with too many digits:\n\t- mstore(uint256,uint256)(fmp_transfer_asm_1,0xa9059cbb00000000000000000000000000000000000000000000000000000000) (lib/v4-core/src/types/Currency.sol#60)\n"
+    },
+    {
+      "index": 125,
+      "id": "3a27e2f133491b1499e7b8f8f6d7511b91110d3622360347ef8e5b2c444b7ba0",
+      "check": "too-many-digits",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "PositionInfoLibrary.slitherConstructorConstantVariables() (lib/v4-periphery/src/libraries/PositionInfoLibrary.sol#35-104) uses literals with too many digits:\n\t- MASK_UPPER_200_BITS = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000000000000 (lib/v4-periphery/src/libraries/PositionInfoLibrary.sol#38)\n"
+    },
+    {
+      "index": 126,
+      "id": "793a85c38e9f2b3c1092cece1da218e86e623bf692750dac8db89c5d618cf32c",
+      "check": "too-many-digits",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "CustomRevert.bubbleUpAndRevertWith(address,bytes4,bytes4) (lib/v4-core/src/libraries/CustomRevert.sol#83-119) uses literals with too many digits:\n\t- mstore(uint256,uint256)(fmp_bubbleUpAndRevertWith_asm_0 + 0x24,revertingFunctionSelector & 0xffffffff00000000000000000000000000000000000000000000000000000000) (lib/v4-core/src/libraries/CustomRevert.sol#98-101)\n"
+    },
+    {
+      "index": 127,
+      "id": "dce59123d60041b2be0d99e9d522bf63fcd74ac2f8cf20e059bb79601f454151",
+      "check": "too-many-digits",
+      "impact": "Informational",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "CustomRevert.bubbleUpAndRevertWith(address,bytes4,bytes4) (lib/v4-core/src/libraries/CustomRevert.sol#83-119) uses literals with too many digits:\n\t- mstore(uint256,uint256)(fmp_bubbleUpAndRevertWith_asm_0 + 0xc4 + encodedDataSize_bubbleUpAndRevertWith_asm_0,additionalContext & 0xffffffff00000000000000000000000000000000000000000000000000000000) (lib/v4-core/src/libraries/CustomRevert.sol#113-116)\n"
+    },
+    {
+      "index": 128,
+      "id": "209a31aac460018496d2f061c1fecef7e55acb13cd8fd9457f8d4ffaa04c7a9b",
+      "check": "immutable-states",
+      "impact": "Optimization",
+      "classification": "DEPENDENCY_FINDING_REVIEW_PENDING",
+      "rationale": "Imported closure finding; not automatically dismissed. Historical75 triage is separate from this expanded129-result scan.",
+      "description": "TimelockController._minDelay (src/v2-research-experiment/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#32) should be immutable \n"
+    }
+  ],
+  "releaseStatus": "BLOCKED_PENDING_EXPANDED_FINDING_REVIEW_AND_AUDIT"
+}

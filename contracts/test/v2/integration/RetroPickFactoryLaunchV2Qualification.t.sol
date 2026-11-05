@@ -245,7 +245,7 @@ abstract contract RetroPickFactoryFixtureV2 is Test {
         QuoteAssetConfig memory c = QuoteAssetConfig(
             true,
             decimals,
-            3,
+            1,
             registry.getConfig(quote).policyVersion + 1,
             phantom,
             threshold,
@@ -286,7 +286,7 @@ contract RetroPickFactoryLaunchV2QualificationTest is RetroPickFactoryFixtureV2 
         vm.expectRevert(RetroPickQuoteAssetRegistryV2.UnsupportedQuote.selector);
         factory.launchToken(_params(bytes32(0)), 0, address(arbitrary));
         QuoteAssetConfig memory c =
-            QuoteAssetConfig(true, 6, 3, 1, 100e6, 100e6, 5000e6, keccak256("CIRCLE_FIXTURE"), bytes32(0));
+            QuoteAssetConfig(true, 6, 1, 1, 100e6, 100e6, 5000e6, keccak256("CIRCLE_FIXTURE"), bytes32(0));
         vm.etch(circle, hex"");
         vm.expectRevert(RetroPickQuoteAssetRegistryV2.InvalidQuoteConfig.selector);
         registry.configure(circle, c);

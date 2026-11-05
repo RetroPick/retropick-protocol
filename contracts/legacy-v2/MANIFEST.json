@@ -1,0 +1,562 @@
+{
+  "schemaVersion": 1,
+  "name": "legacy-v2",
+  "status": "FROZEN_RECORDED_TESTNET_SOURCE",
+  "chainId": 10143,
+  "deployedSourceRevision": "f0363249f4b74e58dde37d1241742ca5a92bcfe3",
+  "recordRevision": "9f625631cc2317a704d9895ee2b695da1682da51",
+  "sourceFiles": 31,
+  "files": [
+    {
+      "originalPath": "contracts/src/v2/GraduationCoordinatorV2.sol",
+      "archivePath": "src/v2/GraduationCoordinatorV2.sol",
+      "revision": "f0363249f4b74e58dde37d1241742ca5a92bcfe3",
+      "gitBlob": "f24ae768669738112587cefc570cffaa334750be",
+      "sha256": "7823fba50e8890facd20e1df30df60f02628574ef5d9236991cf38f755274f4a",
+      "bytes": 13106
+    },
+    {
+      "originalPath": "contracts/src/v2/KuruEnvironmentV2.sol",
+      "archivePath": "src/v2/KuruEnvironmentV2.sol",
+      "revision": "f0363249f4b74e58dde37d1241742ca5a92bcfe3",
+      "gitBlob": "8afba9116e270e6ca5736683e2888fcff28a9400",
+      "sha256": "aa915a37dbdf2b439983d4b8791bbbc61d64730aee879e44a322b4148ab7c99f",
+      "bytes": 1732
+    },
+    {
+      "originalPath": "contracts/src/v2/KuruGraduationExecutorV2.sol",
+      "archivePath": "src/v2/KuruGraduationExecutorV2.sol",
+      "revision": "f0363249f4b74e58dde37d1241742ca5a92bcfe3",
+      "gitBlob": "178922412e5e2226f48c6865e94faec529d8aac1",
+      "sha256": "8d3212f6d12580cab1e928afdcf28519145b50e97b05ffd311c4a2dee200217c",
+      "bytes": 15428
+    },
+    {
+      "originalPath": "contracts/src/v2/KuruLiquidityLockV2.sol",
+      "archivePath": "src/v2/KuruLiquidityLockV2.sol",
+      "revision": "f0363249f4b74e58dde37d1241742ca5a92bcfe3",
+      "gitBlob": "8689509f69b1afbdf4c8bfb3bb50f7d0c187bc99",
+      "sha256": "fdb8ada56145a8418d277131bd834444273bc5ce81736d61b941c760431b19c1",
+      "bytes": 998
+    },
+    {
+      "originalPath": "contracts/src/v2/RetroPickBondingCurveV2.sol",
+      "archivePath": "src/v2/RetroPickBondingCurveV2.sol",
+      "revision": "f0363249f4b74e58dde37d1241742ca5a92bcfe3",
+      "gitBlob": "704cdddd62ab2c0cdb232ba275c746354355af9a",
+      "sha256": "e14fb74942526ebcce27b2c5f7ed2312c549ecaad9434eafa8e3e96b53c73054",
+      "bytes": 47643
+    },
+    {
+      "originalPath": "contracts/src/v2/RetroPickBuybackVaultV2.sol",
+      "archivePath": "src/v2/RetroPickBuybackVaultV2.sol",
+      "revision": "f0363249f4b74e58dde37d1241742ca5a92bcfe3",
+      "gitBlob": "aadea6e36b763030ea9c0568b749c57e7ff56dc5",
+      "sha256": "0ff1d6a5a8eba7aaa3e0adfd6b337b0c780aa7620334f3ba8adf624b1cd8be6f",
+      "bytes": 16294
+    },
+    {
+      "originalPath": "contracts/src/v2/RetroPickDoorwayV2.sol",
+      "archivePath": "src/v2/RetroPickDoorwayV2.sol",
+      "revision": "f0363249f4b74e58dde37d1241742ca5a92bcfe3",
+      "gitBlob": "cda787ce2aa13cf83d27b635be7f5cc5ae25a4b8",
+      "sha256": "6204d891680b4516f59f16adee64b45ca6a106bdbc03881d6183316a917e7fa0",
+      "bytes": 16797
+    },
+    {
+      "originalPath": "contracts/src/v2/RetroPickFeeEscrowV2.sol",
+      "archivePath": "src/v2/RetroPickFeeEscrowV2.sol",
+      "revision": "f0363249f4b74e58dde37d1241742ca5a92bcfe3",
+      "gitBlob": "7d32540a2fcfa5fd47d016b58e72925206a86cde",
+      "sha256": "41183cf76e94c1a51fca4754d0a885e81997b5aeb41ed7101f6e3e71f040cf88",
+      "bytes": 6058
+    },
+    {
+      "originalPath": "contracts/src/v2/RetroPickGraduationGuardV2.sol",
+      "archivePath": "src/v2/RetroPickGraduationGuardV2.sol",
+      "revision": "f0363249f4b74e58dde37d1241742ca5a92bcfe3",
+      "gitBlob": "0c941ecf04ade0d68dfbf059a37bbd6abd018f8a",
+      "sha256": "3b96b08ae957260617c671a60cf85c8cab11c1b4cfee0db6c102b01f945d3b3c",
+      "bytes": 6212
+    },
+    {
+      "originalPath": "contracts/src/v2/RetroPickHookDeployerV2.sol",
+      "archivePath": "src/v2/RetroPickHookDeployerV2.sol",
+      "revision": "f0363249f4b74e58dde37d1241742ca5a92bcfe3",
+      "gitBlob": "5c06d9a7818d9f99b620156f9c9653fb312dd0b8",
+      "sha256": "012bd068abf797e79dea255e7c4ebed999ef60b00b2e34237e0de135d972ae4f",
+      "bytes": 847
+    },
+    {
+      "originalPath": "contracts/src/v2/RetroPickLaunchDeployerV2.sol",
+      "archivePath": "src/v2/RetroPickLaunchDeployerV2.sol",
+      "revision": "f0363249f4b74e58dde37d1241742ca5a92bcfe3",
+      "gitBlob": "2b9473cae981d79eed0b186463716256ecc68af6",
+      "sha256": "a8e67cf25071c477b617ea84f00ea0f02c4f7d00c70450bd843d8ee83041a4a0",
+      "bytes": 5425
+    },
+    {
+      "originalPath": "contracts/src/v2/RetroPickLaunchFactoryV2.sol",
+      "archivePath": "src/v2/RetroPickLaunchFactoryV2.sol",
+      "revision": "f0363249f4b74e58dde37d1241742ca5a92bcfe3",
+      "gitBlob": "334ee880e12f820cf45c802d7fc0656194797da3",
+      "sha256": "18fbf064773b6d2515752b63a22ee329b2210d632b3dc1935678783049f91615",
+      "bytes": 54760
+    },
+    {
+      "originalPath": "contracts/src/v2/RetroPickLaunchLockerV2.sol",
+      "archivePath": "src/v2/RetroPickLaunchLockerV2.sol",
+      "revision": "f0363249f4b74e58dde37d1241742ca5a92bcfe3",
+      "gitBlob": "b45ff445439bcfa31f2ff1e84ec7900c51a181e2",
+      "sha256": "389779b3db7251dd14bbb8eb216c3056c858a071e85700aff5a7d25516b2a794",
+      "bytes": 5522
+    },
+    {
+      "originalPath": "contracts/src/v2/RetroPickLauncherTokenV2.sol",
+      "archivePath": "src/v2/RetroPickLauncherTokenV2.sol",
+      "revision": "f0363249f4b74e58dde37d1241742ca5a92bcfe3",
+      "gitBlob": "9fb8a73c4965c899e7aeb719d18a7150c017eaf4",
+      "sha256": "6218554cf72090fa443da6650ff446c8965fec8ecd6fcce6a6daaf853ad68f33",
+      "bytes": 3474
+    },
+    {
+      "originalPath": "contracts/src/v2/RetroPickQuoteAssetPolicyV2.sol",
+      "archivePath": "src/v2/RetroPickQuoteAssetPolicyV2.sol",
+      "revision": "f0363249f4b74e58dde37d1241742ca5a92bcfe3",
+      "gitBlob": "04fcf78168bcc78f64577c0d51d463b90a42b79f",
+      "sha256": "00a1d6b50ec3736ec4ea347964dc2bc0cb71bf05047937bc030b30026d6ab90e",
+      "bytes": 1546
+    },
+    {
+      "originalPath": "contracts/src/v2/RetroPickQuoteAssetRegistryV2.sol",
+      "archivePath": "src/v2/RetroPickQuoteAssetRegistryV2.sol",
+      "revision": "f0363249f4b74e58dde37d1241742ca5a92bcfe3",
+      "gitBlob": "1ec5bf779e71f431050b58b6bb738a8d960dad46",
+      "sha256": "7032fbb85717c8077ff46a48dc1fc6733795c8d7a8afdc964c4de85962fa909c",
+      "bytes": 4123
+    },
+    {
+      "originalPath": "contracts/src/v2/UniswapV4GraduationExecutorV2.sol",
+      "archivePath": "src/v2/UniswapV4GraduationExecutorV2.sol",
+      "revision": "f0363249f4b74e58dde37d1241742ca5a92bcfe3",
+      "gitBlob": "09e29a84b2a0a7ed99da5611b8536cd67b6a0e54",
+      "sha256": "b8a74240e1d9103c65728795ac52576dd792f3ff7e568b95e4559d36fe65ff74",
+      "bytes": 13834
+    },
+    {
+      "originalPath": "contracts/src/v2/hooks/RetroPickMemeHookV2.sol",
+      "archivePath": "src/v2/hooks/RetroPickMemeHookV2.sol",
+      "revision": "f0363249f4b74e58dde37d1241742ca5a92bcfe3",
+      "gitBlob": "4209876d91fa4b26ce4e0171afdfd8a9487d691b",
+      "sha256": "30730479a25e133fbea08e8d27167e25a622d6e368e24c2ac159ea90d81b1a2e",
+      "bytes": 48504
+    },
+    {
+      "originalPath": "contracts/src/v2/interfaces/IGraduationExecutorV2.sol",
+      "archivePath": "src/v2/interfaces/IGraduationExecutorV2.sol",
+      "revision": "f0363249f4b74e58dde37d1241742ca5a92bcfe3",
+      "gitBlob": "cd2ded05cbd1576ff939be36da7d2ec9a50a5771",
+      "sha256": "f2120b5edf7c34d5229eb7fb4fb20adfac48af3469368205d34d1e1f9e28d6fd",
+      "bytes": 3281
+    },
+    {
+      "originalPath": "contracts/src/v2/interfaces/IKuruV2.sol",
+      "archivePath": "src/v2/interfaces/IKuruV2.sol",
+      "revision": "f0363249f4b74e58dde37d1241742ca5a92bcfe3",
+      "gitBlob": "5543d23fdf72533cd3f14d17a4918edc3087bf47",
+      "sha256": "8cd18dd7032a8b9a7ca2b54ae88eef17c055e6b9a92996cae87b7c9996dedeb2",
+      "bytes": 2328
+    },
+    {
+      "originalPath": "contracts/src/v2/interfaces/IRetroPickDoorwayV2.sol",
+      "archivePath": "src/v2/interfaces/IRetroPickDoorwayV2.sol",
+      "revision": "f0363249f4b74e58dde37d1241742ca5a92bcfe3",
+      "gitBlob": "87ba0a58249d3c1755fe042d6bb39a077d976106",
+      "sha256": "982c27ef54f2add603c8e171083298a7948cf3659b7be8ed2bed16196dbc2d79",
+      "bytes": 5494
+    },
+    {
+      "originalPath": "contracts/src/v2/interfaces/IRetroPickGraduationV2.sol",
+      "archivePath": "src/v2/interfaces/IRetroPickGraduationV2.sol",
+      "revision": "f0363249f4b74e58dde37d1241742ca5a92bcfe3",
+      "gitBlob": "92202ac0cd0be31c28587e29ca7f08d4e0ffc574",
+      "sha256": "8c145b9e43ae84b00664769306c8267b47b2a300f4d554e5af2d8187ab166ff0",
+      "bytes": 433
+    },
+    {
+      "originalPath": "contracts/src/v2/interfaces/IRetroPickLaunchpadV2.sol",
+      "archivePath": "src/v2/interfaces/IRetroPickLaunchpadV2.sol",
+      "revision": "f0363249f4b74e58dde37d1241742ca5a92bcfe3",
+      "gitBlob": "75b479b4341e78e7a8f0f898a25b85b13ff2d616",
+      "sha256": "707b07a77d0c2a5805032aa949a926dd241efb6aa4b951e58f27cd9a4b79f831",
+      "bytes": 5886
+    },
+    {
+      "originalPath": "contracts/src/v2/interfaces/IRetroPickQuoteAssetPolicyV2.sol",
+      "archivePath": "src/v2/interfaces/IRetroPickQuoteAssetPolicyV2.sol",
+      "revision": "f0363249f4b74e58dde37d1241742ca5a92bcfe3",
+      "gitBlob": "831a1713d0d5d932144ba86c7190840714b12e31",
+      "sha256": "403fa51050f584318330fbe236acb870cf09c298306745229dc69fd4ae5074d1",
+      "bytes": 257
+    },
+    {
+      "originalPath": "contracts/src/v2/interfaces/IVenueLaunchV2.sol",
+      "archivePath": "src/v2/interfaces/IVenueLaunchV2.sol",
+      "revision": "f0363249f4b74e58dde37d1241742ca5a92bcfe3",
+      "gitBlob": "f81ef1a748f8139363811907df452224e604a1f2",
+      "sha256": "c9cd43a33118899de7ec5b17852d175c3d445af20931dd8693334406012c0e86",
+      "bytes": 532
+    },
+    {
+      "originalPath": "contracts/src/v2/libraries/CompletionQuoteMathV2.sol",
+      "archivePath": "src/v2/libraries/CompletionQuoteMathV2.sol",
+      "revision": "f0363249f4b74e58dde37d1241742ca5a92bcfe3",
+      "gitBlob": "a4861890a027e8ef1c14828fe6a28630bdff01ec",
+      "sha256": "0501bd4cd506f68ff073187c8cf2f018a9e32e0c92686f99d080db771a99461c",
+      "bytes": 2406
+    },
+    {
+      "originalPath": "contracts/src/v2/libraries/ExactAssetV2.sol",
+      "archivePath": "src/v2/libraries/ExactAssetV2.sol",
+      "revision": "f0363249f4b74e58dde37d1241742ca5a92bcfe3",
+      "gitBlob": "0a80424261f0ba11a55d2e536ef883de8f5f06a8",
+      "sha256": "55b86794fa8a1545ed247c4035dffdf05515d9c5a2a27b49f335102eeeede28e",
+      "bytes": 1456
+    },
+    {
+      "originalPath": "contracts/src/v2/libraries/ExecutorDonationsV2.sol",
+      "archivePath": "src/v2/libraries/ExecutorDonationsV2.sol",
+      "revision": "f0363249f4b74e58dde37d1241742ca5a92bcfe3",
+      "gitBlob": "cfbf3041da9b5429dd4da736bc9448eef0a2ec5b",
+      "sha256": "47661cb3dda1c80ddca62ae708881c49af4cc3c3be383a23173f19c9b0da130a",
+      "bytes": 1579
+    },
+    {
+      "originalPath": "contracts/src/v2/libraries/KuruParameterPolicyV2.sol",
+      "archivePath": "src/v2/libraries/KuruParameterPolicyV2.sol",
+      "revision": "f0363249f4b74e58dde37d1241742ca5a92bcfe3",
+      "gitBlob": "fb24051b372d990ef6076176b90a0ee85bc8ce63",
+      "sha256": "f0979f764111c2fb537caf3f4d6a34cad6419b66da4f5279d6bfbe373c857750",
+      "bytes": 2646
+    },
+    {
+      "originalPath": "contracts/src/v2/libraries/RetroPickBondingCurveMathV2.sol",
+      "archivePath": "src/v2/libraries/RetroPickBondingCurveMathV2.sol",
+      "revision": "f0363249f4b74e58dde37d1241742ca5a92bcfe3",
+      "gitBlob": "6a28775a25c414f8377ea1aa71fbb81ecff68fd3",
+      "sha256": "2576c4601ca9f516d156cc5652a66400f05e1974c6e2e0fec815a171d669066b",
+      "bytes": 3925
+    },
+    {
+      "originalPath": "contracts/src/v2/libraries/RetroPickGraduationMathV2.sol",
+      "archivePath": "src/v2/libraries/RetroPickGraduationMathV2.sol",
+      "revision": "f0363249f4b74e58dde37d1241742ca5a92bcfe3",
+      "gitBlob": "6ddd9cc18da0ef35c778bb64caba97a9fd690661",
+      "sha256": "f9cf285edf8aac15ef3266d42c454ec14f42b6e8a9ce618019a5e9d3d2886c3a",
+      "bytes": 2725
+    },
+    {
+      "originalPath": "contracts/foundry.toml",
+      "archivePath": "build-records/contracts__foundry.toml.txt",
+      "revision": "f0363249f4b74e58dde37d1241742ca5a92bcfe3",
+      "gitBlob": "eaf5d94b7a8424301f77916a3c9c7f312616278d",
+      "sha256": "6e3c3bb8a10610af6d2c7da777a130ad364f5b6ded648294df589743bce81eae",
+      "bytes": 758
+    },
+    {
+      "originalPath": "contracts/remappings.txt",
+      "archivePath": "build-records/contracts__remappings.txt.txt",
+      "revision": "f0363249f4b74e58dde37d1241742ca5a92bcfe3",
+      "gitBlob": "1d32586777e33cbe98c98cc039dac961f49c21f1",
+      "sha256": "c9807f7bf8a477590d028f97e35562d9e1d5f63982c3c91998dfa8545108db32",
+      "bytes": 282
+    },
+    {
+      "originalPath": ".gitmodules",
+      "archivePath": "build-records/.gitmodules.txt",
+      "revision": "f0363249f4b74e58dde37d1241742ca5a92bcfe3",
+      "gitBlob": "8cf69bddd7bec03bb229bf566bc58cada8fc6b73",
+      "sha256": "967f04edfd6b2b817061c50e3808ba4219f1025f4fd432c97a362a6a845eaef6",
+      "bytes": 266
+    },
+    {
+      "originalPath": "deployments/monad-testnet/v2.json",
+      "archivePath": "records/deployments/monad-testnet/v2.json",
+      "revision": "9f625631cc2317a704d9895ee2b695da1682da51",
+      "gitBlob": "258c537e69fc3e849a23bf4add65c8d34a9524ec",
+      "sha256": "0eed588b37180572ab2e1447271e3ec3363416da7f6558a4c5a6668c1e943555",
+      "bytes": 29463
+    },
+    {
+      "originalPath": "evidence/launchpad/v2-monad-testnet/source-verification-foundry.json",
+      "archivePath": "records/evidence/launchpad/v2-monad-testnet/source-verification-foundry.json",
+      "revision": "9f625631cc2317a704d9895ee2b695da1682da51",
+      "gitBlob": "d15fde9034b5467de1c9e683a274da5ce5f39825",
+      "sha256": "22a0f6c19bd9276bcb20242c77cd98c79a5bd919e4aba475bec45c92f2bd65b1",
+      "bytes": 11508
+    },
+    {
+      "originalPath": "deployments/monad-testnet/abi/ERC20MetadataInterface.json",
+      "archivePath": "records/deployments/monad-testnet/abi/ERC20MetadataInterface.json",
+      "revision": "9f625631cc2317a704d9895ee2b695da1682da51",
+      "gitBlob": "751d11994f8758c945b2b265c4651925d489c8b8",
+      "sha256": "dae70ba6201d05389d4720aa04cfd6aff7d1525ea78870ec55ef8a964da95cc0",
+      "bytes": 4046
+    },
+    {
+      "originalPath": "deployments/monad-testnet/abi/ExecutorDonationLockV2.json",
+      "archivePath": "records/deployments/monad-testnet/abi/ExecutorDonationLockV2.json",
+      "revision": "9f625631cc2317a704d9895ee2b695da1682da51",
+      "gitBlob": "9ebea1d5765f44ab7e0574849880c60db232473e",
+      "sha256": "8cb0c80f9493df5c7c5179a47bbed676ea2227e4d46bd1bba371a8a8d65f802e",
+      "bytes": 495
+    },
+    {
+      "originalPath": "deployments/monad-testnet/abi/FUNCTIONS.md",
+      "archivePath": "records/deployments/monad-testnet/abi/FUNCTIONS.md",
+      "revision": "9f625631cc2317a704d9895ee2b695da1682da51",
+      "gitBlob": "3c32b3050e95379e8738490af06e9575904989ea",
+      "sha256": "31b5a0231e0df5b957213144e18fe2acb54cd5ee3aca6df25e15ab564dc52318",
+      "bytes": 56886
+    },
+    {
+      "originalPath": "deployments/monad-testnet/abi/GraduationCoordinatorV2.json",
+      "archivePath": "records/deployments/monad-testnet/abi/GraduationCoordinatorV2.json",
+      "revision": "9f625631cc2317a704d9895ee2b695da1682da51",
+      "gitBlob": "37a4deac643911520130d727075d875ee600e93f",
+      "sha256": "dab04d6a4ba228429212d2437afdfa22e4fb2ebaa6dcde3df37e896881cf058b",
+      "bytes": 18861
+    },
+    {
+      "originalPath": "deployments/monad-testnet/abi/KuruAMMVault.json",
+      "archivePath": "records/deployments/monad-testnet/abi/KuruAMMVault.json",
+      "revision": "9f625631cc2317a704d9895ee2b695da1682da51",
+      "gitBlob": "8bf09dcaeb5a8020dc24ea4aba3628b171edcda0",
+      "sha256": "914814a16d031d0516ac7fb47ffffc1d04ea23a3471004d33c8f123599610915",
+      "bytes": 17153
+    },
+    {
+      "originalPath": "deployments/monad-testnet/abi/KuruEnvironmentV2.json",
+      "archivePath": "records/deployments/monad-testnet/abi/KuruEnvironmentV2.json",
+      "revision": "9f625631cc2317a704d9895ee2b695da1682da51",
+      "gitBlob": "af77dd9818c7d43ad4a6ecde25d62f6deebc18ba",
+      "sha256": "aa23b8133c95e0deb25b4a2bf171254b14b58a2be848b3f8096efc61d1895eb5",
+      "bytes": 2036
+    },
+    {
+      "originalPath": "deployments/monad-testnet/abi/KuruGraduationExecutorV2.json",
+      "archivePath": "records/deployments/monad-testnet/abi/KuruGraduationExecutorV2.json",
+      "revision": "9f625631cc2317a704d9895ee2b695da1682da51",
+      "gitBlob": "f87042dff04f34199053fcc01530c1928e6a9699",
+      "sha256": "aebe1bfa3970ccd80cb52a8bf008e81852ec2447dbaa34658ad28e9d634c51cf",
+      "bytes": 21081
+    },
+    {
+      "originalPath": "deployments/monad-testnet/abi/KuruLiquidityLockV2.json",
+      "archivePath": "records/deployments/monad-testnet/abi/KuruLiquidityLockV2.json",
+      "revision": "9f625631cc2317a704d9895ee2b695da1682da51",
+      "gitBlob": "fb0f73c93c93987526e2d3b13cf25e5a4482fd55",
+      "sha256": "a88e67ff62d66381a81064f67426a3a9571ee0deb70b3a32368d1a15c2959eea",
+      "bytes": 1865
+    },
+    {
+      "originalPath": "deployments/monad-testnet/abi/MarginAccount.json",
+      "archivePath": "records/deployments/monad-testnet/abi/MarginAccount.json",
+      "revision": "9f625631cc2317a704d9895ee2b695da1682da51",
+      "gitBlob": "74487aa7b0d50e5c802b2cae96cf7078e35483cd",
+      "sha256": "294b29447cb2b374ed93caeee02388f518161e0fa2996580cf4780641689f206",
+      "bytes": 11965
+    },
+    {
+      "originalPath": "deployments/monad-testnet/abi/OrderBook.json",
+      "archivePath": "records/deployments/monad-testnet/abi/OrderBook.json",
+      "revision": "9f625631cc2317a704d9895ee2b695da1682da51",
+      "gitBlob": "3870efc6ad173125658d5b55e9cc731c4e8020df",
+      "sha256": "779599a58d76e7bd539a3bc58cae973851d8e7af9bfdd3985cd4c4acc132c57e",
+      "bytes": 27863
+    },
+    {
+      "originalPath": "deployments/monad-testnet/abi/Permit2.json",
+      "archivePath": "records/deployments/monad-testnet/abi/Permit2.json",
+      "revision": "9f625631cc2317a704d9895ee2b695da1682da51",
+      "gitBlob": "e476f0145bfcf0c8a2c61791752b9be09dcca57a",
+      "sha256": "62dab8841513e558aeebdbe20dca54f7da8e2224b0c7d62ebc45f28caf45979d",
+      "bytes": 19741
+    },
+    {
+      "originalPath": "deployments/monad-testnet/abi/PoolManager.json",
+      "archivePath": "records/deployments/monad-testnet/abi/PoolManager.json",
+      "revision": "9f625631cc2317a704d9895ee2b695da1682da51",
+      "gitBlob": "4c66aefbc6f619c2dd3a8a727c2248df789e9f6e",
+      "sha256": "83db8be4e85c7d37e0551191c8326ff1b715f6946bc7dabc8e039f6727092f38",
+      "bytes": 27055
+    },
+    {
+      "originalPath": "deployments/monad-testnet/abi/PositionDescriptor.json",
+      "archivePath": "records/deployments/monad-testnet/abi/PositionDescriptor.json",
+      "revision": "9f625631cc2317a704d9895ee2b695da1682da51",
+      "gitBlob": "e384e113a7f08aa5f06ff1ca01ec002a2a30f417",
+      "sha256": "140f2f8adb11b1a859727054192d03709a6a3e524719b2ce4664d55f69c2ce1c",
+      "bytes": 3091
+    },
+    {
+      "originalPath": "deployments/monad-testnet/abi/PositionManager.json",
+      "archivePath": "records/deployments/monad-testnet/abi/PositionManager.json",
+      "revision": "9f625631cc2317a704d9895ee2b695da1682da51",
+      "gitBlob": "5493e73f648844946f089d3f193bc877d436ca3d",
+      "sha256": "6584aff67a588648ea23d9915db506f5bb7ab40245bfeed56543c392af85d038",
+      "bytes": 26028
+    },
+    {
+      "originalPath": "deployments/monad-testnet/abi/README.md",
+      "archivePath": "records/deployments/monad-testnet/abi/README.md",
+      "revision": "9f625631cc2317a704d9895ee2b695da1682da51",
+      "gitBlob": "54b8a648c58e15fe5064454a47176e1806fd6f39",
+      "sha256": "9da8d21a158d5a0be5d9a2550d90835f11a7d12800412a2154fadea98874aa64",
+      "bytes": 2337
+    },
+    {
+      "originalPath": "deployments/monad-testnet/abi/RetroPickBondingCurveV2.json",
+      "archivePath": "records/deployments/monad-testnet/abi/RetroPickBondingCurveV2.json",
+      "revision": "9f625631cc2317a704d9895ee2b695da1682da51",
+      "gitBlob": "fb1e75553ff49b56e5d9764c2835f4c1abe9dc5f",
+      "sha256": "9fcb24c0c64cada431e84f1be20a0f1a7c1975f40678de57651b14843d8fee97",
+      "bytes": 22508
+    },
+    {
+      "originalPath": "deployments/monad-testnet/abi/RetroPickBuybackVaultV2.json",
+      "archivePath": "records/deployments/monad-testnet/abi/RetroPickBuybackVaultV2.json",
+      "revision": "9f625631cc2317a704d9895ee2b695da1682da51",
+      "gitBlob": "070813b5d345773d08134bf946303ad274c27066",
+      "sha256": "ee53a91f5420bbb1146b9659ed48b93aa01d66bcb57962cbcffd115015c8e87e",
+      "bytes": 10914
+    },
+    {
+      "originalPath": "deployments/monad-testnet/abi/RetroPickFeeEscrowV2.json",
+      "archivePath": "records/deployments/monad-testnet/abi/RetroPickFeeEscrowV2.json",
+      "revision": "9f625631cc2317a704d9895ee2b695da1682da51",
+      "gitBlob": "d51a33f043f765fdf3adafd7dfb627213ddd61ab",
+      "sha256": "1ebade9cc6c6461960258d1359ca030b1b16e29942944d120b324237c7012171",
+      "bytes": 6828
+    },
+    {
+      "originalPath": "deployments/monad-testnet/abi/RetroPickGraduationGuardV2.json",
+      "archivePath": "records/deployments/monad-testnet/abi/RetroPickGraduationGuardV2.json",
+      "revision": "9f625631cc2317a704d9895ee2b695da1682da51",
+      "gitBlob": "35d3d8d5c0c4b5ff4d53f8e01033016c3e8ef564",
+      "sha256": "9b9dac57b265ca6b38fbc6909ed8d255b6b1d613f654a12be2738b0399f9cb14",
+      "bytes": 1462
+    },
+    {
+      "originalPath": "deployments/monad-testnet/abi/RetroPickHookDeployerV2.json",
+      "archivePath": "records/deployments/monad-testnet/abi/RetroPickHookDeployerV2.json",
+      "revision": "9f625631cc2317a704d9895ee2b695da1682da51",
+      "gitBlob": "e4fa287f481686aae5bc5b404fde2ce4f842f395",
+      "sha256": "44b1eb2bbde4f8063ddee66ac04994c981c8508703b5ec1c1bbbbfb063563154",
+      "bytes": 1212
+    },
+    {
+      "originalPath": "deployments/monad-testnet/abi/RetroPickLaunchDeployerV2.json",
+      "archivePath": "records/deployments/monad-testnet/abi/RetroPickLaunchDeployerV2.json",
+      "revision": "9f625631cc2317a704d9895ee2b695da1682da51",
+      "gitBlob": "8dcaa28c5e557bb48b5f6666aebda701e1e99f05",
+      "sha256": "8c09a61d723b74b7b38ecccecc7ed9f52d1273058b5e1c8ca385237636c11b3b",
+      "bytes": 5204
+    },
+    {
+      "originalPath": "deployments/monad-testnet/abi/RetroPickLaunchFactoryV2.json",
+      "archivePath": "records/deployments/monad-testnet/abi/RetroPickLaunchFactoryV2.json",
+      "revision": "9f625631cc2317a704d9895ee2b695da1682da51",
+      "gitBlob": "352b09a55a130d5773b150ce7688fd812aab99fc",
+      "sha256": "70a563adf79ce6fff50b8fb00af49ea1ca000bb396d0b307bfd80fd780050ba4",
+      "bytes": 49170
+    },
+    {
+      "originalPath": "deployments/monad-testnet/abi/RetroPickLaunchLockerV2.json",
+      "archivePath": "records/deployments/monad-testnet/abi/RetroPickLaunchLockerV2.json",
+      "revision": "9f625631cc2317a704d9895ee2b695da1682da51",
+      "gitBlob": "d6a19f28bcbc32c6eaa8e3d48b41185a98ee38e9",
+      "sha256": "c5d6393e0de19d899f5df74a0a51eb13b641ee210673f2d601cf027a3c1b4132",
+      "bytes": 7874
+    },
+    {
+      "originalPath": "deployments/monad-testnet/abi/RetroPickLauncherTokenV2.json",
+      "archivePath": "records/deployments/monad-testnet/abi/RetroPickLauncherTokenV2.json",
+      "revision": "9f625631cc2317a704d9895ee2b695da1682da51",
+      "gitBlob": "bdc825db1f5e47f2baa7f74ee246afa48abcad06",
+      "sha256": "7906a46f3ddf5af72be4a8da600c1f81d2e5df94f59dea5fb738e9ab3467f65c",
+      "bytes": 11021
+    },
+    {
+      "originalPath": "deployments/monad-testnet/abi/RetroPickMemeHookV2.json",
+      "archivePath": "records/deployments/monad-testnet/abi/RetroPickMemeHookV2.json",
+      "revision": "9f625631cc2317a704d9895ee2b695da1682da51",
+      "gitBlob": "b10ecea4fe4215ee4317498a31f08f20a520cbfd",
+      "sha256": "3a6f65a982fe82f8ce5f83d6fdd2cba7835b5f6330eea1ab20a2b20b4822228b",
+      "bytes": 44158
+    },
+    {
+      "originalPath": "deployments/monad-testnet/abi/RetroPickQuoteAssetRegistryV2.json",
+      "archivePath": "records/deployments/monad-testnet/abi/RetroPickQuoteAssetRegistryV2.json",
+      "revision": "9f625631cc2317a704d9895ee2b695da1682da51",
+      "gitBlob": "3c8214305d04a637212536d394331f14fd4b8834",
+      "sha256": "d8135a6886f385a4b802b4e5d9aeb1b938b89aa4d675ee39f49b28032bd332a3",
+      "bytes": 9067
+    },
+    {
+      "originalPath": "deployments/monad-testnet/abi/Router.json",
+      "archivePath": "records/deployments/monad-testnet/abi/Router.json",
+      "revision": "9f625631cc2317a704d9895ee2b695da1682da51",
+      "gitBlob": "d3fea96d12816ad2e0aac335fe91516118c75e06",
+      "sha256": "dc4272a72b681ae138deaff9bad0e10ce1c6b4bb6a2ec8c3be0d740c50173166",
+      "bytes": 18659
+    },
+    {
+      "originalPath": "deployments/monad-testnet/abi/UniswapV4GraduationExecutorV2.json",
+      "archivePath": "records/deployments/monad-testnet/abi/UniswapV4GraduationExecutorV2.json",
+      "revision": "9f625631cc2317a704d9895ee2b695da1682da51",
+      "gitBlob": "4f501f66b14068a33e8804b9d7d0e165a5955923",
+      "sha256": "6fcc5f23de430ee7ff130cd067f5a77f4c6b5a0eb9553dd0ef80dda8cbe5e80c",
+      "bytes": 23260
+    },
+    {
+      "originalPath": "deployments/monad-testnet/abi/WETH.json",
+      "archivePath": "records/deployments/monad-testnet/abi/WETH.json",
+      "revision": "9f625631cc2317a704d9895ee2b695da1682da51",
+      "gitBlob": "e87279fed81b17d7c244217d71b042b28c9d5c60",
+      "sha256": "339e380e7c2496b68bf6777bb451e9e611528fa2a18a6a1b10e189a7ccff0d1d",
+      "bytes": 6574
+    },
+    {
+      "originalPath": "deployments/monad-testnet/abi/function-event-map.json",
+      "archivePath": "records/deployments/monad-testnet/abi/function-event-map.json",
+      "revision": "9f625631cc2317a704d9895ee2b695da1682da51",
+      "gitBlob": "8a31f7a3b88a8772d980ec85e33b874418a9e091",
+      "sha256": "e1bd1bd8e4d47f57ccbc5682f5b7d94712c56f0a1e49edb9df790f085dfa8fb4",
+      "bytes": 582806
+    },
+    {
+      "originalPath": "deployments/monad-testnet/abi/manifest.json",
+      "archivePath": "records/deployments/monad-testnet/abi/manifest.json",
+      "revision": "9f625631cc2317a704d9895ee2b695da1682da51",
+      "gitBlob": "76ddb76de533434db8f91385eb21beecbc9cd9d3",
+      "sha256": "671cd01dcce524abe4a76440e60f0b86633d96b0e63ba17e5f2e8b55acc52df8",
+      "bytes": 174844
+    }
+  ],
+  "dependencyGitlinks": [
+    {
+      "path": "contracts/lib/forge-std",
+      "commit": "bf647bd6046f2f7da30d0c2bf435e5c76a780c1b"
+    },
+    {
+      "path": "contracts/lib/v4-deployment-periphery",
+      "commit": "9969eec44cfdf07e24b41de47f40276a58401976"
+    }
+  ],
+  "limitations": [
+    "Recorded deployment source and historical exact-match evidence; no fresh RPC verification in this change.",
+    "Relocated source paths are archival only. Rebuild using original virtual source keys, pinned transitive dependencies and per-contract compiler settings in the ABI manifest.",
+    "Archive is not an authorized deployment route."
+  ]
+}

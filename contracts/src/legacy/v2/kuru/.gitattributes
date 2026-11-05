@@ -1,0 +1,2 @@
+# Historical source bytes must not be normalized by Git checkout rules.
+*.sol -text

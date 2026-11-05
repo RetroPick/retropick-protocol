@@ -13,10 +13,10 @@ contract GraduationCoordinatorV2AuthorityTest is RetroPickV4BehaviorFixtureV2 {
         coordinator.bindFactory(address(factory));
         vm.prank(creator);
         vm.expectRevert(GraduationCoordinatorV2.Unauthorized.selector);
-        coordinator.configureExecutor(GraduationVenue.KURU, address(0xBAD));
+        coordinator.configureExecutor(GraduationVenue.LEGACY_RESERVED, address(0xBAD));
         vm.prank(creator);
         vm.expectRevert(GraduationCoordinatorV2.Unauthorized.selector);
-        coordinator.registerLaunch(address(1), address(2), GraduationVenue.KURU, 0, 60);
+        coordinator.registerLaunch(address(1), address(2), GraduationVenue.LEGACY_RESERVED, 0, 60);
         vm.prank(creator);
         vm.expectRevert(GraduationCoordinatorV2.Unauthorized.selector);
         coordinator.secure(address(1));

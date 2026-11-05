@@ -1,0 +1,19 @@
+No files changed, compilation skipped
+
+Ran 13 tests for test/v2/research-experiment/m6/CommunityRevenueRouterV2.t.sol:CommunityRevenueRouterV2AccountingTest
+[PASS] testFuzzMockIntegerConservationAndTreasuryDust(uint128,uint128) (runs: 10000, μ: 814629, ~: 823375)
+[PASS] testMockAuthenticCallerReplayPoolEpochAndAssetGuards() (gas: 1211375)
+[PASS] testMockDonationsDoNotBookIncomeAndCannotCoverOldDeficit() (gas: 2114475)
+[PASS] testMockFailedCheckpointKeepsPolicyAndPendingFees() (gas: 1061762)
+[PASS] testMockFalseReturnAndDeflationaryFundingRollback() (gas: 2032370)
+[PASS] testMockFeeCapBindingAndRegistrarCannotBeSpoofed() (gas: 1677783)
+[PASS] testMockMaliciousRecipientCannotBlockIndependentClaims() (gas: 1665504)
+[PASS] testMockNativeVenueProtocolOnceAndCurvePreSeparated() (gas: 1321503)
+[PASS] testMockPolicyActivationCheckpointsOldCurveFeesAndKeepsOldRights() (gas: 2025560)
+[PASS] testMockReentrantClaimCannotDoublePayOrReplay() (gas: 1705225)
+[PASS] testMockTokenCallbackCannotActivatePolicyDuringVenueFunding() (gas: 1536523)
+[PASS] testMockUSDCAndLaunchedTokenLedgersAreIndependent() (gas: 10417767)
+[PASS] testMockUnfinalizedOrUnlockedOrChangedPrincipalRejectsRevenue() (gas: 1252241)
+Suite result: ok. 13 passed; 0 failed; 0 skipped; finished in 1.50s (1.57s CPU time)
+
+Ran 1 test suite in 1.51s (1.50s CPU time): 13 tests passed, 0 failed, 0 skipped (13 total tests)

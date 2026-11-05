@@ -253,7 +253,7 @@ abstract contract CommunityFactoryFixtureV2 is Test {
         QuoteAssetConfig memory c = QuoteAssetConfig(
             true,
             decimals,
-            3,
+            1,
             registry.getConfig(quote).policyVersion + 1,
             phantom,
             threshold,

@@ -1,0 +1,2246 @@
+{
+  "schemaVersion": 1,
+  "chainId": 10143,
+  "deploymentBlock": 69509526,
+  "deployedSourceSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3",
+  "sourceManifest": "../v2.json",
+  "kuruSDKSourceSHA": "636509c2eafd63479d3f399703354e0d09f51e18",
+  "kuruContractsSourceSHA": "2060bb2736080c175d80d568bfdb6226bb5abd04",
+  "contracts": [
+    {
+      "role": "quoteRegistry",
+      "address": "0xd1211276869ec55CAF302E22371D2005B23B9B40",
+      "contractName": "RetroPickQuoteAssetRegistryV2",
+      "abi": "RetroPickQuoteAssetRegistryV2.json",
+      "coverage": "FULL_ARTIFACT_ABI",
+      "origin": {
+        "kind": "DEPLOYED_RELEASE_FOUNDRY",
+        "path": "contracts/out/RetroPickQuoteAssetRegistryV2.sol/RetroPickQuoteAssetRegistryV2.json",
+        "gitSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3"
+      },
+      "artifactSHA256": "0e8424a4e7be2ae36046281739b5bd0deb0d2316e94f36aecfccbda551dc0f56",
+      "abiSHA256": "d8135a6886f385a4b802b4e5d9aeb1b938b89aa4d675ee39f49b28032bd332a3",
+      "functions": 12,
+      "events": 3,
+      "errors": 5,
+      "compiler": "0.8.26+commit.8a97fa7a",
+      "compilerSettings": {
+        "remappings": [
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:permit2/=lib/v4-deployment-periphery/lib/permit2/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:v4-core/=lib/v4-deployment-periphery/lib/v4-core/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/:solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/:solmate/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-periphery/:permit2/=lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "@ensdomains/=lib/v4-deployment-periphery/lib/v4-core/node_modules/@ensdomains/",
+          "@openzeppelin/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/",
+          "@uniswap/v4-core/=lib/v4-deployment-periphery/lib/v4-core/",
+          "@uniswap/v4-core/src/=lib/v4-core/src/",
+          "@uniswap/v4-hooks-public/src/=lib/v4-hooks-public/src/",
+          "@uniswap/v4-periphery/src/=lib/v4-periphery/src/",
+          "ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "erc4626-tests/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/erc4626-tests/",
+          "forge-gas-snapshot/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/src/",
+          "forge-std/=lib/forge-std/src/",
+          "hardhat/=lib/v4-deployment-periphery/lib/v4-core/node_modules/hardhat/",
+          "openzeppelin-contracts/=lib/openzeppelin-contracts/contracts/",
+          "permit2/=lib/v4-periphery/lib/permit2/src/",
+          "permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "v4-core/=lib/v4-core/src/",
+          "v4-deployment-periphery/=lib/v4-deployment-periphery/",
+          "v4-hooks-public/=lib/v4-hooks-public/src/",
+          "v4-periphery/=lib/v4-periphery/src/",
+          "lib/v4-deployment-periphery/:permit2/=lib/v4-deployment-periphery/lib/permit2/",
+          "lib/v4-deployment-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "lib/v4-deployment-periphery/:v4-core/=lib/v4-deployment-periphery/lib/v4-core/src/",
+          "lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/",
+          "lib/v4-deployment-periphery/lib/permit2/:solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "lib/v4-deployment-periphery/lib/v4-core/:solmate/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/",
+          "lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "lib/v4-periphery/:permit2/=lib/v4-periphery/lib/permit2/src/",
+          "lib/v4-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/"
+        ],
+        "optimizer": {
+          "enabled": true,
+          "runs": 200
+        },
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "compilationTarget": {
+          "src/v2/RetroPickQuoteAssetRegistryV2.sol": "RetroPickQuoteAssetRegistryV2"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "viaIR": true
+      }
+    },
+    {
+      "role": "feeEscrow",
+      "address": "0xb0312b0412c3BAa11895A6c4FeeC7CD9A01c2D96",
+      "contractName": "RetroPickFeeEscrowV2",
+      "abi": "RetroPickFeeEscrowV2.json",
+      "coverage": "FULL_ARTIFACT_ABI",
+      "origin": {
+        "kind": "DEPLOYED_RELEASE_FOUNDRY",
+        "path": "contracts/out/RetroPickFeeEscrowV2.sol/RetroPickFeeEscrowV2.json",
+        "gitSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3"
+      },
+      "artifactSHA256": "b5e6ba1fc92bf35a64c763680368f31cb7d5d36da4b8520c06edfb37df8d9438",
+      "abiSHA256": "1ebade9cc6c6461960258d1359ca030b1b16e29942944d120b324237c7012171",
+      "functions": 10,
+      "events": 4,
+      "errors": 8,
+      "compiler": "0.8.26+commit.8a97fa7a",
+      "compilerSettings": {
+        "remappings": [
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:permit2/=lib/v4-deployment-periphery/lib/permit2/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:v4-core/=lib/v4-deployment-periphery/lib/v4-core/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/:solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/:solmate/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-periphery/:permit2/=lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "@ensdomains/=lib/v4-deployment-periphery/lib/v4-core/node_modules/@ensdomains/",
+          "@openzeppelin/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/",
+          "@uniswap/v4-core/=lib/v4-deployment-periphery/lib/v4-core/",
+          "@uniswap/v4-core/src/=lib/v4-core/src/",
+          "@uniswap/v4-hooks-public/src/=lib/v4-hooks-public/src/",
+          "@uniswap/v4-periphery/src/=lib/v4-periphery/src/",
+          "ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "erc4626-tests/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/erc4626-tests/",
+          "forge-gas-snapshot/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/src/",
+          "forge-std/=lib/forge-std/src/",
+          "hardhat/=lib/v4-deployment-periphery/lib/v4-core/node_modules/hardhat/",
+          "openzeppelin-contracts/=lib/openzeppelin-contracts/contracts/",
+          "permit2/=lib/v4-periphery/lib/permit2/src/",
+          "permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "v4-core/=lib/v4-core/src/",
+          "v4-deployment-periphery/=lib/v4-deployment-periphery/",
+          "v4-hooks-public/=lib/v4-hooks-public/src/",
+          "v4-periphery/=lib/v4-periphery/src/",
+          "lib/v4-deployment-periphery/:permit2/=lib/v4-deployment-periphery/lib/permit2/",
+          "lib/v4-deployment-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "lib/v4-deployment-periphery/:v4-core/=lib/v4-deployment-periphery/lib/v4-core/src/",
+          "lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/",
+          "lib/v4-deployment-periphery/lib/permit2/:solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "lib/v4-deployment-periphery/lib/v4-core/:solmate/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/",
+          "lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "lib/v4-periphery/:permit2/=lib/v4-periphery/lib/permit2/src/",
+          "lib/v4-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/"
+        ],
+        "optimizer": {
+          "enabled": true,
+          "runs": 200
+        },
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "compilationTarget": {
+          "src/v2/RetroPickFeeEscrowV2.sol": "RetroPickFeeEscrowV2"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "viaIR": true
+      }
+    },
+    {
+      "role": "hookDeployer",
+      "address": "0x09fC0edEEBf13C171eE5739eac6B9C7f3400C9B8",
+      "contractName": "RetroPickHookDeployerV2",
+      "abi": "RetroPickHookDeployerV2.json",
+      "coverage": "FULL_ARTIFACT_ABI",
+      "origin": {
+        "kind": "DEPLOYED_RELEASE_FOUNDRY",
+        "path": "contracts/out/RetroPickHookDeployerV2.sol/RetroPickHookDeployerV2.json",
+        "gitSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3"
+      },
+      "artifactSHA256": "b985dba374b2efc680fb69b27b3fbeedbdb1322a535feb7892fc14158e078323",
+      "abiSHA256": "44b1eb2bbde4f8063ddee66ac04994c981c8508703b5ec1c1bbbbfb063563154",
+      "functions": 2,
+      "events": 0,
+      "errors": 1,
+      "compiler": "0.8.26+commit.8a97fa7a",
+      "compilerSettings": {
+        "remappings": [
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:permit2/=lib/v4-deployment-periphery/lib/permit2/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:v4-core/=lib/v4-deployment-periphery/lib/v4-core/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/:solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/:solmate/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-periphery/:permit2/=lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "@ensdomains/=lib/v4-deployment-periphery/lib/v4-core/node_modules/@ensdomains/",
+          "@openzeppelin/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/",
+          "@uniswap/v4-core/=lib/v4-deployment-periphery/lib/v4-core/",
+          "@uniswap/v4-core/src/=lib/v4-core/src/",
+          "@uniswap/v4-hooks-public/src/=lib/v4-hooks-public/src/",
+          "@uniswap/v4-periphery/src/=lib/v4-periphery/src/",
+          "ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "erc4626-tests/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/erc4626-tests/",
+          "forge-gas-snapshot/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/src/",
+          "forge-std/=lib/forge-std/src/",
+          "hardhat/=lib/v4-deployment-periphery/lib/v4-core/node_modules/hardhat/",
+          "openzeppelin-contracts/=lib/openzeppelin-contracts/contracts/",
+          "permit2/=lib/v4-periphery/lib/permit2/src/",
+          "permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "v4-core/=lib/v4-core/src/",
+          "v4-deployment-periphery/=lib/v4-deployment-periphery/",
+          "v4-hooks-public/=lib/v4-hooks-public/src/",
+          "v4-periphery/=lib/v4-periphery/src/",
+          "lib/v4-deployment-periphery/:permit2/=lib/v4-deployment-periphery/lib/permit2/",
+          "lib/v4-deployment-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "lib/v4-deployment-periphery/:v4-core/=lib/v4-deployment-periphery/lib/v4-core/src/",
+          "lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/",
+          "lib/v4-deployment-periphery/lib/permit2/:solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "lib/v4-deployment-periphery/lib/v4-core/:solmate/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/",
+          "lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "lib/v4-periphery/:permit2/=lib/v4-periphery/lib/permit2/src/",
+          "lib/v4-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/"
+        ],
+        "optimizer": {
+          "enabled": true,
+          "runs": 200
+        },
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "compilationTarget": {
+          "src/v2/RetroPickHookDeployerV2.sol": "RetroPickHookDeployerV2"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "viaIR": true
+      }
+    },
+    {
+      "role": "hook",
+      "address": "0x6d70125c61aD8f1a6d85eA4C37c94680b42f2044",
+      "contractName": "RetroPickMemeHookV2",
+      "abi": "RetroPickMemeHookV2.json",
+      "coverage": "FULL_ARTIFACT_ABI",
+      "origin": {
+        "kind": "DEPLOYED_RELEASE_FOUNDRY",
+        "path": "contracts/out/RetroPickMemeHookV2.sol/RetroPickMemeHookV2.json",
+        "gitSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3"
+      },
+      "artifactSHA256": "ce51e22d966af1f96e8c057d39dd99f3330064ffb29b871e467650f2e7a081f0",
+      "abiSHA256": "3a6f65a982fe82f8ce5f83d6fdd2cba7835b5f6330eea1ab20a2b20b4822228b",
+      "functions": 47,
+      "events": 18,
+      "errors": 22,
+      "compiler": "0.8.26+commit.8a97fa7a",
+      "compilerSettings": {
+        "remappings": [
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:permit2/=lib/v4-deployment-periphery/lib/permit2/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:v4-core/=lib/v4-deployment-periphery/lib/v4-core/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/:solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/:solmate/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-periphery/:permit2/=lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "@ensdomains/=lib/v4-deployment-periphery/lib/v4-core/node_modules/@ensdomains/",
+          "@openzeppelin/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/",
+          "@uniswap/v4-core/=lib/v4-deployment-periphery/lib/v4-core/",
+          "@uniswap/v4-core/src/=lib/v4-core/src/",
+          "@uniswap/v4-hooks-public/src/=lib/v4-hooks-public/src/",
+          "@uniswap/v4-periphery/src/=lib/v4-periphery/src/",
+          "ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "erc4626-tests/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/erc4626-tests/",
+          "forge-gas-snapshot/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/src/",
+          "forge-std/=lib/forge-std/src/",
+          "hardhat/=lib/v4-deployment-periphery/lib/v4-core/node_modules/hardhat/",
+          "openzeppelin-contracts/=lib/openzeppelin-contracts/contracts/",
+          "permit2/=lib/v4-periphery/lib/permit2/src/",
+          "permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "v4-core/=lib/v4-core/src/",
+          "v4-deployment-periphery/=lib/v4-deployment-periphery/",
+          "v4-hooks-public/=lib/v4-hooks-public/src/",
+          "v4-periphery/=lib/v4-periphery/src/",
+          "lib/v4-deployment-periphery/:permit2/=lib/v4-deployment-periphery/lib/permit2/",
+          "lib/v4-deployment-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "lib/v4-deployment-periphery/:v4-core/=lib/v4-deployment-periphery/lib/v4-core/src/",
+          "lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/",
+          "lib/v4-deployment-periphery/lib/permit2/:solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "lib/v4-deployment-periphery/lib/v4-core/:solmate/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/",
+          "lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "lib/v4-periphery/:permit2/=lib/v4-periphery/lib/permit2/src/",
+          "lib/v4-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/"
+        ],
+        "optimizer": {
+          "enabled": true,
+          "runs": 200
+        },
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "compilationTarget": {
+          "src/v2/hooks/RetroPickMemeHookV2.sol": "RetroPickMemeHookV2"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "viaIR": true
+      }
+    },
+    {
+      "role": "buybackVault",
+      "address": "0x2D746643E0BA37F127b38A4C04866a123895BE09",
+      "contractName": "RetroPickBuybackVaultV2",
+      "abi": "RetroPickBuybackVaultV2.json",
+      "coverage": "FULL_ARTIFACT_ABI",
+      "origin": {
+        "kind": "DEPLOYED_RELEASE_FOUNDRY",
+        "path": "contracts/out/RetroPickBuybackVaultV2.sol/RetroPickBuybackVaultV2.json",
+        "gitSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3"
+      },
+      "artifactSHA256": "592f385f0a5130f962022842c03a4464a059e440762e23ef3eb984c65d9b06c7",
+      "abiSHA256": "ee53a91f5420bbb1146b9659ed48b93aa01d66bcb57962cbcffd115015c8e87e",
+      "functions": 19,
+      "events": 7,
+      "errors": 12,
+      "compiler": "0.8.26+commit.8a97fa7a",
+      "compilerSettings": {
+        "remappings": [
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:permit2/=lib/v4-deployment-periphery/lib/permit2/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:v4-core/=lib/v4-deployment-periphery/lib/v4-core/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/:solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/:solmate/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-periphery/:permit2/=lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "@ensdomains/=lib/v4-deployment-periphery/lib/v4-core/node_modules/@ensdomains/",
+          "@openzeppelin/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/",
+          "@uniswap/v4-core/=lib/v4-deployment-periphery/lib/v4-core/",
+          "@uniswap/v4-core/src/=lib/v4-core/src/",
+          "@uniswap/v4-hooks-public/src/=lib/v4-hooks-public/src/",
+          "@uniswap/v4-periphery/src/=lib/v4-periphery/src/",
+          "ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "erc4626-tests/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/erc4626-tests/",
+          "forge-gas-snapshot/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/src/",
+          "forge-std/=lib/forge-std/src/",
+          "hardhat/=lib/v4-deployment-periphery/lib/v4-core/node_modules/hardhat/",
+          "openzeppelin-contracts/=lib/openzeppelin-contracts/contracts/",
+          "permit2/=lib/v4-periphery/lib/permit2/src/",
+          "permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "v4-core/=lib/v4-core/src/",
+          "v4-deployment-periphery/=lib/v4-deployment-periphery/",
+          "v4-hooks-public/=lib/v4-hooks-public/src/",
+          "v4-periphery/=lib/v4-periphery/src/",
+          "lib/v4-deployment-periphery/:permit2/=lib/v4-deployment-periphery/lib/permit2/",
+          "lib/v4-deployment-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "lib/v4-deployment-periphery/:v4-core/=lib/v4-deployment-periphery/lib/v4-core/src/",
+          "lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/",
+          "lib/v4-deployment-periphery/lib/permit2/:solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "lib/v4-deployment-periphery/lib/v4-core/:solmate/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/",
+          "lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "lib/v4-periphery/:permit2/=lib/v4-periphery/lib/permit2/src/",
+          "lib/v4-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/"
+        ],
+        "optimizer": {
+          "enabled": true,
+          "runs": 200
+        },
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "compilationTarget": {
+          "src/v2/RetroPickBuybackVaultV2.sol": "RetroPickBuybackVaultV2"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "viaIR": true
+      }
+    },
+    {
+      "role": "locker",
+      "address": "0x7bb3aA1e48490F810e3F1eEC1Dda52D1F4d76A19",
+      "contractName": "RetroPickLaunchLockerV2",
+      "abi": "RetroPickLaunchLockerV2.json",
+      "coverage": "FULL_ARTIFACT_ABI",
+      "origin": {
+        "kind": "DEPLOYED_RELEASE_FOUNDRY",
+        "path": "contracts/out/RetroPickLaunchLockerV2.sol/RetroPickLaunchLockerV2.json",
+        "gitSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3"
+      },
+      "artifactSHA256": "3f2c391ef46459e1f634496c44a26d23a535ef9e91a08e4c43a662395bceb2b4",
+      "abiSHA256": "c5d6393e0de19d899f5df74a0a51eb13b641ee210673f2d601cf027a3c1b4132",
+      "functions": 16,
+      "events": 5,
+      "errors": 11,
+      "compiler": "0.8.26+commit.8a97fa7a",
+      "compilerSettings": {
+        "remappings": [
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:permit2/=lib/v4-deployment-periphery/lib/permit2/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:v4-core/=lib/v4-deployment-periphery/lib/v4-core/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/:solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/:solmate/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-periphery/:permit2/=lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "@ensdomains/=lib/v4-deployment-periphery/lib/v4-core/node_modules/@ensdomains/",
+          "@openzeppelin/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/",
+          "@uniswap/v4-core/=lib/v4-deployment-periphery/lib/v4-core/",
+          "@uniswap/v4-core/src/=lib/v4-core/src/",
+          "@uniswap/v4-hooks-public/src/=lib/v4-hooks-public/src/",
+          "@uniswap/v4-periphery/src/=lib/v4-periphery/src/",
+          "ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "erc4626-tests/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/erc4626-tests/",
+          "forge-gas-snapshot/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/src/",
+          "forge-std/=lib/forge-std/src/",
+          "hardhat/=lib/v4-deployment-periphery/lib/v4-core/node_modules/hardhat/",
+          "openzeppelin-contracts/=lib/openzeppelin-contracts/contracts/",
+          "permit2/=lib/v4-periphery/lib/permit2/src/",
+          "permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "v4-core/=lib/v4-core/src/",
+          "v4-deployment-periphery/=lib/v4-deployment-periphery/",
+          "v4-hooks-public/=lib/v4-hooks-public/src/",
+          "v4-periphery/=lib/v4-periphery/src/",
+          "lib/v4-deployment-periphery/:permit2/=lib/v4-deployment-periphery/lib/permit2/",
+          "lib/v4-deployment-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "lib/v4-deployment-periphery/:v4-core/=lib/v4-deployment-periphery/lib/v4-core/src/",
+          "lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/",
+          "lib/v4-deployment-periphery/lib/permit2/:solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "lib/v4-deployment-periphery/lib/v4-core/:solmate/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/",
+          "lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "lib/v4-periphery/:permit2/=lib/v4-periphery/lib/permit2/src/",
+          "lib/v4-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/"
+        ],
+        "optimizer": {
+          "enabled": true,
+          "runs": 200
+        },
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "compilationTarget": {
+          "src/v2/RetroPickLaunchLockerV2.sol": "RetroPickLaunchLockerV2"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "viaIR": true
+      }
+    },
+    {
+      "role": "kuruEnvironment",
+      "address": "0xAD59b3ff498d76DbC68351DaD4391D250b1E1Ba1",
+      "contractName": "KuruEnvironmentV2",
+      "abi": "KuruEnvironmentV2.json",
+      "coverage": "FULL_ARTIFACT_ABI",
+      "origin": {
+        "kind": "DEPLOYED_RELEASE_FOUNDRY",
+        "path": "contracts/out/KuruEnvironmentV2.sol/KuruEnvironmentV2.json",
+        "gitSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3"
+      },
+      "artifactSHA256": "a74f926ea4dea2077b5f9624f3addb56bffde6d27294f27adca32f584bf806c4",
+      "abiSHA256": "aa23b8133c95e0deb25b4a2bf171254b14b58a2be848b3f8096efc61d1895eb5",
+      "functions": 9,
+      "events": 0,
+      "errors": 1,
+      "compiler": "0.8.26+commit.8a97fa7a",
+      "compilerSettings": {
+        "remappings": [
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:permit2/=lib/v4-deployment-periphery/lib/permit2/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:v4-core/=lib/v4-deployment-periphery/lib/v4-core/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/:solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/:solmate/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-periphery/:permit2/=lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "@ensdomains/=lib/v4-deployment-periphery/lib/v4-core/node_modules/@ensdomains/",
+          "@openzeppelin/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/",
+          "@uniswap/v4-core/=lib/v4-deployment-periphery/lib/v4-core/",
+          "@uniswap/v4-core/src/=lib/v4-core/src/",
+          "@uniswap/v4-hooks-public/src/=lib/v4-hooks-public/src/",
+          "@uniswap/v4-periphery/src/=lib/v4-periphery/src/",
+          "ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "erc4626-tests/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/erc4626-tests/",
+          "forge-gas-snapshot/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/src/",
+          "forge-std/=lib/forge-std/src/",
+          "hardhat/=lib/v4-deployment-periphery/lib/v4-core/node_modules/hardhat/",
+          "openzeppelin-contracts/=lib/openzeppelin-contracts/contracts/",
+          "permit2/=lib/v4-periphery/lib/permit2/src/",
+          "permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "v4-core/=lib/v4-core/src/",
+          "v4-deployment-periphery/=lib/v4-deployment-periphery/",
+          "v4-hooks-public/=lib/v4-hooks-public/src/",
+          "v4-periphery/=lib/v4-periphery/src/",
+          "lib/v4-deployment-periphery/:permit2/=lib/v4-deployment-periphery/lib/permit2/",
+          "lib/v4-deployment-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "lib/v4-deployment-periphery/:v4-core/=lib/v4-deployment-periphery/lib/v4-core/src/",
+          "lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/",
+          "lib/v4-deployment-periphery/lib/permit2/:solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "lib/v4-deployment-periphery/lib/v4-core/:solmate/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/",
+          "lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "lib/v4-periphery/:permit2/=lib/v4-periphery/lib/permit2/src/",
+          "lib/v4-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/"
+        ],
+        "optimizer": {
+          "enabled": true,
+          "runs": 200
+        },
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "compilationTarget": {
+          "src/v2/KuruEnvironmentV2.sol": "KuruEnvironmentV2"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "viaIR": true
+      }
+    },
+    {
+      "role": "coordinator",
+      "address": "0xaD62309242EA65BB07C833669EC6a4ED23AF738F",
+      "contractName": "GraduationCoordinatorV2",
+      "abi": "GraduationCoordinatorV2.json",
+      "coverage": "FULL_ARTIFACT_ABI",
+      "origin": {
+        "kind": "DEPLOYED_RELEASE_FOUNDRY",
+        "path": "contracts/out/GraduationCoordinatorV2.sol/GraduationCoordinatorV2.json",
+        "gitSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3"
+      },
+      "artifactSHA256": "26edb2f631e0b6ec2f6e8d6129def0ee96ae641402a753112047f1de0ed5d665",
+      "abiSHA256": "dab04d6a4ba228429212d2437afdfa22e4fb2ebaa6dcde3df37e896881cf058b",
+      "functions": 18,
+      "events": 7,
+      "errors": 12,
+      "compiler": "0.8.26+commit.8a97fa7a",
+      "compilerSettings": {
+        "remappings": [
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:permit2/=lib/v4-deployment-periphery/lib/permit2/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:v4-core/=lib/v4-deployment-periphery/lib/v4-core/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/:solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/:solmate/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-periphery/:permit2/=lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "@ensdomains/=lib/v4-deployment-periphery/lib/v4-core/node_modules/@ensdomains/",
+          "@openzeppelin/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/",
+          "@uniswap/v4-core/=lib/v4-deployment-periphery/lib/v4-core/",
+          "@uniswap/v4-core/src/=lib/v4-core/src/",
+          "@uniswap/v4-hooks-public/src/=lib/v4-hooks-public/src/",
+          "@uniswap/v4-periphery/src/=lib/v4-periphery/src/",
+          "ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "erc4626-tests/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/erc4626-tests/",
+          "forge-gas-snapshot/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/src/",
+          "forge-std/=lib/forge-std/src/",
+          "hardhat/=lib/v4-deployment-periphery/lib/v4-core/node_modules/hardhat/",
+          "openzeppelin-contracts/=lib/openzeppelin-contracts/contracts/",
+          "permit2/=lib/v4-periphery/lib/permit2/src/",
+          "permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "v4-core/=lib/v4-core/src/",
+          "v4-deployment-periphery/=lib/v4-deployment-periphery/",
+          "v4-hooks-public/=lib/v4-hooks-public/src/",
+          "v4-periphery/=lib/v4-periphery/src/",
+          "lib/v4-deployment-periphery/:permit2/=lib/v4-deployment-periphery/lib/permit2/",
+          "lib/v4-deployment-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "lib/v4-deployment-periphery/:v4-core/=lib/v4-deployment-periphery/lib/v4-core/src/",
+          "lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/",
+          "lib/v4-deployment-periphery/lib/permit2/:solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "lib/v4-deployment-periphery/lib/v4-core/:solmate/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/",
+          "lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "lib/v4-periphery/:permit2/=lib/v4-periphery/lib/permit2/src/",
+          "lib/v4-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/"
+        ],
+        "optimizer": {
+          "enabled": true,
+          "runs": 200
+        },
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "compilationTarget": {
+          "src/v2/GraduationCoordinatorV2.sol": "GraduationCoordinatorV2"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "viaIR": true
+      }
+    },
+    {
+      "role": "kuruExecutor",
+      "address": "0xa2590ab344BAD0452c53958821A2B74f87871983",
+      "contractName": "KuruGraduationExecutorV2",
+      "abi": "KuruGraduationExecutorV2.json",
+      "coverage": "FULL_ARTIFACT_ABI",
+      "origin": {
+        "kind": "DEPLOYED_RELEASE_FOUNDRY",
+        "path": "contracts/out/KuruGraduationExecutorV2.sol/KuruGraduationExecutorV2.json",
+        "gitSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3"
+      },
+      "artifactSHA256": "5c9fd3d2cd2343160dbff39a5826aaa119cfe100b86d0d2e52920c70aad6917d",
+      "abiSHA256": "aebe1bfa3970ccd80cb52a8bf008e81852ec2447dbaa34658ad28e9d634c51cf",
+      "functions": 8,
+      "events": 1,
+      "errors": 10,
+      "compiler": "0.8.26+commit.8a97fa7a",
+      "compilerSettings": {
+        "remappings": [
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:permit2/=lib/v4-deployment-periphery/lib/permit2/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:v4-core/=lib/v4-deployment-periphery/lib/v4-core/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/:solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/:solmate/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-periphery/:permit2/=lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "@ensdomains/=lib/v4-deployment-periphery/lib/v4-core/node_modules/@ensdomains/",
+          "@openzeppelin/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/",
+          "@uniswap/v4-core/=lib/v4-deployment-periphery/lib/v4-core/",
+          "@uniswap/v4-core/src/=lib/v4-core/src/",
+          "@uniswap/v4-hooks-public/src/=lib/v4-hooks-public/src/",
+          "@uniswap/v4-periphery/src/=lib/v4-periphery/src/",
+          "ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "erc4626-tests/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/erc4626-tests/",
+          "forge-gas-snapshot/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/src/",
+          "forge-std/=lib/forge-std/src/",
+          "hardhat/=lib/v4-deployment-periphery/lib/v4-core/node_modules/hardhat/",
+          "openzeppelin-contracts/=lib/openzeppelin-contracts/contracts/",
+          "permit2/=lib/v4-periphery/lib/permit2/src/",
+          "permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "v4-core/=lib/v4-core/src/",
+          "v4-deployment-periphery/=lib/v4-deployment-periphery/",
+          "v4-hooks-public/=lib/v4-hooks-public/src/",
+          "v4-periphery/=lib/v4-periphery/src/",
+          "lib/v4-deployment-periphery/:permit2/=lib/v4-deployment-periphery/lib/permit2/",
+          "lib/v4-deployment-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "lib/v4-deployment-periphery/:v4-core/=lib/v4-deployment-periphery/lib/v4-core/src/",
+          "lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/",
+          "lib/v4-deployment-periphery/lib/permit2/:solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "lib/v4-deployment-periphery/lib/v4-core/:solmate/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/",
+          "lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "lib/v4-periphery/:permit2/=lib/v4-periphery/lib/permit2/src/",
+          "lib/v4-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/"
+        ],
+        "optimizer": {
+          "enabled": true,
+          "runs": 200
+        },
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "compilationTarget": {
+          "src/v2/KuruGraduationExecutorV2.sol": "KuruGraduationExecutorV2"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "viaIR": true
+      }
+    },
+    {
+      "role": "v4Executor",
+      "address": "0xCB4670e7D2146A9Ca4541C383844b281Cf53Edb1",
+      "contractName": "UniswapV4GraduationExecutorV2",
+      "abi": "UniswapV4GraduationExecutorV2.json",
+      "coverage": "FULL_ARTIFACT_ABI",
+      "origin": {
+        "kind": "DEPLOYED_RELEASE_FOUNDRY",
+        "path": "contracts/out/UniswapV4GraduationExecutorV2.sol/UniswapV4GraduationExecutorV2.json",
+        "gitSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3"
+      },
+      "artifactSHA256": "66267c549a98c7b1264d77e46d8812a8c4df46a6bd9436722c38ea6b0b01fc6f",
+      "abiSHA256": "6fcc5f23de430ee7ff130cd067f5a77f4c6b5a0eb9553dd0ef80dda8cbe5e80c",
+      "functions": 14,
+      "events": 1,
+      "errors": 10,
+      "compiler": "0.8.26+commit.8a97fa7a",
+      "compilerSettings": {
+        "remappings": [
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:permit2/=lib/v4-deployment-periphery/lib/permit2/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:v4-core/=lib/v4-deployment-periphery/lib/v4-core/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/:solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/:solmate/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-periphery/:permit2/=lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "@ensdomains/=lib/v4-deployment-periphery/lib/v4-core/node_modules/@ensdomains/",
+          "@openzeppelin/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/",
+          "@uniswap/v4-core/=lib/v4-deployment-periphery/lib/v4-core/",
+          "@uniswap/v4-core/src/=lib/v4-core/src/",
+          "@uniswap/v4-hooks-public/src/=lib/v4-hooks-public/src/",
+          "@uniswap/v4-periphery/src/=lib/v4-periphery/src/",
+          "ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "erc4626-tests/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/erc4626-tests/",
+          "forge-gas-snapshot/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/src/",
+          "forge-std/=lib/forge-std/src/",
+          "hardhat/=lib/v4-deployment-periphery/lib/v4-core/node_modules/hardhat/",
+          "openzeppelin-contracts/=lib/openzeppelin-contracts/contracts/",
+          "permit2/=lib/v4-periphery/lib/permit2/src/",
+          "permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "v4-core/=lib/v4-core/src/",
+          "v4-deployment-periphery/=lib/v4-deployment-periphery/",
+          "v4-hooks-public/=lib/v4-hooks-public/src/",
+          "v4-periphery/=lib/v4-periphery/src/",
+          "lib/v4-deployment-periphery/:permit2/=lib/v4-deployment-periphery/lib/permit2/",
+          "lib/v4-deployment-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "lib/v4-deployment-periphery/:v4-core/=lib/v4-deployment-periphery/lib/v4-core/src/",
+          "lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/",
+          "lib/v4-deployment-periphery/lib/permit2/:solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "lib/v4-deployment-periphery/lib/v4-core/:solmate/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/",
+          "lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "lib/v4-periphery/:permit2/=lib/v4-periphery/lib/permit2/src/",
+          "lib/v4-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/"
+        ],
+        "optimizer": {
+          "enabled": true,
+          "runs": 200
+        },
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "compilationTarget": {
+          "src/v2/UniswapV4GraduationExecutorV2.sol": "UniswapV4GraduationExecutorV2"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "viaIR": true
+      }
+    },
+    {
+      "role": "factory",
+      "address": "0xa7f18b9eceb0A9852b08408854A45D00fc682454",
+      "contractName": "RetroPickLaunchFactoryV2",
+      "abi": "RetroPickLaunchFactoryV2.json",
+      "coverage": "FULL_ARTIFACT_ABI",
+      "origin": {
+        "kind": "DEPLOYED_RELEASE_FOUNDRY",
+        "path": "contracts/out/RetroPickLaunchFactoryV2.sol/RetroPickLaunchFactoryV2.json",
+        "gitSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3"
+      },
+      "artifactSHA256": "e5b5f0fe461453d44326cba40e3dba1e10e30b7e7919067188ec63ea1cd36555",
+      "abiSHA256": "70a563adf79ce6fff50b8fb00af49ea1ca000bb396d0b307bfd80fd780050ba4",
+      "functions": 58,
+      "events": 25,
+      "errors": 46,
+      "compiler": "0.8.26+commit.8a97fa7a",
+      "compilerSettings": {
+        "remappings": [
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:permit2/=lib/v4-deployment-periphery/lib/permit2/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:v4-core/=lib/v4-deployment-periphery/lib/v4-core/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/:solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/:solmate/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-periphery/:permit2/=lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "@ensdomains/=lib/v4-deployment-periphery/lib/v4-core/node_modules/@ensdomains/",
+          "@openzeppelin/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/",
+          "@uniswap/v4-core/=lib/v4-deployment-periphery/lib/v4-core/",
+          "@uniswap/v4-core/src/=lib/v4-core/src/",
+          "@uniswap/v4-hooks-public/src/=lib/v4-hooks-public/src/",
+          "@uniswap/v4-periphery/src/=lib/v4-periphery/src/",
+          "ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "erc4626-tests/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/erc4626-tests/",
+          "forge-gas-snapshot/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/src/",
+          "forge-std/=lib/forge-std/src/",
+          "hardhat/=lib/v4-deployment-periphery/lib/v4-core/node_modules/hardhat/",
+          "openzeppelin-contracts/=lib/openzeppelin-contracts/contracts/",
+          "permit2/=lib/v4-periphery/lib/permit2/src/",
+          "permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "v4-core/=lib/v4-core/src/",
+          "v4-deployment-periphery/=lib/v4-deployment-periphery/",
+          "v4-hooks-public/=lib/v4-hooks-public/src/",
+          "v4-periphery/=lib/v4-periphery/src/",
+          "lib/v4-deployment-periphery/:permit2/=lib/v4-deployment-periphery/lib/permit2/",
+          "lib/v4-deployment-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "lib/v4-deployment-periphery/:v4-core/=lib/v4-deployment-periphery/lib/v4-core/src/",
+          "lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/",
+          "lib/v4-deployment-periphery/lib/permit2/:solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "lib/v4-deployment-periphery/lib/v4-core/:solmate/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/",
+          "lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "lib/v4-periphery/:permit2/=lib/v4-periphery/lib/permit2/src/",
+          "lib/v4-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/"
+        ],
+        "optimizer": {
+          "enabled": true,
+          "runs": 200
+        },
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "compilationTarget": {
+          "src/v2/RetroPickLaunchFactoryV2.sol": "RetroPickLaunchFactoryV2"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "viaIR": true
+      }
+    },
+    {
+      "role": "launchDeployer",
+      "address": "0x14080b43f3d45B47AEefF3bC1b0bee0cf0cCF5d8",
+      "contractName": "RetroPickLaunchDeployerV2",
+      "abi": "RetroPickLaunchDeployerV2.json",
+      "coverage": "FULL_ARTIFACT_ABI",
+      "origin": {
+        "kind": "DEPLOYED_RELEASE_FOUNDRY",
+        "path": "contracts/out/RetroPickLaunchDeployerV2.sol/RetroPickLaunchDeployerV2.json",
+        "gitSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3"
+      },
+      "artifactSHA256": "d5ac8050aad4bdac4726d92477ed9704135d8a1bdbb31b4fc3292deccff8bff4",
+      "abiSHA256": "8c09a61d723b74b7b38ecccecc7ed9f52d1273058b5e1c8ca385237636c11b3b",
+      "functions": 2,
+      "events": 0,
+      "errors": 2,
+      "compiler": "0.8.26+commit.8a97fa7a",
+      "compilerSettings": {
+        "remappings": [
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:permit2/=lib/v4-deployment-periphery/lib/permit2/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:v4-core/=lib/v4-deployment-periphery/lib/v4-core/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/:solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/:solmate/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-periphery/:permit2/=lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "@ensdomains/=lib/v4-deployment-periphery/lib/v4-core/node_modules/@ensdomains/",
+          "@openzeppelin/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/",
+          "@uniswap/v4-core/=lib/v4-deployment-periphery/lib/v4-core/",
+          "@uniswap/v4-core/src/=lib/v4-core/src/",
+          "@uniswap/v4-hooks-public/src/=lib/v4-hooks-public/src/",
+          "@uniswap/v4-periphery/src/=lib/v4-periphery/src/",
+          "ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "erc4626-tests/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/erc4626-tests/",
+          "forge-gas-snapshot/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/src/",
+          "forge-std/=lib/forge-std/src/",
+          "hardhat/=lib/v4-deployment-periphery/lib/v4-core/node_modules/hardhat/",
+          "openzeppelin-contracts/=lib/openzeppelin-contracts/contracts/",
+          "permit2/=lib/v4-periphery/lib/permit2/src/",
+          "permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "v4-core/=lib/v4-core/src/",
+          "v4-deployment-periphery/=lib/v4-deployment-periphery/",
+          "v4-hooks-public/=lib/v4-hooks-public/src/",
+          "v4-periphery/=lib/v4-periphery/src/",
+          "lib/v4-deployment-periphery/:permit2/=lib/v4-deployment-periphery/lib/permit2/",
+          "lib/v4-deployment-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "lib/v4-deployment-periphery/:v4-core/=lib/v4-deployment-periphery/lib/v4-core/src/",
+          "lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/",
+          "lib/v4-deployment-periphery/lib/permit2/:solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "lib/v4-deployment-periphery/lib/v4-core/:solmate/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/",
+          "lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "lib/v4-periphery/:permit2/=lib/v4-periphery/lib/permit2/src/",
+          "lib/v4-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/"
+        ],
+        "optimizer": {
+          "enabled": true,
+          "runs": 200
+        },
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "compilationTarget": {
+          "src/v2/RetroPickLaunchDeployerV2.sol": "RetroPickLaunchDeployerV2"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "viaIR": true
+      }
+    },
+    {
+      "role": "kuruDonationLock",
+      "address": "0xbcd997c476be3ca0a1608804c9ad55c7ebd5271c",
+      "contractName": "ExecutorDonationLockV2",
+      "abi": "ExecutorDonationLockV2.json",
+      "coverage": "FULL_ARTIFACT_ABI",
+      "origin": {
+        "kind": "DEPLOYED_RELEASE_FOUNDRY",
+        "path": "contracts/out/ExecutorDonationsV2.sol/ExecutorDonationLockV2.json",
+        "gitSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3"
+      },
+      "artifactSHA256": "245f917fb45d6d096ee056882149f229f5bfbccc08185ee7ed531b0990b1578b",
+      "abiSHA256": "8cb0c80f9493df5c7c5179a47bbed676ea2227e4d46bd1bba371a8a8d65f802e",
+      "functions": 1,
+      "events": 0,
+      "errors": 0,
+      "compiler": "0.8.26+commit.8a97fa7a",
+      "compilerSettings": {
+        "remappings": [
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:permit2/=lib/v4-deployment-periphery/lib/permit2/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:v4-core/=lib/v4-deployment-periphery/lib/v4-core/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/:solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/:solmate/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-periphery/:permit2/=lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "@ensdomains/=lib/v4-deployment-periphery/lib/v4-core/node_modules/@ensdomains/",
+          "@openzeppelin/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/",
+          "@uniswap/v4-core/=lib/v4-deployment-periphery/lib/v4-core/",
+          "@uniswap/v4-core/src/=lib/v4-core/src/",
+          "@uniswap/v4-hooks-public/src/=lib/v4-hooks-public/src/",
+          "@uniswap/v4-periphery/src/=lib/v4-periphery/src/",
+          "ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "erc4626-tests/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/erc4626-tests/",
+          "forge-gas-snapshot/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/src/",
+          "forge-std/=lib/forge-std/src/",
+          "hardhat/=lib/v4-deployment-periphery/lib/v4-core/node_modules/hardhat/",
+          "openzeppelin-contracts/=lib/openzeppelin-contracts/contracts/",
+          "permit2/=lib/v4-periphery/lib/permit2/src/",
+          "permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "v4-core/=lib/v4-core/src/",
+          "v4-deployment-periphery/=lib/v4-deployment-periphery/",
+          "v4-hooks-public/=lib/v4-hooks-public/src/",
+          "v4-periphery/=lib/v4-periphery/src/",
+          "lib/v4-deployment-periphery/:permit2/=lib/v4-deployment-periphery/lib/permit2/",
+          "lib/v4-deployment-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "lib/v4-deployment-periphery/:v4-core/=lib/v4-deployment-periphery/lib/v4-core/src/",
+          "lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/",
+          "lib/v4-deployment-periphery/lib/permit2/:solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "lib/v4-deployment-periphery/lib/v4-core/:solmate/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/",
+          "lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "lib/v4-periphery/:permit2/=lib/v4-periphery/lib/permit2/src/",
+          "lib/v4-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/"
+        ],
+        "optimizer": {
+          "enabled": true,
+          "runs": 200
+        },
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "compilationTarget": {
+          "src/v2/libraries/ExecutorDonationsV2.sol": "ExecutorDonationLockV2"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "viaIR": true
+      }
+    },
+    {
+      "role": "v4DonationLock",
+      "address": "0xf2aacba1ca0b6683023f437900314419d4aeca3b",
+      "contractName": "ExecutorDonationLockV2",
+      "abi": "ExecutorDonationLockV2.json",
+      "coverage": "FULL_ARTIFACT_ABI",
+      "origin": {
+        "kind": "DEPLOYED_RELEASE_FOUNDRY",
+        "path": "contracts/out/ExecutorDonationsV2.sol/ExecutorDonationLockV2.json",
+        "gitSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3"
+      },
+      "artifactSHA256": "245f917fb45d6d096ee056882149f229f5bfbccc08185ee7ed531b0990b1578b",
+      "abiSHA256": "8cb0c80f9493df5c7c5179a47bbed676ea2227e4d46bd1bba371a8a8d65f802e",
+      "functions": 1,
+      "events": 0,
+      "errors": 0,
+      "compiler": "0.8.26+commit.8a97fa7a",
+      "compilerSettings": {
+        "remappings": [
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:permit2/=lib/v4-deployment-periphery/lib/permit2/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:v4-core/=lib/v4-deployment-periphery/lib/v4-core/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/:solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/:solmate/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-periphery/:permit2/=lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "@ensdomains/=lib/v4-deployment-periphery/lib/v4-core/node_modules/@ensdomains/",
+          "@openzeppelin/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/",
+          "@uniswap/v4-core/=lib/v4-deployment-periphery/lib/v4-core/",
+          "@uniswap/v4-core/src/=lib/v4-core/src/",
+          "@uniswap/v4-hooks-public/src/=lib/v4-hooks-public/src/",
+          "@uniswap/v4-periphery/src/=lib/v4-periphery/src/",
+          "ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "erc4626-tests/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/erc4626-tests/",
+          "forge-gas-snapshot/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/src/",
+          "forge-std/=lib/forge-std/src/",
+          "hardhat/=lib/v4-deployment-periphery/lib/v4-core/node_modules/hardhat/",
+          "openzeppelin-contracts/=lib/openzeppelin-contracts/contracts/",
+          "permit2/=lib/v4-periphery/lib/permit2/src/",
+          "permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "v4-core/=lib/v4-core/src/",
+          "v4-deployment-periphery/=lib/v4-deployment-periphery/",
+          "v4-hooks-public/=lib/v4-hooks-public/src/",
+          "v4-periphery/=lib/v4-periphery/src/",
+          "lib/v4-deployment-periphery/:permit2/=lib/v4-deployment-periphery/lib/permit2/",
+          "lib/v4-deployment-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "lib/v4-deployment-periphery/:v4-core/=lib/v4-deployment-periphery/lib/v4-core/src/",
+          "lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/",
+          "lib/v4-deployment-periphery/lib/permit2/:solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "lib/v4-deployment-periphery/lib/v4-core/:solmate/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/",
+          "lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "lib/v4-periphery/:permit2/=lib/v4-periphery/lib/permit2/src/",
+          "lib/v4-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/"
+        ],
+        "optimizer": {
+          "enabled": true,
+          "runs": 200
+        },
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "compilationTarget": {
+          "src/v2/libraries/ExecutorDonationsV2.sol": "ExecutorDonationLockV2"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "viaIR": true
+      }
+    },
+    {
+      "role": "v4Guard",
+      "address": "0x1f1cbe81f6f0abd8165cdf691700f64ec36339a8",
+      "contractName": "RetroPickGraduationGuardV2",
+      "abi": "RetroPickGraduationGuardV2.json",
+      "coverage": "FULL_ARTIFACT_ABI",
+      "origin": {
+        "kind": "DEPLOYED_RELEASE_FOUNDRY",
+        "path": "contracts/out/RetroPickGraduationGuardV2.sol/RetroPickGraduationGuardV2.json",
+        "gitSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3"
+      },
+      "artifactSHA256": "c02d3a387d5b0d7d5af07964f1452972c77f0aaf77cf1cb0eea4653885aa04aa",
+      "abiSHA256": "9b9dac57b265ca6b38fbc6909ed8d255b6b1d613f654a12be2738b0399f9cb14",
+      "functions": 2,
+      "events": 0,
+      "errors": 4,
+      "compiler": "0.8.26+commit.8a97fa7a",
+      "compilerSettings": {
+        "remappings": [
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:permit2/=lib/v4-deployment-periphery/lib/permit2/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:v4-core/=lib/v4-deployment-periphery/lib/v4-core/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/:solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/:solmate/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-periphery/:permit2/=lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "@ensdomains/=lib/v4-deployment-periphery/lib/v4-core/node_modules/@ensdomains/",
+          "@openzeppelin/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/",
+          "@uniswap/v4-core/=lib/v4-deployment-periphery/lib/v4-core/",
+          "@uniswap/v4-core/src/=lib/v4-core/src/",
+          "@uniswap/v4-hooks-public/src/=lib/v4-hooks-public/src/",
+          "@uniswap/v4-periphery/src/=lib/v4-periphery/src/",
+          "ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "erc4626-tests/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/erc4626-tests/",
+          "forge-gas-snapshot/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/src/",
+          "forge-std/=lib/forge-std/src/",
+          "hardhat/=lib/v4-deployment-periphery/lib/v4-core/node_modules/hardhat/",
+          "openzeppelin-contracts/=lib/openzeppelin-contracts/contracts/",
+          "permit2/=lib/v4-periphery/lib/permit2/src/",
+          "permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "v4-core/=lib/v4-core/src/",
+          "v4-deployment-periphery/=lib/v4-deployment-periphery/",
+          "v4-hooks-public/=lib/v4-hooks-public/src/",
+          "v4-periphery/=lib/v4-periphery/src/",
+          "lib/v4-deployment-periphery/:permit2/=lib/v4-deployment-periphery/lib/permit2/",
+          "lib/v4-deployment-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "lib/v4-deployment-periphery/:v4-core/=lib/v4-deployment-periphery/lib/v4-core/src/",
+          "lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/",
+          "lib/v4-deployment-periphery/lib/permit2/:solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "lib/v4-deployment-periphery/lib/v4-core/:solmate/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/",
+          "lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "lib/v4-periphery/:permit2/=lib/v4-periphery/lib/permit2/src/",
+          "lib/v4-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/"
+        ],
+        "optimizer": {
+          "enabled": true,
+          "runs": 200
+        },
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "compilationTarget": {
+          "src/v2/RetroPickGraduationGuardV2.sol": "RetroPickGraduationGuardV2"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "viaIR": true
+      }
+    },
+    {
+      "role": "wrappedNative",
+      "address": "0xff437B117Ec17a79a3b24Da4B5047dca4da9D0a2",
+      "contractName": "WETH",
+      "abi": "WETH.json",
+      "coverage": "FULL_ARTIFACT_ABI",
+      "origin": {
+        "kind": "DEPLOYMENT_DEPENDENCY_FOUNDRY",
+        "path": "contracts/deployment-v4/out/WETH.sol/WETH.json",
+        "deploymentSourceSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3"
+      },
+      "artifactSHA256": "efb156ac5dec1621e0ded555b82ab2ad9c1d248d51baba5684018a6b4f98cde9",
+      "abiSHA256": "339e380e7c2496b68bf6777bb451e9e611528fa2a18a6a1b10e189a7ccff0d1d",
+      "functions": 14,
+      "events": 4,
+      "errors": 0,
+      "compiler": "0.8.26+commit.8a97fa7a",
+      "compilerSettings": {
+        "remappings": [
+          "../lib/v4-deployment-periphery/:v4-core/=../lib/v4-deployment-periphery/lib/v4-core/src/",
+          "../lib/v4-deployment-periphery/lib/permit2/:forge-std/=../lib/v4-deployment-periphery/lib/permit2/lib/forge-std/src/",
+          "../lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/:forge-std/=../lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/src/",
+          "../lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=../lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "../lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=../lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "../lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=../lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "../lib/v4-deployment-periphery/lib/v4-core/:forge-std/=../lib/v4-deployment-periphery/lib/v4-core/lib/forge-std/src/",
+          "../lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/:forge-std/=../lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/src/",
+          "../lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=../lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "../lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=../lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:v4-core/=../lib/v4-deployment-periphery/lib/v4-core/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/:forge-std/=../lib/v4-deployment-periphery/lib/permit2/lib/forge-std/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/:forge-std/=../lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=../lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=../lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=../lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/:forge-std/=../lib/v4-deployment-periphery/lib/v4-core/lib/forge-std/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/:forge-std/=../lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=../lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=../lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "@ensdomains/=../lib/v4-deployment-periphery/lib/v4-core/node_modules/@ensdomains/",
+          "@openzeppelin/=../lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "@uniswap/v4-core/=../lib/v4-deployment-periphery/lib/v4-core/",
+          "deployment-periphery/=../lib/v4-deployment-periphery/",
+          "ds-test/=../lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "erc4626-tests/=../lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/erc4626-tests/",
+          "forge-gas-snapshot/=../lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/src/",
+          "forge-std/=../lib/forge-std/src/",
+          "hardhat/=../lib/v4-deployment-periphery/lib/v4-core/node_modules/hardhat/",
+          "openzeppelin-contracts/=../lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "permit2/=../lib/v4-deployment-periphery/lib/permit2/",
+          "solmate/=../lib/v4-deployment-periphery/lib/v4-core/lib/solmate/",
+          "v4-core/=../lib/v4-core/src/",
+          "v4-deployment-periphery/=../lib/v4-deployment-periphery/",
+          "v4-hooks-public/=../lib/v4-hooks-public/src/",
+          "v4-periphery/=../lib/v4-periphery/src/"
+        ],
+        "optimizer": {
+          "enabled": true,
+          "runs": 200
+        },
+        "metadata": {
+          "bytecodeHash": "none"
+        },
+        "compilationTarget": {
+          "../lib/v4-deployment-periphery/lib/v4-core/lib/solmate/src/tokens/WETH.sol": "WETH"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "viaIR": true
+      }
+    },
+    {
+      "role": "permit2",
+      "address": "0x10301c3690501cF1a7c27300de4779E695DEDaE1",
+      "contractName": "Permit2",
+      "abi": "Permit2.json",
+      "coverage": "FULL_ARTIFACT_ABI",
+      "origin": {
+        "kind": "DEPLOYMENT_DEPENDENCY_FOUNDRY",
+        "path": "contracts/lib/v4-deployment-periphery/lib/permit2/out/Permit2.sol/Permit2.json",
+        "deploymentSourceSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3"
+      },
+      "artifactSHA256": "22171c5541d1f630982b5f29d9e30c54f1023d88e09347446daecf2ed00267e4",
+      "abiSHA256": "62dab8841513e558aeebdbe20dca54f7da8e2224b0c7d62ebc45f28caf45979d",
+      "functions": 15,
+      "events": 5,
+      "errors": 11,
+      "compiler": "0.8.17+commit.8df45f5f",
+      "compilerSettings": {
+        "remappings": [
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/:forge-std/=lib/forge-gas-snapshot/lib/forge-std/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=lib/solmate/lib/ds-test/src/",
+          "ds-test/=lib/forge-std/lib/ds-test/src/",
+          "forge-gas-snapshot/=lib/forge-gas-snapshot/src/",
+          "forge-std/=lib/forge-std/src/",
+          "openzeppelin-contracts/=lib/openzeppelin-contracts/",
+          "solmate/=lib/solmate/",
+          "lib/forge-gas-snapshot/:forge-std/=lib/forge-gas-snapshot/lib/forge-std/src/",
+          "lib/forge-gas-snapshot/lib/forge-std/:ds-test/=lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "lib/forge-std/:ds-test/=lib/forge-std/lib/ds-test/src/",
+          "lib/solmate/:ds-test/=lib/solmate/lib/ds-test/src/"
+        ],
+        "optimizer": {
+          "enabled": true,
+          "runs": 1000000
+        },
+        "metadata": {
+          "bytecodeHash": "none"
+        },
+        "compilationTarget": {
+          "src/Permit2.sol": "Permit2"
+        },
+        "evmVersion": "london",
+        "libraries": {},
+        "viaIR": true
+      }
+    },
+    {
+      "role": "poolManager",
+      "address": "0xD18dE14a0DB8adc66fd9c1CB9B960dea02c5D3c9",
+      "contractName": "PoolManager",
+      "abi": "PoolManager.json",
+      "coverage": "FULL_ARTIFACT_ABI",
+      "origin": {
+        "kind": "DEPLOYMENT_DEPENDENCY_FOUNDRY",
+        "path": "contracts/deployment-v4/out/PoolManager.sol/PoolManager.json",
+        "deploymentSourceSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3"
+      },
+      "artifactSHA256": "a810add5003bfa94cc5de46218dd009722e4b014222a016e68e463bb729f33dd",
+      "abiSHA256": "83db8be4e85c7d37e0551191c8326ff1b715f6946bc7dabc8e039f6727092f38",
+      "functions": 33,
+      "events": 10,
+      "errors": 15,
+      "compiler": "0.8.26+commit.8a97fa7a",
+      "compilerSettings": {
+        "remappings": [
+          "../lib/v4-deployment-periphery/:v4-core/=../lib/v4-deployment-periphery/lib/v4-core/src/",
+          "../lib/v4-deployment-periphery/lib/permit2/:forge-std/=../lib/v4-deployment-periphery/lib/permit2/lib/forge-std/src/",
+          "../lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/:forge-std/=../lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/src/",
+          "../lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=../lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "../lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=../lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "../lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=../lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "../lib/v4-deployment-periphery/lib/v4-core/:forge-std/=../lib/v4-deployment-periphery/lib/v4-core/lib/forge-std/src/",
+          "../lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/:forge-std/=../lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/src/",
+          "../lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=../lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "../lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=../lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:v4-core/=../lib/v4-deployment-periphery/lib/v4-core/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/:forge-std/=../lib/v4-deployment-periphery/lib/permit2/lib/forge-std/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/:forge-std/=../lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=../lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=../lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=../lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/:forge-std/=../lib/v4-deployment-periphery/lib/v4-core/lib/forge-std/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/:forge-std/=../lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=../lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=../lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "@ensdomains/=../lib/v4-deployment-periphery/lib/v4-core/node_modules/@ensdomains/",
+          "@openzeppelin/=../lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "@uniswap/v4-core/=../lib/v4-deployment-periphery/lib/v4-core/",
+          "deployment-periphery/=../lib/v4-deployment-periphery/",
+          "ds-test/=../lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "erc4626-tests/=../lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/erc4626-tests/",
+          "forge-gas-snapshot/=../lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/src/",
+          "forge-std/=../lib/forge-std/src/",
+          "hardhat/=../lib/v4-deployment-periphery/lib/v4-core/node_modules/hardhat/",
+          "openzeppelin-contracts/=../lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "permit2/=../lib/v4-deployment-periphery/lib/permit2/",
+          "solmate/=../lib/v4-deployment-periphery/lib/v4-core/lib/solmate/",
+          "v4-core/=../lib/v4-core/src/",
+          "v4-deployment-periphery/=../lib/v4-deployment-periphery/",
+          "v4-hooks-public/=../lib/v4-hooks-public/src/",
+          "v4-periphery/=../lib/v4-periphery/src/"
+        ],
+        "optimizer": {
+          "enabled": true,
+          "runs": 200
+        },
+        "metadata": {
+          "bytecodeHash": "none"
+        },
+        "compilationTarget": {
+          "../lib/v4-deployment-periphery/lib/v4-core/src/PoolManager.sol": "PoolManager"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "viaIR": true
+      }
+    },
+    {
+      "role": "positionDescriptor",
+      "address": "0xB0769a3517f31b324cb5C0f7ca337F2239796532",
+      "contractName": "PositionDescriptor",
+      "abi": "PositionDescriptor.json",
+      "coverage": "FULL_ARTIFACT_ABI",
+      "origin": {
+        "kind": "DEPLOYMENT_DEPENDENCY_FOUNDRY",
+        "path": "contracts/deployment-v4/out/PositionDescriptor.sol/PositionDescriptor.json",
+        "deploymentSourceSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3"
+      },
+      "artifactSHA256": "cea7c74bef70c72b359b419641eb3b71da9ec73197ee48bf21205418f15d920b",
+      "abiSHA256": "140f2f8adb11b1a859727054192d03709a6a3e524719b2ce4664d55f69c2ce1c",
+      "functions": 6,
+      "events": 0,
+      "errors": 3,
+      "compiler": "0.8.26+commit.8a97fa7a",
+      "compilerSettings": {
+        "remappings": [
+          "../lib/v4-deployment-periphery/:v4-core/=../lib/v4-deployment-periphery/lib/v4-core/src/",
+          "../lib/v4-deployment-periphery/lib/permit2/:forge-std/=../lib/v4-deployment-periphery/lib/permit2/lib/forge-std/src/",
+          "../lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/:forge-std/=../lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/src/",
+          "../lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=../lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "../lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=../lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "../lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=../lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "../lib/v4-deployment-periphery/lib/v4-core/:forge-std/=../lib/v4-deployment-periphery/lib/v4-core/lib/forge-std/src/",
+          "../lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/:forge-std/=../lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/src/",
+          "../lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=../lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "../lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=../lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:v4-core/=../lib/v4-deployment-periphery/lib/v4-core/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/:forge-std/=../lib/v4-deployment-periphery/lib/permit2/lib/forge-std/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/:forge-std/=../lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=../lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=../lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=../lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/:forge-std/=../lib/v4-deployment-periphery/lib/v4-core/lib/forge-std/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/:forge-std/=../lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=../lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=../lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "@ensdomains/=../lib/v4-deployment-periphery/lib/v4-core/node_modules/@ensdomains/",
+          "@openzeppelin/=../lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "@uniswap/v4-core/=../lib/v4-deployment-periphery/lib/v4-core/",
+          "deployment-periphery/=../lib/v4-deployment-periphery/",
+          "ds-test/=../lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "erc4626-tests/=../lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/erc4626-tests/",
+          "forge-gas-snapshot/=../lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/src/",
+          "forge-std/=../lib/forge-std/src/",
+          "hardhat/=../lib/v4-deployment-periphery/lib/v4-core/node_modules/hardhat/",
+          "openzeppelin-contracts/=../lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "permit2/=../lib/v4-deployment-periphery/lib/permit2/",
+          "solmate/=../lib/v4-deployment-periphery/lib/v4-core/lib/solmate/",
+          "v4-core/=../lib/v4-core/src/",
+          "v4-deployment-periphery/=../lib/v4-deployment-periphery/",
+          "v4-hooks-public/=../lib/v4-hooks-public/src/",
+          "v4-periphery/=../lib/v4-periphery/src/"
+        ],
+        "optimizer": {
+          "enabled": true,
+          "runs": 200
+        },
+        "metadata": {
+          "bytecodeHash": "none"
+        },
+        "compilationTarget": {
+          "../lib/v4-deployment-periphery/src/PositionDescriptor.sol": "PositionDescriptor"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "viaIR": true
+      }
+    },
+    {
+      "role": "positionManager",
+      "address": "0x3eb4cB7B07EbeDe7A2A508e4cf0D9e575dC449a9",
+      "contractName": "PositionManager",
+      "abi": "PositionManager.json",
+      "coverage": "FULL_ARTIFACT_ABI",
+      "origin": {
+        "kind": "DEPLOYMENT_DEPENDENCY_FOUNDRY",
+        "path": "contracts/deployment-v4/out/PositionManager.sol/PositionManager.json",
+        "deploymentSourceSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3"
+      },
+      "artifactSHA256": "0eb0ece0a685a97a7d7fa16c6e2079d1ce5728b334a9d33e6ec638356a2419e5",
+      "abiSHA256": "6584aff67a588648ea23d9915db506f5bb7ab40245bfeed56543c392af85d038",
+      "functions": 39,
+      "events": 6,
+      "errors": 28,
+      "compiler": "0.8.26+commit.8a97fa7a",
+      "compilerSettings": {
+        "remappings": [
+          "../lib/v4-deployment-periphery/:v4-core/=../lib/v4-deployment-periphery/lib/v4-core/src/",
+          "../lib/v4-deployment-periphery/lib/permit2/:forge-std/=../lib/v4-deployment-periphery/lib/permit2/lib/forge-std/src/",
+          "../lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/:forge-std/=../lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/src/",
+          "../lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=../lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "../lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=../lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "../lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=../lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "../lib/v4-deployment-periphery/lib/v4-core/:forge-std/=../lib/v4-deployment-periphery/lib/v4-core/lib/forge-std/src/",
+          "../lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/:forge-std/=../lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/src/",
+          "../lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=../lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "../lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=../lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:v4-core/=../lib/v4-deployment-periphery/lib/v4-core/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/:forge-std/=../lib/v4-deployment-periphery/lib/permit2/lib/forge-std/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/:forge-std/=../lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=../lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=../lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=../lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/:forge-std/=../lib/v4-deployment-periphery/lib/v4-core/lib/forge-std/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/:forge-std/=../lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=../lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=../lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "@ensdomains/=../lib/v4-deployment-periphery/lib/v4-core/node_modules/@ensdomains/",
+          "@openzeppelin/=../lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "@uniswap/v4-core/=../lib/v4-deployment-periphery/lib/v4-core/",
+          "deployment-periphery/=../lib/v4-deployment-periphery/",
+          "ds-test/=../lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "erc4626-tests/=../lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/erc4626-tests/",
+          "forge-gas-snapshot/=../lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/src/",
+          "forge-std/=../lib/forge-std/src/",
+          "hardhat/=../lib/v4-deployment-periphery/lib/v4-core/node_modules/hardhat/",
+          "openzeppelin-contracts/=../lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "permit2/=../lib/v4-deployment-periphery/lib/permit2/",
+          "solmate/=../lib/v4-deployment-periphery/lib/v4-core/lib/solmate/",
+          "v4-core/=../lib/v4-core/src/",
+          "v4-deployment-periphery/=../lib/v4-deployment-periphery/",
+          "v4-hooks-public/=../lib/v4-hooks-public/src/",
+          "v4-periphery/=../lib/v4-periphery/src/"
+        ],
+        "optimizer": {
+          "enabled": true,
+          "runs": 200
+        },
+        "metadata": {
+          "bytecodeHash": "none"
+        },
+        "compilationTarget": {
+          "../lib/v4-deployment-periphery/src/PositionManager.sol": "PositionManager"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "viaIR": true
+      }
+    },
+    {
+      "role": "demo.token",
+      "address": "0x43e7e9b1b7d9A143573307b13D14B51580c18f15",
+      "contractName": "RetroPickLauncherTokenV2",
+      "abi": "RetroPickLauncherTokenV2.json",
+      "coverage": "FULL_ARTIFACT_ABI",
+      "origin": {
+        "kind": "DEPLOYED_RELEASE_FOUNDRY",
+        "path": "contracts/out/RetroPickLauncherTokenV2.sol/RetroPickLauncherTokenV2.json",
+        "gitSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3"
+      },
+      "artifactSHA256": "d8e43deb65a5634b73db2c17584467d77ddb1356c78e7029ef8e285adedd1814",
+      "abiSHA256": "7906a46f3ddf5af72be4a8da600c1f81d2e5df94f59dea5fb738e9ab3467f65c",
+      "functions": 18,
+      "events": 2,
+      "errors": 7,
+      "compiler": "0.8.26+commit.8a97fa7a",
+      "compilerSettings": {
+        "remappings": [
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:permit2/=lib/v4-deployment-periphery/lib/permit2/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:v4-core/=lib/v4-deployment-periphery/lib/v4-core/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/:solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/:solmate/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-periphery/:permit2/=lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "@ensdomains/=lib/v4-deployment-periphery/lib/v4-core/node_modules/@ensdomains/",
+          "@openzeppelin/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/",
+          "@uniswap/v4-core/=lib/v4-deployment-periphery/lib/v4-core/",
+          "@uniswap/v4-core/src/=lib/v4-core/src/",
+          "@uniswap/v4-hooks-public/src/=lib/v4-hooks-public/src/",
+          "@uniswap/v4-periphery/src/=lib/v4-periphery/src/",
+          "ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "erc4626-tests/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/erc4626-tests/",
+          "forge-gas-snapshot/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/src/",
+          "forge-std/=lib/forge-std/src/",
+          "hardhat/=lib/v4-deployment-periphery/lib/v4-core/node_modules/hardhat/",
+          "openzeppelin-contracts/=lib/openzeppelin-contracts/contracts/",
+          "permit2/=lib/v4-periphery/lib/permit2/src/",
+          "permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "v4-core/=lib/v4-core/src/",
+          "v4-deployment-periphery/=lib/v4-deployment-periphery/",
+          "v4-hooks-public/=lib/v4-hooks-public/src/",
+          "v4-periphery/=lib/v4-periphery/src/",
+          "lib/v4-deployment-periphery/:permit2/=lib/v4-deployment-periphery/lib/permit2/",
+          "lib/v4-deployment-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "lib/v4-deployment-periphery/:v4-core/=lib/v4-deployment-periphery/lib/v4-core/src/",
+          "lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/",
+          "lib/v4-deployment-periphery/lib/permit2/:solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "lib/v4-deployment-periphery/lib/v4-core/:solmate/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/",
+          "lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "lib/v4-periphery/:permit2/=lib/v4-periphery/lib/permit2/src/",
+          "lib/v4-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/"
+        ],
+        "optimizer": {
+          "enabled": true,
+          "runs": 200
+        },
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "compilationTarget": {
+          "src/v2/RetroPickLauncherTokenV2.sol": "RetroPickLauncherTokenV2"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "viaIR": true
+      }
+    },
+    {
+      "role": "demo.curve",
+      "address": "0x454A3A449d4e65CA5203d331905d167BA218E276",
+      "contractName": "RetroPickBondingCurveV2",
+      "abi": "RetroPickBondingCurveV2.json",
+      "coverage": "FULL_ARTIFACT_ABI",
+      "origin": {
+        "kind": "DEPLOYED_RELEASE_FOUNDRY",
+        "path": "contracts/out/RetroPickBondingCurveV2.sol/RetroPickBondingCurveV2.json",
+        "gitSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3"
+      },
+      "artifactSHA256": "b9a35077842e0ae9b11934d58d8e1544f3ba1b8f24f5801961394ad7a44034ad",
+      "abiSHA256": "9fcb24c0c64cada431e84f1be20a0f1a7c1975f40678de57651b14843d8fee97",
+      "functions": 43,
+      "events": 11,
+      "errors": 27,
+      "compiler": "0.8.26+commit.8a97fa7a",
+      "compilerSettings": {
+        "remappings": [
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:permit2/=lib/v4-deployment-periphery/lib/permit2/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:v4-core/=lib/v4-deployment-periphery/lib/v4-core/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/:solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/:solmate/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-periphery/:permit2/=lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "@ensdomains/=lib/v4-deployment-periphery/lib/v4-core/node_modules/@ensdomains/",
+          "@openzeppelin/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/",
+          "@uniswap/v4-core/=lib/v4-deployment-periphery/lib/v4-core/",
+          "@uniswap/v4-core/src/=lib/v4-core/src/",
+          "@uniswap/v4-hooks-public/src/=lib/v4-hooks-public/src/",
+          "@uniswap/v4-periphery/src/=lib/v4-periphery/src/",
+          "ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "erc4626-tests/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/erc4626-tests/",
+          "forge-gas-snapshot/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/src/",
+          "forge-std/=lib/forge-std/src/",
+          "hardhat/=lib/v4-deployment-periphery/lib/v4-core/node_modules/hardhat/",
+          "openzeppelin-contracts/=lib/openzeppelin-contracts/contracts/",
+          "permit2/=lib/v4-periphery/lib/permit2/src/",
+          "permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "v4-core/=lib/v4-core/src/",
+          "v4-deployment-periphery/=lib/v4-deployment-periphery/",
+          "v4-hooks-public/=lib/v4-hooks-public/src/",
+          "v4-periphery/=lib/v4-periphery/src/",
+          "lib/v4-deployment-periphery/:permit2/=lib/v4-deployment-periphery/lib/permit2/",
+          "lib/v4-deployment-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "lib/v4-deployment-periphery/:v4-core/=lib/v4-deployment-periphery/lib/v4-core/src/",
+          "lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/",
+          "lib/v4-deployment-periphery/lib/permit2/:solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "lib/v4-deployment-periphery/lib/v4-core/:solmate/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/",
+          "lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "lib/v4-periphery/:permit2/=lib/v4-periphery/lib/permit2/src/",
+          "lib/v4-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/"
+        ],
+        "optimizer": {
+          "enabled": true,
+          "runs": 200
+        },
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "compilationTarget": {
+          "src/v2/RetroPickBondingCurveV2.sol": "RetroPickBondingCurveV2"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "viaIR": true
+      }
+    },
+    {
+      "role": "demo.lpLock",
+      "address": "0x72ced84b20Bb8467c5547e3EbF85E62321B6a425",
+      "contractName": "KuruLiquidityLockV2",
+      "abi": "KuruLiquidityLockV2.json",
+      "coverage": "FULL_ARTIFACT_ABI",
+      "origin": {
+        "kind": "DEPLOYED_RELEASE_FOUNDRY",
+        "path": "contracts/out/KuruLiquidityLockV2.sol/KuruLiquidityLockV2.json",
+        "gitSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3"
+      },
+      "artifactSHA256": "34cbb0ef861c37430c8301c843f87b1f594dc256ccd2707f883f776f53d1eb08",
+      "abiSHA256": "a88e67ff62d66381a81064f67426a3a9571ee0deb70b3a32368d1a15c2959eea",
+      "functions": 5,
+      "events": 0,
+      "errors": 1,
+      "compiler": "0.8.26+commit.8a97fa7a",
+      "compilerSettings": {
+        "remappings": [
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:permit2/=lib/v4-deployment-periphery/lib/permit2/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/:v4-core/=lib/v4-deployment-periphery/lib/v4-core/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/:solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/:solmate/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-periphery/:permit2/=lib/v4-periphery/lib/permit2/src/",
+          "/home/ubuntu/project/retropick/retropick-protocol-v2-monad-testnet-e2e/contracts/lib/v4-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "@ensdomains/=lib/v4-deployment-periphery/lib/v4-core/node_modules/@ensdomains/",
+          "@openzeppelin/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/",
+          "@uniswap/v4-core/=lib/v4-deployment-periphery/lib/v4-core/",
+          "@uniswap/v4-core/src/=lib/v4-core/src/",
+          "@uniswap/v4-hooks-public/src/=lib/v4-hooks-public/src/",
+          "@uniswap/v4-periphery/src/=lib/v4-periphery/src/",
+          "ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "erc4626-tests/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/erc4626-tests/",
+          "forge-gas-snapshot/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/src/",
+          "forge-std/=lib/forge-std/src/",
+          "hardhat/=lib/v4-deployment-periphery/lib/v4-core/node_modules/hardhat/",
+          "openzeppelin-contracts/=lib/openzeppelin-contracts/contracts/",
+          "permit2/=lib/v4-periphery/lib/permit2/src/",
+          "permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "v4-core/=lib/v4-core/src/",
+          "v4-deployment-periphery/=lib/v4-deployment-periphery/",
+          "v4-hooks-public/=lib/v4-hooks-public/src/",
+          "v4-periphery/=lib/v4-periphery/src/",
+          "lib/v4-deployment-periphery/:permit2/=lib/v4-deployment-periphery/lib/permit2/",
+          "lib/v4-deployment-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/",
+          "lib/v4-deployment-periphery/:v4-core/=lib/v4-deployment-periphery/lib/v4-core/src/",
+          "lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/",
+          "lib/v4-deployment-periphery/lib/permit2/:solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "lib/v4-deployment-periphery/lib/v4-core/:solmate/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/",
+          "lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/",
+          "lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/",
+          "lib/v4-periphery/:permit2/=lib/v4-periphery/lib/permit2/src/",
+          "lib/v4-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/"
+        ],
+        "optimizer": {
+          "enabled": true,
+          "runs": 200
+        },
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "compilationTarget": {
+          "src/v2/KuruLiquidityLockV2.sol": "KuruLiquidityLockV2"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "viaIR": true
+      }
+    },
+    {
+      "role": "kuruRouter",
+      "address": "0x7EFbE105Ca7415dE98F96622173458ac1c054630",
+      "contractName": "Router",
+      "abi": "Router.json",
+      "coverage": "FULL_ARTIFACT_ABI",
+      "origin": {
+        "kind": "QUALIFIED_KURU_SOURCE_COMPILE",
+        "url": "https://github.com/Kuru-Labs/Kuru-contracts-dex-public/blob/2060bb2736080c175d80d568bfdb6226bb5abd04/contracts/Router.sol",
+        "gitSHA": "2060bb2736080c175d80d568bfdb6226bb5abd04",
+        "openzeppelinSHA": "fcbae5394ae8ad52d8e580a3477db99814b9d565",
+        "soladySHA": "acd959aa4bd04720d640bf4e6a5c71037510cc4b",
+        "bytecodeMatch": "NOT_ESTABLISHED"
+      },
+      "artifactSHA256": "930b5b834ba21455c4b674d328a5c0b22cf9af17e6874aa385801135ac30858f",
+      "abiSHA256": "dc4272a72b681ae138deaff9bad0e10ce1c6b4bb6a2ec8c3be0d740c50173166",
+      "functions": 25,
+      "events": 9,
+      "errors": 23,
+      "compiler": "0.8.30+commit.73712a01",
+      "compilerSettings": {
+        "remappings": [
+          "@openzeppelin/=lib/openzeppelin-contracts/",
+          "forge-std/=lib/forge-std/src/",
+          "node_modules/@openzeppelin/=lib/openzeppelin-contracts/",
+          "openzeppelin-contracts/=lib/openzeppelin-contracts/",
+          "solady/=lib/solady/"
+        ],
+        "optimizer": {
+          "enabled": true,
+          "runs": 1000
+        },
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "compilationTarget": {
+          "contracts/Router.sol": "Router"
+        },
+        "evmVersion": "prague",
+        "libraries": {},
+        "viaIR": true
+      }
+    },
+    {
+      "role": "kuruMarginAccount",
+      "address": "0xd029C2D98ff85D8F64799017fE00a59B1159CE02",
+      "contractName": "MarginAccount",
+      "abi": "MarginAccount.json",
+      "coverage": "FULL_ARTIFACT_ABI",
+      "origin": {
+        "kind": "QUALIFIED_KURU_SOURCE_COMPILE",
+        "url": "https://github.com/Kuru-Labs/Kuru-contracts-dex-public/blob/2060bb2736080c175d80d568bfdb6226bb5abd04/contracts/MarginAccount.sol",
+        "gitSHA": "2060bb2736080c175d80d568bfdb6226bb5abd04",
+        "openzeppelinSHA": "fcbae5394ae8ad52d8e580a3477db99814b9d565",
+        "soladySHA": "acd959aa4bd04720d640bf4e6a5c71037510cc4b",
+        "bytecodeMatch": "NOT_ESTABLISHED"
+      },
+      "artifactSHA256": "d64f09cf2a0f51f003de51c0e222cfcc548159aededb82e899901f56acecfac9",
+      "abiSHA256": "294b29447cb2b374ed93caeee02388f518161e0fa2996580cf4780641689f206",
+      "functions": 24,
+      "events": 9,
+      "errors": 16,
+      "compiler": "0.8.30+commit.73712a01",
+      "compilerSettings": {
+        "remappings": [
+          "@openzeppelin/=lib/openzeppelin-contracts/",
+          "forge-std/=lib/forge-std/src/",
+          "node_modules/@openzeppelin/=lib/openzeppelin-contracts/",
+          "openzeppelin-contracts/=lib/openzeppelin-contracts/",
+          "solady/=lib/solady/"
+        ],
+        "optimizer": {
+          "enabled": true,
+          "runs": 1000
+        },
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "compilationTarget": {
+          "contracts/MarginAccount.sol": "MarginAccount"
+        },
+        "evmVersion": "prague",
+        "libraries": {},
+        "viaIR": true
+      }
+    },
+    {
+      "role": "demo.market",
+      "address": "0x1F5dE72616a7fe645Cf45aC66dfce8Ac7452C57F",
+      "contractName": "OrderBook",
+      "abi": "OrderBook.json",
+      "coverage": "FULL_ARTIFACT_ABI",
+      "origin": {
+        "kind": "QUALIFIED_KURU_SOURCE_COMPILE",
+        "url": "https://github.com/Kuru-Labs/Kuru-contracts-dex-public/blob/2060bb2736080c175d80d568bfdb6226bb5abd04/contracts/OrderBook.sol",
+        "gitSHA": "2060bb2736080c175d80d568bfdb6226bb5abd04",
+        "openzeppelinSHA": "fcbae5394ae8ad52d8e580a3477db99814b9d565",
+        "soladySHA": "acd959aa4bd04720d640bf4e6a5c71037510cc4b",
+        "bytecodeMatch": "NOT_ESTABLISHED"
+      },
+      "artifactSHA256": "92fea1f60c3b8542a391ad5fb66786088c5a77b0480bac31c3b1abefd6dfa425",
+      "abiSHA256": "779599a58d76e7bd539a3bc58cae973851d8e7af9bfdd3985cd4c4acc132c57e",
+      "functions": 37,
+      "events": 12,
+      "errors": 28,
+      "compiler": "0.8.30+commit.73712a01",
+      "compilerSettings": {
+        "remappings": [
+          "@openzeppelin/=lib/openzeppelin-contracts/",
+          "forge-std/=lib/forge-std/src/",
+          "node_modules/@openzeppelin/=lib/openzeppelin-contracts/",
+          "openzeppelin-contracts/=lib/openzeppelin-contracts/",
+          "solady/=lib/solady/"
+        ],
+        "optimizer": {
+          "enabled": true,
+          "runs": 1000
+        },
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "compilationTarget": {
+          "contracts/OrderBook.sol": "OrderBook"
+        },
+        "evmVersion": "prague",
+        "libraries": {},
+        "viaIR": true
+      }
+    },
+    {
+      "role": "demo.vault",
+      "address": "0xc88DED06eB0081430Ff02d124C22b532e122CbE7",
+      "contractName": "KuruAMMVault",
+      "abi": "KuruAMMVault.json",
+      "coverage": "FULL_ARTIFACT_ABI",
+      "origin": {
+        "kind": "QUALIFIED_KURU_SOURCE_COMPILE",
+        "url": "https://github.com/Kuru-Labs/Kuru-contracts-dex-public/blob/2060bb2736080c175d80d568bfdb6226bb5abd04/contracts/KuruAMMVault.sol",
+        "gitSHA": "2060bb2736080c175d80d568bfdb6226bb5abd04",
+        "openzeppelinSHA": "fcbae5394ae8ad52d8e580a3477db99814b9d565",
+        "soladySHA": "acd959aa4bd04720d640bf4e6a5c71037510cc4b",
+        "bytecodeMatch": "NOT_ESTABLISHED"
+      },
+      "artifactSHA256": "6cf0eeb6980550203506f9fb02d75dbe7ec395c1220db4cc299f0515f154854c",
+      "abiSHA256": "914814a16d031d0516ac7fb47ffffc1d04ea23a3471004d33c8f123599610915",
+      "functions": 31,
+      "events": 6,
+      "errors": 22,
+      "compiler": "0.8.30+commit.73712a01",
+      "compilerSettings": {
+        "remappings": [
+          "@openzeppelin/=lib/openzeppelin-contracts/",
+          "forge-std/=lib/forge-std/src/",
+          "node_modules/@openzeppelin/=lib/openzeppelin-contracts/",
+          "openzeppelin-contracts/=lib/openzeppelin-contracts/",
+          "solady/=lib/solady/"
+        ],
+        "optimizer": {
+          "enabled": true,
+          "runs": 1000
+        },
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "compilationTarget": {
+          "contracts/KuruAMMVault.sol": "KuruAMMVault"
+        },
+        "evmVersion": "prague",
+        "libraries": {},
+        "viaIR": true
+      }
+    },
+    {
+      "role": "kuruOrderBookImplementation",
+      "address": "0x72caE0a99C19B574e8a6De558F43fc1D019c9374",
+      "contractName": "OrderBook",
+      "abi": "OrderBook.json",
+      "coverage": "FULL_ARTIFACT_ABI",
+      "origin": {
+        "kind": "QUALIFIED_KURU_SOURCE_COMPILE",
+        "url": "https://github.com/Kuru-Labs/Kuru-contracts-dex-public/blob/2060bb2736080c175d80d568bfdb6226bb5abd04/contracts/OrderBook.sol",
+        "gitSHA": "2060bb2736080c175d80d568bfdb6226bb5abd04",
+        "openzeppelinSHA": "fcbae5394ae8ad52d8e580a3477db99814b9d565",
+        "soladySHA": "acd959aa4bd04720d640bf4e6a5c71037510cc4b",
+        "bytecodeMatch": "NOT_ESTABLISHED"
+      },
+      "artifactSHA256": "92fea1f60c3b8542a391ad5fb66786088c5a77b0480bac31c3b1abefd6dfa425",
+      "abiSHA256": "779599a58d76e7bd539a3bc58cae973851d8e7af9bfdd3985cd4c4acc132c57e",
+      "functions": 37,
+      "events": 12,
+      "errors": 28,
+      "compiler": "0.8.30+commit.73712a01",
+      "compilerSettings": {
+        "remappings": [
+          "@openzeppelin/=lib/openzeppelin-contracts/",
+          "forge-std/=lib/forge-std/src/",
+          "node_modules/@openzeppelin/=lib/openzeppelin-contracts/",
+          "openzeppelin-contracts/=lib/openzeppelin-contracts/",
+          "solady/=lib/solady/"
+        ],
+        "optimizer": {
+          "enabled": true,
+          "runs": 1000
+        },
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "compilationTarget": {
+          "contracts/OrderBook.sol": "OrderBook"
+        },
+        "evmVersion": "prague",
+        "libraries": {},
+        "viaIR": true
+      }
+    },
+    {
+      "role": "kuruVaultImplementation",
+      "address": "0x4d54e0d60CaB0cec0100cdA8e00897bC933C5Bb6",
+      "contractName": "KuruAMMVault",
+      "abi": "KuruAMMVault.json",
+      "coverage": "FULL_ARTIFACT_ABI",
+      "origin": {
+        "kind": "QUALIFIED_KURU_SOURCE_COMPILE",
+        "url": "https://github.com/Kuru-Labs/Kuru-contracts-dex-public/blob/2060bb2736080c175d80d568bfdb6226bb5abd04/contracts/KuruAMMVault.sol",
+        "gitSHA": "2060bb2736080c175d80d568bfdb6226bb5abd04",
+        "openzeppelinSHA": "fcbae5394ae8ad52d8e580a3477db99814b9d565",
+        "soladySHA": "acd959aa4bd04720d640bf4e6a5c71037510cc4b",
+        "bytecodeMatch": "NOT_ESTABLISHED"
+      },
+      "artifactSHA256": "6cf0eeb6980550203506f9fb02d75dbe7ec395c1220db4cc299f0515f154854c",
+      "abiSHA256": "914814a16d031d0516ac7fb47ffffc1d04ea23a3471004d33c8f123599610915",
+      "functions": 31,
+      "events": 6,
+      "errors": 22,
+      "compiler": "0.8.30+commit.73712a01",
+      "compilerSettings": {
+        "remappings": [
+          "@openzeppelin/=lib/openzeppelin-contracts/",
+          "forge-std/=lib/forge-std/src/",
+          "node_modules/@openzeppelin/=lib/openzeppelin-contracts/",
+          "openzeppelin-contracts/=lib/openzeppelin-contracts/",
+          "solady/=lib/solady/"
+        ],
+        "optimizer": {
+          "enabled": true,
+          "runs": 1000
+        },
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "compilationTarget": {
+          "contracts/KuruAMMVault.sol": "KuruAMMVault"
+        },
+        "evmVersion": "prague",
+        "libraries": {},
+        "viaIR": true
+      }
+    },
+    {
+      "role": "kuruRouterImplementation",
+      "address": "0xaaa0f0c4d49d09ef33ae758d88afab810ecbe1ed",
+      "contractName": "Router",
+      "abi": "Router.json",
+      "coverage": "FULL_ARTIFACT_ABI",
+      "origin": {
+        "kind": "QUALIFIED_KURU_SOURCE_COMPILE",
+        "url": "https://github.com/Kuru-Labs/Kuru-contracts-dex-public/blob/2060bb2736080c175d80d568bfdb6226bb5abd04/contracts/Router.sol",
+        "gitSHA": "2060bb2736080c175d80d568bfdb6226bb5abd04",
+        "openzeppelinSHA": "fcbae5394ae8ad52d8e580a3477db99814b9d565",
+        "soladySHA": "acd959aa4bd04720d640bf4e6a5c71037510cc4b",
+        "bytecodeMatch": "NOT_ESTABLISHED"
+      },
+      "artifactSHA256": "930b5b834ba21455c4b674d328a5c0b22cf9af17e6874aa385801135ac30858f",
+      "abiSHA256": "dc4272a72b681ae138deaff9bad0e10ce1c6b4bb6a2ec8c3be0d740c50173166",
+      "functions": 25,
+      "events": 9,
+      "errors": 23,
+      "compiler": "0.8.30+commit.73712a01",
+      "compilerSettings": {
+        "remappings": [
+          "@openzeppelin/=lib/openzeppelin-contracts/",
+          "forge-std/=lib/forge-std/src/",
+          "node_modules/@openzeppelin/=lib/openzeppelin-contracts/",
+          "openzeppelin-contracts/=lib/openzeppelin-contracts/",
+          "solady/=lib/solady/"
+        ],
+        "optimizer": {
+          "enabled": true,
+          "runs": 1000
+        },
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "compilationTarget": {
+          "contracts/Router.sol": "Router"
+        },
+        "evmVersion": "prague",
+        "libraries": {},
+        "viaIR": true
+      }
+    },
+    {
+      "role": "kuruMarginImplementation",
+      "address": "0xf10af40f060b7ae54a2d5da682becc981dfb52c3",
+      "contractName": "MarginAccount",
+      "abi": "MarginAccount.json",
+      "coverage": "FULL_ARTIFACT_ABI",
+      "origin": {
+        "kind": "QUALIFIED_KURU_SOURCE_COMPILE",
+        "url": "https://github.com/Kuru-Labs/Kuru-contracts-dex-public/blob/2060bb2736080c175d80d568bfdb6226bb5abd04/contracts/MarginAccount.sol",
+        "gitSHA": "2060bb2736080c175d80d568bfdb6226bb5abd04",
+        "openzeppelinSHA": "fcbae5394ae8ad52d8e580a3477db99814b9d565",
+        "soladySHA": "acd959aa4bd04720d640bf4e6a5c71037510cc4b",
+        "bytecodeMatch": "NOT_ESTABLISHED"
+      },
+      "artifactSHA256": "d64f09cf2a0f51f003de51c0e222cfcc548159aededb82e899901f56acecfac9",
+      "abiSHA256": "294b29447cb2b374ed93caeee02388f518161e0fa2996580cf4780641689f206",
+      "functions": 24,
+      "events": 9,
+      "errors": 16,
+      "compiler": "0.8.30+commit.73712a01",
+      "compilerSettings": {
+        "remappings": [
+          "@openzeppelin/=lib/openzeppelin-contracts/",
+          "forge-std/=lib/forge-std/src/",
+          "node_modules/@openzeppelin/=lib/openzeppelin-contracts/",
+          "openzeppelin-contracts/=lib/openzeppelin-contracts/",
+          "solady/=lib/solady/"
+        ],
+        "optimizer": {
+          "enabled": true,
+          "runs": 1000
+        },
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "compilationTarget": {
+          "contracts/MarginAccount.sol": "MarginAccount"
+        },
+        "evmVersion": "prague",
+        "libraries": {},
+        "viaIR": true
+      }
+    },
+    {
+      "role": "canonicalCircleUSDC",
+      "address": "0x534b2f3A21130d7a60830c2Df862319e593943A3",
+      "contractName": "ERC20MetadataInterface",
+      "abi": "ERC20MetadataInterface.json",
+      "coverage": "QUALIFIED_INTERFACE_ONLY",
+      "origin": {
+        "kind": "ERC20_INTERFACE",
+        "note": "Not the complete Circle proxy/implementation ABI"
+      },
+      "abiSHA256": "dae70ba6201d05389d4720aa04cfd6aff7d1525ea78870ec55ef8a964da95cc0",
+      "functions": 9,
+      "events": 2,
+      "errors": 0
+    }
+  ],
+  "templates": {
+    "token": {
+      "abi": "RetroPickLauncherTokenV2.json",
+      "discovery": "TokenLaunched",
+      "coverage": "FULL_ARTIFACT_ABI"
+    },
+    "curve": {
+      "abi": "RetroPickBondingCurveV2.json",
+      "discovery": "TokenLaunched",
+      "coverage": "FULL_ARTIFACT_ABI"
+    },
+    "lpLock": {
+      "abi": "KuruLiquidityLockV2.json",
+      "discovery": "GraduationCompleted + Coordinator.receipt",
+      "coverage": "FULL_ARTIFACT_ABI"
+    },
+    "market": {
+      "abi": "OrderBook.json",
+      "discovery": "GraduationCompleted + Coordinator.receipt",
+      "coverage": "FULL_ARTIFACT_ABI"
+    },
+    "vault": {
+      "abi": "KuruAMMVault.json",
+      "discovery": "GraduationCompleted + Coordinator.receipt",
+      "coverage": "FULL_ARTIFACT_ABI"
+    }
+  },
+  "excluded": [
+    {
+      "role": "owner",
+      "address": "0xB505cBaab3ACdF287af1366b9B1229404757913b",
+      "reason": "EOA; no contract ABI"
+    },
+    {
+      "role": "nativeMON",
+      "address": "0x0000000000000000000000000000000000000000",
+      "reason": "Native asset; no ERC20 contract ABI"
+    }
+  ],
+  "limitations": [
+    "Canonical Circle USDC is an external proxy. Only the qualified ERC20 interface is exported; its full implementation ABI has not been independently established.",
+    "Kuru ABIs are compiled from the pinned qualified official contract source, including overloads missing from the SDK. Dependency commits are recorded. This is not a verified deployed-bytecode match; runtime identity validation remains required."
+  ],
+  "summary": {
+    "contractAddresses": 32,
+    "fullABIAddresses": 31,
+    "abiFiles": 27,
+    "functionsInUniqueFullABIs": 508,
+    "eventsInUniqueFullABIs": 145
+  }
+}

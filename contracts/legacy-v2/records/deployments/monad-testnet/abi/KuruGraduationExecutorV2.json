@@ -1,0 +1,861 @@
+[
+  {
+    "type": "constructor",
+    "inputs": [
+      {
+        "name": "coordinator_",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "environment_",
+        "type": "address",
+        "internalType": "contract KuruEnvironmentV2"
+      }
+    ],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "coordinator",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "donationLock",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "environment",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "contract KuruEnvironmentV2"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "execute",
+    "inputs": [
+      {
+        "name": "p",
+        "type": "tuple",
+        "internalType": "struct GraduationPacket",
+        "components": [
+          {
+            "name": "token",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "curve",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "quoteAsset",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "venue",
+            "type": "uint8",
+            "internalType": "enum GraduationVenue"
+          },
+          {
+            "name": "executor",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "executorCodeHash",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "quoteDecimals",
+            "type": "uint8",
+            "internalType": "uint8"
+          },
+          {
+            "name": "quotePolicyVersion",
+            "type": "uint32",
+            "internalType": "uint32"
+          },
+          {
+            "name": "quotePolicyHash",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "phantomQuote",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "graduationThreshold",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "graduationQuoteCeiling",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "venuePolicyHash",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "protectedLPReceiver",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "protectedExcessReceiver",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "poolFee",
+            "type": "uint24",
+            "internalType": "uint24"
+          },
+          {
+            "name": "tickSpacing",
+            "type": "int24",
+            "internalType": "int24"
+          },
+          {
+            "name": "feePolicy",
+            "type": "tuple",
+            "internalType": "struct FeePolicySnapshot",
+            "components": [
+              {
+                "name": "protocolFeeRecipient",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "protocolFeeShareBps",
+                "type": "uint16",
+                "internalType": "uint16"
+              },
+              {
+                "name": "buybackBurnBps",
+                "type": "uint16",
+                "internalType": "uint16"
+              },
+              {
+                "name": "hookFeeBps",
+                "type": "uint16",
+                "internalType": "uint16"
+              },
+              {
+                "name": "maxInternalPriceImpactBps",
+                "type": "uint16",
+                "internalType": "uint16"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "quoteAmount",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "tokenAmount",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "r",
+        "type": "tuple",
+        "internalType": "struct GraduationReceipt",
+        "components": [
+          {
+            "name": "packetHash",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "destinationIdentity",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "market",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "vault",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "lpAsset",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "positionId",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "seededQuote",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "seededLaunchTokens",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "quoteResidual",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "quoteResidualReceiver",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "protectedLPReceiver",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "protectedLPAmount",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "protectedExcessReceiver",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "protectedExcessAmount",
+            "type": "uint256",
+            "internalType": "uint256"
+          }
+        ]
+      }
+    ],
+    "stateMutability": "payable"
+  },
+  {
+    "type": "function",
+    "name": "policyHash",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "previewReceiver",
+    "inputs": [
+      {
+        "name": "p",
+        "type": "tuple",
+        "internalType": "struct GraduationPacket",
+        "components": [
+          {
+            "name": "token",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "curve",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "quoteAsset",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "venue",
+            "type": "uint8",
+            "internalType": "enum GraduationVenue"
+          },
+          {
+            "name": "executor",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "executorCodeHash",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "quoteDecimals",
+            "type": "uint8",
+            "internalType": "uint8"
+          },
+          {
+            "name": "quotePolicyVersion",
+            "type": "uint32",
+            "internalType": "uint32"
+          },
+          {
+            "name": "quotePolicyHash",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "phantomQuote",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "graduationThreshold",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "graduationQuoteCeiling",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "venuePolicyHash",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "protectedLPReceiver",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "protectedExcessReceiver",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "poolFee",
+            "type": "uint24",
+            "internalType": "uint24"
+          },
+          {
+            "name": "tickSpacing",
+            "type": "int24",
+            "internalType": "int24"
+          },
+          {
+            "name": "feePolicy",
+            "type": "tuple",
+            "internalType": "struct FeePolicySnapshot",
+            "components": [
+              {
+                "name": "protocolFeeRecipient",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "protocolFeeShareBps",
+                "type": "uint16",
+                "internalType": "uint16"
+              },
+              {
+                "name": "buybackBurnBps",
+                "type": "uint16",
+                "internalType": "uint16"
+              },
+              {
+                "name": "hookFeeBps",
+                "type": "uint16",
+                "internalType": "uint16"
+              },
+              {
+                "name": "maxInternalPriceImpactBps",
+                "type": "uint16",
+                "internalType": "uint16"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "validateLaunch",
+    "inputs": [
+      {
+        "name": "p",
+        "type": "tuple",
+        "internalType": "struct GraduationPacket",
+        "components": [
+          {
+            "name": "token",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "curve",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "quoteAsset",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "venue",
+            "type": "uint8",
+            "internalType": "enum GraduationVenue"
+          },
+          {
+            "name": "executor",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "executorCodeHash",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "quoteDecimals",
+            "type": "uint8",
+            "internalType": "uint8"
+          },
+          {
+            "name": "quotePolicyVersion",
+            "type": "uint32",
+            "internalType": "uint32"
+          },
+          {
+            "name": "quotePolicyHash",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "phantomQuote",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "graduationThreshold",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "graduationQuoteCeiling",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "venuePolicyHash",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "protectedLPReceiver",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "protectedExcessReceiver",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "poolFee",
+            "type": "uint24",
+            "internalType": "uint24"
+          },
+          {
+            "name": "tickSpacing",
+            "type": "int24",
+            "internalType": "int24"
+          },
+          {
+            "name": "feePolicy",
+            "type": "tuple",
+            "internalType": "struct FeePolicySnapshot",
+            "components": [
+              {
+                "name": "protocolFeeRecipient",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "protocolFeeShareBps",
+                "type": "uint16",
+                "internalType": "uint16"
+              },
+              {
+                "name": "buybackBurnBps",
+                "type": "uint16",
+                "internalType": "uint16"
+              },
+              {
+                "name": "hookFeeBps",
+                "type": "uint16",
+                "internalType": "uint16"
+              },
+              {
+                "name": "maxInternalPriceImpactBps",
+                "type": "uint16",
+                "internalType": "uint16"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "supply",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "verifyReceipt",
+    "inputs": [
+      {
+        "name": "p",
+        "type": "tuple",
+        "internalType": "struct GraduationPacket",
+        "components": [
+          {
+            "name": "token",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "curve",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "quoteAsset",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "venue",
+            "type": "uint8",
+            "internalType": "enum GraduationVenue"
+          },
+          {
+            "name": "executor",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "executorCodeHash",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "quoteDecimals",
+            "type": "uint8",
+            "internalType": "uint8"
+          },
+          {
+            "name": "quotePolicyVersion",
+            "type": "uint32",
+            "internalType": "uint32"
+          },
+          {
+            "name": "quotePolicyHash",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "phantomQuote",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "graduationThreshold",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "graduationQuoteCeiling",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "venuePolicyHash",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "protectedLPReceiver",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "protectedExcessReceiver",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "poolFee",
+            "type": "uint24",
+            "internalType": "uint24"
+          },
+          {
+            "name": "tickSpacing",
+            "type": "int24",
+            "internalType": "int24"
+          },
+          {
+            "name": "feePolicy",
+            "type": "tuple",
+            "internalType": "struct FeePolicySnapshot",
+            "components": [
+              {
+                "name": "protocolFeeRecipient",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "protocolFeeShareBps",
+                "type": "uint16",
+                "internalType": "uint16"
+              },
+              {
+                "name": "buybackBurnBps",
+                "type": "uint16",
+                "internalType": "uint16"
+              },
+              {
+                "name": "hookFeeBps",
+                "type": "uint16",
+                "internalType": "uint16"
+              },
+              {
+                "name": "maxInternalPriceImpactBps",
+                "type": "uint16",
+                "internalType": "uint16"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "r",
+        "type": "tuple",
+        "internalType": "struct GraduationReceipt",
+        "components": [
+          {
+            "name": "packetHash",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "destinationIdentity",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "market",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "vault",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "lpAsset",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "positionId",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "seededQuote",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "seededLaunchTokens",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "quoteResidual",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "quoteResidualReceiver",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "protectedLPReceiver",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "protectedLPAmount",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "protectedExcessReceiver",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "protectedExcessAmount",
+            "type": "uint256",
+            "internalType": "uint256"
+          }
+        ]
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "view"
+  },
+  {
+    "type": "event",
+    "name": "UnsolicitedAssetsLocked",
+    "inputs": [
+      {
+        "name": "asset",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "receiver",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "amount",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "error",
+    "name": "DonationTransferFailed",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "InexactAssetTransfer",
+    "inputs": [
+      {
+        "name": "asset",
+        "type": "address",
+        "internalType": "address"
+      }
+    ]
+  },
+  {
+    "type": "error",
+    "name": "InvalidDeposit",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "InvalidMarket",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "InvalidPacket",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "OutsideQualifiedDomain",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "ReentrancyGuardReentrantCall",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "ResidualOrAllowance",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "SafeERC20FailedOperation",
+    "inputs": [
+      {
+        "name": "token",
+        "type": "address",
+        "internalType": "address"
+      }
+    ]
+  },
+  {
+    "type": "error",
+    "name": "Unauthorized",
+    "inputs": []
+  }
+]

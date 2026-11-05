@@ -1,0 +1,95 @@
+# M6 financial trust boundaries and adversarial verification plan
+
+Status: **PARTIAL — independent source/design review, not an audit.** Frozen baseline `7ddf4dae65e11acb489be7eceb30a4846adf18cc`; updated2026-11-05 for owner-directed Kuru extraction. New in-kind revenue specification is experimental; no live migration, broadcast, production release or compiler change is authorized here. SECURITY_FINDINGS.md contains all75 historical Slither classifications and reviewed source hashes. KURU_DEPRECATION_ADR.md defines the separate proposed source/archive migration.
+
+## Assets and guarantees
+
+Protected assets are Curve quote reserves and launch-token reserves; Coordinator secured obligations; permanently locked LP position liquidity and excess token supply; Escrow protocol/beneficiary credits; per-launch/per-asset community credits; Treasury earned held funds; existing vest entitlements; and user funds transiently settling through genuine PoolManager callbacks. The launch token remains a vanilla fixed-supply ERC20. Registered-pool fees do not apply to transfers or unrelated external pools.
+
+The new scope recognizes two in-kind assets per launch: immutable quote (MON or qualified exact-transfer six-decimal token) and the launch token. These are separate units. Treasury/community revenue is actual authenticated transferred value; LP NFT value, untouched liquidity, gross volume, direct donations and quoted token prices are not revenue. An issuer freeze or destructive balance change is an external trust risk; exact-delta checks can fail closed but cannot guarantee claim liveness or restore destroyed backing.
+
+## Baseline authority/custody matrix
+
+Paths below are relative to `contracts/src/v2`. Facts describe the frozen source, not an assertion that new code already exists.
+
+| Component | Administration/configuration | Custody/liabilities | Calls/callbacks, recovery and boundary |
+|---|---|---|---|
+| `RetroPickLaunchFactoryV2` | Owner admits launch configs/deployer/forwarder/executor and future quote policy; community Builder one-shot. Legacy creator-recipient change/override explicitly disabled for opted-in communities | Launch payment forwarding; immutable launch record; no discretionary access to Router/Treasury claims | Authenticates Curve identity, constructs via Deployer, records commitment, invokes atomic Builder then seals Curve. Existing enum/snapshot ABI preserved. Owner power over future admission is not a right over old accrued credit |
+| `RetroPickBondingCurveV2` | Factory-only initialization/configuration; one-shot Router; immutable rates/reserve parameters/protocol recipient | Tracked primary token/quote reserves; separately accrued protocol/community fee buckets | buy/sell/reentrant receiver boundaries; actual Curve checkpoint transfers pre-separated C and protocol P, never applies Router venue split. Failed optional graduation does not make unbacked ledger state |
+| `GraduationCoordinatorV2` | One-shot Factory; onlyFactory future executor config/register/secure; complete permissionless | Sole secured-asset ledger, per-quote shared liability; immutable-per-launch executor/codehash/policy/receivers | Exact secure deltas; complete exact allowances, receipt/state/physical reconciliation, zero allowances after success; failure atomically retains GRADUATING packet. Active registry changes must not affect old completion |
+| `UniswapV4GraduationExecutorV2` | Immutable Coordinator/managers/Permit2/Locker/Hook/guard; execute onlyCoordinator | Temporary seed/residual assets; no standing community claim ledger | Genuine initialization/mint/Permit2 callbacks, physical seed/residual checks and receipt validation; no operator-selected arbitrary target. New version must preserve legacy noncommunity route or reject before launch |
+| `hooks/RetroPickMemeHookV2` | One-time wiring; registration onlyExecutor; pool-specific immutable-in-effect launch policy | Existing per-pool native/token pending fees; old community registration deliberately zeroes hook fees | onlyPoolManager callback; old conversion/buyback path is excluded from new in-kind design. New Hook must authenticate Manager/PoolId and real graduated launch, use actual unspecified delta, and never treat donations as fees |
+| `RetroPickLaunchLockerV2` | Owner only one-shot Factory/Executor wiring; no withdrawal or arbitrary-call API | Permanent position NFT and excess launch token custody | Canonical PositionManager identity + ownerOf check; executor-only registration. Swaps change pool asset composition; liquidity L and NFT custody remain the protected principal invariant |
+| `RetroPickFeeEscrowV2` | No owner rescue; public funded credit API | Per-recipient/per-asset credited liabilities | Claims only credit owner, partial/full independently, CEI+nonReentrant, exact ERC20 deltas. Public funded credit is not itself authenticated trading provenance |
+| `CommunityFeeRouterV2` | Immutable Factory/actual Curve/token/asset/authority/registrar; Registry bound once | Pre-separated Curve community funding only; independent beneficiary quote credits; donor surplus | only actualCurve fund, monotonic sequence/epoch/exact asset; Registry-only checkpoint; bounded10recipient allocation and treasury dust; permissionless settlement, claimant-only withdrawal. Cannot accept Hook without new version |
+| `CommunityPolicyRegistryV2` | Current Controller proposes/cancels; permissionless delayed activation with nonce/generation checks; immutable constitution/module bindings | No custody | Real old-epoch checkpoint before activation; recheck controller generation; history retained. A declared creator-category cap cannot prove beneficial ownership of another listed address |
+| `CommunityControllerV2` | Controller voluntary3-day handoff; immutable guardian7-day recovery; recipient acceptance/expiry/nonces | No funds; no beneficiary-credit transfer | Recovery precedence and generation prevent stale policy proposal revival. Controller/guardian have no Treasury spend authority. Key loss is a liveness/recovery policy, never permissionless confiscation |
+| `CommunityTreasuryVaultV2` | Immutable Router/token/quote/Factory/creator/chain/timelock; spending onlyTimelock | Own Router credit only; claimed/spent/held; surplus quarantined; no other beneficiary debt | Exact receive/debit, nonReentrant, globally unique spendId; recipient revert rolls back own operation. No arbitrary calls/approvals/rescue. New version adds isolated per-asset ledgers without changing old instances |
+| `CommunityTimelockV2` |72h fixed; self-admin; nonzero proposer/canceller membership changes only through timelock; executor always address0 | Any directly donated native assets are not a Vault credit ledger | Generic scheduled CALL/batch, seven-day expiry inclusive boundary, no delegatecall, no updateDelay/renunciation/admin/executor bypass. Last proposer removal/lost quorum can permanently stop new spending |
+| `CommunityTreasuryDeployerV2` | Immutable Factory; only current authenticated Builder | Deployment only, no earned fee custody | Router/token uniqueness; concrete Timelock/Vault construction, whole launch rollback. A moved Router constructor helper changes msg.sender registrar unless explicit identity plumbing is introduced |
+| `CommunityTreasuryLaunchBuilderV2` | Immutable Factory/Deployer/codehash; configure onlyFactory; commitment includes Builder/codehash/config | Constructs Controller/Router/Registry; no fee ledger | Validates real token.deployer/factory/curve, atomic real Vault before Registry Treasury beneficiary; binds Registry then Factory seals Curve. No shared predicted-beneficiary reservation |
+
+Offchain indexer, SDK, UI and events are projections/discovery, not financial authority. A Safe proxy is a governance identity only after verifying singleton code, owners/threshold, enabled modules, fallback handler/guard and actual signatures; an EOA fixture is insufficient. PoolManager/periphery source/version/chain codehash and proxy/upgrade assumptions require exact qualification. A codehash check on a proxy alone does not pin its implementation.
+
+## Required new deployment identity chain
+
+Authenticated Factory launch record -> versioned Builder -> sealed Router helper -> per-launch Router -> unique Treasury helper/Vault/Timelock -> original Registry -> Curve Router binding. The Factory, token, Curve, creator, chain, Registry, controller provider, quote, Hook, PoolManager, Executor and PoolId must form one consistent identity graph before fees accrue.
+
+No public permanent initializer. Helpers must not rely on the old `registrar=msg.sender` assumption after introducing another constructor caller. Explicit registrar must be the verified actual Factory Builder, constructor caller its immutable helper; Treasury verifies that same graph. All failures, constructor reentry and Registry rejection revert full deployment and uniqueness state; the next launch must receive the intended identity. Same creator launching twice is not a uniqueness key.
+
+Hook registration occurs only under the pinned Executor's authentic graduation transaction. Revenue after the callback must be accepted only for the correctly registered pool with secured/terminal graduation state and verified locked position. Do not assume a Factory-launched token address authenticates an arbitrary pool, callback, manager or quoted asset. Kuru removal is source separation plus new admission; no existing committed packet is retrofitted with this graph.
+
+## Financial and temporal properties
+
+For each launch L and asset A separately:
+
+```text
+venueGross[L,A] = venueProtocolRemitted[L,A] + venueCommunityFunded[L,A]
+communityFunded[L,A] = paid[L,A] + outstanding[L,A]
+physicalRouterBalance[A] >= outstanding[L,A]    (per-launch isolated Router)
+TreasuryClaimed[L,A] = TreasurySpent[L,A] + TreasuryHeld[L,A]
+physicalVaultBalance[A] >= TreasuryHeld[L,A]
+protocolShare = floor(baseVenueFee * immutableProtocolShareBps / 10000)
+venueCommunity = baseVenueFee + creatorTax - protocolShare
+```
+
+Curve funding is already pre-separated C and must not pay protocol twice. The Router records actual exact received value once; transferring protocol P to Escrow extinguishes that remittance obligation and cannot also back a full community credit. Per-recipient allocation floors sum to no more than C; the exact difference goes to the constitution's immutable Treasury. No unallocated backlog grows with every trade. Claims run no recipient loops. At most10 allocations execute per settlement; test gas at that bound.
+
+Policy versions/sequence numbers are not caller declarations of economic truth. Curve sequence and each bound venue/asset sequence have separate monotonic domains. Invalid/duplicate/wrong-epoch deposits revert before durable credits, and failed transfers consume no sequence. Only the authentic source supplies actual F/T; preferably Router independently validates rate-derived counters or a tightly bound Hook makes that guarantee. A public Escrow depositor cannot forge trading provenance.
+
+The current policy at economic accrual controls entitlement. Aggregated Curve fees must checkpoint under the old policy before activation. New venue funding is synchronous with the real swap callback, epoch captured before external effects. An in-flight funding guard must make Registry checkpoint/activation fail rather than report false zero pending. Any later unlock/settlement failure reverts Hook.take, protocol credit and community allocation atomically. Controller generation changes invalidate pending administrative proposals without transferring prior credit or Treasury rights.
+
+LP principal protection means NFT owner remains Locker, position liquidity is unchanged by revenue operations, excess-token custody is unchanged, and no decrease/burn/approval route exists. Actual PoolManager token balances and spot price naturally change through swaps. Pool LP fee is0 in this design; community revenue is the authorized hook delta, not principal extraction or fictional LP fee harvesting.
+
+## Adversarial action-sequence requirements
+
+These are executable test requirements/recommendations, not tests claimed passed by this reviewer.
+
+| ID | Attacker and precondition | Minimal action sequence | Required failure/success evidence |
+|---|---|---|---|
+| TM01 | Arbitrary caller, real registered pool | Call Hook callback directly; call Router fundVenue with genuine poolId; deploy fake Manager/source | All forged paths revert, no sequence/income/credit change. Actual manager swap funds exact real revenue |
+| TM02 | Another valid launch with same creator | Create A/B; use B token/quote/router/pool and A source/epoch; try shared helper reuse | Distinct valid unique Vaults or whole second creation revert before accrual; no credit stranded; failure/retry preserves identities |
+| TM03 | Source replay | Settle once, resend sequence/F/T, then wrong epoch and next sequence without transfer | Exactly one funded booking, no replay; invalid calls preserve prior seq/liability and donor surplus |
+| TM04 | Malicious token callback during funding | Reenter claim/settle/Registry.activate from transferFrom or Escrow remittance | In-flight checkpoint cannot return false zero; activation reverts or safe source exclusion proved. No new policy steals old allocation |
+| TM05 | Controller/guardian callback | Mature proposal; source checkpoint triggers control handoff then returns | Registry's post-check rejects changed generation. Whole checkpoint/claim effects roll back with rejected activation |
+| TM06 | Recipient with reverting/native reentrant fallback | Allocate to honest and malicious beneficiaries; malicious claim fails/reenters; honest claims | No recipient code runs at allocation. Failed claimant loses no credit; honest independent payout succeeds, backing preserved |
+| TM07 | Exact-transfer-assumption adversary | False-return, no-return/no-code, fee-on-transfer/sender surcharge, negative balance, donation | Inexact/failed receipt or payout reverts exact liability change; deficit visible and affected asset fails closed; donations create no attributed revenue |
+| TM08 | Cross-asset creditor | Token credit and quote credit coexist; destroy/freeze token balance; try claim quote with token units/asset | Wrong asset rejected; quote liability never pays token claimant; issuer deficit not silently covered using quote or another launch |
+| TM09 | Swap user manipulating requested flow | Both directions, exactIn/out, tight price limits, partial/no fill, dust1, max permitted magnitudes | Fee uses actual unspecified leg; signed magnitude widened before abs; take, returned delta, balances and all transient deltas reconcile. Failed swap rolls all credits back |
+| TM10 | Admin/new venue config before graduation | Change current Executor/quote policy after launch; force destination revert; retry old packet | Pinned packet unchanged, secured balances/allowances preserved on failure, old executor remains valid, complete once, replay fails. No live admission query strands old Kuru packet |
+| TM11 | Timelock/Safe attacker | Wrong threshold/signature, wrong chain/nonce, role selfcall bypass, zero executor revoke, delay change, batch partial failure | Actual Safe signatures establish scheduling; no bypass of fixed72h/open executor/self-admin. Failure atomic; exact deadline accepted, one second later rejected |
+| TM12 | Treasury claimant/spender | Claim partial; claim full; rotate controller; replay spendId/operation; return native during payout | Router credit decreases exactly with actual receipt; claimed=spent+held per asset. Old funds unaffected by controller. Replay fails and returning recipient cannot fabricate net-spent accounting |
+| TM13 | LP principal attacker | Call PositionManager decrease/burn/approve/transfer from Hook/Router/Vault/Timelock; attempt fee collection route | No relevant approval/authority exists. NFT owner/liquidity/excess lock unchanged. Failed attack does not lose honest fee claims |
+| TM14 | Last proposer/lost Safe quorum | Governance removes final proposer or threshold unavailable | Report explicit liveness loss; controller/guardian/owner cannot seize assets to manufacture recovery. Do not falsely claim always-live treasury |
+| TM15 | Wash trader / creator fee farmer | Coordinated addresses self-trade, claim returned fee shares; low liquidity/volume, externally held token | Solvency holds, rebates never exceed genuinely funded fee allocation. Include price/slippage/gas/protocol costs; volume is not independently generated business revenue or proof of product retention |
+| TM16 | Admission/provenance downgrade | Old noncommunity launch overload uses new Hook/Executor; zero-fee legacy route; Kuru enum1 requested | Preserve supported legacy fee semantics or reject atomically at admission. Never accept a token that becomes permanently ungraduatable at threshold. enum1 decode preserved for old packets |
+| TM17 | Constructor/initializer attack | Prefund predicted addresses, revert Timelock/Vault ctor, reenter helper, invalid Registry config | Donations not attributed income; no seized recipient reservation; all identity maps/nonces rollback. No factory/helper permanently privileged initializer after launch |
+| TM18 | Claimed revenue without final venue settlement | Valid afterSwap path funds Router, later unlock cannot settle all currencies | Entire transaction including protocol Escrow credit/Treasury funding reverts. No durable funded event or liability backed by unpaid manager debt |
+
+## Verification and promotion limits
+
+Actual sources must be reviewed after implementation; constructor/interface/callback assumptions above are not guarantees of proposed code. Unit/fuzz/stateful proofs must cover economically reached states, record handler call distribution/rejected actions, use separate deterministic seeds and preserve counterexamples. No broad catch-all revert handler may hide an unexpected accounting failure. A 256x128 target is meaningful only if swaps, settlement, claim, activation, controller transitions, donations and unauthorized calls actually execute.
+
+Compiler0.8.26 optimizedIR currently matches conditions in upstream SOL-2026-7; exact applicability/authorized mitigation remains unresolved (see SECURITY_FINDINGS). No independently reviewed compiler upgrade is inferred. Genuine v4 local deployment uses actual pinned upstream implementations; a behavioral mock is not real venue qualification. Fork evidence requires actual RPC chain/block/hash/address bytecodes; local genuine code is still local. Safe qualification requires actual Safe code/signatures. Passing local tests is not an external audit.
+
+Keep release blocked until no unresolved critical/high financial issue, required fresh regression/fuzz/invariant/genuine-venue/Safe evidence, strict EIP170/runtime/initcode measurements and accepted canonical fee-source specification exist. Existing deployed identities, historical evidence and independent audit/deployment authority remain separate from merge/implementation status.

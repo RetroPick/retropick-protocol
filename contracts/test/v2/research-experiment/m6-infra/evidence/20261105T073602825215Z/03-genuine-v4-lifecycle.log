@@ -1,0 +1,16 @@
+Compiling 146 files with Solc 0.8.26
+Solc 0.8.26 finished in 122.40s
+Compiler run successful with warnings:
+Warning (2018): Function state mutability can be restricted to view
+   --> /home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/src/v2/RetroPickBondingCurveV2.sol:931:5:
+    |
+931 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 2 tests for /home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/test/v2/research-experiment/m6-infra/GenuineV4CommunityBaseline.t.sol:M6GenuineV4CommunityBaselineTest
+[PASS] testGenuineV4NativeCommunityGraduationAndSwaps() (gas: 14794330)
+[PASS] testGenuineV4SixDecimalCommunityGraduationAndSwaps() (gas: 15775991)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 85.35ms (31.85ms CPU time)
+
+Ran 1 test suite in 110.88ms (85.35ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)

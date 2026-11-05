@@ -1,0 +1,44 @@
+No files changed, compilation skipped
+
+Ran 2 tests for /home/ubuntu/project/retropick/retropick-v2-m6-20261104/contracts/test/v2/research-experiment/m6-infra/GenuineV4CommunityBaseline.t.sol:M6GenuineV4CommunityBaselineTest
+[PASS] testGenuineV4NativeCommunityGraduationAndSwaps() (gas: 15003360)
+Logs:
+  quote asset (zero=native, modeled Q6 otherwise): 0x0000000000000000000000000000000000000000
+  genuine PoolManager: 0xF62849F9A0B5Bf2913b396098F7c7019b51A820a
+  PoolManager runtime codehash: 0x08822b080c95a106005e48d6c564e365c6b07b233b77133e3eff799b76a62d92
+  genuine PositionManager: 0xc7183455a4C133Ae270771860664b6B7ec320bB1
+  PositionManager runtime codehash: 0x7e7efbedbca8d0a0efea1f5c35669c6278be10ab0be76d36ef675e6751a0ac55
+  genuine Permit2: 0x2e234DAe75C793f67A35089C9d99245E1C58470b
+  Permit2 runtime codehash: 0xc0f00ffc5cc53ae14e0e434f3be1d93a23325d167390e649c79ef05e283ee6f3
+  genuine pool ID: 0x895515af45f580cc1e6424d88242d61173f5c249c763151324a54d33d882d780
+  graduation receipt hash: 0x0b101c5d24a6f3cec5eeddf2a33f3f9f63f9d36c1fc62e53a90b2882c523df08
+  LP NFT ID owned by Locker: 1
+  secured LP liquidity unchanged by swaps: 15811388300841896695
+  quote seeded into genuine PoolManager: 1000000000000000003
+  token seeded into genuine PoolManager: 250000000000000000365
+  Router funded from real curve fees: 12302424809564164
+  Router paid plus outstanding: 12302424809564164
+  Treasury earned fees spent after 72h: 4920969923825667
+
+[PASS] testGenuineV4SixDecimalCommunityGraduationAndSwaps() (gas: 16012704)
+Logs:
+  quote asset (zero=native, modeled Q6 otherwise): 0x534b2f3A21130d7a60830c2Df862319e593943A3
+  genuine PoolManager: 0xF62849F9A0B5Bf2913b396098F7c7019b51A820a
+  PoolManager runtime codehash: 0x08822b080c95a106005e48d6c564e365c6b07b233b77133e3eff799b76a62d92
+  genuine PositionManager: 0xc7183455a4C133Ae270771860664b6B7ec320bB1
+  PositionManager runtime codehash: 0x7e7efbedbca8d0a0efea1f5c35669c6278be10ab0be76d36ef675e6751a0ac55
+  genuine Permit2: 0x2e234DAe75C793f67A35089C9d99245E1C58470b
+  Permit2 runtime codehash: 0xc0f00ffc5cc53ae14e0e434f3be1d93a23325d167390e649c79ef05e283ee6f3
+  genuine pool ID: 0x55fe39200d55c0467d6dd003801af4e5651dbc2fa6c415a614687131068e0824
+  graduation receipt hash: 0x6e15767f2c2f57412f4c7bf4b5c3524faf8be79267d8c5e35c108a5dcd6ec150
+  LP NFT ID owned by Locker: 1
+  secured LP liquidity unchanged by swaps: 15811412017914
+  quote seeded into genuine PoolManager: 1000002
+  token seeded into genuine PoolManager: 250000249999742635118
+  Router funded from real curve fees: 12302
+  Router paid plus outstanding: 12302
+  Treasury earned fees spent after 72h: 4923
+
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 139.31ms (67.11ms CPU time)
+
+Ran 1 test suite in 144.57ms (139.31ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)

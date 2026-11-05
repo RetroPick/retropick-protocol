@@ -1,5 +1,7 @@
 # RetroPick V2 contracts — Monad Testnet candidate
 
+**Hackathon judges:** review the [frozen Legacy V2 contract source](legacy-v2/src/v2/) and its [archive guide](legacy-v2/README.md). This snapshot preserves the recorded testnet deployment at `f0363249f4b74e58dde37d1241742ca5a92bcfe3`, including Kuru. Current `src/v2/` development has a separate lifecycle and qualification status.
+
 The deployed hackathon candidate supports native MON / canonical chain-10143 Circle-USDC policies, immutable venue snapshots, bonding trading, one Graduation Coordinator ledger, venue-specific Kuru and Uniswap v4 execution, and permanently protected Kuru graduation assets.
 
 Native MON → Kuru and two-actor order/fill/cancel: **PASS** in the recorded live campaign. Canonical Circle-USDC live smoke: **BLOCKED_FUNDING**. Local/fork Circle qualification is separate. This is unaudited testnet code; staging/mainnet gates remain blocked.
@@ -32,7 +34,7 @@ forge build --sizes --skip test --skip script
 
 Use a reliable provider; mandatory fork qualification cannot be reported PASS when RPC is missing. The large size limit is for deployment-embedding test/script harnesses. Deployable runtime gates remain strictly EIP-170 (24,576 bytes), with Factory ≤23,500.
 
-`script/release_v2_monad.py` uses authorized external environment/keystores and never prints private keys. Its original artifacts are historical release evidence; record new qualification separately under `evidence/hackathon/metropolis/`. Never overwrite historical source identities or Circle funding status.
+The [original release driver](legacy/v2-kuru/original/script/release_v2_monad.py.orig) is preserved as historical reference. Use the deployed revision's original source paths and archived compiler settings when reproducing its bytecode; see the [Legacy V2 archive guide](legacy-v2/README.md). Record new qualification separately under `evidence/hackathon/metropolis/`. Never overwrite historical source identities or Circle funding status.
 
 V1 and Doorway are reference code; they do not independently qualify V2. Dedicated `test/v2/` unit, differential, invariant, integration and fork suites provide the V2 campaign. Prediction/PRISM retain independent gates.
 

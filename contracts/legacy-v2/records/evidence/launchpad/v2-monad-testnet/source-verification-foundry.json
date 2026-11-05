@@ -1,0 +1,336 @@
+{
+ "recordedAt": "2026-10-09T17:15:10Z",
+ "chainId": 10143,
+ "deployedSourceSHA": "f0363249f4b74e58dde37d1241742ca5a92bcfe3",
+ "compiler": "0.8.26+commit.8a97fa7a",
+ "compilerSettings": {
+  "optimizer": {
+   "enabled": true,
+   "runs": 200
+  },
+  "viaIR": true,
+  "evmVersion": "cancun",
+  "metadata": {
+   "bytecodeHash": "ipfs"
+  }
+ },
+ "verificationMethod": "forge verify-contract --show-standard-json-input + Sourcify v2 API (POST /v2/verify/{chain}/{address}) with stdJsonInput patched to the deployed build's original remappings and metadata settings, plus creationTransactionHash resolved from broadcast run-latest.json",
+ "endpoints": {
+  "blockvision": "https://sourcify-api-monad.blockvision.org/",
+  "public": "https://sourcify.dev/server/"
+ },
+ "notes": [
+  "forge 1.8.4 direct forge verify-contract --verifier sourcify against BlockVision works (job 60b4b206) but yields partial 'match' because forge's standard-json uses clean repo remappings; the deployed build embedded absolute-path remappings from the nested v4-deployment-periphery project. Reproducing the original settings.metadata/remappings in the stdJsonInput yields exact_match.",
+  "BlockVision direct API POSTs require a browser-like User-Agent (default urllib UA gets Cloudflare 1010).",
+  "Sourcify->Etherscan external verification push hit the public server's daily submission limit today; Monadscan UI is Cloudflare-gated for automated browsers. Explorer publication is confirmed on both Sourcify stores via their v2 contract APIs.",
+  "Third-party contracts (WETH/Permit2/PoolManager/PositionManager/PositionDescriptor, Kuru environment, Circle USDC) were NOT submitted; they are not RetroPick-owned source."
+ ],
+ "contracts": [
+  {
+   "contract": "RetroPickLaunchFactoryV2",
+   "role": "factory",
+   "address": "0xa7f18b9eceb0A9852b08408854A45D00fc682454",
+   "sourcifyPublic": {
+    "runtimeMatch": "exact_match",
+    "creationMatch": "exact_match",
+    "matchId": "55824252",
+    "repoUrl": "https://repo.sourcify.dev/10143/0xa7f18b9eceb0A9852b08408854A45D00fc682454"
+   },
+   "sourcifyBlockvision": {
+    "runtimeMatch": "exact_match",
+    "creationMatch": "exact_match",
+    "matchId": "2047446"
+   },
+   "runtimeBytecodeLocalArtifact": "MATCH_IMMUTABLES_MASKED"
+  },
+  {
+   "contract": "GraduationCoordinatorV2",
+   "role": "coordinator",
+   "address": "0xaD62309242EA65BB07C833669EC6a4ED23AF738F",
+   "sourcifyPublic": {
+    "runtimeMatch": "exact_match",
+    "creationMatch": "exact_match",
+    "matchId": "55824400",
+    "repoUrl": "https://repo.sourcify.dev/10143/0xaD62309242EA65BB07C833669EC6a4ED23AF738F"
+   },
+   "sourcifyBlockvision": {
+    "runtimeMatch": "exact_match",
+    "creationMatch": "exact_match",
+    "matchId": "2047444"
+   },
+   "runtimeBytecodeLocalArtifact": "MATCH_IMMUTABLES_MASKED"
+  },
+  {
+   "contract": "KuruGraduationExecutorV2",
+   "role": "kuruExecutor",
+   "address": "0xa2590ab344BAD0452c53958821A2B74f87871983",
+   "sourcifyPublic": {
+    "runtimeMatch": "exact_match",
+    "creationMatch": "exact_match",
+    "matchId": "55824404",
+    "repoUrl": "https://repo.sourcify.dev/10143/0xa2590ab344BAD0452c53958821A2B74f87871983"
+   },
+   "sourcifyBlockvision": {
+    "runtimeMatch": "exact_match",
+    "creationMatch": "exact_match",
+    "matchId": "2047445"
+   },
+   "runtimeBytecodeLocalArtifact": "MATCH_IMMUTABLES_MASKED"
+  },
+  {
+   "contract": "RetroPickQuoteAssetRegistryV2",
+   "role": "quoteRegistry",
+   "address": "0xd1211276869ec55CAF302E22371D2005B23B9B40",
+   "sourcifyPublic": {
+    "runtimeMatch": "exact_match",
+    "creationMatch": "exact_match",
+    "matchId": "55824399",
+    "repoUrl": "https://repo.sourcify.dev/10143/0xd1211276869ec55CAF302E22371D2005B23B9B40"
+   },
+   "sourcifyBlockvision": {
+    "runtimeMatch": "exact_match",
+    "creationMatch": "exact_match",
+    "matchId": "2047440"
+   },
+   "runtimeBytecodeLocalArtifact": "MATCH_IMMUTABLES_MASKED"
+  },
+  {
+   "contract": "RetroPickLauncherTokenV2",
+   "role": "demo.token",
+   "address": "0x43e7e9b1b7d9A143573307b13D14B51580c18f15",
+   "sourcifyPublic": {
+    "runtimeMatch": "exact_match",
+    "creationMatch": "exact_match",
+    "matchId": "55824401",
+    "repoUrl": "https://repo.sourcify.dev/10143/0x43e7e9b1b7d9A143573307b13D14B51580c18f15"
+   },
+   "sourcifyBlockvision": {
+    "runtimeMatch": "exact_match",
+    "creationMatch": "exact_match",
+    "matchId": "2047441"
+   },
+   "runtimeBytecodeLocalArtifact": "MATCH_IMMUTABLES_MASKED"
+  },
+  {
+   "contract": "RetroPickBondingCurveV2",
+   "role": "demo.curve",
+   "address": "0x454A3A449d4e65CA5203d331905d167BA218E276",
+   "sourcifyPublic": {
+    "runtimeMatch": "exact_match",
+    "creationMatch": "exact_match",
+    "matchId": "55824403",
+    "repoUrl": "https://repo.sourcify.dev/10143/0x454A3A449d4e65CA5203d331905d167BA218E276"
+   },
+   "sourcifyBlockvision": {
+    "runtimeMatch": "exact_match",
+    "creationMatch": "exact_match",
+    "matchId": "2047443"
+   },
+   "runtimeBytecodeLocalArtifact": "MATCH_IMMUTABLES_MASKED"
+  },
+  {
+   "contract": "KuruLiquidityLockV2",
+   "role": "demo.lpLock",
+   "address": "0x72ced84b20Bb8467c5547e3EbF85E62321B6a425",
+   "sourcifyPublic": {
+    "runtimeMatch": "exact_match",
+    "creationMatch": null,
+    "matchId": "55824402",
+    "repoUrl": "https://repo.sourcify.dev/10143/0x72ced84b20Bb8467c5547e3EbF85E62321B6a425"
+   },
+   "sourcifyBlockvision": {
+    "runtimeMatch": "exact_match",
+    "creationMatch": null,
+    "matchId": "2047442"
+   },
+   "runtimeBytecodeLocalArtifact": "MATCH_IMMUTABLES_MASKED"
+  },
+  {
+   "contract": "RetroPickHookDeployerV2",
+   "role": "hookDeployer",
+   "address": "0x09fC0edEEBf13C171eE5739eac6B9C7f3400C9B8",
+   "sourcifyPublic": {
+    "runtimeMatch": "exact_match",
+    "creationMatch": "exact_match",
+    "matchId": "55833266",
+    "repoUrl": "https://repo.sourcify.dev/10143/0x09fC0edEEBf13C171eE5739eac6B9C7f3400C9B8"
+   },
+   "sourcifyBlockvision": {
+    "runtimeMatch": "exact_match",
+    "creationMatch": "exact_match",
+    "matchId": "2047430"
+   },
+   "runtimeBytecodeLocalArtifact": "MATCH_IMMUTABLES_MASKED"
+  },
+  {
+   "contract": "RetroPickMemeHookV2",
+   "role": "hook",
+   "address": "0x6d70125c61aD8f1a6d85eA4C37c94680b42f2044",
+   "sourcifyPublic": {
+    "runtimeMatch": "exact_match",
+    "creationMatch": null,
+    "matchId": "55833293",
+    "repoUrl": "https://repo.sourcify.dev/10143/0x6d70125c61aD8f1a6d85eA4C37c94680b42f2044"
+   },
+   "sourcifyBlockvision": {
+    "runtimeMatch": "exact_match",
+    "creationMatch": null,
+    "matchId": "2047431"
+   },
+   "runtimeBytecodeLocalArtifact": "MATCH_IMMUTABLES_MASKED"
+  },
+  {
+   "contract": "RetroPickBuybackVaultV2",
+   "role": "buybackVault",
+   "address": "0x2D746643E0BA37F127b38A4C04866a123895BE09",
+   "sourcifyPublic": {
+    "runtimeMatch": "exact_match",
+    "creationMatch": "exact_match",
+    "matchId": "55833296",
+    "repoUrl": "https://repo.sourcify.dev/10143/0x2D746643E0BA37F127b38A4C04866a123895BE09"
+   },
+   "sourcifyBlockvision": {
+    "runtimeMatch": "exact_match",
+    "creationMatch": "exact_match",
+    "matchId": "2047432"
+   },
+   "runtimeBytecodeLocalArtifact": "MATCH_IMMUTABLES_MASKED"
+  },
+  {
+   "contract": "RetroPickLaunchLockerV2",
+   "role": "locker",
+   "address": "0x7bb3aA1e48490F810e3F1eEC1Dda52D1F4d76A19",
+   "sourcifyPublic": {
+    "runtimeMatch": "exact_match",
+    "creationMatch": "exact_match",
+    "matchId": "55833303",
+    "repoUrl": "https://repo.sourcify.dev/10143/0x7bb3aA1e48490F810e3F1eEC1Dda52D1F4d76A19"
+   },
+   "sourcifyBlockvision": {
+    "runtimeMatch": "exact_match",
+    "creationMatch": "exact_match",
+    "matchId": "2047433"
+   },
+   "runtimeBytecodeLocalArtifact": "MATCH_IMMUTABLES_MASKED"
+  },
+  {
+   "contract": "RetroPickFeeEscrowV2",
+   "role": "feeEscrow",
+   "address": "0xb0312b0412c3BAa11895A6c4FeeC7CD9A01c2D96",
+   "sourcifyPublic": {
+    "runtimeMatch": "exact_match",
+    "creationMatch": "exact_match",
+    "matchId": "55833012",
+    "repoUrl": "https://repo.sourcify.dev/10143/0xb0312b0412c3BAa11895A6c4FeeC7CD9A01c2D96"
+   },
+   "sourcifyBlockvision": {
+    "runtimeMatch": "exact_match",
+    "creationMatch": "exact_match",
+    "matchId": "2047429"
+   },
+   "runtimeBytecodeLocalArtifact": "MATCH_IMMUTABLES_MASKED"
+  },
+  {
+   "contract": "KuruEnvironmentV2",
+   "role": "kuruEnvironment",
+   "address": "0xAD59b3ff498d76DbC68351DaD4391D250b1E1Ba1",
+   "sourcifyPublic": {
+    "runtimeMatch": "exact_match",
+    "creationMatch": "exact_match",
+    "matchId": "55833326",
+    "repoUrl": "https://repo.sourcify.dev/10143/0xAD59b3ff498d76DbC68351DaD4391D250b1E1Ba1"
+   },
+   "sourcifyBlockvision": {
+    "runtimeMatch": "exact_match",
+    "creationMatch": "exact_match",
+    "matchId": "2047434"
+   },
+   "runtimeBytecodeLocalArtifact": "MATCH_IMMUTABLES_MASKED"
+  },
+  {
+   "contract": "UniswapV4GraduationExecutorV2",
+   "role": "v4Executor",
+   "address": "0xCB4670e7D2146A9Ca4541C383844b281Cf53Edb1",
+   "sourcifyPublic": {
+    "runtimeMatch": "exact_match",
+    "creationMatch": "exact_match",
+    "matchId": "55833336",
+    "repoUrl": "https://repo.sourcify.dev/10143/0xCB4670e7D2146A9Ca4541C383844b281Cf53Edb1"
+   },
+   "sourcifyBlockvision": {
+    "runtimeMatch": "exact_match",
+    "creationMatch": "exact_match",
+    "matchId": "2047435"
+   },
+   "runtimeBytecodeLocalArtifact": "MATCH_IMMUTABLES_MASKED"
+  },
+  {
+   "contract": "RetroPickLaunchDeployerV2",
+   "role": "launchDeployer",
+   "address": "0x14080b43f3d45B47AEefF3bC1b0bee0cf0cCF5d8",
+   "sourcifyPublic": {
+    "runtimeMatch": "exact_match",
+    "creationMatch": "exact_match",
+    "matchId": "55833365",
+    "repoUrl": "https://repo.sourcify.dev/10143/0x14080b43f3d45B47AEefF3bC1b0bee0cf0cCF5d8"
+   },
+   "sourcifyBlockvision": {
+    "runtimeMatch": "exact_match",
+    "creationMatch": "exact_match",
+    "matchId": "2047436"
+   },
+   "runtimeBytecodeLocalArtifact": "MATCH_IMMUTABLES_MASKED"
+  },
+  {
+   "contract": "RetroPickGraduationGuardV2",
+   "role": "v4Guard",
+   "address": "0x1f1cbe81f6f0abd8165cdf691700f64ec36339a8",
+   "sourcifyPublic": {
+    "runtimeMatch": "exact_match",
+    "creationMatch": "exact_match",
+    "matchId": "55833370",
+    "repoUrl": "https://repo.sourcify.dev/10143/0x1f1cbe81f6f0abd8165cdf691700f64ec36339a8"
+   },
+   "sourcifyBlockvision": {
+    "runtimeMatch": "exact_match",
+    "creationMatch": null,
+    "matchId": "2047437"
+   },
+   "runtimeBytecodeLocalArtifact": "MATCH_IMMUTABLES_MASKED"
+  },
+  {
+   "contract": "ExecutorDonationLockV2",
+   "role": "kuruDonationLock+v4DonationLock",
+   "address": "0xbcd997c476be3ca0a1608804c9ad55c7ebd5271c",
+   "sourcifyPublic": {
+    "runtimeMatch": "exact_match",
+    "creationMatch": "exact_match",
+    "matchId": "55833374",
+    "repoUrl": "https://repo.sourcify.dev/10143/0xbcd997c476be3ca0a1608804c9ad55c7ebd5271c"
+   },
+   "sourcifyBlockvision": {
+    "runtimeMatch": "exact_match",
+    "creationMatch": null,
+    "matchId": "2047438"
+   },
+   "runtimeBytecodeLocalArtifact": "MATCH_IMMUTABLES_MASKED"
+  },
+  {
+   "contract": "ExecutorDonationLockV2",
+   "role": "(v4 instance)",
+   "address": "0xf2aacba1ca0b6683023f437900314419d4aeca3b",
+   "sourcifyPublic": {
+    "runtimeMatch": "exact_match",
+    "creationMatch": "exact_match",
+    "matchId": "55833396",
+    "repoUrl": "https://repo.sourcify.dev/10143/0xf2aacba1ca0b6683023f437900314419d4aeca3b"
+   },
+   "sourcifyBlockvision": {
+    "runtimeMatch": "exact_match",
+    "creationMatch": null,
+    "matchId": "2047439"
+   },
+   "runtimeBytecodeLocalArtifact": "MATCH_IMMUTABLES_MASKED"
+  }
+ ]
+}

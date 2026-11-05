@@ -1,0 +1,13 @@
+{
+  "sourceCommit": "7ddf4dae65e11acb489be7eceb30a4846adf18cc",
+  "workingPatch": true,
+  "files": {
+    ".github/workflows/v2-liquidity.yml": "b0a34459333bbf759be076aa05dde7ad3e94864595dcbee96dfadf1b60a0b21f",
+    "contracts/test/v2/integration/RetroPickFactoryLaunchV2Qualification.t.sol": "ce200de70a5709573accaf34f2ec4cf88981c1be2523e70db05a07d8e552c260",
+    "contracts/test/v2/integration/RetroPickV4GraduationBehavior.t.sol": "983963e6417b26c959af16a82dde8a61c330a913418ae4dbb94d28e59a2db36d",
+    "contracts/test/v2/integration/KuruV2EndToEndFork.t.sol": "a69c17b7e5cf25cf2e5eddc86eee814bb8ccef10c7715d616f7d41017506da47",
+    "contracts/test/v2/integration/FullV4StackV2Fork.t.sol": "c24fc50b9325a96c8350095a012c5e54f3584a9ddd01828423f6d7f78be81d50",
+    "contracts/test/v2/community-economy/treasury-integration/CommunityTreasuryV4Seam.t.sol": "f9d2497b6529811dd3e1690f62f06cbdb1d7c5f96b4a61f1e71808f1604eccaf"
+  },
+  "scope": "Source-qualified artifacts; corrected test asset plus identity assertions; workflow. Financial implementation and existing assertions unchanged."
+}

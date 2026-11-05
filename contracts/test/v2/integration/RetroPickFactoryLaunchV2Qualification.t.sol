@@ -157,7 +157,7 @@ abstract contract RetroPickFactoryFixtureV2 is Test {
         _admit(address(0), 100 ether, 100 ether, 18);
         factory = RetroPickLaunchFactoryV2(
             payable(vm.deployCode(
-                    "RetroPickLaunchFactoryV2.sol:RetroPickLaunchFactoryV2",
+                    "src/v2/RetroPickLaunchFactoryV2.sol:RetroPickLaunchFactoryV2",
                     abi.encode(
                         owner,
                         IPoolManager(poolManager),
@@ -174,11 +174,13 @@ abstract contract RetroPickFactoryFixtureV2 is Test {
                 ))
         );
         deployer = RetroPickLaunchDeployerV2(
-            vm.deployCode("RetroPickLaunchDeployerV2.sol:RetroPickLaunchDeployerV2", abi.encode(address(factory)))
+            vm.deployCode(
+                "src/v2/RetroPickLaunchDeployerV2.sol:RetroPickLaunchDeployerV2", abi.encode(address(factory))
+            )
         );
         executor = UniswapV4GraduationExecutorV2(
             payable(vm.deployCode(
-                    "UniswapV4GraduationExecutorV2.sol:UniswapV4GraduationExecutorV2",
+                    "src/v2/UniswapV4GraduationExecutorV2.sol:UniswapV4GraduationExecutorV2",
                     abi.encode(
                         address(coordinator),
                         IPoolManager(poolManager),

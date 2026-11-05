@@ -1,0 +1,41 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/v2/community-economy/treasury-integration/CommunityTreasuryUSDCInvariant.t.sol:CanonicalCommunityTreasuryUSDCInvariantTest
+[PASS] invariantCEUSDCConservationAndQuarantinedSurplus() (runs: 256, calls: 32768, reverts: 0)
+
+╭--------------------------+------------------+-------+---------+----------╮
+| Contract                 | Selector         | Calls | Reverts | Discards |
++==========================================================================+
+| TreasuryUSDCStateHandler | buy              | 3687  | 0       | 0        |
+|--------------------------+------------------+-------+---------+----------|
+| TreasuryUSDCStateHandler | claimBeneficiary | 3594  | 0       | 0        |
+|--------------------------+------------------+-------+---------+----------|
+| TreasuryUSDCStateHandler | claimTreasury    | 3631  | 0       | 0        |
+|--------------------------+------------------+-------+---------+----------|
+| TreasuryUSDCStateHandler | donate           | 3660  | 0       | 0        |
+|--------------------------+------------------+-------+---------+----------|
+| TreasuryUSDCStateHandler | executeSpend     | 3619  | 0       | 0        |
+|--------------------------+------------------+-------+---------+----------|
+| TreasuryUSDCStateHandler | scheduleSpend    | 3736  | 0       | 0        |
+|--------------------------+------------------+-------+---------+----------|
+| TreasuryUSDCStateHandler | sell             | 3667  | 0       | 0        |
+|--------------------------+------------------+-------+---------+----------|
+| TreasuryUSDCStateHandler | settle           | 3556  | 0       | 0        |
+|--------------------------+------------------+-------+---------+----------|
+| TreasuryUSDCStateHandler | unauthorized     | 3618  | 0       | 0        |
+╰--------------------------+------------------+-------+---------+----------╯
+
+Logs:
+  USDC trades (includes seed): 30
+  USDC settlements: 23
+  USDC treasury claims: 14
+  USDC beneficiary claims: 10
+  USDC scheduled spends: 13
+  USDC executed spends: 6
+  USDC direct donations: 16
+  USDC caught economic rejections: 11
+  USDC unauthorized attempts: 15
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 30.80s (30.78s CPU time)
+
+Ran 1 test suite in 30.81s (30.80s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

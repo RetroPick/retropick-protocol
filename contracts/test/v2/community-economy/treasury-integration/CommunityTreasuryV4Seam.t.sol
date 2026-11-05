@@ -22,7 +22,7 @@ import {GraduationPhase} from "../../../../src/v2/interfaces/IRetroPickLaunchpad
 /// @notice Successful Treasury + V4 **behavior seam** with real Curve/Router/Vault/Timelock.
 /// @dev The PoolManager/PositionManager/Permit2 are behavioral test doubles, not real Uniswap v4.
 contract CanonicalCommunityTreasuryV4SeamTest is CommunityV4BehaviorFixtureV2 {
-    address internal constant CIRCLE = 0x534b2f3A21130d7a60830c2Df862319e593943A;
+    address internal constant CIRCLE = 0x534b2f3A21130d7a60830c2Df862319e593943A3;
     address internal proposer = makeAddr("seam-proposer");
     address internal contributor = makeAddr("seam-contributor");
     address internal recipient = makeAddr("seam-recipient");
@@ -68,6 +68,8 @@ contract CanonicalCommunityTreasuryV4SeamTest is CommunityV4BehaviorFixtureV2 {
         Curve curve = Curve(payable(curveAddress));
         Router router = Router(payable(curve.communityRouter()));
         Vault treasury = Vault(payable(deployer.vaultForRouter(address(router))));
+        assertEq(router.feeAsset(), asset);
+        assertEq(treasury.feeAsset(), asset);
         assertEq(router.registry().module(2), address(treasury));
         assertEq(treasury.launchToken(), token);
 
@@ -91,11 +93,7 @@ contract CanonicalCommunityTreasuryV4SeamTest is CommunityV4BehaviorFixtureV2 {
 
         bool quoteIs0 = asset < token;
         PoolKey memory key = PoolKey(
-            Currency.wrap(quoteIs0 ? asset : token),
-            Currency.wrap(quoteIs0 ? token : asset),
-            0,
-            60,
-            IHooks(hook)
+            Currency.wrap(quoteIs0 ? asset : token), Currency.wrap(quoteIs0 ? token : asset), 0, 60, IHooks(hook)
         );
         RetroPickMemeHookV2.LaunchInfo memory info = CEHookHarness(payable(hook)).readInfo(key);
         assertTrue(info.registered);

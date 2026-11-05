@@ -1,0 +1,32 @@
+{
+  "recordedAt": "2026-11-05",
+  "unitRawRetained": true,
+  "baselineFailuresRetained": true,
+  "suiteRetention": [
+    {
+      "suite": "invariants",
+      "recordedExitCode": 0,
+      "rawLogRetained": false,
+      "observedTestCounts": null,
+      "retentionStatus": "TRANSIENT_RAW_LOG_LOST_ON_HOST_CLEAR",
+      "source": "suite-runs.json retained before hostclear; no count or trace reconstruction"
+    },
+    {
+      "suite": "usdc",
+      "recordedExitCode": 0,
+      "rawLogRetained": false,
+      "observedTestCounts": null,
+      "retentionStatus": "TRANSIENT_RAW_LOG_LOST_ON_HOST_CLEAR",
+      "source": "suite-runs.json retained before hostclear; no count or trace reconstruction"
+    },
+    {
+      "suite": "seam",
+      "recordedExitCode": 0,
+      "rawLogRetained": false,
+      "observedTestCounts": null,
+      "retentionStatus": "TRANSIENT_RAW_LOG_LOST_ON_HOST_CLEAR",
+      "source": "suite-runs.json retained before hostclear; no count or trace reconstruction"
+    }
+  ],
+  "qualification": "Local command exit0 is recorded, but complete raw evidence for repaired invariants/USDC/seam requires rerun or new CI artifacts. Do not represent the old skipped GitHub Actions suites as passed."
+}

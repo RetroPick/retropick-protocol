@@ -1,0 +1,9 @@
+{
+  "yamlParsed": true,
+  "mandatorySuiteCount": 4,
+  "outcomeCombinationsChecked": 256,
+  "failures": [],
+  "pipelineFailureNotMasked": true,
+  "actionlintAvailable": false,
+  "scope": "Workflow semantics verified locally; GitHub Actions run still required."
+}

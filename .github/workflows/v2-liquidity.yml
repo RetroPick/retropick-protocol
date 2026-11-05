@@ -36,30 +36,84 @@ jobs:
   solidity-v2:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    defaults:
+      run:
+        shell: bash
+    env:
+      FOUNDRY_PROFILE: test
+      EVIDENCE_DIR: ${{ runner.temp }}/v2-solidity-evidence
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           submodules: recursive
-      - uses: foundry-rs/foundry-toolchain@908c540300062bd5a7e473851cdb4282204cee09 # v1
+      - id: foundry
+        uses: foundry-rs/foundry-toolchain@908c540300062bd5a7e473851cdb4282204cee09 # v1
         with:
           version: v1.8.4
+      - name: Record compiler and source identity
+        working-directory: contracts
+        run: |
+          mkdir -p "$EVIDENCE_DIR"
+          git rev-parse HEAD > "$EVIDENCE_DIR/source-sha.txt"
+          forge --version > "$EVIDENCE_DIR/foundry-version.txt"
+          forge config --json | python3 -c 'import json,sys; c=json.load(sys.stdin); print(json.dumps({k:c.get(k) for k in ("solc", "evm_version", "optimizer", "optimizer_runs", "via_ir", "chain_id", "code_size_limit")}, indent=2))' > "$EVIDENCE_DIR/compiler-settings.json"
       - name: V2 unit and fuzz cases
+        id: unit
+        if: ${{ !cancelled() && steps.foundry.outcome == 'success' }}
         working-directory: contracts
-        env:
-          FOUNDRY_PROFILE: test
-        run: forge test --match-path 'test/v2/unit/*.t.sol'
+        run: |
+          mkdir -p "$EVIDENCE_DIR"
+          forge test --match-path 'test/v2/unit/*.t.sol' --fuzz-seed 0x6a -vvv 2>&1 | tee "$EVIDENCE_DIR/unit.log"
       - name: V2 stateful invariants
+        id: invariants
+        if: ${{ !cancelled() && steps.foundry.outcome == 'success' }}
         working-directory: contracts
         env:
-          FOUNDRY_PROFILE: test
-        run: forge test --match-path 'test/v2/invariant/*.t.sol'
+          FOUNDRY_INVARIANT_RUNS: '256'
+          FOUNDRY_INVARIANT_DEPTH: '128'
+        run: |
+          mkdir -p "$EVIDENCE_DIR"
+          forge test --match-path 'test/v2/invariant/*.t.sol' --fuzz-seed 0x6a -vvv 2>&1 | tee "$EVIDENCE_DIR/invariants.log"
       - name: Community Treasury six-decimal stateful invariants
+        id: treasury_usdc
+        if: ${{ !cancelled() && steps.foundry.outcome == 'success' }}
         working-directory: contracts
         env:
-          FOUNDRY_PROFILE: test
-        run: forge test --match-path 'test/v2/community-economy/treasury-integration/CommunityTreasuryUSDCInvariant.t.sol'
+          FOUNDRY_INVARIANT_RUNS: '256'
+          FOUNDRY_INVARIANT_DEPTH: '128'
+        run: |
+          mkdir -p "$EVIDENCE_DIR"
+          forge test --match-path 'test/v2/community-economy/treasury-integration/CommunityTreasuryUSDCInvariant.t.sol' --fuzz-seed 0x6a -vvv 2>&1 | tee "$EVIDENCE_DIR/treasury-usdc.log"
       - name: Community Treasury successful V4 behavior seam (native and six-decimal)
+        id: treasury_v4
+        if: ${{ !cancelled() && steps.foundry.outcome == 'success' }}
         working-directory: contracts
+        run: |
+          mkdir -p "$EVIDENCE_DIR"
+          forge test --match-path 'test/v2/community-economy/treasury-integration/CommunityTreasuryV4Seam.t.sol' --fuzz-seed 0x6a -vvv 2>&1 | tee "$EVIDENCE_DIR/treasury-v4-seam.log"
+      - name: Require every Solidity qualification suite
+        if: ${{ always() }}
         env:
-          FOUNDRY_PROFILE: test
-        run: forge test --match-path 'test/v2/community-economy/treasury-integration/CommunityTreasuryV4Seam.t.sol'
+          UNIT_OUTCOME: ${{ steps.unit.outcome }}
+          INVARIANTS_OUTCOME: ${{ steps.invariants.outcome }}
+          TREASURY_USDC_OUTCOME: ${{ steps.treasury_usdc.outcome }}
+          TREASURY_V4_OUTCOME: ${{ steps.treasury_v4.outcome }}
+        run: |
+          mkdir -p "$EVIDENCE_DIR"
+          python3 - <<'PYTHON'
+          import json, os, pathlib
+          outcomes = {name: os.environ.get(name, "missing") for name in (
+              "UNIT_OUTCOME", "INVARIANTS_OUTCOME", "TREASURY_USDC_OUTCOME", "TREASURY_V4_OUTCOME")}
+          pathlib.Path(os.environ["EVIDENCE_DIR"], "suite-outcomes.json").write_text(json.dumps(outcomes, indent=2) + "\n")
+          print(json.dumps(outcomes))
+          if any(result != "success" for result in outcomes.values()):
+              raise SystemExit("Every mandatory Solidity suite must succeed; failures, cancellations and skips block qualification")
+          PYTHON
+      - name: Retain Solidity qualification evidence
+        if: ${{ always() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: v2-solidity-ci-evidence
+          path: ${{ runner.temp }}/v2-solidity-evidence
+          retention-days: 14
+          if-no-files-found: error

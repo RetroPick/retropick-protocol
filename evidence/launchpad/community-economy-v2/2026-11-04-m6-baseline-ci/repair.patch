@@ -1,0 +1,234 @@
+diff --git a/.github/workflows/v2-liquidity.yml b/.github/workflows/v2-liquidity.yml
+index 81b5a691..1aab1a43 100644
+--- a/.github/workflows/v2-liquidity.yml
++++ b/.github/workflows/v2-liquidity.yml
+@@ -36,30 +36,84 @@ jobs:
+   solidity-v2:
+     runs-on: ubuntu-latest
+     timeout-minutes: 30
++    defaults:
++      run:
++        shell: bash
++    env:
++      FOUNDRY_PROFILE: test
++      EVIDENCE_DIR: ${{ runner.temp }}/v2-solidity-evidence
+     steps:
+       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+         with:
+           submodules: recursive
+-      - uses: foundry-rs/foundry-toolchain@908c540300062bd5a7e473851cdb4282204cee09 # v1
++      - id: foundry
++        uses: foundry-rs/foundry-toolchain@908c540300062bd5a7e473851cdb4282204cee09 # v1
+         with:
+           version: v1.8.4
++      - name: Record compiler and source identity
++        working-directory: contracts
++        run: |
++          mkdir -p "$EVIDENCE_DIR"
++          git rev-parse HEAD > "$EVIDENCE_DIR/source-sha.txt"
++          forge --version > "$EVIDENCE_DIR/foundry-version.txt"
++          forge config --json | python3 -c 'import json,sys; c=json.load(sys.stdin); print(json.dumps({k:c.get(k) for k in ("solc", "evm_version", "optimizer", "optimizer_runs", "via_ir", "chain_id", "code_size_limit")}, indent=2))' > "$EVIDENCE_DIR/compiler-settings.json"
+       - name: V2 unit and fuzz cases
++        id: unit
++        if: ${{ !cancelled() && steps.foundry.outcome == 'success' }}
+         working-directory: contracts
+-        env:
+-          FOUNDRY_PROFILE: test
+-        run: forge test --match-path 'test/v2/unit/*.t.sol'
++        run: |
++          mkdir -p "$EVIDENCE_DIR"
++          forge test --match-path 'test/v2/unit/*.t.sol' --fuzz-seed 0x6a -vvv 2>&1 | tee "$EVIDENCE_DIR/unit.log"
+       - name: V2 stateful invariants
++        id: invariants
++        if: ${{ !cancelled() && steps.foundry.outcome == 'success' }}
+         working-directory: contracts
+         env:
+-          FOUNDRY_PROFILE: test
+-        run: forge test --match-path 'test/v2/invariant/*.t.sol'
++          FOUNDRY_INVARIANT_RUNS: '256'
++          FOUNDRY_INVARIANT_DEPTH: '128'
++        run: |
++          mkdir -p "$EVIDENCE_DIR"
++          forge test --match-path 'test/v2/invariant/*.t.sol' --fuzz-seed 0x6a -vvv 2>&1 | tee "$EVIDENCE_DIR/invariants.log"
+       - name: Community Treasury six-decimal stateful invariants
++        id: treasury_usdc
++        if: ${{ !cancelled() && steps.foundry.outcome == 'success' }}
+         working-directory: contracts
+         env:
+-          FOUNDRY_PROFILE: test
+-        run: forge test --match-path 'test/v2/community-economy/treasury-integration/CommunityTreasuryUSDCInvariant.t.sol'
++          FOUNDRY_INVARIANT_RUNS: '256'
++          FOUNDRY_INVARIANT_DEPTH: '128'
++        run: |
++          mkdir -p "$EVIDENCE_DIR"
++          forge test --match-path 'test/v2/community-economy/treasury-integration/CommunityTreasuryUSDCInvariant.t.sol' --fuzz-seed 0x6a -vvv 2>&1 | tee "$EVIDENCE_DIR/treasury-usdc.log"
+       - name: Community Treasury successful V4 behavior seam (native and six-decimal)
++        id: treasury_v4
++        if: ${{ !cancelled() && steps.foundry.outcome == 'success' }}
+         working-directory: contracts
++        run: |
++          mkdir -p "$EVIDENCE_DIR"
++          forge test --match-path 'test/v2/community-economy/treasury-integration/CommunityTreasuryV4Seam.t.sol' --fuzz-seed 0x6a -vvv 2>&1 | tee "$EVIDENCE_DIR/treasury-v4-seam.log"
++      - name: Require every Solidity qualification suite
++        if: ${{ always() }}
+         env:
+-          FOUNDRY_PROFILE: test
+-        run: forge test --match-path 'test/v2/community-economy/treasury-integration/CommunityTreasuryV4Seam.t.sol'
++          UNIT_OUTCOME: ${{ steps.unit.outcome }}
++          INVARIANTS_OUTCOME: ${{ steps.invariants.outcome }}
++          TREASURY_USDC_OUTCOME: ${{ steps.treasury_usdc.outcome }}
++          TREASURY_V4_OUTCOME: ${{ steps.treasury_v4.outcome }}
++        run: |
++          mkdir -p "$EVIDENCE_DIR"
++          python3 - <<'PYTHON'
++          import json, os, pathlib
++          outcomes = {name: os.environ.get(name, "missing") for name in (
++              "UNIT_OUTCOME", "INVARIANTS_OUTCOME", "TREASURY_USDC_OUTCOME", "TREASURY_V4_OUTCOME")}
++          pathlib.Path(os.environ["EVIDENCE_DIR"], "suite-outcomes.json").write_text(json.dumps(outcomes, indent=2) + "\n")
++          print(json.dumps(outcomes))
++          if any(result != "success" for result in outcomes.values()):
++              raise SystemExit("Every mandatory Solidity suite must succeed; failures, cancellations and skips block qualification")
++          PYTHON
++      - name: Retain Solidity qualification evidence
++        if: ${{ always() }}
++        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
++        with:
++          name: v2-solidity-ci-evidence
++          path: ${{ runner.temp }}/v2-solidity-evidence
++          retention-days: 14
++          if-no-files-found: error
+diff --git a/contracts/test/v2/community-economy/treasury-integration/CommunityTreasuryV4Seam.t.sol b/contracts/test/v2/community-economy/treasury-integration/CommunityTreasuryV4Seam.t.sol
+index 961e93ec..5e167e6f 100644
+--- a/contracts/test/v2/community-economy/treasury-integration/CommunityTreasuryV4Seam.t.sol
++++ b/contracts/test/v2/community-economy/treasury-integration/CommunityTreasuryV4Seam.t.sol
+@@ -22,7 +22,7 @@ import {GraduationPhase} from "../../../../src/v2/interfaces/IRetroPickLaunchpad
+ /// @notice Successful Treasury + V4 **behavior seam** with real Curve/Router/Vault/Timelock.
+ /// @dev The PoolManager/PositionManager/Permit2 are behavioral test doubles, not real Uniswap v4.
+ contract CanonicalCommunityTreasuryV4SeamTest is CommunityV4BehaviorFixtureV2 {
+-    address internal constant CIRCLE = 0x534b2f3A21130d7a60830c2Df862319e593943A;
++    address internal constant CIRCLE = 0x534b2f3A21130d7a60830c2Df862319e593943A3;
+     address internal proposer = makeAddr("seam-proposer");
+     address internal contributor = makeAddr("seam-contributor");
+     address internal recipient = makeAddr("seam-recipient");
+@@ -68,6 +68,8 @@ contract CanonicalCommunityTreasuryV4SeamTest is CommunityV4BehaviorFixtureV2 {
+         Curve curve = Curve(payable(curveAddress));
+         Router router = Router(payable(curve.communityRouter()));
+         Vault treasury = Vault(payable(deployer.vaultForRouter(address(router))));
++        assertEq(router.feeAsset(), asset);
++        assertEq(treasury.feeAsset(), asset);
+         assertEq(router.registry().module(2), address(treasury));
+         assertEq(treasury.launchToken(), token);
+ 
+@@ -91,11 +93,7 @@ contract CanonicalCommunityTreasuryV4SeamTest is CommunityV4BehaviorFixtureV2 {
+ 
+         bool quoteIs0 = asset < token;
+         PoolKey memory key = PoolKey(
+-            Currency.wrap(quoteIs0 ? asset : token),
+-            Currency.wrap(quoteIs0 ? token : asset),
+-            0,
+-            60,
+-            IHooks(hook)
++            Currency.wrap(quoteIs0 ? asset : token), Currency.wrap(quoteIs0 ? token : asset), 0, 60, IHooks(hook)
+         );
+         RetroPickMemeHookV2.LaunchInfo memory info = CEHookHarness(payable(hook)).readInfo(key);
+         assertTrue(info.registered);
+diff --git a/contracts/test/v2/integration/FullV4StackV2Fork.t.sol b/contracts/test/v2/integration/FullV4StackV2Fork.t.sol
+index f76687c7..226082a6 100644
+--- a/contracts/test/v2/integration/FullV4StackV2Fork.t.sol
++++ b/contracts/test/v2/integration/FullV4StackV2Fork.t.sol
+@@ -24,7 +24,7 @@ contract FullV4StackV2ForkTest is Test {
+         actor = vm.envAddress("MONAD_TESTNET_ACTOR_A");
+         // All constructor and wiring code is shared with the release script; no network broadcast occurs in tests.
+         DeployV2MonadTestnet release =
+-            DeployV2MonadTestnet(vm.deployCode("DeployV2MonadTestnet.s.sol:DeployV2MonadTestnet"));
++            DeployV2MonadTestnet(vm.deployCode("script/DeployV2MonadTestnet.s.sol:DeployV2MonadTestnet"));
+         deployment = release.run();
+         vm.deal(actor, 10 ether);
+     }
+diff --git a/contracts/test/v2/integration/KuruV2EndToEndFork.t.sol b/contracts/test/v2/integration/KuruV2EndToEndFork.t.sol
+index 288a5a28..21e826d4 100644
+--- a/contracts/test/v2/integration/KuruV2EndToEndFork.t.sol
++++ b/contracts/test/v2/integration/KuruV2EndToEndFork.t.sol
+@@ -32,11 +32,12 @@ contract KuruV2EndToEndForkTest is RetroPickFactoryFixtureV2 {
+         vm.createSelectFork(rpc, forkBlock);
+         assertEq(block.chainid, 10143);
+         super.setUp();
+-        environment = KuruEnvironmentV2(vm.deployCode("KuruEnvironmentV2.sol:KuruEnvironmentV2"));
++        environment = KuruEnvironmentV2(vm.deployCode("src/v2/KuruEnvironmentV2.sol:KuruEnvironmentV2"));
+         environment.validate();
+         kuru = KuruGraduationExecutorV2(
+             vm.deployCode(
+-                "KuruGraduationExecutorV2.sol:KuruGraduationExecutorV2", abi.encode(address(coordinator), environment)
++                "src/v2/KuruGraduationExecutorV2.sol:KuruGraduationExecutorV2",
++                abi.encode(address(coordinator), environment)
+             )
+         );
+         factory.configureVenueExecutor(GraduationVenue.KURU, address(kuru));
+@@ -179,7 +180,8 @@ contract KuruV2EndToEndForkTest is RetroPickFactoryFixtureV2 {
+         _buyToCompletion(address(0), curve);
+         KuruGraduationExecutorV2 replacement = KuruGraduationExecutorV2(
+             vm.deployCode(
+-                "KuruGraduationExecutorV2.sol:KuruGraduationExecutorV2", abi.encode(address(coordinator), environment)
++                "src/v2/KuruGraduationExecutorV2.sol:KuruGraduationExecutorV2",
++                abi.encode(address(coordinator), environment)
+             )
+         );
+         factory.configureVenueExecutor(GraduationVenue.KURU, address(replacement));
+diff --git a/contracts/test/v2/integration/RetroPickFactoryLaunchV2Qualification.t.sol b/contracts/test/v2/integration/RetroPickFactoryLaunchV2Qualification.t.sol
+index 61de8555..40f83324 100644
+--- a/contracts/test/v2/integration/RetroPickFactoryLaunchV2Qualification.t.sol
++++ b/contracts/test/v2/integration/RetroPickFactoryLaunchV2Qualification.t.sol
+@@ -157,7 +157,7 @@ abstract contract RetroPickFactoryFixtureV2 is Test {
+         _admit(address(0), 100 ether, 100 ether, 18);
+         factory = RetroPickLaunchFactoryV2(
+             payable(vm.deployCode(
+-                    "RetroPickLaunchFactoryV2.sol:RetroPickLaunchFactoryV2",
++                    "src/v2/RetroPickLaunchFactoryV2.sol:RetroPickLaunchFactoryV2",
+                     abi.encode(
+                         owner,
+                         IPoolManager(poolManager),
+@@ -174,11 +174,13 @@ abstract contract RetroPickFactoryFixtureV2 is Test {
+                 ))
+         );
+         deployer = RetroPickLaunchDeployerV2(
+-            vm.deployCode("RetroPickLaunchDeployerV2.sol:RetroPickLaunchDeployerV2", abi.encode(address(factory)))
++            vm.deployCode(
++                "src/v2/RetroPickLaunchDeployerV2.sol:RetroPickLaunchDeployerV2", abi.encode(address(factory))
++            )
+         );
+         executor = UniswapV4GraduationExecutorV2(
+             payable(vm.deployCode(
+-                    "UniswapV4GraduationExecutorV2.sol:UniswapV4GraduationExecutorV2",
++                    "src/v2/UniswapV4GraduationExecutorV2.sol:UniswapV4GraduationExecutorV2",
+                     abi.encode(
+                         address(coordinator),
+                         IPoolManager(poolManager),
+diff --git a/contracts/test/v2/integration/RetroPickV4GraduationBehavior.t.sol b/contracts/test/v2/integration/RetroPickV4GraduationBehavior.t.sol
+index 37c84a15..db10bf23 100644
+--- a/contracts/test/v2/integration/RetroPickV4GraduationBehavior.t.sol
++++ b/contracts/test/v2/integration/RetroPickV4GraduationBehavior.t.sol
+@@ -169,7 +169,7 @@ abstract contract RetroPickV4BehaviorFixtureV2 is Test {
+         _admit(address(0), 100 ether, 100 ether, 18);
+         factory = RetroPickLaunchFactoryV2(
+             payable(vm.deployCode(
+-                    "RetroPickLaunchFactoryV2.sol:RetroPickLaunchFactoryV2",
++                    "src/v2/RetroPickLaunchFactoryV2.sol:RetroPickLaunchFactoryV2",
+                     abi.encode(
+                         address(this),
+                         IPoolManager(address(pool)),
+@@ -186,11 +186,13 @@ abstract contract RetroPickV4BehaviorFixtureV2 is Test {
+                 ))
+         );
+         RetroPickLaunchDeployerV2 deployer = RetroPickLaunchDeployerV2(
+-            vm.deployCode("RetroPickLaunchDeployerV2.sol:RetroPickLaunchDeployerV2", abi.encode(address(factory)))
++            vm.deployCode(
++                "src/v2/RetroPickLaunchDeployerV2.sol:RetroPickLaunchDeployerV2", abi.encode(address(factory))
++            )
+         );
+         UniswapV4GraduationExecutorV2 executor = UniswapV4GraduationExecutorV2(
+             payable(vm.deployCode(
+-                    "UniswapV4GraduationExecutorV2.sol:UniswapV4GraduationExecutorV2",
++                    "src/v2/UniswapV4GraduationExecutorV2.sol:UniswapV4GraduationExecutorV2",
+                     abi.encode(
+                         address(coordinator),
+                         IPoolManager(address(pool)),

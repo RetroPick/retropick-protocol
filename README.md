@@ -58,6 +58,10 @@ Factory → single-ledger Coordinator → venue executor keeps lifecycle authori
 
 Historical predeployment campaign: **145 passed / 0 failed / 0 skipped**, fresh qualification fork **69,507,986**. [Release artifacts](evidence/launchpad/v2-monad-testnet/README.md). Deployed bytecode source: `f0363249f4b74e58dde37d1241742ca5a92bcfe3`; main integration baseline: `84861f50494a79772cf6f97a5e710bcc24973d5e`. Current repository release verification is recorded separately; source SHA is not a live readiness claim.
 
+## Maintainer entry points
+
+For local setup, code ownership, verification and safe changes, read [CONTRIBUTING.md](CONTRIBUTING.md) and the [repository hygiene audit](docs/engineering/REPOSITORY_HYGIENE_AUDIT.md). The canonical frontend is `apps/retro-ui`, not the read-only historical `apps/web`. Root `pnpm dev`, `pnpm build`, and `pnpm check` operate on the maintained workspace paths; historical Next.js commands are explicitly named `*:legacy-web`.
+
 ## Run the web app
 
 Node ≥22.13 and pnpm 11.25.0:
@@ -65,7 +69,7 @@ Node ≥22.13 and pnpm 11.25.0:
 ```sh
 pnpm install --frozen-lockfile
 cp apps/retro-ui/.env.example apps/retro-ui/.env.local
-pnpm --filter @retropick/retro-ui dev
+pnpm dev  # canonical apps/retro-ui
 ```
 
 The canonical frontend is `apps/retro-ui`. Configure its documented live data mode and public read infrastructure; never put credentials or signing keys in a browser environment. Wallets sign normal economic writes directly to chain. `apps/web` is legacy and excluded from this submission's demo and implementation work.

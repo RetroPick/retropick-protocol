@@ -1,0 +1,184 @@
+{
+  "status": "PASS",
+  "environment": "MANDATORY_LOCAL_SUITE",
+  "counts": {
+    "passed": 34,
+    "failed": 0,
+    "skipped": 0
+  },
+  "minimumTests": 34,
+  "missingSuites": [],
+  "emptySuites": [],
+  "inventory": [
+    {
+      "suite": "test/v2/unit/CompletionQuoteOracleV2.t.sol:CompletionQuoteOracleV2Test",
+      "test": "testDifferentialPythonOracle80States()",
+      "status": "Success"
+    },
+    {
+      "suite": "test/v2/unit/GraduationCoordinatorV2Authority.t.sol:GraduationCoordinatorV2AuthorityTest",
+      "test": "testInexactSecureReportCannotCreateDurableLedgerThenExactHandoffRetries()",
+      "status": "Success"
+    },
+    {
+      "suite": "test/v2/unit/GraduationCoordinatorV2Authority.t.sol:GraduationCoordinatorV2AuthorityTest",
+      "test": "testOnlyFactoryCanConfigureRegisterOrSecureAndBindingIsOneTime()",
+      "status": "Success"
+    },
+    {
+      "suite": "test/v2/unit/QuoteAssetRegistryV2.t.sol:V4OnlyQuoteAssetRegistryV2Test",
+      "test": "testChainAndPolicyHashFailClosed()",
+      "status": "Success"
+    },
+    {
+      "suite": "test/v2/unit/QuoteAssetRegistryV2.t.sol:V4OnlyQuoteAssetRegistryV2Test",
+      "test": "testFuzzOnlyMaskOneCanBeConfigured(uint8)",
+      "status": "Success"
+    },
+    {
+      "suite": "test/v2/unit/QuoteAssetRegistryV2.t.sol:V4OnlyQuoteAssetRegistryV2Test",
+      "test": "testNativeAndSixDecimalAdmissionIdentity()",
+      "status": "Success"
+    },
+    {
+      "suite": "test/v2/unit/QuoteAssetRegistryV2.t.sol:V4OnlyQuoteAssetRegistryV2Test",
+      "test": "testOwnerCannotEnableReservedKuruMask()",
+      "status": "Success"
+    },
+    {
+      "suite": "test/v2/unit/QuoteAssetRegistryV2.t.sol:V4OnlyQuoteAssetRegistryV2Test",
+      "test": "testVersionAndExistingSnapshotRemainStable()",
+      "status": "Success"
+    },
+    {
+      "suite": "test/v2/unit/RetroPickBondingCurveMathV2Qualification.t.sol:RetroPickBondingCurveMathV2QualificationTest",
+      "test": "testFuzzAmountInExactIntegerFormula(uint256,uint256,uint256,uint16)",
+      "status": "Success"
+    },
+    {
+      "suite": "test/v2/unit/RetroPickBondingCurveMathV2Qualification.t.sol:RetroPickBondingCurveMathV2QualificationTest",
+      "test": "testFuzzAmountOutExactIntegerFormula(uint256,uint256,uint256,uint16)",
+      "status": "Success"
+    },
+    {
+      "suite": "test/v2/unit/RetroPickBondingCurveMathV2Qualification.t.sol:RetroPickBondingCurveMathV2QualificationTest",
+      "test": "testGoldenAmountInCurrentPlusOneRounding()",
+      "status": "Success"
+    },
+    {
+      "suite": "test/v2/unit/RetroPickBondingCurveMathV2Qualification.t.sol:RetroPickBondingCurveMathV2QualificationTest",
+      "test": "testGoldenAmountOutNoFee()",
+      "status": "Success"
+    },
+    {
+      "suite": "test/v2/unit/RetroPickBondingCurveMathV2Qualification.t.sol:RetroPickBondingCurveMathV2QualificationTest",
+      "test": "testZeroAndEmptyDomains()",
+      "status": "Success"
+    },
+    {
+      "suite": "test/v2/unit/RetroPickCurrentCurveStateV2Qualification.t.sol:RetroPickCurrentCurveStateV2QualificationTest",
+      "test": "testBuySellAndFeeBucketsReconcileWithPhysicalBalances()",
+      "status": "Success"
+    },
+    {
+      "suite": "test/v2/unit/RetroPickCurrentCurveStateV2Qualification.t.sol:RetroPickCurrentCurveStateV2QualificationTest",
+      "test": "testCompletionQuoteMatchesExecutableFinalBuyAfterMutations()",
+      "status": "Success"
+    },
+    {
+      "suite": "test/v2/unit/RetroPickCurrentCurveStateV2Qualification.t.sol:RetroPickCurrentCurveStateV2QualificationTest",
+      "test": "testInitialSupplyWiringAndReserve()",
+      "status": "Success"
+    },
+    {
+      "suite": "test/v2/unit/RetroPickCurrentCurveStateV2Qualification.t.sol:RetroPickCurrentCurveStateV2QualificationTest",
+      "test": "testPlainFeeSweepLeavesTradingReserveIntact()",
+      "status": "Success"
+    },
+    {
+      "suite": "test/v2/unit/RetroPickCurrentCurveStateV2Qualification.t.sol:RetroPickCurrentCurveStateV2QualificationTest",
+      "test": "testSnipeExemptionIsCurrentlyNoOpForTradeTax()",
+      "status": "Success"
+    },
+    {
+      "suite": "test/v2/unit/RetroPickCurrentCurveStateV2Qualification.t.sol:RetroPickCurrentCurveStateV2QualificationTest",
+      "test": "testSweepDoesNotDoubleDeductBuybackEarmark()",
+      "status": "Success"
+    },
+    {
+      "suite": "test/v2/unit/RetroPickCurrentCurveStateV2Qualification.t.sol:RetroPickCurrentCurveStateV2QualificationTest",
+      "test": "testUnauthorizedAndFailedOperationsPreserveAccounting()",
+      "status": "Success"
+    },
+    {
+      "suite": "test/v2/unit/RetroPickFeeEscrowV2Qualification.t.sol:RetroPickFeeEscrowV2QualificationTest",
+      "test": "testExactTokenCreditsAndClaimsAreAssetSegregated()",
+      "status": "Success"
+    },
+    {
+      "suite": "test/v2/unit/RetroPickFeeEscrowV2Qualification.t.sol:RetroPickFeeEscrowV2QualificationTest",
+      "test": "testExternalBalanceLossStopsTokenClaimsWithoutCorruptingLedger()",
+      "status": "Success"
+    },
+    {
+      "suite": "test/v2/unit/RetroPickFeeEscrowV2Qualification.t.sol:RetroPickFeeEscrowV2QualificationTest",
+      "test": "testNativeCreditsClaimsAndDonationsRemainSeparate()",
+      "status": "Success"
+    },
+    {
+      "suite": "test/v2/unit/RetroPickFeeEscrowV2Qualification.t.sol:RetroPickFeeEscrowV2QualificationTest",
+      "test": "testNativeReceiverReentryCannotDoubleClaim()",
+      "status": "Success"
+    },
+    {
+      "suite": "test/v2/unit/RetroPickFeeEscrowV2Qualification.t.sol:RetroPickFeeEscrowV2QualificationTest",
+      "test": "testRejectedCallsPreserveState()",
+      "status": "Success"
+    },
+    {
+      "suite": "test/v2/unit/RetroPickFeeEscrowV2Qualification.t.sol:RetroPickFeeEscrowV2QualificationTest",
+      "test": "testRejectedTokenPayoutAndLateSenderSurchargePreserveCredit()",
+      "status": "Success"
+    },
+    {
+      "suite": "test/v2/unit/RetroPickFeeEscrowV2Qualification.t.sol:RetroPickFeeEscrowV2QualificationTest",
+      "test": "testRepeatedCreditsPartialClaimsAndDoubleClaimRejection()",
+      "status": "Success"
+    },
+    {
+      "suite": "test/v2/unit/RetroPickFeeEscrowV2Qualification.t.sol:RetroPickFeeEscrowV2QualificationTest",
+      "test": "testSenderSurchargeCreditRevertsBeforeLiabilityIsCreated()",
+      "status": "Success"
+    },
+    {
+      "suite": "test/v2/unit/RetroPickLaunchDeployerV2Qualification.t.sol:RetroPickLaunchDeployerV2QualificationTest",
+      "test": "testDeploysFreshCurveAndTokenWithFactoryIdentity()",
+      "status": "Success"
+    },
+    {
+      "suite": "test/v2/unit/RetroPickLaunchDeployerV2Qualification.t.sol:RetroPickLaunchDeployerV2QualificationTest",
+      "test": "testDifferentQuoteAddressIsPassedThroughNotAdmittedHere()",
+      "status": "Success"
+    },
+    {
+      "suite": "test/v2/unit/RetroPickLaunchDeployerV2Qualification.t.sol:RetroPickLaunchDeployerV2QualificationTest",
+      "test": "testMetadataBoundsRejectOverlongNameAndSocial()",
+      "status": "Success"
+    },
+    {
+      "suite": "test/v2/unit/RetroPickLaunchDeployerV2Qualification.t.sol:RetroPickLaunchDeployerV2QualificationTest",
+      "test": "testUnauthorizedCallerCannotDeploy()",
+      "status": "Success"
+    },
+    {
+      "suite": "test/v2/unit/V4OnlyLaunchAdmissionV2.t.sol:V4OnlyLaunchAdmissionV2Test",
+      "test": "testEveryLegacyDefaultLaunchOverloadPinsV4()",
+      "status": "Success"
+    },
+    {
+      "suite": "test/v2/unit/V4OnlyLaunchAdmissionV2.t.sol:V4OnlyLaunchAdmissionV2Test",
+      "test": "testReservedVenueRejectedBeforeDeploymentEvenWithConfiguredExecutor()",
+      "status": "Success"
+    }
+  ]
+}

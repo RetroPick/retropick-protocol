@@ -1,0 +1,14 @@
+{
+  "observedAt": "2026-11-06T07:22:49.580618+00:00",
+  "run": "https://github.com/RetroPick/retropick-protocol/actions/runs/42180279136",
+  "head": "d04ab613c706578e0f36a3343f8bfab955927cbd",
+  "command": [
+    "gh",
+    "api",
+    "repos/RetroPick/retropick-protocol/actions/runs/42180279136/jobs"
+  ],
+  "exitCode": 0,
+  "snapshot": "hosted-jobs-started.json",
+  "sha256": "6ffab42fb3b52f65783096455d7811b3abb153fad176f2a2eda3498026a0439c",
+  "scope": "Hosted jobs started; evidence initialization and parser tests passed; Solidity compilation in progress; no overall CI PASS claimed"
+}

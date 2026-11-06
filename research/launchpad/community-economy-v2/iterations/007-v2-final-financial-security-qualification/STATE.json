@@ -9,11 +9,12 @@
       "evidence": "skills/MANIFEST.json"
     },
     "1": {
-      "status": "NOT_RUN",
-      "scope": "Full baseline and hosted CI pending; archive checks PASS, workflow repair and ten parser tests locally PASS"
+      "status": "FAIL",
+      "scope": "Hosted run42180279136 rejected grouped invariant result count; all underlying financial results successful. Group-aware parser correction passes12regressions and replays hosted artifact; next hosted run required."
     },
     "2": {
-      "status": "NOT_RUN"
+      "status": "NOT_RUN",
+      "scope": "Bounded source review and41-contract Slither12detector scan executed;18findings recorded, full historical/M6/Semgrep disposition incomplete"
     },
     "3": {
       "status": "NOT_RUN"
@@ -31,7 +32,7 @@
       "status": "NOT_RUN"
     }
   },
-  "currentTask": "qualify skills installation, CI repair and modeled invariant regressions",
+  "currentTask": "Push group-aware parser correction; finish final fixture invariant campaign and independent review",
   "blockers": [
     "Full new-worktree baseline pending",
     "Hosted CI pending",
@@ -50,5 +51,11 @@
     "disposition": "Approved scoped repair for review; broader qualification pending",
     "counterexample": "Empty required suite borrowing unrelated passes now rejected",
     "testsPassed": 10
+  },
+  "ci": {
+    "pr": "https://github.com/RetroPick/retropick-protocol/pull/50",
+    "priorRun": "https://github.com/RetroPick/retropick-protocol/actions/runs/42180279136",
+    "priorConclusion": "failure",
+    "cause": "Reporting gate counted3runnerrecords instead of4invariantpredicates+1unit. No financial assertion failure in raw artifacts."
   }
 }

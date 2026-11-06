@@ -21,6 +21,7 @@ def check_results(data, minimum=1, required_suites=()):
         raise ValueError("Expected nonempty Foundry suite object")
     counts = {"passed": 0, "failed": 0, "skipped": 0}
     inventory = []
+    runner_counts = dict(counts)
     suites = []
     empty_suites = []
     status_keys = {"Success": "passed", "Failure": "failed", "Skipped": "skipped"}
@@ -30,15 +31,40 @@ def check_results(data, minimum=1, required_suites=()):
         suites.append(suite)
         if not result["test_results"]:
             empty_suites.append(suite)
+        predicate_names = set()
         for name, test in result["test_results"].items():
             if not isinstance(test, dict) or test.get("status") not in status_keys:
                 raise ValueError(f"Unknown test result: {suite}:{name}")
-            counts[status_keys[test["status"]]] += 1
-            inventory.append({"suite": suite, "test": name, "status": test["status"]})
+            runner_counts[status_keys[test["status"]]] += 1
+            predicates = test.get("invariant_predicate_results")
+            if predicates is not None:
+                count = test.get("invariant_count")
+                kind = test.get("kind", {})
+                if (not isinstance(predicates, list) or not predicates
+                        or type(count) is not int or count != len(predicates)
+                        or not isinstance(kind, dict) or "Invariant" not in kind):
+                    raise ValueError(f"Invalid invariant group: {suite}:{name}")
+                for predicate in predicates:
+                    if (not isinstance(predicate, dict) or not isinstance(predicate.get("name"), str)
+                            or not predicate["name"] or predicate["name"] in predicate_names
+                            or predicate.get("status") not in status_keys):
+                        raise ValueError(f"Invalid or duplicate invariant predicate: {suite}:{name}")
+                    predicate_names.add(predicate["name"])
+                    counts[status_keys[predicate["status"]]] += 1
+                    inventory.append({"suite": suite, "test": predicate["name"],
+                                      "status": predicate["status"], "runnerGroup": name})
+                # A failed/skipped group must never be hidden by successful child records.
+                if test["status"] != "Success":
+                    counts[status_keys[test["status"]]] += 1
+            else:
+                if "invariant_count" in test:
+                    raise ValueError(f"Missing invariant predicate records: {suite}:{name}")
+                counts[status_keys[test["status"]]] += 1
+                inventory.append({"suite": suite, "test": name, "status": test["status"]})
     missing = [name for name in required_suites if not any(s.rsplit(":", 1)[-1] == name for s in suites)]
     passed = counts["passed"] >= minimum and counts["failed"] == 0 and counts["skipped"] == 0 and not missing and not empty_suites
     return {"status": "PASS" if passed else "FAIL", "environment": "MANDATORY_LOCAL_SUITE",
-            "counts": counts, "minimumTests": minimum, "missingSuites": missing, "emptySuites": empty_suites, "inventory": inventory}
+            "counts": counts, "runnerCounts": runner_counts, "minimumTests": minimum, "missingSuites": missing, "emptySuites": empty_suites, "inventory": inventory}
 
 
 def main():

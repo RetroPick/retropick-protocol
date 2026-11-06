@@ -1,0 +1,8 @@
+{
+  "RESULT_GATE_OUTCOME": "success",
+  "UNIT_OUTCOME": "success",
+  "INVARIANTS_OUTCOME": "failure",
+  "TREASURY_USDC_OUTCOME": "success",
+  "TREASURY_V4_OUTCOME": "success",
+  "LEGACY_OUTCOME": "success"
+}

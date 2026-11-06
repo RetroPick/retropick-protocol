@@ -1,0 +1,24 @@
+{
+  "status": "PASS",
+  "environment": "MANDATORY_LOCAL_SUITE",
+  "counts": {
+    "passed": 2,
+    "failed": 0,
+    "skipped": 0
+  },
+  "minimumTests": 1,
+  "missingSuites": [],
+  "emptySuites": [],
+  "inventory": [
+    {
+      "suite": "test/v2/community-economy/treasury-integration/CommunityTreasuryV4Seam.t.sol:CanonicalCommunityTreasuryV4SeamTest",
+      "test": "testCENativeTreasuryCompletesSuccessfulV4BehaviorSeam()",
+      "status": "Success"
+    },
+    {
+      "suite": "test/v2/community-economy/treasury-integration/CommunityTreasuryV4Seam.t.sol:CanonicalCommunityTreasuryV4SeamTest",
+      "test": "testCEUSDCTreasuryCompletesSuccessfulV4BehaviorSeam()",
+      "status": "Success"
+    }
+  ]
+}

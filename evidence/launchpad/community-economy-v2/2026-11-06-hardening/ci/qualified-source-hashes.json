@@ -1,0 +1,5 @@
+{
+  ".github/workflows/v2-liquidity.yml": "5a21e4a2ecea66e5250139c8dc2675fcc8edffb0c85406ee97934739d802a5de",
+  "scripts/launchpad/check_foundry_results.py": "be1b11b0b2de38a18102876bf0c6a773042b9e0935e610c8349f9289773f3107",
+  "scripts/launchpad/test_foundry_results.py": "6c95471c2d794573538861f2ae6d8a2b23d5a3f5a0905bbc8efc3c658e4cdc59"
+}

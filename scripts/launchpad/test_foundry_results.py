@@ -59,6 +59,41 @@ class FoundryResultsTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             json.loads('{"x": {"status": "Failure"}, "x": {"status": "Success"}}', object_pairs_hook=unique_object)
 
+    def test_actual_hosted_grouped_invariants(self):
+        root = Path(__file__).resolve().parents[2]
+        path = root / "evidence/launchpad/community-economy-v2/2026-11-06-hardening/ci/hosted-42180279136/invariants.json"
+        data = json.loads(path.read_text(), object_pairs_hook=unique_object)
+        result = check_results(data, minimum=4, required_suites=[
+            "GraduationCoordinatorV2InvariantTest", "RetroPickCurrentCurveV2InvariantTest"])
+        self.assertEqual(result["status"], "PASS")
+        self.assertEqual(result["counts"]["passed"], 5)
+        self.assertEqual(result["runnerCounts"]["passed"], 3)
+
+    def test_invariant_groups_cannot_forge_counts_or_hide_failures(self):
+        import copy
+        group = {"status": "Success", "invariant_count": 2,
+                 "invariant_predicate_results": [
+                     {"name": "invariantA", "status": "Success"},
+                     {"name": "invariantB", "status": "Success"}],
+                 "kind": {"Invariant": {"runs": 256, "calls": 32768}}}
+        def wrap(g):
+            return {"x:FixtureTest": {"test_results": {"invariantA()": g}}}
+        self.assertEqual(check_results(wrap(group), 2)["status"], "PASS")
+        for key, value in [("invariant_count", 3), ("invariant_count", True),
+                           ("invariant_predicate_results", []), ("kind", {"Unit": {}})]:
+            bad = copy.deepcopy(group); bad[key] = value
+            with self.subTest(key=key, value=value), self.assertRaises(ValueError):
+                check_results(wrap(bad))
+        bad = copy.deepcopy(group)
+        bad["invariant_predicate_results"][1]["name"] = "invariantA"
+        with self.assertRaises(ValueError):
+            check_results(wrap(bad))
+        for status in ["Failure", "Skipped"]:
+            bad = copy.deepcopy(group); bad["status"] = status
+            self.assertEqual(check_results(wrap(bad))["status"], "FAIL")
+            bad = copy.deepcopy(group); bad["invariant_predicate_results"][0]["status"] = status
+            self.assertEqual(check_results(wrap(bad))["status"], "FAIL")
+
     def test_cli_corrupt_json_creates_failed_artifact(self):
         script = Path(__file__).with_name("check_foundry_results.py")
         with tempfile.TemporaryDirectory() as directory:

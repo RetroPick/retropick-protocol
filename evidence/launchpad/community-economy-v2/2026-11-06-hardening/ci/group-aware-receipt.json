@@ -1,0 +1,39 @@
+{
+  "baseCommit": "d04ab613c706578e0f36a3343f8bfab955927cbd",
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "scripts/launchpad",
+        "-p",
+        "test_foundry_results.py",
+        "-v"
+      ],
+      "exitCode": 0,
+      "log": "group-aware-parser-tests.log"
+    },
+    {
+      "argv": [
+        "python3",
+        "scripts/launchpad/check_foundry_results.py",
+        "/home/ubuntu/project/retropick/retropick-v2-audit-hardening-20261106/evidence/launchpad/community-economy-v2/2026-11-06-hardening/ci/hosted-42180279136/invariants.json",
+        "--min-tests",
+        "4",
+        "--required-suite",
+        "GraduationCoordinatorV2InvariantTest",
+        "--required-suite",
+        "RetroPickCurrentCurveV2InvariantTest",
+        "--summary",
+        "/home/ubuntu/project/retropick/retropick-v2-audit-hardening-20261106/evidence/launchpad/community-economy-v2/2026-11-06-hardening/ci/group-aware-hosted-summary.json"
+      ],
+      "exitCode": 0,
+      "log": "group-aware-hosted-replay.log"
+    }
+  ],
+  "cause": "Foundry v1.8.4 reported 4 predicates in 2 groups, plus one unit: 5 logical results, 3 runner results. Original min4 unchanged.",
+  "independentReview": "Prior parser reviewed; group-aware extension awaits separate review. Model reviewer unavailable due usage quota."
+}

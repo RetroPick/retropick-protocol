@@ -99,5 +99,62 @@
   "limitations": [
     "Shellcheck disabled for actionlint; GitHub expression and workflow validation enabled.",
     "Synthetic Forge probe verifies serialization only, not protocol behavior."
-  ]
+  ],
+  "canonicalMathSmoke": {
+    "argv": [
+      "forge",
+      "test",
+      "--contracts",
+      "src/v2/libraries",
+      "--match-path",
+      "test/v2/unit/RetroPickBondingCurveMathV2Qualification.t.sol",
+      "--fuzz-seed",
+      "0x6a",
+      "--out",
+      "/tmp/retropick-ci-schema-canonical-out",
+      "--cache-path",
+      "/tmp/retropick-ci-schema-canonical-cache",
+      "--json"
+    ],
+    "cwd": "/home/ubuntu/project/retropick/retropick-protocol/contracts",
+    "profile": "test",
+    "fuzzRuns": 10000,
+    "seed": "0x6a",
+    "exitCode": 0,
+    "note": "Original worktree same HEAD; uses initialized dependencies. No tracked sources modified.",
+    "resultGate": "PASS",
+    "summary": "canonical-math-summary.json",
+    "counts": {
+      "passed": 5,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "finalOverlaySHA256": {
+    ".github/workflows/v2-liquidity.yml": "5a21e4a2ecea66e5250139c8dc2675fcc8edffb0c85406ee97934739d802a5de",
+    "scripts/launchpad/check_foundry_results.py": "be1b11b0b2de38a18102876bf0c6a773042b9e0935e610c8349f9289773f3107",
+    "scripts/launchpad/test_foundry_results.py": "6c95471c2d794573538861f2ae6d8a2b23d5a3f5a0905bbc8efc3c658e4cdc59"
+  },
+  "parserRegressionTests": {
+    "passed": 10,
+    "failed": 0,
+    "skipped": 0,
+    "log": "parser-unit-tests-final.log"
+  },
+  "evidenceSHA256": {
+    "README.md": "35877830b0b4ccc0230a7b1ab790789f6cc8763ef79fc6c3ed60fdd7ef6d49e8",
+    "baseline-workflow-reproducer.log": "23a4482f2f606825068ef31b81ddd14a82f05f3cface1b2a8c39cf1c896eb580",
+    "canonical-math-build.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "canonical-math-summary.json": "06059b48b1cb38178ab20e37b9cd68e636da7afd3ddfb171b96a3a2c1f5e87e8",
+    "canonical-math.json": "e5bb9411674f75019461c71a350f1c77c453662cf8bcf45238c302c04e1b70c3",
+    "diff-check.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "foundry-schema-build.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "foundry-schema.json": "c9b120e8fbf38e2968a0507853bb7a12b8d7b29eae28a94a86d891fdd752cba3",
+    "parser-unit-tests-final.log": "64b9ee581d1708264cf6ad643d9753db8fe0eaddda78bdf0990a03af2f5e51ed",
+    "parser-unit-tests.log": "55e061e42cf306719bc37247f658657d3180667f5e46f9c029ce1e157c5cff9e",
+    "qualified-source-hashes.json": "0764d719e79b5c3ad23ec9e219ac328c9fc9f0743888c5ae455f931adb0dc01f",
+    "schema-rejected-summary.json": "637fc3e91bbf86db1c14f1fa45cd187e4cdb7ad3e2ee9fd8e68db0bd87f3249c",
+    "schema-rejected.log": "637fc3e91bbf86db1c14f1fa45cd187e4cdb7ad3e2ee9fd8e68db0bd87f3249c",
+    "workflow-actionlint.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
 }

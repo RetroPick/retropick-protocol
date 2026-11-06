@@ -1,0 +1,29 @@
+{
+  "status": "FAIL",
+  "environment": "MANDATORY_LOCAL_SUITE",
+  "counts": {
+    "passed": 3,
+    "failed": 0,
+    "skipped": 0
+  },
+  "minimumTests": 4,
+  "missingSuites": [],
+  "emptySuites": [],
+  "inventory": [
+    {
+      "suite": "test/v2/invariant/GraduationCoordinatorV2Invariant.t.sol:GraduationCoordinatorV2InvariantTest",
+      "test": "invariantNoCompletionDeadlockReplayOrProtectedExit()",
+      "status": "Success"
+    },
+    {
+      "suite": "test/v2/invariant/RetroPickCurrentCurveV2Invariant.t.sol:RetroPickCurrentCurveV2InvariantTest",
+      "test": "invariantFixedSupplyAndNoUnauthorizedMutation()",
+      "status": "Success"
+    },
+    {
+      "suite": "test/v2/invariant/RetroPickCurrentCurveV2Invariant.t.sol:RetroPickCurrentCurveV2InvariantTest",
+      "test": "testHandlerExercisesAcceptedAndRejectedBranches()",
+      "status": "Success"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "status": "PASS",
+  "environment": "MANDATORY_LOCAL_SUITE",
+  "counts": {
+    "passed": 5,
+    "failed": 0,
+    "skipped": 0
+  },
+  "runnerCounts": {
+    "passed": 3,
+    "failed": 0,
+    "skipped": 0
+  },
+  "minimumTests": 4,
+  "missingSuites": [],
+  "emptySuites": [],
+  "inventory": [
+    {
+      "suite": "test/v2/invariant/GraduationCoordinatorV2Invariant.t.sol:GraduationCoordinatorV2InvariantTest",
+      "test": "invariantNoCompletionDeadlockReplayOrProtectedExit",
+      "status": "Success",
+      "runnerGroup": "invariantNoCompletionDeadlockReplayOrProtectedExit()"
+    },
+    {
+      "suite": "test/v2/invariant/GraduationCoordinatorV2Invariant.t.sol:GraduationCoordinatorV2InvariantTest",
+      "test": "invariantOneLedgerPhysicalBackingImmutableVenueAndDestination",
+      "status": "Success",
+      "runnerGroup": "invariantNoCompletionDeadlockReplayOrProtectedExit()"
+    },
+    {
+      "suite": "test/v2/invariant/RetroPickCurrentCurveV2Invariant.t.sol:RetroPickCurrentCurveV2InvariantTest",
+      "test": "invariantFixedSupplyAndNoUnauthorizedMutation",
+      "status": "Success",
+      "runnerGroup": "invariantFixedSupplyAndNoUnauthorizedMutation()"
+    },
+    {
+      "suite": "test/v2/invariant/RetroPickCurrentCurveV2Invariant.t.sol:RetroPickCurrentCurveV2InvariantTest",
+      "test": "invariantPhysicalBalancesAndFeeBuckets",
+      "status": "Success",
+      "runnerGroup": "invariantFixedSupplyAndNoUnauthorizedMutation()"
+    },
+    {
+      "suite": "test/v2/invariant/RetroPickCurrentCurveV2Invariant.t.sol:RetroPickCurrentCurveV2InvariantTest",
+      "test": "testHandlerExercisesAcceptedAndRejectedBranches()",
+      "status": "Success"
+    }
+  ]
+}

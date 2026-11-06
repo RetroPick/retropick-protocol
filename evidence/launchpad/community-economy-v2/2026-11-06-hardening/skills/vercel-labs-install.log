@@ -1,0 +1,31 @@
+
+│
+●   codex  Agent detected — installing non-interactively
+│
+●  Selected 1 skill: find-skills
+
+│
+◇  Installation Summary ───────────────────────────────────────────────────────╮
+│                                                                              │
+│  ~/project/retropick/retropick-v2-audit-hardening-20261106/.agents/skills/f  │
+│  ind-skills                                                                  │
+│    copy → Codex                                                              │
+│                                                                              │
+├──────────────────────────────────────────────────────────────────────────────╯
+
+[
+  {
+    "name": "find-skills",
+    "status": "installed",
+    "source": "vercel-labs/skills",
+    "ref": "d3701c11b1101251af14c9d148f026e1a47ebe17",
+    "hash": "913b9d37d0d54047dd65222bb8c67b2bf04e3cb87dcad1729068d7a8b2c8c396",
+    "path": "/home/ubuntu/project/retropick/retropick-v2-audit-hardening-20261106/.agents/skills/find-skills",
+    "scope": "project",
+    "agents": [
+      "Codex"
+    ],
+    "mode": "copy",
+    "security": null
+  }
+]

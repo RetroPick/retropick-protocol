@@ -1,0 +1,139 @@
+
+│
+●   codex  Agent detected — installing non-interactively
+│
+●  Selected 7 skills: code-maturity-assessor, guidelines-advisor, token-integration-analyzer, differential-review, entry-point-analyzer, post-patch-validation, property-based-testing
+
+│
+◇  Installation Summary ───────────────────────────────────────────────────────╮
+│                                                                              │
+│  ~/project/retropick/retropick-v2-audit-hardening-20261106/.agents/skills/c  │
+│  ode-maturity-assessor                                                       │
+│    copy → Codex                                                              │
+│                                                                              │
+│  ~/project/retropick/retropick-v2-audit-hardening-20261106/.agents/skills/g  │
+│  uidelines-advisor                                                           │
+│    copy → Codex                                                              │
+│                                                                              │
+│  ~/project/retropick/retropick-v2-audit-hardening-20261106/.agents/skills/t  │
+│  oken-integration-analyzer                                                   │
+│    copy → Codex                                                              │
+│                                                                              │
+│  ~/project/retropick/retropick-v2-audit-hardening-20261106/.agents/skills/d  │
+│  ifferential-review                                                          │
+│    copy → Codex                                                              │
+│                                                                              │
+│  ~/project/retropick/retropick-v2-audit-hardening-20261106/.agents/skills/e  │
+│  ntry-point-analyzer                                                         │
+│    copy → Codex                                                              │
+│                                                                              │
+│  ~/project/retropick/retropick-v2-audit-hardening-20261106/.agents/skills/p  │
+│  ost-patch-validation                                                        │
+│    copy → Codex                                                              │
+│                                                                              │
+│  ~/project/retropick/retropick-v2-audit-hardening-20261106/.agents/skills/p  │
+│  roperty-based-testing                                                       │
+│    copy → Codex                                                              │
+│                                                                              │
+├──────────────────────────────────────────────────────────────────────────────╯
+
+[
+  {
+    "name": "code-maturity-assessor",
+    "status": "installed",
+    "source": "trailofbits/skills",
+    "ref": "470419e16f97e112d01fc32f4898aea1755015d9",
+    "hash": "2e55a6b237cd6ce48175b3fc5055a13703a767d740d02838a5dc4488793cf340",
+    "path": "/home/ubuntu/project/retropick/retropick-v2-audit-hardening-20261106/.agents/skills/code-maturity-assessor",
+    "scope": "project",
+    "agents": [
+      "Codex"
+    ],
+    "mode": "copy",
+    "security": null
+  },
+  {
+    "name": "guidelines-advisor",
+    "status": "installed",
+    "source": "trailofbits/skills",
+    "ref": "470419e16f97e112d01fc32f4898aea1755015d9",
+    "hash": "c5fb81ce2edf98ba17b4e16541ec5ed79069be6986bb099e34c729b34b23ead5",
+    "path": "/home/ubuntu/project/retropick/retropick-v2-audit-hardening-20261106/.agents/skills/guidelines-advisor",
+    "scope": "project",
+    "agents": [
+      "Codex"
+    ],
+    "mode": "copy",
+    "security": null
+  },
+  {
+    "name": "token-integration-analyzer",
+    "status": "installed",
+    "source": "trailofbits/skills",
+    "ref": "470419e16f97e112d01fc32f4898aea1755015d9",
+    "hash": "44fbccf158e28bae4cfb969847ad46d72e93fe58f82b53a3551646b1c755c8d6",
+    "path": "/home/ubuntu/project/retropick/retropick-v2-audit-hardening-20261106/.agents/skills/token-integration-analyzer",
+    "scope": "project",
+    "agents": [
+      "Codex"
+    ],
+    "mode": "copy",
+    "security": null
+  },
+  {
+    "name": "differential-review",
+    "status": "installed",
+    "source": "trailofbits/skills",
+    "ref": "470419e16f97e112d01fc32f4898aea1755015d9",
+    "hash": "3c330b7d8e2a7a6bba9ff9c7f9971d3b6c17fef84b9382efdd325abdd481371c",
+    "path": "/home/ubuntu/project/retropick/retropick-v2-audit-hardening-20261106/.agents/skills/differential-review",
+    "scope": "project",
+    "agents": [
+      "Codex"
+    ],
+    "mode": "copy",
+    "security": null
+  },
+  {
+    "name": "entry-point-analyzer",
+    "status": "installed",
+    "source": "trailofbits/skills",
+    "ref": "470419e16f97e112d01fc32f4898aea1755015d9",
+    "hash": "781443b6d6b52b7cf96c9d6771dfbb0fd874620839ff5d101e78f0710036ed74",
+    "path": "/home/ubuntu/project/retropick/retropick-v2-audit-hardening-20261106/.agents/skills/entry-point-analyzer",
+    "scope": "project",
+    "agents": [
+      "Codex"
+    ],
+    "mode": "copy",
+    "security": null
+  },
+  {
+    "name": "post-patch-validation",
+    "status": "installed",
+    "source": "trailofbits/skills",
+    "ref": "470419e16f97e112d01fc32f4898aea1755015d9",
+    "hash": "2345c4b2255c11626e3e12be548a9e27db93af8f21cbfaa403eff6f47fa626a8",
+    "path": "/home/ubuntu/project/retropick/retropick-v2-audit-hardening-20261106/.agents/skills/post-patch-validation",
+    "scope": "project",
+    "agents": [
+      "Codex"
+    ],
+    "mode": "copy",
+    "security": null
+  },
+  {
+    "name": "property-based-testing",
+    "status": "installed",
+    "source": "trailofbits/skills",
+    "ref": "470419e16f97e112d01fc32f4898aea1755015d9",
+    "hash": "c754807c7113dfb2e8c2de64e19a6612f87282b621da8b1e50e2a7137d8bbe8c",
+    "path": "/home/ubuntu/project/retropick/retropick-v2-audit-hardening-20261106/.agents/skills/property-based-testing",
+    "scope": "project",
+    "agents": [
+      "Codex"
+    ],
+    "mode": "copy",
+    "security": null
+  }
+]

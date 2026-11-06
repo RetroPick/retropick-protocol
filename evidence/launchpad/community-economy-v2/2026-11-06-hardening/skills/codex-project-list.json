@@ -1,0 +1,206 @@
+[
+  {
+    "name": "code-maturity-assessor",
+    "path": "/home/ubuntu/project/retropick/retropick-v2-audit-hardening-20261106/.agents/skills/code-maturity-assessor",
+    "scope": "project",
+    "agents": [
+      "Codex"
+    ],
+    "source": "trailofbits/skills",
+    "sourceUrl": null,
+    "sourceType": "github",
+    "status": "tracked"
+  },
+  {
+    "name": "differential-review",
+    "path": "/home/ubuntu/project/retropick/retropick-v2-audit-hardening-20261106/.agents/skills/differential-review",
+    "scope": "project",
+    "agents": [
+      "Codex"
+    ],
+    "source": "trailofbits/skills",
+    "sourceUrl": null,
+    "sourceType": "github",
+    "status": "tracked"
+  },
+  {
+    "name": "entry-point-analyzer",
+    "path": "/home/ubuntu/project/retropick/retropick-v2-audit-hardening-20261106/.agents/skills/entry-point-analyzer",
+    "scope": "project",
+    "agents": [
+      "Codex"
+    ],
+    "source": "trailofbits/skills",
+    "sourceUrl": null,
+    "sourceType": "github",
+    "status": "tracked"
+  },
+  {
+    "name": "find-skills",
+    "path": "/home/ubuntu/project/retropick/retropick-v2-audit-hardening-20261106/.agents/skills/find-skills",
+    "scope": "project",
+    "agents": [
+      "Codex"
+    ],
+    "source": "vercel-labs/skills",
+    "sourceUrl": null,
+    "sourceType": "github",
+    "status": "tracked"
+  },
+  {
+    "name": "guidelines-advisor",
+    "path": "/home/ubuntu/project/retropick/retropick-v2-audit-hardening-20261106/.agents/skills/guidelines-advisor",
+    "scope": "project",
+    "agents": [
+      "Codex"
+    ],
+    "source": "trailofbits/skills",
+    "sourceUrl": null,
+    "sourceType": "github",
+    "status": "tracked"
+  },
+  {
+    "name": "post-patch-validation",
+    "path": "/home/ubuntu/project/retropick/retropick-v2-audit-hardening-20261106/.agents/skills/post-patch-validation",
+    "scope": "project",
+    "agents": [
+      "Codex"
+    ],
+    "source": "trailofbits/skills",
+    "sourceUrl": null,
+    "sourceType": "github",
+    "status": "tracked"
+  },
+  {
+    "name": "property-based-testing",
+    "path": "/home/ubuntu/project/retropick/retropick-v2-audit-hardening-20261106/.agents/skills/property-based-testing",
+    "scope": "project",
+    "agents": [
+      "Codex"
+    ],
+    "source": "trailofbits/skills",
+    "sourceUrl": null,
+    "sourceType": "github",
+    "status": "tracked"
+  },
+  {
+    "name": "refactor-maintainer",
+    "path": "/home/ubuntu/project/retropick/retropick-v2-audit-hardening-20261106/.agents/skills/refactor-maintainer",
+    "scope": "project",
+    "agents": [
+      "Codex"
+    ],
+    "source": "hraness/skillpack",
+    "sourceUrl": null,
+    "sourceType": "github",
+    "status": "tracked"
+  },
+  {
+    "name": "retropick-event-indexing",
+    "path": "/home/ubuntu/project/retropick/retropick-v2-audit-hardening-20261106/.agents/skills/retropick-event-indexing",
+    "scope": "project",
+    "agents": [
+      "Codex"
+    ],
+    "source": null,
+    "sourceUrl": null,
+    "sourceType": null,
+    "status": "untracked"
+  },
+  {
+    "name": "retropick-financial-ui",
+    "path": "/home/ubuntu/project/retropick/retropick-v2-audit-hardening-20261106/.agents/skills/retropick-financial-ui",
+    "scope": "project",
+    "agents": [
+      "Codex"
+    ],
+    "source": null,
+    "sourceUrl": null,
+    "sourceType": null,
+    "status": "untracked"
+  },
+  {
+    "name": "retropick-liquidity-accounting",
+    "path": "/home/ubuntu/project/retropick/retropick-v2-audit-hardening-20261106/.agents/skills/retropick-liquidity-accounting",
+    "scope": "project",
+    "agents": [
+      "Codex"
+    ],
+    "source": null,
+    "sourceUrl": null,
+    "sourceType": null,
+    "status": "untracked"
+  },
+  {
+    "name": "retropick-release-evidence",
+    "path": "/home/ubuntu/project/retropick/retropick-v2-audit-hardening-20261106/.agents/skills/retropick-release-evidence",
+    "scope": "project",
+    "agents": [
+      "Codex"
+    ],
+    "source": null,
+    "sourceUrl": null,
+    "sourceType": null,
+    "status": "untracked"
+  },
+  {
+    "name": "retropick-sdk-write-security",
+    "path": "/home/ubuntu/project/retropick/retropick-v2-audit-hardening-20261106/.agents/skills/retropick-sdk-write-security",
+    "scope": "project",
+    "agents": [
+      "Codex"
+    ],
+    "source": null,
+    "sourceUrl": null,
+    "sourceType": null,
+    "status": "untracked"
+  },
+  {
+    "name": "retropick-v3-framework-engineering",
+    "path": "/home/ubuntu/project/retropick/retropick-v2-audit-hardening-20261106/.agents/skills/retropick-v3-framework-engineering",
+    "scope": "project",
+    "agents": [
+      "Codex"
+    ],
+    "source": null,
+    "sourceUrl": null,
+    "sourceType": null,
+    "status": "untracked"
+  },
+  {
+    "name": "retropick-venue-adapter-engineering",
+    "path": "/home/ubuntu/project/retropick/retropick-v2-audit-hardening-20261106/.agents/skills/retropick-venue-adapter-engineering",
+    "scope": "project",
+    "agents": [
+      "Codex"
+    ],
+    "source": null,
+    "sourceUrl": null,
+    "sourceType": null,
+    "status": "untracked"
+  },
+  {
+    "name": "solidity-auditor",
+    "path": "/home/ubuntu/project/retropick/retropick-v2-audit-hardening-20261106/.agents/skills/solidity-auditor",
+    "scope": "project",
+    "agents": [
+      "Codex"
+    ],
+    "source": "schwepps/skills",
+    "sourceUrl": null,
+    "sourceType": "github",
+    "status": "tracked"
+  },
+  {
+    "name": "token-integration-analyzer",
+    "path": "/home/ubuntu/project/retropick/retropick-v2-audit-hardening-20261106/.agents/skills/token-integration-analyzer",
+    "scope": "project",
+    "agents": [
+      "Codex"
+    ],
+    "source": "trailofbits/skills",
+    "sourceUrl": null,
+    "sourceType": "github",
+    "status": "tracked"
+  }
+]

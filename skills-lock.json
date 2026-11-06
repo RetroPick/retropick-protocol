@@ -1,0 +1,85 @@
+{
+  "version": 1,
+  "skills": {
+    "code-maturity-assessor": {
+      "source": "trailofbits/skills",
+      "ref": "470419e16f97e112d01fc32f4898aea1755015d9",
+      "sourceType": "github",
+      "skillPath": "plugins/building-secure-contracts/skills/code-maturity-assessor/SKILL.md",
+      "computedHash": "2e55a6b237cd6ce48175b3fc5055a13703a767d740d02838a5dc4488793cf340",
+      "installMode": "copy"
+    },
+    "differential-review": {
+      "source": "trailofbits/skills",
+      "ref": "470419e16f97e112d01fc32f4898aea1755015d9",
+      "sourceType": "github",
+      "skillPath": "plugins/differential-review/skills/differential-review/SKILL.md",
+      "computedHash": "3c330b7d8e2a7a6bba9ff9c7f9971d3b6c17fef84b9382efdd325abdd481371c",
+      "installMode": "copy"
+    },
+    "entry-point-analyzer": {
+      "source": "trailofbits/skills",
+      "ref": "470419e16f97e112d01fc32f4898aea1755015d9",
+      "sourceType": "github",
+      "skillPath": "plugins/entry-point-analyzer/skills/entry-point-analyzer/SKILL.md",
+      "computedHash": "781443b6d6b52b7cf96c9d6771dfbb0fd874620839ff5d101e78f0710036ed74",
+      "installMode": "copy"
+    },
+    "find-skills": {
+      "source": "vercel-labs/skills",
+      "ref": "d3701c11b1101251af14c9d148f026e1a47ebe17",
+      "sourceType": "github",
+      "skillPath": "skills/find-skills/SKILL.md",
+      "computedHash": "913b9d37d0d54047dd65222bb8c67b2bf04e3cb87dcad1729068d7a8b2c8c396",
+      "installMode": "copy"
+    },
+    "guidelines-advisor": {
+      "source": "trailofbits/skills",
+      "ref": "470419e16f97e112d01fc32f4898aea1755015d9",
+      "sourceType": "github",
+      "skillPath": "plugins/building-secure-contracts/skills/guidelines-advisor/SKILL.md",
+      "computedHash": "c5fb81ce2edf98ba17b4e16541ec5ed79069be6986bb099e34c729b34b23ead5",
+      "installMode": "copy"
+    },
+    "post-patch-validation": {
+      "source": "trailofbits/skills",
+      "ref": "470419e16f97e112d01fc32f4898aea1755015d9",
+      "sourceType": "github",
+      "skillPath": "plugins/post-patch-validation/skills/post-patch-validation/SKILL.md",
+      "computedHash": "2345c4b2255c11626e3e12be548a9e27db93af8f21cbfaa403eff6f47fa626a8",
+      "installMode": "copy"
+    },
+    "property-based-testing": {
+      "source": "trailofbits/skills",
+      "ref": "470419e16f97e112d01fc32f4898aea1755015d9",
+      "sourceType": "github",
+      "skillPath": "plugins/property-based-testing/skills/property-based-testing/SKILL.md",
+      "computedHash": "c754807c7113dfb2e8c2de64e19a6612f87282b621da8b1e50e2a7137d8bbe8c",
+      "installMode": "copy"
+    },
+    "refactor-maintainer": {
+      "source": "hraness/skillpack",
+      "ref": "d079193ed0db9285e5cc0bb58836af5dbc72882a",
+      "sourceType": "github",
+      "skillPath": "plugins/hraness-engineering/skills/refactor-maintainer/SKILL.md",
+      "computedHash": "f316c19df9f1efe58bc0c6a884fd68cf2a3a25a4f5dd756d0a76e9564a4e8f0d",
+      "installMode": "copy"
+    },
+    "solidity-auditor": {
+      "source": "schwepps/skills",
+      "ref": "8aa9a4e0eec8bdcbcc51dff95ce4bdbdb5edde01",
+      "sourceType": "github",
+      "skillPath": "solidity-auditor/SKILL.md",
+      "computedHash": "6163128f528bbe31a781b7efa454365a0bd9e762c1c88e43780e37569e457aa0",
+      "installMode": "copy"
+    },
+    "token-integration-analyzer": {
+      "source": "trailofbits/skills",
+      "ref": "470419e16f97e112d01fc32f4898aea1755015d9",
+      "sourceType": "github",
+      "skillPath": "plugins/building-secure-contracts/skills/token-integration-analyzer/SKILL.md",
+      "computedHash": "44fbccf158e28bae4cfb969847ad46d72e93fe58f82b53a3551646b1c755c8d6",
+      "installMode": "copy"
+    }
+  }
+}

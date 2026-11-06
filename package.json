@@ -6,17 +6,30 @@
     "node": ">=22.13.0"
   },
   "scripts": {
+    "dev": "pnpm --filter @retropick/retro-ui dev",
+    "build": "pnpm --filter @retropick/retro-ui build",
+    "lint": "pnpm --filter @retropick/retro-ui lint",
+    "typecheck": "pnpm --filter @retropick/retro-ui typecheck",
+    "test": "pnpm --filter @retropick/retro-ui test",
+    "check:app": "pnpm run lint && pnpm run test && pnpm run build",
+    "typecheck:services": "pnpm --filter @retropick/launchpad-sdk typecheck && pnpm --filter @retropick/indexer typecheck && pnpm --filter @retropick/media-service typecheck && pnpm --filter @retropick/referral-service typecheck",
+    "test:services": "pnpm --filter @retropick/launchpad-sdk test && pnpm --filter @retropick/indexer test && pnpm --filter @retropick/media-service test && pnpm --filter @retropick/referral-service test",
+    "check:services": "pnpm run typecheck:services && pnpm run test:services",
+    "check": "pnpm run check:app && pnpm run check:services",
     "dev:ui": "pnpm --filter @retropick/retro-ui dev",
     "build:ui": "pnpm --filter @retropick/retro-ui build",
     "typecheck:ui": "pnpm --filter @retropick/retro-ui typecheck",
     "test:ui": "pnpm --filter @retropick/retro-ui test",
     "e2e:ui": "pnpm --filter @retropick/retro-ui e2e:fixture",
+    "dev:web": "pnpm --filter @retropick/retro-ui dev",
+    "build:web": "pnpm --filter @retropick/retro-ui build",
+    "lint:web": "pnpm --filter @retropick/retro-ui lint",
+    "typecheck:web": "pnpm --filter @retropick/retro-ui typecheck",
+    "test:web": "pnpm --filter @retropick/retro-ui test",
     "dev:legacy-web": "pnpm --filter @retropick/web dev",
     "build:legacy-web": "pnpm --filter @retropick/web build",
-    "dev:web": "pnpm --filter @retropick/web dev",
-    "build:web": "pnpm --filter @retropick/web build",
-    "lint:web": "pnpm --filter @retropick/web lint",
-    "typecheck:web": "pnpm --filter @retropick/web typecheck",
-    "test:web": "pnpm --filter @retropick/web test"
+    "lint:legacy-web": "pnpm --filter @retropick/web lint",
+    "typecheck:legacy-web": "pnpm --filter @retropick/web typecheck",
+    "test:legacy-web": "pnpm --filter @retropick/web test"
   }
 }

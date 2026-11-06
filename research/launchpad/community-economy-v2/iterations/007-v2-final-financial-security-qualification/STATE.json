@@ -1,0 +1,54 @@
+{
+  "baseCommit": "5cb1c5cda1d7999225f8597896b946cdbdbb0641",
+  "branch": "security/v2-audit-hardening-20261106",
+  "releaseQualified": false,
+  "phases": {
+    "0": {
+      "status": "PASS",
+      "scope": "Ten pinned project-local skills installed and hash-verified; license notices retained; no helper execution",
+      "evidence": "skills/MANIFEST.json"
+    },
+    "1": {
+      "status": "NOT_RUN",
+      "scope": "Full baseline and hosted CI pending; archive checks PASS, workflow repair and ten parser tests locally PASS"
+    },
+    "2": {
+      "status": "NOT_RUN"
+    },
+    "3": {
+      "status": "NOT_RUN"
+    },
+    "4": {
+      "status": "NOT_RUN"
+    },
+    "5": {
+      "status": "NOT_RUN"
+    },
+    "6": {
+      "status": "NOT_RUN"
+    },
+    "7": {
+      "status": "NOT_RUN"
+    }
+  },
+  "currentTask": "qualify skills installation, CI repair and modeled invariant regressions",
+  "blockers": [
+    "Full new-worktree baseline pending",
+    "Hosted CI pending",
+    "Full financial review/static finding disposition pending",
+    "Genuine expanded lifecycle/fork/Safe pending",
+    "Compiler known-bug disposition pending",
+    "Factory internal size budget unmet at recorded 24486 bytes",
+    "No M6 economic adoption acceptance or external audit"
+  ],
+  "evidence": [
+    "evidence/launchpad/community-economy-v2/2026-11-06-hardening/baseline/manifest.json"
+  ],
+  "review": {
+    "reviewer": "independent skills-install agent (not CI author)",
+    "scope": "workflow and result parser",
+    "disposition": "Approved scoped repair for review; broader qualification pending",
+    "counterexample": "Empty required suite borrowing unrelated passes now rejected",
+    "testsPassed": 10
+  }
+}

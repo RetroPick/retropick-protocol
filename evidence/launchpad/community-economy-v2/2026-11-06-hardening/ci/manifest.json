@@ -1,0 +1,103 @@
+{
+  "sourceCommit": "5cb1c5cda1d7999225f8597896b946cdbdbb0641",
+  "workingTreeOverlay": true,
+  "commands": [
+    {
+      "name": "parser-unit-tests",
+      "argv": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "scripts/launchpad",
+        "-p",
+        "test_foundry_results.py",
+        "-v"
+      ],
+      "exitCode": 0,
+      "expectedExit": 0,
+      "status": "PASS",
+      "log": "parser-unit-tests.log",
+      "sha256": "55e061e42cf306719bc37247f658657d3180667f5e46f9c029ce1e157c5cff9e"
+    },
+    {
+      "name": "workflow-actionlint",
+      "argv": [
+        "go",
+        "run",
+        "github.com/rhysd/actionlint/cmd/actionlint@v1.7.7",
+        "-shellcheck=",
+        ".github/workflows/v2-liquidity.yml"
+      ],
+      "exitCode": 0,
+      "expectedExit": 0,
+      "status": "PASS",
+      "log": "workflow-actionlint.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "foundry-schema-probe",
+      "argv": [
+        "forge",
+        "test",
+        "--root",
+        "TEMP_SCHEMA_FIXTURE",
+        "--json"
+      ],
+      "exitCode": 1,
+      "expectedExit": 1,
+      "status": "PASS",
+      "scope": "Synthetic runner schema only; no protocol qualification"
+    },
+    {
+      "name": "schema-rejected",
+      "argv": [
+        "python3",
+        "scripts/launchpad/check_foundry_results.py",
+        "/home/ubuntu/project/retropick/retropick-v2-audit-hardening-20261106/evidence/launchpad/community-economy-v2/2026-11-06-hardening/ci/foundry-schema.json",
+        "--summary",
+        "/home/ubuntu/project/retropick/retropick-v2-audit-hardening-20261106/evidence/launchpad/community-economy-v2/2026-11-06-hardening/ci/schema-rejected-summary.json"
+      ],
+      "exitCode": 1,
+      "expectedExit": 1,
+      "status": "PASS",
+      "log": "schema-rejected.log",
+      "sha256": "637fc3e91bbf86db1c14f1fa45cd187e4cdb7ad3e2ee9fd8e68db0bd87f3249c"
+    },
+    {
+      "name": "baseline-workflow-reproducer",
+      "argv": [
+        "go",
+        "run",
+        "github.com/rhysd/actionlint/cmd/actionlint@v1.7.7",
+        "-shellcheck=",
+        "/tmp/retropick-ci-schema-lxlkwf3k/old.yml"
+      ],
+      "exitCode": 1,
+      "expectedExit": 1,
+      "status": "PASS",
+      "log": "baseline-workflow-reproducer.log",
+      "sha256": "23a4482f2f606825068ef31b81ddd14a82f05f3cface1b2a8c39cf1c896eb580"
+    },
+    {
+      "name": "diff-check",
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exitCode": 0,
+      "expectedExit": 0,
+      "status": "PASS",
+      "log": "diff-check.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "hostedCI": "NOT_RUN",
+  "protocolTestCampaign": "NOT_RUN_BY_THIS_AGENT",
+  "limitations": [
+    "Shellcheck disabled for actionlint; GitHub expression and workflow validation enabled.",
+    "Synthetic Forge probe verifies serialization only, not protocol behavior."
+  ]
+}

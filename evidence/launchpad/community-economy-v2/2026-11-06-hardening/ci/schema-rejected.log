@@ -1,0 +1,28 @@
+{
+  "status": "FAIL",
+  "environment": "MANDATORY_LOCAL_SUITE",
+  "counts": {
+    "passed": 1,
+    "failed": 1,
+    "skipped": 1
+  },
+  "minimumTests": 1,
+  "missingSuites": [],
+  "inventory": [
+    {
+      "suite": "test/Schema.t.sol:SchemaTest",
+      "test": "testBroken()",
+      "status": "Failure"
+    },
+    {
+      "suite": "test/Schema.t.sol:SchemaTest",
+      "test": "testGood()",
+      "status": "Success"
+    },
+    {
+      "suite": "test/Schema.t.sol:SchemaTest",
+      "test": "testSkipped()",
+      "status": "Skipped"
+    }
+  ]
+}

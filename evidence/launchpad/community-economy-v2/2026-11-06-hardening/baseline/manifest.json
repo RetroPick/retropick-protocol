@@ -1,0 +1,33 @@
+{
+  "baseCommit": "5cb1c5cda1d7999225f8597896b946cdbdbb0641",
+  "kind": "LOCAL_ARCHIVE_AND_TOOL_CHECKS_NOT_FORK",
+  "results": [
+    {
+      "command": [
+        "python3",
+        "contracts/legacy-v2/verify.py"
+      ],
+      "exitCode": 0,
+      "log": "evidence/launchpad/community-economy-v2/2026-11-06-hardening/baseline/deployed-archive.log",
+      "sha256": "cff6a263bfa2e1962523337270eba9020ab9e5ff728b79293cce5ed10e1f9e85"
+    },
+    {
+      "command": [
+        "python3",
+        "contracts/legacy/v2-kuru/verify.py"
+      ],
+      "exitCode": 0,
+      "log": "evidence/launchpad/community-economy-v2/2026-11-06-hardening/baseline/kuru-archive.log",
+      "sha256": "cf8365d9318a12d16dea43f2a6665899760513c783ab02f3ed782055ac412242"
+    },
+    {
+      "command": [
+        "forge",
+        "--version"
+      ],
+      "exitCode": 0,
+      "log": "evidence/launchpad/community-economy-v2/2026-11-06-hardening/baseline/foundry.log",
+      "sha256": "8241ab306541ac8339965f8e0f94f131a288f2a0f05c3587a8a84288459c7358"
+    }
+  ]
+}

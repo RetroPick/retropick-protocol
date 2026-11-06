@@ -18,7 +18,7 @@ The current platform includes a Monad Testnet V2 launchpad with historical Kuru 
 | --- | --- | --- | --- |
 | F-01 | Root `package.json` routes `dev:web`, `build:web`, `lint:web`, `typecheck:web`, `test:web` to `@retropick/web`; `apps/README.md` calls these stale aliases | Developer commands can select a forbidden historical frontend | P0 |
 | F-02 | `.agent/steering/structure.md` describes `apps/web` as the target frontend; `.agent/STATE.json`, `apps/README.md` and the fixed frontend decision identify `apps/retro-ui` | Cross-agent direction conflict | P0 |
-| F-03 | `apps/retro-ui/package.json` and `apps/example-ui-ux/package.json` have substantially overlapping scripts and dependencies | Potential expensive parallel frontend maintenance; code/file duplication **not yet measured** | P1 |
+| F-03 | `apps/retro-ui` vs `apps/example-ui-ux`: **7/8 sampled matching relative paths have identical Git blob SHAs**; `playwright.config.ts` differs; manifests substantially overlap | Confirmed sampled code/test duplication, but no complete tracked-file census yet. Donor remains active per UI renovation goal | P1 |
 | F-04 | `contracts/src/v2/`, `contracts/legacy-v2/`, experimental V2, V3 research, and Prediction/PRISM research coexist | Necessary lifecycle separation, not proof of removable duplication | P1 |
 | F-05 | `docs/metropolis/execution/FRONTEND_SOURCE_OF_TRUTH.md` records a 2026-10-11 public-deployment mismatch; the current README describes later live frontend status | Historical documents should be dated and distinguished from verified current deployment status | P1 |
 | F-06 | `.agent/CURRENT_GOAL.md` includes active Oct campaigns and older qualification blockers alongside later runtime success statements | Goal/status reconciliation needs owner-approved validation; never silently rewrite gates | P1 |
@@ -64,7 +64,7 @@ pnpm -r list --depth -1
 rg -n 'apps/web|apps/example-ui-ux|contracts/legacy-v2|build:web|dev:web' --glob '!pnpm-lock.yaml' .
 ```
 
-**2B. Frontend donor diff.** Compare `apps/example-ui-ux` with `apps/retro-ui` using `git diff --no-index`, tracked file hashes and import/asset graph. Maintain one canonical product frontend; only retire donor if the active renovation goal has closed and all dependent tooling/fixtures are accounted for. Preserve third-party design licenses and provenance.
+**2B. Frontend donor diff.** Preliminary GitHub blob comparison found identical SHA for `src/main.tsx`, `src/routes.tsx`, `src/lib/live/performance.ts`, `e2e/helpers/network-guard.ts`, `e2e/tools/mcp-handshake.mjs`, `tests/terminal.test.mjs`, and `vite.config.ts`; `playwright.config.ts` differs. This is seven exact matches among eight sampled paths, **not** proof of whole-tree identity. Compare `apps/example-ui-ux` with `apps/retro-ui` using `git diff --no-index`, tracked file hashes and import/asset graph. Maintain one canonical product frontend; only retire donor if the active renovation goal has closed and all dependent tooling/fixtures are accounted for. Preserve third-party design licenses and provenance.
 
 **2C. Documentation taxonomy.** Make `docs/platform` the product router; `docs/launchpad` the qualified Launchpad specification; `docs/prism` research authority; `docs/engineering` maintainer guides. Introduce dated `historical` labels in old reports rather than rewriting source evidence. Reconcile `.agent/CURRENT_GOAL.md` with actual owners and evidence, leaving all state-machine gates unchanged unless authorized.
 

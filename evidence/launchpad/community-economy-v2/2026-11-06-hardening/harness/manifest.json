@@ -1,0 +1,149 @@
+{
+  "kind": "LOCAL_SINGLE_LAUNCH_ACTION_MODEL_NOT_GENUINE_V4_NOT_FORK",
+  "baselineSourceCommit": "5cb1c5cda1d7999225f8597896b946cdbdbb0641",
+  "sourceOverlaySha256": "5d61ebfcfc7b4a4995089922c362e70e98ad69a11a7ed76115afe8f4a9045b1e",
+  "beforeSource": "before-fix-source.sol.txt",
+  "beforeSourceSha256": "d7753ee405d787915b7f507963e66d12f04d00f0c1a1f77a84cb22e0a13342eb",
+  "limitations": [
+    "One launch per model; no genuine swaps/graduation/cross-launch handler coverage",
+    "Reachability counters include deterministic setup; selector statistics are separately recorded",
+    "Modeled six-decimal quote; not live token qualification"
+  ],
+  "runs": [
+    {
+      "seed": "0x6a",
+      "argv": [
+        "forge",
+        "test",
+        "--contracts",
+        "src/v2-research-experiment/m6",
+        "--match-path",
+        "test/v2/research-experiment/m6/CommunityRevenueRouterInvariant.t.sol",
+        "--match-test",
+        "^invariant_",
+        "--out",
+        "/tmp/retropick-hardening-harness-out",
+        "--cache-path",
+        "/tmp/retropick-hardening-harness-cache",
+        "-vv",
+        "--fuzz-seed",
+        "0x6a"
+      ],
+      "envOverrides": {
+        "FOUNDRY_PROFILE": "test",
+        "FOUNDRY_INVARIANT_RUNS": "256",
+        "FOUNDRY_INVARIANT_DEPTH": "128",
+        "FOUNDRY_INVARIANT_FAIL_ON_REVERT": "true"
+      },
+      "exitCode": 0,
+      "elapsedSeconds": 36.563,
+      "log": "invariants-0x6a.log",
+      "logSha256": "7eddaeabf579c88ac5a2fbbe82308dc6082cd6d304d011dd146d27de546c6578",
+      "tests": [
+        2,
+        0,
+        0
+      ],
+      "handlerSummaries": [
+        "(runs: 256, calls: 32768, reverts: 0)",
+        "(runs: 256, calls: 32768, reverts: 0)"
+      ]
+    },
+    {
+      "seed": "0x6b",
+      "argv": [
+        "forge",
+        "test",
+        "--contracts",
+        "src/v2-research-experiment/m6",
+        "--match-path",
+        "test/v2/research-experiment/m6/CommunityRevenueRouterInvariant.t.sol",
+        "--match-test",
+        "^invariant_",
+        "--out",
+        "/tmp/retropick-hardening-harness-out",
+        "--cache-path",
+        "/tmp/retropick-hardening-harness-cache",
+        "-vv",
+        "--fuzz-seed",
+        "0x6b"
+      ],
+      "envOverrides": {
+        "FOUNDRY_PROFILE": "test",
+        "FOUNDRY_INVARIANT_RUNS": "256",
+        "FOUNDRY_INVARIANT_DEPTH": "128",
+        "FOUNDRY_INVARIANT_FAIL_ON_REVERT": "true"
+      },
+      "exitCode": 0,
+      "elapsedSeconds": 45.794,
+      "log": "invariants-0x6b.log",
+      "logSha256": "22f258c426c9bbf28a6334ac6db7dfeda9cbd992918b06c31c3468f49e2e163b",
+      "tests": [
+        2,
+        0,
+        0
+      ],
+      "handlerSummaries": [
+        "(runs: 256, calls: 32768, reverts: 0)",
+        "(runs: 256, calls: 32768, reverts: 0)"
+      ]
+    },
+    {
+      "seed": "0x6c",
+      "argv": [
+        "forge",
+        "test",
+        "--contracts",
+        "src/v2-research-experiment/m6",
+        "--match-path",
+        "test/v2/research-experiment/m6/CommunityRevenueRouterInvariant.t.sol",
+        "--match-test",
+        "^invariant_",
+        "--out",
+        "/tmp/retropick-hardening-harness-out",
+        "--cache-path",
+        "/tmp/retropick-hardening-harness-cache",
+        "-vv",
+        "--fuzz-seed",
+        "0x6c"
+      ],
+      "envOverrides": {
+        "FOUNDRY_PROFILE": "test",
+        "FOUNDRY_INVARIANT_RUNS": "256",
+        "FOUNDRY_INVARIANT_DEPTH": "128",
+        "FOUNDRY_INVARIANT_FAIL_ON_REVERT": "true"
+      },
+      "exitCode": 0,
+      "elapsedSeconds": 36.921,
+      "log": "invariants-0x6c.log",
+      "logSha256": "c67a7082a5fd72bf4ba95b26548419b7ecfd6710a852185afbd8e57ede27cba0",
+      "tests": [
+        2,
+        0,
+        0
+      ],
+      "handlerSummaries": [
+        "(runs: 256, calls: 32768, reverts: 0)",
+        "(runs: 256, calls: 32768, reverts: 0)"
+      ]
+    }
+  ],
+  "before-fix": {
+    "log": "before-fix.log",
+    "sha256": "1def7b68960c92eee8d88e309c0ad288edbba5f9223cd23257854a01527af77f",
+    "runnerReportedCounts": [
+      2,
+      2,
+      0
+    ]
+  },
+  "after-fix": {
+    "log": "after-fix.log",
+    "sha256": "4c51833be16c1bd8677542698804fa5e917dfc165b5d469bf250e93f4b52f1cb",
+    "runnerReportedCounts": [
+      4,
+      0,
+      0
+    ]
+  }
+}

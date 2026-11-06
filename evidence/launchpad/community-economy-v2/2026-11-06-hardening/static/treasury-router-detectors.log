@@ -1,0 +1,98 @@
+
+Detector: arbitrary-send-eth
+TimelockController._execute(address,uint256,bytes) (src/v2/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#411-414) sends eth to arbitrary user
+	Dangerous calls:
+	- (success,returndata) = target.call{value: value}(data) (src/v2/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#412)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#functions-that-send-ether-to-arbitrary-destinations
+
+Detector: divide-before-multiply
+Math.mulDiv(uint256,uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#206-277) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#244)
+	- inverse = (3 * denominator) ^ 2 (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#259)
+Math.mulDiv(uint256,uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#206-277) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#244)
+	- inverse *= 2 - denominator * inverse (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#263)
+Math.mulDiv(uint256,uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#206-277) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#244)
+	- inverse *= 2 - denominator * inverse (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#264)
+Math.mulDiv(uint256,uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#206-277) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#244)
+	- inverse *= 2 - denominator * inverse (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#265)
+Math.mulDiv(uint256,uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#206-277) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#244)
+	- inverse *= 2 - denominator * inverse (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#266)
+Math.mulDiv(uint256,uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#206-277) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#244)
+	- inverse *= 2 - denominator * inverse (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#267)
+Math.mulDiv(uint256,uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#206-277) performs a multiplication on the result of a division:
+	- denominator = denominator / twos (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#244)
+	- inverse *= 2 - denominator * inverse (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#268)
+Math.mulDiv(uint256,uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#206-277) performs a multiplication on the result of a division:
+	- low = low / twos (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#247)
+	- result = low * inverse (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#274)
+Math.invMod(uint256,uint256) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#317-363) performs a multiplication on the result of a division:
+	- quotient = gcd / remainder (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#339)
+	- (gcd,remainder) = (remainder,gcd - remainder * quotient) (lib/openzeppelin-contracts/contracts/utils/math/Math.sol#341-348)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#divide-before-multiply
+
+Detector: reentrancy-no-eth
+Reentrancy in CommunityPolicyRegistryV2.activatePolicy(uint256) (src/v2/CommunityPolicyRegistryV2.sol#138-165):
+	External calls:
+	- source.checkpoint(epoch) (src/v2/CommunityPolicyRegistryV2.sol#150)
+	State variables written after the call(s):
+	- ++ epoch (src/v2/CommunityPolicyRegistryV2.sol#155)
+	CommunityPolicyRegistryV2.epoch (src/v2/CommunityPolicyRegistryV2.sol#57) can be used in cross function reentrancies:
+	- CommunityPolicyRegistryV2.epoch (src/v2/CommunityPolicyRegistryV2.sol#57)
+	- CommunityPolicyRegistryV2.policyAtVersion(uint256) (src/v2/CommunityPolicyRegistryV2.sol#107-110)
+	- delete pendingPolicy (src/v2/CommunityPolicyRegistryV2.sol#162)
+	CommunityPolicyRegistryV2.pendingPolicy (src/v2/CommunityPolicyRegistryV2.sol#60) can be used in cross function reentrancies:
+	- CommunityPolicyRegistryV2.pendingPolicy (src/v2/CommunityPolicyRegistryV2.sol#60)
+Reentrancy in CommunityTreasuryVaultV2.claimFromRouter(uint256) (src/v2/CommunityTreasuryVaultV2.sol#97-109):
+	External calls:
+	- router.claimTo(address(this),amount) (src/v2/CommunityTreasuryVaultV2.sol#102)
+	State variables written after the call(s):
+	- claimed += amount (src/v2/CommunityTreasuryVaultV2.sol#106)
+	CommunityTreasuryVaultV2.claimed (src/v2/CommunityTreasuryVaultV2.sol#26) can be used in cross function reentrancies:
+	- CommunityTreasuryVaultV2.claimed (src/v2/CommunityTreasuryVaultV2.sol#26)
+	- CommunityTreasuryVaultV2.held() (src/v2/CommunityTreasuryVaultV2.sol#72-74)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#reentrancy-vulnerabilities-2
+
+Detector: arbitrary-send-erc20
+ExactAssetV2.pull(address,address,address,uint256) (src/v2/libraries/ExactAssetV2.sol#10-18) uses arbitrary from in transferFrom: IERC20(asset).safeTransferFrom(from,to,amount) (src/v2/libraries/ExactAssetV2.sol#14)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#arbitrary-from-in-transferfrom
+
+Detector: reentrancy-events
+Reentrancy in TimelockController.execute(address,uint256,bytes,bytes32,bytes32) (src/v2/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#357-370):
+	External calls:
+	- _execute(target,value,payload) (src/v2/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#367)
+		- (success,returndata) = target.call{value: value}(data) (src/v2/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#412)
+	Event emitted after the call(s):
+	- CallExecuted(id,0,target,value,payload) (src/v2/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#368)
+Reentrancy in TimelockController.executeBatch(address[],uint256[],bytes[],bytes32,bytes32) (src/v2/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#384-406):
+	External calls:
+	- _execute(target,value,payload) (src/v2/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#402)
+		- (success,returndata) = target.call{value: value}(data) (src/v2/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#412)
+	Event emitted after the call(s):
+	- CallExecuted(id,i,target,value,payload) (src/v2/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#403)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#reentrancy-vulnerabilities-4
+
+Detector: reentrancy-benign
+Reentrancy in CommunityPolicyRegistryV2.activatePolicy(uint256) (src/v2/CommunityPolicyRegistryV2.sol#138-165):
+	External calls:
+	- source.checkpoint(epoch) (src/v2/CommunityPolicyRegistryV2.sol#150)
+	State variables written after the call(s):
+	- policies[epoch].push(a[i]) (src/v2/CommunityPolicyRegistryV2.sol#160)
+	- policyHash[epoch] = h (src/v2/CommunityPolicyRegistryV2.sol#158)
+	- delete proposed (src/v2/CommunityPolicyRegistryV2.sol#163)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#reentrancy-vulnerabilities-3
+
+Detector: incorrect-equality
+TimelockController.getOperationState(bytes32) (src/v2/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#206-217) uses a dangerous strict equality:
+	- timestamp == 0 (src/v2/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#208)
+TimelockController.getOperationState(bytes32) (src/v2/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#206-217) uses a dangerous strict equality:
+	- timestamp == _DONE_TIMESTAMP (src/v2/vendor/openzeppelin-v5.4.0/contracts/governance/TimelockController.sol#210)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#dangerous-strict-equalities
+src/v2/CommunityTreasuryVaultV2.sol analyzed (41 contracts with 12 detectors), 18 result(s) found
+'forge config --json' running
+'/home/ubuntu/.solc-select/artifacts/solc-0.8.26/solc-0.8.26 --version' running
+'/home/ubuntu/.solc-select/artifacts/solc-0.8.26/solc-0.8.26 forge-std/=lib/forge-std/src/ @openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/ @uniswap/v4-core/src/=lib/v4-core/src/ @uniswap/v4-periphery/src/=lib/v4-periphery/src/ @uniswap/v4-hooks-public/src/=lib/v4-hooks-public/src/ permit2/src/=lib/v4-periphery/lib/permit2/src/ lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/lib/forge-std/lib/ds-test/src/ lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/ lib/v4-deployment-periphery/lib/permit2/lib/forge-std/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/ lib/v4-deployment-periphery/lib/permit2/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/lib/ds-test/src/ lib/v4-deployment-periphery/lib/v4-core/lib/solmate/:ds-test/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/lib/ds-test/src/ lib/v4-deployment-periphery/lib/permit2/:solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/ lib/v4-deployment-periphery/lib/permit2/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/permit2/lib/openzeppelin-contracts/ lib/v4-deployment-periphery/lib/v4-core/:solmate/=lib/v4-deployment-periphery/lib/v4-core/lib/solmate/ lib/v4-deployment-periphery/lib/v4-core/:openzeppelin-contracts/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/ lib/v4-deployment-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/ lib/v4-deployment-periphery/:permit2/=lib/v4-deployment-periphery/lib/permit2/ lib/v4-deployment-periphery/:v4-core/=lib/v4-deployment-periphery/lib/v4-core/src/ lib/v4-periphery/:permit2/src/=lib/v4-periphery/lib/permit2/src/ lib/v4-periphery/:permit2/=lib/v4-periphery/lib/permit2/src/ @ensdomains/=lib/v4-deployment-periphery/lib/v4-core/node_modules/@ensdomains/ @openzeppelin/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/ @uniswap/v4-core/=lib/v4-deployment-periphery/lib/v4-core/ ds-test/=lib/v4-deployment-periphery/lib/permit2/lib/forge-std/lib/ds-test/src/ erc4626-tests/=lib/v4-deployment-periphery/lib/v4-core/lib/openzeppelin-contracts/lib/erc4626-tests/ forge-gas-snapshot/=lib/v4-deployment-periphery/lib/permit2/lib/forge-gas-snapshot/src/ hardhat/=lib/v4-deployment-periphery/lib/v4-core/node_modules/hardhat/ openzeppelin-contracts/=lib/openzeppelin-contracts/contracts/ permit2/=lib/v4-periphery/lib/permit2/src/ solmate/=lib/v4-deployment-periphery/lib/permit2/lib/solmate/ v4-core/=lib/v4-core/src/ v4-deployment-periphery/=lib/v4-deployment-periphery/ v4-hooks-public/=lib/v4-hooks-public/src/ v4-periphery/=lib/v4-periphery/src/ src/v2/CommunityTreasuryVaultV2.sol --combined-json abi,ast,bin,bin-runtime,srcmap,srcmap-runtime,userdoc,devdoc,hashes --optimize --optimize-runs 200 --via-ir --evm-version cancun --allow-paths .,/home/ubuntu/project/retropick/retropick-v2-audit-hardening-20261106/contracts/src/v2' running

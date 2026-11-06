@@ -1,0 +1,31 @@
+Compiling 2 files with Solc 0.8.26
+Solc 0.8.26 finished in 63.13s
+Compiler run successful!
+
+Ran 2 tests for test/v2/research-experiment/m6/CommunityRevenueRouterInvariant.t.sol:CommunityRevenueRouterUSDCInvariantTest
+[PASS] testHandlerDonationUsesSupportedQuoteWithoutAttributingIncome() (gas: 262474)
+[PASS] testHandlerReplayTargetsPreviouslyFundedSupportedQuote() (gas: 359677)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 10.19ms (1.81ms CPU time)
+
+Ran 2 tests for test/v2/research-experiment/m6/CommunityRevenueRouterInvariant.t.sol:CommunityRevenueRouterInvariantTest
+[PASS] testHandlerDonationUsesSupportedQuoteWithoutAttributingIncome() (gas: 173604)
+[PASS] testHandlerReplayTargetsPreviouslyFundedSupportedQuote() (gas: 325799)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 27.20ms (2.39ms CPU time)
+
+Ran 13 tests for test/v2/research-experiment/m6/CommunityRevenueRouterV2.t.sol:CommunityRevenueRouterV2AccountingTest
+[PASS] testFuzzMockIntegerConservationAndTreasuryDust(uint128,uint128) (runs: 10000, μ: 813906, ~: 823363)
+[PASS] testMockAuthenticCallerReplayPoolEpochAndAssetGuards() (gas: 1211375)
+[PASS] testMockDonationsDoNotBookIncomeAndCannotCoverOldDeficit() (gas: 2114475)
+[PASS] testMockFailedCheckpointKeepsPolicyAndPendingFees() (gas: 1061762)
+[PASS] testMockFalseReturnAndDeflationaryFundingRollback() (gas: 2032370)
+[PASS] testMockFeeCapBindingAndRegistrarCannotBeSpoofed() (gas: 1677783)
+[PASS] testMockMaliciousRecipientCannotBlockIndependentClaims() (gas: 1665504)
+[PASS] testMockNativeVenueProtocolOnceAndCurvePreSeparated() (gas: 1321503)
+[PASS] testMockPolicyActivationCheckpointsOldCurveFeesAndKeepsOldRights() (gas: 2025560)
+[PASS] testMockReentrantClaimCannotDoublePayOrReplay() (gas: 1705225)
+[PASS] testMockTokenCallbackCannotActivatePolicyDuringVenueFunding() (gas: 1536523)
+[PASS] testMockUSDCAndLaunchedTokenLedgersAreIndependent() (gas: 10417791)
+[PASS] testMockUnfinalizedOrUnlockedOrChangedPrincipalRejectsRevenue() (gas: 1252241)
+Suite result: ok. 13 passed; 0 failed; 0 skipped; finished in 665.79ms (691.12ms CPU time)
+
+Ran 3 test suites in 671.42ms (703.17ms CPU time): 17 tests passed, 0 failed, 0 skipped (17 total tests)

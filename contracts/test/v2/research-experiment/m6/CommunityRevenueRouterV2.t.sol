@@ -321,7 +321,7 @@ contract M6ReentrantClaimant {
 }
 
 /// @notice MOCK-ONLY source/venue identity suite. No real swaps, position mint or fork is qualified here.
-contract CommunityRevenueRouterV2AccountingTest is Test {
+abstract contract CommunityRevenueRouterFixtureV2 is Test {
     address constant USDC = 0x534b2f3A21130d7a60830c2Df862319e593943A3;
     address constant CREATOR = address(0xCAFE);
     address constant TREASURY = address(0xBEEF);
@@ -397,7 +397,7 @@ contract CommunityRevenueRouterV2AccountingTest is Test {
     }
 
     function _alloc(address creator, uint16 bps, address treasury)
-        private
+        internal
         pure
         returns (CommunityPolicyRegistryV2.Allocation[] memory a)
     {
@@ -407,7 +407,7 @@ contract CommunityRevenueRouterV2AccountingTest is Test {
     }
 
     function _registry(CommunityPolicyRegistryV2.Allocation[] memory a, uint16 fee)
-        private
+        internal
         returns (CommunityPolicyRegistryV2)
     {
         address[5] memory modules;
@@ -422,7 +422,10 @@ contract CommunityRevenueRouterV2AccountingTest is Test {
             a
         );
     }
+}
 
+/// @notice Original unit tests use a pristine fixture; action-model suites inherit only the fixture above.
+contract CommunityRevenueRouterV2AccountingTest is CommunityRevenueRouterFixtureV2 {
     function _fund(address asset, uint256 f, uint256 t) private {
         hook.fund(router, asset, router.activeEpoch(), router.venueSequence(asset) + 1, f, t);
     }

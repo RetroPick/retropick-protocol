@@ -1,0 +1,101 @@
+[
+  {
+    "argv": [
+      "forge",
+      "test",
+      "--contracts",
+      "src/v2-research-experiment/m6",
+      "--match-path",
+      "test/v2/research-experiment/m6/CommunityRevenueRouterInvariant.t.sol",
+      "--match-test",
+      "^invariant_",
+      "--out",
+      "/tmp/retropick-hardening-harness-out",
+      "--cache-path",
+      "/tmp/retropick-hardening-harness-cache",
+      "--fuzz-seed",
+      "0x6a",
+      "-vv"
+    ],
+    "seed": "0x6a",
+    "exitCode": 0,
+    "seconds": 26.75,
+    "counts": [
+      "2",
+      "0",
+      "0"
+    ],
+    "log": "formatted-invariants-0x6a.log",
+    "sha256": "0193b71b12e963fb261cb33c42f581b2b65892ff4ee6a4bf8f6f9b95ae579d8b",
+    "handlerStatistics": [
+      "runs: 256, calls: 32768, reverts: 0",
+      "runs: 256, calls: 32768, reverts: 0"
+    ]
+  },
+  {
+    "argv": [
+      "forge",
+      "test",
+      "--contracts",
+      "src/v2-research-experiment/m6",
+      "--match-path",
+      "test/v2/research-experiment/m6/CommunityRevenueRouterInvariant.t.sol",
+      "--match-test",
+      "^invariant_",
+      "--out",
+      "/tmp/retropick-hardening-harness-out",
+      "--cache-path",
+      "/tmp/retropick-hardening-harness-cache",
+      "--fuzz-seed",
+      "0x6b",
+      "-vv"
+    ],
+    "seed": "0x6b",
+    "exitCode": 0,
+    "seconds": 22.19,
+    "counts": [
+      "2",
+      "0",
+      "0"
+    ],
+    "log": "formatted-invariants-0x6b.log",
+    "sha256": "b9664d6090e67d7c4a3cf66a7f86e80255304515dfc7204dbcf30ded985715c1",
+    "handlerStatistics": [
+      "runs: 256, calls: 32768, reverts: 0",
+      "runs: 256, calls: 32768, reverts: 0"
+    ]
+  },
+  {
+    "argv": [
+      "forge",
+      "test",
+      "--contracts",
+      "src/v2-research-experiment/m6",
+      "--match-path",
+      "test/v2/research-experiment/m6/CommunityRevenueRouterInvariant.t.sol",
+      "--match-test",
+      "^invariant_",
+      "--out",
+      "/tmp/retropick-hardening-harness-out",
+      "--cache-path",
+      "/tmp/retropick-hardening-harness-cache",
+      "--fuzz-seed",
+      "0x6c",
+      "-vv"
+    ],
+    "seed": "0x6c",
+    "exitCode": 0,
+    "seconds": 24.9,
+    "counts": [
+      "2",
+      "0",
+      "0"
+    ],
+    "log": "formatted-invariants-0x6c.log",
+    "sha256": "79ca2b8048d9b9bce0e916b47512702d1ac22f294fb8e2541c342771f7057361",
+    "handlerStatistics": [
+      "runs: 256, calls: 32768, reverts: 0",
+      "runs: 256, calls: 32768, reverts: 0"
+    ]
+  }
+]

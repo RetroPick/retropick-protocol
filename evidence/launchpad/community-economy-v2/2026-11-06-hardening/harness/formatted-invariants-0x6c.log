@@ -1,0 +1,57 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/v2/research-experiment/m6/CommunityRevenueRouterInvariant.t.sol:CommunityRevenueRouterInvariantTest
+[PASS] invariant_twoAssetConservationBackingRightsAndReachability() (runs: 256, calls: 32768, reverts: 0)
+
+╭--------------------------+----------+-------+---------+----------╮
+| Contract                 | Selector | Calls | Reverts | Discards |
++==================================================================+
+| RevenueAccountingHandler | activate | 3302  | 0       | 0        |
+|--------------------------+----------+-------+---------+----------|
+| RevenueAccountingHandler | cancel   | 3273  | 0       | 0        |
+|--------------------------+----------+-------+---------+----------|
+| RevenueAccountingHandler | claim    | 6481  | 0       | 0        |
+|--------------------------+----------+-------+---------+----------|
+| RevenueAccountingHandler | donate   | 3200  | 0       | 0        |
+|--------------------------+----------+-------+---------+----------|
+| RevenueAccountingHandler | fund     | 3287  | 0       | 0        |
+|--------------------------+----------+-------+---------+----------|
+| RevenueAccountingHandler | invalid  | 3329  | 0       | 0        |
+|--------------------------+----------+-------+---------+----------|
+| RevenueAccountingHandler | propose  | 3322  | 0       | 0        |
+|--------------------------+----------+-------+---------+----------|
+| RevenueAccountingHandler | rotate   | 3254  | 0       | 0        |
+|--------------------------+----------+-------+---------+----------|
+| RevenueAccountingHandler | settle   | 3320  | 0       | 0        |
+╰--------------------------+----------+-------+---------+----------╯
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 23.20s (23.19s CPU time)
+
+Ran 1 test for test/v2/research-experiment/m6/CommunityRevenueRouterInvariant.t.sol:CommunityRevenueRouterUSDCInvariantTest
+[PASS] invariant_twoAssetConservationBackingRightsAndReachability() (runs: 256, calls: 32768, reverts: 0)
+
+╭--------------------------+----------+-------+---------+----------╮
+| Contract                 | Selector | Calls | Reverts | Discards |
++==================================================================+
+| RevenueAccountingHandler | activate | 3302  | 0       | 0        |
+|--------------------------+----------+-------+---------+----------|
+| RevenueAccountingHandler | cancel   | 3273  | 0       | 0        |
+|--------------------------+----------+-------+---------+----------|
+| RevenueAccountingHandler | claim    | 6481  | 0       | 0        |
+|--------------------------+----------+-------+---------+----------|
+| RevenueAccountingHandler | donate   | 3200  | 0       | 0        |
+|--------------------------+----------+-------+---------+----------|
+| RevenueAccountingHandler | fund     | 3287  | 0       | 0        |
+|--------------------------+----------+-------+---------+----------|
+| RevenueAccountingHandler | invalid  | 3329  | 0       | 0        |
+|--------------------------+----------+-------+---------+----------|
+| RevenueAccountingHandler | propose  | 3322  | 0       | 0        |
+|--------------------------+----------+-------+---------+----------|
+| RevenueAccountingHandler | rotate   | 3254  | 0       | 0        |
+|--------------------------+----------+-------+---------+----------|
+| RevenueAccountingHandler | settle   | 3320  | 0       | 0        |
+╰--------------------------+----------+-------+---------+----------╯
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 24.45s (24.45s CPU time)
+
+Ran 2 test suites in 24.46s (47.65s CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)

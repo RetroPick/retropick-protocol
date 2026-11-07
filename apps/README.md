@@ -13,8 +13,9 @@ Node services (indexer / media-service / referral-service run TypeScript directl
 > [`../docs/metropolis/execution/FRONTEND_SOURCE_OF_TRUTH.md`](../docs/metropolis/execution/FRONTEND_SOURCE_OF_TRUTH.md)
 > (repeated in [`../docs/architecture/RETRO_UI_V2_INTEGRATION.md`](../docs/architecture/RETRO_UI_V2_INTEGRATION.md)).
 > New product frontend work goes in `apps/retro-ui`, never in `apps/web`.
-> Note: the root `package.json` scripts (`dev:web`, `build:web`, …) still target the legacy
-> `@retropick/web` package — they are stale convenience aliases, not a product endorsement.
+> Root developer scripts (`pnpm dev`, `pnpm build`, and `dev:web` / `build:web` compatibility aliases)
+> target the canonical `@retropick/retro-ui` package. Explicit `*:legacy-web` scripts exist
+> only for read-only historical reproduction; do not modify `apps/web/**`.
 
 ## At a glance
 

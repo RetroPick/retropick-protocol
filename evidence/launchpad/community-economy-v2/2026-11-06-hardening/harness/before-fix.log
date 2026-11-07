@@ -1,0 +1,129 @@
+Compiling 198 files with Solc 0.8.26
+Solc 0.8.26 finished in 489.98s
+Compiler run successful with warnings:
+Warning (2018): Function state mutability can be restricted to view
+   --> src/v2-research-experiment/RetroPickBondingCurveV2.sol:931:5:
+    |
+931 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to view
+   --> src/v2/RetroPickBondingCurveV2.sol:931:5:
+    |
+931 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to view
+   --> test/v2/community-economy/reference/v2/RetroPickBondingCurveV2.sol:861:5:
+    |
+861 |     function exemptFromSnipeTax(address exemptAddress) external onlyFactory {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 2 tests for test/v2/research-experiment/m6/CommunityRevenueRouterInvariant.t.sol:CommunityRevenueRouterUSDCInvariantTest
+[FAIL: assertion failed: 42990 != 43067] testHandlerDonationUsesSupportedQuoteWithoutAttributingIncome() (gas: 181216)
+Traces:
+  [181216] CommunityRevenueRouterUSDCInvariantTest::testHandlerDonationUsesSupportedQuoteWithoutAttributingIncome()
+    ├─ [579] CommunityRevenueRouterV2::feeAsset() [staticcall]
+    │   └─ ← [Return] 0x534b2f3A21130d7a60830c2Df862319e593943A3
+    ├─ [8634] 0x534b2f3A21130d7a60830c2Df862319e593943A3::balanceOf(CommunityRevenueRouterV2: [0x13aa49bAc059d709dd0a18D6bb63290076a702D7]) [staticcall]
+    │   └─ ← [Return] 42990 [4.299e4]
+    ├─ [8767] CommunityRevenueRouterV2::funded(0x534b2f3A21130d7a60830c2Df862319e593943A3) [staticcall]
+    │   └─ ← [Return] 43000 [4.3e4]
+    ├─ [8723] CommunityRevenueRouterV2::liability(0x534b2f3A21130d7a60830c2Df862319e593943A3) [staticcall]
+    │   └─ ← [Return] 42990 [4.299e4]
+    ├─ [71808] RevenueAccountingHandler::donate(77, false)
+    │   ├─ [579] CommunityRevenueRouterV2::feeAsset() [staticcall]
+    │   │   └─ ← [Return] 0x534b2f3A21130d7a60830c2Df862319e593943A3
+    │   ├─ [8767] CommunityRevenueRouterV2::funded(0x534b2f3A21130d7a60830c2Df862319e593943A3) [staticcall]
+    │   │   └─ ← [Return] 43000 [4.3e4]
+    │   ├─ [0] VM::deal(RevenueAccountingHandler: [0x796f2974e3C1af763252512dd6d521E9E984726C], 77)
+    │   │   └─ ← [Return]
+    │   ├─ [59] CommunityRevenueRouterV2::receive{value: 77}()
+    │   │   └─ ← [Stop]
+    │   ├─ [767] CommunityRevenueRouterV2::funded(0x534b2f3A21130d7a60830c2Df862319e593943A3) [staticcall]
+    │   │   └─ ← [Return] 43000 [4.3e4]
+    │   └─ ← [Return]
+    ├─ [634] 0x534b2f3A21130d7a60830c2Df862319e593943A3::balanceOf(CommunityRevenueRouterV2: [0x13aa49bAc059d709dd0a18D6bb63290076a702D7]) [staticcall]
+    │   └─ ← [Return] 42990 [4.299e4]
+    ├─ [0] VM::assertEq(42990 [4.299e4], 43067 [4.306e4]) [staticcall]
+    │   └─ ← [Revert] assertion failed: 42990 != 43067
+    └─ ← [Revert] assertion failed: 42990 != 43067
+
+Backtrace:
+  at VM.assertEq
+  at CommunityRevenueRouterUSDCInvariantTest.testHandlerDonationUsesSupportedQuoteWithoutAttributingIncome
+
+[FAIL: expected call to 0x03A6a84cD762D9707A21605b548aaaB891562aAb with data 0xd86e227c00000000000000000000000013aa49bac059d709dd0a18d6bb63290076a702d7000000000000000000000000534b2f3a21130d7a60830c2df862319e593943a30000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000640000000000000000000000000000000000000000000000000000000000000000 to be called 1 time, but was called 0 times] testHandlerReplayTargetsPreviouslyFundedSupportedQuote() (gas: 323752)
+Traces:
+  [323752] CommunityRevenueRouterUSDCInvariantTest::testHandlerReplayTargetsPreviouslyFundedSupportedQuote()
+    ├─ [579] CommunityRevenueRouterV2::feeAsset() [staticcall]
+    │   └─ ← [Return] 0x534b2f3A21130d7a60830c2Df862319e593943A3
+    ├─ [8635] CommunityRevenueRouterV2::venueSequence(0x534b2f3A21130d7a60830c2Df862319e593943A3) [staticcall]
+    │   └─ ← [Return] 1
+    ├─ [8767] CommunityRevenueRouterV2::funded(0x534b2f3A21130d7a60830c2Df862319e593943A3) [staticcall]
+    │   └─ ← [Return] 43000 [4.3e4]
+    ├─ [8723] CommunityRevenueRouterV2::liability(0x534b2f3A21130d7a60830c2Df862319e593943A3) [staticcall]
+    │   └─ ← [Return] 42990 [4.299e4]
+    ├─ [27861] CommunityRevenueRouterV2::activeEpoch() [staticcall]
+    │   ├─ [8439] CommunityPolicyRegistryV2::epoch() [staticcall]
+    │   │   └─ ← [Return] 2
+    │   └─ ← [Return] 2
+    ├─ [0] VM::expectCall(M6AccountingHook: [0x03A6a84cD762D9707A21605b548aaaB891562aAb], 0xd86e227c00000000000000000000000013aa49bac059d709dd0a18d6bb63290076a702d7000000000000000000000000534b2f3a21130d7a60830c2df862319e593943a30000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000640000000000000000000000000000000000000000000000000000000000000000)
+    │   └─ ← [Return]
+    ├─ [153187] RevenueAccountingHandler::invalid()
+    │   ├─ [135] CommunityRevenueRouterV2::venuePoolId() [staticcall]
+    │   │   └─ ← [Return] 0x23c7dc4dc239cb80f1fc7ce8db535437d71d63eb60caa84710d705de2a313ae3
+    │   ├─ [27861] CommunityRevenueRouterV2::activeEpoch() [staticcall]
+    │   │   ├─ [8439] CommunityPolicyRegistryV2::epoch() [staticcall]
+    │   │   │   └─ ← [Return] 2
+    │   │   └─ ← [Return] 2
+    │   ├─ [0] VM::expectRevert(Unauthorized())
+    │   │   └─ ← [Return]
+    │   ├─ [11416] CommunityRevenueRouterV2::fundVenue(0x23c7dc4dc239cb80f1fc7ce8db535437d71d63eb60caa84710d705de2a313ae3, 0x0000000000000000000000000000000000000000, 2, 1, 100, 0)
+    │   │   └─ ← [Revert] Unauthorized()
+    │   ├─ [8635] CommunityRevenueRouterV2::venueSequence(0x0000000000000000000000000000000000000000) [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [0] VM::expectRevert(InvalidSettlement())
+    │   │   └─ ← [Return]
+    │   ├─ [39135] M6AccountingHook::fund(CommunityRevenueRouterV2: [0x13aa49bAc059d709dd0a18D6bb63290076a702D7], 0x0000000000000000000000000000000000000000, 2, 0, 100, 0)
+    │   │   ├─ [135] CommunityRevenueRouterV2::venuePoolId() [staticcall]
+    │   │   │   └─ ← [Return] 0x23c7dc4dc239cb80f1fc7ce8db535437d71d63eb60caa84710d705de2a313ae3
+    │   │   ├─ [30960] CommunityRevenueRouterV2::fundVenue{value: 100}(0x23c7dc4dc239cb80f1fc7ce8db535437d71d63eb60caa84710d705de2a313ae3, 0x0000000000000000000000000000000000000000, 2, 0, 100, 0)
+    │   │   │   ├─ [8575] M6AccountingCurve::communityRouter() [staticcall]
+    │   │   │   │   └─ ← [Return] CommunityRevenueRouterV2: [0x13aa49bAc059d709dd0a18D6bb63290076a702D7]
+    │   │   │   └─ ← [Revert] InvalidSettlement()
+    │   │   └─ ← [Revert] InvalidSettlement()
+    │   └─ ← [Return]
+    ├─ [635] CommunityRevenueRouterV2::venueSequence(0x534b2f3A21130d7a60830c2Df862319e593943A3) [staticcall]
+    │   └─ ← [Return] 1
+    ├─ [767] CommunityRevenueRouterV2::funded(0x534b2f3A21130d7a60830c2Df862319e593943A3) [staticcall]
+    │   └─ ← [Return] 43000 [4.3e4]
+    ├─ [723] CommunityRevenueRouterV2::liability(0x534b2f3A21130d7a60830c2Df862319e593943A3) [staticcall]
+    │   └─ ← [Return] 42990 [4.299e4]
+    └─ ← [Return]
+
+Backtrace:
+  at CommunityRevenueRouterV2.fundVenue
+  at M6AccountingHook.fund
+  at RevenueAccountingHandler.invalid
+  at CommunityRevenueRouterUSDCInvariantTest.testHandlerReplayTargetsPreviouslyFundedSupportedQuote
+
+Suite result: FAILED. 0 passed; 2 failed; 0 skipped; finished in 32.48ms (10.78ms CPU time)
+
+Ran 2 tests for test/v2/research-experiment/m6/CommunityRevenueRouterInvariant.t.sol:CommunityRevenueRouterInvariantTest
+[PASS] testHandlerDonationUsesSupportedQuoteWithoutAttributingIncome() (gas: 163491)
+[PASS] testHandlerReplayTargetsPreviouslyFundedSupportedQuote() (gas: 324968)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 36.10ms (1.71ms CPU time)
+
+Ran 2 test suites in 62.70ms (68.57ms CPU time): 2 tests passed, 2 failed, 0 skipped (4 total tests)
+
+Failing tests:
+Encountered 2 failing tests in test/v2/research-experiment/m6/CommunityRevenueRouterInvariant.t.sol:CommunityRevenueRouterUSDCInvariantTest
+[FAIL: assertion failed: 42990 != 43067] testHandlerDonationUsesSupportedQuoteWithoutAttributingIncome() (gas: 181216)
+[FAIL: expected call to 0x03A6a84cD762D9707A21605b548aaaB891562aAb with data 0xd86e227c00000000000000000000000013aa49bac059d709dd0a18d6bb63290076a702d7000000000000000000000000534b2f3a21130d7a60830c2df862319e593943a30000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000640000000000000000000000000000000000000000000000000000000000000000 to be called 1 time, but was called 0 times] testHandlerReplayTargetsPreviouslyFundedSupportedQuote() (gas: 323752)
+
+Encountered a total of 2 failing tests, 2 tests succeeded
+
+Tip: Run `forge test --rerun` to retry only the 2 failed tests
+Tip: Run `forge test --debug --match-test <TEST_NAME>` to inspect one failing test in the debugger

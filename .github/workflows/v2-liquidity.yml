@@ -35,14 +35,18 @@ jobs:
 
   solidity-v2:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 60
     defaults:
       run:
         shell: bash
     env:
       FOUNDRY_PROFILE: test
-      EVIDENCE_DIR: ${{ runner.temp }}/v2-solidity-evidence
+      FOUNDRY_FUZZ_RUNS: '10000'
     steps:
+      - name: Initialize evidence directory
+        run: |
+          echo "EVIDENCE_DIR=$RUNNER_TEMP/v2-solidity-evidence" >> "$GITHUB_ENV"
+          mkdir -p "$RUNNER_TEMP/v2-solidity-evidence"
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           submodules: recursive
@@ -51,6 +55,9 @@ jobs:
         uses: foundry-rs/foundry-toolchain@908c540300062bd5a7e473851cdb4282204cee09 # v1
         with:
           version: v1.8.4
+      - name: Qualification result gate regression tests
+        id: result_gate
+        run: python3 -m unittest discover -s scripts/launchpad -p test_foundry_results.py -v
       - name: Record compiler and source identity
         working-directory: contracts
         run: |
@@ -64,7 +71,8 @@ jobs:
         working-directory: contracts
         run: |
           mkdir -p "$EVIDENCE_DIR"
-          forge test --contracts src/v2 --match-path 'test/v2/unit/*.t.sol' --fuzz-seed 0x6a -vvv 2>&1 | tee "$EVIDENCE_DIR/unit.log"
+          forge test --contracts src/v2 --match-path 'test/v2/unit/*.t.sol' --fuzz-seed 0x6a --out "$RUNNER_TEMP/v2-canonical-out" --cache-path "$RUNNER_TEMP/v2-canonical-cache" --json > "$EVIDENCE_DIR/unit.json" 2> "$EVIDENCE_DIR/unit-build.log"
+          python3 ../scripts/launchpad/check_foundry_results.py "$EVIDENCE_DIR/unit.json" --summary "$EVIDENCE_DIR/unit-summary.json" --min-tests 34 --required-suite GraduationCoordinatorV2AuthorityTest --required-suite V4OnlyLaunchAdmissionV2Test
       - name: V2 stateful invariants
         id: invariants
         if: ${{ !cancelled() && steps.foundry.outcome == 'success' }}
@@ -74,7 +82,8 @@ jobs:
           FOUNDRY_INVARIANT_DEPTH: '128'
         run: |
           mkdir -p "$EVIDENCE_DIR"
-          forge test --contracts src/v2 --match-path 'test/v2/invariant/*.t.sol' --fuzz-seed 0x6a -vvv 2>&1 | tee "$EVIDENCE_DIR/invariants.log"
+          forge test --contracts src/v2 --match-path 'test/v2/invariant/*.t.sol' --fuzz-seed 0x6a --out "$RUNNER_TEMP/v2-canonical-out" --cache-path "$RUNNER_TEMP/v2-canonical-cache" --json > "$EVIDENCE_DIR/invariants.json" 2> "$EVIDENCE_DIR/invariants-build.log"
+          python3 ../scripts/launchpad/check_foundry_results.py "$EVIDENCE_DIR/invariants.json" --summary "$EVIDENCE_DIR/invariants-summary.json" --min-tests 4 --required-suite GraduationCoordinatorV2InvariantTest --required-suite RetroPickCurrentCurveV2InvariantTest
       - name: Community Treasury six-decimal stateful invariants
         id: treasury_usdc
         if: ${{ !cancelled() && steps.foundry.outcome == 'success' }}
@@ -84,14 +93,16 @@ jobs:
           FOUNDRY_INVARIANT_DEPTH: '128'
         run: |
           mkdir -p "$EVIDENCE_DIR"
-          forge test --contracts src/v2 --match-path 'test/v2/community-economy/treasury-integration/CommunityTreasuryUSDCInvariant.t.sol' --fuzz-seed 0x6a -vvv 2>&1 | tee "$EVIDENCE_DIR/treasury-usdc.log"
+          forge test --contracts src/v2 --match-path 'test/v2/community-economy/treasury-integration/CommunityTreasuryUSDCInvariant.t.sol' --fuzz-seed 0x6a --out "$RUNNER_TEMP/v2-canonical-out" --cache-path "$RUNNER_TEMP/v2-canonical-cache" --json > "$EVIDENCE_DIR/treasury-usdc.json" 2> "$EVIDENCE_DIR/treasury-usdc-build.log"
+          python3 ../scripts/launchpad/check_foundry_results.py "$EVIDENCE_DIR/treasury-usdc.json" --summary "$EVIDENCE_DIR/treasury-usdc-summary.json" --min-tests 1
       - name: Community Treasury successful V4 behavior seam (native and six-decimal)
         id: treasury_v4
         if: ${{ !cancelled() && steps.foundry.outcome == 'success' }}
         working-directory: contracts
         run: |
           mkdir -p "$EVIDENCE_DIR"
-          forge test --contracts src/v2 --match-path 'test/v2/community-economy/treasury-integration/CommunityTreasuryV4Seam.t.sol' --fuzz-seed 0x6a -vvv 2>&1 | tee "$EVIDENCE_DIR/treasury-v4-seam.log"
+          forge test --contracts src/v2 --match-path 'test/v2/community-economy/treasury-integration/CommunityTreasuryV4Seam.t.sol' --fuzz-seed 0x6a --out "$RUNNER_TEMP/v2-canonical-out" --cache-path "$RUNNER_TEMP/v2-canonical-cache" --json > "$EVIDENCE_DIR/treasury-v4-seam.json" 2> "$EVIDENCE_DIR/treasury-v4-seam-build.log"
+          python3 ../scripts/launchpad/check_foundry_results.py "$EVIDENCE_DIR/treasury-v4-seam.json" --summary "$EVIDENCE_DIR/treasury-v4-seam-summary.json" --min-tests 1
       - name: Frozen legacy source and custody-policy regression
         id: legacy
         if: ${{ !cancelled() && steps.foundry.outcome == 'success' }}
@@ -100,10 +111,12 @@ jobs:
           mkdir -p "$EVIDENCE_DIR"
           python3 legacy-v2/verify.py 2>&1 | tee "$EVIDENCE_DIR/deployed-legacy-source.log"
           python3 legacy/v2-kuru/verify.py 2>&1 | tee "$EVIDENCE_DIR/legacy-boundary.log"
-          forge test --contracts src/legacy/v2/kuru/canonical --match-path 'test/legacy/v2-kuru/unit/*.t.sol' --fuzz-seed 0x6a -vvv 2>&1 | tee "$EVIDENCE_DIR/legacy-unit.log"
+          forge test --contracts src/legacy/v2/kuru/canonical --match-path 'test/legacy/v2-kuru/unit/*.t.sol' --fuzz-seed 0x6a --out "$RUNNER_TEMP/v2-legacy-out" --cache-path "$RUNNER_TEMP/v2-legacy-cache" --json > "$EVIDENCE_DIR/legacy-unit.json" 2> "$EVIDENCE_DIR/legacy-unit-build.log"
+          python3 ../scripts/launchpad/check_foundry_results.py "$EVIDENCE_DIR/legacy-unit.json" --summary "$EVIDENCE_DIR/legacy-unit-summary.json" --min-tests 1
       - name: Require every Solidity qualification suite
         if: ${{ always() }}
         env:
+          RESULT_GATE_OUTCOME: ${{ steps.result_gate.outcome }}
           LEGACY_OUTCOME: ${{ steps.legacy.outcome }}
           UNIT_OUTCOME: ${{ steps.unit.outcome }}
           INVARIANTS_OUTCOME: ${{ steps.invariants.outcome }}
@@ -114,7 +127,7 @@ jobs:
           python3 - <<'PYTHON'
           import json, os, pathlib
           outcomes = {name: os.environ.get(name, "missing") for name in (
-              "UNIT_OUTCOME", "INVARIANTS_OUTCOME", "TREASURY_USDC_OUTCOME", "TREASURY_V4_OUTCOME", "LEGACY_OUTCOME")}
+              "RESULT_GATE_OUTCOME", "UNIT_OUTCOME", "INVARIANTS_OUTCOME", "TREASURY_USDC_OUTCOME", "TREASURY_V4_OUTCOME", "LEGACY_OUTCOME")}
           pathlib.Path(os.environ["EVIDENCE_DIR"], "suite-outcomes.json").write_text(json.dumps(outcomes, indent=2) + "\n")
           print(json.dumps(outcomes))
           if any(result != "success" for result in outcomes.values()):

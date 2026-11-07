@@ -9,7 +9,7 @@ import {
 } from "../../../../src/v2-research-experiment/m6/CommunityRevenueRouterV2.sol";
 import {CommunityControllerV2} from "../../../../src/v2-research-experiment/CommunityControllerV2.sol";
 import {
-    CommunityRevenueRouterV2AccountingTest,
+    CommunityRevenueRouterFixtureV2,
     M6AccountingHook,
     M6AccountingCurve,
     M6AccountingToken
@@ -135,30 +135,34 @@ contract RevenueAccountingHandler is Test {
         uint256 amount = bound(uint256(raw), 1, 1e18);
         address asset = tokenAsset ? router.launchToken() : router.feeAsset();
         uint256 oldFunded = router.funded(asset);
-        if (tokenAsset) {
-            M6AccountingToken(asset).mint(address(router), amount);
+        uint256 oldLiability = router.liability(asset);
+        if (asset != address(0)) {
+            M6AccountingToken(asset).mint(address(this), amount);
+            assertTrue(M6AccountingToken(asset).transfer(address(router), amount));
         } else {
             vm.deal(address(this), amount);
             (bool ok,) = payable(address(router)).call{value: amount}("");
             assertTrue(ok);
         }
         assertEq(router.funded(asset), oldFunded);
+        assertEq(router.liability(asset), oldLiability);
         ++donations;
     }
 
     function invalid() public {
         bytes32 id = router.venuePoolId();
         uint256 epoch = router.activeEpoch();
+        address asset = router.feeAsset();
         vm.expectRevert(CommunityRevenueRouterV2.Unauthorized.selector);
-        router.fundVenue(id, address(0), epoch, 1, 100, 0);
-        uint256 duplicate = router.venueSequence(address(0));
+        router.fundVenue(id, asset, epoch, 1, 100, 0);
+        uint256 duplicate = router.venueSequence(asset);
         vm.expectRevert(CommunityRevenueRouterV2.InvalidSettlement.selector);
-        hook.fund(router, address(0), epoch, duplicate, 100, 0);
+        hook.fund(router, asset, epoch, duplicate, 100, 0);
         rejected += 2;
     }
 }
 
-contract CommunityRevenueRouterInvariantTest is StdInvariant, CommunityRevenueRouterV2AccountingTest {
+contract CommunityRevenueRouterInvariantTest is StdInvariant, CommunityRevenueRouterFixtureV2 {
     RevenueAccountingHandler internal handler;
 
     function setUp() public virtual override {
@@ -168,7 +172,8 @@ contract CommunityRevenueRouterInvariantTest is StdInvariant, CommunityRevenueRo
     function _boot(bool usdc) internal {
         _setup(usdc);
         handler = new RevenueAccountingHandler(router, hook, curve);
-        // Explicit successful reachability before randomized actions; no catch-all rejection suppression.
+        // Deterministic setup reachability only; these seeded counters do not prove random-action coverage.
+        // No catch-all rejection suppression; inspect Foundry selector call/revert statistics separately.
         handler.fund(10000, false);
         handler.fund(20000, true);
         handler.settle(30000);
@@ -196,6 +201,39 @@ contract CommunityRevenueRouterInvariantTest is StdInvariant, CommunityRevenueRo
         targetContract(address(handler));
     }
 
+    function testHandlerDonationUsesSupportedQuoteWithoutAttributingIncome() public {
+        address asset = router.feeAsset();
+        uint256 beforeBalance =
+            asset == address(0) ? address(router).balance : M6AccountingToken(asset).balanceOf(address(router));
+        uint256 beforeNative = address(router).balance;
+        uint256 beforeFunded = router.funded(asset);
+        uint256 beforeLiability = router.liability(asset);
+        handler.donate(77, false);
+        uint256 afterBalance =
+            asset == address(0) ? address(router).balance : M6AccountingToken(asset).balanceOf(address(router));
+        assertEq(afterBalance, beforeBalance + 77);
+        assertEq(router.funded(asset), beforeFunded);
+        assertEq(router.liability(asset), beforeLiability);
+        if (asset != address(0)) assertEq(address(router).balance, beforeNative);
+    }
+
+    function testHandlerReplayTargetsPreviouslyFundedSupportedQuote() public {
+        address asset = router.feeAsset();
+        uint256 duplicate = router.venueSequence(asset);
+        assertGt(duplicate, 0);
+        uint256 beforeFunded = router.funded(asset);
+        uint256 beforeLiability = router.liability(asset);
+        vm.expectCall(
+            address(hook),
+            abi.encodeCall(M6AccountingHook.fund, (router, asset, router.activeEpoch(), duplicate, 100, 0))
+        );
+        handler.invalid();
+        assertEq(router.venueSequence(asset), duplicate);
+        assertEq(router.funded(asset), beforeFunded);
+        assertEq(router.liability(asset), beforeLiability);
+    }
+
+    /// @dev Reachability counters include setup; randomized branch coverage is a separate qualification gate.
     function invariant_twoAssetConservationBackingRightsAndReachability() public view {
         address[2] memory assets = [router.feeAsset(), address(token)];
         for (uint256 i; i < 2; ++i) {

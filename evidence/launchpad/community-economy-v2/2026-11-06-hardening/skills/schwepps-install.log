@@ -1,0 +1,31 @@
+
+│
+●   codex  Agent detected — installing non-interactively
+│
+●  Selected 1 skill: solidity-auditor
+
+│
+◇  Installation Summary ───────────────────────────────────────────────────────╮
+│                                                                              │
+│  ~/project/retropick/retropick-v2-audit-hardening-20261106/.agents/skills/s  │
+│  olidity-auditor                                                             │
+│    copy → Codex                                                              │
+│                                                                              │
+├──────────────────────────────────────────────────────────────────────────────╯
+
+[
+  {
+    "name": "solidity-auditor",
+    "status": "installed",
+    "source": "schwepps/skills",
+    "ref": "8aa9a4e0eec8bdcbcc51dff95ce4bdbdb5edde01",
+    "hash": "6163128f528bbe31a781b7efa454365a0bd9e762c1c88e43780e37569e457aa0",
+    "path": "/home/ubuntu/project/retropick/retropick-v2-audit-hardening-20261106/.agents/skills/solidity-auditor",
+    "scope": "project",
+    "agents": [
+      "Codex"
+    ],
+    "mode": "copy",
+    "security": null
+  }
+]

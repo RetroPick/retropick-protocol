@@ -1,0 +1,33 @@
+{
+  "sourceSHA256": {
+    "contracts/test/v2/research-experiment/m6/CommunityRevenueRouterV2.t.sol": "571eb74b24f5efcde6bab6afb08e502de169fdf5510a68a78f454cef19253338",
+    "contracts/test/v2/research-experiment/m6/CommunityRevenueRouterInvariant.t.sol": "7077c6f1d532ba8e0d1ab1a3859b9ecda7c34ef76ca39162599f79faa66841ae"
+  },
+  "unitResult": {
+    "passed": 17,
+    "failed": 0,
+    "skipped": 0,
+    "fuzzCases": 10000,
+    "log": "formatted-unit-and-fuzz.log"
+  },
+  "format": {
+    "argv": [
+      "forge",
+      "fmt",
+      "--check",
+      "test/v2/research-experiment/m6/CommunityRevenueRouterV2.t.sol",
+      "test/v2/research-experiment/m6/CommunityRevenueRouterInvariant.t.sol"
+    ],
+    "exitCode": 0
+  },
+  "invariantResults": "formatted-invariant-runs.json",
+  "invariantProperties": 6,
+  "handlerCalls": 196608,
+  "outerHandlerReverts": 0,
+  "limitations": [
+    "single-launch model, not genuine venue or fork",
+    "seeded reachability counters do not prove random branch success",
+    "two-launch campaign remains pending"
+  ],
+  "review": "Initial handler repair independently reviewed; fixture composition extraction awaits separate reviewer"
+}

@@ -1,0 +1,5 @@
+../../../../../tmp/retropick-ci-schema-lxlkwf3k/old.yml:44:25: context "runner" is not allowed here. available contexts are "github", "inputs", "matrix", "needs", "secrets", "strategy", "vars". see https://docs.github.com/en/actions/learn-github-actions/contexts#context-availability for more details [expression]
+   |
+44 |       EVIDENCE_DIR: ${{ runner.temp }}/v2-solidity-evidence
+   |                         ^~~~~~~~~~~
+exit status 1

@@ -1,0 +1,414 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "5cb1c5cda1d7999225f8597896b946cdbdbb0641",
+  "agent": "codex",
+  "cli": {
+    "package": "skills",
+    "version": "1.7.6",
+    "telemetry": false,
+    "npmLifecycleScripts": false,
+    "sourceRevision": "7a5e920bead4b1039a6d6df5d7e1163b7b09423a",
+    "license": "MIT",
+    "npmIntegrity": "sha512-dAee29yRGin7ub6VHwmifLEfHrysGD41yq4RkY0gg7QQh0wyQKWfhiORGb/r6uNpKWc9A1GY8yowV07Lh+4rCg==",
+    "packageSha256": "7ab1d2a52f1e0058d2f7d4f425821e6346ce90526304594f2275f008b816563e",
+    "packageIntegrityVerification": "PASS"
+  },
+  "started": "2026-11-06T07:12:57.546071+00:00",
+  "sources": [
+    {
+      "repository": "trailofbits/skills",
+      "revision": "470419e16f97e112d01fc32f4898aea1755015d9",
+      "archiveSha256": "3e10245c006b3ad54418ffbf1614ac995b37f2bc7e8ffecb50895b3dfc472f7f",
+      "license": "CC-BY-SA-4.0",
+      "skills": [
+        {
+          "name": "entry-point-analyzer",
+          "upstreamPath": "plugins/entry-point-analyzer/skills/entry-point-analyzer",
+          "upstreamFiles": {
+            "plugins/entry-point-analyzer/skills/entry-point-analyzer/SKILL.md": "167dca47592a8bd248916ca06977103cadc6b9492fe701ad6a6464b38fec0aec",
+            "plugins/entry-point-analyzer/skills/entry-point-analyzer/agents/openai.yaml": "f80b47966f7f5ae5e11838c5d7b428c05bc80b393ca97d29f3bf2a8383bb94dd",
+            "plugins/entry-point-analyzer/skills/entry-point-analyzer/assets/trail-of-bits-mark.svg": "4bf74c789b38dcf6ad762c136b6832363d27ae19fbaa9a18ec18d66ecce6ca05",
+            "plugins/entry-point-analyzer/skills/entry-point-analyzer/references/cosmwasm.md": "9190d53ca121d77568dffb86800157770c5f4bb7bcfb58db012d564f15b49d69",
+            "plugins/entry-point-analyzer/skills/entry-point-analyzer/references/move-aptos.md": "8e1f8231ab23bc5eabee0f351338926e6b2a6bf0c55caef45e2e2f68e435e87e",
+            "plugins/entry-point-analyzer/skills/entry-point-analyzer/references/move-sui.md": "681aa8b377d3c622935aaed4eed890a4412b6407e7208c082afd67769424eeac",
+            "plugins/entry-point-analyzer/skills/entry-point-analyzer/references/solana.md": "688de5e95dce753f99c7907566a0dc28fb7c5900156e4cc8b89417a5e7fc3d80",
+            "plugins/entry-point-analyzer/skills/entry-point-analyzer/references/solidity.md": "8e075e3de1800f897da8c7cd2ed5468c2e31f50b3722a490677e97fd79578c78",
+            "plugins/entry-point-analyzer/skills/entry-point-analyzer/references/ton.md": "d2cff4dea2757bd11b222117d7920fbcb9add6a9082027a3fcf054ba699f25c6",
+            "plugins/entry-point-analyzer/skills/entry-point-analyzer/references/vyper.md": "ad1a4c358a36c57e2329e4fe2bc762fac816d0bdc46b1f395b652fd87ef80334"
+          },
+          "scripts": [],
+          "scriptExecution": "NOT_RUN",
+          "review": "Source and instructions reviewed; local subprocess/worktree behavior in post-patch helper requires a separately authorized pinned validation plan; no helper executed.",
+          "installed": true,
+          "installedFiles": {
+            "SKILL.md": "167dca47592a8bd248916ca06977103cadc6b9492fe701ad6a6464b38fec0aec",
+            "UPSTREAM_LICENSE": "7abe19ec9bb73b36141b999b861d24ad855e808bafe0f81e84cce28556f6c297",
+            "agents/openai.yaml": "f80b47966f7f5ae5e11838c5d7b428c05bc80b393ca97d29f3bf2a8383bb94dd",
+            "assets/trail-of-bits-mark.svg": "4bf74c789b38dcf6ad762c136b6832363d27ae19fbaa9a18ec18d66ecce6ca05",
+            "references/cosmwasm.md": "9190d53ca121d77568dffb86800157770c5f4bb7bcfb58db012d564f15b49d69",
+            "references/move-aptos.md": "8e1f8231ab23bc5eabee0f351338926e6b2a6bf0c55caef45e2e2f68e435e87e",
+            "references/move-sui.md": "681aa8b377d3c622935aaed4eed890a4412b6407e7208c082afd67769424eeac",
+            "references/solana.md": "688de5e95dce753f99c7907566a0dc28fb7c5900156e4cc8b89417a5e7fc3d80",
+            "references/solidity.md": "8e075e3de1800f897da8c7cd2ed5468c2e31f50b3722a490677e97fd79578c78",
+            "references/ton.md": "d2cff4dea2757bd11b222117d7920fbcb9add6a9082027a3fcf054ba699f25c6",
+            "references/vyper.md": "ad1a4c358a36c57e2329e4fe2bc762fac816d0bdc46b1f395b652fd87ef80334"
+          }
+        },
+        {
+          "name": "differential-review",
+          "upstreamPath": "plugins/differential-review/skills/differential-review",
+          "upstreamFiles": {
+            "plugins/differential-review/skills/differential-review/SKILL.md": "f9af6a8193fc1a9f8ca3c54bb8d19095a5f20c9472ca6d014488bbde50b67da0",
+            "plugins/differential-review/skills/differential-review/adversarial.md": "3cb823f38c6e551cbcf5f72325d2bb219dacdad774072519c31d50d92db19800",
+            "plugins/differential-review/skills/differential-review/agents/openai.yaml": "0279d56f88dc1a04d4b1941a25fa7672912a3ceb0557b13c38d069908b30ae61",
+            "plugins/differential-review/skills/differential-review/assets/trail-of-bits-mark.svg": "4bf74c789b38dcf6ad762c136b6832363d27ae19fbaa9a18ec18d66ecce6ca05",
+            "plugins/differential-review/skills/differential-review/methodology.md": "16b335d24cf2145e3dc4a37f50056550d29db2efa20e6df78fec95ec1e6fb0b4",
+            "plugins/differential-review/skills/differential-review/patterns.md": "52abb18abbc73502a3d3b2f36a7a035adc1db40fd812d1d5424cf065036a06e9",
+            "plugins/differential-review/skills/differential-review/reporting.md": "0016876dc6f158e926448bff1b6f634796757c7afe09dff177cfe30250724fc4"
+          },
+          "scripts": [],
+          "scriptExecution": "NOT_RUN",
+          "review": "Source and instructions reviewed; local subprocess/worktree behavior in post-patch helper requires a separately authorized pinned validation plan; no helper executed.",
+          "installed": true,
+          "installedFiles": {
+            "SKILL.md": "f9af6a8193fc1a9f8ca3c54bb8d19095a5f20c9472ca6d014488bbde50b67da0",
+            "UPSTREAM_LICENSE": "7abe19ec9bb73b36141b999b861d24ad855e808bafe0f81e84cce28556f6c297",
+            "adversarial.md": "3cb823f38c6e551cbcf5f72325d2bb219dacdad774072519c31d50d92db19800",
+            "agents/openai.yaml": "0279d56f88dc1a04d4b1941a25fa7672912a3ceb0557b13c38d069908b30ae61",
+            "assets/trail-of-bits-mark.svg": "4bf74c789b38dcf6ad762c136b6832363d27ae19fbaa9a18ec18d66ecce6ca05",
+            "methodology.md": "16b335d24cf2145e3dc4a37f50056550d29db2efa20e6df78fec95ec1e6fb0b4",
+            "patterns.md": "52abb18abbc73502a3d3b2f36a7a035adc1db40fd812d1d5424cf065036a06e9",
+            "reporting.md": "0016876dc6f158e926448bff1b6f634796757c7afe09dff177cfe30250724fc4"
+          }
+        },
+        {
+          "name": "token-integration-analyzer",
+          "upstreamPath": "plugins/building-secure-contracts/skills/token-integration-analyzer",
+          "upstreamFiles": {
+            "plugins/building-secure-contracts/skills/token-integration-analyzer/SKILL.md": "4b7f5cb3c52f9b45e2216963a49458e1f23f5a279a0296e702fd9d8df268b301",
+            "plugins/building-secure-contracts/skills/token-integration-analyzer/agents/openai.yaml": "08d464486ef3598d69d683ec669277da6c839f4804606a2f46c6f31896f5a3a3",
+            "plugins/building-secure-contracts/skills/token-integration-analyzer/assets/trail-of-bits-mark.svg": "4bf74c789b38dcf6ad762c136b6832363d27ae19fbaa9a18ec18d66ecce6ca05",
+            "plugins/building-secure-contracts/skills/token-integration-analyzer/resources/ASSESSMENT_CATEGORIES.md": "bf1313e59c960688cc73bda5b7a98579336a277c521b9b37937aa1cda3a122a7",
+            "plugins/building-secure-contracts/skills/token-integration-analyzer/resources/REPORT_TEMPLATES.md": "77dc2195901cbca8f0a04687e6ac51347520b6320cfe2ca7c39d9725ffae1177"
+          },
+          "scripts": [],
+          "scriptExecution": "NOT_RUN",
+          "review": "Source and instructions reviewed; local subprocess/worktree behavior in post-patch helper requires a separately authorized pinned validation plan; no helper executed.",
+          "installed": true,
+          "installedFiles": {
+            "SKILL.md": "4b7f5cb3c52f9b45e2216963a49458e1f23f5a279a0296e702fd9d8df268b301",
+            "UPSTREAM_LICENSE": "7abe19ec9bb73b36141b999b861d24ad855e808bafe0f81e84cce28556f6c297",
+            "agents/openai.yaml": "08d464486ef3598d69d683ec669277da6c839f4804606a2f46c6f31896f5a3a3",
+            "assets/trail-of-bits-mark.svg": "4bf74c789b38dcf6ad762c136b6832363d27ae19fbaa9a18ec18d66ecce6ca05",
+            "resources/ASSESSMENT_CATEGORIES.md": "bf1313e59c960688cc73bda5b7a98579336a277c521b9b37937aa1cda3a122a7",
+            "resources/REPORT_TEMPLATES.md": "77dc2195901cbca8f0a04687e6ac51347520b6320cfe2ca7c39d9725ffae1177"
+          }
+        },
+        {
+          "name": "code-maturity-assessor",
+          "upstreamPath": "plugins/building-secure-contracts/skills/code-maturity-assessor",
+          "upstreamFiles": {
+            "plugins/building-secure-contracts/skills/code-maturity-assessor/SKILL.md": "a5e1427ae04cb0ed32b003c332becc0c8adb8e382d8d1d489edc997148b57ab1",
+            "plugins/building-secure-contracts/skills/code-maturity-assessor/agents/openai.yaml": "b3b5badfebd66eedfaae9b5ad1c867ce6a6a82215f92be5224f62f6351955fc3",
+            "plugins/building-secure-contracts/skills/code-maturity-assessor/assets/trail-of-bits-mark.svg": "4bf74c789b38dcf6ad762c136b6832363d27ae19fbaa9a18ec18d66ecce6ca05",
+            "plugins/building-secure-contracts/skills/code-maturity-assessor/resources/ASSESSMENT_CRITERIA.md": "0ffe131842b209de7910cc2ac77fc1e2cdea1e16455bfba79505c8ba8179009f",
+            "plugins/building-secure-contracts/skills/code-maturity-assessor/resources/EXAMPLE_REPORT.md": "47f37a7460cf281cb4ca2aeb3abced762ce4b7dd4db21e7b12772b2202e4fc42",
+            "plugins/building-secure-contracts/skills/code-maturity-assessor/resources/REPORT_FORMAT.md": "28474cce17be996e839353978fc06a830ac3fbd1219efbacc914de567fcdd7dc"
+          },
+          "scripts": [],
+          "scriptExecution": "NOT_RUN",
+          "review": "Source and instructions reviewed; local subprocess/worktree behavior in post-patch helper requires a separately authorized pinned validation plan; no helper executed.",
+          "installed": true,
+          "installedFiles": {
+            "SKILL.md": "a5e1427ae04cb0ed32b003c332becc0c8adb8e382d8d1d489edc997148b57ab1",
+            "UPSTREAM_LICENSE": "7abe19ec9bb73b36141b999b861d24ad855e808bafe0f81e84cce28556f6c297",
+            "agents/openai.yaml": "b3b5badfebd66eedfaae9b5ad1c867ce6a6a82215f92be5224f62f6351955fc3",
+            "assets/trail-of-bits-mark.svg": "4bf74c789b38dcf6ad762c136b6832363d27ae19fbaa9a18ec18d66ecce6ca05",
+            "resources/ASSESSMENT_CRITERIA.md": "0ffe131842b209de7910cc2ac77fc1e2cdea1e16455bfba79505c8ba8179009f",
+            "resources/EXAMPLE_REPORT.md": "47f37a7460cf281cb4ca2aeb3abced762ce4b7dd4db21e7b12772b2202e4fc42",
+            "resources/REPORT_FORMAT.md": "28474cce17be996e839353978fc06a830ac3fbd1219efbacc914de567fcdd7dc"
+          }
+        },
+        {
+          "name": "guidelines-advisor",
+          "upstreamPath": "plugins/building-secure-contracts/skills/guidelines-advisor",
+          "upstreamFiles": {
+            "plugins/building-secure-contracts/skills/guidelines-advisor/SKILL.md": "5bb8ba34d363c419e1769a59d0fcc7444a04dc6d9e59032cb93019befdc2e464",
+            "plugins/building-secure-contracts/skills/guidelines-advisor/agents/openai.yaml": "efb688da205e309c49a91e969bfd5c6c63c23ad3f90bd429367d5539eea7e6ec",
+            "plugins/building-secure-contracts/skills/guidelines-advisor/assets/trail-of-bits-mark.svg": "4bf74c789b38dcf6ad762c136b6832363d27ae19fbaa9a18ec18d66ecce6ca05",
+            "plugins/building-secure-contracts/skills/guidelines-advisor/resources/ASSESSMENT_AREAS.md": "951352a5e7c3afa717ed62770ae1b7c152c4792480e3beebefc68f9c96d2a46c",
+            "plugins/building-secure-contracts/skills/guidelines-advisor/resources/DELIVERABLES.md": "5a9a6e14acb0be5dd8e15440227d5cf659931ec79cca346661f9ef22bc5f21c2",
+            "plugins/building-secure-contracts/skills/guidelines-advisor/resources/EXAMPLE_REPORT.md": "4c31c1718afaece6c7ba2c3519373167ca5d81f937fb4356c8d9b45d280833f0"
+          },
+          "scripts": [],
+          "scriptExecution": "NOT_RUN",
+          "review": "Source and instructions reviewed; local subprocess/worktree behavior in post-patch helper requires a separately authorized pinned validation plan; no helper executed.",
+          "installed": true,
+          "installedFiles": {
+            "SKILL.md": "5bb8ba34d363c419e1769a59d0fcc7444a04dc6d9e59032cb93019befdc2e464",
+            "UPSTREAM_LICENSE": "7abe19ec9bb73b36141b999b861d24ad855e808bafe0f81e84cce28556f6c297",
+            "agents/openai.yaml": "efb688da205e309c49a91e969bfd5c6c63c23ad3f90bd429367d5539eea7e6ec",
+            "assets/trail-of-bits-mark.svg": "4bf74c789b38dcf6ad762c136b6832363d27ae19fbaa9a18ec18d66ecce6ca05",
+            "resources/ASSESSMENT_AREAS.md": "951352a5e7c3afa717ed62770ae1b7c152c4792480e3beebefc68f9c96d2a46c",
+            "resources/DELIVERABLES.md": "5a9a6e14acb0be5dd8e15440227d5cf659931ec79cca346661f9ef22bc5f21c2",
+            "resources/EXAMPLE_REPORT.md": "4c31c1718afaece6c7ba2c3519373167ca5d81f937fb4356c8d9b45d280833f0"
+          }
+        },
+        {
+          "name": "property-based-testing",
+          "upstreamPath": "plugins/property-based-testing/skills/property-based-testing",
+          "upstreamFiles": {
+            "plugins/property-based-testing/skills/property-based-testing/README.md": "ffbe30eec09cc64fb1eae836b07ca1d82939bda3f1e6f0dceadcdd78793a3112",
+            "plugins/property-based-testing/skills/property-based-testing/SKILL.md": "9448cacb65c6237a7c22dc59602667177ecae405524079ae9ff92240590b995a",
+            "plugins/property-based-testing/skills/property-based-testing/agents/openai.yaml": "51d635deefa254d8cdf6dc56450851b6ec9545cd37f88a4eb4035cf3f2262fff",
+            "plugins/property-based-testing/skills/property-based-testing/assets/trail-of-bits-mark.svg": "4bf74c789b38dcf6ad762c136b6832363d27ae19fbaa9a18ec18d66ecce6ca05",
+            "plugins/property-based-testing/skills/property-based-testing/references/generating.md": "c0e72dfc89babe3c32de718b81b94044362c85e776d7475e950dfeaab78bb58e",
+            "plugins/property-based-testing/skills/property-based-testing/references/interpreting-failures.md": "dbae7db8773712ba03268a3d56ea5aa6720af0650a5189580bfd88aa2edc3f9a",
+            "plugins/property-based-testing/skills/property-based-testing/references/libraries.md": "f7218acf8e668130ef3048983472579d04e12030c5401926f666363e5f69c686",
+            "plugins/property-based-testing/skills/property-based-testing/references/refactoring.md": "6eb5c206f575704791f089608bb06e41d6eed91b9d3c7fb27912f969aed07a18",
+            "plugins/property-based-testing/skills/property-based-testing/references/reviewing.md": "110b08118a1e7b1a2566def6e9d2a0bf43fc2deefce857d2ce3b4382b07bc774"
+          },
+          "scripts": [],
+          "scriptExecution": "NOT_RUN",
+          "review": "Source and instructions reviewed; local subprocess/worktree behavior in post-patch helper requires a separately authorized pinned validation plan; no helper executed.",
+          "installed": true,
+          "installedFiles": {
+            "README.md": "ffbe30eec09cc64fb1eae836b07ca1d82939bda3f1e6f0dceadcdd78793a3112",
+            "SKILL.md": "9448cacb65c6237a7c22dc59602667177ecae405524079ae9ff92240590b995a",
+            "UPSTREAM_LICENSE": "7abe19ec9bb73b36141b999b861d24ad855e808bafe0f81e84cce28556f6c297",
+            "agents/openai.yaml": "51d635deefa254d8cdf6dc56450851b6ec9545cd37f88a4eb4035cf3f2262fff",
+            "assets/trail-of-bits-mark.svg": "4bf74c789b38dcf6ad762c136b6832363d27ae19fbaa9a18ec18d66ecce6ca05",
+            "references/generating.md": "c0e72dfc89babe3c32de718b81b94044362c85e776d7475e950dfeaab78bb58e",
+            "references/interpreting-failures.md": "dbae7db8773712ba03268a3d56ea5aa6720af0650a5189580bfd88aa2edc3f9a",
+            "references/libraries.md": "f7218acf8e668130ef3048983472579d04e12030c5401926f666363e5f69c686",
+            "references/refactoring.md": "6eb5c206f575704791f089608bb06e41d6eed91b9d3c7fb27912f969aed07a18",
+            "references/reviewing.md": "110b08118a1e7b1a2566def6e9d2a0bf43fc2deefce857d2ce3b4382b07bc774"
+          }
+        },
+        {
+          "name": "post-patch-validation",
+          "upstreamPath": "plugins/post-patch-validation/skills/post-patch-validation",
+          "upstreamFiles": {
+            "plugins/post-patch-validation/skills/post-patch-validation/SKILL.md": "33b604f4d7d62eab393d710edb98b18505fcbe079c07c9428daa018f29439b54",
+            "plugins/post-patch-validation/skills/post-patch-validation/agents/openai.yaml": "26b1a313e35f8d0e585a01f4922baac69c57d3f8364db2fce853e81465c1aed2",
+            "plugins/post-patch-validation/skills/post-patch-validation/references/evidence-model.md": "450175cb31b9d256c5783627bb7a708a9630f71eb5053fa8035f0daedfa9b7f1",
+            "plugins/post-patch-validation/skills/post-patch-validation/scripts/post_patch_validation.py": "4f3e0d4c8557d8632ea998e634fc6bd18a932ecabb94ceba8c51045a795decf3",
+            "plugins/post-patch-validation/skills/post-patch-validation/scripts/pyproject.toml": "81c10874ac5fd399c479b31a3c13713a4608138caad1ef61161ba139643ec02b"
+          },
+          "scripts": [
+            {
+              "path": "plugins/post-patch-validation/skills/post-patch-validation/scripts/post_patch_validation.py",
+              "sha256": "4f3e0d4c8557d8632ea998e634fc6bd18a932ecabb94ceba8c51045a795decf3",
+              "imports": [
+                "__future__",
+                "argparse",
+                "collections.abc",
+                "contextlib",
+                "dataclasses",
+                "fcntl",
+                "hashlib",
+                "json",
+                "msvcrt",
+                "os",
+                "pathlib",
+                "re",
+                "shutil",
+                "signal",
+                "stat",
+                "subprocess",
+                "sys",
+                "tempfile",
+                "time",
+                "typing"
+              ],
+              "subprocess": true,
+              "networkImports": false,
+              "shellTrue": false
+            }
+          ],
+          "scriptExecution": "NOT_RUN",
+          "review": "Source and instructions reviewed; local subprocess/worktree behavior in post-patch helper requires a separately authorized pinned validation plan; no helper executed.",
+          "installed": true,
+          "installedFiles": {
+            "SKILL.md": "33b604f4d7d62eab393d710edb98b18505fcbe079c07c9428daa018f29439b54",
+            "UPSTREAM_LICENSE": "7abe19ec9bb73b36141b999b861d24ad855e808bafe0f81e84cce28556f6c297",
+            "agents/openai.yaml": "26b1a313e35f8d0e585a01f4922baac69c57d3f8364db2fce853e81465c1aed2",
+            "references/evidence-model.md": "450175cb31b9d256c5783627bb7a708a9630f71eb5053fa8035f0daedfa9b7f1",
+            "scripts/post_patch_validation.py": "4f3e0d4c8557d8632ea998e634fc6bd18a932ecabb94ceba8c51045a795decf3",
+            "scripts/pyproject.toml": "81c10874ac5fd399c479b31a3c13713a4608138caad1ef61161ba139643ec02b"
+          }
+        }
+      ],
+      "command": [
+        "npx",
+        "--yes",
+        "--package=skills@1.7.6",
+        "skills",
+        "add",
+        "https://github.com/trailofbits/skills/tree/470419e16f97e112d01fc32f4898aea1755015d9",
+        "--skill",
+        "entry-point-analyzer",
+        "differential-review",
+        "token-integration-analyzer",
+        "code-maturity-assessor",
+        "guidelines-advisor",
+        "property-based-testing",
+        "post-patch-validation",
+        "--agent",
+        "codex",
+        "--copy",
+        "--yes",
+        "--json"
+      ],
+      "exitCode": 0,
+      "log": "evidence/launchpad/community-economy-v2/2026-11-06-hardening/skills/trailofbits-install.log",
+      "logSha256": "25e4b2cd6037138c98d4b6e66b728fdf09829ad93b9d560298a3da28c44eddca"
+    },
+    {
+      "repository": "schwepps/skills",
+      "revision": "8aa9a4e0eec8bdcbcc51dff95ce4bdbdb5edde01",
+      "archiveSha256": "7266cc6af4f806280930218a233df9e638e634d7fe1d52f2216bd611efe9989b",
+      "license": "MIT",
+      "skills": [
+        {
+          "name": "solidity-auditor",
+          "upstreamPath": "solidity-auditor",
+          "upstreamFiles": {
+            "solidity-auditor/SKILL.md": "abb8282a2bd6c86ae0f395d364881398b74cc25112b897b7d219c9859baad37c",
+            "solidity-auditor/references/architecture-review.md": "e6b9f5ee23058107874e5e13a7d6ea15654d090255c07f6ff638280b728862e1",
+            "solidity-auditor/references/gas-optimization.md": "b4d60689eea1016a0d847f16bb09c72c8ed4cc17116746f6a0dbeebe6f8dc4c3",
+            "solidity-auditor/references/report-template.md": "eb8c3308e96ff7331333fdb0d9b57b3d61461e654dd0ad67fcaaadae209c515f",
+            "solidity-auditor/references/security-checklist.md": "18fa8ed35f9549893748f7ea63a6730cec1798b5849f64b74e7af9936dea42dc",
+            "solidity-auditor/references/storage-optimization.md": "7801657ffa22be9d7deee148c230704df376bc4b190f1dbd96e51f52768d3f71",
+            "solidity-auditor/references/version-specific.md": "db8a421205bc0f18bc0eca0a592d188d1be63ff3090f7cf33c794a3e3472437c"
+          },
+          "scripts": [],
+          "scriptExecution": "NOT_RUN",
+          "review": "Source and instructions reviewed; local subprocess/worktree behavior in post-patch helper requires a separately authorized pinned validation plan; no helper executed.",
+          "installed": true,
+          "installedFiles": {
+            "SKILL.md": "abb8282a2bd6c86ae0f395d364881398b74cc25112b897b7d219c9859baad37c",
+            "UPSTREAM_LICENSE": "06dcddbb6908a0c6dd4a9e8ec822eea41d5a460a53089fecccc8a68049e99241",
+            "references/architecture-review.md": "e6b9f5ee23058107874e5e13a7d6ea15654d090255c07f6ff638280b728862e1",
+            "references/gas-optimization.md": "b4d60689eea1016a0d847f16bb09c72c8ed4cc17116746f6a0dbeebe6f8dc4c3",
+            "references/report-template.md": "eb8c3308e96ff7331333fdb0d9b57b3d61461e654dd0ad67fcaaadae209c515f",
+            "references/security-checklist.md": "18fa8ed35f9549893748f7ea63a6730cec1798b5849f64b74e7af9936dea42dc",
+            "references/storage-optimization.md": "7801657ffa22be9d7deee148c230704df376bc4b190f1dbd96e51f52768d3f71",
+            "references/version-specific.md": "db8a421205bc0f18bc0eca0a592d188d1be63ff3090f7cf33c794a3e3472437c"
+          }
+        }
+      ],
+      "command": [
+        "npx",
+        "--yes",
+        "--package=skills@1.7.6",
+        "skills",
+        "add",
+        "https://github.com/schwepps/skills/tree/8aa9a4e0eec8bdcbcc51dff95ce4bdbdb5edde01",
+        "--skill",
+        "solidity-auditor",
+        "--agent",
+        "codex",
+        "--copy",
+        "--yes",
+        "--json"
+      ],
+      "exitCode": 0,
+      "log": "evidence/launchpad/community-economy-v2/2026-11-06-hardening/skills/schwepps-install.log",
+      "logSha256": "b8b054ab2b6d556d9acd0f4ac01fecdd6a97c68f63a55eacdf1558d2f19f81fd"
+    },
+    {
+      "repository": "hraness/skillpack",
+      "revision": "d079193ed0db9285e5cc0bb58836af5dbc72882a",
+      "archiveSha256": "1632fb3c0328c5abe5cbe078775d3a51d469a1e1d6317f642889df97cf0dc661",
+      "license": "MIT with PStack attribution",
+      "skills": [
+        {
+          "name": "refactor-maintainer",
+          "upstreamPath": "plugins/hraness-engineering/skills/refactor-maintainer",
+          "upstreamFiles": {
+            "plugins/hraness-engineering/skills/refactor-maintainer/SKILL.md": "81454c153f5cdf8af36fa2f8619a63633a54c55684a1437bc899a18cd84a4568",
+            "plugins/hraness-engineering/skills/refactor-maintainer/agents/openai.yaml": "b8ab51f7249f40b3fd24b3cc159823f1337d26b1ab881b483eb542eba562b655"
+          },
+          "scripts": [],
+          "scriptExecution": "NOT_RUN",
+          "review": "Source and instructions reviewed; local subprocess/worktree behavior in post-patch helper requires a separately authorized pinned validation plan; no helper executed.",
+          "installed": true,
+          "installedFiles": {
+            "SKILL.md": "81454c153f5cdf8af36fa2f8619a63633a54c55684a1437bc899a18cd84a4568",
+            "UPSTREAM_LICENSE": "0159a80e614265c3376d120a012637826fb3b6c30134d250a1eac77e08a1fae5",
+            "UPSTREAM_PROVENANCE.md": "3821aa7098db95eb026bb7f1d89ace71f5b9695a9cbbb4532bb3811332d0d319",
+            "agents/openai.yaml": "b8ab51f7249f40b3fd24b3cc159823f1337d26b1ab881b483eb542eba562b655"
+          }
+        }
+      ],
+      "command": [
+        "npx",
+        "--yes",
+        "--package=skills@1.7.6",
+        "skills",
+        "add",
+        "https://github.com/hraness/skillpack/tree/d079193ed0db9285e5cc0bb58836af5dbc72882a",
+        "--skill",
+        "refactor-maintainer",
+        "--agent",
+        "codex",
+        "--copy",
+        "--yes",
+        "--json"
+      ],
+      "exitCode": 0,
+      "log": "evidence/launchpad/community-economy-v2/2026-11-06-hardening/skills/hraness-install.log",
+      "logSha256": "2e3989210f8836e5eb18ec8ee54cd6e10c439362958973b6501c16c854b27b23"
+    },
+    {
+      "repository": "vercel-labs/skills",
+      "revision": "d3701c11b1101251af14c9d148f026e1a47ebe17",
+      "archiveSha256": "4ed5c8dd8b124b4cdd837f5e1e95e8c44e7e767bbafccc9577638cb55f3a0e15",
+      "license": "MIT",
+      "skills": [
+        {
+          "name": "find-skills",
+          "upstreamPath": "skills/find-skills",
+          "upstreamFiles": {
+            "skills/find-skills/SKILL.md": "c00eeea0e13e74fe4a9d84ba0a8542205a1b736d65f13134fe1a6647eb14976f"
+          },
+          "scripts": [],
+          "scriptExecution": "NOT_RUN",
+          "review": "Source and instructions reviewed; local subprocess/worktree behavior in post-patch helper requires a separately authorized pinned validation plan; no helper executed.",
+          "installed": true,
+          "installedFiles": {
+            "SKILL.md": "c00eeea0e13e74fe4a9d84ba0a8542205a1b736d65f13134fe1a6647eb14976f",
+            "UPSTREAM_LICENSE": "661142e53c313d2bb5e1b055f5c0a39001450ff1b5e27b89dc4bc7de9a6352ca"
+          }
+        }
+      ],
+      "command": [
+        "npx",
+        "--yes",
+        "--package=skills@1.7.6",
+        "skills",
+        "add",
+        "https://github.com/vercel-labs/skills/tree/d3701c11b1101251af14c9d148f026e1a47ebe17",
+        "--skill",
+        "find-skills",
+        "--agent",
+        "codex",
+        "--copy",
+        "--yes",
+        "--json"
+      ],
+      "exitCode": 0,
+      "log": "evidence/launchpad/community-economy-v2/2026-11-06-hardening/skills/vercel-labs-install.log",
+      "logSha256": "09d049ea020e122e47988e1defd3bbf89091bc95917832e62b1dfc9688309d65"
+    }
+  ],
+  "decisions": {
+    "pseudoyu/agent-skills": "REJECTED: inspected revision 2364eaed43518e27ff84af71c21f11bac8a41594 has no license; do not vendor",
+    "fix-review": "UNAVAILABLE at pinned Trail of Bits revision; reviewed post-patch-validation selected instead",
+    "audit-context-building": "DEFERRED: Claude Workflow routing is not a callable Codex workflow",
+    "coverage-analysis": "NOT_SELECTED: use existing Foundry instrumentation and selected property-based-testing guidance"
+  },
+  "status": "PASS",
+  "finished": "2026-11-06T07:13:31.615400+00:00"
+}

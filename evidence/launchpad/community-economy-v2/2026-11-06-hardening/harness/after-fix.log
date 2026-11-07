@@ -1,0 +1,15 @@
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 92.61s
+Compiler run successful!
+
+Ran 2 tests for test/v2/research-experiment/m6/CommunityRevenueRouterInvariant.t.sol:CommunityRevenueRouterUSDCInvariantTest
+[PASS] testHandlerDonationUsesSupportedQuoteWithoutAttributingIncome() (gas: 262618)
+[PASS] testHandlerReplayTargetsPreviouslyFundedSupportedQuote() (gas: 359884)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 15.60ms (1.73ms CPU time)
+
+Ran 2 tests for test/v2/research-experiment/m6/CommunityRevenueRouterInvariant.t.sol:CommunityRevenueRouterInvariantTest
+[PASS] testHandlerDonationUsesSupportedQuoteWithoutAttributingIncome() (gas: 173743)
+[PASS] testHandlerReplayTargetsPreviouslyFundedSupportedQuote() (gas: 325998)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 15.67ms (2.11ms CPU time)
+
+Ran 2 test suites in 25.23ms (31.27ms CPU time): 4 tests passed, 0 failed, 0 skipped (4 total tests)

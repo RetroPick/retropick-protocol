@@ -1,0 +1,72 @@
+No files changed, compilation skipped
+
+Ran 15 tests for test/v2/research-experiment/m6/CommunityRevenueRouterInvariant.t.sol:CommunityRevenueRouterUSDCInvariantTest
+[FAIL: InvalidSettlement(); counterexample: calldata=0xfbf9aead00000000000000000000000000000000000000000000000000000000000000120000000000000000000000000000000000000000000000000000000000000a11 args=[18, 2577]] testFuzzMockIntegerConservationAndTreasuryDust(uint128,uint128) (runs: 0, μ: 0, ~: 0)
+[PASS] testHandlerDonationUsesSupportedQuoteWithoutAttributingIncome() (gas: 262618)
+[PASS] testHandlerReplayTargetsPreviouslyFundedSupportedQuote() (gas: 359884)
+[FAIL: InvalidSettlement()] testMockAuthenticCallerReplayPoolEpochAndAssetGuards() (gas: 246405)
+[FAIL: assertion failed: 26000 != 0] testMockDonationsDoNotBookIncomeAndCannotCoverOldDeficit() (gas: 115018)
+[FAIL: Unauthorized()] testMockFailedCheckpointKeepsPolicyAndPendingFees() (gas: 121918)
+[FAIL: assertion failed: 1 != 0] testMockFalseReturnAndDeflationaryFundingRollback() (gas: 784330)
+[PASS] testMockFeeCapBindingAndRegistrarCannotBeSpoofed() (gas: 1677783)
+[FAIL: Unauthorized()] testMockMaliciousRecipientCannotBlockIndependentClaims() (gas: 208563)
+[FAIL: InvalidSettlement()] testMockNativeVenueProtocolOnceAndCurvePreSeparated() (gas: 155456)
+[FAIL: InvalidSettlement()] testMockPolicyActivationCheckpointsOldCurveFeesAndKeepsOldRights() (gas: 155624)
+[FAIL: Unauthorized()] testMockReentrantClaimCannotDoublePayOrReplay() (gas: 261421)
+[FAIL: Unauthorized()] testMockTokenCallbackCannotActivatePolicyDuringVenueFunding() (gas: 62182)
+[PASS] testMockUSDCAndLaunchedTokenLedgersAreIndependent() (gas: 10383924)
+[PASS] testMockUnfinalizedOrUnlockedOrChangedPrincipalRejectsRevenue() (gas: 887752)
+Suite result: FAILED. 5 passed; 10 failed; 0 skipped; finished in 27.33ms (32.89ms CPU time)
+
+Ran 15 tests for test/v2/research-experiment/m6/CommunityRevenueRouterInvariant.t.sol:CommunityRevenueRouterInvariantTest
+[FAIL: assertion failed: 3217852657726575458156540 != 4826778986589863187196125; counterexample: calldata=0xfbf9aead00000000000000000000000000000000fffffffffffffffffffffffffffffffc00000000000000000000000000000000003f6466edc8bfc50a765a79ff3eddbb args=[340282366920938463463374607431768211452 [3.402e38], 329151097911273860944657748735221179 [3.291e35]]] testFuzzMockIntegerConservationAndTreasuryDust(uint128,uint128) (runs: 0, μ: 0, ~: 0)
+[PASS] testHandlerDonationUsesSupportedQuoteWithoutAttributingIncome() (gas: 173743)
+[PASS] testHandlerReplayTargetsPreviouslyFundedSupportedQuote() (gas: 325998)
+[FAIL: assertion failed: 2 != 1] testMockAuthenticCallerReplayPoolEpochAndAssetGuards() (gas: 1051896)
+[FAIL: assertion failed: 43000 != 0] testMockDonationsDoNotBookIncomeAndCannotCoverOldDeficit() (gas: 95705)
+[FAIL: Unauthorized()] testMockFailedCheckpointKeepsPolicyAndPendingFees() (gas: 121918)
+[FAIL: assertion failed: 1 != 0] testMockFalseReturnAndDeflationaryFundingRollback() (gas: 784354)
+[PASS] testMockFeeCapBindingAndRegistrarCannotBeSpoofed() (gas: 1677783)
+[FAIL: Unauthorized()] testMockMaliciousRecipientCannotBlockIndependentClaims() (gas: 208563)
+[FAIL: assertion failed: 2020 != 20] testMockNativeVenueProtocolOnceAndCurvePreSeparated() (gas: 482361)
+[FAIL: Unauthorized()] testMockPolicyActivationCheckpointsOldCurveFeesAndKeepsOldRights() (gas: 555076)
+[FAIL: Unauthorized()] testMockReentrantClaimCannotDoublePayOrReplay() (gas: 261421)
+[FAIL: Unauthorized()] testMockTokenCallbackCannotActivatePolicyDuringVenueFunding() (gas: 62182)
+[PASS] testMockUSDCAndLaunchedTokenLedgersAreIndependent() (gas: 10417735)
+[FAIL: assertion failed: 1 != 0] testMockUnfinalizedOrUnlockedOrChangedPrincipalRejectsRevenue() (gas: 1262630)
+Suite result: FAILED. 4 passed; 11 failed; 0 skipped; finished in 28.13ms (35.09ms CPU time)
+
+Ran 2 test suites in 32.49ms (55.46ms CPU time): 9 tests passed, 21 failed, 0 skipped (30 total tests)
+
+Failing tests:
+Encountered 11 failing tests in test/v2/research-experiment/m6/CommunityRevenueRouterInvariant.t.sol:CommunityRevenueRouterInvariantTest
+[FAIL: assertion failed: 3217852657726575458156540 != 4826778986589863187196125; counterexample: calldata=0xfbf9aead00000000000000000000000000000000fffffffffffffffffffffffffffffffc00000000000000000000000000000000003f6466edc8bfc50a765a79ff3eddbb args=[340282366920938463463374607431768211452 [3.402e38], 329151097911273860944657748735221179 [3.291e35]]] testFuzzMockIntegerConservationAndTreasuryDust(uint128,uint128) (runs: 0, μ: 0, ~: 0)
+[FAIL: assertion failed: 2 != 1] testMockAuthenticCallerReplayPoolEpochAndAssetGuards() (gas: 1051896)
+[FAIL: assertion failed: 43000 != 0] testMockDonationsDoNotBookIncomeAndCannotCoverOldDeficit() (gas: 95705)
+[FAIL: Unauthorized()] testMockFailedCheckpointKeepsPolicyAndPendingFees() (gas: 121918)
+[FAIL: assertion failed: 1 != 0] testMockFalseReturnAndDeflationaryFundingRollback() (gas: 784354)
+[FAIL: Unauthorized()] testMockMaliciousRecipientCannotBlockIndependentClaims() (gas: 208563)
+[FAIL: assertion failed: 2020 != 20] testMockNativeVenueProtocolOnceAndCurvePreSeparated() (gas: 482361)
+[FAIL: Unauthorized()] testMockPolicyActivationCheckpointsOldCurveFeesAndKeepsOldRights() (gas: 555076)
+[FAIL: Unauthorized()] testMockReentrantClaimCannotDoublePayOrReplay() (gas: 261421)
+[FAIL: Unauthorized()] testMockTokenCallbackCannotActivatePolicyDuringVenueFunding() (gas: 62182)
+[FAIL: assertion failed: 1 != 0] testMockUnfinalizedOrUnlockedOrChangedPrincipalRejectsRevenue() (gas: 1262630)
+
+Encountered 10 failing tests in test/v2/research-experiment/m6/CommunityRevenueRouterInvariant.t.sol:CommunityRevenueRouterUSDCInvariantTest
+[FAIL: InvalidSettlement(); counterexample: calldata=0xfbf9aead00000000000000000000000000000000000000000000000000000000000000120000000000000000000000000000000000000000000000000000000000000a11 args=[18, 2577]] testFuzzMockIntegerConservationAndTreasuryDust(uint128,uint128) (runs: 0, μ: 0, ~: 0)
+[FAIL: InvalidSettlement()] testMockAuthenticCallerReplayPoolEpochAndAssetGuards() (gas: 246405)
+[FAIL: assertion failed: 26000 != 0] testMockDonationsDoNotBookIncomeAndCannotCoverOldDeficit() (gas: 115018)
+[FAIL: Unauthorized()] testMockFailedCheckpointKeepsPolicyAndPendingFees() (gas: 121918)
+[FAIL: assertion failed: 1 != 0] testMockFalseReturnAndDeflationaryFundingRollback() (gas: 784330)
+[FAIL: Unauthorized()] testMockMaliciousRecipientCannotBlockIndependentClaims() (gas: 208563)
+[FAIL: InvalidSettlement()] testMockNativeVenueProtocolOnceAndCurvePreSeparated() (gas: 155456)
+[FAIL: InvalidSettlement()] testMockPolicyActivationCheckpointsOldCurveFeesAndKeepsOldRights() (gas: 155624)
+[FAIL: Unauthorized()] testMockReentrantClaimCannotDoublePayOrReplay() (gas: 261421)
+[FAIL: Unauthorized()] testMockTokenCallbackCannotActivatePolicyDuringVenueFunding() (gas: 62182)
+
+Encountered a total of 21 failing tests, 9 tests succeeded
+
+Tip: Run `forge test --rerun` to retry only the 21 failed tests
+Tip: Run `forge test --debug --match-test <TEST_NAME>` to inspect one failing test in the debugger
+
+Fuzz seed: 0x6a (use `--fuzz-seed` to reproduce)

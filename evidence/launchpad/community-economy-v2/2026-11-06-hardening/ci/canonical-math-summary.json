@@ -1,0 +1,39 @@
+{
+  "status": "PASS",
+  "environment": "MANDATORY_LOCAL_SUITE",
+  "counts": {
+    "passed": 5,
+    "failed": 0,
+    "skipped": 0
+  },
+  "minimumTests": 5,
+  "missingSuites": [],
+  "emptySuites": [],
+  "inventory": [
+    {
+      "suite": "test/v2/unit/RetroPickBondingCurveMathV2Qualification.t.sol:RetroPickBondingCurveMathV2QualificationTest",
+      "test": "testFuzzAmountInExactIntegerFormula(uint256,uint256,uint256,uint16)",
+      "status": "Success"
+    },
+    {
+      "suite": "test/v2/unit/RetroPickBondingCurveMathV2Qualification.t.sol:RetroPickBondingCurveMathV2QualificationTest",
+      "test": "testFuzzAmountOutExactIntegerFormula(uint256,uint256,uint256,uint16)",
+      "status": "Success"
+    },
+    {
+      "suite": "test/v2/unit/RetroPickBondingCurveMathV2Qualification.t.sol:RetroPickBondingCurveMathV2QualificationTest",
+      "test": "testGoldenAmountInCurrentPlusOneRounding()",
+      "status": "Success"
+    },
+    {
+      "suite": "test/v2/unit/RetroPickBondingCurveMathV2Qualification.t.sol:RetroPickBondingCurveMathV2QualificationTest",
+      "test": "testGoldenAmountOutNoFee()",
+      "status": "Success"
+    },
+    {
+      "suite": "test/v2/unit/RetroPickBondingCurveMathV2Qualification.t.sol:RetroPickBondingCurveMathV2QualificationTest",
+      "test": "testZeroAndEmptyDomains()",
+      "status": "Success"
+    }
+  ]
+}

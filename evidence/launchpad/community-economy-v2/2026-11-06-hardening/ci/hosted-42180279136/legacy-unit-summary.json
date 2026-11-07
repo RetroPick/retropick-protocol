@@ -1,0 +1,39 @@
+{
+  "status": "PASS",
+  "environment": "MANDATORY_LOCAL_SUITE",
+  "counts": {
+    "passed": 5,
+    "failed": 0,
+    "skipped": 0
+  },
+  "minimumTests": 1,
+  "missingSuites": [],
+  "emptySuites": [],
+  "inventory": [
+    {
+      "suite": "test/legacy/v2-kuru/unit/KuruPolicyAndLockV2.t.sol:KuruPolicyAndLockV2Test",
+      "test": "testPermanentBoundCustodyHasNoEscapeEntrypoints()",
+      "status": "Success"
+    },
+    {
+      "suite": "test/legacy/v2-kuru/unit/KuruPolicyAndLockV2.t.sol:KuruPolicyAndLockV2Test",
+      "test": "testQualifiedTupleAndSeedsUseExactQuoteScale()",
+      "status": "Success"
+    },
+    {
+      "suite": "test/legacy/v2-kuru/unit/QuoteAssetRegistryV2.t.sol:QuoteAssetRegistryV2Test",
+      "test": "testAdmissionVersionAndVenueSnapshot()",
+      "status": "Success"
+    },
+    {
+      "suite": "test/legacy/v2-kuru/unit/QuoteAssetRegistryV2.t.sol:QuoteAssetRegistryV2Test",
+      "test": "testChainAndPolicyHashFailClosed()",
+      "status": "Success"
+    },
+    {
+      "suite": "test/legacy/v2-kuru/unit/QuoteAssetRegistryV2.t.sol:QuoteAssetRegistryV2Test",
+      "test": "testExactIdentityAndOwnerAdmissionRequired()",
+      "status": "Success"
+    }
+  ]
+}

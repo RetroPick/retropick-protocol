@@ -1,0 +1,19 @@
+{
+  "baseline": "5cb1c5cda1d7999225f8597896b946cdbdbb0641",
+  "status": "IDENTICAL",
+  "testFunctions": {
+    "testMockNativeVenueProtocolOnceAndCurvePreSeparated": "a5d858b45e8927042e6c0b7cd13f09a8d6afed3e4c64618d8552035b517a6044",
+    "testMockUSDCAndLaunchedTokenLedgersAreIndependent": "afe97d1a6eb6d721881cc08b9d2d98798baabefe31cf3f8e373e4651fa6698c2",
+    "testMockAuthenticCallerReplayPoolEpochAndAssetGuards": "2fdb20f7113bdd9e9bbc13e3f435082aa00c567da0b0a0313ccd0f2d7186e5d5",
+    "testMockUnfinalizedOrUnlockedOrChangedPrincipalRejectsRevenue": "3d2a993d4bc9530ab526e013cbaed9022532ddf18632a93d57f7fa23c65e0ea9",
+    "testMockDonationsDoNotBookIncomeAndCannotCoverOldDeficit": "91eb73f818b5717dfb57e8da93ee776233940da11573f848bc0c54a9b47c7599",
+    "testMockFalseReturnAndDeflationaryFundingRollback": "a37c76e1350c75bbf08f1c7283234dae7588e65c1d9c66f3b4e2e0a521611693",
+    "testMockPolicyActivationCheckpointsOldCurveFeesAndKeepsOldRights": "2344502026e97f5af576d67ac36c8155aa199728c32337e326e4397fc8a26a08",
+    "testMockFailedCheckpointKeepsPolicyAndPendingFees": "74fe2c112336f74e6c31ef31a23ebd051608c4a3238ebad435a5372f689dac16",
+    "testMockTokenCallbackCannotActivatePolicyDuringVenueFunding": "de7025a1d8856057ac4e7947e10af9a2edab4fcb192306486be200fcd80dadf4",
+    "testMockFeeCapBindingAndRegistrarCannotBeSpoofed": "c6530e0d78ec55f01da96f965550b7c01db94763eda2cc1d4d077f7f37340462",
+    "testMockMaliciousRecipientCannotBlockIndependentClaims": "c7430683e44394e99bc03417766f8db9d5141081164659d9aaeab3b892fd80a1",
+    "testMockReentrantClaimCannotDoublePayOrReplay": "681c9875e6907bb16e0ff3fd94e3b5450c8dc002bab5d21059be1ea2b3ec709f",
+    "testFuzzMockIntegerConservationAndTreasuryDust": "c73eb631f41b39471486d3f70b14299d0551d1beaf19d66999948b085e15600e"
+  }
+}

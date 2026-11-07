@@ -1,0 +1,113 @@
+{
+  "results": [
+    {
+      "query": "solidity audit",
+      "command": [
+        "npx",
+        "--yes",
+        "--package=skills@1.7.6",
+        "skills",
+        "find",
+        "solidity audit"
+      ],
+      "exitCode": 0,
+      "log": "evidence/launchpad/community-economy-v2/2026-11-06-hardening/skills/find-solidity-audit.log",
+      "sha256": "ec53e1a6844e28f320c8cc748868dbf1797818c2c7e044c828969c5342abe665"
+    },
+    {
+      "query": "EVM security",
+      "command": [
+        "npx",
+        "--yes",
+        "--package=skills@1.7.6",
+        "skills",
+        "find",
+        "EVM security"
+      ],
+      "exitCode": 0,
+      "log": "evidence/launchpad/community-economy-v2/2026-11-06-hardening/skills/find-evm-security.log",
+      "sha256": "29e2b90b433c89541ce455102618c9f4ba5ed88c2c828a2fe3673684f64b2a20"
+    },
+    {
+      "query": "gas optimization",
+      "command": [
+        "npx",
+        "--yes",
+        "--package=skills@1.7.6",
+        "skills",
+        "find",
+        "gas optimization"
+      ],
+      "exitCode": 0,
+      "log": "evidence/launchpad/community-economy-v2/2026-11-06-hardening/skills/find-gas-optimization.log",
+      "sha256": "13f5a177e127bdb841f3c91a27b8a06afa0fd2e906ad838d313ca45c3f75e73a"
+    },
+    {
+      "query": "Foundry invariants",
+      "command": [
+        "npx",
+        "--yes",
+        "--package=skills@1.7.6",
+        "skills",
+        "find",
+        "Foundry invariants"
+      ],
+      "exitCode": 0,
+      "log": "evidence/launchpad/community-economy-v2/2026-11-06-hardening/skills/find-foundry-invariants.log",
+      "sha256": "277bf05551c8c509cba582084103c9d279e876406f052d33d2b5eff2368cc257"
+    },
+    {
+      "query": "token integration",
+      "command": [
+        "npx",
+        "--yes",
+        "--package=skills@1.7.6",
+        "skills",
+        "find",
+        "token integration"
+      ],
+      "exitCode": 0,
+      "log": "evidence/launchpad/community-economy-v2/2026-11-06-hardening/skills/find-token-integration.log",
+      "sha256": "5b59097ba072b2176153eb5f68893faef1edac34a5044a4a4488912d293711a5"
+    },
+    {
+      "query": "formal verification",
+      "command": [
+        "npx",
+        "--yes",
+        "--package=skills@1.7.6",
+        "skills",
+        "find",
+        "formal verification"
+      ],
+      "exitCode": 0,
+      "log": "evidence/launchpad/community-economy-v2/2026-11-06-hardening/skills/find-formal-verification.log",
+      "sha256": "7ddf4cb45e66988721573dec63a8b24957726461a02dc1f3688966bf53e8291a"
+    },
+    {
+      "query": "code simplification",
+      "command": [
+        "npx",
+        "--yes",
+        "--package=skills@1.7.6",
+        "skills",
+        "find",
+        "code simplification"
+      ],
+      "exitCode": 0,
+      "log": "evidence/launchpad/community-economy-v2/2026-11-06-hardening/skills/find-code-simplification.log",
+      "sha256": "e55f138779d329b90d0ab41d0e865a2a9ee78696aea920854c8c0335c288f767"
+    }
+  ],
+  "listCommand": [
+    "npx",
+    "--yes",
+    "--package=skills@1.7.6",
+    "skills",
+    "list",
+    "--agent",
+    "codex",
+    "--json"
+  ],
+  "listExitCode": 0
+}

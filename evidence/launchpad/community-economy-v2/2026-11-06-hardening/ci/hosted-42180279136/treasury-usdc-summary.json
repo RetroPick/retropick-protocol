@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "environment": "MANDATORY_LOCAL_SUITE",
+  "counts": {
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0
+  },
+  "minimumTests": 1,
+  "missingSuites": [],
+  "emptySuites": [],
+  "inventory": [
+    {
+      "suite": "test/v2/community-economy/treasury-integration/CommunityTreasuryUSDCInvariant.t.sol:CanonicalCommunityTreasuryUSDCInvariantTest",
+      "test": "invariantCEUSDCConservationAndQuarantinedSurplus()",
+      "status": "Success"
+    }
+  ]
+}

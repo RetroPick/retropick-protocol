@@ -1,0 +1,123 @@
+{
+  "baseCommit": "5cb1c5cda1d7999225f8597896b946cdbdbb0641",
+  "branch": "security/v2-audit-hardening-20261106",
+  "releaseQualified": false,
+  "phases": {
+    "0": {
+      "status": "PASS",
+      "scope": "Ten pinned project-local skills installed and hash-verified; license notices retained; no helper execution",
+      "evidence": "skills/MANIFEST.json"
+    },
+    "1": {
+      "status": "FAIL",
+      "scope": "Hosted run42180279136 rejected grouped invariant result count; all underlying financial results successful. Group-aware parser correction passes12regressions and replays hosted artifact; next hosted run required."
+    },
+    "2": {
+      "status": "NOT_RUN",
+      "scope": "Bounded source review and41-contract Slither12detector scan executed;18findings recorded, full historical/M6/Semgrep disposition incomplete"
+    },
+    "3": {
+      "status": "NOT_RUN"
+    },
+    "4": {
+      "status": "NOT_RUN"
+    },
+    "5": {
+      "status": "NOT_RUN"
+    },
+    "6": {
+      "status": "NOT_RUN"
+    },
+    "7": {
+      "status": "NOT_RUN"
+    }
+  },
+  "currentTask": "Verify hosted CI on pushed fixture/parser revision; then true two-launch campaign",
+  "blockers": [
+    "Full new-worktree baseline pending",
+    "Hosted CI pending",
+    "Full financial review/static finding disposition pending",
+    "Genuine expanded lifecycle/fork/Safe pending",
+    "Compiler known-bug disposition pending",
+    "Factory internal size budget unmet at recorded 24486 bytes",
+    "No M6 economic adoption acceptance or external audit"
+  ],
+  "evidence": [
+    "evidence/launchpad/community-economy-v2/2026-11-06-hardening/baseline/manifest.json"
+  ],
+  "review": {
+    "reviewer": "independent skills-install agent (not CI author)",
+    "scope": "workflow and result parser",
+    "disposition": "Approved scoped repair for review; broader qualification pending",
+    "counterexample": "Empty required suite borrowing unrelated passes now rejected",
+    "testsPassed": 10
+  },
+  "ci": {
+    "pr": "https://github.com/RetroPick/retropick-protocol/pull/50",
+    "priorRun": "https://github.com/RetroPick/retropick-protocol/actions/runs/42180279136",
+    "priorConclusion": "failure",
+    "cause": "Reporting gate counted3runnerrecords instead of4invariantpredicates+1unit. No financial assertion failure in raw artifacts."
+  },
+  "componentResults": {
+    "skills": "PASS",
+    "archivePreservation": "PASS",
+    "parserTests": {
+      "status": "PASS",
+      "passed": 12
+    },
+    "hostedArtifactReplay": {
+      "status": "PASS",
+      "unit": 34,
+      "logicalInvariantResults": 5,
+      "treasuryUSDC": 1,
+      "treasuryV4": 2,
+      "legacyUnit": 5,
+      "note": "Replayed prior hosted outputs with corrected parser; NOT a new hosted run PASS"
+    },
+    "m6UnitRegression": {
+      "status": "PASS",
+      "passed": 17,
+      "failed": 0,
+      "skipped": 0,
+      "originalUnitBodiesUnchanged": 13
+    },
+    "singleLaunchInvariantModel": {
+      "status": "PASS",
+      "scope": "Final formatted-source single-launch accounting model only",
+      "properties": 6,
+      "calls": 196608,
+      "outerReverts": 0,
+      "seeds": [
+        "0x6a",
+        "0x6b",
+        "0x6c"
+      ],
+      "runs": 256,
+      "depth": 128
+    },
+    "staticBounded": {
+      "status": "PASS",
+      "scope": "Tool execution only:41-contract imported closure,12Slitherdetectors,18findings needing continued triage. Not a full audit."
+    }
+  },
+  "nextActions": [
+    "Finish final formatted-source three-seed invariant campaign and preserve exact hashes",
+    "Push parser and fixture corrections to draftPR50; verify hostedCI on newhead",
+    "Independent review of group-aware parser and fixture extraction (agent review quota unavailable)",
+    "Add true two-launch accounting and successful-action coverage beyond setup",
+    "Expand genuine v4 goldenpath and independent actual-delta fee oracle",
+    "Qualify real Safe2of3 and pinnedMonadtestnetfork withoutbroadcast",
+    "Finish compiler known-bug/source-equivalent0.8.38 diagnostics withoutchangingpin",
+    "Complete Semgrep and full historical/M6 static finding disposition",
+    "Measure gas/bytecode baseline then safely target23500Factorybudget",
+    "Complete economics/SDK-indexer/auditor packet; no M6 promotion withoutadoptionacceptance"
+  ],
+  "toolCache": {
+    "artifactRoot": "/home/ubuntu/project/retropick/.qualification-cache/m6-fixture-571eb74b24f5/out",
+    "cacheRoot": "/home/ubuntu/project/retropick/.qualification-cache/m6-fixture-571eb74b24f5/cache",
+    "sourceHashes": {
+      "contracts/test/v2/research-experiment/m6/CommunityRevenueRouterV2.t.sol": "571eb74b24f5efcde6bab6afb08e502de169fdf5510a68a78f454cef19253338",
+      "contracts/test/v2/research-experiment/m6/CommunityRevenueRouterInvariant.t.sol": "7077c6f1d532ba8e0d1ab1a3859b9ecda7c34ef76ca39162599f79faa66841ae"
+    }
+  }
+}

@@ -7,6 +7,8 @@ This directory contains the **2026-11-09** non-destructive rehabilitation audit 
 3. [CLEANUP_DECISIONS.md](CLEANUP_DECISIONS.md) — no-delete and financial compatibility decisions; deferred candidate work.
 4. [VALIDATION_REPORT.md](VALIDATION_REPORT.md) — exact verification status, known historical CI runs and release blockers.
 
+The inventory is reproducible with [`scripts/maintenance/git_inventory.py`](../../scripts/maintenance/git_inventory.py), which generates a per-path TSV, workspace manifest graph and summary from a specified Git revision. Run it from a complete local checkout; its classification labels are provisional.
+
 For onboarding, see [root README](../../README.md), [contributor guide](../../CONTRIBUTING.md), [applications map](../../apps/README.md) and [Solidity guide](../../contracts/README.md). The [earlier hygiene audit](../engineering/REPOSITORY_HYGIENE_AUDIT.md) remains historical evidence of the previous phase.
 
 **Warning:** a matching Git blob SHA or a path-based classification is **not** evidence that a file is unused or safely deletable.

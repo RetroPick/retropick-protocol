@@ -52,6 +52,9 @@ The baseline contains **299** blobs under `apps/retro-ui/` and **290** under `ap
 
 ## Workspace and operational map
 
+The [verified workspace dependency map](DEPENDENCY_MAP.md) documents manifest-level package edges and known runtime boundaries without pretending dynamic imports or production traffic have been audited.
+
+
 Root `package.json` pins `pnpm@11.25.0`; `pnpm-workspace.yaml` includes `apps/*` and `packages/*`. Node minimum is `>=22.13.0` at the root, while the indexer and services require Node 24+. Root `pnpm dev`, `pnpm build` and `pnpm check:app` target the canonical UI; `pnpm check:services` targets the SDK, indexer, media and referral packages.
 
 Existing CI contains `.github/workflows/v2-liquidity.yml` and `v3-framework-research.yml`. The former includes Foundry unit, fuzz and invariant gates plus a frontend/browser qualification; its historical failure evidence is described in [VALIDATION_REPORT.md](VALIDATION_REPORT.md). Do not infer full current-main CI success from earlier fork or PR runs.

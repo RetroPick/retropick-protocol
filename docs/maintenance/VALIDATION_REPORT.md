@@ -16,7 +16,7 @@ This report qualifies the **maintenance changes themselves**, not the complete l
 | Canonical ownership consistency | **PASS (doc-level)** | `apps/retro-ui` is canonical; `apps/web` remains zero-write; frozen V2 deployment remains under `contracts/legacy-v2` |
 | Inventory generator syntax | **PASS** | `python3 -m py_compile` on generator and tests (local Python 3.13) |
 | Inventory generator regression tests | **PASS: 2/2** | `python3 -m unittest discover -s tests -p 'test_*.py' -v` on a mirrored local test fixture; special paths, gitlink, deterministic outputs, workspace edges, read-only behavior |
-| Historical documentation link resolution | **PASS (static)** | 87 relative links resolved against baseline Git tree and added docs across eight Markdown files; zero unresolved in the previous branch scan |
+| Historical documentation link resolution | **PASS (static)** | 89 relative links resolved against baseline Git tree and added branch paths across eight Markdown files; zero unresolved in the current branch scan |
 | Full-tree clone and generator replay on RetroPick | **NOT RUN** | No network-capable full clone available in this execution environment |
 | Changed source / contract / deployment files | **NONE** | No edits to app code, Solidity, ABI, deployment manifests, contract libraries, release records, secrets or licenses |
 | CI integration | **COMMITTED, NOT YET RUN** | Added maintenance unit tests before `pnpm install` in existing [V2 workflow](../../.github/workflows/v2-liquidity.yml) |

@@ -2,9 +2,51 @@
 
 **The market creation layer for Monad.**
 
-RetroPick carries community tokens through onchain bonding discovery and protected graduation into Kuru orderbook trading. Current scope is an unaudited Monad Testnet candidate; market depth and demand remain market-dependent.
+RetroPick is an onchain launchpad with bonding-curve issuance, graduation and venue integrations. This monorepo contains distinct lifecycle layers: maintained application code, active V2 contracts, a **frozen Monad Testnet V2 demonstration**, research prototypes and reproducible release evidence. The historical Kuru deployment demonstrates a specific release; it must not be treated as proof of all current V2/V3 designs or unrestricted mainnet readiness.
 
-**Launch → Bonding Curve → Graduation Coordinator → Kuru Market → Protected Liquidity → Orderbook Trading**
+## Current code and architecture
+
+| Area | Maintained entry point | Status |
+| --- | --- | --- |
+| Product frontend | [`apps/retro-ui`](apps/retro-ui/) | Canonical Vite + React app |
+| Contract SDK and ABI | [`packages/launchpad-sdk`](packages/launchpad-sdk/) · [`apps/abi`](apps/abi/) | Typed wallet boundary; ABI catalog is derived |
+| Read models / services | [Indexer](apps/indexer/) · [Media](apps/media-service/) · [Referrals](apps/referral-service/) | Offchain support; no custodial economic writes |
+| Active Launchpad V2 Solidity | [`contracts/src/v2`](contracts/src/v2/) | Financial changes require isolated qualification |
+| Frozen V2 testnet source | [`contracts/legacy-v2`](contracts/legacy-v2/) | Immutable deployment provenance |
+| Historical frontend | [`apps/web`](apps/web/) | **Read-only / zero-write** |
+| Visual design donor | [`apps/example-ui-ux`](apps/example-ui-ux/) | Reference, not deployed product authority |
+| PRISM / V3 research | [PRISM](docs/prism/) · [research](research/) | Separate qualification, not automatically production |
+
+Start with [documentation navigation](docs/README.md), [contributor guide](CONTRIBUTING.md), [contracts guide](contracts/README.md), and the [rehabilitation audit](docs/maintenance/README.md). For safe changes, see [cleanup decisions](docs/maintenance/CLEANUP_DECISIONS.md) and [test status](docs/maintenance/VALIDATION_REPORT.md).
+
+## Maintainer entry points
+
+For local setup, code ownership, verification and safe changes, read [CONTRIBUTING.md](CONTRIBUTING.md), [apps ownership](apps/README.md), and the [2026-11-09 repository audit](docs/maintenance/REPOSITORY_AUDIT.md). The earlier [hygiene audit](docs/engineering/REPOSITORY_HYGIENE_AUDIT.md) remains historical context. The canonical frontend is `apps/retro-ui`, not the read-only historical `apps/web`. Root `pnpm dev`, `pnpm build`, and `pnpm check` operate on the maintained workspace paths; historical Next.js commands are explicitly named `*:legacy-web`.
+
+## Run the web app
+
+Node 24+ is recommended for full-workspace development (root minimum >=22.13); use pnpm 11.25.0:
+
+```sh
+pnpm install --frozen-lockfile
+cp apps/retro-ui/.env.example apps/retro-ui/.env.local
+pnpm dev  # canonical apps/retro-ui
+pnpm check:app  # UI typecheck/tests/build
+pnpm check:services  # SDK + indexer + media + referral (Node 24+)
+```
+
+The canonical frontend is `apps/retro-ui`. Configure its documented live data mode and public read infrastructure; never put credentials or signing keys in a browser environment. Wallets sign normal economic writes directly to chain. `apps/web` is legacy and excluded from this submission's demo and implementation work.
+
+```sh
+pnpm --filter @retropick/retro-ui typecheck
+pnpm --filter @retropick/retro-ui build
+```
+
+Contracts require Foundry, recursive submodules, the separately built v4/Permit2 dependencies and a funded RPC endpoint for mandatory fork tests. See [contract setup](contracts/README.md) and [release evidence](evidence/launchpad/v2-monad-testnet/README.md). Never commit signing keys.
+
+## Historical Monad Testnet demo and provenance
+
+The following descriptions, deployment addresses and transaction receipts document the **frozen V2 Monad Testnet candidate**. They are historical proof, not current liquidity, security-audit or production claims.
 
 ## Smart contracts for hackathon judges
 
@@ -14,7 +56,7 @@ Review the [frozen Legacy V2 smart contracts](contracts/legacy-v2/src/v2/) for t
 
 Ongoing V2 development in `contracts/src/v2/` is separate from this frozen judging snapshot. The live deployment addresses and historical proof transactions below remain unchanged.
 
-## Live on Monad Testnet
+## Recorded Monad Testnet capabilities
 
 The canonical deployed candidate demonstrates:
 
@@ -32,7 +74,7 @@ The canonical deployed candidate demonstrates:
 
 RetroPick produces two active phases: rapid bonding-curve transactions and post-graduation orderbook trading. Low-cost execution, fast settlement and responsive market state matter when many primary markets and secondary orderbooks operate simultaneously. This connects asset primitives, market infrastructure and settlement to Metropolis's Onchain Finance & Trading track.
 
-## Why Kuru?
+## Kuru's role in the recorded demo
 
 RetroPick specializes in issuance, creator distribution, primary discovery and graduation safety. Kuru supplies the secondary orderbook, limit orders and market-making workflows. Our demo created an actual Kuru market, seeded its vault and executed an order, fill and cancel. Depth, spreads and execution quality remain market-dependent; neither integration nor permanent custody guarantees trading outcomes.
 
@@ -57,29 +99,6 @@ Six concise proof transactions: [launch](https://testnet.monadexplorer.com/tx/0x
 Factory → single-ledger Coordinator → venue executor keeps lifecycle authority separate from venue work. Architectural extraction reduced Factory runtime from approximately 24,565 to **23,423 bytes**. Exact integer terminal-quote constraints preserve completion liveness across valid trade histories; graduation LP/excess assets enter a permanent bound lock. Native/Circle Uniswap v4 compatibility remains in the release campaign.
 
 Historical predeployment campaign: **145 passed / 0 failed / 0 skipped**, fresh qualification fork **69,507,986**. [Release artifacts](evidence/launchpad/v2-monad-testnet/README.md). Deployed bytecode source: `f0363249f4b74e58dde37d1241742ca5a92bcfe3`; main integration baseline: `84861f50494a79772cf6f97a5e710bcc24973d5e`. Current repository release verification is recorded separately; source SHA is not a live readiness claim.
-
-## Maintainer entry points
-
-For local setup, code ownership, verification and safe changes, read [CONTRIBUTING.md](CONTRIBUTING.md) and the [repository hygiene audit](docs/engineering/REPOSITORY_HYGIENE_AUDIT.md). The canonical frontend is `apps/retro-ui`, not the read-only historical `apps/web`. Root `pnpm dev`, `pnpm build`, and `pnpm check` operate on the maintained workspace paths; historical Next.js commands are explicitly named `*:legacy-web`.
-
-## Run the web app
-
-Node ≥22.13 and pnpm 11.25.0:
-
-```sh
-pnpm install --frozen-lockfile
-cp apps/retro-ui/.env.example apps/retro-ui/.env.local
-pnpm dev  # canonical apps/retro-ui
-```
-
-The canonical frontend is `apps/retro-ui`. Configure its documented live data mode and public read infrastructure; never put credentials or signing keys in a browser environment. Wallets sign normal economic writes directly to chain. `apps/web` is legacy and excluded from this submission's demo and implementation work.
-
-```sh
-pnpm --filter @retropick/retro-ui typecheck
-pnpm --filter @retropick/retro-ui build
-```
-
-Contracts require Foundry, recursive submodules, the separately built v4/Permit2 dependencies and a funded RPC endpoint for mandatory fork tests. See [contract setup](contracts/README.md) and [release evidence](evidence/launchpad/v2-monad-testnet/README.md). Never commit signing keys.
 
 ## Hackathon scope and attribution
 

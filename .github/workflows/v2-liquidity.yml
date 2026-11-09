@@ -22,6 +22,8 @@ jobs:
         with:
           node-version: '24.11.0'
           cache: pnpm
+      - name: Repository inventory tooling tests
+        run: python3 -m unittest discover -s scripts/maintenance -p 'test_*.py' -v
       - run: pnpm install --frozen-lockfile
       - run: pnpm --filter @retropick/retro-ui exec playwright install --with-deps chromium
       - run: python3 scripts/launchpad/verify_liquidity.py --browser --evidence /tmp/v2-liquidity-ci

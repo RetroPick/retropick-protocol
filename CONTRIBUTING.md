@@ -40,6 +40,16 @@ The `dev:web`, `build:web`, `lint:web`, `typecheck:web`, and `test:web` convenie
 
 For a fuller lifecycle inventory, see `docs/engineering/REPOSITORY_HYGIENE_AUDIT.md`.
 
+## Reproduce the tracked-tree audit
+
+With a full local checkout, use the dependency-free, read-only inventory generator:
+
+```bash
+python3 scripts/maintenance/git_inventory.py --revision main --out-dir /tmp/retropick-census
+```
+
+It writes a full tracked-path TSV, workspace manifest graph and JSON summary. It does **not** prove whether a file is unused or authorize deletion. The immutable [November 9 GitHub census](docs/maintenance/TRACKED_FILE_CENSUS.tsv), [cleanup decisions](docs/maintenance/CLEANUP_DECISIONS.md), and [validation status](docs/maintenance/VALIDATION_REPORT.md) are the reference points for this rehabilitation. The current branch must be qualified separately from the recorded `main§ baseline.
+
 ## Verification
 
 Run `pnpm check:app` for UI changes and the relevant `pnpm --filter <package> typecheck` / `pnpm --filter <package> test` for services. For Solidity changes, follow `contracts/README.md` and `contracts/AGENTS.md` and use Foundry's required unit, fuzz, invariant and fork gates. Do **not** treat `forge test` without required fork infrastructure as proof of release readiness.

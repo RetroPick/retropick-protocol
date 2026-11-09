@@ -2,7 +2,7 @@
 
 **Report date:** 2026-11-09
 **Baseline under test:** `main@ccad6e32109d03337b560c3c876848665d9d157a`
-**Scope:** Repository inventory and documentation-only first phase; **NOT** an application, contract or production release qualification.
+**Scope:** Repository inventory and documentation and read-only maintenance tooling first phase; **NOT** an application, contract or production release qualification.
 
 ## Verified in this session
 
@@ -14,6 +14,9 @@
 | Git-tree classification snapshot | **PASS (PROVISIONAL)** | [TRACKED_FILE_CENSUS.tsv](TRACKED_FILE_CENSUS.tsv) includes Git SHA and a `NOT_VERIFIED` reference flag per path |
 | Existing canonical frontend ownership | **DOCUMENTATION-VERIFIED** | `apps/README.md`, `CONTRIBUTING.md`, `.agent/STATE.json` and root scripts agree on `apps/retro-ui` |
 | Current-main Vercel status context | **SUCCESS REPORTED, LIMITED** | GitHub combined status returned one successful Vercel context; not proof of SDK, API, tests or Foundry |
+| Inventory generator Python syntax / fixture smoke | **PASS (LOCAL FIXTURE ONLY)** | The new `scripts/maintenance/git_inventory.py` compiled and enumerated 3 files in an isolated temporary Git repo; **not** run on the RetroPick checkout |
+| Full-repository inventory script replay | **NOT RUN** | No complete local clone; the committed census was generated from the GitHub recursive tree |
+
 | Application and contract diff | **NOT MODIFIED IN THIS PHASE** | No source/deployment/protocol changes authorized |
 
 ## Required execution gates
@@ -43,6 +46,6 @@ These cannot be labeled pre-existing failures on the current `main` without repr
 
 ## Release decision
 
-**NOT QUALIFIED for merging runtime cleanup or smart-contract refactors.** Documentation/census changes have no planned effects on Solidity source, ABI, storage, deployment records, user routes, balance accounting, or environment configuration, but exhaustive automated regression testing has **not** been performed.
+**NOT QUALIFIED for merging runtime cleanup or smart-contract refactors.** Documentation/census/tooling changes have no planned effects on Solidity source, ABI, storage, deployment records, user routes, balance accounting, or environment configuration, but exhaustive automated regression testing has **not** been performed.
 
 Open a PR **only after** the applicable verification gates are run and the results are recorded. Do not merge automatically. If a gate cannot be run, preserve it as **NOT RUN** and request explicit human review instead of claiming success.

@@ -5,7 +5,8 @@ This directory contains the **2026-11-09** non-destructive rehabilitation audit 
 1. [REPOSITORY_AUDIT.md](REPOSITORY_AUDIT.md) — source-of-truth map, inventory metrics, risks and audit limitations.
 2. [TRACKED_FILE_CENSUS.tsv](TRACKED_FILE_CENSUS.tsv) — **15,335** tracked blobs/gitlinks with Git hashes and provisional per-path classifications.
 3. [CLEANUP_DECISIONS.md](CLEANUP_DECISIONS.md) — no-delete and financial compatibility decisions; deferred candidate work.
-4. [VALIDATION_REPORT.md](VALIDATION_REPORT.md) — exact verification status, known historical CI runs and release blockers.
+4. [DEPENDENCY_MAP.md](DEPENDENCY_MAP.md) — verified workspace manifest edges and documented runtime boundaries.
+5. [VALIDATION_REPORT.md](VALIDATION_REPORT.md) — exact verification status, known historical CI runs and release blockers.
 
 The inventory is reproducible with [`scripts/maintenance/git_inventory.py`](../../scripts/maintenance/git_inventory.py), which generates a per-path TSV, workspace manifest graph and summary from a specified Git revision. Run it from a complete local checkout; its classification labels are provisional.
 

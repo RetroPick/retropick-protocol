@@ -15,7 +15,7 @@ Decisions below apply **only** to `refactor/monorepo-rehabilitation`. Every entr
 | D-006 | Keep `evidence/**` intact until reproduction, provenance, ownership and retention review | **DEFERRED** | 12,740 blobs / 1.86 GB |
 | D-007 | Preserve current contract ABI, selectors, CREATE2 derivations, storage, venue behavior and solvency rules | **HARD GUARDRAIL** | No runtime verification or differential proof |
 | D-008 | Do not promote Prediction/PRISM research into active Solidity | **HARD GUARDRAIL** | `.agent/STATE.json` records MATH-1 FAIL |
-| D-009 | Add maintenance documentation and make contributor navigation clearer | **APPROVED DOC-ONLY** | No application, deployment or contract edits |
+| D-009 | Add maintenance documentation and make contributor navigation clearer | **EXECUTED** | No application, deployment or contract edits |
 | D-010 | Defer frontend/backend dead-code removal and dependency normalization | **DEFERRED** | Requires reproducible baseline and graph of consumers |
 | D-011 | Do not open a ready-to-merge PR until required validation is documented | **REQUIRED** | [VALIDATION_REPORT.md](VALIDATION_REPORT.md) |
 

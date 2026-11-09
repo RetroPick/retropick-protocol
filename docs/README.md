@@ -45,7 +45,7 @@ Canonical entry:
 
 ## Repository maintenance and auditing
 
-The [2026-11-09 monorepo rehabilitation](maintenance/README.md) contains the complete tracked-file census, canonical ownership, non-destructive cleanup decisions and an explicit validation matrix. The [earlier hygiene audit](engineering/REPOSITORY_HYGIENE_AUDIT.md) remains preserved as a dated phase record. Do not use a generated path classification as permission to delete code or evidence.
+The [2026-11-09 monorepo rehabilitation](maintenance/README.md) contains the complete tracked-file census, [dependency map](maintenance/DEPENDENCY_MAP.md), canonical ownership, non-destructive cleanup decisions and an explicit validation matrix. The [earlier hygiene audit](engineering/REPOSITORY_HYGIENE_AUDIT.md) remains preserved as a dated phase record. Do not use a generated path classification as permission to delete code or evidence.
 
 ## Boundary rule
 

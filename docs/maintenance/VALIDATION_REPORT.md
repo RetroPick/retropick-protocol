@@ -17,6 +17,9 @@
 | Inventory generator Python syntax / fixture smoke | **PASS (LOCAL FIXTURE ONLY)** | The new `scripts/maintenance/git_inventory.py` compiled and enumerated 3 files in an isolated temporary Git repo; **not** run on the RetroPick checkout |
 | Full-repository inventory script replay | **NOT RUN** | No complete local clone; the committed census was generated from the GitHub recursive tree |
 
+| Changed-document relative-link check | **PASS** | 87 local Markdown link targets resolved against the complete baseline Git tree and new branch paths; 0 unresolved across 8 edited/created Markdown files |
+| Branch change scope | **PASS (STATIC)** | `main...refactor/monorepo-rehabilitation`: 16 commits ahead, 0 behind, exactly 10 changed paths; only Markdown, one TSV census and read-only maintenance tooling |
+
 | Application and contract diff | **NOT MODIFIED IN THIS PHASE** | No source/deployment/protocol changes authorized |
 
 ## Required execution gates
